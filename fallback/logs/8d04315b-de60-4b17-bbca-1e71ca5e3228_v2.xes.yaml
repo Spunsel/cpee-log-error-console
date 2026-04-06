@@ -191,7 +191,7 @@ event:
   cpee:change_uuid: 9721c155cb6c075609ea3f936d291cd60706be2b
   cpee:exposition: |-
     # User Input:
-    erstelle mir einen beispielprozess fÃ¼r die anforderungen von materialien in einem krankenhaus aus dem lager
+    erstelle mir einen beispielprozess für die anforderungen von materialien in einem krankenhaus aus dem lager
   time:timestamp: '2026-03-26T11:10:39.051922+01:00'
 ---
 event:
@@ -369,17 +369,17 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent)) --> a1:task:(Materialbedarf melden)
-        a1:task:(Materialbedarf melden) --> a2:task:(Lagerbestand prÃ¼fen)
-        a2:task:(Lagerbestand prÃ¼fen) --> ex1:exclusivegateway:{x}
+        a1:task:(Materialbedarf melden) --> a2:task:(Lagerbestand prüfen)
+        a2:task:(Lagerbestand prüfen) --> ex1:exclusivegateway:{x}
         ex1:exclusivegateway:{x} --> |Bestand ausreichend| a3:task:(Material entnehmen)
-        ex1:exclusivegateway:{x} --> |Bestand nicht ausreichend| a4:task:(Bestellung auslÃ¶sen)
+        ex1:exclusivegateway:{x} --> |Bestand nicht ausreichend| a4:task:(Bestellung auslösen)
         a3:task:(Material entnehmen) --> a5:task:(Material bereitstellen)
-        a4:task:(Bestellung auslÃ¶sen) --> a5:task: (Material bereitstellen)
+        a4:task:(Bestellung auslösen) --> a5:task: (Material bereitstellen)
         a5:task:(Material bereitstellen) --> ex2:exclusivegateway:{x}
         ex2:exclusivegateway:{x} --> a6:task:(Material anfordern)
-        a6:task:(Material anfordern) --> a7:task:(Anforderung bestÃ¤tigen)
-        a7:task:(Anforderung bestÃ¤tigen) --> ex3:exclusivegateway:{x}
-        ex3:exclusivegateway:{x} --> |Anforderung bestÃ¤tigt| a8:task:(Material liefern)
+        a6:task:(Material anfordern) --> a7:task:(Anforderung bestätigen)
+        a7:task:(Anforderung bestätigen) --> ex3:exclusivegateway:{x}
+        ex3:exclusivegateway:{x} --> |Anforderung bestätigt| a8:task:(Material liefern)
         ex3:exclusivegateway:{x} --> |Anforderung abgelehnt| a9:task:(Anforderung stornieren)
         a8:task:(Material liefern) --> ee:endevent:(((endevent)))
         a9:task:(Anforderung stornieren) --> ee:endevent:(((endevent)))
@@ -517,7 +517,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a2">
         <parameters>
-          <label>Lagerbestand prÃ¼fen</label>
+          <label>Lagerbestand prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -537,7 +537,7 @@ event:
         <alternative condition="Bestand nicht ausreichend" language="text/javascript">
           <call id="a9" endpoint="" a:alt_id="a4">
             <parameters>
-              <label>Bestellung auslÃ¶sen</label>
+              <label>Bestellung auslösen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -563,14 +563,14 @@ event:
       </call>
       <call id="a19" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Anforderung bestÃ¤tigen</label>
+          <label>Anforderung bestätigen</label>
           <method/>
           <type>:task</type>
           <arguments/>
         </parameters>
       </call>
       <choose mode="exclusive" a:alt_id="ex3">
-        <alternative condition="Anforderung bestÃ¤tigt" language="text/javascript">
+        <alternative condition="Anforderung bestätigt" language="text/javascript">
           <call id="a23" endpoint="" a:alt_id="a8">
             <parameters>
               <label>Material liefern</label>
@@ -603,7 +603,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    ergÃ¤nze die prozessschritte fÃ¼r pflegekrÃ¤fte auf station und die mitarbeiter im lager
+    ergänze die prozessschritte für pflegekräfte auf station und die mitarbeiter im lager
   time:timestamp: '2026-03-26T11:11:44.838359+01:00'
 ---
 event:
@@ -629,17 +629,17 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Materialbedarf melden)
-    a1:task:(Materialbedarf melden)-->a3:task:(Lagerbestand prÃ¼fen)
-    a3:task:(Lagerbestand prÃ¼fen)-->gw1s:exclusivegateway:{x}
+    a1:task:(Materialbedarf melden)-->a3:task:(Lagerbestand prüfen)
+    a3:task:(Lagerbestand prüfen)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Bestand ausreichend"|a7:task:(Material entnehmen)
     a7:task:(Material entnehmen)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Bestand nicht ausreichend"|a9:task:(Bestellung auslÃ¶sen)
-    a9:task:(Bestellung auslÃ¶sen)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Bestand nicht ausreichend"|a9:task:(Bestellung auslösen)
+    a9:task:(Bestellung auslösen)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a11:task:(Material bereitstellen)
     a11:task:(Material bereitstellen)-->a17:task:(Material anfordern)
-    a17:task:(Material anfordern)-->a19:task:(Anforderung bestÃ¤tigen)
-    a19:task:(Anforderung bestÃ¤tigen)-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Anforderung bestÃ¤tigt"|a23:task:(Material liefern)
+    a17:task:(Material anfordern)-->a19:task:(Anforderung bestätigen)
+    a19:task:(Anforderung bestätigen)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Anforderung bestätigt"|a23:task:(Material liefern)
     a23:task:(Material liefern)-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Anforderung abgelehnt"|a25:task:(Anforderung stornieren)
     a25:task:(Anforderung stornieren)-->gw2e:exclusivegateway:{x}

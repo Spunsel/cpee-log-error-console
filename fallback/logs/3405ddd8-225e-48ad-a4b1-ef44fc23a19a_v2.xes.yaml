@@ -117,7 +117,7 @@ event:
   cpee:change_uuid: ddab677e5932f879967c52af31d028ccbee6e4d1
   cpee:exposition: |-
     # User Input:
-    Mache einen Vorschlag fÃ¼r einen Prozess zur Reisekostenabrechnung
+    Mache einen Vorschlag für einen Prozess zur Reisekostenabrechnung
   time:timestamp: '2025-10-29T14:24:59.932547+01:00'
 ---
 event:
@@ -157,8 +157,8 @@ event:
     ```mermaid
     graph LR
       0:startevent:((startevent)) --> 1:task:(Reisekosten beantragen)
-      1:task:(Reisekosten beantragen) --> 2:task:(Antrag prÃ¼fen)
-      2:task:(Antrag prÃ¼fen) --> 3:exclusivegateway:{x}
+      1:task:(Reisekosten beantragen) --> 2:task:(Antrag prüfen)
+      2:task:(Antrag prüfen) --> 3:exclusivegateway:{x}
       3:exclusivegateway:{x} --> |Genehmigt| 4:task:(Auszahlen)
       3:exclusivegateway:{x} --> |Abgelehnt| 5:task:(Antrag ablehnen)
       4:task:(Auszahlen) --> 6:endevent:(((endevent)))

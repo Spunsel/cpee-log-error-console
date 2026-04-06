@@ -398,7 +398,7 @@ event:
   cpee:change_uuid: 6fcb3bfa57933193d903ed1b52093bdeb39376b7
   cpee:exposition: |-
     # User Input:
-    uwzglÄ™dnij rozpatrzenie reklamacji zarÃ³wno przez dziaÅ‚ finansowy jak i techniczny
+    uwzgl�"dnij rozpatrzenie reklamacji zarówno przez dzia� finansowy jak i techniczny
   time:timestamp: '2025-12-05T17:59:07.881672+01:00'
 ---
 event:
@@ -675,7 +675,7 @@ event:
   cpee:change_uuid: 50470b1621cc378c6c04d8ad84d14ac777526b2a
   cpee:exposition: |-
     # User Input:
-    zamieÅ„ nazwy zadaÅ„ na jÄ™zyk polski
+    zamieÄ nazwy zadaÄ na j�"zyk polski
   time:timestamp: '2025-12-05T17:59:48.345247+01:00'
 ---
 event:
@@ -732,18 +732,18 @@ event:
 
     ```mermaid
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(Klient skÅ‚ada reklamacjÄ™)
-    a1:task:(Klient skÅ‚ada reklamacjÄ™)-->a3:task:(PrzeglÄ…d reklamacji)
-    a3:task:(PrzeglÄ…d reklamacji)-->gw1s:parallelgateway:{AND}
-    -->a7:task:(DziaÅ‚ finansowy przeglÄ…da reklamacjÄ™)
-    a7:task:(DziaÅ‚ finansowy przeglÄ…da reklamacjÄ™)-->gw1e:parallelgateway:{AND}
-    -->a9:task:(DziaÅ‚ techniczny przeglÄ…da reklamacjÄ™)
-    a9:task:(DziaÅ‚ techniczny przeglÄ…da reklamacjÄ™)-->gw1e:parallelgateway:{AND}
+    se:startevent:((startevent))-->a1:task:(Klient sk�ada reklamacj�")
+    a1:task:(Klient sk�ada reklamacj�")-->a3:task:(Przegl�&d reklamacji)
+    a3:task:(Przegl�&d reklamacji)-->gw1s:parallelgateway:{AND}
+    -->a7:task:(Dzia� finansowy przegl�&da reklamacj�")
+    a7:task:(Dzia� finansowy przegl�&da reklamacj�")-->gw1e:parallelgateway:{AND}
+    -->a9:task:(Dzia� techniczny przegl�&da reklamacj�")
+    a9:task:(Dzia� techniczny przegl�&da reklamacj�")-->gw1e:parallelgateway:{AND}
     gw1e:parallelgateway:{AND}-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Reklamacja jest waÅ¼na"|a17:task:(ZamieÅ„ produkt)
-    a17:task:(ZamieÅ„ produkt)-->a19:task:(Powiadom klienta)
+    gw2s:exclusivegateway:{x}-->|"Reklamacja jest ważna"|a17:task:(ZamieÄ produkt)
+    a17:task:(ZamieÄ produkt)-->a19:task:(Powiadom klienta)
     a19:task:(Powiadom klienta)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Reklamacja nie jest waÅ¼na"|a23:task:(Powiadom klienta o odrzuceniu)
+    gw2s:exclusivegateway:{x}-->|"Reklamacja nie jest ważna"|a23:task:(Powiadom klienta o odrzuceniu)
     a23:task:(Powiadom klienta o odrzuceniu)-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
     ```

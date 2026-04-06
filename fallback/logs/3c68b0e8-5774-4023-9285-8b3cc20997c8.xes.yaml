@@ -135,7 +135,7 @@ event:
   cpee:change_uuid: b37724099f5657e5e548dd39d4d545acfaaab05e
   cpee:exposition: |+
     # User Input:
-    Erstelle mir einen Prozess vom kochen von Spaghetti Napoli.Â 
+    Erstelle mir einen Prozess vom kochen von Spaghetti Napoli. 
 
   time:timestamp: '2025-12-09T11:08:36.509640+01:00'
 ...
@@ -177,12 +177,12 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Wasser kochen)
-        1:task:(Wasser kochen) --> 2:task:(Salz hinzufÃ¼gen)
-        2:task:(Salz hinzufÃ¼gen) --> 3:task:(Spaghetti hinzufÃ¼gen)
-        3:task:(Spaghetti hinzufÃ¼gen) --> 4:task:(Spaghetti kochen)
+        1:task:(Wasser kochen) --> 2:task:(Salz hinzufügen)
+        2:task:(Salz hinzufügen) --> 3:task:(Spaghetti hinzufügen)
+        3:task:(Spaghetti hinzufügen) --> 4:task:(Spaghetti kochen)
         4:task:(Spaghetti kochen) --> 5:task:(Sauce zubereiten)
-        5:task:(Sauce zubereiten) --> 6:task:(Spaghetti abgieÃŸen)
-        6:task:(Spaghetti abgieÃŸen) --> 7:task:(Spaghetti und Sauce mischen)
+        5:task:(Sauce zubereiten) --> 6:task:(Spaghetti abgießen)
+        6:task:(Spaghetti abgießen) --> 7:task:(Spaghetti und Sauce mischen)
         7:task:(Spaghetti und Sauce mischen) --> 8:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-09T11:08:36.510188+01:00'
@@ -347,7 +347,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Salz hinzufÃ¼gen</label>
+          <label>Salz hinzufügen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -355,7 +355,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Spaghetti hinzufÃ¼gen</label>
+          <label>Spaghetti hinzufügen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -379,7 +379,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="6">
         <parameters>
-          <label>Spaghetti abgieÃŸen</label>
+          <label>Spaghetti abgießen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -406,7 +406,7 @@ event:
   cpee:change_uuid: 310a59adc8159ef5dbde0add13eca8dd700ece3a
   cpee:exposition: |+
     # User Input:
-    Sauce zubereiten soll detaillierter sein. Die Sauce kann auch schon gekocht werden wÃ¤hrend darauf gewartet wird, dass das wasser kocht
+    Sauce zubereiten soll detaillierter sein. Die Sauce kann auch schon gekocht werden während darauf gewartet wird, dass das wasser kocht
 
   time:timestamp: '2025-12-09T11:09:42.459506+01:00'
 ...
@@ -436,12 +436,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Wasser kochen)
-    a1:task:(Wasser kochen)-->a3:task:(Salz hinzufÃ¼gen)
-    a3:task:(Salz hinzufÃ¼gen)-->a5:task:(Spaghetti hinzufÃ¼gen)
-    a5:task:(Spaghetti hinzufÃ¼gen)-->a7:task:(Spaghetti kochen)
+    a1:task:(Wasser kochen)-->a3:task:(Salz hinzufügen)
+    a3:task:(Salz hinzufügen)-->a5:task:(Spaghetti hinzufügen)
+    a5:task:(Spaghetti hinzufügen)-->a7:task:(Spaghetti kochen)
     a7:task:(Spaghetti kochen)-->a9:task:(Sauce zubereiten)
-    a9:task:(Sauce zubereiten)-->a11:task:(Spaghetti abgieÃŸen)
-    a11:task:(Spaghetti abgieÃŸen)-->a13:task:(Spaghetti und Sauce mischen)
+    a9:task:(Sauce zubereiten)-->a11:task:(Spaghetti abgießen)
+    a11:task:(Spaghetti abgießen)-->a13:task:(Spaghetti und Sauce mischen)
     a13:task:(Spaghetti und Sauce mischen)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-09T11:09:42.460180+01:00'
 ---
@@ -459,14 +459,14 @@ event:
     flowchart LR
         se:startevent:((startevent))-->a1:task:(Wasser kochen)
         a1:task:(Wasser kochen)-->a2:parallelgateway:{AND}
-        a2:parallelgateway:{AND}-->a3:task:(Salz hinzufÃ¼gen)
+        a2:parallelgateway:{AND}-->a3:task:(Salz hinzufügen)
         a2:parallelgateway: -->a9:subprocess:(Sauce zubereiten)
-        a3:task:(Salz hinzufÃ¼gen)-->a5:task:(Spaghetti hinzufÃ¼gen)
-        a5:task:(Spaghetti hinzufÃ¼gen)-->a7:task:(Spaghetti kochen)
+        a3:task:(Salz hinzufügen)-->a5:task:(Spaghetti hinzufügen)
+        a5:task:(Spaghetti hinzufügen)-->a7:task:(Spaghetti kochen)
         a7:task:(Spaghetti kochen)-->a4:parallelgateway:{AND}
         a9:subprocess:(Sauce zubereiten)-->a4:parallelgateway:
-        a4:parallelgateway:{AND}-->a11:task:(Spaghetti abgieÃŸen)
-        a11:task:(Spaghetti abgieÃŸen)-->a13:task:(Spaghetti und Sauce mischen)
+        a4:parallelgateway:{AND}-->a11:task:(Spaghetti abgießen)
+        a11:task:(Spaghetti abgießen)-->a13:task:(Spaghetti und Sauce mischen)
         a13:task:(Spaghetti und Sauce mischen)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2025-12-09T11:09:42.460383+01:00'

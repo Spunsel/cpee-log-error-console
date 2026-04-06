@@ -213,21 +213,21 @@ event:
 
 
     1. Licht anschalten
-    2. ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
-    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln
-    4. Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben
-    5. Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind
-    6. Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben
-    7. Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen
-    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen
-    9. Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen
+    2. Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
+    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln
+    4. Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben
+    5. Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind
+    6. Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben
+    7. Temperatur des Topfes reduzieren und die Sauce köcheln lassen
+    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen
+    9. Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen
     10. Sieb in den Abguss stellen
-    11. Sauce ab und zu umrÃ¼hren, GewÃ¼rze hinzufÃ¼gen und abschmecken
-    12. WÃ¤hrend die Nudeln kochen und die Sauce auf dem Herd kÃ¶chelt, kann der Tisch gedeckt werden
-    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen
-    14. Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen
+    11. Sauce ab und zu umrühren, Gewürze hinzufügen und abschmecken
+    12. Während die Nudeln kochen und die Sauce auf dem Herd köchelt, kann der Tisch gedeckt werden
+    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen
+    14. Nudeln in das Sieb kippen und in eine Schüssel kippen
     15. Herd abschalten
-    16. Topf und SchÃ¼ssel auf den Tisch stellen
+    16. Topf und Schüssel auf den Tisch stellen
     17. Guten Appetit
 
   time:timestamp: '2025-12-10T12:22:41.611035+01:00'
@@ -270,24 +270,24 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Licht anschalten)
-        1:task:(Licht anschalten) --> 2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-        2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-        3:task:(Zwiebeln und Knoblauch wÃ¼rfeln) --> 4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-        4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andÃ¼nsten)
-        5:task:(Zwiebel und Knoblauch andÃ¼nsten) --> 6:task:(Tomaten Ã¶ffnen und in Topf geben)
-        6:task:(Tomaten Ã¶ffnen und in Topf geben) --> 7:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-        7:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen) --> 8:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)
-        8:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen) --> 9:task:(Nudeln hinzufÃ¼gen und kochen)
-        9:task:(Nudeln hinzufÃ¼gen und kochen) --> 10:parallelgateway:{AND}
-        7:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen) --> 10
+        1:task:(Licht anschalten) --> 2:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+        2:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch würfeln)
+        3:task:(Zwiebeln und Knoblauch würfeln) --> 4:task:(Topf auf Herd, Herd an, �l in Pfanne)
+        4:task:(Topf auf Herd, Herd an, �l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andünsten)
+        5:task:(Zwiebel und Knoblauch andünsten) --> 6:task:(Tomaten öffnen und in Topf geben)
+        6:task:(Tomaten öffnen und in Topf geben) --> 7:task:(Temperatur reduzieren und Sauce köcheln lassen)
+        7:task:(Temperatur reduzieren und Sauce köcheln lassen) --> 8:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen)
+        8:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen) --> 9:task:(Nudeln hinzufügen und kochen)
+        9:task:(Nudeln hinzufügen und kochen) --> 10:parallelgateway:{AND}
+        7:task:(Temperatur reduzieren und Sauce köcheln lassen) --> 10
         10:parallelgateway:{AND} --> 11:task:(Sieb vorbereiten)
         10 --> 12:task:(Tisch decken)
         11:task:(Sieb vorbereiten) --> 13:parallelgateway:{AND}
         12:task:(Tisch decken) --> 13:parallelgateway:{AND}
-        13:parallelgateway:{AND} --> 14:task:(Nudeln abgieÃŸen)
-        14:task:(Nudeln abgieÃŸen) --> 15:task:(Herd abschalten)
-        15:task:(Herd abschalten) --> 16:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-        16:task:(Topf und SchÃ¼ssel auf Tisch stellen) --> 17:task:(Guten Appetit)
+        13:parallelgateway:{AND} --> 14:task:(Nudeln abgießen)
+        14:task:(Nudeln abgießen) --> 15:task:(Herd abschalten)
+        15:task:(Herd abschalten) --> 16:task:(Topf und Schüssel auf Tisch stellen)
+        16:task:(Topf und Schüssel auf Tisch stellen) --> 17:task:(Guten Appetit)
         17:task:(Guten Appetit) --> 18:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-10T12:22:41.611643+01:00'
@@ -473,7 +473,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <label>Arbeitsfläche freiräumen und Zutaten vorbereiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -481,7 +481,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <label>Zwiebeln und Knoblauch würfeln</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -489,7 +489,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <label>Topf auf Herd, Herd an, �l in Pfanne</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -497,7 +497,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="5">
         <parameters>
-          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <label>Zwiebel und Knoblauch andünsten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -505,7 +505,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="6">
         <parameters>
-          <label>Tomaten Ã¶ffnen und in Topf geben</label>
+          <label>Tomaten öffnen und in Topf geben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -513,7 +513,7 @@ event:
       </call>
       <call id="a13" endpoint="" a:alt_id="7">
         <parameters>
-          <label>Temperatur reduzieren und Sauce kÃ¶cheln lassen</label>
+          <label>Temperatur reduzieren und Sauce köcheln lassen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -523,7 +523,7 @@ event:
         <alternative condition="">
           <call id="a15" endpoint="" a:alt_id="8">
             <parameters>
-              <label>Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen</label>
+              <label>Zweiten Topf mit Wasser füllen und zum Kochen bringen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -531,7 +531,7 @@ event:
           </call>
           <call id="a17" endpoint="" a:alt_id="9">
             <parameters>
-              <label>Nudeln hinzufÃ¼gen und kochen</label>
+              <label>Nudeln hinzufügen und kochen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -564,7 +564,7 @@ event:
       </parallel>
       <call id="a31" endpoint="" a:alt_id="14">
         <parameters>
-          <label>Nudeln abgieÃŸen</label>
+          <label>Nudeln abgießen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -580,7 +580,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="16">
         <parameters>
-          <label>Topf und SchÃ¼ssel auf Tisch stellen</label>
+          <label>Topf und Schüssel auf Tisch stellen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -607,7 +607,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |+
     # User Input:
-    LÃ¶sche allesÂ 
+    Lösche alles 
 
   time:timestamp: '2025-12-10T12:24:06.123237+01:00'
 ...
@@ -637,26 +637,26 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
-    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten Ã¶ffnen und in Topf geben)
-    a11:task:(Tomaten Ã¶ffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|""|a15:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)
-    a15:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)-->a17:task:(Nudeln hinzufÃ¼gen und kochen)
-    a17:task:(Nudeln hinzufÃ¼gen und kochen)-->gw1e:exclusivegateway:{x}
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch würfeln)
+    a5:task:(Zwiebeln und Knoblauch würfeln)-->a7:task:(Topf auf Herd, Herd an, �l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, �l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andünsten)
+    a9:task:(Zwiebel und Knoblauch andünsten)-->a11:task:(Tomaten öffnen und in Topf geben)
+    a11:task:(Tomaten öffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce köcheln lassen)
+    a13:task:(Temperatur reduzieren und Sauce köcheln lassen)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a15:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen)
+    a15:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen)-->a17:task:(Nudeln hinzufügen und kochen)
+    a17:task:(Nudeln hinzufügen und kochen)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|""|gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->gw2s:parallelgateway:{AND}
     -->a23:task:(Sieb vorbereiten)
     a23:task:(Sieb vorbereiten)-->gw2e:parallelgateway:{AND}
     -->a25:task:(Tisch decken)
     a25:task:(Tisch decken)-->gw2e:parallelgateway:{AND}
-    gw2e:parallelgateway:{AND}-->a31:task:(Nudeln abgieÃŸen)
-    a31:task:(Nudeln abgieÃŸen)-->a33:task:(Herd abschalten)
-    a33:task:(Herd abschalten)-->a35:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-    a35:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->a37:task:(Guten Appetit)
+    gw2e:parallelgateway:{AND}-->a31:task:(Nudeln abgießen)
+    a31:task:(Nudeln abgießen)-->a33:task:(Herd abschalten)
+    a33:task:(Herd abschalten)-->a35:task:(Topf und Schüssel auf Tisch stellen)
+    a35:task:(Topf und Schüssel auf Tisch stellen)-->a37:task:(Guten Appetit)
     a37:task:(Guten Appetit)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T12:24:06.123751+01:00'
 ---
@@ -856,23 +856,23 @@ event:
 
 
     1. Licht anschalten
-    2. ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
-    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln
-    4. Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben
-    5. Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind
-    6. Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben
-    7. Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen
-    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen
-    9. Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen
+    2. Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
+    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln
+    4. Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben
+    5. Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind
+    6. Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben
+    7. Temperatur des Topfes reduzieren und die Sauce köcheln lassen
+    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen
+    9. Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen
     10. Sieb in den Abguss stellen
-    11. Sauce ab und zu umrÃ¼hren, GewÃ¼rze hinzufÃ¼gen und abschmecken
-    12. WÃ¤hrend die Nudeln kochen und die Sauce auf dem Herd kÃ¶chelt, kann der Tisch gedeckt werden
-    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen
-    14. Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen
+    11. Sauce ab und zu umrühren, Gewürze hinzufügen und abschmecken
+    12. Während die Nudeln kochen und die Sauce auf dem Herd köchelt, kann der Tisch gedeckt werden
+    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen
+    14. Nudeln in das Sieb kippen und in eine Schüssel kippen
     15. Herd abschalten
-    16. Topf und SchÃ¼ssel auf den Tisch stellen
+    16. Topf und Schüssel auf den Tisch stellen
     17. Guten Appetit
-    Â 
+     
 
   time:timestamp: '2025-12-10T12:24:43.213831+01:00'
 ...
@@ -914,25 +914,25 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Licht anschalten)
-        1:task:(Licht anschalten) --> 2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-        2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-        3:task:(Zwiebeln und Knoblauch wÃ¼rfeln) --> 4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-        4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andÃ¼nsten)
-        5:task:(Zwiebel und Knoblauch andÃ¼nsten) --> 6:task:(Tomaten Ã¶ffnen und in Topf geben)
-        6:task:(Tomaten Ã¶ffnen und in Topf geben) --> 7:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-        7:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen) --> 8:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)
-        8:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen) --> 9:task:(Nudeln hinzufÃ¼gen und kochen)
-        9:task:(Nudeln hinzufÃ¼gen und kochen) --> 10:parallelgateway:{AND}
+        1:task:(Licht anschalten) --> 2:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+        2:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch würfeln)
+        3:task:(Zwiebeln und Knoblauch würfeln) --> 4:task:(Topf auf Herd, Herd an, �l in Pfanne)
+        4:task:(Topf auf Herd, Herd an, �l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andünsten)
+        5:task:(Zwiebel und Knoblauch andünsten) --> 6:task:(Tomaten öffnen und in Topf geben)
+        6:task:(Tomaten öffnen und in Topf geben) --> 7:task:(Temperatur reduzieren und Sauce köcheln lassen)
+        7:task:(Temperatur reduzieren und Sauce köcheln lassen) --> 8:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen)
+        8:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen) --> 9:task:(Nudeln hinzufügen und kochen)
+        9:task:(Nudeln hinzufügen und kochen) --> 10:parallelgateway:{AND}
         10:parallelgateway:{AND} --> 11:task:(Sieb vorbereiten)
-        10:parallelgateway:{AND} --> 12:task:(Sauce umrÃ¼hren und abschmecken)
+        10:parallelgateway:{AND} --> 12:task:(Sauce umrühren und abschmecken)
         10:parallelgateway:{AND} --> 13:task:(Tisch decken)
         11:task:(Sieb vorbereiten) --> 14:parallelgateway:{AND}
-        12:task:(Sauce umrÃ¼hren und abschmecken) --> 14:parallelgateway:{AND}
+        12:task:(Sauce umrühren und abschmecken) --> 14:parallelgateway:{AND}
         13:task:(Tisch decken) --> 14:parallelgateway:{AND}
-        14:parallelgateway:{AND} --> 15:task:(Nudeln abgieÃŸen)
-        15:task:(Nudeln abgieÃŸen) --> 16:task:(Herd abschalten)
-        16:task:(Herd abschalten) --> 17:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-        17:task:(Topf und SchÃ¼ssel auf Tisch stellen) --> 18:endevent:(((endevent)))
+        14:parallelgateway:{AND} --> 15:task:(Nudeln abgießen)
+        15:task:(Nudeln abgießen) --> 16:task:(Herd abschalten)
+        16:task:(Herd abschalten) --> 17:task:(Topf und Schüssel auf Tisch stellen)
+        17:task:(Topf und Schüssel auf Tisch stellen) --> 18:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-10T12:24:43.214217+01:00'
 ---
@@ -1114,7 +1114,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <label>Arbeitsfläche freiräumen und Zutaten vorbereiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1122,7 +1122,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <label>Zwiebeln und Knoblauch würfeln</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1130,7 +1130,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <label>Topf auf Herd, Herd an, �l in Pfanne</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1138,7 +1138,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="5">
         <parameters>
-          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <label>Zwiebel und Knoblauch andünsten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1146,7 +1146,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="6">
         <parameters>
-          <label>Tomaten Ã¶ffnen und in Topf geben</label>
+          <label>Tomaten öffnen und in Topf geben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1154,7 +1154,7 @@ event:
       </call>
       <call id="a13" endpoint="" a:alt_id="7">
         <parameters>
-          <label>Temperatur reduzieren und Sauce kÃ¶cheln lassen</label>
+          <label>Temperatur reduzieren und Sauce köcheln lassen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1162,7 +1162,7 @@ event:
       </call>
       <call id="a15" endpoint="" a:alt_id="8">
         <parameters>
-          <label>Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen</label>
+          <label>Zweiten Topf mit Wasser füllen und zum Kochen bringen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1170,7 +1170,7 @@ event:
       </call>
       <call id="a17" endpoint="" a:alt_id="9">
         <parameters>
-          <label>Nudeln hinzufÃ¼gen und kochen</label>
+          <label>Nudeln hinzufügen und kochen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1190,7 +1190,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="12">
             <parameters>
-              <label>Sauce umrÃ¼hren und abschmecken</label>
+              <label>Sauce umrühren und abschmecken</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1210,7 +1210,7 @@ event:
       </parallel>
       <call id="a33" endpoint="" a:alt_id="15">
         <parameters>
-          <label>Nudeln abgieÃŸen</label>
+          <label>Nudeln abgießen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1226,7 +1226,7 @@ event:
       </call>
       <call id="a37" endpoint="" a:alt_id="17">
         <parameters>
-          <label>Topf und SchÃ¼ssel auf Tisch stellen</label>
+          <label>Topf und Schüssel auf Tisch stellen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1245,7 +1245,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |+
     # User Input:
-    LÃ¶sche allesÂ 
+    Lösche alles 
 
   time:timestamp: '2025-12-10T14:07:57.891740+01:00'
 ...
@@ -1275,25 +1275,25 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
-    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten Ã¶ffnen und in Topf geben)
-    a11:task:(Tomaten Ã¶ffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)-->a15:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)
-    a15:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)-->a17:task:(Nudeln hinzufÃ¼gen und kochen)
-    a17:task:(Nudeln hinzufÃ¼gen und kochen)-->gw1s:parallelgateway:{AND}
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch würfeln)
+    a5:task:(Zwiebeln und Knoblauch würfeln)-->a7:task:(Topf auf Herd, Herd an, �l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, �l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andünsten)
+    a9:task:(Zwiebel und Knoblauch andünsten)-->a11:task:(Tomaten öffnen und in Topf geben)
+    a11:task:(Tomaten öffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce köcheln lassen)
+    a13:task:(Temperatur reduzieren und Sauce köcheln lassen)-->a15:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen)
+    a15:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen)-->a17:task:(Nudeln hinzufügen und kochen)
+    a17:task:(Nudeln hinzufügen und kochen)-->gw1s:parallelgateway:{AND}
     -->a21:task:(Sieb vorbereiten)
     a21:task:(Sieb vorbereiten)-->gw1e:parallelgateway:{AND}
-    -->a23:task:(Sauce umrÃ¼hren und abschmecken)
-    a23:task:(Sauce umrÃ¼hren und abschmecken)-->gw1e:parallelgateway:{AND}
+    -->a23:task:(Sauce umrühren und abschmecken)
+    a23:task:(Sauce umrühren und abschmecken)-->gw1e:parallelgateway:{AND}
     -->a25:task:(Tisch decken)
     a25:task:(Tisch decken)-->gw1e:parallelgateway:{AND}
-    gw1e:parallelgateway:{AND}-->a33:task:(Nudeln abgieÃŸen)
-    a33:task:(Nudeln abgieÃŸen)-->a35:task:(Herd abschalten)
-    a35:task:(Herd abschalten)-->a37:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-    a37:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->ee:endevent:((endevent))
+    gw1e:parallelgateway:{AND}-->a33:task:(Nudeln abgießen)
+    a33:task:(Nudeln abgießen)-->a35:task:(Herd abschalten)
+    a35:task:(Herd abschalten)-->a37:task:(Topf und Schüssel auf Tisch stellen)
+    a37:task:(Topf und Schüssel auf Tisch stellen)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T14:07:57.892171+01:00'
 ---
 event:
@@ -1347,7 +1347,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <label>Arbeitsfläche freiräumen und Zutaten vorbereiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1355,7 +1355,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <label>Zwiebeln und Knoblauch würfeln</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1363,7 +1363,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <label>Topf auf Herd, Herd an, �l in Pfanne</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1371,7 +1371,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="5">
         <parameters>
-          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <label>Zwiebel und Knoblauch andünsten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1379,7 +1379,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="6">
         <parameters>
-          <label>Tomaten Ã¶ffnen und in Topf geben</label>
+          <label>Tomaten öffnen und in Topf geben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1387,7 +1387,7 @@ event:
       </call>
       <call id="a13" endpoint="" a:alt_id="7">
         <parameters>
-          <label>Temperatur reduzieren und Sauce kÃ¶cheln lassen</label>
+          <label>Temperatur reduzieren und Sauce köcheln lassen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1395,7 +1395,7 @@ event:
       </call>
       <call id="a15" endpoint="" a:alt_id="8">
         <parameters>
-          <label>Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen</label>
+          <label>Zweiten Topf mit Wasser füllen und zum Kochen bringen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1403,7 +1403,7 @@ event:
       </call>
       <call id="a17" endpoint="" a:alt_id="9">
         <parameters>
-          <label>Nudeln hinzufÃ¼gen und kochen</label>
+          <label>Nudeln hinzufügen und kochen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1423,7 +1423,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="12">
             <parameters>
-              <label>Sauce umrÃ¼hren und abschmecken</label>
+              <label>Sauce umrühren und abschmecken</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1443,7 +1443,7 @@ event:
       </parallel>
       <call id="a33" endpoint="" a:alt_id="15">
         <parameters>
-          <label>Nudeln abgieÃŸen</label>
+          <label>Nudeln abgießen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1459,7 +1459,7 @@ event:
       </call>
       <call id="a37" endpoint="" a:alt_id="17">
         <parameters>
-          <label>Topf und SchÃ¼ssel auf Tisch stellen</label>
+          <label>Topf und Schüssel auf Tisch stellen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1749,38 +1749,38 @@ event:
   cpee:exposition: |+
     # User Input:
     1 Ankunft Notaufnahme Notaufnahme Rettungsdienst Einsatzprotokoll NIDA Patient wird in die Notaufnahme mit dem Rettungsdienst gebracht
-    2 Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient Ã¼ber Anmeldung (Erhebung Patientendaten Einlesen, Krankenkassenkarte)
-    3 Triage Notaufnahme Pflegepersonal CNA Triage; Ãœberwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal (ESI-Score)
-    4 Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde (Elektronsicher Medikationsplan, PflegeÃ¼berleitungsbogen, Arztbriefe, etc.) i.s.h.med. Scannen und Einlesen von Vorbefunden
-    5 Untersuchung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung
+    2 Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient über Anmeldung (Erhebung Patientendaten Einlesen, Krankenkassenkarte)
+    3 Triage Notaufnahme Pflegepersonal CNA Triage; Überwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal (ESI-Score)
+    4 Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde (Elektronsicher Medikationsplan, Pflegeüberleitungsbogen, Arztbriefe, etc.) i.s.h.med. Scannen und Einlesen von Vorbefunden
+    5 Untersuchung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung
     6 Laborauftrag Notaufnahme Pflegepersonal CNA Lauris-Auftrag Lauris Auftrag zur Labordiagnostik
-    7 Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag fÃ¼r Transfusionsprodukte
-    8 Klinischer Auftrag Radiologie Notaufnahme Ã„rztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD (wenn Ã¼ber ukw.mobile erstellt) i.s.h.med.; ukw.mobile Klinischer Auftrag zur RÃ¶ntgendiagnostik
-    9 Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemÃ¤ÃŸ GBA-Beschluss
+    7 Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag für Transfusionsprodukte
+    8 Klinischer Auftrag Radiologie Notaufnahme Ärztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD (wenn über ukw.mobile erstellt) i.s.h.med.; ukw.mobile Klinischer Auftrag zur Röntgendiagnostik
+    9 Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemäß GBA-Beschluss
     10 Transport Radiologie Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
-    11 Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin DurchfÃ¼hrung der radiologischen Diagnostik
-    12 Radiologischer Befund Radiologie Ã„rztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund
-    13 Transport in CNA Radiologie MRTA i.s.h.med. RÃ¼cktransport in die CNA
-    14 Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.
+    11 Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin Durchführung der radiologischen Diagnostik
+    12 Radiologischer Befund Radiologie Ärztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund
+    13 Transport in CNA Radiologie MRTA i.s.h.med. Rücktransport in die CNA
+    14 Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.
     15 Befund Transfusionsmedizin Transfusionsmedizin Personal Transfusionsmedizin Befund Blutgruppe Papier Befund der Blutgruppe
-    16 Befundanalyse, Indikationsstellung, chirurgische AufklÃ¤rung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische AufklÃ¤rung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche AufklÃ¤rung
-    18 Transport PrÃ¤medikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
-    19 PrÃ¤medikation, anÃ¤sthesiologische AufklÃ¤rung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie PrÃ¤medikationsprotokoll; anÃ¤sthesiologische AufklÃ¤rung ZANOPPRAE1 i.s.h.med.; Thieme Compliance AnÃ¤sthesiologische AufklÃ¤rung fÃ¼r die OP
-    20 Transport OP AnÃ¤sthesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
+    16 Befundanalyse, Indikationsstellung, chirurgische Aufklärung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische Aufklärung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche Aufklärung
+    18 Transport Prämedikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
+    19 Prämedikation, anästhesiologische Aufklärung Anästhesie Ärztliches Personal Anästhesie Prämedikationsprotokoll; anästhesiologische Aufklärung ZANOPPRAE1 i.s.h.med.; Thieme Compliance Anästhesiologische Aufklärung für die OP
+    20 Transport OP Anästhesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
     21 Einschleusen Zentral OP Schleusenpersonal Einschleuesen in den OP
-    22 Einleitung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie; AnÃ¤sthesie Pflegepersonal Narkoseprotokoll; AnÃ¤sthesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung
-    23 Operation AnÃ¤sthesie; Zentral OP; Unfallchirurgie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie; OP Pflegepersonal; Ã„rztliches Personal Unfallchirurgie Narkoseprotokoll; AnÃ¤sthesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA DurchfÃ¼hrung der Operation
-    24 Postoperative Ãœberwachung AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie Narkoseprotokoll ZNARKOPROT COPRA NachÃ¼berwachung im Aufwachraum
-    25 Transport auf Station AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
-    26 Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tÃ¤gliche Pflege
-    27 Visiten Station Unfallchirurgie Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ã„rztliche Visiten
-    28 Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und DurchfÃ¼hrung von tÃ¤glicher Physiotherapie
-    29 Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische BeÃ¼bungen
-    30 Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ã„rztliches Personal Geriatrie; Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wÃ¶chentliche geriatrische Teamkonferenz und zweimal wÃ¶chentliche geriatrische Visiten
-    31 Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.
-    32 Radiologische Diagnostik Radiologie Ã„rztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und DurchfÃ¼hrung postoperative RÃ¶ntgendiagnostik
-    33 Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. RehamaÃŸnahmen
-    34 Entlassung Station Unfallchirurgie Ã„rztliches Personal Unfallchirurgie; Pflegepersonal Unfallchirurgie Entlassbrief; Rezepte; Physiotherapierezept; Elektronischer Medikationsplan; Liegebescheinigung ARZTBRIEF; N3KVUNIRP; N3KVMST13 i.s.h.med., Meona Entlassung aus der stationÃ¤ren Behandlung
+    22 Einleitung Anästhesie Ärztliches Personal Anästhesie; Anästhesie Pflegepersonal Narkoseprotokoll; Anästhesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung
+    23 Operation Anästhesie; Zentral OP; Unfallchirurgie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie; OP Pflegepersonal; Ärztliches Personal Unfallchirurgie Narkoseprotokoll; Anästhesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA Durchführung der Operation
+    24 Postoperative Überwachung Anästhesie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie Narkoseprotokoll ZNARKOPROT COPRA Nachüberwachung im Aufwachraum
+    25 Transport auf Station Anästhesie Anästhesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
+    26 Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tägliche Pflege
+    27 Visiten Station Unfallchirurgie Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ärztliche Visiten
+    28 Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und Durchführung von täglicher Physiotherapie
+    29 Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische Beübungen
+    30 Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ärztliches Personal Geriatrie; Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wöchentliche geriatrische Teamkonferenz und zweimal wöchentliche geriatrische Visiten
+    31 Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.
+    32 Radiologische Diagnostik Radiologie Ärztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und Durchführung postoperative Röntgendiagnostik
+    33 Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. Rehamaßnahmen
+    34 Entlassung Station Unfallchirurgie Ärztliches Personal Unfallchirurgie; Pflegepersonal Unfallchirurgie Entlassbrief; Rezepte; Physiotherapierezept; Elektronischer Medikationsplan; Liegebescheinigung ARZTBRIEF; N3KVUNIRP; N3KVMST13 i.s.h.med., Meona Entlassung aus der stationären Behandlung
 
 
 
@@ -1812,25 +1812,25 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
-    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten Ã¶ffnen und in Topf geben)
-    a11:task:(Tomaten Ã¶ffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)-->a15:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)
-    a15:task:(Zweiten Topf mit Wasser fÃ¼llen und zum Kochen bringen)-->a17:task:(Nudeln hinzufÃ¼gen und kochen)
-    a17:task:(Nudeln hinzufÃ¼gen und kochen)-->gw1s:parallelgateway:{AND}
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch würfeln)
+    a5:task:(Zwiebeln und Knoblauch würfeln)-->a7:task:(Topf auf Herd, Herd an, �l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, �l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andünsten)
+    a9:task:(Zwiebel und Knoblauch andünsten)-->a11:task:(Tomaten öffnen und in Topf geben)
+    a11:task:(Tomaten öffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce köcheln lassen)
+    a13:task:(Temperatur reduzieren und Sauce köcheln lassen)-->a15:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen)
+    a15:task:(Zweiten Topf mit Wasser füllen und zum Kochen bringen)-->a17:task:(Nudeln hinzufügen und kochen)
+    a17:task:(Nudeln hinzufügen und kochen)-->gw1s:parallelgateway:{AND}
     -->a21:task:(Sieb vorbereiten)
     a21:task:(Sieb vorbereiten)-->gw1e:parallelgateway:{AND}
-    -->a23:task:(Sauce umrÃ¼hren und abschmecken)
-    a23:task:(Sauce umrÃ¼hren und abschmecken)-->gw1e:parallelgateway:{AND}
+    -->a23:task:(Sauce umrühren und abschmecken)
+    a23:task:(Sauce umrühren und abschmecken)-->gw1e:parallelgateway:{AND}
     -->a25:task:(Tisch decken)
     a25:task:(Tisch decken)-->gw1e:parallelgateway:{AND}
-    gw1e:parallelgateway:{AND}-->a33:task:(Nudeln abgieÃŸen)
-    a33:task:(Nudeln abgieÃŸen)-->a35:task:(Herd abschalten)
-    a35:task:(Herd abschalten)-->a37:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-    a37:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->ee:endevent:((endevent))
+    gw1e:parallelgateway:{AND}-->a33:task:(Nudeln abgießen)
+    a33:task:(Nudeln abgießen)-->a35:task:(Herd abschalten)
+    a35:task:(Herd abschalten)-->a37:task:(Topf und Schüssel auf Tisch stellen)
+    a37:task:(Topf und Schüssel auf Tisch stellen)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T14:07:57.945469+01:00'
 ---
 event:
@@ -1846,37 +1846,37 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent)) --> a1:task:(Ankunft Notaufnahme Rettungsdienst Einsatzprotokoll NIDA Patient wird in die Notaufnahme mit dem Rettungsdienst gebracht)
-    a1:task: --> a3:task:(Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient Ã¼ber Anmeldung (Erhebung Patientendaten Einlesen, Krankenkassenkarte))
-    a3:task: --> a5:task:(Triage Notaufnahme Pflegepersonal CNA Triage; Ãœberwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal (ESI-Score))
-    a5:task: --> a7:task:(Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde (Elektronsicher Medikationsplan, PflegeÃ¼berleitungsbogen, Arztbriefe, etc.) i.s.h.med. Scannen und Einlesen von Vorbefunden)
-    a7:task: --> a9:task:(Untersuchung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung)
+    a1:task: --> a3:task:(Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient über Anmeldung (Erhebung Patientendaten Einlesen, Krankenkassenkarte))
+    a3:task: --> a5:task:(Triage Notaufnahme Pflegepersonal CNA Triage; Überwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal (ESI-Score))
+    a5:task: --> a7:task:(Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde (Elektronsicher Medikationsplan, Pflegeüberleitungsbogen, Arztbriefe, etc.) i.s.h.med. Scannen und Einlesen von Vorbefunden)
+    a7:task: --> a9:task:(Untersuchung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung)
     a9:task: --> a11:task:(Laborauftrag Notaufnahme Pflegepersonal CNA Lauris-Auftrag Lauris Auftrag zur Labordiagnostik)
-    a11:task: --> a13:task:(Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag fÃ¼r Transfusionsprodukte)
-    a13:task: --> a15:task:(Klinischer Auftrag Radiologie Notaufnahme Ã„rztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD (wenn Ã¼ber ukw.mobile erstellt) i.s.h.med.; ukw.mobile Klinischer Auftrag zur RÃ¶ntgendiagnostik)
-    a15:task: --> a17:task:(Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemÃ¤ÃŸ GBA-Beschluss)
+    a11:task: --> a13:task:(Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag für Transfusionsprodukte)
+    a13:task: --> a15:task:(Klinischer Auftrag Radiologie Notaufnahme Ärztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD (wenn über ukw.mobile erstellt) i.s.h.med.; ukw.mobile Klinischer Auftrag zur Röntgendiagnostik)
+    a15:task: --> a17:task:(Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemäß GBA-Beschluss)
     a17:task: --> a19:task:(Transport Radiologie Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
-    a19:task: --> a21:task:(Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin DurchfÃ¼hrung der radiologischen Diagnostik)
-    a21:task: --> a23:task:(Radiologischer Befund Radiologie Ã„rztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund)
-    a23:task: --> a25:task:(Transport in CNA Radiologie MRTA i.s.h.med. RÃ¼cktransport in die CNA)
-    a25:task: --> a27:task:(Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.)
+    a19:task: --> a21:task:(Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin Durchführung der radiologischen Diagnostik)
+    a21:task: --> a23:task:(Radiologischer Befund Radiologie Ärztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund)
+    a23:task: --> a25:task:(Transport in CNA Radiologie MRTA i.s.h.med. Rücktransport in die CNA)
+    a25:task: --> a27:task:(Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.)
     a27:task: --> a29:task:(Befund Transfusionsmedizin Transfusionsmedizin Personal Transfusionsmedizin Befund Blutgruppe Papier Befund der Blutgruppe)
-    a29:task: --> a31:task:(Befundanalyse, Indikationsstellung, chirurgische AufklÃ¤rung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische AufklÃ¤rung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche AufklÃ¤rung)
-    a31:task: --> a33:task:(Transport PrÃ¤medikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
-    a33:task: --> a35:task:(PrÃ¤medikation, anÃ¤sthesiologische AufklÃ¤rung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie PrÃ¤medikationsprotokoll; anÃ¤sthesiologische AufklÃ¤rung ZANOPPRAE1 i.s.h.med.; Thieme Compliance AnÃ¤sthesiologische AufklÃ¤rung fÃ¼r die OP)
-    a35:task: --> a37:task:(Transport OP AnÃ¤sthesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
+    a29:task: --> a31:task:(Befundanalyse, Indikationsstellung, chirurgische Aufklärung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische Aufklärung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche Aufklärung)
+    a31:task: --> a33:task:(Transport Prämedikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
+    a33:task: --> a35:task:(Prämedikation, anästhesiologische Aufklärung Anästhesie Ärztliches Personal Anästhesie Prämedikationsprotokoll; anästhesiologische Aufklärung ZANOPPRAE1 i.s.h.med.; Thieme Compliance Anästhesiologische Aufklärung für die OP)
+    a35:task: --> a37:task:(Transport OP Anästhesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
     a37:task: --> a39:task:(Einschleusen Zentral OP Schleusenpersonal Einschleuesen in den OP)
-    a39:task: --> a41:task:(Einleitung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie; AnÃ¤sthesie Pflegepersonal Narkoseprotokoll; AnÃ¤sthesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung)
-    a41:task: --> a43:task:(Operation AnÃ¤sthesie; Zentral OP; Unfallchirurgie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie; OP Pflegepersonal; Ã„rztliches Personal Unfallchirurgie Narkoseprotokoll; AnÃ¤sthesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA DurchfÃ¼hrung der Operation)
-    a43:task: --> a45:task:(Postoperative Ãœberwachung AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie Narkoseprotokoll ZNARKOPROT COPRA NachÃ¼berwachung im Aufwachraum)
-    a45:task: --> a47:task:(Transport auf Station AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
-    a47:task: --> a49:task:(Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tÃ¤gliche Pflege)
-    a49:task: --> a51:task:(Visiten Station Unfallchirurgie Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ã„rztliche Visiten)
-    a51:task: --> a53:task:(Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und DurchfÃ¼hrung von tÃ¤glicher Physiotherapie)
-    a53:task: --> a55:task:(Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische BeÃ¼bungen)
-    a55:task: --> a57:task:(Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ã„rztliches Personal Geriatrie; Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wÃ¶chentliche geriatrische Teamkonferenz und zweimal wÃ¶chentliche geriatrische Visiten)
-    a57:task: --> a59:task:(Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.)
-    a59:task: --> a61:task:(Radiologische Diagnostik Radiologie Ã„rztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und DurchfÃ¼hrung postoperative RÃ¶ntgendiagnostik)
-    a61:task: --> a63:task:(Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. RehamaÃŸnahmen)
+    a39:task: --> a41:task:(Einleitung Anästhesie Ärztliches Personal Anästhesie; Anästhesie Pflegepersonal Narkoseprotokoll; Anästhesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung)
+    a41:task: --> a43:task:(Operation Anästhesie; Zentral OP; Unfallchirurgie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie; OP Pflegepersonal; Ärztliches Personal Unfallchirurgie Narkoseprotokoll; Anästhesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA Durchführung der Operation)
+    a43:task: --> a45:task:(Postoperative Überwachung Anästhesie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie Narkoseprotokoll ZNARKOPROT COPRA Nachüberwachung im Aufwachraum)
+    a45:task: --> a47:task:(Transport auf Station Anästhesie Anästhesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
+    a47:task: --> a49:task:(Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tägliche Pflege)
+    a49:task: --> a51:task:(Visiten Station Unfallchirurgie Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ärztliche Visiten)
+    a51:task: --> a53:task:(Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und Durchführung von täglicher Physiotherapie)
+    a53:task: --> a55:task:(Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische Beübungen)
+    a55:task: --> a57:task:(Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ärztliches Personal Geriatrie; Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wöchentliche geriatrische Teamkonferenz und zweimal wöchentliche geriatrische Visiten)
+    a57:task: --> a59:task:(Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.)
+    a59:task: --> a61:task:(Radiologische Diagnostik Radiologie Ärztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und Durchführung postoperative Röntgendiagnostik)
+    a61:task: --> a63:task:(Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. Rehamaßnahmen)
     a63:task: --> ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-10T14:07:57.945590+01:00'
@@ -2187,7 +2187,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient Ã¼ber Anmeldung (Erhebung Patientendaten Einlesen, Krankenkassenkarte)</label>
+          <label>Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient über Anmeldung (Erhebung Patientendaten Einlesen, Krankenkassenkarte)</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2195,7 +2195,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="a5">
         <parameters>
-          <label>Triage Notaufnahme Pflegepersonal CNA Triage; Ãœberwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal (ESI-Score)</label>
+          <label>Triage Notaufnahme Pflegepersonal CNA Triage; Überwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal (ESI-Score)</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2203,7 +2203,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde (Elektronsicher Medikationsplan, PflegeÃ¼berleitungsbogen, Arztbriefe, etc.) i.s.h.med. Scannen und Einlesen von Vorbefunden</label>
+          <label>Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde (Elektronsicher Medikationsplan, Pflegeüberleitungsbogen, Arztbriefe, etc.) i.s.h.med. Scannen und Einlesen von Vorbefunden</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2211,7 +2211,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a9">
         <parameters>
-          <label>Untersuchung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung</label>
+          <label>Untersuchung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2227,7 +2227,7 @@ event:
       </call>
       <call id="a13" endpoint="" a:alt_id="a13">
         <parameters>
-          <label>Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag fÃ¼r Transfusionsprodukte</label>
+          <label>Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag für Transfusionsprodukte</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2235,7 +2235,7 @@ event:
       </call>
       <call id="a15" endpoint="" a:alt_id="a15">
         <parameters>
-          <label>Klinischer Auftrag Radiologie Notaufnahme Ã„rztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD (wenn Ã¼ber ukw.mobile erstellt) i.s.h.med.; ukw.mobile Klinischer Auftrag zur RÃ¶ntgendiagnostik</label>
+          <label>Klinischer Auftrag Radiologie Notaufnahme Ärztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD (wenn über ukw.mobile erstellt) i.s.h.med.; ukw.mobile Klinischer Auftrag zur Röntgendiagnostik</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2243,7 +2243,7 @@ event:
       </call>
       <call id="a17" endpoint="" a:alt_id="a17">
         <parameters>
-          <label>Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemÃ¤ÃŸ GBA-Beschluss</label>
+          <label>Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemäß GBA-Beschluss</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2259,7 +2259,7 @@ event:
       </call>
       <call id="a21" endpoint="" a:alt_id="a21">
         <parameters>
-          <label>Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin DurchfÃ¼hrung der radiologischen Diagnostik</label>
+          <label>Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin Durchführung der radiologischen Diagnostik</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2267,7 +2267,7 @@ event:
       </call>
       <call id="a23" endpoint="" a:alt_id="a23">
         <parameters>
-          <label>Radiologischer Befund Radiologie Ã„rztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund</label>
+          <label>Radiologischer Befund Radiologie Ärztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2275,7 +2275,7 @@ event:
       </call>
       <call id="a25" endpoint="" a:alt_id="a25">
         <parameters>
-          <label>Transport in CNA Radiologie MRTA i.s.h.med. RÃ¼cktransport in die CNA</label>
+          <label>Transport in CNA Radiologie MRTA i.s.h.med. Rücktransport in die CNA</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2283,7 +2283,7 @@ event:
       </call>
       <call id="a27" endpoint="" a:alt_id="a27">
         <parameters>
-          <label>Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.</label>
+          <label>Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2299,7 +2299,7 @@ event:
       </call>
       <call id="a31" endpoint="" a:alt_id="a31">
         <parameters>
-          <label>Befundanalyse, Indikationsstellung, chirurgische AufklÃ¤rung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische AufklÃ¤rung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche AufklÃ¤rung</label>
+          <label>Befundanalyse, Indikationsstellung, chirurgische Aufklärung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische Aufklärung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche Aufklärung</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2307,7 +2307,7 @@ event:
       </call>
       <call id="a33" endpoint="" a:alt_id="a33">
         <parameters>
-          <label>Transport PrÃ¤medikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag</label>
+          <label>Transport Prämedikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2315,7 +2315,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="a35">
         <parameters>
-          <label>PrÃ¤medikation, anÃ¤sthesiologische AufklÃ¤rung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie PrÃ¤medikationsprotokoll; anÃ¤sthesiologische AufklÃ¤rung ZANOPPRAE1 i.s.h.med.; Thieme Compliance AnÃ¤sthesiologische AufklÃ¤rung fÃ¼r die OP</label>
+          <label>Prämedikation, anästhesiologische Aufklärung Anästhesie Ärztliches Personal Anästhesie Prämedikationsprotokoll; anästhesiologische Aufklärung ZANOPPRAE1 i.s.h.med.; Thieme Compliance Anästhesiologische Aufklärung für die OP</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2323,7 +2323,7 @@ event:
       </call>
       <call id="a37" endpoint="" a:alt_id="a37">
         <parameters>
-          <label>Transport OP AnÃ¤sthesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag</label>
+          <label>Transport OP Anästhesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2339,7 +2339,7 @@ event:
       </call>
       <call id="a41" endpoint="" a:alt_id="a41">
         <parameters>
-          <label>Einleitung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie; AnÃ¤sthesie Pflegepersonal Narkoseprotokoll; AnÃ¤sthesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung</label>
+          <label>Einleitung Anästhesie Ärztliches Personal Anästhesie; Anästhesie Pflegepersonal Narkoseprotokoll; Anästhesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2347,7 +2347,7 @@ event:
       </call>
       <call id="a43" endpoint="" a:alt_id="a43">
         <parameters>
-          <label>Operation AnÃ¤sthesie; Zentral OP; Unfallchirurgie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie; OP Pflegepersonal; Ã„rztliches Personal Unfallchirurgie Narkoseprotokoll; AnÃ¤sthesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA DurchfÃ¼hrung der Operation</label>
+          <label>Operation Anästhesie; Zentral OP; Unfallchirurgie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie; OP Pflegepersonal; Ärztliches Personal Unfallchirurgie Narkoseprotokoll; Anästhesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA Durchführung der Operation</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2355,7 +2355,7 @@ event:
       </call>
       <call id="a45" endpoint="" a:alt_id="a45">
         <parameters>
-          <label>Postoperative Ãœberwachung AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie Narkoseprotokoll ZNARKOPROT COPRA NachÃ¼berwachung im Aufwachraum</label>
+          <label>Postoperative Überwachung Anästhesie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie Narkoseprotokoll ZNARKOPROT COPRA Nachüberwachung im Aufwachraum</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2363,7 +2363,7 @@ event:
       </call>
       <call id="a47" endpoint="" a:alt_id="a47">
         <parameters>
-          <label>Transport auf Station AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag</label>
+          <label>Transport auf Station Anästhesie Anästhesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2371,7 +2371,7 @@ event:
       </call>
       <call id="a49" endpoint="" a:alt_id="a49">
         <parameters>
-          <label>Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tÃ¤gliche Pflege</label>
+          <label>Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tägliche Pflege</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2379,7 +2379,7 @@ event:
       </call>
       <call id="a51" endpoint="" a:alt_id="a51">
         <parameters>
-          <label>Visiten Station Unfallchirurgie Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ã„rztliche Visiten</label>
+          <label>Visiten Station Unfallchirurgie Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ärztliche Visiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2387,7 +2387,7 @@ event:
       </call>
       <call id="a53" endpoint="" a:alt_id="a53">
         <parameters>
-          <label>Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und DurchfÃ¼hrung von tÃ¤glicher Physiotherapie</label>
+          <label>Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und Durchführung von täglicher Physiotherapie</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2395,7 +2395,7 @@ event:
       </call>
       <call id="a55" endpoint="" a:alt_id="a55">
         <parameters>
-          <label>Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische BeÃ¼bungen</label>
+          <label>Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische Beübungen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2403,7 +2403,7 @@ event:
       </call>
       <call id="a57" endpoint="" a:alt_id="a57">
         <parameters>
-          <label>Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ã„rztliches Personal Geriatrie; Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wÃ¶chentliche geriatrische Teamkonferenz und zweimal wÃ¶chentliche geriatrische Visiten</label>
+          <label>Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ärztliches Personal Geriatrie; Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wöchentliche geriatrische Teamkonferenz und zweimal wöchentliche geriatrische Visiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2411,7 +2411,7 @@ event:
       </call>
       <call id="a59" endpoint="" a:alt_id="a59">
         <parameters>
-          <label>Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.</label>
+          <label>Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2419,7 +2419,7 @@ event:
       </call>
       <call id="a61" endpoint="" a:alt_id="a61">
         <parameters>
-          <label>Radiologische Diagnostik Radiologie Ã„rztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und DurchfÃ¼hrung postoperative RÃ¶ntgendiagnostik</label>
+          <label>Radiologische Diagnostik Radiologie Ärztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und Durchführung postoperative Röntgendiagnostik</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2427,7 +2427,7 @@ event:
       </call>
       <call id="a63" endpoint="" a:alt_id="a63">
         <parameters>
-          <label>Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. RehamaÃŸnahmen</label>
+          <label>Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. Rehamaßnahmen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2446,7 +2446,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    LÃ¶sche allesÂ 
+    Lösche alles 
   time:timestamp: '2025-12-10T14:09:17.188016+01:00'
 ---
 event:
@@ -2474,38 +2474,38 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Ankunft Notaufnahme Rettungsdienst Einsatzprotokoll NIDA Patient wird in die Notaufnahme mit dem Rettungsdienst gebracht)
-    a1:task:(Ankunft Notaufnahme Rettungsdienst Einsatzprotokoll NIDA Patient wird in die Notaufnahme mit dem Rettungsdienst gebracht)-->a3:task:(Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient Ã¼ber Anmeldung \(Erhebung Patientendaten Einlesen, Krankenkassenkarte\))
-    a3:task:(Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient Ã¼ber Anmeldung \(Erhebung Patientendaten Einlesen, Krankenkassenkarte\))-->a5:task:(Triage Notaufnahme Pflegepersonal CNA Triage; Ãœberwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal \(ESI-Score\))
-    a5:task:(Triage Notaufnahme Pflegepersonal CNA Triage; Ãœberwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal \(ESI-Score\))-->a7:task:(Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde \(Elektronsicher Medikationsplan, PflegeÃ¼berleitungsbogen, Arztbriefe, etc.\) i.s.h.med. Scannen und Einlesen von Vorbefunden)
-    a7:task:(Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde \(Elektronsicher Medikationsplan, PflegeÃ¼berleitungsbogen, Arztbriefe, etc.\) i.s.h.med. Scannen und Einlesen von Vorbefunden)-->a9:task:(Untersuchung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung)
-    a9:task:(Untersuchung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung)-->a11:task:(Laborauftrag Notaufnahme Pflegepersonal CNA Lauris-Auftrag Lauris Auftrag zur Labordiagnostik)
-    a11:task:(Laborauftrag Notaufnahme Pflegepersonal CNA Lauris-Auftrag Lauris Auftrag zur Labordiagnostik)-->a13:task:(Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag fÃ¼r Transfusionsprodukte)
-    a13:task:(Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag fÃ¼r Transfusionsprodukte)-->a15:task:(Klinischer Auftrag Radiologie Notaufnahme Ã„rztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD \(wenn Ã¼ber ukw.mobile erstellt\) i.s.h.med.; ukw.mobile Klinischer Auftrag zur RÃ¶ntgendiagnostik)
-    a15:task:(Klinischer Auftrag Radiologie Notaufnahme Ã„rztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD \(wenn Ã¼ber ukw.mobile erstellt\) i.s.h.med.; ukw.mobile Klinischer Auftrag zur RÃ¶ntgendiagnostik)-->a17:task:(Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemÃ¤ÃŸ GBA-Beschluss)
-    a17:task:(Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemÃ¤ÃŸ GBA-Beschluss)-->a19:task:(Transport Radiologie Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
-    a19:task:(Transport Radiologie Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)-->a21:task:(Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin DurchfÃ¼hrung der radiologischen Diagnostik)
-    a21:task:(Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin DurchfÃ¼hrung der radiologischen Diagnostik)-->a23:task:(Radiologischer Befund Radiologie Ã„rztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund)
-    a23:task:(Radiologischer Befund Radiologie Ã„rztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund)-->a25:task:(Transport in CNA Radiologie MRTA i.s.h.med. RÃ¼cktransport in die CNA)
-    a25:task:(Transport in CNA Radiologie MRTA i.s.h.med. RÃ¼cktransport in die CNA)-->a27:task:(Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.)
-    a27:task:(Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.)-->a29:task:(Befund Transfusionsmedizin Transfusionsmedizin Personal Transfusionsmedizin Befund Blutgruppe Papier Befund der Blutgruppe)
-    a29:task:(Befund Transfusionsmedizin Transfusionsmedizin Personal Transfusionsmedizin Befund Blutgruppe Papier Befund der Blutgruppe)-->a31:task:(Befundanalyse, Indikationsstellung, chirurgische AufklÃ¤rung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische AufklÃ¤rung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche AufklÃ¤rung)
-    a31:task:(Befundanalyse, Indikationsstellung, chirurgische AufklÃ¤rung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische AufklÃ¤rung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche AufklÃ¤rung)-->a33:task:(Transport PrÃ¤medikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
-    a33:task:(Transport PrÃ¤medikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)-->a35:task:(PrÃ¤medikation, anÃ¤sthesiologische AufklÃ¤rung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie PrÃ¤medikationsprotokoll; anÃ¤sthesiologische AufklÃ¤rung ZANOPPRAE1 i.s.h.med.; Thieme Compliance AnÃ¤sthesiologische AufklÃ¤rung fÃ¼r die OP)
-    a35:task:(PrÃ¤medikation, anÃ¤sthesiologische AufklÃ¤rung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie PrÃ¤medikationsprotokoll; anÃ¤sthesiologische AufklÃ¤rung ZANOPPRAE1 i.s.h.med.; Thieme Compliance AnÃ¤sthesiologische AufklÃ¤rung fÃ¼r die OP)-->a37:task:(Transport OP AnÃ¤sthesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
-    a37:task:(Transport OP AnÃ¤sthesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)-->a39:task:(Einschleusen Zentral OP Schleusenpersonal Einschleuesen in den OP)
-    a39:task:(Einschleusen Zentral OP Schleusenpersonal Einschleuesen in den OP)-->a41:task:(Einleitung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie; AnÃ¤sthesie Pflegepersonal Narkoseprotokoll; AnÃ¤sthesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung)
-    a41:task:(Einleitung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie; AnÃ¤sthesie Pflegepersonal Narkoseprotokoll; AnÃ¤sthesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung)-->a43:task:(Operation AnÃ¤sthesie; Zentral OP; Unfallchirurgie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie; OP Pflegepersonal; Ã„rztliches Personal Unfallchirurgie Narkoseprotokoll; AnÃ¤sthesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA DurchfÃ¼hrung der Operation)
-    a43:task:(Operation AnÃ¤sthesie; Zentral OP; Unfallchirurgie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie; OP Pflegepersonal; Ã„rztliches Personal Unfallchirurgie Narkoseprotokoll; AnÃ¤sthesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA DurchfÃ¼hrung der Operation)-->a45:task:(Postoperative Ãœberwachung AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie Narkoseprotokoll ZNARKOPROT COPRA NachÃ¼berwachung im Aufwachraum)
-    a45:task:(Postoperative Ãœberwachung AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie Narkoseprotokoll ZNARKOPROT COPRA NachÃ¼berwachung im Aufwachraum)-->a47:task:(Transport auf Station AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
-    a47:task:(Transport auf Station AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)-->a49:task:(Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tÃ¤gliche Pflege)
-    a49:task:(Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tÃ¤gliche Pflege)-->a51:task:(Visiten Station Unfallchirurgie Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ã„rztliche Visiten)
-    a51:task:(Visiten Station Unfallchirurgie Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ã„rztliche Visiten)-->a53:task:(Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und DurchfÃ¼hrung von tÃ¤glicher Physiotherapie)
-    a53:task:(Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und DurchfÃ¼hrung von tÃ¤glicher Physiotherapie)-->a55:task:(Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische BeÃ¼bungen)
-    a55:task:(Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische BeÃ¼bungen)-->a57:task:(Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ã„rztliches Personal Geriatrie; Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wÃ¶chentliche geriatrische Teamkonferenz und zweimal wÃ¶chentliche geriatrische Visiten)
-    a57:task:(Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ã„rztliches Personal Geriatrie; Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wÃ¶chentliche geriatrische Teamkonferenz und zweimal wÃ¶chentliche geriatrische Visiten)-->a59:task:(Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.)
-    a59:task:(Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.)-->a61:task:(Radiologische Diagnostik Radiologie Ã„rztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und DurchfÃ¼hrung postoperative RÃ¶ntgendiagnostik)
-    a61:task:(Radiologische Diagnostik Radiologie Ã„rztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und DurchfÃ¼hrung postoperative RÃ¶ntgendiagnostik)-->a63:task:(Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. RehamaÃŸnahmen)
-    a63:task:(Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. RehamaÃŸnahmen)-->ee:endevent:((endevent))
+    a1:task:(Ankunft Notaufnahme Rettungsdienst Einsatzprotokoll NIDA Patient wird in die Notaufnahme mit dem Rettungsdienst gebracht)-->a3:task:(Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient über Anmeldung \(Erhebung Patientendaten Einlesen, Krankenkassenkarte\))
+    a3:task:(Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient über Anmeldung \(Erhebung Patientendaten Einlesen, Krankenkassenkarte\))-->a5:task:(Triage Notaufnahme Pflegepersonal CNA Triage; Überwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal \(ESI-Score\))
+    a5:task:(Triage Notaufnahme Pflegepersonal CNA Triage; Überwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal \(ESI-Score\))-->a7:task:(Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde \(Elektronsicher Medikationsplan, Pflegeüberleitungsbogen, Arztbriefe, etc.\) i.s.h.med. Scannen und Einlesen von Vorbefunden)
+    a7:task:(Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde \(Elektronsicher Medikationsplan, Pflegeüberleitungsbogen, Arztbriefe, etc.\) i.s.h.med. Scannen und Einlesen von Vorbefunden)-->a9:task:(Untersuchung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung)
+    a9:task:(Untersuchung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung)-->a11:task:(Laborauftrag Notaufnahme Pflegepersonal CNA Lauris-Auftrag Lauris Auftrag zur Labordiagnostik)
+    a11:task:(Laborauftrag Notaufnahme Pflegepersonal CNA Lauris-Auftrag Lauris Auftrag zur Labordiagnostik)-->a13:task:(Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag für Transfusionsprodukte)
+    a13:task:(Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag für Transfusionsprodukte)-->a15:task:(Klinischer Auftrag Radiologie Notaufnahme Ärztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD \(wenn über ukw.mobile erstellt\) i.s.h.med.; ukw.mobile Klinischer Auftrag zur Röntgendiagnostik)
+    a15:task:(Klinischer Auftrag Radiologie Notaufnahme Ärztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD \(wenn über ukw.mobile erstellt\) i.s.h.med.; ukw.mobile Klinischer Auftrag zur Röntgendiagnostik)-->a17:task:(Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemäß GBA-Beschluss)
+    a17:task:(Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemäß GBA-Beschluss)-->a19:task:(Transport Radiologie Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
+    a19:task:(Transport Radiologie Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)-->a21:task:(Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin Durchführung der radiologischen Diagnostik)
+    a21:task:(Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin Durchführung der radiologischen Diagnostik)-->a23:task:(Radiologischer Befund Radiologie Ärztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund)
+    a23:task:(Radiologischer Befund Radiologie Ärztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund)-->a25:task:(Transport in CNA Radiologie MRTA i.s.h.med. Rücktransport in die CNA)
+    a25:task:(Transport in CNA Radiologie MRTA i.s.h.med. Rücktransport in die CNA)-->a27:task:(Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.)
+    a27:task:(Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.)-->a29:task:(Befund Transfusionsmedizin Transfusionsmedizin Personal Transfusionsmedizin Befund Blutgruppe Papier Befund der Blutgruppe)
+    a29:task:(Befund Transfusionsmedizin Transfusionsmedizin Personal Transfusionsmedizin Befund Blutgruppe Papier Befund der Blutgruppe)-->a31:task:(Befundanalyse, Indikationsstellung, chirurgische Aufklärung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische Aufklärung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche Aufklärung)
+    a31:task:(Befundanalyse, Indikationsstellung, chirurgische Aufklärung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische Aufklärung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche Aufklärung)-->a33:task:(Transport Prämedikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
+    a33:task:(Transport Prämedikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)-->a35:task:(Prämedikation, anästhesiologische Aufklärung Anästhesie Ärztliches Personal Anästhesie Prämedikationsprotokoll; anästhesiologische Aufklärung ZANOPPRAE1 i.s.h.med.; Thieme Compliance Anästhesiologische Aufklärung für die OP)
+    a35:task:(Prämedikation, anästhesiologische Aufklärung Anästhesie Ärztliches Personal Anästhesie Prämedikationsprotokoll; anästhesiologische Aufklärung ZANOPPRAE1 i.s.h.med.; Thieme Compliance Anästhesiologische Aufklärung für die OP)-->a37:task:(Transport OP Anästhesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
+    a37:task:(Transport OP Anästhesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)-->a39:task:(Einschleusen Zentral OP Schleusenpersonal Einschleuesen in den OP)
+    a39:task:(Einschleusen Zentral OP Schleusenpersonal Einschleuesen in den OP)-->a41:task:(Einleitung Anästhesie Ärztliches Personal Anästhesie; Anästhesie Pflegepersonal Narkoseprotokoll; Anästhesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung)
+    a41:task:(Einleitung Anästhesie Ärztliches Personal Anästhesie; Anästhesie Pflegepersonal Narkoseprotokoll; Anästhesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung)-->a43:task:(Operation Anästhesie; Zentral OP; Unfallchirurgie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie; OP Pflegepersonal; Ärztliches Personal Unfallchirurgie Narkoseprotokoll; Anästhesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA Durchführung der Operation)
+    a43:task:(Operation Anästhesie; Zentral OP; Unfallchirurgie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie; OP Pflegepersonal; Ärztliches Personal Unfallchirurgie Narkoseprotokoll; Anästhesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA Durchführung der Operation)-->a45:task:(Postoperative Überwachung Anästhesie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie Narkoseprotokoll ZNARKOPROT COPRA Nachüberwachung im Aufwachraum)
+    a45:task:(Postoperative Überwachung Anästhesie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie Narkoseprotokoll ZNARKOPROT COPRA Nachüberwachung im Aufwachraum)-->a47:task:(Transport auf Station Anästhesie Anästhesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)
+    a47:task:(Transport auf Station Anästhesie Anästhesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag)-->a49:task:(Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tägliche Pflege)
+    a49:task:(Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tägliche Pflege)-->a51:task:(Visiten Station Unfallchirurgie Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ärztliche Visiten)
+    a51:task:(Visiten Station Unfallchirurgie Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ärztliche Visiten)-->a53:task:(Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und Durchführung von täglicher Physiotherapie)
+    a53:task:(Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und Durchführung von täglicher Physiotherapie)-->a55:task:(Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische Beübungen)
+    a55:task:(Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische Beübungen)-->a57:task:(Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ärztliches Personal Geriatrie; Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wöchentliche geriatrische Teamkonferenz und zweimal wöchentliche geriatrische Visiten)
+    a57:task:(Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ärztliches Personal Geriatrie; Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wöchentliche geriatrische Teamkonferenz und zweimal wöchentliche geriatrische Visiten)-->a59:task:(Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.)
+    a59:task:(Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.)-->a61:task:(Radiologische Diagnostik Radiologie Ärztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und Durchführung postoperative Röntgendiagnostik)
+    a61:task:(Radiologische Diagnostik Radiologie Ärztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und Durchführung postoperative Röntgendiagnostik)-->a63:task:(Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. Rehamaßnahmen)
+    a63:task:(Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. Rehamaßnahmen)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T14:09:17.188277+01:00'
 ---
 event:
@@ -2837,40 +2837,40 @@ event:
   cpee:change_uuid: e12bf3f3b026489cee49c7d1b7160837b38a0e7d
   cpee:exposition: |+
     # User Input:
-    Â Schritt-Nr. Prozesschritt Abteilung Bearbeiter Erzeugte Dokumente SchlÃ¼ssel Genutztes Programm Beschreibung
-    Aufnahme Ã¼ber die Notaufnahme 1 Ankunft Notaufnahme Notaufnahme Rettungsdienst Einsatzprotokoll NIDA Patient wird in die Notaufnahme mit dem Rettungsdienst gebracht
-    Â 2 Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient Ã¼ber Anmeldung (Erhebung Patientendaten Einlesen, Krankenkassenkarte)
-    Â 3 Triage Notaufnahme Pflegepersonal CNA Triage; Ãœberwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal (ESI-Score)
-    Â 4 Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde (Elektronsicher Medikationsplan, PflegeÃ¼berleitungsbogen, Arztbriefe, etc.) i.s.h.med. Scannen und Einlesen von Vorbefunden
-    Diagnostik 5 Untersuchung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung
-    Â 6 Laborauftrag Notaufnahme Pflegepersonal CNA Lauris-Auftrag Lauris Auftrag zur Labordiagnostik
-    Â 7 Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag fÃ¼r Transfusionsprodukte
-    Â 8 Klinischer Auftrag Radiologie Notaufnahme Ã„rztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD (wenn Ã¼ber ukw.mobile erstellt) i.s.h.med.; ukw.mobile Klinischer Auftrag zur RÃ¶ntgendiagnostik
-    Â 9 Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemÃ¤ÃŸ GBA-Beschluss
-    Â 10 Transport Radiologie Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
-    Â 11 Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin DurchfÃ¼hrung der radiologischen Diagnostik
-    Â 12 Radiologischer Befund Radiologie Ã„rztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund
-    Â 13 Transport in CNA Radiologie MRTA i.s.h.med. RÃ¼cktransport in die CNA
-    Â 14 Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.
-    Â 15 Befund Transfusionsmedizin Transfusionsmedizin Personal Transfusionsmedizin Befund Blutgruppe Papier Befund der Blutgruppe
-    OP-Vorbereitung 16 Befundanalyse, Indikationsstellung, chirurgische AufklÃ¤rung Notaufnahme Ã„rztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische AufklÃ¤rung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche AufklÃ¤rung
-    Â 18 Transport PrÃ¤medikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
-    Â 19 PrÃ¤medikation, anÃ¤sthesiologische AufklÃ¤rung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie PrÃ¤medikationsprotokoll; anÃ¤sthesiologische AufklÃ¤rung ZANOPPRAE1 i.s.h.med.; Thieme Compliance AnÃ¤sthesiologische AufklÃ¤rung fÃ¼r die OP
-    Â 20 Transport OP AnÃ¤sthesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
-    Â 21 Einschleusen Zentral OP Schleusenpersonal Einschleuesen in den OP
-    Operation 22 Einleitung AnÃ¤sthesie Ã„rztliches Personal AnÃ¤sthesie; AnÃ¤sthesie Pflegepersonal Narkoseprotokoll; AnÃ¤sthesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung
-    Â 23 Operation AnÃ¤sthesie; Zentral OP; Unfallchirurgie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie; OP Pflegepersonal; Ã„rztliches Personal Unfallchirurgie Narkoseprotokoll; AnÃ¤sthesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA DurchfÃ¼hrung der Operation
-    Â 24 Postoperative Ãœberwachung AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal; Ã„rztliches Personal AnÃ¤sthesie Narkoseprotokoll ZNARKOPROT COPRA NachÃ¼berwachung im Aufwachraum
-    Postoperative Versorgung 25 Transport auf Station AnÃ¤sthesie AnÃ¤sthesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
-    Â 26 Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tÃ¤gliche Pflege
-    Â 27 Visiten Station Unfallchirurgie Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ã„rztliche Visiten
-    Â 28 Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und DurchfÃ¼hrung von tÃ¤glicher Physiotherapie
-    Â 29 Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische BeÃ¼bungen
-    Â 30 Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ã„rztliches Personal Geriatrie; Ã„rztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wÃ¶chentliche geriatrische Teamkonferenz und zweimal wÃ¶chentliche geriatrische Visiten
-    Â 31 Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar Ã¼ber Lauris oder als Befund im is.h.med.
-    Â 32 Radiologische Diagnostik Radiologie Ã„rztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und DurchfÃ¼hrung postoperative RÃ¶ntgendiagnostik
-    Reha/ Entlassmanagement 33 Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. RehamaÃŸnahmen
-    Entlassung 34 Entlassung Station Unfallchirurgie Ã„rztliches Personal Unfallchirurgie; Pflegepersonal Unfallchirurgie Entlassbrief; Rezepte; Physiotherapierezept; Elektronischer Medikationsplan; Liegebescheinigung ARZTBRIEF; N3KVUNIRP; N3KVMST13 i.s.h.med., Meona Entlassung aus der stationÃ¤ren Behandlung
+     Schritt-Nr. Prozesschritt Abteilung Bearbeiter Erzeugte Dokumente Schlüssel Genutztes Programm Beschreibung
+    Aufnahme über die Notaufnahme 1 Ankunft Notaufnahme Notaufnahme Rettungsdienst Einsatzprotokoll NIDA Patient wird in die Notaufnahme mit dem Rettungsdienst gebracht
+     2 Aufnahme/Anlage Fall Notaufnahme Anmeldung ZNA Fall i.s.h.med. Registrierung Patient über Anmeldung (Erhebung Patientendaten Einlesen, Krankenkassenkarte)
+     3 Triage Notaufnahme Pflegepersonal CNA Triage; Überwachungsprotokoll Notaufnahme ZC2_TRIAGE; ZC2_UEBERW Papier Triage durch Pflegepersonal (ESI-Score)
+     4 Einlesen Vorbefunde Notaufnahme Pflegepersonal CNA Scan Vorbefunde (Elektronsicher Medikationsplan, Pflegeüberleitungsbogen, Arztbriefe, etc.) i.s.h.med. Scannen und Einlesen von Vorbefunden
+    Diagnostik 5 Untersuchung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz ZAMBKBRIEF i.s.h.med./ukw.mobile Anamnese, Untersuchung
+     6 Laborauftrag Notaufnahme Pflegepersonal CNA Lauris-Auftrag Lauris Auftrag zur Labordiagnostik
+     7 Auftrag Transfusionsmedizin Notaufnahme Pflegepersonal CNA Transfusionsschein ZC2_TRANSF Papier Auftrag für Transfusionsprodukte
+     8 Klinischer Auftrag Radiologie Notaufnahme Ärztliches Personal Unfallchirurgie Klinischer Auftrag Radiologie ZSDANORD (wenn über ukw.mobile erstellt) i.s.h.med.; ukw.mobile Klinischer Auftrag zur Röntgendiagnostik
+     9 Scores Geriatrie Notaufnahme Pflegepersonal CNA ISAR-Score, 4AT-Score ZC2_ADMIN Papier Erhebung von Scores gemäß GBA-Beschluss
+     10 Transport Radiologie Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
+     11 Radiologische Diagnostik Radiologie MRTA Radiologische Bilddatei Merlin Durchführung der radiologischen Diagnostik
+     12 Radiologischer Befund Radiologie Ärztliches Personal Radiologie Radiologischer Befund ZN7RADKAP1 i.s.h.med. Erstellung radiologischer Befund
+     13 Transport in CNA Radiologie MRTA i.s.h.med. Rücktransport in die CNA
+     14 Laborbefund Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.
+     15 Befund Transfusionsmedizin Transfusionsmedizin Personal Transfusionsmedizin Befund Blutgruppe Papier Befund der Blutgruppe
+    OP-Vorbereitung 16 Befundanalyse, Indikationsstellung, chirurgische Aufklärung Notaufnahme Ärztliches Personal Unfallchirurgie Kurzbrief Amublanz; chirurgische Aufklärung ZAMBKBRIEF; ZECP_BOGEN; ZECP_PROTO i.s.h.med.; Thieme Compliance Durchsicht der Diagnostik, Befundbesprechung , Indikationsstellung zur OP, chirurgsiche Aufklärung
+     18 Transport Prämedikationsambulanz Notaufnahme Pflegepersonal CNA Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
+     19 Prämedikation, anästhesiologische Aufklärung Anästhesie Ärztliches Personal Anästhesie Prämedikationsprotokoll; anästhesiologische Aufklärung ZANOPPRAE1 i.s.h.med.; Thieme Compliance Anästhesiologische Aufklärung für die OP
+     20 Transport OP Anästhesie Innerklinischer Transportdienst Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
+     21 Einschleusen Zentral OP Schleusenpersonal Einschleuesen in den OP
+    Operation 22 Einleitung Anästhesie Ärztliches Personal Anästhesie; Anästhesie Pflegepersonal Narkoseprotokoll; Anästhesieprotokoll ZNARKOPROT; ZANOPNAR01 i.s.h.med.; COPRA Narkoseeinleitung
+     23 Operation Anästhesie; Zentral OP; Unfallchirurgie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie; OP Pflegepersonal; Ärztliches Personal Unfallchirurgie Narkoseprotokoll; Anästhesieprotokoll; WHO-Checkliste; Pflegeprotokoll Chirurgie; OP-Kurzbericht; OP-Bericht ZNARKOPROT; ZACOPPFLEG; ZC2_CHECKL; ZSDOPKBERT; ZSDOPBERIC; ZANOPNAR01 i.s.h.med.; COPRA Durchführung der Operation
+     24 Postoperative Überwachung Anästhesie Anästhesie Pflegepersonal; Ärztliches Personal Anästhesie Narkoseprotokoll ZNARKOPROT COPRA Nachüberwachung im Aufwachraum
+    Postoperative Versorgung 25 Transport auf Station Anästhesie Anästhesie Pflegepersonal Innerklinischer Transportauftrag i.s.h.med. Transportauftrag
+     26 Pflege Station Unfallchirurgie Pflegepersonal Station CAM-Screening; Dekubitus Assessment; Sturz Assessment; Pflegeanamnese; Braden Scala; Barthel-Index; ISAR Score; Fieberkurve ZSDPFLCAM; ZSDRADEKU; ZSDRASTURZ; ZSDPFLAN01; ZSDBRADEN; ZSDBAIDX; ZC2_ADMIN i.s.h.med.; Meona Pflegerische Aufnahme, Erhebung von Scores, tägliche Pflege
+     27 Visiten Station Unfallchirurgie Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Ärztliche Visiten
+     28 Physiotherapie Physiotherapie Physiotherapie Klinischer Auftrag Physiotherapie; Dokumentation Physiotherapie i.s.h.med. Anmeldung und Durchführung von täglicher Physiotherapie
+     29 Ergotherapie Ergotherapie Ergotherapie Klinischer Auftrag Ergotherapie i.s.h.med. Ergotherapeutische Beübungen
+     30 Geriatrische Teamkonferenzen Station Unfallchirurgie Ergotherapie; Pflegepersonal Unfallchirurgie; Sozialdienst; Physiotherapie; Ärztliches Personal Geriatrie; Ärztliches Personal Unfallchirurgie Visiteneintrag Fieberkurve Meona Einmal wöchentliche geriatrische Teamkonferenz und zweimal wöchentliche geriatrische Visiten
+     31 Laboruntersuchungen Zentrallabor Laborpersonal Laborbefund N2LABOR Lauris Laborbefund. Einsehbar über Lauris oder als Befund im is.h.med.
+     32 Radiologische Diagnostik Radiologie Ärztliches Personal Radiologie; MRTA Radiologische Bilddatei; Radiologischer Befund ZN7RADKAP1 i.s.h.med.; Merlin Klinischer Auftrag und Durchführung postoperative Röntgendiagnostik
+    Reha/ Entlassmanagement 33 Sozialmedizinische Betreuung/Entlassmanagement Sozialdienst Sozialdienst Sozialdienst Entlassmanagement ZSDETLMAN i.s.h.med. Planung Entlassung und weitere Versorgung bzw. Rehamaßnahmen
+    Entlassung 34 Entlassung Station Unfallchirurgie Ärztliches Personal Unfallchirurgie; Pflegepersonal Unfallchirurgie Entlassbrief; Rezepte; Physiotherapierezept; Elektronischer Medikationsplan; Liegebescheinigung ARZTBRIEF; N3KVUNIRP; N3KVMST13 i.s.h.med., Meona Entlassung aus der stationären Behandlung
 
 
 
@@ -2928,15 +2928,15 @@ event:
         12:task:(Radiologischer Befund) --> 13:task:(Transport in CNA)
         13:task:(Transport in CNA) --> 14:task:(Laborbefund)
         14:task:(Laborbefund) --> 15:task:(Befund Transfusionsmedizin)
-        15:task:(Befund Transfusionsmedizin) --> 16:task:(Befundanalyse, Indikationsstellung, chirurgische AufklÃ¤rung)
-        16:task:(Befundanalyse, Indikationsstellung, chirurgische AufklÃ¤rung) --> 18:task:(Transport PrÃ¤medikationsambulanz)
-        18:task:(Transport PrÃ¤medikationsambulanz) --> 19:task:(PrÃ¤medikation, anÃ¤sthesiologische AufklÃ¤rung)
-        19:task:(PrÃ¤medikation, anÃ¤sthesiologische AufklÃ¤rung) --> 20:task:(Transport OP)
+        15:task:(Befund Transfusionsmedizin) --> 16:task:(Befundanalyse, Indikationsstellung, chirurgische Aufklärung)
+        16:task:(Befundanalyse, Indikationsstellung, chirurgische Aufklärung) --> 18:task:(Transport Prämedikationsambulanz)
+        18:task:(Transport Prämedikationsambulanz) --> 19:task:(Prämedikation, anästhesiologische Aufklärung)
+        19:task:(Prämedikation, anästhesiologische Aufklärung) --> 20:task:(Transport OP)
         20:task:(Transport OP) --> 21:task:(Einschleusen Zentral OP)
         21:task:(Einschleusen Zentral OP) --> 22:task:(Einleitung)
         22:task:(Einleitung) --> 23:task:(Operation)
-        23:task:(Operation) --> 24:task:(Postoperative Ãœberwachung)
-        24:task:(Postoperative Ãœberwachung) --> 25:task:(Transport auf Station)
+        23:task:(Operation) --> 24:task:(Postoperative Überwachung)
+        24:task:(Postoperative Überwachung) --> 25:task:(Transport auf Station)
         25:task:(Transport auf Station) --> 26:task:(Pflege Station)
         26:task:(Pflege Station) --> 27:task:(Visiten Station)
         27:task:(Visiten Station) --> 28:task:(Physiotherapie)

@@ -311,9 +311,9 @@ event:
   cpee:change_uuid: 6130b453f3878a2a17c01a645ebfe79508b5a593
   cpee:exposition: |-
     # User Input:
-    Der Prozess beginnt, sobald ein Kunde das italienische Restaurant betritt. Hat er eine Reservierung, wird er von einem Kellner direkt zu seinem Tisch begleitet und kann anschlieÃŸend seine Bestellung aufgeben. Liegt keine Reservierung vor, wird zunÃ¤chst geprÃ¼ft, ob ein Tisch frei ist. Ist kein Tisch verfÃ¼gbar, kann der Kunde entweder warten oder das Restaurant wieder verlassen. Entscheidet er sich zu gehen, endet der Prozess an dieser Stelle. Wartet er, wird nach einer gewissen Zeit ein Tisch frei, und der Kellner fÃ¼hrt ihn dann an seinen Platz, sodass er ebenfalls bestellen kann.
+    Der Prozess beginnt, sobald ein Kunde das italienische Restaurant betritt. Hat er eine Reservierung, wird er von einem Kellner direkt zu seinem Tisch begleitet und kann anschließend seine Bestellung aufgeben. Liegt keine Reservierung vor, wird zunächst geprüft, ob ein Tisch frei ist. Ist kein Tisch verfügbar, kann der Kunde entweder warten oder das Restaurant wieder verlassen. Entscheidet er sich zu gehen, endet der Prozess an dieser Stelle. Wartet er, wird nach einer gewissen Zeit ein Tisch frei, und der Kellner führt ihn dann an seinen Platz, sodass er ebenfalls bestellen kann.
 
-    Sobald die Bestellung aufgenommen ist, leitet der Kellner sie an die KÃ¼che weiter. Dort bereitet der PizzabÃ¤cker die Pizza zu. Falls nicht alle benÃ¶tigten Zutaten sofort bereitstehen, werden sie zuerst vorbereitet. AnschlieÃŸend wird die Pizza gebacken. Nach der Fertigstellung bringt der Kellner die Pizza an den Tisch. Der Kunde isst, bezahlt beim Kellner und verlÃ¤sst danach das Restaurant. Damit ist der Prozess abgeschlossen.
+    Sobald die Bestellung aufgenommen ist, leitet der Kellner sie an die Küche weiter. Dort bereitet der Pizzabäcker die Pizza zu. Falls nicht alle benötigten Zutaten sofort bereitstehen, werden sie zuerst vorbereitet. Anschließend wird die Pizza gebacken. Nach der Fertigstellung bringt der Kellner die Pizza an den Tisch. Der Kunde isst, bezahlt beim Kellner und verlässt danach das Restaurant. Damit ist der Prozess abgeschlossen.
   time:timestamp: '2026-01-12T08:29:35.505390+01:00'
 ---
 event:
@@ -361,8 +361,8 @@ event:
         5:exclusivegateway:{x} --> |Warten| 6:task:(Warten bis Tisch frei)
         5:exclusivegateway:{x} --> |Gehen| 14:endevent:(((endevent)))
         6:task:(Warten bis Tisch frei) --> 2:task:(Kunde wird zum Tisch begleitet)
-        4:task:(Bestellung aufnehmen) --> 7:task:(Bestellung an KÃ¼che weiterleiten)
-        7:task:(Bestellung an KÃ¼che weiterleiten) --> 8:task:(Pizza zubereiten)
+        4:task:(Bestellung aufnehmen) --> 7:task:(Bestellung an Küche weiterleiten)
+        7:task:(Bestellung an Küche weiterleiten) --> 8:task:(Pizza zubereiten)
         8:task:(Pizza zubereiten) --> 9:exclusivegateway:{x}
         9:exclusivegateway:{x} --> |Zutaten bereit| 11:task:(Pizza backen)
         9:exclusivegateway:{x} --> |Zutaten fehlen| 10:task:(Zutaten vorbereiten)
@@ -665,7 +665,7 @@ event:
           </call>
           <call id="a19" endpoint="" a:alt_id="7">
             <parameters>
-              <label>Bestellung an KÃ¼che weiterleiten</label>
+              <label>Bestellung an Küche weiterleiten</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -738,7 +738,7 @@ event:
               </call>
               <call id="a19" endpoint="" a:alt_id="7">
                 <parameters>
-                  <label>Bestellung an KÃ¼che weiterleiten</label>
+                  <label>Bestellung an Küche weiterleiten</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -819,7 +819,7 @@ event:
                   </call>
                   <call id="a19" endpoint="" a:alt_id="7">
                     <parameters>
-                      <label>Bestellung an KÃ¼che weiterleiten</label>
+                      <label>Bestellung an Küche weiterleiten</label>
                       <method/>
                       <type>:task</type>
                       <arguments/>
@@ -890,7 +890,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    Wenn der Kunde kein Tisch bekommt und deshalb geht, so bekommt er bevor er das Lokal verlÃ¤sst, ein Gutschein von 10% fÃ¼r den nÃ¶chsten Besuch.
+    Wenn der Kunde kein Tisch bekommt und deshalb geht, so bekommt er bevor er das Lokal verlässt, ein Gutschein von 10% für den nöchsten Besuch.
   time:timestamp: '2026-01-12T09:30:29.704691+01:00'
 ---
 event:
@@ -920,8 +920,8 @@ event:
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
     a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
-    a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
-    a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+    a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an Küche weiterleiten)
+    a19:task:(Bestellung an Küche weiterleiten)-->a21:task:(Pizza zubereiten)
     a21:task:(Pizza zubereiten)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->|"Zutaten bereit"|gw3e:exclusivegateway:{x}
@@ -961,8 +961,8 @@ event:
     gw1s:exclusivegateway:{x}-->|"Keine Reservierung"|gw10s:exclusivegateway:{x}
     gw10s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
     a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
-    a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
-    a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+    a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an Küche weiterleiten)
+    a19:task:(Bestellung an Küche weiterleiten)-->a21:task:(Pizza zubereiten)
     a21:task:(Pizza zubereiten)-->gw11s:exclusivegateway:{x}
     gw11s:exclusivegateway:{x}-->gw12s:exclusivegateway:{x}
     gw12s:exclusivegateway:{x}-->|"Zutaten bereit"|gw12e:exclusivegateway:{x}
@@ -1003,8 +1003,8 @@ event:
     gw19s:exclusivegateway:{x}-->a13:task:(Warten bis Tisch frei)
     a13:task:(Warten bis Tisch frei)-->a3:task:(Kunde wird zum Tisch begleitet)
     a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
-    a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
-    a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+    a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an Küche weiterleiten)
+    a19:task:(Bestellung an Küche weiterleiten)-->a21:task:(Pizza zubereiten)
     a21:task:(Pizza zubereiten)-->gw20s:exclusivegateway:{x}
     gw20s:exclusivegateway:{x}-->gw21s:exclusivegateway:{x}
     gw21s:exclusivegateway:{x}-->|"Zutaten bereit"|gw21e:exclusivegateway:{x}
@@ -1062,8 +1062,8 @@ event:
         se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
         gw1s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
         a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
-        a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
-        a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+        a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an Küche weiterleiten)
+        a19:task:(Bestellung an Küche weiterleiten)-->a21:task:(Pizza zubereiten)
         a21:task:(Pizza zubereiten)-->gw2s:exclusivegateway:{x}
         gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
         gw3s:exclusivegateway:{x}-->|"Zutaten bereit"|gw3e:exclusivegateway:{x}
@@ -1095,8 +1095,8 @@ event:
         gw1s:exclusivegateway:{x}-->|"Keine Reservierung"|gw10s:exclusivegateway:{x}
         gw10s:exclusivegateway:{x}-->a3:task:(Kunde wird zum Tisch begleitet)
         a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
-        a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
-        a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+        a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an Küche weiterleiten)
+        a19:task:(Bestellung an Küche weiterleiten)-->a21:task:(Pizza zubereiten)
         a21:task:(Pizza zubereiten)-->gw11s:exclusivegateway:{x}
         gw11s:exclusivegateway:{x}-->gw12s:exclusivegateway:{x}
         gw12s:exclusivegateway:{x}-->|"Zutaten bereit"|gw12e:exclusivegateway:{x}
@@ -1129,8 +1129,8 @@ event:
         gw19s:exclusivegateway:{x}-->a13:task:(Warten bis Tisch frei)
         a13:task:(Warten bis Tisch frei)-->a3:task:(Kunde wird zum Tisch begleitet)
         a3:task:(Kunde wird zum Tisch begleitet)-->a7:task:(Bestellung aufnehmen)
-        a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an KÃ¼che weiterleiten)
-        a19:task:(Bestellung an KÃ¼che weiterleiten)-->a21:task:(Pizza zubereiten)
+        a7:task:(Bestellung aufnehmen)-->a19:task:(Bestellung an Küche weiterleiten)
+        a19:task:(Bestellung an Küche weiterleiten)-->a21:task:(Pizza zubereiten)
         a21:task:(Pizza zubereiten)-->gw20s:exclusivegateway:{x}
         gw20s:exclusivegateway:{x}-->gw21s:exclusivegateway:{x}
         gw21s:exclusivegateway:{x}-->|"Zutaten bereit"|gw21e:exclusivegateway:{x}

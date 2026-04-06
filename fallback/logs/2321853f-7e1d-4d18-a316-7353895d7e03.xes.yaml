@@ -270,7 +270,7 @@ event:
   cpee:change_uuid: 11f0bf32259e8543e71ace739c71c2d4b2cc6e71
   cpee:exposition: |+
     # User Input:
-    Prozess Budgetverhandlungen zwischen Krankenkassen und KrankenhÃ¤usern
+    Prozess Budgetverhandlungen zwischen Krankenkassen und Krankenhäusern
 
   time:timestamp: '2025-11-26T17:46:00.696056+01:00'
 ...
@@ -289,11 +289,11 @@ event:
     graph LR
         0:startevent:((startevent)) --> 1:task:(Budgetantrag erstellen)
         1:task:(Budgetantrag erstellen) --> 2:task:(Budgetantrag an Krankenkasse senden)
-        2:task:(Budgetantrag an Krankenkasse senden) --> 3:task:(Krankenkasse prÃ¼ft Budgetantrag)
-        3:task:(Krankenkasse prÃ¼ft Budgetantrag) --> 4:exclusivegateway:{x}
+        2:task:(Budgetantrag an Krankenkasse senden) --> 3:task:(Krankenkasse prüft Budgetantrag)
+        3:task:(Krankenkasse prüft Budgetantrag) --> 4:exclusivegateway:{x}
         4:exclusivegateway:{x} --> |Genehmigt| 7:task:(Budget genehmigen)
-        4:exclusivegateway:{x} --> |Abgelehnt| 5:task:(Nachverhandlungen fÃ¼hren)
-        5:task:(Nachverhandlungen fÃ¼hren) --> 6:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Abgelehnt| 5:task:(Nachverhandlungen führen)
+        5:task:(Nachverhandlungen führen) --> 6:exclusivegateway:{x}
         6:exclusivegateway:{x} --> |Einigung erzielt| 7:task:(Budget genehmigen)
         6:exclusivegateway:{x} --> |Keine Einigung| 8:task:(Schiedsverfahren einleiten)
         7:task:(Budget genehmigen) --> 9:exclusivegateway:{x}
@@ -355,7 +355,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Krankenkasse prÃ¼ft Budgetantrag</label>
+          <label>Krankenkasse prüft Budgetantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -375,7 +375,7 @@ event:
         <alternative condition="Abgelehnt" language="text/javascript">
           <call id="a11" endpoint="" a:alt_id="5">
             <parameters>
-              <label>Nachverhandlungen fÃ¼hren</label>
+              <label>Nachverhandlungen führen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -519,15 +519,15 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Budgetantrag erstellen)
     a1:task:(Budgetantrag erstellen)-->a3:task:(Budgetantrag an Krankenkasse senden)
-    a3:task:(Budgetantrag an Krankenkasse senden)-->a5:task:(Krankenkasse prÃ¼ft Budgetantrag)
-    a5:task:(Krankenkasse prÃ¼ft Budgetantrag)-->gw1s:exclusivegateway:{x}
+    a3:task:(Budgetantrag an Krankenkasse senden)-->a5:task:(Krankenkasse prüft Budgetantrag)
+    a5:task:(Krankenkasse prüft Budgetantrag)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Budget genehmigen)
     a9:task:(Budget genehmigen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Nachverhandlungen fÃ¼hren)
-    a11:task:(Nachverhandlungen fÃ¼hren)-->gw3s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Nachverhandlungen führen)
+    a11:task:(Nachverhandlungen führen)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->|"Einigung erzielt"|a9:task:(Budget genehmigen)
     a9:task:(Budget genehmigen)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
@@ -578,12 +578,12 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Budgetantrag erstellen)
     a1:task:(Budgetantrag erstellen)-->a3:task:(Budgetantrag an Krankenkasse senden)
-    a3:task:(Budgetantrag an Krankenkasse senden)-->a5:task:(Krankenkasse prÃ¼ft Budgetantrag)
-    a5:task:(Krankenkasse prÃ¼ft Budgetantrag)-->gw1s:exclusivegateway:{x}
+    a3:task:(Budgetantrag an Krankenkasse senden)-->a5:task:(Krankenkasse prüft Budgetantrag)
+    a5:task:(Krankenkasse prüft Budgetantrag)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Genehmigt"|a9:task:(Budget genehmigen)
     a9:task:(Budget genehmigen)-->gw2e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Nachverhandlungen fÃ¼hren)
-    a11:task:(Nachverhandlungen fÃ¼hren)-->gw3s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Abgelehnt"|a11:task:(Nachverhandlungen führen)
+    a11:task:(Nachverhandlungen führen)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->|"Einigung erzielt"|a9:task:
     gw3s:exclusivegateway:{x}-->|"Keine Einigung"|a17:task:(Schiedsverfahren einleiten)
     a17:task:(Schiedsverfahren einleiten)-->gw3e:exclusivegateway:{x}

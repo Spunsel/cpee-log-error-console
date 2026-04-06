@@ -337,60 +337,60 @@ event:
     # User Input:
     Spaghetti Napoli
 
-    Â 
+     
 
-    Â  Â  KÃ¼che betreten
-    Â  Â  Rezept raussuchen
-    Â  Â  Zutaten zurechtlegen
-    Â  Â  Â  Â  Spaghetti
-    Â  Â  Â  Â  Passierte Tomaten
-    Â  Â  Â  Â  Knoblauch
-    Â  Â  Â  Â  Zwiebeln
-    Â  Â  Â  Â  Parmesan
-    Â  Â  Â  Â  GewÃ¼rze
-    Â  Â  Â  Â  Wasser + Salz
-    Â  Â  Â  Â  Ã–l
-    Â  Â  Â  Â  GemÃ¼sebrÃ¼he
-    Â  Â  Kochutensilien bereitlegen
-    Â  Â  Â  Â  Topf
-    Â  Â  Â  Â  Topf
-    Â  Â  Â  Â  Brett
-    Â  Â  Â  Â  Messer
-    Â  Â  Â  Â  KochlÃ¶ffel
-    Â  Â  Â  Â  Nudelsieb
-    Â  Â  Â  Â  NudelschÃ¶pflÃ¶ffel
-    Â  Â  Herdplatte 1 anschalten
-    Â  Â  Nudelwasser aufsetzen
-    Â  Â  Zwiebel schneiden
-    Â  Â  Knoblauch schneiden
-    Â  Â  Herdplatte 2 anschalten
-    Â  Â  Ã–l erhitzen
-    Â  Â  Zwiebeln anschwitzen
-    Â  Â  Knoblauch andÃ¼nsten
-    Â  Â  Mit passierten Tomaten ablÃ¶schen
-    Â  Â  GemÃ¼sebrÃ¼he hinzufÃ¼gen
-    Â  Â  Nudelwasser salzen
-    Â  Â  Nudeln in Nudelwasser geben
-    Â  Â  Timer auf 7 min
-    Â  Â  SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer
-    Â  Â  SoÃŸe abschmecken
-    Â  Â  Herd 2 runterdrehen
-    Â  Â  SoÃŸe kÃ¶cheln lassen
-    Â  Â  Teller und Besteck aus den SchrÃ¤nken nehmen
-    Â  Â  Â  Â  Tiefe Teller
-    Â  Â  Â  Â  LÃ¶ffel und Gabel
-    Â  Â  Â  Â  SchÃ¶pfkelle fÃ¼r Sauce
-    Â  Â  Â  Â  Nudelkelle
-    Â  Â  Esszimmer betreten
-    Â  Â  Tisch decken
-    Â  Â  KÃ¼che betreten
-    Â  Â  Herdplatte 1 ausschalten
-    Â  Â  Nudeln in Nudelsieb abgieÃŸen
-    Â  Â  Herdplatte 2 ausschalten
-    Â  Â  Nudeln zur SoÃŸe
-    Â  Â  Topf ins Esszimmer stellen
-    Â  Â  Hinsetzen
-    Â  Â  Essen
+        Küche betreten
+        Rezept raussuchen
+        Zutaten zurechtlegen
+            Spaghetti
+            Passierte Tomaten
+            Knoblauch
+            Zwiebeln
+            Parmesan
+            Gewürze
+            Wasser + Salz
+            �l
+            Gemüsebrühe
+        Kochutensilien bereitlegen
+            Topf
+            Topf
+            Brett
+            Messer
+            Kochlöffel
+            Nudelsieb
+            Nudelschöpflöffel
+        Herdplatte 1 anschalten
+        Nudelwasser aufsetzen
+        Zwiebel schneiden
+        Knoblauch schneiden
+        Herdplatte 2 anschalten
+        �l erhitzen
+        Zwiebeln anschwitzen
+        Knoblauch andünsten
+        Mit passierten Tomaten ablöschen
+        Gemüsebrühe hinzufügen
+        Nudelwasser salzen
+        Nudeln in Nudelwasser geben
+        Timer auf 7 min
+        Soße würzen mit Kräutern und Salz & Pfeffer
+        Soße abschmecken
+        Herd 2 runterdrehen
+        Soße köcheln lassen
+        Teller und Besteck aus den Schränken nehmen
+            Tiefe Teller
+            Löffel und Gabel
+            Schöpfkelle für Sauce
+            Nudelkelle
+        Esszimmer betreten
+        Tisch decken
+        Küche betreten
+        Herdplatte 1 ausschalten
+        Nudeln in Nudelsieb abgießen
+        Herdplatte 2 ausschalten
+        Nudeln zur Soße
+        Topf ins Esszimmer stellen
+        Hinsetzen
+        Essen
   time:timestamp: '2025-12-10T10:36:45.727014+01:00'
 ---
 event:
@@ -429,8 +429,8 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-      0:startevent:((startevent)) --> 1:task:(KÃ¼che betreten)
-      1:task:(KÃ¼che betreten) --> 2:task:(Rezept raussuchen)
+      0:startevent:((startevent)) --> 1:task:(Küche betreten)
+      1:task:(Küche betreten) --> 2:task:(Rezept raussuchen)
       2:task:(Rezept raussuchen) --> 3:task:(Zutaten zurechtlegen)
       3:task:(Zutaten zurechtlegen) --> 4:task:(Kochutensilien bereitlegen)
       4:task:(Kochutensilien bereitlegen) --> 5:task:(Herdplatte 1 anschalten)
@@ -438,27 +438,27 @@ event:
       6:task:(Nudelwasser aufsetzen) --> 7:task:(Zwiebel schneiden)
       7:task:(Zwiebel schneiden) --> 8:task:(Knoblauch schneiden)
       8:task:(Knoblauch schneiden) --> 9:task:(Herdplatte 2 anschalten)
-      9:task:(Herdplatte 2 anschalten) --> 10:task:(Ã–l erhitzen)
-      10:task:(Ã–l erhitzen) --> 11:task:(Zwiebeln anschwitzen)
-      11:task:(Zwiebeln anschwitzen) --> 12:task:(Knoblauch andÃ¼nsten)
-      12:task:(Knoblauch andÃ¼nsten) --> 13:task:(Mit passierten Tomaten ablÃ¶schen)
-      13:task:(Mit passierten Tomaten ablÃ¶schen) --> 14:task:(GemÃ¼sebrÃ¼he hinzufÃ¼gen)
-      14:task:(GemÃ¼sebrÃ¼he hinzufÃ¼gen) --> 15:task:(Nudelwasser salzen)
+      9:task:(Herdplatte 2 anschalten) --> 10:task:(�l erhitzen)
+      10:task:(�l erhitzen) --> 11:task:(Zwiebeln anschwitzen)
+      11:task:(Zwiebeln anschwitzen) --> 12:task:(Knoblauch andünsten)
+      12:task:(Knoblauch andünsten) --> 13:task:(Mit passierten Tomaten ablöschen)
+      13:task:(Mit passierten Tomaten ablöschen) --> 14:task:(Gemüsebrühe hinzufügen)
+      14:task:(Gemüsebrühe hinzufügen) --> 15:task:(Nudelwasser salzen)
       15:task:(Nudelwasser salzen) --> 16:task:(Nudeln in Nudelwasser geben)
       16:task:(Nudeln in Nudelwasser geben) --> 17:task:(Timer auf 7 min)
-      17:task:(Timer auf 7 min) --> 18:task:(SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer)
-      18:task:(SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer) --> 19:task:(SoÃŸe abschmecken)
-      19:task:(SoÃŸe abschmecken) --> 20:task:(Herd 2 runterdrehen)
-      20:task:(Herd 2 runterdrehen) --> 21:task:(SoÃŸe kÃ¶cheln lassen)
-      21:task:(SoÃŸe kÃ¶cheln lassen) --> 22:task:(Teller und Besteck aus den SchrÃ¤nken nehmen)
-      22:task:(Teller und Besteck aus den SchrÃ¤nken nehmen) --> 23:task:(Esszimmer betreten)
+      17:task:(Timer auf 7 min) --> 18:task:(Soße würzen mit Kräutern und Salz & Pfeffer)
+      18:task:(Soße würzen mit Kräutern und Salz & Pfeffer) --> 19:task:(Soße abschmecken)
+      19:task:(Soße abschmecken) --> 20:task:(Herd 2 runterdrehen)
+      20:task:(Herd 2 runterdrehen) --> 21:task:(Soße köcheln lassen)
+      21:task:(Soße köcheln lassen) --> 22:task:(Teller und Besteck aus den Schränken nehmen)
+      22:task:(Teller und Besteck aus den Schränken nehmen) --> 23:task:(Esszimmer betreten)
       23:task:(Esszimmer betreten) --> 24:task:(Tisch decken)
-      24:task:(Tisch decken) --> 25:task:(KÃ¼che betreten)
-      25:task:(KÃ¼che betreten) --> 26:task:(Herdplatte 1 ausschalten)
-      26:task:(Herdplatte 1 ausschalten) --> 27:task:(Nudeln in Nudelsieb abgieÃŸen)
-      27:task:(Nudeln in Nudelsieb abgieÃŸen) --> 28:task:(Herdplatte 2 ausschalten)
-      28:task:(Herdplatte 2 ausschalten) --> 29:task:(Nudeln zur SoÃŸe)
-      29:task:(Nudeln zur SoÃŸe) --> 30:task:(Topf ins Esszimmer stellen)
+      24:task:(Tisch decken) --> 25:task:(Küche betreten)
+      25:task:(Küche betreten) --> 26:task:(Herdplatte 1 ausschalten)
+      26:task:(Herdplatte 1 ausschalten) --> 27:task:(Nudeln in Nudelsieb abgießen)
+      27:task:(Nudeln in Nudelsieb abgießen) --> 28:task:(Herdplatte 2 ausschalten)
+      28:task:(Herdplatte 2 ausschalten) --> 29:task:(Nudeln zur Soße)
+      29:task:(Nudeln zur Soße) --> 30:task:(Topf ins Esszimmer stellen)
       30:task:(Topf ins Esszimmer stellen) --> 31:task:(Hinsetzen)
       31:task:(Hinsetzen) --> 32:task:(Essen)
       32:task:(Essen) --> 33:endevent:(((endevent)))
@@ -763,7 +763,7 @@ event:
       xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>KÃ¼che betreten</label>
+          <label>Küche betreten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -835,7 +835,7 @@ event:
       </call>
       <call id="a19" endpoint="" a:alt_id="10">
         <parameters>
-          <label>Ã–l erhitzen</label>
+          <label>�l erhitzen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -851,7 +851,7 @@ event:
       </call>
       <call id="a23" endpoint="" a:alt_id="12">
         <parameters>
-          <label>Knoblauch andÃ¼nsten</label>
+          <label>Knoblauch andünsten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -859,7 +859,7 @@ event:
       </call>
       <call id="a25" endpoint="" a:alt_id="13">
         <parameters>
-          <label>Mit passierten Tomaten ablÃ¶schen</label>
+          <label>Mit passierten Tomaten ablöschen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -867,7 +867,7 @@ event:
       </call>
       <call id="a27" endpoint="" a:alt_id="14">
         <parameters>
-          <label>GemÃ¼sebrÃ¼he hinzufÃ¼gen</label>
+          <label>Gemüsebrühe hinzufügen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -899,7 +899,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="18">
         <parameters>
-          <label>SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz &amp; Pfeffer</label>
+          <label>Soße würzen mit Kräutern und Salz &amp; Pfeffer</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -907,7 +907,7 @@ event:
       </call>
       <call id="a37" endpoint="" a:alt_id="19">
         <parameters>
-          <label>SoÃŸe abschmecken</label>
+          <label>Soße abschmecken</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -923,7 +923,7 @@ event:
       </call>
       <call id="a41" endpoint="" a:alt_id="21">
         <parameters>
-          <label>SoÃŸe kÃ¶cheln lassen</label>
+          <label>Soße köcheln lassen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -931,7 +931,7 @@ event:
       </call>
       <call id="a43" endpoint="" a:alt_id="22">
         <parameters>
-          <label>Teller und Besteck aus den SchrÃ¤nken nehmen</label>
+          <label>Teller und Besteck aus den Schränken nehmen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -955,7 +955,7 @@ event:
       </call>
       <call id="a49" endpoint="" a:alt_id="25">
         <parameters>
-          <label>KÃ¼che betreten</label>
+          <label>Küche betreten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -971,7 +971,7 @@ event:
       </call>
       <call id="a53" endpoint="" a:alt_id="27">
         <parameters>
-          <label>Nudeln in Nudelsieb abgieÃŸen</label>
+          <label>Nudeln in Nudelsieb abgießen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -987,7 +987,7 @@ event:
       </call>
       <call id="a57" endpoint="" a:alt_id="29">
         <parameters>
-          <label>Nudeln zur SoÃŸe</label>
+          <label>Nudeln zur Soße</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1030,7 +1030,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche alles
+    lösche alles
   time:timestamp: '2025-12-10T10:37:46.992003+01:00'
 ---
 event:
@@ -1057,8 +1057,8 @@ event:
   cpee:exposition: |-
     %% Input Intermediate
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(KÃ¼che betreten)
-    a1:task:(KÃ¼che betreten)-->a3:task:(Rezept raussuchen)
+    se:startevent:((startevent))-->a1:task:(Küche betreten)
+    a1:task:(Küche betreten)-->a3:task:(Rezept raussuchen)
     a3:task:(Rezept raussuchen)-->a5:task:(Zutaten zurechtlegen)
     a5:task:(Zutaten zurechtlegen)-->a7:task:(Kochutensilien bereitlegen)
     a7:task:(Kochutensilien bereitlegen)-->a9:task:(Herdplatte 1 anschalten)
@@ -1066,27 +1066,27 @@ event:
     a11:task:(Nudelwasser aufsetzen)-->a13:task:(Zwiebel schneiden)
     a13:task:(Zwiebel schneiden)-->a15:task:(Knoblauch schneiden)
     a15:task:(Knoblauch schneiden)-->a17:task:(Herdplatte 2 anschalten)
-    a17:task:(Herdplatte 2 anschalten)-->a19:task:(Ã–l erhitzen)
-    a19:task:(Ã–l erhitzen)-->a21:task:(Zwiebeln anschwitzen)
-    a21:task:(Zwiebeln anschwitzen)-->a23:task:(Knoblauch andÃ¼nsten)
-    a23:task:(Knoblauch andÃ¼nsten)-->a25:task:(Mit passierten Tomaten ablÃ¶schen)
-    a25:task:(Mit passierten Tomaten ablÃ¶schen)-->a27:task:(GemÃ¼sebrÃ¼he hinzufÃ¼gen)
-    a27:task:(GemÃ¼sebrÃ¼he hinzufÃ¼gen)-->a29:task:(Nudelwasser salzen)
+    a17:task:(Herdplatte 2 anschalten)-->a19:task:(�l erhitzen)
+    a19:task:(�l erhitzen)-->a21:task:(Zwiebeln anschwitzen)
+    a21:task:(Zwiebeln anschwitzen)-->a23:task:(Knoblauch andünsten)
+    a23:task:(Knoblauch andünsten)-->a25:task:(Mit passierten Tomaten ablöschen)
+    a25:task:(Mit passierten Tomaten ablöschen)-->a27:task:(Gemüsebrühe hinzufügen)
+    a27:task:(Gemüsebrühe hinzufügen)-->a29:task:(Nudelwasser salzen)
     a29:task:(Nudelwasser salzen)-->a31:task:(Nudeln in Nudelwasser geben)
     a31:task:(Nudeln in Nudelwasser geben)-->a33:task:(Timer auf 7 min)
-    a33:task:(Timer auf 7 min)-->a35:task:(SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer)
-    a35:task:(SoÃŸe wÃ¼rzen mit KrÃ¤utern und Salz & Pfeffer)-->a37:task:(SoÃŸe abschmecken)
-    a37:task:(SoÃŸe abschmecken)-->a39:task:(Herd 2 runterdrehen)
-    a39:task:(Herd 2 runterdrehen)-->a41:task:(SoÃŸe kÃ¶cheln lassen)
-    a41:task:(SoÃŸe kÃ¶cheln lassen)-->a43:task:(Teller und Besteck aus den SchrÃ¤nken nehmen)
-    a43:task:(Teller und Besteck aus den SchrÃ¤nken nehmen)-->a45:task:(Esszimmer betreten)
+    a33:task:(Timer auf 7 min)-->a35:task:(Soße würzen mit Kräutern und Salz & Pfeffer)
+    a35:task:(Soße würzen mit Kräutern und Salz & Pfeffer)-->a37:task:(Soße abschmecken)
+    a37:task:(Soße abschmecken)-->a39:task:(Herd 2 runterdrehen)
+    a39:task:(Herd 2 runterdrehen)-->a41:task:(Soße köcheln lassen)
+    a41:task:(Soße köcheln lassen)-->a43:task:(Teller und Besteck aus den Schränken nehmen)
+    a43:task:(Teller und Besteck aus den Schränken nehmen)-->a45:task:(Esszimmer betreten)
     a45:task:(Esszimmer betreten)-->a47:task:(Tisch decken)
-    a47:task:(Tisch decken)-->a49:task:(KÃ¼che betreten)
-    a49:task:(KÃ¼che betreten)-->a51:task:(Herdplatte 1 ausschalten)
-    a51:task:(Herdplatte 1 ausschalten)-->a53:task:(Nudeln in Nudelsieb abgieÃŸen)
-    a53:task:(Nudeln in Nudelsieb abgieÃŸen)-->a55:task:(Herdplatte 2 ausschalten)
-    a55:task:(Herdplatte 2 ausschalten)-->a57:task:(Nudeln zur SoÃŸe)
-    a57:task:(Nudeln zur SoÃŸe)-->a59:task:(Topf ins Esszimmer stellen)
+    a47:task:(Tisch decken)-->a49:task:(Küche betreten)
+    a49:task:(Küche betreten)-->a51:task:(Herdplatte 1 ausschalten)
+    a51:task:(Herdplatte 1 ausschalten)-->a53:task:(Nudeln in Nudelsieb abgießen)
+    a53:task:(Nudeln in Nudelsieb abgießen)-->a55:task:(Herdplatte 2 ausschalten)
+    a55:task:(Herdplatte 2 ausschalten)-->a57:task:(Nudeln zur Soße)
+    a57:task:(Nudeln zur Soße)-->a59:task:(Topf ins Esszimmer stellen)
     a59:task:(Topf ins Esszimmer stellen)-->a61:task:(Hinsetzen)
     a61:task:(Hinsetzen)-->a63:task:(Essen)
     a63:task:(Essen)-->ee:endevent:((endevent))
@@ -1244,15 +1244,15 @@ event:
   cpee:change_uuid: 642518c719ff3334d3322a078a119f3aac21df47
   cpee:exposition: |+
     # User Input:
-    Ziel: Spaghetti Napoli kochen fÃ¼r zwei Personen, Zeitbedarf ca. 30 Minuten
-    Folgende Zutaten werden benÃ¶tigt: 2 Dosentomaten (2 Dosen Ã  250 Gramm, gehackt), jeweils eine Prise Salz, Pfeffer, KrÃ¤uter (Oregano), Tomatenmark (2 EsslÃ¶ffel), Ã–l (2 EsslÃ¶ffel), Zwiebel (eine kleine Zwiebel), Knoblauch (1 Zehe), Nudeln (Spaghetti, 250 Gramm).
-    Folgende Utensilien werden benÃ¶tigt: Kochtopf fÃ¼r 2 Liter (Nudeln), Kochtopf fÃ¼r SoÃŸe fÃ¼r 1 Liter, RÃ¼hrlÃ¶ffel, Schneidemesser, Nudelsieb, Pastateller, Besteck (Gabel, LÃ¶ffel), Servietten, GlÃ¤ser
-    In der KÃ¼che
-    FÃ¼r die Zubereitung der SoÃŸe werden die Zwiebeln und der Knoblauch fein gehackt und in Ã–l im Kochtopf angedÃ¼nstet. Tomatenmark hinzufÃ¼gen und mit andÃ¼nsten. Mit den gehackten Tomaten aus der Dose auffÃ¼llen und wÃ¼rzen (Salz, Pfeffer, KrÃ¤uter). Die SoÃŸe 30 Minuten bei niedriger Hitze kÃ¶cheln, ggf nach dieser Zeit nachwÃ¼rzen oder pÃ¼rieren (je nach Geschmack). In der Zwischenzeit im Nudeltopf 2 Liter Wasser leicht salzen und zum Kochen bringen. Nudeln nach Anweisung (je nach Herstellerangaben auf der Verpackung) kochen. Nach Kochzeit absieben. Nudeln (je nach Belieben) nochmals in Butter schwenken.Â 
+    Ziel: Spaghetti Napoli kochen für zwei Personen, Zeitbedarf ca. 30 Minuten
+    Folgende Zutaten werden benötigt: 2 Dosentomaten (2 Dosen à 250 Gramm, gehackt), jeweils eine Prise Salz, Pfeffer, Kräuter (Oregano), Tomatenmark (2 Esslöffel), �l (2 Esslöffel), Zwiebel (eine kleine Zwiebel), Knoblauch (1 Zehe), Nudeln (Spaghetti, 250 Gramm).
+    Folgende Utensilien werden benötigt: Kochtopf für 2 Liter (Nudeln), Kochtopf für Soße für 1 Liter, Rührlöffel, Schneidemesser, Nudelsieb, Pastateller, Besteck (Gabel, Löffel), Servietten, Gläser
+    In der Küche
+    Für die Zubereitung der Soße werden die Zwiebeln und der Knoblauch fein gehackt und in �l im Kochtopf angedünstet. Tomatenmark hinzufügen und mit andünsten. Mit den gehackten Tomaten aus der Dose auffüllen und würzen (Salz, Pfeffer, Kräuter). Die Soße 30 Minuten bei niedriger Hitze köcheln, ggf nach dieser Zeit nachwürzen oder pürieren (je nach Geschmack). In der Zwischenzeit im Nudeltopf 2 Liter Wasser leicht salzen und zum Kochen bringen. Nudeln nach Anweisung (je nach Herstellerangaben auf der Verpackung) kochen. Nach Kochzeit absieben. Nudeln (je nach Belieben) nochmals in Butter schwenken. 
 
     Servieren am Tisch
-    Tisch mit 2 Pastatellern, Besteck (2x Gabel und 2x LÃ¶ffel), GlÃ¤ser, Servietten decken. Nudeln in SchÃ¼ssel mit Nudelzange versehen und auf den Tisch stellen.
-    SoÃŸe in SchÃ¼ssel mit SchÃ¶pflÃ¶ffel auf den Tisch stellen.Â 
+    Tisch mit 2 Pastatellern, Besteck (2x Gabel und 2x Löffel), Gläser, Servietten decken. Nudeln in Schüssel mit Nudelzange versehen und auf den Tisch stellen.
+    Soße in Schüssel mit Schöpflöffel auf den Tisch stellen. 
 
 
 
@@ -1296,8 +1296,8 @@ event:
     ```mermaid
     graph LR
       0:startevent:((startevent)) --> 1:task:(Prepare Ingredients)
-      1:task:(Prepare Ingredients) --> 2:task:(SautÃ© Onion and Garlic)
-      2:task:(SautÃ© Onion and Garlic) --> 3:task:(Add Tomato Paste)
+      1:task:(Prepare Ingredients) --> 2:task:(Sauté Onion and Garlic)
+      2:task:(Sauté Onion and Garlic) --> 3:task:(Add Tomato Paste)
       3:task:(Add Tomato Paste) --> 4:task:(Add Canned Tomatoes and Spices)
       4:task:(Add Canned Tomatoes and Spices) --> 5:task:(Simmer Sauce)
       5:task:(Simmer Sauce) --> 6:task:(Boil Water)
@@ -1532,7 +1532,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>SautÃ© Onion and Garlic</label>
+          <label>Sauté Onion and Garlic</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1648,8 +1648,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Prepare Ingredients)
-    a1:task:(Prepare Ingredients)-->a3:task:(SautÃ© Onion and Garlic)
-    a3:task:(SautÃ© Onion and Garlic)-->a5:task:(Add Tomato Paste)
+    a1:task:(Prepare Ingredients)-->a3:task:(Sauté Onion and Garlic)
+    a3:task:(Sauté Onion and Garlic)-->a5:task:(Add Tomato Paste)
     a5:task:(Add Tomato Paste)-->a7:task:(Add Canned Tomatoes and Spices)
     a7:task:(Add Canned Tomatoes and Spices)-->a9:task:(Simmer Sauce)
     a9:task:(Simmer Sauce)-->gw1s:exclusivegateway:{x}
@@ -1677,18 +1677,18 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Zutaten vorbereiten)
     a1:task:(Zutaten vorbereiten)-->a3:task:(Zwiebel und Knoblauch anbraten)
-    a3:task:(Zwiebel und Knoblauch anbraten)-->a5:task:(Tomatenmark hinzufÃ¼gen)
-    a5:task:(Tomatenmark hinzufÃ¼gen)-->a7:task:(Dosentomaten und GewÃ¼rze hinzufÃ¼gen)
-    a7:task:(Dosentomaten und GewÃ¼rze hinzufÃ¼gen)-->a9:task:(SoÃŸe kÃ¶cheln lassen)
-    a9:task:(SoÃŸe kÃ¶cheln lassen)-->gw1s:exclusivegateway:{x}
+    a3:task:(Zwiebel und Knoblauch anbraten)-->a5:task:(Tomatenmark hinzufügen)
+    a5:task:(Tomatenmark hinzufügen)-->a7:task:(Dosentomaten und Gewürze hinzufügen)
+    a7:task:(Dosentomaten und Gewürze hinzufügen)-->a9:task:(Soße köcheln lassen)
+    a9:task:(Soße köcheln lassen)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|""|a11:task:(Wasser kochen)
     a11:task:(Wasser kochen)-->a13:task:(Pasta kochen)
-    a13:task:(Pasta kochen)-->a15:task:(Pasta abgieÃŸen)
-    a15:task:(Pasta abgieÃŸen)-->gw1e:exclusivegateway:{x}
+    a13:task:(Pasta kochen)-->a15:task:(Pasta abgießen)
+    a15:task:(Pasta abgießen)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|""|gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a21:task:(Tisch decken)
-    a21:task:(Tisch decken)-->a23:task:(Pasta und SoÃŸe auf den Tisch stellen)
-    a23:task:(Pasta und SoÃŸe auf den Tisch stellen)-->ee:endevent:((endevent))
+    a21:task:(Tisch decken)-->a23:task:(Pasta und Soße auf den Tisch stellen)
+    a23:task:(Pasta und Soße auf den Tisch stellen)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2025-12-10T10:38:39.287721+01:00'
 ---
@@ -1835,7 +1835,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="a5">
         <parameters>
-          <label>Tomatenmark hinzufÃ¼gen</label>
+          <label>Tomatenmark hinzufügen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1843,7 +1843,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Dosentomaten und GewÃ¼rze hinzufÃ¼gen</label>
+          <label>Dosentomaten und Gewürze hinzufügen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1851,7 +1851,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a9">
         <parameters>
-          <label>SoÃŸe kÃ¶cheln lassen</label>
+          <label>Soße köcheln lassen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1877,7 +1877,7 @@ event:
           </call>
           <call id="a17" endpoint="" a:alt_id="a15">
             <parameters>
-              <label>Pasta abgieÃŸen</label>
+              <label>Pasta abgießen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1896,7 +1896,7 @@ event:
       </call>
       <call id="a25" endpoint="" a:alt_id="a23">
         <parameters>
-          <label>Pasta und SoÃŸe auf den Tisch stellen</label>
+          <label>Pasta und Soße auf den Tisch stellen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1915,7 +1915,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche alles
+    lösche alles
   time:timestamp: '2025-12-10T10:39:31.922965+01:00'
 ---
 event:
@@ -1944,18 +1944,18 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Zutaten vorbereiten)
     a1:task:(Zutaten vorbereiten)-->a3:task:(Zwiebel und Knoblauch anbraten)
-    a3:task:(Zwiebel und Knoblauch anbraten)-->a5:task:(Tomatenmark hinzufÃ¼gen)
-    a5:task:(Tomatenmark hinzufÃ¼gen)-->a7:task:(Dosentomaten und GewÃ¼rze hinzufÃ¼gen)
-    a7:task:(Dosentomaten und GewÃ¼rze hinzufÃ¼gen)-->a9:task:(SoÃŸe kÃ¶cheln lassen)
-    a9:task:(SoÃŸe kÃ¶cheln lassen)-->gw1s:exclusivegateway:{x}
+    a3:task:(Zwiebel und Knoblauch anbraten)-->a5:task:(Tomatenmark hinzufügen)
+    a5:task:(Tomatenmark hinzufügen)-->a7:task:(Dosentomaten und Gewürze hinzufügen)
+    a7:task:(Dosentomaten und Gewürze hinzufügen)-->a9:task:(Soße köcheln lassen)
+    a9:task:(Soße köcheln lassen)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|""|a13:task:(Wasser kochen)
     a13:task:(Wasser kochen)-->a15:task:(Pasta kochen)
-    a15:task:(Pasta kochen)-->a17:task:(Pasta abgieÃŸen)
-    a17:task:(Pasta abgieÃŸen)-->gw1e:exclusivegateway:{x}
+    a15:task:(Pasta kochen)-->a17:task:(Pasta abgießen)
+    a17:task:(Pasta abgießen)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|""|gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a23:task:(Tisch decken)
-    a23:task:(Tisch decken)-->a25:task:(Pasta und SoÃŸe auf den Tisch stellen)
-    a25:task:(Pasta und SoÃŸe auf den Tisch stellen)-->ee:endevent:((endevent))
+    a23:task:(Tisch decken)-->a25:task:(Pasta und Soße auf den Tisch stellen)
+    a25:task:(Pasta und Soße auf den Tisch stellen)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T10:39:31.923175+01:00'
 ---
 event:
@@ -2131,15 +2131,15 @@ event:
   cpee:change_uuid: da68f2c0919523f06af3dd333d015c7162dd1262
   cpee:exposition: |+
     # User Input:
-    Ziel: Spaghetti Napoli kochen fÃ¼r zwei Personen, Zeitbedarf ca. 30 Minuten
-    Folgende Zutaten werden benÃ¶tigt: 2 Dosentomaten (2 Dosen Ã  250 Gramm, gehackt), jeweils eine Prise Salz, Pfeffer, KrÃ¤uter (Oregano), Tomatenmark (2 EsslÃ¶ffel), Ã–l (2 EsslÃ¶ffel), Zwiebel (eine kleine Zwiebel), Knoblauch (1 Zehe), Nudeln (Spaghetti, 250 Gramm).
-    Folgende Utensilien werden benÃ¶tigt: Kochtopf fÃ¼r 2 Liter (Nudeln), Kochtopf fÃ¼r SoÃŸe fÃ¼r 1 Liter, RÃ¼hrlÃ¶ffel, Schneidemesser, Nudelsieb, Pastateller, Besteck (Gabel, LÃ¶ffel), Servietten, GlÃ¤ser
-    In der KÃ¼che
-    FÃ¼r die Zubereitung der SoÃŸe werden die Zwiebeln und der Knoblauch fein gehackt und in Ã–l im Kochtopf angedÃ¼nstet. Tomatenmark hinzufÃ¼gen und mit andÃ¼nsten. Mit den gehackten Tomaten aus der Dose auffÃ¼llen und wÃ¼rzen (Salz, Pfeffer, KrÃ¤uter). Die SoÃŸe 30 Minuten bei niedriger Hitze kÃ¶cheln, ggf nach dieser Zeit nachwÃ¼rzen oder pÃ¼rieren (je nach Geschmack). In der Zwischenzeit im Nudeltopf 2 Liter Wasser leicht salzen und zum Kochen bringen. Nudeln nach Anweisung (je nach Herstellerangaben auf der Verpackung) kochen. Nach Kochzeit absieben. Nudeln (je nach Belieben) nochmals in Butter schwenken.Â 
+    Ziel: Spaghetti Napoli kochen für zwei Personen, Zeitbedarf ca. 30 Minuten
+    Folgende Zutaten werden benötigt: 2 Dosentomaten (2 Dosen à 250 Gramm, gehackt), jeweils eine Prise Salz, Pfeffer, Kräuter (Oregano), Tomatenmark (2 Esslöffel), �l (2 Esslöffel), Zwiebel (eine kleine Zwiebel), Knoblauch (1 Zehe), Nudeln (Spaghetti, 250 Gramm).
+    Folgende Utensilien werden benötigt: Kochtopf für 2 Liter (Nudeln), Kochtopf für Soße für 1 Liter, Rührlöffel, Schneidemesser, Nudelsieb, Pastateller, Besteck (Gabel, Löffel), Servietten, Gläser
+    In der Küche
+    Für die Zubereitung der Soße werden die Zwiebeln und der Knoblauch fein gehackt und in �l im Kochtopf angedünstet. Tomatenmark hinzufügen und mit andünsten. Mit den gehackten Tomaten aus der Dose auffüllen und würzen (Salz, Pfeffer, Kräuter). Die Soße 30 Minuten bei niedriger Hitze köcheln, ggf nach dieser Zeit nachwürzen oder pürieren (je nach Geschmack). In der Zwischenzeit im Nudeltopf 2 Liter Wasser leicht salzen und zum Kochen bringen. Nudeln nach Anweisung (je nach Herstellerangaben auf der Verpackung) kochen. Nach Kochzeit absieben. Nudeln (je nach Belieben) nochmals in Butter schwenken. 
 
     Servieren am Tisch
-    Tisch mit 2 Pastatellern, Besteck (2x Gabel und 2x LÃ¶ffel), GlÃ¤ser, Servietten decken. Nudeln in SchÃ¼ssel mit Nudelzange versehen und auf den Tisch stellen.
-    SoÃŸe in SchÃ¼ssel mit SchÃ¶pflÃ¶ffel auf den Tisch stellen.Â 
+    Tisch mit 2 Pastatellern, Besteck (2x Gabel und 2x Löffel), Gläser, Servietten decken. Nudeln in Schüssel mit Nudelzange versehen und auf den Tisch stellen.
+    Soße in Schüssel mit Schöpflöffel auf den Tisch stellen. 
 
 
 
@@ -2183,8 +2183,8 @@ event:
     graph LR
       0:startevent:((Start))
       1:task:(Chop Onion and Garlic)
-      2:task:(SautÃ© Onion and Garlic in Oil)
-      3:task:(Add Tomato Paste and SautÃ©)
+      2:task:(Sauté Onion and Garlic in Oil)
+      3:task:(Add Tomato Paste and Sauté)
       4:task:(Add Chopped Tomatoes and Season)
       5:task:(Simmer Sauce for 30 Minutes)
       6:parallelgateway:{AND}
@@ -2199,9 +2199,9 @@ event:
       15:endevent:(((End)))
 
       0:startevent:((Start)) --> 1:task:(Chop Onion and Garlic)
-      1:task:(Chop Onion and Garlic) --> 2:task:(SautÃ© Onion and Garlic in Oil)
-      2:task:(SautÃ© Onion and Garlic in Oil) --> 3:task:(Add Tomato Paste and SautÃ©)
-      3:task:(Add Tomato Paste and SautÃ©) --> 4:task:(Add Chopped Tomatoes and Season)
+      1:task:(Chop Onion and Garlic) --> 2:task:(Sauté Onion and Garlic in Oil)
+      2:task:(Sauté Onion and Garlic in Oil) --> 3:task:(Add Tomato Paste and Sauté)
+      3:task:(Add Tomato Paste and Sauté) --> 4:task:(Add Chopped Tomatoes and Season)
       4:task:(Add Chopped Tomatoes and Season) --> 5:task:(Simmer Sauce for 30 Minutes)
       5:task:(Simmer Sauce for 30 Minutes) --> 6:parallelgateway:{AND}
       6:parallelgateway:{AND} --> 7:task:(Boil Water with Salt)
@@ -2484,7 +2484,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>SautÃ© Onion and Garlic in Oil</label>
+          <label>Sauté Onion and Garlic in Oil</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2492,7 +2492,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Add Tomato Paste and SautÃ©</label>
+          <label>Add Tomato Paste and Sauté</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2623,9 +2623,9 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Chop Onion and Garlic)
-    a1:task:(Chop Onion and Garlic)-->a3:task:(SautÃ© Onion and Garlic in Oil)
-    a3:task:(SautÃ© Onion and Garlic in Oil)-->a5:task:(Add Tomato Paste and SautÃ©)
-    a5:task:(Add Tomato Paste and SautÃ©)-->a7:task:(Add Chopped Tomatoes and Season)
+    a1:task:(Chop Onion and Garlic)-->a3:task:(Sauté Onion and Garlic in Oil)
+    a3:task:(Sauté Onion and Garlic in Oil)-->a5:task:(Add Tomato Paste and Sauté)
+    a5:task:(Add Tomato Paste and Sauté)-->a7:task:(Add Chopped Tomatoes and Season)
     a7:task:(Add Chopped Tomatoes and Season)-->a9:task:(Simmer Sauce for 30 Minutes)
     a9:task:(Simmer Sauce for 30 Minutes)-->gw1s:parallelgateway:{AND}
     -->a13:task:(Boil Water with Salt)
@@ -2656,9 +2656,9 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->a1:task:(Chop Onion and Garlic)
-        a1:task:(Chop Onion and Garlic)-->a3:task:(SautÃ© Onion and Garlic in Oil)
-        a3:task:(SautÃ© Onion and Garlic in Oil)-->a5:task:(Add Tomato Paste and SautÃ©)
-        a5:task:(Add Tomato Paste and SautÃ©)-->a7:task:(Add Chopped Tomatoes and Season)
+        a1:task:(Chop Onion and Garlic)-->a3:task:(Sauté Onion and Garlic in Oil)
+        a3:task:(Sauté Onion and Garlic in Oil)-->a5:task:(Add Tomato Paste and Sauté)
+        a5:task:(Add Tomato Paste and Sauté)-->a7:task:(Add Chopped Tomatoes and Season)
         a7:task:(Add Chopped Tomatoes and Season)-->a9:task:(Simmer Sauce for 30 Minutes)
         a9:task:(Simmer Sauce for 30 Minutes)-->gw1s:parallelgateway:{AND}
         gw1s:parallelgateway:{AND}-->a13:task:(Boil Water with Salt)
@@ -2835,7 +2835,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>SautÃ© Onion and Garlic in Oil</label>
+          <label>Sauté Onion and Garlic in Oil</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2843,7 +2843,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="a5">
         <parameters>
-          <label>Add Tomato Paste and SautÃ©</label>
+          <label>Add Tomato Paste and Sauté</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2946,7 +2946,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche alles
+    lösche alles
   time:timestamp: '2025-12-10T10:41:15.032816+01:00'
 ---
 event:
@@ -2974,9 +2974,9 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Chop Onion and Garlic)
-    a1:task:(Chop Onion and Garlic)-->a3:task:(SautÃ© Onion and Garlic in Oil)
-    a3:task:(SautÃ© Onion and Garlic in Oil)-->a5:task:(Add Tomato Paste and SautÃ©)
-    a5:task:(Add Tomato Paste and SautÃ©)-->a7:task:(Add Chopped Tomatoes and Season)
+    a1:task:(Chop Onion and Garlic)-->a3:task:(Sauté Onion and Garlic in Oil)
+    a3:task:(Sauté Onion and Garlic in Oil)-->a5:task:(Add Tomato Paste and Sauté)
+    a5:task:(Add Tomato Paste and Sauté)-->a7:task:(Add Chopped Tomatoes and Season)
     a7:task:(Add Chopped Tomatoes and Season)-->a9:task:(Simmer Sauce for 30 Minutes)
     a9:task:(Simmer Sauce for 30 Minutes)-->gw1s:parallelgateway:{AND}
     -->a13:task:(Boil Water with Salt)
@@ -3179,15 +3179,15 @@ event:
   cpee:change_uuid: 1021d40154546250735ef4fce3fa4a2335ea92f7
   cpee:exposition: |+
     # User Input:
-    bitte labels des prozesses auf deutsch: Ziel: Spaghetti Napoli kochen fÃ¼r zwei Personen, Zeitbedarf ca. 30 Minuten
-    Folgende Zutaten werden benÃ¶tigt: 2 Dosentomaten (2 Dosen Ã  250 Gramm, gehackt), jeweils eine Prise Salz, Pfeffer, KrÃ¤uter (Oregano), Tomatenmark (2 EsslÃ¶ffel), Ã–l (2 EsslÃ¶ffel), Zwiebel (eine kleine Zwiebel), Knoblauch (1 Zehe), Nudeln (Spaghetti, 250 Gramm).
-    Folgende Utensilien werden benÃ¶tigt: Kochtopf fÃ¼r 2 Liter (Nudeln), Kochtopf fÃ¼r SoÃŸe fÃ¼r 1 Liter, RÃ¼hrlÃ¶ffel, Schneidemesser, Nudelsieb, Pastateller, Besteck (Gabel, LÃ¶ffel), Servietten, GlÃ¤ser
-    In der KÃ¼che
-    FÃ¼r die Zubereitung der SoÃŸe werden die Zwiebeln und der Knoblauch fein gehackt und in Ã–l im Kochtopf angedÃ¼nstet. Tomatenmark hinzufÃ¼gen und mit andÃ¼nsten. Mit den gehackten Tomaten aus der Dose auffÃ¼llen und wÃ¼rzen (Salz, Pfeffer, KrÃ¤uter). Die SoÃŸe 30 Minuten bei niedriger Hitze kÃ¶cheln, ggf nach dieser Zeit nachwÃ¼rzen oder pÃ¼rieren (je nach Geschmack). In der Zwischenzeit im Nudeltopf 2 Liter Wasser leicht salzen und zum Kochen bringen. Nudeln nach Anweisung (je nach Herstellerangaben auf der Verpackung) kochen. Nach Kochzeit absieben. Nudeln (je nach Belieben) nochmals in Butter schwenken.Â 
+    bitte labels des prozesses auf deutsch: Ziel: Spaghetti Napoli kochen für zwei Personen, Zeitbedarf ca. 30 Minuten
+    Folgende Zutaten werden benötigt: 2 Dosentomaten (2 Dosen à 250 Gramm, gehackt), jeweils eine Prise Salz, Pfeffer, Kräuter (Oregano), Tomatenmark (2 Esslöffel), �l (2 Esslöffel), Zwiebel (eine kleine Zwiebel), Knoblauch (1 Zehe), Nudeln (Spaghetti, 250 Gramm).
+    Folgende Utensilien werden benötigt: Kochtopf für 2 Liter (Nudeln), Kochtopf für Soße für 1 Liter, Rührlöffel, Schneidemesser, Nudelsieb, Pastateller, Besteck (Gabel, Löffel), Servietten, Gläser
+    In der Küche
+    Für die Zubereitung der Soße werden die Zwiebeln und der Knoblauch fein gehackt und in �l im Kochtopf angedünstet. Tomatenmark hinzufügen und mit andünsten. Mit den gehackten Tomaten aus der Dose auffüllen und würzen (Salz, Pfeffer, Kräuter). Die Soße 30 Minuten bei niedriger Hitze köcheln, ggf nach dieser Zeit nachwürzen oder pürieren (je nach Geschmack). In der Zwischenzeit im Nudeltopf 2 Liter Wasser leicht salzen und zum Kochen bringen. Nudeln nach Anweisung (je nach Herstellerangaben auf der Verpackung) kochen. Nach Kochzeit absieben. Nudeln (je nach Belieben) nochmals in Butter schwenken. 
 
     Servieren am Tisch
-    Tisch mit 2 Pastatellern, Besteck (2x Gabel und 2x LÃ¶ffel), GlÃ¤ser, Servietten decken. Nudeln in SchÃ¼ssel mit Nudelzange versehen und auf den Tisch stellen.
-    SoÃŸe in SchÃ¼ssel mit SchÃ¶pflÃ¶ffel auf den Tisch stellen.Â 
+    Tisch mit 2 Pastatellern, Besteck (2x Gabel und 2x Löffel), Gläser, Servietten decken. Nudeln in Schüssel mit Nudelzange versehen und auf den Tisch stellen.
+    Soße in Schüssel mit Schöpflöffel auf den Tisch stellen. 
 
 
 
@@ -3233,11 +3233,11 @@ event:
     0:startevent:((Start Event))
     1:task:(Zutaten vorbereiten)
     2:task:(Zwiebeln und Knoblauch hacken)
-    3:task:(Zwiebeln und Knoblauch andÃ¼nsten)
-    4:task:(Tomatenmark hinzufÃ¼gen)
-    5:task:(Gehackte Tomaten hinzufÃ¼gen)
-    6:task:(SoÃŸe wÃ¼rzen)
-    7:task:(SoÃŸe kÃ¶cheln lassen)
+    3:task:(Zwiebeln und Knoblauch andünsten)
+    4:task:(Tomatenmark hinzufügen)
+    5:task:(Gehackte Tomaten hinzufügen)
+    6:task:(Soße würzen)
+    7:task:(Soße köcheln lassen)
     8:parallelgateway:{AND}
     9:task:(Wasser salzen und kochen)
     10:task:(Nudeln kochen)
@@ -3245,17 +3245,17 @@ event:
     12:task:(Nudeln in Butter schwenken)
     13:task:(Tisch decken)
     14:task:(Nudeln servieren)
-    15:task:(SoÃŸe servieren)
+    15:task:(Soße servieren)
     16:endevent:(((End Event)))
 
     0:startevent:((Start Event)) --> 1:task:(Zutaten vorbereiten)
     1:task:(Zutaten vorbereiten) --> 2:task:(Zwiebeln und Knoblauch hacken)
-    2:task:(Zwiebeln und Knoblauch hacken) --> 3:task:(Zwiebeln und Knoblauch andÃ¼nsten)
-    3:task:(Zwiebeln und Knoblauch andÃ¼nsten) --> 4:task:(Tomatenmark hinzufÃ¼gen)
-    4:task:(Tomatenmark hinzufÃ¼gen) --> 5:task:(Gehackte Tomaten hinzufÃ¼gen)
-    5:task:(Gehackte Tomaten hinzufÃ¼gen) --> 6:task:(SoÃŸe wÃ¼rzen)
-    6:task:(SoÃŸe wÃ¼rzen) --> 7:task:(SoÃŸe kÃ¶cheln lassen)
-    7:task:(SoÃŸe kÃ¶cheln lassen) --> 8:parallelgateway:{AND}
+    2:task:(Zwiebeln und Knoblauch hacken) --> 3:task:(Zwiebeln und Knoblauch andünsten)
+    3:task:(Zwiebeln und Knoblauch andünsten) --> 4:task:(Tomatenmark hinzufügen)
+    4:task:(Tomatenmark hinzufügen) --> 5:task:(Gehackte Tomaten hinzufügen)
+    5:task:(Gehackte Tomaten hinzufügen) --> 6:task:(Soße würzen)
+    6:task:(Soße würzen) --> 7:task:(Soße köcheln lassen)
+    7:task:(Soße köcheln lassen) --> 8:parallelgateway:{AND}
     8:parallelgateway:{AND} --> 9:task:(Wasser salzen und kochen)
     8:parallelgateway:{AND} --> 13:task:(Tisch decken)
     9:task:(Wasser salzen und kochen) --> 10:task:(Nudeln kochen)
@@ -3263,8 +3263,8 @@ event:
     11:task:(Nudeln absieben) --> 12:task:(Nudeln in Butter schwenken)
     12:task:(Nudeln in Butter schwenken) --> 14:task:(Nudeln servieren)
     13:task:(Tisch decken) --> 14:task:(Nudeln servieren)
-    14:task:(Nudeln servieren) --> 15:task:(SoÃŸe servieren)
-    15:task:(SoÃŸe servieren) --> 16:endevent:(((End Event)))
+    14:task:(Nudeln servieren) --> 15:task:(Soße servieren)
+    15:task:(Soße servieren) --> 16:endevent:(((End Event)))
   time:timestamp: '2025-12-10T10:41:55.839353+01:00'
 ---
 event:

@@ -95,7 +95,7 @@ event:
   cpee:change_uuid: 49720d3220bad66c47d877b005a7752dbea8ba2d
   cpee:exposition: |+
     # User Input:
-    erstelle ein flieÃŸbild zur parameterschÃ¤tzung aus messdaten mit der kleinste-quadrate methode
+    erstelle ein fließbild zur parameterschätzung aus messdaten mit der kleinste-quadrate methode
 
   time:timestamp: '2026-02-12T21:01:05.546752+01:00'
 ...
@@ -137,8 +137,8 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Messdaten erfassen)
-        1:task:(Messdaten erfassen) --> 2:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)
-        2:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode) --> 3:endevent:(((endevent)))
+        1:task:(Messdaten erfassen) --> 2:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)
+        2:task:(Parameter schätzen mit Kleinste-Quadrate-Methode) --> 3:endevent:(((endevent)))
     ```
   time:timestamp: '2026-02-12T21:01:05.547309+01:00'
 ---
@@ -225,7 +225,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode</label>
+          <label>Parameter schätzen mit Kleinste-Quadrate-Methode</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -244,7 +244,7 @@ event:
   cpee:change_uuid: bfe64889bd00d1b9dace29f61c50cebcad98efda
   cpee:exposition: |+
     # User Input:
-    mehr details bei der schÃ¤tzung
+    mehr details bei der schätzung
 
 
   time:timestamp: '2026-02-12T21:01:36.130045+01:00'
@@ -275,8 +275,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Messdaten erfassen)
-    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)
-    a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)-->ee:endevent:((endevent))
+    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)
+    a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)-->ee:endevent:((endevent))
   time:timestamp: '2026-02-12T21:01:36.130239+01:00'
 ---
 event:
@@ -292,8 +292,8 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Messdaten erfassen)
-    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)
-    a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)-->ee:endevent:(((endevent)))
+    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)
+    a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2026-02-12T21:01:36.132018+01:00'
 ---
@@ -396,7 +396,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode</label>
+          <label>Parameter schätzen mit Kleinste-Quadrate-Methode</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -415,7 +415,7 @@ event:
   cpee:change_uuid: ebe976ca0b88cf7d71f14bf90ceab9b5547f9cfd
   cpee:exposition: |+
     # User Input:
-    simulation durchfÃ¼hren, ergebnis mit messdaten vergelichen, ...
+    simulation durchführen, ergebnis mit messdaten vergelichen, ...
 
   time:timestamp: '2026-02-12T21:02:04.043968+01:00'
 ...
@@ -445,8 +445,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Messdaten erfassen)
-    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)
-    a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)-->ee:endevent:((endevent))
+    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)
+    a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)-->ee:endevent:((endevent))
   time:timestamp: '2026-02-12T21:02:04.044255+01:00'
 ---
 event:
@@ -462,9 +462,9 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->a1:task:(Messdaten erfassen)
-        a1:task:(Messdaten erfassen)-->a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)
-        a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)-->a4:task:(simulation durchfÃ¼hren)
-        a4:task:(simulation durchfÃ¼hren)-->a5:task:(ergebnis mit messdaten vergelichen)
+        a1:task:(Messdaten erfassen)-->a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)
+        a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)-->a4:task:(simulation durchführen)
+        a4:task:(simulation durchführen)-->a5:task:(ergebnis mit messdaten vergelichen)
         a5:task:(ergebnis mit messdaten vergelichen)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2026-02-12T21:02:04.044346+01:00'
@@ -584,7 +584,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode</label>
+          <label>Parameter schätzen mit Kleinste-Quadrate-Methode</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -592,7 +592,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="a4">
         <parameters>
-          <label>simulation durchfÃ¼hren</label>
+          <label>simulation durchführen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -619,7 +619,7 @@ event:
   cpee:change_uuid: '09a6adf9b10bc4faf03610e472b2517d98f58cf1'
   cpee:exposition: |+
     # User Input:
-    das letzte war teil der parameterschÃ¤tzung. ergÃ¤nze den rest
+    das letzte war teil der parameterschätzung. ergänze den rest
 
   time:timestamp: '2026-02-12T21:02:31.385478+01:00'
 ...
@@ -649,9 +649,9 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Messdaten erfassen)
-    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)
-    a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)-->a5:task:(simulation durchfÃ¼hren)
-    a5:task:(simulation durchfÃ¼hren)-->a7:task:(ergebnis mit messdaten vergelichen)
+    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)
+    a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)-->a5:task:(simulation durchführen)
+    a5:task:(simulation durchführen)-->a7:task:(ergebnis mit messdaten vergelichen)
     a7:task:(ergebnis mit messdaten vergelichen)-->ee:endevent:((endevent))
   time:timestamp: '2026-02-12T21:02:31.385659+01:00'
 ---
@@ -668,9 +668,9 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Messdaten erfassen)
-    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)
-    a3:task:(Parameter schÃ¤tzen mit Kleinste-Quadrate-Methode)-->a5:task:(simulation durchfÃ¼hren)
-    a5:task:(simulation durchfÃ¼hren)-->a7:task:(ergebnis mit messdaten vergelichen)
+    a1:task:(Messdaten erfassen)-->a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)
+    a3:task:(Parameter schätzen mit Kleinste-Quadrate-Methode)-->a5:task:(simulation durchführen)
+    a5:task:(simulation durchführen)-->a7:task:(ergebnis mit messdaten vergelichen)
     a7:task:(ergebnis mit messdaten vergelichen)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2026-02-12T21:02:31.385761+01:00'

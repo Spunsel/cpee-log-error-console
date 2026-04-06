@@ -242,35 +242,35 @@ event:
   cpee:change_uuid: 777fb257ea5ffce33f20e5789aa1bc1f578709ad
   cpee:exposition: |
     # User Input:
-    Rolle:Â Agiere als erfahrener Business Process Engineer.
-    Aufgabe:Â Erstelle ein BPMN 2.0 Diagramm fÃ¼r den Prozess â€žAuftragsabwicklungâ€œ der GreenSupply GmbH basierend auf folgenden Anforderungen:
+    Rolle: Agiere als erfahrener Business Process Engineer.
+    Aufgabe: Erstelle ein BPMN 2.0 Diagramm für den Prozess „Auftragsabwicklung" der GreenSupply GmbH basierend auf folgenden Anforderungen:
     1. Struktur & Beteiligte:
-    â€¢ Verwende einen Pool â€žGreenSupply GmbHâ€œ mit zwei Lanes:Â VertriebÂ undÂ Logistik.Â Â 
-    â€¢Â Start-Ereignis:Â Eingang eines Auftrags (per E-Mail oder Online-Formular) im Vertrieb.Â Â 
-    â€¢Â End-Ereignis:Â AuftragsbestÃ¤tigung an den Kunden versendet.Â Â 
+    ⬢ Verwende einen Pool „GreenSupply GmbH" mit zwei Lanes: Vertrieb und Logistik.  
+    ⬢ Start-Ereignis: Eingang eines Auftrags (per E-Mail oder Online-Formular) im Vertrieb.  
+    ⬢ End-Ereignis: Auftragsbestätigung an den Kunden versendet.  
     2. Prozessschritte im Vertrieb:
-    â€¢Â Auftrag im ERP erfassen.Â Â 
-    â€¢Â Exklusives Gateway (XOR):Â PrÃ¼fen, ob der Kunde bereits im System existiert.Â Â 
-    â€¢ Falls Nein:Â Kundendaten anlegen.Â Â 
-    â€¢ Falls Ja: Weiter zum nÃ¤chsten Schritt.
-    â€¢Â Optionaler Schritt (Bedingung):Â Wenn Auftragswert > X, dannÂ Zahlungsbedingungen anpassen (Vorkasse).Â Â 
-    â€¢Â Auftrag an Logistik weitergeben.Â Â 
+    ⬢ Auftrag im ERP erfassen.  
+    ⬢ Exklusives Gateway (XOR): Prüfen, ob der Kunde bereits im System existiert.  
+    ⬢ Falls Nein: Kundendaten anlegen.  
+    ⬢ Falls Ja: Weiter zum nächsten Schritt.
+    ⬢ Optionaler Schritt (Bedingung): Wenn Auftragswert > X, dann Zahlungsbedingungen anpassen (Vorkasse).  
+    ⬢ Auftrag an Logistik weitergeben.  
     3. Prozessschritte in der Logistik:
-    â€¢Â MaterialverfÃ¼gbarkeit prÃ¼fen.Â Â 
-    â€¢Â Exklusives Gateway (XOR):Â Ist ausreichend Material vorhanden?.Â Â 
-    â€¢ Falls Nein:Â Nachbestellung auslÃ¶senÂ und aufÂ Materialeingang warten.Â Â 
-    â€¢ Falls Ja: Direkt weiter.
-    â€¢Â Auftrag fÃ¼r Produktion und Versand einplanenÂ undÂ Liefertermin ermitteln.Â Â 
-    â€¢ Hinweis: ExpressauftrÃ¤ge werden hierbei priorisiert (als Annotation oder Attribut am Task â€žEinplanenâ€œ vermerken).Â Â 
-    â€¢ Information Ã¼ber Liefertermin an Vertrieb zurÃ¼ckgeben.
+    ⬢ Materialverfügbarkeit prüfen.  
+    ⬢ Exklusives Gateway (XOR): Ist ausreichend Material vorhanden?.  
+    ⬢ Falls Nein: Nachbestellung auslösen und auf Materialeingang warten.  
+    ⬢ Falls Ja: Direkt weiter.
+    ⬢ Auftrag für Produktion und Versand einplanen und Liefertermin ermitteln.  
+    ⬢ Hinweis: Expressaufträge werden hierbei priorisiert (als Annotation oder Attribut am Task „Einplanen" vermerken).  
+    ⬢ Information über Liefertermin an Vertrieb zurückgeben.
     4. Abschluss im Vertrieb:
-    â€¢Â AuftragsbestÃ¤tigung versendenÂ (inkl. des ermittelten Liefertermins).Â Â 
+    ⬢ Auftragsbestätigung versenden (inkl. des ermittelten Liefertermins).  
     Technische Vorgaben:
-    â€¢ Nutze korrekte BPMN 2.0 Symbole (Tasks, XOR-Gateways, Sequence Flows).
-    â€¢ Achte auf eine klare Trennung der Verantwortlichkeiten zwischen den Lanes.Â Â 
-    â€¢ Stelle sicher, dass der Prozess erst endet, wenn der Liefertermin feststeht.Â Â 
-    ZusÃ¤tzliche Tipps fÃ¼r deine Ãœbung:
-    â€¢Â Annahme zum Expressauftrag:Â Da die Aufgabenstellung verlangt, dass du entscheidest, wie der Expressauftrag modelliert wird, ist es im Prompt oben alsÂ PriorisierungsregelÂ am Task integriert. Das entspricht der Aussage von Interview B.Â Â 
+    ⬢ Nutze korrekte BPMN 2.0 Symbole (Tasks, XOR-Gateways, Sequence Flows).
+    ⬢ Achte auf eine klare Trennung der Verantwortlichkeiten zwischen den Lanes.  
+    ⬢ Stelle sicher, dass der Prozess erst endet, wenn der Liefertermin feststeht.  
+    Zusätzliche Tipps für deine Übung:
+    ⬢ Annahme zum Expressauftrag: Da die Aufgabenstellung verlangt, dass du entscheidest, wie der Expressauftrag modelliert wird, ist es im Prompt oben als Priorisierungsregel am Task integriert. Das entspricht der Aussage von Interview B.  
   time:timestamp: '2026-03-23T10:14:19.391185+01:00'
 ---
 event:
@@ -315,15 +315,15 @@ event:
         6:task:(Zahlungsbedingungen anpassen)
         7:exclusivegateway:{x}
         8:task:(Auftrag an Logistik weitergeben)
-        9:task:(MaterialverfÃ¼gbarkeit prÃ¼fen)
+        9:task:(Materialverfügbarkeit prüfen)
         10:exclusivegateway:{x}
-        11:task:(Nachbestellung auslÃ¶sen)
+        11:task:(Nachbestellung auslösen)
         12:task:(Auf Materialeingang warten)
         13:exclusivegateway:{x}
         14:task:(Auftrag einplanen (Express priorisiert))
         15:task:(Liefertermin ermitteln)
-        16:task:(Liefertermin an Vertrieb zurÃ¼ckgeben)
-        17:task:(AuftragsbestÃ¤tigung versenden)
+        16:task:(Liefertermin an Vertrieb zurückgeben)
+        17:task:(Auftragsbestätigung versenden)
         18:endevent:(((endevent)))
 
         0 --> 1
@@ -830,25 +830,25 @@ event:
   cpee:exposition: |
     # User Input:
     Pool: GreenSupply GmbH
-    â€¢Â Lane 1: Vertrieb
-    â€¢Â Start:Â "Auftrag eingegangen".Â Â 
-    â€¢Â Task:Â "Auftrag im ERP erfassen".Â Â 
-    â€¢Â Gateway (XOR):Â "Kunde bekannt?".Â Â 
-    â€¢Â Task (Pfad Nein):Â "Kundendaten im System anlegen".Â Â 
-    â€¢Â Gateway (XOR):Â "Wert > X?".Â Â 
-    â€¢Â Task (Pfad Ja):Â "Zahlungsbedingungen auf Vorkasse anpassen".Â Â 
-    â€¢Â Task:Â "Auftrag an Logistik Ã¼bermitteln".Â Â 
-    â€¢Â Lane 2: Logistik
-    â€¢Â Task:Â "MaterialverfÃ¼gbarkeit prÃ¼fen".Â Â 
-    â€¢Â Gateway (XOR):Â "Material vorhanden?".Â Â 
-    â€¢Â Task (Pfad Nein):Â "Nachbestellung auslÃ¶sen".Â Â 
-    â€¢Â Task (Pfad Nein):Â "Materialeingang abwarten".Â Â 
-    â€¢Â Task:Â "Produktion und Versand einplanen" (Hinweis: ExpressauftrÃ¤ge priorisieren).Â Â 
-    â€¢Â Task:Â "Liefertermin ermitteln".Â Â 
-    â€¢Â ZurÃ¼ck zu Lane 1: Vertrieb
-    â€¢Â Task:Â "AuftragsbestÃ¤tigung mit Liefertermin versenden".Â Â 
-    â€¢Â Ende:Â "Prozess abgeschlossen".
-    Formatierungsvorgabe:Â Benutze fÃ¼r alle Schritte den TypÂ "Task"Â oderÂ "User Task", damit die Beschreibungen (z.B. "Material prÃ¼fen") permanent im Diagramm sichtbar sind. Vermeide reine Service-Icons ohne Label.
+    ⬢ Lane 1: Vertrieb
+    ⬢ Start: "Auftrag eingegangen".  
+    ⬢ Task: "Auftrag im ERP erfassen".  
+    ⬢ Gateway (XOR): "Kunde bekannt?".  
+    ⬢ Task (Pfad Nein): "Kundendaten im System anlegen".  
+    ⬢ Gateway (XOR): "Wert > X?".  
+    ⬢ Task (Pfad Ja): "Zahlungsbedingungen auf Vorkasse anpassen".  
+    ⬢ Task: "Auftrag an Logistik übermitteln".  
+    ⬢ Lane 2: Logistik
+    ⬢ Task: "Materialverfügbarkeit prüfen".  
+    ⬢ Gateway (XOR): "Material vorhanden?".  
+    ⬢ Task (Pfad Nein): "Nachbestellung auslösen".  
+    ⬢ Task (Pfad Nein): "Materialeingang abwarten".  
+    ⬢ Task: "Produktion und Versand einplanen" (Hinweis: Expressaufträge priorisieren).  
+    ⬢ Task: "Liefertermin ermitteln".  
+    ⬢ Zurück zu Lane 1: Vertrieb
+    ⬢ Task: "Auftragsbestätigung mit Liefertermin versenden".  
+    ⬢ Ende: "Prozess abgeschlossen".
+    Formatierungsvorgabe: Benutze für alle Schritte den Typ "Task" oder "User Task", damit die Beschreibungen (z.B. "Material prüfen") permanent im Diagramm sichtbar sind. Vermeide reine Service-Icons ohne Label.
   time:timestamp: '2026-03-23T10:16:47.969530+01:00'
 ---
 event:
@@ -923,17 +923,17 @@ event:
     5:exclusivegateway:{Wert > X?}-->|Ja|6:task:(Zahlungsbedingungen auf Vorkasse anpassen)
     6:task:(Zahlungsbedingungen auf Vorkasse anpassen)-->7:exclusivegateway:{x}
     5:exclusivegateway:{Wert > X?}-->|Nein|7:exclusivegateway:{x}
-    7:exclusivegateway:{x}-->8:task:(Auftrag an Logistik Ã¼bermitteln)
-    8:task:(Auftrag an Logistik Ã¼bermitteln)-->9:task:(MaterialverfÃ¼gbarkeit prÃ¼fen)
-    9:task:(MaterialverfÃ¼gbarkeit prÃ¼fen)-->10:exclusivegateway:{Material vorhanden?}
-    10:exclusivegateway:{Material vorhanden?}-->|Nein|11:task:(Nachbestellung auslÃ¶sen)
-    11:task:(Nachbestellung auslÃ¶sen)-->12:task:(Materialeingang abwarten)
+    7:exclusivegateway:{x}-->8:task:(Auftrag an Logistik übermitteln)
+    8:task:(Auftrag an Logistik übermitteln)-->9:task:(Materialverfügbarkeit prüfen)
+    9:task:(Materialverfügbarkeit prüfen)-->10:exclusivegateway:{Material vorhanden?}
+    10:exclusivegateway:{Material vorhanden?}-->|Nein|11:task:(Nachbestellung auslösen)
+    11:task:(Nachbestellung auslösen)-->12:task:(Materialeingang abwarten)
     12:task:(Materialeingang abwarten)-->13:exclusivegateway:{x}
     10:exclusivegateway:{Material vorhanden?}-->|Ja|13:exclusivegateway:{x}
-    13:exclusivegateway:{x}-->14:task:(Produktion und Versand einplanen (Hinweis: ExpressauftrÃ¤ge priorisieren))
-    14:task:(Produktion und Versand einplanen (Hinweis: ExpressauftrÃ¤ge priorisieren))-->15:task:(Liefertermin ermitteln)
-    15:task:(Liefertermin ermitteln)-->16:task:(AuftragsbestÃ¤tigung mit Liefertermin versenden)
-    16:task:(AuftragsbestÃ¤tigung mit Liefertermin versenden)-->17:endevent:(((Prozess abgeschlossen)))
+    13:exclusivegateway:{x}-->14:task:(Produktion und Versand einplanen (Hinweis: Expressaufträge priorisieren))
+    14:task:(Produktion und Versand einplanen (Hinweis: Expressaufträge priorisieren))-->15:task:(Liefertermin ermitteln)
+    15:task:(Liefertermin ermitteln)-->16:task:(Auftragsbestätigung mit Liefertermin versenden)
+    16:task:(Auftragsbestätigung mit Liefertermin versenden)-->17:endevent:(((Prozess abgeschlossen)))
   time:timestamp: '2026-03-23T10:16:47.969827+01:00'
 ---
 event:

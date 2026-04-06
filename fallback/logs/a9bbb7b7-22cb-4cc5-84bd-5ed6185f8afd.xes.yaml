@@ -167,10 +167,10 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Bestellung aufnehmen)
-        1:task:(Bestellung aufnehmen) --> 2:task:(Bestellung prÃ¼fen)
-        2:task:(Bestellung prÃ¼fen) --> 3:exclusivegateway:{x}
-        3:exclusivegateway:{x} --> |Bestellung gÃ¼ltig| 4:task:(Bestellung bearbeiten)
-        3:exclusivegateway:{x} --> |Bestellung ungÃ¼ltig| 5:task:(Bestellung ablehnen)
+        1:task:(Bestellung aufnehmen) --> 2:task:(Bestellung prüfen)
+        2:task:(Bestellung prüfen) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Bestellung gültig| 4:task:(Bestellung bearbeiten)
+        3:exclusivegateway:{x} --> |Bestellung ungültig| 5:task:(Bestellung ablehnen)
         4:task:(Bestellung bearbeiten) --> 6:task:(Bestellung versenden)
         5:task:(Bestellung ablehnen) --> 7:exclusivegateway:{x}
         6:task:(Bestellung versenden) --> 7:exclusivegateway:{x}

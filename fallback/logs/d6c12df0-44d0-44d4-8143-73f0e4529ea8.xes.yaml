@@ -127,7 +127,7 @@ event:
   cpee:change_uuid: 7ab8f892e88df1e319f9362321efa2b2af73f32e
   cpee:exposition: |-
     # User Input:
-    generiere ein model zu supermÃ¤rkten
+    generiere ein model zu supermärkten
   time:timestamp: '2026-01-31T11:03:44.983731+01:00'
 ---
 event:
@@ -168,11 +168,11 @@ event:
     graph LR
         0:startevent:((startevent)) --> 1:task:(Einkaufen gehen)
         1:task:(Einkaufen gehen) --> 2:exclusivegateway:{x}
-        2:exclusivegateway:{x} --> |Obst benÃ¶tigt| 3:task:(Obst kaufen)
-        2:exclusivegateway:{x} --> |GemÃ¼se benÃ¶tigt| 4:task:(GemÃ¼se kaufen)
-        2:exclusivegateway:{x} --> |Sonstiges benÃ¶tigt| 5:task:(Sonstiges kaufen)
+        2:exclusivegateway:{x} --> |Obst benötigt| 3:task:(Obst kaufen)
+        2:exclusivegateway:{x} --> |Gemüse benötigt| 4:task:(Gemüse kaufen)
+        2:exclusivegateway:{x} --> |Sonstiges benötigt| 5:task:(Sonstiges kaufen)
         3:task:(Obst kaufen) --> 6:exclusivegateway:{x}
-        4:task:(GemÃ¼se kaufen) --> 6:exclusivegateway:{x}
+        4:task:(Gemüse kaufen) --> 6:exclusivegateway:{x}
         5:task:(Sonstiges kaufen) --> 6:exclusivegateway:{x}
         6:exclusivegateway:{x} --> 7:task:(Zur Kasse gehen)
         7:task:(Zur Kasse gehen) --> 8:endevent:(((endevent)))

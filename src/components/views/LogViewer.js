@@ -72,7 +72,8 @@ export class LogViewer {
             clearTimeout(timeoutId);
             
             if (response.ok) {
-                const content = await response.text();
+                const buffer = await response.arrayBuffer();
+                const content = new TextDecoder('utf-8').decode(buffer);
                 this.displayRawLog(content);
                 this.updateViewLogButton('Hide Log');
             } else {

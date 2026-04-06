@@ -123,7 +123,8 @@ export class InstanceFallbackService {
                     continue;
                 }
                 
-                const content = await response.text();
+                const buffer = await response.arrayBuffer();
+                const content = new TextDecoder('utf-8').decode(buffer);
                 
                 if (!content || content.length < 10) {
                     this.logDebug(`Local log at ${filePath} is empty or invalid`);

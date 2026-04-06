@@ -368,10 +368,10 @@ event:
   cpee:change_uuid: 8044adea256cc15971389c9cad0e66f4cc26b8dc
   cpee:exposition: |-
     # User Input:
-    Der Prozess beginnt, sobald ein Kunde das italienische Restaurant betritt. Hat er eine Reservierung, wird er von einem Kellner direkt zu seinem Tisch begleitet und kann anschlieÃŸend seine Bestellung aufgeben. Liegt keine Reservierung vor, wird zunÃ¤chst geprÃ¼ft, ob ein Tisch frei ist. Ist kein Tisch verfÃ¼gbar, kann der Kunde entweder warten oder das Restaurant wieder verlassen. Entscheidet er sich zu gehen, endet der Prozess an dieser Stelle. Wartet er, wird nach einer gewissen Zeit ein Tisch frei, und der Kellner fÃ¼hrt ihn dann an seinen Platz, sodass er ebenfalls bestellen kann.
+    Der Prozess beginnt, sobald ein Kunde das italienische Restaurant betritt. Hat er eine Reservierung, wird er von einem Kellner direkt zu seinem Tisch begleitet und kann anschließend seine Bestellung aufgeben. Liegt keine Reservierung vor, wird zunächst geprüft, ob ein Tisch frei ist. Ist kein Tisch verfügbar, kann der Kunde entweder warten oder das Restaurant wieder verlassen. Entscheidet er sich zu gehen, endet der Prozess an dieser Stelle. Wartet er, wird nach einer gewissen Zeit ein Tisch frei, und der Kellner führt ihn dann an seinen Platz, sodass er ebenfalls bestellen kann.
 
-    Sobald die Bestellung aufgenommen ist, leitet der Kellner sie an die KÃ¼che weiter. Dort bereitet der PizzabÃ¤cker die Pizza zu. Falls nicht alle benÃ¶tigten Zutaten sofort bereitstehen, werden sie zuerst vorbereitet. AnschlieÃŸend wird die Pizza gebacken. Nach der Fertigstellung bringt der Kellner die Pizza an den Tisch. Der Kunde isst, bezahlt beim Kellner und verlÃ¤sst danach das Restaurant. Damit ist der Prozess abgeschlossen.
-    Wenn er wegen keinem Platz gehen muss, so erhÃ¤lt er ein Gutschein fÃ¼r das NÃ¤chste mal.
+    Sobald die Bestellung aufgenommen ist, leitet der Kellner sie an die Küche weiter. Dort bereitet der Pizzabäcker die Pizza zu. Falls nicht alle benötigten Zutaten sofort bereitstehen, werden sie zuerst vorbereitet. Anschließend wird die Pizza gebacken. Nach der Fertigstellung bringt der Kellner die Pizza an den Tisch. Der Kunde isst, bezahlt beim Kellner und verlässt danach das Restaurant. Damit ist der Prozess abgeschlossen.
+    Wenn er wegen keinem Platz gehen muss, so erhält er ein Gutschein für das Nächste mal.
   time:timestamp: '2026-01-12T09:33:06.646762+01:00'
 ---
 event:
@@ -417,11 +417,11 @@ event:
         3:exclusivegateway:{x} --> |Tisch frei| 2:task:(Zum Tisch begleiten)
         3:exclusivegateway:{x} --> |Kein Tisch frei| 4:exclusivegateway:{x}
         4:exclusivegateway:{x} --> |Warten| 5:task:(Warten bis Tisch frei)
-        4:exclusivegateway:{x} --> |Gehen| 6:task:(Gutschein aushÃ¤ndigen)
+        4:exclusivegateway:{x} --> |Gehen| 6:task:(Gutschein aushändigen)
         5:task:(Warten bis Tisch frei) --> 2:task:(Zum Tisch begleiten)
-        6:task:(Gutschein aushÃ¤ndigen) --> 17:endevent:(((endevent)))
-        7:task:(Bestellung aufnehmen) --> 8:task:(Bestellung an KÃ¼che weiterleiten)
-        8:task:(Bestellung an KÃ¼che weiterleiten) --> 9:task:(Pizza zubereiten)
+        6:task:(Gutschein aushändigen) --> 17:endevent:(((endevent)))
+        7:task:(Bestellung aufnehmen) --> 8:task:(Bestellung an Küche weiterleiten)
+        8:task:(Bestellung an Küche weiterleiten) --> 9:task:(Pizza zubereiten)
         9:task:(Pizza zubereiten) --> 10:exclusivegateway:{x}
         10:exclusivegateway:{x} --> |Zutaten bereit| 12:task:(Pizza backen)
         10:exclusivegateway:{x} --> |Zutaten fehlen| 11:task:(Zutaten vorbereiten)

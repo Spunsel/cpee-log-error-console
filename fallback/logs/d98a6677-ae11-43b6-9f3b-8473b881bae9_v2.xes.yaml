@@ -206,99 +206,99 @@ event:
     <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
 
 
-    Â  <!-- Task A: basic task accumulation -->
-    Â  <call id="1" a:alt_id="1">
-    Â  Â  <parameters><label>"A"</label></parameters>
-    Â  </call>
+      <!-- Task A: basic task accumulation -->
+      <call id="1" a:alt_id="1">
+        <parameters><label>"A"</label></parameters>
+      </call>
 
 
-    Â  <!-- XOR gateway with 3 branches -->
-    Â  <choose id="2" a:alt_id="2">
+      <!-- XOR gateway with 3 branches -->
+      <choose id="2" a:alt_id="2">
 
 
-    Â  Â  <!-- Alternative 1: normal branch -->
-    Â  Â  <alternative condition="data.x == 1">
-    Â  Â  Â  <call id="3" a:alt_id="3">
-    Â  Â  Â  Â  <parameters><label>"B"</label></parameters>
-    Â  Â  Â  </call>
-    Â  Â  </alternative>
+        <!-- Alternative 1: normal branch -->
+        <alternative condition="data.x == 1">
+          <call id="3" a:alt_id="3">
+            <parameters><label>"B"</label></parameters>
+          </call>
+        </alternative>
 
 
-    Â  Â  <!-- Alternative 2: escape branch (task before escape) -->
-    Â  Â  <alternative condition="data.x == 2">
-    Â  Â  Â  <call id="4" a:alt_id="4">
-    Â  Â  Â  Â  <parameters><label>"C"</label></parameters>
-    Â  Â  Â  </call>
-    Â  Â  Â  <escape id="5" a:alt_id="-1"/>
-    Â  Â  </alternative>
+        <!-- Alternative 2: escape branch (task before escape) -->
+        <alternative condition="data.x == 2">
+          <call id="4" a:alt_id="4">
+            <parameters><label>"C"</label></parameters>
+          </call>
+          <escape id="5" a:alt_id="-1"/>
+        </alternative>
 
 
-    Â  Â  <!-- Otherwise: empty default branch (returns FT unchanged) -->
-    Â  Â  <otherwise/>
+        <!-- Otherwise: empty default branch (returns FT unchanged) -->
+        <otherwise/>
 
 
-    Â  </choose>
+      </choose>
 
 
-    Â  <!-- AND gateway with 2 branches -->
-    Â  <parallel id="6" a:alt_id="6">
+      <!-- AND gateway with 2 branches -->
+      <parallel id="6" a:alt_id="6">
 
 
-    Â  Â  <parallel_branch>
-    Â  Â  Â  <call id="7" a:alt_id="7">
-    Â  Â  Â  Â  <parameters><label>"D"</label></parameters>
-    Â  Â  Â  </call>
-    Â  Â  </parallel_branch>
+        <parallel_branch>
+          <call id="7" a:alt_id="7">
+            <parameters><label>"D"</label></parameters>
+          </call>
+        </parallel_branch>
 
 
-    Â  Â  <parallel_branch>
-    Â  Â  Â  <call id="8" a:alt_id="8">
-    Â  Â  Â  Â  <parameters><label>"E"</label></parameters>
-    Â  Â  Â  </call>
-    Â  Â  </parallel_branch>
+        <parallel_branch>
+          <call id="8" a:alt_id="8">
+            <parameters><label>"E"</label></parameters>
+          </call>
+        </parallel_branch>
 
 
-    Â  </parallel>
+      </parallel>
 
 
-    Â  <!-- Unconditional loop with escape inside -->
-    Â  <loop id="9" a:alt_id="9" condition="true">
+      <!-- Unconditional loop with escape inside -->
+      <loop id="9" a:alt_id="9" condition="true">
 
 
-    Â  Â  <choose id="10" a:alt_id="10">
+        <choose id="10" a:alt_id="10">
 
 
-    Â  Â  Â  <alternative condition="data.y == 1">
-    Â  Â  Â  Â  <call id="11" a:alt_id="11">
-    Â  Â  Â  Â  Â  <parameters><label>"F"</label></parameters>
-    Â  Â  Â  Â  </call>
-    Â  Â  Â  </alternative>
+          <alternative condition="data.y == 1">
+            <call id="11" a:alt_id="11">
+              <parameters><label>"F"</label></parameters>
+            </call>
+          </alternative>
 
 
-    Â  Â  Â  <alternative condition="data.y == 2">
-    Â  Â  Â  Â  <escape id="12" a:alt_id="-1"/>
-    Â  Â  Â  </alternative>
+          <alternative condition="data.y == 2">
+            <escape id="12" a:alt_id="-1"/>
+          </alternative>
 
 
-    Â  Â  Â  <otherwise>
-    Â  Â  Â  Â  <call id="13" a:alt_id="13">
-    Â  Â  Â  Â  Â  <parameters><label>"G"</label></parameters>
-    Â  Â  Â  Â  </call>
-    Â  Â  Â  </otherwise>
+          <otherwise>
+            <call id="13" a:alt_id="13">
+              <parameters><label>"G"</label></parameters>
+            </call>
+          </otherwise>
 
 
-    Â  Â  </choose>
+        </choose>
 
 
-    Â  </loop>
+      </loop>
 
 
-    Â  <!-- Conditional loop (condition != "true") -->
-    Â  <loop id="14" a:alt_id="14" condition="data.z > 0">
-    Â  Â  <call id="15" a:alt_id="15">
-    Â  Â  Â  <parameters><label>"H"</label></parameters>
-    Â  Â  </call>
-    Â  </loop>
+      <!-- Conditional loop (condition != "true") -->
+      <loop id="14" a:alt_id="14" condition="data.z > 0">
+        <call id="15" a:alt_id="15">
+          <parameters><label>"H"</label></parameters>
+        </call>
+      </loop>
 
 
     </description>

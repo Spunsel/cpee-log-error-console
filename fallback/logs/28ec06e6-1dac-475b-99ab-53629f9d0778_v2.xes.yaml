@@ -372,35 +372,35 @@ event:
     likes it, the rest of his order are produced.
 
 
-    1. Identify all roles and their associated activities from this text. If a role is a subrole of another, clearly indicate this. If a role belongs to another organization, this should also be clearly marked. Analyze the process description to model the BPMN data flow. For each task that creates a data object, create a â€œData Output Associationâ€ to that data object. Then, for each subsequent task that uses this data, create a â€œData Input Associationâ€ from the data object to the task.
+    1. Identify all roles and their associated activities from this text. If a role is a subrole of another, clearly indicate this. If a role belongs to another organization, this should also be clearly marked. Analyze the process description to model the BPMN data flow. For each task that creates a data object, create a ÜSData Output Association⬝ to that data object. Then, for each subsequent task that uses this data, create a ÜSData Input Association⬝ from the data object to the task.
     2. Assign a numerical timestamp to all activities and gateways to control the sequence. Ensure that any preceding element has a lower timestamp than its successor. Elements that occur in parallel must share an identical timestamp. If subsequent events depend on a decision, the XOR gateway must also have an earlier timestamp than the following elements.
     3. Connect all elements (activities, gateways, events, data objects) using the appropriate connecting objects (Sequence Flows, Message Flows, Data Associations) based on the roles, data analysis and timestamps previously established. Ensure the connections adhere strictly to the sequence defined by the timestamps. Generate the final, complete BPMN model and output it as Mermaid code fulfilling the following Mermaid Syntax:
 
     The Mermaid.js syntax for BPMN models is described as follows:
-    Â Each mermaid js node must have the following structure:
-    Â id:type:shape and text
-    Â id - it is a unique identifier. Id can be only an integer from 0 to n.
-    Â Each node has a unique identifier
+     Each mermaid js node must have the following structure:
+     id:type:shape and text
+     id - it is a unique identifier. Id can be only an integer from 0 to n.
+     Each node has a unique identifier
     type - defines the type of the element regarding to BPMN 2.0 notation.
     Possible types are:
-    Â start event, end event, task, subprocess, exclusive, inclusive and parallel gateway.
-    Â Based on the type of the node following shapes and texts are to be used:
-    Â startevent: ((startevent)) i.e., id:startevent:((startevent))
-    Â endevent: ((endevent)) i.e., id:endevent:((endevent))
-    Â task: (task label) i.e., id:task:(task label)
-    Â subprocess: (subprocess label) i.e., id:subprocess:(subprocess label)
-    Â exclusivegateway: {X} i.e., id:exclusivegateway:{X}
-    Â parallelgateway: {AND} i.e., id:parallelgateway:{AND}
-    Â inclusivegateway: {O} i.e., id:inclusivegateway:{O}
+     start event, end event, task, subprocess, exclusive, inclusive and parallel gateway.
+     Based on the type of the node following shapes and texts are to be used:
+     startevent: ((startevent)) i.e., id:startevent:((startevent))
+     endevent: ((endevent)) i.e., id:endevent:((endevent))
+     task: (task label) i.e., id:task:(task label)
+     subprocess: (subprocess label) i.e., id:subprocess:(subprocess label)
+     exclusivegateway: {X} i.e., id:exclusivegateway:{X}
+     parallelgateway: {AND} i.e., id:parallelgateway:{AND}
+     inclusivegateway: {O} i.e., id:inclusivegateway:{O}
     All gateways must have both a split and a merge point.
-    Â Each gateway that initiates a split must be properly closed by a merge gateway of the same type (e.g., an exclusive gateway must be merged by another exclusive gateway).
+     Each gateway that initiates a split must be properly closed by a merge gateway of the same type (e.g., an exclusive gateway must be merged by another exclusive gateway).
     It is strictly prohibited to use only id (i.e. 2) as a reference.
     All elements are connected with each other with the help of the direction.
-    Â direction: -->
+     direction: -->
     If there are some conditions or annotations it is necessary to use text on links (i.e., edge labels)
-    Â edge label: | condition or annotation |
+     edge label: | condition or annotation |
     Edge label is always located between 2 nodes:
-    Â id:exclusivegateway:{x} --> | condition or annotation | id:task:(task label)
+     id:exclusivegateway:{x} --> | condition or annotation | id:task:(task label)
     Example (follow this structure strictly):
 
 
@@ -773,7 +773,7 @@ event:
     Updating the customer should happen parallel to building the first saw
 
 
-    â€œCustomer likes first sawâ€ and â€œCustomer dislike first sawâ€ are no functions
+    ÜSCustomer likes first saw⬝ and ÜSCustomer dislike first saw⬝ are no functions
 
 
 
@@ -787,30 +787,30 @@ event:
     likes it, the rest of his order are produced.
 
     The Mermaid.js syntax for BPMN models is described as follows:
-    Â Each mermaid js node must have the following structure:
-    Â id:type:shape and text
-    Â id - it is a unique identifier. Id can be only an integer from 0 to n.
-    Â Each node has a unique identifier
+     Each mermaid js node must have the following structure:
+     id:type:shape and text
+     id - it is a unique identifier. Id can be only an integer from 0 to n.
+     Each node has a unique identifier
     type - defines the type of the element regarding to BPMN 2.0 notation.
     Possible types are:
-    Â start event, end event, task, subprocess, exclusive, inclusive and parallel gateway.
-    Â Based on the type of the node following shapes and texts are to be used:
-    Â startevent: ((startevent)) i.e., id:startevent:((startevent))
-    Â endevent: ((endevent)) i.e., id:endevent:((endevent))
-    Â task: (task label) i.e., id:task:(task label)
-    Â subprocess: (subprocess label) i.e., id:subprocess:(subprocess label)
-    Â exclusivegateway: {X} i.e., id:exclusivegateway:{X}
-    Â parallelgateway: {AND} i.e., id:parallelgateway:{AND}
-    Â inclusivegateway: {O} i.e., id:inclusivegateway:{O}
+     start event, end event, task, subprocess, exclusive, inclusive and parallel gateway.
+     Based on the type of the node following shapes and texts are to be used:
+     startevent: ((startevent)) i.e., id:startevent:((startevent))
+     endevent: ((endevent)) i.e., id:endevent:((endevent))
+     task: (task label) i.e., id:task:(task label)
+     subprocess: (subprocess label) i.e., id:subprocess:(subprocess label)
+     exclusivegateway: {X} i.e., id:exclusivegateway:{X}
+     parallelgateway: {AND} i.e., id:parallelgateway:{AND}
+     inclusivegateway: {O} i.e., id:inclusivegateway:{O}
     All gateways must have both a split and a merge point.
-    Â Each gateway that initiates a split must be properly closed by a merge gateway of the same type (e.g., an exclusive gateway must be merged by another exclusive gateway).
+     Each gateway that initiates a split must be properly closed by a merge gateway of the same type (e.g., an exclusive gateway must be merged by another exclusive gateway).
     It is strictly prohibited to use only id (i.e. 2) as a reference.
     All elements are connected with each other with the help of the direction.
-    Â direction: -->
+     direction: -->
     If there are some conditions or annotations it is necessary to use text on links (i.e., edge labels)
-    Â edge label: | condition or annotation |
+     edge label: | condition or annotation |
     Edge label is always located between 2 nodes:
-    Â id:exclusivegateway:{x} --> | condition or annotation | id:task:(task label)
+     id:exclusivegateway:{x} --> | condition or annotation | id:task:(task label)
     Example (follow this structure strictly):
 
 

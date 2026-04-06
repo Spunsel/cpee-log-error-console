@@ -111,7 +111,7 @@ event:
   cpee:change_uuid: 60e37ea17b7a73713444ce0171e20ef41c6263fe
   cpee:exposition: |+
     # User Input:
-    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag für einen Prozess zu Verrechnung von Infrastrukturkosten
 
   time:timestamp: '2026-01-12T15:33:04.124527+01:00'
 ...
@@ -153,10 +153,10 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Infrastrukturkosten ermitteln)
-        1:task:(Infrastrukturkosten ermitteln) --> 2:task:(VerteilungsschlÃ¼ssel festlegen)
-        2:task:(VerteilungsschlÃ¼ssel festlegen) --> 3:task:(Kosten auf Kostenstellen verteilen)
-        3:task:(Kosten auf Kostenstellen verteilen) --> 4:task:(Verrechnung durchfÃ¼hren)
-        4:task:(Verrechnung durchfÃ¼hren) --> 5:endevent:(((endevent)))
+        1:task:(Infrastrukturkosten ermitteln) --> 2:task:(Verteilungsschlüssel festlegen)
+        2:task:(Verteilungsschlüssel festlegen) --> 3:task:(Kosten auf Kostenstellen verteilen)
+        3:task:(Kosten auf Kostenstellen verteilen) --> 4:task:(Verrechnung durchführen)
+        4:task:(Verrechnung durchführen) --> 5:endevent:(((endevent)))
     ```
   time:timestamp: '2026-01-12T15:33:04.125135+01:00'
 ---
@@ -275,7 +275,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>VerteilungsschlÃ¼ssel festlegen</label>
+          <label>Verteilungsschlüssel festlegen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -291,7 +291,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Verrechnung durchfÃ¼hren</label>
+          <label>Verrechnung durchführen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -310,7 +310,7 @@ event:
   cpee:change_uuid: f55aa572df37594610e4d36c18a394def218abce
   cpee:exposition: |+
     # User Input:
-    Finanzabteilung eines Uniklinikums: mache mir einen BPMN-Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+    Finanzabteilung eines Uniklinikums: mache mir einen BPMN-Vorschlag für einen Prozess zu Verrechnung von Infrastrukturkosten
 
   time:timestamp: '2026-01-12T15:35:11.839300+01:00'
 ...
@@ -340,10 +340,10 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Infrastrukturkosten ermitteln)
-    a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(VerteilungsschlÃ¼ssel festlegen)
-    a3:task:(VerteilungsschlÃ¼ssel festlegen)-->a5:task:(Kosten auf Kostenstellen verteilen)
-    a5:task:(Kosten auf Kostenstellen verteilen)-->a7:task:(Verrechnung durchfÃ¼hren)
-    a7:task:(Verrechnung durchfÃ¼hren)-->ee:endevent:((endevent))
+    a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(Verteilungsschlüssel festlegen)
+    a3:task:(Verteilungsschlüssel festlegen)-->a5:task:(Kosten auf Kostenstellen verteilen)
+    a5:task:(Kosten auf Kostenstellen verteilen)-->a7:task:(Verrechnung durchführen)
+    a7:task:(Verrechnung durchführen)-->ee:endevent:((endevent))
   time:timestamp: '2026-01-12T15:35:11.839486+01:00'
 ---
 event:
@@ -359,10 +359,10 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent)) --> a1:task:(Infrastrukturkosten ermitteln)
-        a1:task:(Infrastrukturkosten ermitteln) --> a3:task:(VerteilungsschlÃ¼ssel festlegen)
-        a3:task:(VerteilungsschlÃ¼ssel festlegen) --> a5:task:(Kosten auf Kostenstellen verteilen)
-        a5:task:(Kosten auf Kostenstellen verteilen) --> a7:task:(Verrechnung durchfÃ¼hren)
-        a7:task:(Verrechnung durchfÃ¼hren) --> ee:endevent:(((endevent)))
+        a1:task:(Infrastrukturkosten ermitteln) --> a3:task:(Verteilungsschlüssel festlegen)
+        a3:task:(Verteilungsschlüssel festlegen) --> a5:task:(Kosten auf Kostenstellen verteilen)
+        a5:task:(Kosten auf Kostenstellen verteilen) --> a7:task:(Verrechnung durchführen)
+        a7:task:(Verrechnung durchführen) --> ee:endevent:(((endevent)))
     ```
   time:timestamp: '2026-01-12T15:35:11.839593+01:00'
 ---
@@ -517,7 +517,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>VerteilungsschlÃ¼ssel festlegen</label>
+          <label>Verteilungsschlüssel festlegen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -533,7 +533,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Verrechnung durchfÃ¼hren</label>
+          <label>Verrechnung durchführen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -578,10 +578,10 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Infrastrukturkosten ermitteln)
-    a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(VerteilungsschlÃ¼ssel festlegen)
-    a3:task:(VerteilungsschlÃ¼ssel festlegen)-->a5:task:(Kosten auf Kostenstellen verteilen)
-    a5:task:(Kosten auf Kostenstellen verteilen)-->a7:task:(Verrechnung durchfÃ¼hren)
-    a7:task:(Verrechnung durchfÃ¼hren)-->ee:endevent:((endevent))
+    a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(Verteilungsschlüssel festlegen)
+    a3:task:(Verteilungsschlüssel festlegen)-->a5:task:(Kosten auf Kostenstellen verteilen)
+    a5:task:(Kosten auf Kostenstellen verteilen)-->a7:task:(Verrechnung durchführen)
+    a7:task:(Verrechnung durchführen)-->ee:endevent:((endevent))
   time:timestamp: '2026-01-12T15:35:20.036483+01:00'
 ---
 event:
@@ -597,10 +597,10 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Infrastrukturkosten ermitteln)
-    a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(VerteilungsschlÃ¼ssel festlegen)
-    a3:task:(VerteilungsschlÃ¼ssel festlegen)-->a5:task:(Kosten auf Kostenstellen verteilen)
-    a5:task:(Kosten auf Kostenstellen verteilen)-->a7:task:(Verrechnung durchfÃ¼hren)
-    a7:task:(Verrechnung durchfÃ¼hren)-->eg1:exclusivegateway:{x}
+    a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(Verteilungsschlüssel festlegen)
+    a3:task:(Verteilungsschlüssel festlegen)-->a5:task:(Kosten auf Kostenstellen verteilen)
+    a5:task:(Kosten auf Kostenstellen verteilen)-->a7:task:(Verrechnung durchführen)
+    a7:task:(Verrechnung durchführen)-->eg1:exclusivegateway:{x}
     eg1:exclusivegateway:{x}-->|Ja|se:startevent:
     eg1:exclusivegateway:{x}-->|Nein|ee:endevent:(((endevent)))
     ```

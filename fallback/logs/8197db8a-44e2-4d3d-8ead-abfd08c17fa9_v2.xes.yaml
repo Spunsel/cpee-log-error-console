@@ -315,9 +315,9 @@ event:
     likes it, the rest of his order are produced.
 
 
-    1. Identify all roles and their associated activities from this text. If a role is a subrole of another, clearly indicate this. If a role belongs to another organization, this should also be clearly marked. Analyze the process description to model the BPMN data flow. For each task that creates a data object, create a â€œData Output Associationâ€ to that data object. Then, for each subsequent task that uses this data, create a â€œData Input Associationâ€ from the data object to the task.
+    1. Identify all roles and their associated activities from this text. If a role is a subrole of another, clearly indicate this. If a role belongs to another organization, this should also be clearly marked. Analyze the process description to model the BPMN data flow. For each task that creates a data object, create a ÜSData Output Association⬝ to that data object. Then, for each subsequent task that uses this data, create a ÜSData Input Association⬝ from the data object to the task.
     2. Assign a numerical timestamp to all activities and gateways to control the sequence. Ensure that any preceding element has a lower timestamp than its successor. Elements that occur in parallel must share an identical timestamp. If subsequent events depend on a decision, the XOR gateway must also have an earlier timestamp than the following elements.
-    3. Connect all elements (activities, gateways, events, data objects) using the appropriate connecting objects (Sequence Flows, Message Flows, Data Associations) based on the roles, data analysis and timestamps previously established. Ensure the connections adhere strictly to the sequence defined by the timestamps. Generate the final, complete BPMN modelÂ 
+    3. Connect all elements (activities, gateways, events, data objects) using the appropriate connecting objects (Sequence Flows, Message Flows, Data Associations) based on the roles, data analysis and timestamps previously established. Ensure the connections adhere strictly to the sequence defined by the timestamps. Generate the final, complete BPMN model 
 
   time:timestamp: '2025-10-30T17:27:01.848968+01:00'
 ...
@@ -755,11 +755,11 @@ event:
     # User Input:
     Refinement:
     Correct the just created model regarding the following things. Don't change the rest of the model:
-    If the inspection is not satisfactory, the respective part should be ordered again.Â 
-    It should be possible to order at least 5 different types of parts.Â 
-    Updating the customer should take place in a loop until the first saw is done.Â 
+    If the inspection is not satisfactory, the respective part should be ordered again. 
+    It should be possible to order at least 5 different types of parts. 
+    Updating the customer should take place in a loop until the first saw is done. 
     Label the XOR Gateways.
-    It should be possible to order at least 5 different types of parts.Â 
+    It should be possible to order at least 5 different types of parts. 
     Wait until all parts have arrived before inspecting them.
     Updating the customer should take place in parallel with building the first saw.
 
@@ -2091,10 +2091,10 @@ event:
   cpee:change_uuid: 6e51f7169ac3279c5fe83fa33d85cb175a3ff2ee
   cpee:exposition: |+
     # User Input:
-    Refinement:Correct the just created model regarding the following things. Don't change the rest of the model:Â 
-    give â€œPart 4â€ and â€œPart 5â€ a correct name
-    after the second â€œorder parts onlineâ€ there should be an inclusive gateway, because it should be possible to decide which parts should be reordered
-    Updating the customer should take place in a loop until the first saw is done.Â 
+    Refinement:Correct the just created model regarding the following things. Don't change the rest of the model: 
+    give ÜSPart 4⬝ and ÜSPart 5⬝ a correct name
+    after the second ÜSorder parts online⬝ there should be an inclusive gateway, because it should be possible to decide which parts should be reordered
+    Updating the customer should take place in a loop until the first saw is done. 
 
     You produce custom chainsaws on demand. Your chainsaws have at least 5properties such as length of the "guide bar" (Schwertlaenge), chain width,electric or motor chainsaw. After your customer told you the properties, youcan start ordering the parts from various online sources (in parallel). Afterthe parts arrive you have to do a manual inspection of all parts, and thenassemble the parts. During production, you regularly send updates to yourcustomer. After producing the first saw you send it to your customer. If helikes it, the rest of his order are produced.
 
@@ -3069,9 +3069,9 @@ event:
   cpee:change_uuid: 2f5cb948f8052d243358090602ab8ee7d3275bcc
   cpee:exposition: |+
     # User Input:
-    Refinement:Correct the just created model regarding the following things. Don't change the rest of the model:Â 
+    Refinement:Correct the just created model regarding the following things. Don't change the rest of the model: 
     It should only be possible to order all parts one time. If the inspection fails only certain parts that failed the inspection should be reordered.
-    Updating the customer should take place in a loop until the first saw is done.Â 
+    Updating the customer should take place in a loop until the first saw is done. 
 
     You produce custom chainsaws on demand. Your chainsaws have at least 5properties such as length of the "guide bar" (Schwertlaenge), chain width,electric or motor chainsaw. After your customer told you the properties, youcan start ordering the parts from various online sources (in parallel). Afterthe parts arrive you have to do a manual inspection of all parts, and thenassemble the parts. During production, you regularly send updates to yourcustomer. After producing the first saw you send it to your customer. If helikes it, the rest of his order are produced.
 
@@ -4578,7 +4578,7 @@ event:
   cpee:change_uuid: 5dd0a4dcb5b24ef9e3f1a40b47b01d46a52c097b
   cpee:exposition: |+
     # User Input:
-    Refinement:Correct the just created model regarding the following things. Don't change the rest of the model:Â 
+    Refinement:Correct the just created model regarding the following things. Don't change the rest of the model: 
     before you can reorder certain parts there must be an inspection for every part
     the customer should only be updated during the production of the first saw. And this should happen frequently until the first saw is done
 

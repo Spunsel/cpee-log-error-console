@@ -142,7 +142,7 @@ event:
   cpee:change_uuid: 199e2574017dc9c6236cf9be57cd51dea4bb689b
   cpee:exposition: |+
     # User Input:
-    quiero un flujo de copras nacionales e internacionales, que empieza por una soliictud o requisicion, se requieres aprobacion deÂ  coordinador de area y aprobacion financiera, de ser aprobado pasa a compras y se analizara y auditara los tiempos de cada procesoÂ 
+    quiero un flujo de copras nacionales e internacionales, que empieza por una soliictud o requisicion, se requieres aprobacion de  coordinador de area y aprobacion financiera, de ser aprobado pasa a compras y se analizara y auditara los tiempos de cada proceso 
 
   time:timestamp: '2026-02-20T19:28:16.389789+01:00'
 ...
@@ -183,12 +183,12 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-      0:startevent:((startevent)) --> 1:task:(Solicitud o RequisiciÃ³n)
-      1:task:(Solicitud o RequisiciÃ³n) --> 2:task:(AprobaciÃ³n de Coordinador de Ãrea)
-      2:task:(AprobaciÃ³n de Coordinador de Ãrea) --> 3:exclusivegateway:{x}
-      3:exclusivegateway:{x} -->|Aprobado| 4:task:(AprobaciÃ³n Financiera)
+      0:startevent:((startevent)) --> 1:task:(Solicitud o Requisición)
+      1:task:(Solicitud o Requisición) --> 2:task:(Aprobación de Coordinador de Área)
+      2:task:(Aprobación de Coordinador de Área) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} -->|Aprobado| 4:task:(Aprobación Financiera)
       3:exclusivegateway:{x} -->|No Aprobado| 10:endevent:(((endevent)))
-      4:task:(AprobaciÃ³n Financiera) --> 5:exclusivegateway:{x}
+      4:task:(Aprobación Financiera) --> 5:exclusivegateway:{x}
       5:exclusivegateway:{x} -->|Aprobado| 6:task:(Compras)
       5:exclusivegateway:{x} -->|No Aprobado| 10:endevent:(((endevent)))
       6:task:(Compras) --> 7:task:(Analizar y Auditar Tiempos)

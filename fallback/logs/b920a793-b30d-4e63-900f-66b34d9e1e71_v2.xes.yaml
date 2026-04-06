@@ -87,7 +87,7 @@ event:
   cpee:change_uuid: a240de8095342759ae6461d3c938551eff9e8f84
   cpee:exposition: |-
     # User Input:
-    mache einen vorschlag fÃ¼r einen visiteprozess in der medizin
+    mache einen vorschlag für einen visiteprozess in der medizin
   time:timestamp: '2025-11-02T20:35:48.173218+01:00'
 ---
 event:
@@ -502,7 +502,7 @@ event:
   cpee:change_uuid: 45a19429c30e4b1859a8b362c3f6ac35952febfa
   cpee:exposition: |-
     # User Input:
-    mache einen prozessvorschlag fÃ¼r eine visite in der medizin
+    mache einen prozessvorschlag für eine visite in der medizin
   time:timestamp: '2025-11-02T20:36:32.440631+01:00'
 ---
 event:
@@ -521,13 +521,13 @@ event:
     1:task:(Vorbereitung der Visite) --> 2:task:(Patientenuntersuchung)
     2:task:(Patientenuntersuchung) --> 3:task:(Besprechung im Team)
     3:task:(Besprechung im Team) --> 4:exclusivegateway:{x}
-    4:exclusivegateway:{x} --> |Weitere Diagnostik nÃ¶tig| 5:task:(Anordnung weiterer Diagnostik)
-    5:task:(Anordnung weiterer Diagnostik) --> 6:task:(DurchfÃ¼hrung der Diagnostik)
-    6:task:(DurchfÃ¼hrung der Diagnostik) --> 7:exclusivegateway:{x}
-    4:exclusivegateway:{x} --> |Keine weitere Diagnostik nÃ¶tig| 7:exclusivegateway:{x}
-    7:exclusivegateway:{x} --> |Therapieanpassung nÃ¶tig| 8:task:(Anpassung der Therapie)
+    4:exclusivegateway:{x} --> |Weitere Diagnostik nötig| 5:task:(Anordnung weiterer Diagnostik)
+    5:task:(Anordnung weiterer Diagnostik) --> 6:task:(Durchführung der Diagnostik)
+    6:task:(Durchführung der Diagnostik) --> 7:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Keine weitere Diagnostik nötig| 7:exclusivegateway:{x}
+    7:exclusivegateway:{x} --> |Therapieanpassung nötig| 8:task:(Anpassung der Therapie)
     8:task:(Anpassung der Therapie) --> 9:exclusivegateway:{x}
-    7:exclusivegateway:{x} --> |Keine Therapieanpassung nÃ¶tig| 9:exclusivegateway:{x}
+    7:exclusivegateway:{x} --> |Keine Therapieanpassung nötig| 9:exclusivegateway:{x}
     9:exclusivegateway:{x} --> 10:task:(Dokumentation der Visite)
     10:task:(Dokumentation der Visite) --> 11:endevent:(((endevent)))
     ```
@@ -758,7 +758,7 @@ event:
         </parameters>
       </call>
       <choose mode="exclusive" a:alt_id="4">
-        <alternative condition="Weitere Diagnostik nÃ¶tig" language="text/javascript">
+        <alternative condition="Weitere Diagnostik nötig" language="text/javascript">
           <call id="a9" endpoint="" a:alt_id="5">
             <parameters>
               <label>Anordnung weiterer Diagnostik</label>
@@ -769,17 +769,17 @@ event:
           </call>
           <call id="a11" endpoint="" a:alt_id="6">
             <parameters>
-              <label>DurchfÃ¼hrung der Diagnostik</label>
+              <label>Durchführung der Diagnostik</label>
               <method/>
               <type>:task</type>
               <arguments/>
             </parameters>
           </call>
         </alternative>
-        <alternative condition="Keine weitere Diagnostik nÃ¶tig" language="text/javascript"/>
+        <alternative condition="Keine weitere Diagnostik nötig" language="text/javascript"/>
       </choose>
       <choose mode="exclusive" a:alt_id="7">
-        <alternative condition="Therapieanpassung nÃ¶tig" language="text/javascript">
+        <alternative condition="Therapieanpassung nötig" language="text/javascript">
           <call id="a17" endpoint="" a:alt_id="8">
             <parameters>
               <label>Anpassung der Therapie</label>
@@ -789,7 +789,7 @@ event:
             </parameters>
           </call>
         </alternative>
-        <alternative condition="Keine Therapieanpassung nÃ¶tig" language="text/javascript"/>
+        <alternative condition="Keine Therapieanpassung nötig" language="text/javascript"/>
       </choose>
       <call id="a23" endpoint="" a:alt_id="10">
         <parameters>
@@ -846,14 +846,14 @@ event:
         a5a:task:(Teamvorbereitung)-->a5b:task:(Teambesprechung)
         a5b:task:(Teambesprechung)-->a5c:task:(Teamdokumentation)
         a5c:task:(Teamdokumentation)-->gw1s:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nÃ¶tig"|a9:task:(Anordnung weiterer Diagnostik)
-        a9:task:(Anordnung weiterer Diagnostik)-->a11:task:(DurchfÃ¼hrung der Diagnostik)
-        a11:task:(DurchfÃ¼hrung der Diagnostik)-->gw1e:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nÃ¶tig"|gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nötig"|a9:task:(Anordnung weiterer Diagnostik)
+        a9:task:(Anordnung weiterer Diagnostik)-->a11:task:(Durchführung der Diagnostik)
+        a11:task:(Durchführung der Diagnostik)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nötig"|gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|"Therapieanpassung nÃ¶tig"|a17:task:(Anpassung der Therapie)
+        gw2s:exclusivegateway:{x}-->|"Therapieanpassung nötig"|a17:task:(Anpassung der Therapie)
         a17:task:(Anpassung der Therapie)-->gw2e:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nÃ¶tig"|gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nötig"|gw2e:exclusivegateway:{x}
         gw2e:exclusivegateway:{x}-->a23:task:(Dokumentation der Visite)
         a23:task:(Dokumentation der Visite)-->ee:endevent:((endevent))
     ```
@@ -874,14 +874,14 @@ event:
     a1:task:(Vorbereitung der Visite)-->a3:task:(Patientenuntersuchung)
     a3:task:(Patientenuntersuchung)-->a5:task:(Besprechung im Team)
     a5:task:(Besprechung im Team)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nÃ¶tig"|a9:task:(Anordnung weiterer Diagnostik)
-    a9:task:(Anordnung weiterer Diagnostik)-->a11:task:(DurchfÃ¼hrung der Diagnostik)
-    a11:task:(DurchfÃ¼hrung der Diagnostik)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nÃ¶tig"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nötig"|a9:task:(Anordnung weiterer Diagnostik)
+    a9:task:(Anordnung weiterer Diagnostik)-->a11:task:(Durchführung der Diagnostik)
+    a11:task:(Durchführung der Diagnostik)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nötig"|gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Therapieanpassung nÃ¶tig"|a17:task:(Anpassung der Therapie)
+    gw2s:exclusivegateway:{x}-->|"Therapieanpassung nötig"|a17:task:(Anpassung der Therapie)
     a17:task:(Anpassung der Therapie)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nÃ¶tig"|gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nötig"|gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->a23:task:(Dokumentation der Visite)
     a23:task:(Dokumentation der Visite)-->ee:endevent:((endevent))
   time:timestamp: '2025-11-02T20:37:07.626552+01:00'
@@ -1049,7 +1049,7 @@ event:
         </parameters>
       </call>
       <choose mode="exclusive" a:alt_id="gw1s">
-        <alternative condition="Weitere Diagnostik nÃ¶tig" language="text/javascript">
+        <alternative condition="Weitere Diagnostik nötig" language="text/javascript">
           <call id="a13" endpoint="" a:alt_id="a9">
             <parameters>
               <label>Anordnung weiterer Diagnostik</label>
@@ -1060,17 +1060,17 @@ event:
           </call>
           <call id="a15" endpoint="" a:alt_id="a11">
             <parameters>
-              <label>DurchfÃ¼hrung der Diagnostik</label>
+              <label>Durchführung der Diagnostik</label>
               <method/>
               <type>:task</type>
               <arguments/>
             </parameters>
           </call>
         </alternative>
-        <alternative condition="Keine weitere Diagnostik nÃ¶tig" language="text/javascript"/>
+        <alternative condition="Keine weitere Diagnostik nötig" language="text/javascript"/>
       </choose>
       <choose mode="exclusive" a:alt_id="gw2s">
-        <alternative condition="Therapieanpassung nÃ¶tig" language="text/javascript">
+        <alternative condition="Therapieanpassung nötig" language="text/javascript">
           <call id="a23" endpoint="" a:alt_id="a17">
             <parameters>
               <label>Anpassung der Therapie</label>
@@ -1080,7 +1080,7 @@ event:
             </parameters>
           </call>
         </alternative>
-        <alternative condition="Keine Therapieanpassung nÃ¶tig" language="text/javascript"/>
+        <alternative condition="Keine Therapieanpassung nötig" language="text/javascript"/>
       </choose>
       <call id="a29" endpoint="" a:alt_id="a23">
         <parameters>
@@ -1116,7 +1116,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche alles
+    lösche alles
   time:timestamp: '2025-11-02T20:37:21.561636+01:00'
 ---
 event:
@@ -1136,14 +1136,14 @@ event:
     a5:task:(Teamvorbereitung)-->a7:task:(Teambesprechung)
     a7:task:(Teambesprechung)-->a9:task:(Teamdokumentation)
     a9:task:(Teamdokumentation)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nÃ¶tig"|a13:task:(Anordnung weiterer Diagnostik)
-    a13:task:(Anordnung weiterer Diagnostik)-->a15:task:(DurchfÃ¼hrung der Diagnostik)
-    a15:task:(DurchfÃ¼hrung der Diagnostik)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nÃ¶tig"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nötig"|a13:task:(Anordnung weiterer Diagnostik)
+    a13:task:(Anordnung weiterer Diagnostik)-->a15:task:(Durchführung der Diagnostik)
+    a15:task:(Durchführung der Diagnostik)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nötig"|gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Therapieanpassung nÃ¶tig"|a23:task:(Anpassung der Therapie)
+    gw2s:exclusivegateway:{x}-->|"Therapieanpassung nötig"|a23:task:(Anpassung der Therapie)
     a23:task:(Anpassung der Therapie)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nÃ¶tig"|gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nötig"|gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->a29:task:(Dokumentation der Visite)
     a29:task:(Dokumentation der Visite)-->ee:endevent:((endevent))
   time:timestamp: '2025-11-02T20:37:21.561911+01:00'
@@ -1356,7 +1356,7 @@ event:
   cpee:change_uuid: 5afdf77ae0ec028b25df54511ea2824964e08d11
   cpee:exposition: |-
     # User Input:
-    mache einen prozessvorschlag fÃ¼r eine visite in der medizin
+    mache einen prozessvorschlag für eine visite in der medizin
   time:timestamp: '2025-11-02T20:37:38.815260+01:00'
 ---
 event:
@@ -1609,7 +1609,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche alles
+    lösche alles
   time:timestamp: '2025-11-02T20:38:32.762834+01:00'
 ---
 event:
@@ -1777,7 +1777,7 @@ event:
   cpee:change_uuid: 4aaa873287d25b7d5343030bddc184e365305979
   cpee:exposition: |-
     # User Input:
-    mache einen prozessvorschlag fÃ¼r eine visite in der medizin
+    mache einen prozessvorschlag für eine visite in der medizin
   time:timestamp: '2025-11-02T20:38:51.255444+01:00'
 ---
 event:
@@ -1807,9 +1807,9 @@ event:
     bpmn
       direction LR
       0:startevent:((startevent)) --> 1:task:(Visite vorbereiten)
-      1:task:(Visite vorbereiten) --> 2:task:(Patientenakte prÃ¼fen)
-      2:task:(Patientenakte prÃ¼fen) --> 3:subprocess:(Patientenvisite durchfÃ¼hren)
-      3:subprocess:(Patientenvisite durchfÃ¼hren) --> 4:task:(Nachbesprechung im Team)
+      1:task:(Visite vorbereiten) --> 2:task:(Patientenakte prüfen)
+      2:task:(Patientenakte prüfen) --> 3:subprocess:(Patientenvisite durchführen)
+      3:subprocess:(Patientenvisite durchführen) --> 4:task:(Nachbesprechung im Team)
       4:task:(Nachbesprechung im Team) --> 5:exclusivegateway:{x}
       5:exclusivegateway:{x} --> |Anpassungen erforderlich|6:task:(Therapieplan anpassen)
       6:task:(Therapieplan anpassen) --> 7:parallelgateway:{AND}
@@ -1931,7 +1931,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche alles
+    lösche alles
   time:timestamp: '2025-11-02T20:39:09.544051+01:00'
 ---
 event:
@@ -1956,7 +1956,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Patientenakte prÃ¼fen</label>
+          <label>Patientenakte prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2020,8 +2020,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Visite vorbereiten)
-    a1:task:(Visite vorbereiten)-->a3:task:(Patientenakte prÃ¼fen)
-    a3:task:(Patientenakte prÃ¼fen)-->a7:task:(Nachbesprechung im Team)
+    a1:task:(Visite vorbereiten)-->a3:task:(Patientenakte prüfen)
+    a3:task:(Patientenakte prüfen)-->a7:task:(Nachbesprechung im Team)
     a7:task:(Nachbesprechung im Team)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->a11:task:(Therapieplan anpassen)
     a11:task:(Therapieplan anpassen)-->gw2s:parallelgateway:{AND}
@@ -2180,7 +2180,7 @@ event:
   cpee:change_uuid: 403deee6a9aeb2a1bbd6e0a4f8db4133f49a103d
   cpee:exposition: |-
     # User Input:
-    mache einen prozessvorschlag fÃ¼r eine visite in der medizin
+    mache einen prozessvorschlag für eine visite in der medizin
   time:timestamp: '2025-11-02T20:39:18.596097+01:00'
 ---
 event:
@@ -2559,7 +2559,7 @@ event:
   cpee:change_uuid: 5a490711d4737b286e0c16b7e86196ee3a3b2597
   cpee:exposition: |-
     # User Input:
-    mache einen prozessvorschlag fÃ¼r eine visite in der medizin
+    mache einen prozessvorschlag für eine visite in der medizin
   time:timestamp: '2025-11-02T20:39:38.428728+01:00'
 ---
 event:
@@ -2602,13 +2602,13 @@ event:
     1:task:(Vorbereitung der Visite) --> 2:task:(Patientenuntersuchung)
     2:task:(Patientenuntersuchung) --> 3:task:(Besprechung im Team)
     3:task:(Besprechung im Team) --> 4:exclusivegateway:{x}
-    4:exclusivegateway:{x} --> |Weitere Diagnostik nÃ¶tig| 5:task:(Anordnung weiterer Diagnostik)
-    5:task:(Anordnung weiterer Diagnostik) --> 6:task:(DurchfÃ¼hrung der Diagnostik)
-    6:task:(DurchfÃ¼hrung der Diagnostik) --> 7:exclusivegateway:{x}
-    4:exclusivegateway:{x} --> |Keine weitere Diagnostik nÃ¶tig| 7:exclusivegateway:{x}
-    7:exclusivegateway:{x} --> |Therapieanpassung nÃ¶tig| 8:task:(Anpassung der Therapie)
+    4:exclusivegateway:{x} --> |Weitere Diagnostik nötig| 5:task:(Anordnung weiterer Diagnostik)
+    5:task:(Anordnung weiterer Diagnostik) --> 6:task:(Durchführung der Diagnostik)
+    6:task:(Durchführung der Diagnostik) --> 7:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Keine weitere Diagnostik nötig| 7:exclusivegateway:{x}
+    7:exclusivegateway:{x} --> |Therapieanpassung nötig| 8:task:(Anpassung der Therapie)
     8:task:(Anpassung der Therapie) --> 9:task:(Dokumentation der Visite)
-    7:exclusivegateway:{x} --> |Keine Therapieanpassung nÃ¶tig| 9:task:(Dokumentation der Visite)
+    7:exclusivegateway:{x} --> |Keine Therapieanpassung nötig| 9:task:(Dokumentation der Visite)
     9:task:(Dokumentation der Visite) --> 10:endevent:(((endevent)))
     ```
   time:timestamp: '2025-11-02T20:39:38.429607+01:00'
@@ -2835,7 +2835,7 @@ event:
         </parameters>
       </call>
       <choose mode="exclusive" a:alt_id="4">
-        <alternative condition="Weitere Diagnostik nÃ¶tig" language="text/javascript">
+        <alternative condition="Weitere Diagnostik nötig" language="text/javascript">
           <call id="a9" endpoint="" a:alt_id="5">
             <parameters>
               <label>Anordnung weiterer Diagnostik</label>
@@ -2846,17 +2846,17 @@ event:
           </call>
           <call id="a11" endpoint="" a:alt_id="6">
             <parameters>
-              <label>DurchfÃ¼hrung der Diagnostik</label>
+              <label>Durchführung der Diagnostik</label>
               <method/>
               <type>:task</type>
               <arguments/>
             </parameters>
           </call>
         </alternative>
-        <alternative condition="Keine weitere Diagnostik nÃ¶tig" language="text/javascript"/>
+        <alternative condition="Keine weitere Diagnostik nötig" language="text/javascript"/>
       </choose>
       <choose mode="exclusive" a:alt_id="7">
-        <alternative condition="Therapieanpassung nÃ¶tig" language="text/javascript">
+        <alternative condition="Therapieanpassung nötig" language="text/javascript">
           <call id="a17" endpoint="" a:alt_id="8">
             <parameters>
               <label>Anpassung der Therapie</label>
@@ -2866,7 +2866,7 @@ event:
             </parameters>
           </call>
         </alternative>
-        <alternative condition="Keine Therapieanpassung nÃ¶tig" language="text/javascript"/>
+        <alternative condition="Keine Therapieanpassung nötig" language="text/javascript"/>
       </choose>
       <call id="a19" endpoint="" a:alt_id="9">
         <parameters>
@@ -2889,7 +2889,7 @@ event:
   cpee:change_uuid: 0aa3e05cfaafb8136e36388e9a521cd1bcd8244b
   cpee:exposition: |-
     # User Input:
-    fÃ¼ge nach Dokumentation der Visite noch 3 Schritte fÃ¼r die abrechnung ein
+    füge nach Dokumentation der Visite noch 3 Schritte für die abrechnung ein
   time:timestamp: '2025-11-02T20:40:01.895476+01:00'
 ---
 event:
@@ -2920,14 +2920,14 @@ event:
     a1:task:(Vorbereitung der Visite)-->a3:task:(Patientenuntersuchung)
     a3:task:(Patientenuntersuchung)-->a5:task:(Besprechung im Team)
     a5:task:(Besprechung im Team)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nÃ¶tig"|a9:task:(Anordnung weiterer Diagnostik)
-    a9:task:(Anordnung weiterer Diagnostik)-->a11:task:(DurchfÃ¼hrung der Diagnostik)
-    a11:task:(DurchfÃ¼hrung der Diagnostik)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nÃ¶tig"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nötig"|a9:task:(Anordnung weiterer Diagnostik)
+    a9:task:(Anordnung weiterer Diagnostik)-->a11:task:(Durchführung der Diagnostik)
+    a11:task:(Durchführung der Diagnostik)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nötig"|gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Therapieanpassung nÃ¶tig"|a17:task:(Anpassung der Therapie)
+    gw2s:exclusivegateway:{x}-->|"Therapieanpassung nötig"|a17:task:(Anpassung der Therapie)
     a17:task:(Anpassung der Therapie)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nÃ¶tig"|gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nötig"|gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->a19:task:(Dokumentation der Visite)
     a19:task:(Dokumentation der Visite)-->ee:endevent:((endevent))
   time:timestamp: '2025-11-02T20:40:01.896217+01:00'
@@ -2948,14 +2948,14 @@ event:
         a1:task:(Vorbereitung der Visite)-->a3:task:(Patientenuntersuchung)
         a3:task:(Patientenuntersuchung)-->a5:task:(Besprechung im Team)
         a5:task:(Besprechung im Team)-->gw1s:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nÃ¶tig"|a9:task:(Anordnung weiterer Diagnostik)
-        a9:task:(Anordnung weiterer Diagnostik)-->a11:task:(DurchfÃ¼hrung der Diagnostik)
-        a11:task:(DurchfÃ¼hrung der Diagnostik)-->gw1e:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nÃ¶tig"|gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Weitere Diagnostik nötig"|a9:task:(Anordnung weiterer Diagnostik)
+        a9:task:(Anordnung weiterer Diagnostik)-->a11:task:(Durchführung der Diagnostik)
+        a11:task:(Durchführung der Diagnostik)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Keine weitere Diagnostik nötig"|gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|"Therapieanpassung nÃ¶tig"|a17:task:(Anpassung der Therapie)
+        gw2s:exclusivegateway:{x}-->|"Therapieanpassung nötig"|a17:task:(Anpassung der Therapie)
         a17:task:(Anpassung der Therapie)-->gw2e:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nÃ¶tig"|gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"Keine Therapieanpassung nötig"|gw2e:exclusivegateway:{x}
         gw2e:exclusivegateway:{x}-->a19:task:(Dokumentation der Visite)
         a19:task:(Dokumentation der Visite)-->a20:task:(Leistungserfassung)
         a20:task:(Leistungserfassung)-->a21:task:(Kodierung)

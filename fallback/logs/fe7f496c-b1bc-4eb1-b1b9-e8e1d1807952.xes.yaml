@@ -125,7 +125,7 @@ event:
   cpee:change_uuid: 9f4f26da9717752026c88b6811742ffd532797ee
   cpee:exposition: |-
     # User Input:
-    Hallo bitte erstelle mir einen Einkaufsprozess fÃ¼r einen Bankkreditkartendienstleister.
+    Hallo bitte erstelle mir einen Einkaufsprozess für einen Bankkreditkartendienstleister.
   time:timestamp: '2025-12-16T16:46:23.865875+01:00'
 ---
 event:
@@ -165,10 +165,10 @@ event:
     ```mermaid
     graph LR
       0:startevent:((startevent)) --> 1:task:(Kreditkartenantrag erstellen)
-      1:task:(Kreditkartenantrag erstellen) --> 2:task:(BonitÃ¤t prÃ¼fen)
-      2:task:(BonitÃ¤t prÃ¼fen) --> 3:exclusivegateway:{x}
-      3:exclusivegateway:{x} --> |BonitÃ¤t ausreichend| 4:task:(Kreditkarte genehmigen)
-      3:exclusivegateway:{x} --> |BonitÃ¤t unzureichend| 5:task:(Kreditkartenantrag ablehnen)
+      1:task:(Kreditkartenantrag erstellen) --> 2:task:(Bonität prüfen)
+      2:task:(Bonität prüfen) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Bonität ausreichend| 4:task:(Kreditkarte genehmigen)
+      3:exclusivegateway:{x} --> |Bonität unzureichend| 5:task:(Kreditkartenantrag ablehnen)
       4:task:(Kreditkarte genehmigen) --> 6:parallelgateway:{AND}
       5:task:(Kreditkartenantrag ablehnen) --> 6:parallelgateway:{AND}
       6:parallelgateway:{AND} --> 7:task:(Kunden benachrichtigen)

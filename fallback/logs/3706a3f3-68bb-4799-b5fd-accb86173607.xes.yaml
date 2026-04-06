@@ -182,7 +182,7 @@ event:
   cpee:change_uuid: 73bdd27973d1e3a2d0d73103f9691349ba934d23
   cpee:exposition: |-
     # User Input:
-    Abstimmung der AnsprechpartnerÂ 
+    Abstimmung der Ansprechpartner 
   time:timestamp: '2026-02-17T12:30:16.934749+01:00'
 ---
 event:
@@ -418,7 +418,7 @@ event:
   cpee:change_uuid: '08eb997c71bed32fc0c1597065ed89958ca91bcb'
   cpee:exposition: |-
     # User Input:
-    TerminvereinbarungÂ 
+    Terminvereinbarung 
   time:timestamp: '2026-02-17T12:30:30.143556+01:00'
 ---
 event:
@@ -688,7 +688,7 @@ event:
   cpee:change_uuid: 5ea51f02f808845aaf629416a9513bd22ca56132
   cpee:exposition: |-
     # User Input:
-    Einladung verschickenÂ 
+    Einladung verschicken 
   time:timestamp: '2026-02-17T12:30:47.422661+01:00'
 ---
 event:
@@ -995,7 +995,7 @@ event:
   cpee:change_uuid: 1b02bd4ff727fcc3dbc45dfe88db36887d2dbdd1
   cpee:exposition: |-
     # User Input:
-    ZusageÂ 
+    Zusage 
   time:timestamp: '2026-02-17T12:31:37.200702+01:00'
 ---
 event:
@@ -2828,7 +2828,7 @@ event:
   cpee:change_uuid: 1018e2771d9e76bd3fdeae854ee5fa28d3c55f22
   cpee:exposition: |-
     # User Input:
-    Einladung verschickenÂ 
+    Einladung verschicken 
   time:timestamp: '2026-02-17T12:35:51.150789+01:00'
 ---
 event:
@@ -4854,7 +4854,7 @@ event:
   cpee:change_uuid: 20c46fcd7981585af715ca5077bd38fb476a4d7b
   cpee:exposition: |-
     # User Input:
-    Investzusagen des Vorjahres prÃ¼fenÂ 
+    Investzusagen des Vorjahres prüfen 
   time:timestamp: '2026-02-17T12:42:45.534384+01:00'
 ---
 event:
@@ -5460,7 +5460,7 @@ event:
   cpee:change_uuid: 4c5e5595a806e224893c89b3d386ba64f6720834
   cpee:exposition: |-
     # User Input:
-    Investzusagen des Vorjahres prÃ¼fen
+    Investzusagen des Vorjahres prüfen
   time:timestamp: '2026-02-17T12:43:13.085520+01:00'
 ---
 event:
@@ -5527,8 +5527,8 @@ event:
         gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
         a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-        gw2s:parallelgateway:{AND}-->a2:task:(Investzusagen des Vorjahres prÃ¼fen)
-        a2:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a2:task:(Investzusagen des Vorjahres prüfen)
+        a2:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
         gw2s:parallelgateway:{AND}-->gw2e:parallelgateway:{AND}
         gw2e:parallelgateway:{AND}-->ee:endevent:((endevent))
     ```
@@ -5902,7 +5902,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="a2">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -5965,7 +5965,7 @@ event:
   cpee:change_uuid: a6ed3aa246ff1fc211c13da6eac9a9b5924917a1
   cpee:exposition: |-
     # User Input:
-    PrÃ¼fen der bisher geplanten Positionen
+    Prüfen der bisher geplanten Positionen
   time:timestamp: '2026-02-17T12:44:03.072738+01:00'
 ---
 event:
@@ -6003,8 +6003,8 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
     gw2s:parallelgateway:{AND}-->a2:task:()
     a2:task:()-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->ee:endevent:((endevent))
@@ -6033,10 +6033,10 @@ event:
         gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
         a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-        gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-        a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-        gw2s:parallelgateway:{AND}-->a2:task:(PrÃ¼fen der bisher geplanten Positionen)
-        a2:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+        a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a2:task:(Prüfen der bisher geplanten Positionen)
+        a2:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
         gw2e:parallelgateway:{AND}-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-02-17T12:44:03.073122+01:00'
@@ -6434,7 +6434,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="a23">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -6444,7 +6444,7 @@ event:
         <parallel_branch>
           <call id="a27" endpoint="" a:alt_id="a2">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -6543,10 +6543,10 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a2:task:()
     a2:task:()-->ee:endevent:((endevent))
   time:timestamp: '2026-02-17T12:44:34.675775+01:00'
@@ -6574,10 +6574,10 @@ event:
         gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
         a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-        gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-        a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-        gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-        a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+        a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+        a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
         gw2e:parallelgateway:{AND}-->a2:task:(Unterlagen sammeln)
         a2:task:(Unterlagen sammeln)-->ee:endevent:(((endevent)))
     ```
@@ -7000,7 +7000,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="a23">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -7010,7 +7010,7 @@ event:
         <parallel_branch>
           <call id="a27" endpoint="" a:alt_id="a27">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -7117,10 +7117,10 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a2:task:()
     a2:task:()-->ee:endevent:((endevent))
@@ -7149,10 +7149,10 @@ event:
         gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
         a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-        gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-        a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-        gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-        a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+        a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+        gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+        a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
         gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
         a31:task:(Unterlagen sammeln)-->a2:task:(Vorgehen intern absprechen)
         a2:task:(Vorgehen intern absprechen)-->ee:endevent:(((endevent)))
@@ -7561,7 +7561,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="a23">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -7571,7 +7571,7 @@ event:
         <parallel_branch>
           <call id="a27" endpoint="" a:alt_id="a27">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -7609,7 +7609,7 @@ event:
   cpee:change_uuid: 6acea9199a5e4fb0d6e8e55c44c2ba64cb69a674
   cpee:exposition: |-
     # User Input:
-    InvestplanungsgesprÃ¤ch
+    Investplanungsgespräch
   time:timestamp: '2026-02-17T12:45:50.791439+01:00'
 ---
 event:
@@ -7647,10 +7647,10 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
     a33:task:(Vorgehen intern absprechen)-->ee:endevent:((endevent))
@@ -7679,14 +7679,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:(((endevent)))
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2026-02-17T12:45:50.791773+01:00'
 ---
@@ -12658,7 +12658,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="a23">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -12668,7 +12668,7 @@ event:
         <parallel_branch>
           <call id="a27" endpoint="" a:alt_id="a27">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -12694,7 +12694,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="a35">
         <parameters>
-          <label>InvestplanungsgesprÃ¤ch</label>
+          <label>Investplanungsgespräch</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -12751,14 +12751,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:((endevent))
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->ee:endevent:((endevent))
   time:timestamp: '2026-02-17T12:54:57.830027+01:00'
 ---
 event:
@@ -12783,14 +12783,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:((endevent))
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-02-17T12:54:57.830114+01:00'
 ---
@@ -13235,7 +13235,7 @@ event:
         <parallel_branch>
           <call id="a21" endpoint="" a:alt_id="a23">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -13245,7 +13245,7 @@ event:
         <parallel_branch>
           <call id="a25" endpoint="" a:alt_id="a27">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -13271,7 +13271,7 @@ event:
       </call>
       <call id="a33" endpoint="" a:alt_id="a35">
         <parameters>
-          <label>InvestplanungsgesprÃ¤ch</label>
+          <label>Investplanungsgespräch</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -13290,7 +13290,7 @@ event:
   cpee:change_uuid: 29fb58d9d07881458ea704c8363608dd8b1b494d
   cpee:exposition: |-
     # User Input:
-    TerminvereinbarungÂ 
+    Terminvereinbarung 
   time:timestamp: '2026-02-17T12:55:34.650995+01:00'
 ---
 event:
@@ -13327,14 +13327,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a17:task:(Vorbereitung und Planung)
     a17:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a21:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a21:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a25:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a25:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a21:task:(Investzusagen des Vorjahres prüfen)
+    a21:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a25:task:(Prüfen der bisher geplanten Positionen)
+    a25:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a29:task:(Unterlagen sammeln)
     a29:task:(Unterlagen sammeln)-->a31:task:(Vorgehen intern absprechen)
-    a31:task:(Vorgehen intern absprechen)-->a33:task:(InvestplanungsgesprÃ¤ch)
-    a33:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:((endevent))
+    a31:task:(Vorgehen intern absprechen)-->a33:task:(Investplanungsgespräch)
+    a33:task:(Investplanungsgespräch)-->ee:endevent:((endevent))
   time:timestamp: '2026-02-17T12:55:34.651167+01:00'
 ---
 event:
@@ -13359,14 +13359,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a17:task:(Vorbereitung und Planung)
     a17:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a21:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a21:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a25:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a25:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a21:task:(Investzusagen des Vorjahres prüfen)
+    a21:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a25:task:(Prüfen der bisher geplanten Positionen)
+    a25:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a29:task:(Unterlagen sammeln)
     a29:task:(Unterlagen sammeln)-->a31:task:(Vorgehen intern absprechen)
-    a31:task:(Vorgehen intern absprechen)-->a33:task:(InvestplanungsgesprÃ¤ch)
-    a33:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:((endevent))
+    a31:task:(Vorgehen intern absprechen)-->a33:task:(Investplanungsgespräch)
+    a33:task:(Investplanungsgespräch)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-02-17T12:55:34.651282+01:00'
 ---
@@ -13851,7 +13851,7 @@ event:
         <parallel_branch>
           <call id="a21" endpoint="" a:alt_id="a21">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -13861,7 +13861,7 @@ event:
         <parallel_branch>
           <call id="a25" endpoint="" a:alt_id="a25">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -13887,7 +13887,7 @@ event:
       </call>
       <call id="a33" endpoint="" a:alt_id="a33">
         <parameters>
-          <label>InvestplanungsgesprÃ¤ch</label>
+          <label>Investplanungsgespräch</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -13944,14 +13944,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a17:task:(Vorbereitung und Planung)
     a17:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a21:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a21:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a25:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a25:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a21:task:(Investzusagen des Vorjahres prüfen)
+    a21:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a25:task:(Prüfen der bisher geplanten Positionen)
+    a25:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a29:task:(Unterlagen sammeln)
     a29:task:(Unterlagen sammeln)-->a31:task:(Vorgehen intern absprechen)
-    a31:task:(Vorgehen intern absprechen)-->a33:task:(InvestplanungsgesprÃ¤ch)
-    a33:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:((endevent))
+    a31:task:(Vorgehen intern absprechen)-->a33:task:(Investplanungsgespräch)
+    a33:task:(Investplanungsgespräch)-->ee:endevent:((endevent))
   time:timestamp: '2026-02-17T12:55:53.643587+01:00'
 ---
 event:
@@ -13977,14 +13977,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a17:task:(Vorbereitung und Planung)
     a17:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a21:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a21:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a25:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a25:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a21:task:(Investzusagen des Vorjahres prüfen)
+    a21:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a25:task:(Prüfen der bisher geplanten Positionen)
+    a25:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a29:task:(Unterlagen sammeln)
     a29:task:(Unterlagen sammeln)-->a31:task:(Vorgehen intern absprechen)
-    a31:task:(Vorgehen intern absprechen)-->a33:task:(InvestplanungsgesprÃ¤ch)
-    a33:task:(InvestplanungsgesprÃ¤ch)-->a34:task:(Einladung verschicken)
+    a31:task:(Vorgehen intern absprechen)-->a33:task:(Investplanungsgespräch)
+    a33:task:(Investplanungsgespräch)-->a34:task:(Einladung verschicken)
     a34:task:(Einladung verschicken)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-02-17T12:55:53.643686+01:00'
@@ -14422,7 +14422,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="a21">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -14432,7 +14432,7 @@ event:
         <parallel_branch>
           <call id="a27" endpoint="" a:alt_id="a25">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -14458,7 +14458,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="a33">
         <parameters>
-          <label>InvestplanungsgesprÃ¤ch</label>
+          <label>Investplanungsgespräch</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -14515,14 +14515,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:((endevent))
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->ee:endevent:((endevent))
   time:timestamp: '2026-02-17T12:56:12.433980+01:00'
 ---
 event:
@@ -14548,14 +14548,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->a37:task:(Einladung verschicken)
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->a37:task:(Einladung verschicken)
     a37:task:(Einladung verschicken)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-02-17T12:56:12.434947+01:00'
@@ -14993,7 +14993,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="a23">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -15003,7 +15003,7 @@ event:
         <parallel_branch>
           <call id="a27" endpoint="" a:alt_id="a27">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -15029,7 +15029,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="a35">
         <parameters>
-          <label>InvestplanungsgesprÃ¤ch</label>
+          <label>Investplanungsgespräch</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -15086,14 +15086,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:((endevent))
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->ee:endevent:((endevent))
   time:timestamp: '2026-02-17T12:56:31.675029+01:00'
 ---
 event:
@@ -15119,14 +15119,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->a37:task:(Einladung verschicken)
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->a37:task:(Einladung verschicken)
     a37:task:(Einladung verschicken)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-02-17T12:56:31.675220+01:00'
@@ -15644,7 +15644,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="a23">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -15654,7 +15654,7 @@ event:
         <parallel_branch>
           <call id="a27" endpoint="" a:alt_id="a27">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -15680,7 +15680,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="a35">
         <parameters>
-          <label>InvestplanungsgesprÃ¤ch</label>
+          <label>Investplanungsgespräch</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -15699,7 +15699,7 @@ event:
   cpee:change_uuid: 6acea9199a5e4fb0d6e8e55c44c2ba64cb69a674
   cpee:exposition: |-
     # User Input:
-    a5 ist Einladung verschickenÂ 
+    a5 ist Einladung verschicken 
   time:timestamp: '2026-02-17T12:57:26.444551+01:00'
 ---
 event:
@@ -15737,14 +15737,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:((endevent))
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->ee:endevent:((endevent))
   time:timestamp: '2026-02-17T12:57:26.444817+01:00'
 ---
 event:
@@ -15770,14 +15770,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->ee:endevent:((endevent))
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-02-17T12:57:26.444915+01:00'
 ---
@@ -17310,7 +17310,7 @@ event:
         <parallel_branch>
           <call id="a23" endpoint="" a:alt_id="a23">
             <parameters>
-              <label>Investzusagen des Vorjahres prÃ¼fen</label>
+              <label>Investzusagen des Vorjahres prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -17320,7 +17320,7 @@ event:
         <parallel_branch>
           <call id="a27" endpoint="" a:alt_id="a27">
             <parameters>
-              <label>PrÃ¼fen der bisher geplanten Positionen</label>
+              <label>Prüfen der bisher geplanten Positionen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -17346,7 +17346,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="a35">
         <parameters>
-          <label>InvestplanungsgesprÃ¤ch</label>
+          <label>Investplanungsgespräch</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -17405,7 +17405,7 @@ event:
   cpee:change_uuid: c93f0e097c259bb00d1b7d029868ad43a4b3e198
   cpee:exposition: |-
     # User Input:
-    FÃ¼ge nach der Absage a9 eine Schleife zurÃ¼ck zu der Terminvereinbarung a3 einÂ 
+    Füge nach der Absage a9 eine Schleife zurück zu der Terminvereinbarung a3 ein 
   time:timestamp: '2026-02-17T13:03:14.997860+01:00'
 ---
 event:
@@ -17443,14 +17443,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->a2:task:()
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->a2:task:()
     a2:task:()-->ee:endevent:((endevent))
   time:timestamp: '2026-02-17T13:03:14.998042+01:00'
 ---
@@ -17477,14 +17477,14 @@ event:
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->a19:task:(Vorbereitung und Planung)
     a19:task:(Vorbereitung und Planung)-->gw2s:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prÃ¼fen)
-    a23:task:(Investzusagen des Vorjahres prÃ¼fen)-->gw2e:parallelgateway:{AND}
-    gw2s:parallelgateway:{AND}-->a27:task:(PrÃ¼fen der bisher geplanten Positionen)
-    a27:task:(PrÃ¼fen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a23:task:(Investzusagen des Vorjahres prüfen)
+    a23:task:(Investzusagen des Vorjahres prüfen)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a27:task:(Prüfen der bisher geplanten Positionen)
+    a27:task:(Prüfen der bisher geplanten Positionen)-->gw2e:parallelgateway:{AND}
     gw2e:parallelgateway:{AND}-->a31:task:(Unterlagen sammeln)
     a31:task:(Unterlagen sammeln)-->a33:task:(Vorgehen intern absprechen)
-    a33:task:(Vorgehen intern absprechen)-->a35:task:(InvestplanungsgesprÃ¤ch)
-    a35:task:(InvestplanungsgesprÃ¤ch)-->a2:task:()
+    a33:task:(Vorgehen intern absprechen)-->a35:task:(Investplanungsgespräch)
+    a35:task:(Investplanungsgespräch)-->a2:task:()
     a2:task:()-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-02-17T13:03:14.998655+01:00'

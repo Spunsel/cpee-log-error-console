@@ -165,7 +165,7 @@ event:
   cpee:change_uuid: eb6fdd66d0168f31081d0dfdca0a7a78993d44ce
   cpee:exposition: |
     # User Input:
-    Erstelle einen Prozess Ã¼ber die proximale Femurfraktur
+    Erstelle einen Prozess über die proximale Femurfraktur
   time:timestamp: '2026-03-31T13:51:28.278737+02:00'
 ---
 event:
@@ -202,13 +202,13 @@ event:
     ```mermaid
     graph LR
     0:startevent:((startevent)) --> 1:task:(Proximale Femurfraktur erkennen)
-    1:task:(Proximale Femurfraktur erkennen) --> 2:task:(Diagnose bestÃ¤tigen)
-    2:task:(Diagnose bestÃ¤tigen) --> 3:exclusivegateway:{x}
+    1:task:(Proximale Femurfraktur erkennen) --> 2:task:(Diagnose bestätigen)
+    2:task:(Diagnose bestätigen) --> 3:exclusivegateway:{x}
     3:exclusivegateway:{x} --> |Ja| 4:task:(Patienten vorbereiten)
     3:exclusivegateway:{x} --> |Nein| 5:task:(Weitere Untersuchungen)
-    4:task:(Patienten vorbereiten) --> 6:task:(Operation durchfÃ¼hren)
+    4:task:(Patienten vorbereiten) --> 6:task:(Operation durchführen)
     5:task:(Weitere Untersuchungen) --> 3:exclusivegateway:{x}
-    6:task:(Operation durchfÃ¼hren) --> 7:task:(Postoperative Pflege)
+    6:task:(Operation durchführen) --> 7:task:(Postoperative Pflege)
     7:task:(Postoperative Pflege) --> 8:endevent:(((endevent)))
     ```
   time:timestamp: '2026-03-31T13:51:28.279104+02:00'

@@ -217,7 +217,7 @@ event:
   cpee:change_uuid: 527b2df25a5e0c2accbaaab096c266ad74284807
   cpee:exposition: |+
     # User Input:
-    Eine Person gibt eine eisbestellung ab, daraufhin wird diese order aufgenommen bearbeitet, gewÃ¼nschtes eis ausgegeben, kunde bezahlt, wenn er nicht zahlt wird der kunde gehauen, wenn er bezahlt erhÃ¤hlt er ggf rÃ¼ckgeld aus der kasse
+    Eine Person gibt eine eisbestellung ab, daraufhin wird diese order aufgenommen bearbeitet, gewünschtes eis ausgegeben, kunde bezahlt, wenn er nicht zahlt wird der kunde gehauen, wenn er bezahlt erhählt er ggf rückgeld aus der kasse
 
 
 
@@ -246,9 +246,9 @@ event:
     4:exclusivegateway:{x} --> |Kunde zahlt nicht| 6:task:(Kunde wird gehauen)
     5:task:(Bezahlung entgegennehmen) --> 7:exclusivegateway:{x}
     6:task:(Kunde wird gehauen) --> 7:exclusivegateway:{x}
-    7:exclusivegateway:{x} --> |RÃ¼ckgeld nÃ¶tig| 8:task:(RÃ¼ckgeld auszahlen)
-    7:exclusivegateway:{x} --> |Kein RÃ¼ckgeld nÃ¶tig| 9:endevent:(((endevent)))
-    8:task:(RÃ¼ckgeld auszahlen) --> 9:endevent:(((endevent)))
+    7:exclusivegateway:{x} --> |Rückgeld nötig| 8:task:(Rückgeld auszahlen)
+    7:exclusivegateway:{x} --> |Kein Rückgeld nötig| 9:endevent:(((endevent)))
+    8:task:(Rückgeld auszahlen) --> 9:endevent:(((endevent)))
     ```
   time:timestamp: '2025-11-04T13:02:01.676631+01:00'
 ---

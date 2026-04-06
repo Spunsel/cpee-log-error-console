@@ -338,7 +338,7 @@ event:
   cpee:change_uuid: aad8f1c768068bdac6cf6040329af9db2e8966be
   cpee:exposition: |-
     # User Input:
-    Der Head of Product Marketing erhÃ¤lt den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. ZunÃ¤chst werden die Wettbewerber recherchiert. Dann wird geprÃ¼ft, was diese auf ihrer Feature Roadmap fÃ¼r nÃ¤chste Produkte angekÃ¼ndigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. AnschlieÃŸend wird bewertet, welches feature einen echten Vorteil bringen wÃ¼rde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature BÃ¼ndel gewÃ¤hlt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder Ã¼berwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
+    Der Head of Product Marketing erhält den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. Zunächst werden die Wettbewerber recherchiert. Dann wird geprüft, was diese auf ihrer Feature Roadmap für nächste Produkte angekündigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. Anschließend wird bewertet, welches feature einen echten Vorteil bringen würde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature Bündel gewählt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder überwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
   time:timestamp: '2025-12-08T09:45:11.554275+01:00'
 ---
 event:
@@ -380,8 +380,8 @@ event:
       0:startevent:((startevent)) --> 1:task:(Auftrag erhalten)
       1:task:(Auftrag erhalten) --> 2:task:(Marktanalyse starten)
       2:task:(Marktanalyse starten) --> 3:task:(Wettbewerber recherchieren)
-      3:task:(Wettbewerber recherchieren) --> 4:task:(Roadmap prÃ¼fen)
-      4:task:(Roadmap prÃ¼fen) --> 5:task:(Abgleich mit Feature Map)
+      3:task:(Wettbewerber recherchieren) --> 4:task:(Roadmap prüfen)
+      4:task:(Roadmap prüfen) --> 5:task:(Abgleich mit Feature Map)
       5:task:(Abgleich mit Feature Map) --> 6:task:(Feature Bewertung)
       6:task:(Feature Bewertung) --> 7:task:(Feature Bundle erstellen)
       7:task:(Feature Bundle erstellen) --> 8:task:(Produktvorschlag erstellen)
@@ -390,9 +390,9 @@ event:
       10:task:(Validierung) --> 11:exclusivegateway:{x}
       11:exclusivegateway:{x} --> |Erfolgreich| 15:task:(Produkt verabschieden)
       11:exclusivegateway:{x} --> |Nicht erfolgreich| 12:task:(Produktvorschlag adaptieren)
-      11:exclusivegateway:{x} --> |Gar nicht erfolgreich| 13:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
+      11:exclusivegateway:{x} --> |Gar nicht erfolgreich| 13:task:(Neues Feature Bündel wählen)
       12:task:(Produktvorschlag adaptieren) --> 10:task:(Validierung)
-      13:task:(Neues Feature BÃ¼ndel wÃ¤hlen) --> 14:task:(Neuer Produktvorschlag)
+      13:task:(Neues Feature Bündel wählen) --> 14:task:(Neuer Produktvorschlag)
       14:task:(Neuer Produktvorschlag) --> 10:task:(Validierung)
       15:task:(Produkt verabschieden) --> 16:task:(Umsetzung)
       16:task:(Umsetzung) --> 17:endevent:(((endevent)))
@@ -794,7 +794,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Roadmap prÃ¼fen</label>
+          <label>Roadmap prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -872,7 +872,7 @@ event:
             <alternative condition="Gar nicht erfolgreich" language="text/javascript">
               <call id="a27" endpoint="" a:alt_id="13">
                 <parameters>
-                  <label>Neues Feature BÃ¼ndel wÃ¤hlen</label>
+                  <label>Neues Feature Bündel wählen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -930,7 +930,7 @@ event:
   cpee:change_uuid: f4d22e5f317afe254bbc1f90732109008fbc060f
   cpee:exposition: |-
     # User Input:
-    Der Head of Product Marketing erhÃ¤lt den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. ZunÃ¤chst werden die Wettbewerber recherchiert. Dann wird geprÃ¼ft, was diese auf ihrer Feature Roadmap fÃ¼r nÃ¤chste Produkte angekÃ¼ndigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. AnschlieÃŸend wird bewertet, welches feature einen echten Vorteil bringen wÃ¼rde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature BÃ¼ndel gewÃ¤hlt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder Ã¼berwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
+    Der Head of Product Marketing erhält den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. Zunächst werden die Wettbewerber recherchiert. Dann wird geprüft, was diese auf ihrer Feature Roadmap für nächste Produkte angekündigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. Anschließend wird bewertet, welches feature einen echten Vorteil bringen würde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature Bündel gewählt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder überwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
   time:timestamp: '2025-12-08T09:48:13.994309+01:00'
 ---
 event:
@@ -960,8 +960,8 @@ event:
     se:startevent:((startevent))-->a1:task:(Auftrag erhalten)
     a1:task:(Auftrag erhalten)-->a3:task:(Marktanalyse starten)
     a3:task:(Marktanalyse starten)-->a5:task:(Wettbewerber recherchieren)
-    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prÃ¼fen)
-    a7:task:(Roadmap prÃ¼fen)-->a9:task:(Abgleich mit Feature Map)
+    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prüfen)
+    a7:task:(Roadmap prüfen)-->a9:task:(Abgleich mit Feature Map)
     a9:task:(Abgleich mit Feature Map)-->a11:task:(Feature Bewertung)
     a11:task:(Feature Bewertung)-->a13:task:(Feature Bundle erstellen)
     a13:task:(Feature Bundle erstellen)-->a15:task:(Produktvorschlag erstellen)
@@ -980,8 +980,8 @@ event:
     gw4s:exclusivegateway:{x}-->|"Nicht erfolgreich"|a25:task:(Produktvorschlag adaptieren)
     a25:task:(Produktvorschlag adaptieren)-->a19:task:(Validierung)
     a19:task:(Validierung)-->gw4e:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a27:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
-    a27:task:(Neues Feature BÃ¼ndel wÃ¤hlen)-->a31:task:(Neuer Produktvorschlag)
+    gw4s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a27:task:(Neues Feature Bündel wählen)
+    a27:task:(Neues Feature Bündel wählen)-->a31:task:(Neuer Produktvorschlag)
     a31:task:(Neuer Produktvorschlag)-->a19:task:(Validierung)
     a19:task:(Validierung)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|""|gw5s:exclusivegateway:{x}
@@ -1009,8 +1009,8 @@ event:
     se:startevent:((startevent))-->a1:task:(Auftrag erhalten)
     a1:task:(Auftrag erhalten)-->a3:task:(Marktanalyse starten)
     a3:task:(Marktanalyse starten)-->a5:task:(Wettbewerber recherchieren)
-    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prÃ¼fen)
-    a7:task:(Roadmap prÃ¼fen)-->a9:task:(Abgleich mit Feature Map)
+    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prüfen)
+    a7:task:(Roadmap prüfen)-->a9:task:(Abgleich mit Feature Map)
     a9:task:(Abgleich mit Feature Map)-->a11:task:(Feature Bewertung)
     a11:task:(Feature Bewertung)-->a13:task:(Feature Bundle erstellen)
     a13:task:(Feature Bundle erstellen)-->a15:task:(Produktvorschlag erstellen)
@@ -1023,8 +1023,8 @@ event:
     a35:task:(Umsetzung)-->gw3e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Nicht erfolgreich"|a25:task:(Produktvorschlag adaptieren)
     a25:task:(Produktvorschlag adaptieren)-->a19:task:(Validierung)
-    gw2s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a27:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
-    a27:task:(Neues Feature BÃ¼ndel wÃ¤hlen)-->a31:task:(Neuer Produktvorschlag)
+    gw2s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a27:task:(Neues Feature Bündel wählen)
+    a27:task:(Neues Feature Bündel wählen)-->a31:task:(Neuer Produktvorschlag)
     a31:task:(Neuer Produktvorschlag)-->a19:task:(Validierung)
     gw1s:exclusivegateway:{x}-->|"false"|ee:endevent:(((endevent)))
     gw3e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
@@ -1445,7 +1445,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Roadmap prÃ¼fen</label>
+          <label>Roadmap prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1525,7 +1525,7 @@ event:
                 <alternative condition="Gar nicht erfolgreich" language="text/javascript">
                   <call id="a35" endpoint="" a:alt_id="a27">
                     <parameters>
-                      <label>Neues Feature BÃ¼ndel wÃ¤hlen</label>
+                      <label>Neues Feature Bündel wählen</label>
                       <method/>
                       <type>:task</type>
                       <arguments/>
@@ -1589,7 +1589,7 @@ event:
   cpee:change_uuid: 59462a3498fcec290bd7005adac342e328a77d77
   cpee:exposition: |-
     # User Input:
-    Der Head of Product Marketing erhÃ¤lt den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. ZunÃ¤chst werden die Wettbewerber recherchiert. Dann wird geprÃ¼ft, was diese auf ihrer Feature Roadmap fÃ¼r nÃ¤chste Produkte angekÃ¼ndigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. AnschlieÃŸend wird bewertet, welches feature einen echten Vorteil bringen wÃ¼rde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature BÃ¼ndel gewÃ¤hlt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder Ã¼berwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
+    Der Head of Product Marketing erhält den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. Zunächst werden die Wettbewerber recherchiert. Dann wird geprüft, was diese auf ihrer Feature Roadmap für nächste Produkte angekündigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. Anschließend wird bewertet, welches feature einen echten Vorteil bringen würde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature Bündel gewählt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder überwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
   time:timestamp: '2025-12-08T09:49:16.313127+01:00'
 ---
 event:
@@ -1619,8 +1619,8 @@ event:
     se:startevent:((startevent))-->a1:task:(Auftrag erhalten)
     a1:task:(Auftrag erhalten)-->a3:task:(Marktanalyse starten)
     a3:task:(Marktanalyse starten)-->a5:task:(Wettbewerber recherchieren)
-    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prÃ¼fen)
-    a7:task:(Roadmap prÃ¼fen)-->a9:task:(Abgleich mit Feature Map)
+    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prüfen)
+    a7:task:(Roadmap prüfen)-->a9:task:(Abgleich mit Feature Map)
     a9:task:(Abgleich mit Feature Map)-->a11:task:(Feature Bewertung)
     a11:task:(Feature Bewertung)-->a13:task:(Feature Bundle erstellen)
     a13:task:(Feature Bundle erstellen)-->a15:task:(Produktvorschlag erstellen)
@@ -1638,8 +1638,8 @@ event:
     gw5s:exclusivegateway:{x}-->|"Nicht erfolgreich"|a31:task:(Produktvorschlag adaptieren)
     a31:task:(Produktvorschlag adaptieren)-->a21:task:(Validierung)
     a21:task:(Validierung)-->gw5e:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a35:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
-    a35:task:(Neues Feature BÃ¼ndel wÃ¤hlen)-->a37:task:(Neuer Produktvorschlag)
+    gw5s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a35:task:(Neues Feature Bündel wählen)
+    a35:task:(Neues Feature Bündel wählen)-->a37:task:(Neuer Produktvorschlag)
     a37:task:(Neuer Produktvorschlag)-->a21:task:(Validierung)
     a21:task:(Validierung)-->gw5e:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->|""|gw6s:exclusivegateway:{x}
@@ -1675,8 +1675,8 @@ event:
     se:startevent:((startevent))-->a1:task:(Auftrag erhalten)
     a1:task:(Auftrag erhalten)-->a3:task:(Marktanalyse starten)
     a3:task:(Marktanalyse starten)-->a5:task:(Wettbewerber recherchieren)
-    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prÃ¼fen)
-    a7:task:(Roadmap prÃ¼fen)-->a9:task:(Abgleich mit Feature Map)
+    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prüfen)
+    a7:task:(Roadmap prüfen)-->a9:task:(Abgleich mit Feature Map)
     a9:task:(Abgleich mit Feature Map)-->a11:task:(Feature Bewertung)
     a11:task:(Feature Bewertung)-->a13:task:(Feature Bundle erstellen)
     a13:task:(Feature Bundle erstellen)-->a15:task:(Produktvorschlag erstellen)
@@ -1686,15 +1686,15 @@ event:
     a21:task:(Validierung)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->|"Nicht erfolgreich"|a31:task:(Produktvorschlag adaptieren)
     a31:task:(Produktvorschlag adaptieren)-->a21:task:(Validierung)
-    gw3s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a35:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
-    a35:task:(Neues Feature BÃ¼ndel wÃ¤hlen)-->a37:task:(Neuer Produktvorschlag)
+    gw3s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a35:task:(Neues Feature Bündel wählen)
+    a35:task:(Neues Feature Bündel wählen)-->a37:task:(Neuer Produktvorschlag)
     a37:task:(Neuer Produktvorschlag)-->a15:task:(Produktvorschlag erstellen)
     a21:task:(Validierung)-->gw3e:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"true"|a25:task:(Produkt verabschieden)
     a25:task:(Produkt verabschieden)-->a27:task:(Umsetzung)
     a27:task:(Umsetzung)-->gw4e:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"Ã¼berwiegend positiv"|a25:task: (Produkt verabschieden)
+    gw4s:exclusivegateway:{x}-->|"überwiegend positiv"|a25:task: (Produkt verabschieden)
     gw4s:exclusivegateway:{x}-->|"false"|gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"false"|gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -2414,7 +2414,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Roadmap prÃ¼fen</label>
+          <label>Roadmap prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2476,7 +2476,7 @@ event:
                 <alternative condition="Gar nicht erfolgreich" language="text/javascript">
                   <call id="a29" endpoint="" a:alt_id="a35">
                     <parameters>
-                      <label>Neues Feature BÃ¼ndel wÃ¤hlen</label>
+                      <label>Neues Feature Bündel wählen</label>
                       <method/>
                       <type>:task</type>
                       <arguments/>
@@ -2568,7 +2568,7 @@ event:
   cpee:change_uuid: 95bffec348c63d8cf45ef03f5e8ef6a5a8b19d3d
   cpee:exposition: |-
     # User Input:
-    Der Head of Product Marketing erhÃ¤lt den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. ZunÃ¤chst werden die Wettbewerber recherchiert. Dann wird geprÃ¼ft, was diese auf ihrer Feature Roadmap fÃ¼r nÃ¤chste Produkte angekÃ¼ndigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. AnschlieÃŸend wird bewertet, welches feature einen echten Vorteil bringen wÃ¼rde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature BÃ¼ndel gewÃ¤hlt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder Ã¼berwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
+    Der Head of Product Marketing erhält den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. Zunächst werden die Wettbewerber recherchiert. Dann wird geprüft, was diese auf ihrer Feature Roadmap für nächste Produkte angekündigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. Anschließend wird bewertet, welches feature einen echten Vorteil bringen würde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature Bündel gewählt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder überwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
   time:timestamp: '2025-12-08T09:50:49.794824+01:00'
 ---
 event:
@@ -2598,8 +2598,8 @@ event:
     se:startevent:((startevent))-->a1:task:(Auftrag erhalten)
     a1:task:(Auftrag erhalten)-->a3:task:(Marktanalyse starten)
     a3:task:(Marktanalyse starten)-->a5:task:(Wettbewerber recherchieren)
-    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prÃ¼fen)
-    a7:task:(Roadmap prÃ¼fen)-->a9:task:(Abgleich mit Feature Map)
+    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prüfen)
+    a7:task:(Roadmap prüfen)-->a9:task:(Abgleich mit Feature Map)
     a9:task:(Abgleich mit Feature Map)-->a11:task:(Feature Bewertung)
     a11:task:(Feature Bewertung)-->a13:task:(Feature Bundle erstellen)
     a13:task:(Feature Bundle erstellen)-->gw1s:exclusivegateway:{x}
@@ -2615,8 +2615,8 @@ event:
     a21:task:(Validierung)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->|""|gw6s:exclusivegateway:{x}
-    gw6s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
-    a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)-->a31:task:(Neuer Produktvorschlag)
+    gw6s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature Bündel wählen)
+    a29:task:(Neues Feature Bündel wählen)-->a31:task:(Neuer Produktvorschlag)
     a31:task:(Neuer Produktvorschlag)-->a15:task:(Produktvorschlag erstellen)
     a15:task:(Produktvorschlag erstellen)-->gw6e:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->|"Nicht erfolgreich"|a25:task:(Produktvorschlag adaptieren)
@@ -2658,8 +2658,8 @@ event:
     se:startevent:((startevent))-->a1:task:(Auftrag erhalten)
     a1:task:(Auftrag erhalten)-->a3:task:(Marktanalyse starten)
     a3:task:(Marktanalyse starten)-->a5:task:(Wettbewerber recherchieren)
-    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prÃ¼fen)
-    a7:task:(Roadmap prÃ¼fen)-->a9:task:(Abgleich mit Feature Map)
+    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prüfen)
+    a7:task:(Roadmap prüfen)-->a9:task:(Abgleich mit Feature Map)
     a9:task:(Abgleich mit Feature Map)-->a11:task:(Feature Bewertung)
     a11:task:(Feature Bewertung)-->a13:task:(Feature Bundle erstellen)
     a13:task:(Feature Bundle erstellen)-->gw1s:exclusivegateway:{x}
@@ -2669,12 +2669,12 @@ event:
     gw2s:exclusivegateway:{x}-->|"true"|a21:task:(Validierung)
     a21:task:(Validierung)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
-    a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)-->a31:task:(Neuer Produktvorschlag)
+    gw5s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature Bündel wählen)
+    a29:task:(Neues Feature Bündel wählen)-->a31:task:(Neuer Produktvorschlag)
     a31:task:(Neuer Produktvorschlag)-->a15:task: (Produktvorschlag erstellen)
     gw5s:exclusivegateway:{x}-->|"Nicht erfolgreich"|a25:task:(Produktvorschlag adaptieren)
     a25:task:(Produktvorschlag adaptieren)-->a21:task: (Validierung)
-    gw5s:exclusivegateway:{x}-->|"Ã¼berwiegend positiv"|a39:task:(Produkt verabschieden)
+    gw5s:exclusivegateway:{x}-->|"überwiegend positiv"|a39:task:(Produkt verabschieden)
     a39:task:(Produkt verabschieden)-->a41:task:(Umsetzung)
     a41:task:(Umsetzung)-->gw7e:exclusivegateway:{x}
     gw7e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
@@ -3012,7 +3012,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Roadmap prÃ¼fen</label>
+          <label>Roadmap prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3075,7 +3075,7 @@ event:
                   <alternative condition="Gar nicht erfolgreich" language="text/javascript">
                     <call id="a29" endpoint="" a:alt_id="a29">
                       <parameters>
-                        <label>Neues Feature BÃ¼ndel wÃ¤hlen</label>
+                        <label>Neues Feature Bündel wählen</label>
                         <method/>
                         <type>:task</type>
                         <arguments/>
@@ -3132,7 +3132,7 @@ event:
                       </parameters>
                     </call>
                   </alternative>
-                  <alternative condition="Ã¼berwiegend positiv" language="text/javascript">
+                  <alternative condition="überwiegend positiv" language="text/javascript">
                     <call id="a39" endpoint="" a:alt_id="a39">
                       <parameters>
                         <label>Produkt verabschieden</label>
@@ -3407,7 +3407,7 @@ event:
   cpee:change_uuid: 2f24c4f487ad793368bb34e626b6ef75dbe64938
   cpee:exposition: |-
     # User Input:
-    Der Head of Product Marketing erhÃ¤lt den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. ZunÃ¤chst werden die Wettbewerber recherchiert. Dann wird geprÃ¼ft, was diese auf ihrer Feature Roadmap fÃ¼r nÃ¤chste Produkte angekÃ¼ndigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. AnschlieÃŸend wird bewertet, welches feature einen echten Vorteil bringen wÃ¼rde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature BÃ¼ndel gewÃ¤hlt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder Ã¼berwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
+    Der Head of Product Marketing erhält den Auftrag von seinem Chef, dass er ein neues Produkt entwerfen soll. Danach startet er eine Marktanalyse. Zunächst werden die Wettbewerber recherchiert. Dann wird geprüft, was diese auf ihrer Feature Roadmap für nächste Produkte angekündigt haben. Dies wird abgeglichen mit der eigenen Future Feature Map. Anschließend wird bewertet, welches feature einen echten Vorteil bringen würde. Danach wird ein Feature Bundle erstellt. Daraus wird ein Produktvorschlag erstellt. Dieser wird prototypisch umgesetzt. Die Umsetzung wird validiert. Sollte diese nicht erfolgreich sein, wird der Produktvorschlag adaptiert. Sollte dieser gar nicht erfolgreich sein, wird ein neues Feature Bündel gewählt und dann ein ganz neuer Produktvorschlag konzipiert und auch dieser wieder validiert. Sollte ein Produktvorschlag durchgehend positiv validiert werden oder überwiegend positiv, dann wird ein Produkt verabschiedet und in die Umsetzung gebracht.
   time:timestamp: '2025-12-08T09:52:49.713457+01:00'
 ---
 event:
@@ -3437,8 +3437,8 @@ event:
     se:startevent:((startevent))-->a1:task:(Auftrag erhalten)
     a1:task:(Auftrag erhalten)-->a3:task:(Marktanalyse starten)
     a3:task:(Marktanalyse starten)-->a5:task:(Wettbewerber recherchieren)
-    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prÃ¼fen)
-    a7:task:(Roadmap prÃ¼fen)-->a9:task:(Abgleich mit Feature Map)
+    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prüfen)
+    a7:task:(Roadmap prüfen)-->a9:task:(Abgleich mit Feature Map)
     a9:task:(Abgleich mit Feature Map)-->a11:task:(Feature Bewertung)
     a11:task:(Feature Bewertung)-->a13:task:(Feature Bundle erstellen)
     a13:task:(Feature Bundle erstellen)-->gw1s:exclusivegateway:{x}
@@ -3455,14 +3455,14 @@ event:
     gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->|"true"|gw7s:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
-    a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)-->a31:task:(Neuer Produktvorschlag)
+    gw7s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature Bündel wählen)
+    a29:task:(Neues Feature Bündel wählen)-->a31:task:(Neuer Produktvorschlag)
     a31:task:(Neuer Produktvorschlag)-->a17:task:(Produktvorschlag erstellen)
     a17:task:(Produktvorschlag erstellen)-->gw7e:exclusivegateway:{x}
     gw7s:exclusivegateway:{x}-->|"Nicht erfolgreich"|a35:task:(Produktvorschlag adaptieren)
     a35:task:(Produktvorschlag adaptieren)-->a23:task:(Validierung)
     a23:task:(Validierung)-->gw7e:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->|"Ã¼berwiegend positiv"|a39:task:(Produkt verabschieden)
+    gw7s:exclusivegateway:{x}-->|"überwiegend positiv"|a39:task:(Produkt verabschieden)
     a39:task:(Produkt verabschieden)-->a41:task:(Umsetzung)
     a41:task:(Umsetzung)-->gw8s:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}
@@ -3490,7 +3490,7 @@ event:
     gw12s:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
     gw12e:exclusivegateway:{x}-->gw13s:exclusivegateway:{x}
     gw13s:exclusivegateway:{x}-->|"true"|gw14s:exclusivegateway:{x}
-    gw14s:exclusivegateway:{x}-->|"Ã¼berwiegend positiv"|a39:task:(Produkt verabschieden)
+    gw14s:exclusivegateway:{x}-->|"überwiegend positiv"|a39:task:(Produkt verabschieden)
     a39:task:(Produkt verabschieden)-->a41:task:(Umsetzung)
     a41:task:(Umsetzung)-->gw15s:exclusivegateway:{x}
     gw15s:exclusivegateway:{x}-->gw16s:exclusivegateway:{x}
@@ -3505,8 +3505,8 @@ event:
     gw17e:exclusivegateway:{x}-->-1:escalate:((^))
     -1:escalate:((^))-->gw15e:exclusivegateway:{x}
     gw15e:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
-    gw14s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
-    a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)-->a31:task:(Neuer Produktvorschlag)
+    gw14s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature Bündel wählen)
+    a29:task:(Neues Feature Bündel wählen)-->a31:task:(Neuer Produktvorschlag)
     a31:task:(Neuer Produktvorschlag)-->a17:task:(Produktvorschlag erstellen)
     a17:task:(Produktvorschlag erstellen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw14e:exclusivegateway:{x}
@@ -3551,11 +3551,11 @@ event:
 
     ```mermaid
     graph LR
-    se:startevent:((startevent))-->a1:task:(Head of Product Marketing erhÃ¤lt Auftrag)
-    a1:task:(Head of Product Marketing erhÃ¤lt Auftrag)-->a3:task:(Marktanalyse starten)
+    se:startevent:((startevent))-->a1:task:(Head of Product Marketing erhält Auftrag)
+    a1:task:(Head of Product Marketing erhält Auftrag)-->a3:task:(Marktanalyse starten)
     a3:task:(Marktanalyse starten)-->a5:task:(Wettbewerber recherchieren)
-    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prÃ¼fen)
-    a7:task:(Roadmap prÃ¼fen)-->a9:task:(Abgleich mit Feature Map)
+    a5:task:(Wettbewerber recherchieren)-->a7:task:(Roadmap prüfen)
+    a7:task:(Roadmap prüfen)-->a9:task:(Abgleich mit Feature Map)
     a9:task:(Abgleich mit Feature Map)-->a11:task:(Feature Bewertung)
     a11:task:(Feature Bewertung)-->a13:task:(Feature Bundle erstellen)
     a13:task:(Feature Bundle erstellen)-->gw1s:exclusivegateway:{x}
@@ -3572,14 +3572,14 @@ event:
     gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->|"true"|gw7s:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)
-    a29:task:(Neues Feature BÃ¼ndel wÃ¤hlen)-->a31:task:(Neuer Produktvorschlag)
+    gw7s:exclusivegateway:{x}-->|"Gar nicht erfolgreich"|a29:task:(Neues Feature Bündel wählen)
+    a29:task:(Neues Feature Bündel wählen)-->a31:task:(Neuer Produktvorschlag)
     a31:task:(Neuer Produktvorschlag)-->a17:task:(Produktvorschlag erstellen)
     a17:task:(Produktvorschlag erstellen)-->gw7e:exclusivegateway:{x}
     gw7s:exclusivegateway:{x}-->|"Nicht erfolgreich"|a35:task:(Produktvorschlag adaptieren)
     a35:task:(Produktvorschlag adaptieren)-->a23:task:(Validierung)
     a23:task:(Validierung)-->gw7e:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->|"Ã¼berwiegend positiv"|a39:task:(Produkt verabschieden)
+    gw7s:exclusivegateway:{x}-->|"überwiegend positiv"|a39:task:(Produkt verabschieden)
     a39:task:(Produkt verabschieden)-->a41:task:(Umsetzung)
     a41:task:(Umsetzung)-->gw8s:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}

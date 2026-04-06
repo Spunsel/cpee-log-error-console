@@ -113,16 +113,16 @@ event:
   lifecycle:transition: unknown
   cpee:lifecycle:transition: description/exposition
   cpee:change_uuid: 176463fb2e9227979f87da44ad267809359b2541
-  cpee:exposition: "# User Input:\nDer Prozess beginnt damit, dass ein Ã¶ffentlicher
-    Auftraggeber eine Ausschreibung Ã¼ber ein Vergabeportal oder eine Homepage verÃ¶ffentlicht,
-    wodurch das BÃ¼ro veranlasst wird, die bereitgestellten Ausschreibungsunterlagen
-    herunterzuladen und fÃ¼r die interne Bearbeitung zu sichern.\rNachdem die Unterlagen
-    vorliegen, werden diese in das entsprechende Kalkulationsprogramm â€žNextbauâ€œ integriert,
-    damit die strukturierten Daten fÃ¼r die folgende Kalkulation genutzt werden kÃ¶nnen.\rAnschlieÃŸend
+  cpee:exposition: "# User Input:\nDer Prozess beginnt damit, dass ein öffentlicher
+    Auftraggeber eine Ausschreibung über ein Vergabeportal oder eine Homepage veröffentlicht,
+    wodurch das Büro veranlasst wird, die bereitgestellten Ausschreibungsunterlagen
+    herunterzuladen und für die interne Bearbeitung zu sichern.\rNachdem die Unterlagen
+    vorliegen, werden diese in das entsprechende Kalkulationsprogramm „Nextbau" integriert,
+    damit die strukturierten Daten für die folgende Kalkulation genutzt werden können.\rAnschließend
     wird das Angebot abgegeben\rNach der Angebotsabgabe folgt der Submissionstermin,
-    an dem der Auftraggeber entscheidet, ob der Anbieter den Zuschlag erhÃ¤lt; wenn
+    an dem der Auftraggeber entscheidet, ob der Anbieter den Zuschlag erhält; wenn
     der Zuschlag erteilt wird, gilt der Angebots- bzw. Auftragsprozess als erfolgreich
-    abgeschlossen, wÃ¤hrend bei Nicht-Erhalt des Zuschlags der Prozess als fehlgeschlagen
+    abgeschlossen, während bei Nicht-Erhalt des Zuschlags der Prozess als fehlgeschlagen
     endet.\r"
   time:timestamp: '2025-11-30T16:44:57.930020+01:00'
 ---
@@ -162,8 +162,8 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-      0:startevent:((startevent)) --> 1:task:(Ausschreibung verÃ¶ffentlichen)
-      1:task:(Ausschreibung verÃ¶ffentlichen) --> 2:task:(Ausschreibungsunterlagen herunterladen)
+      0:startevent:((startevent)) --> 1:task:(Ausschreibung veröffentlichen)
+      1:task:(Ausschreibung veröffentlichen) --> 2:task:(Ausschreibungsunterlagen herunterladen)
       2:task:(Ausschreibungsunterlagen herunterladen) --> 3:task:(Unterlagen in Kalkulationsprogramm integrieren)
       3:task:(Unterlagen in Kalkulationsprogramm integrieren) --> 4:task:(Angebot abgeben)
       4:task:(Angebot abgeben) --> 5:exclusivegateway:{x}

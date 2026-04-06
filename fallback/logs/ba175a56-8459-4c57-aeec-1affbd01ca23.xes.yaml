@@ -97,86 +97,86 @@ event:
   lifecycle:transition: unknown
   cpee:lifecycle:transition: description/exposition
   cpee:change_uuid: d46c06afcfcf2d802637c247b9c691a3ce8f72e7
-  cpee:exposition: "# User Input:\nÃœbersichtâ€¯â€“â€¯Urlaubsantrag mit RÃ¼ckmeldung durch
+  cpee:exposition: "# User Input:\nÜbersicht⬯�⬯Urlaubsantrag mit Rückmeldung durch
     die Verwaltung\n\n\nDer gesamte Ablauf besteht aus zwei separaten, aber miteinander
-    verknÃ¼pften Teilprozessen:\n\n\nDer Vorgang aus Sicht des Mitarbeitenden (wie
+    verknüpften Teilprozessen:\n\n\nDer Vorgang aus Sicht des Mitarbeitenden (wie
     er einen Urlaub beantragt und auf die Entscheidung wartet).\nDer Vorgang aus Sicht
-    der Verwaltung (wie sie den Antrag prÃ¼ft, ggf. zusagt oder absagt und das Ergebnis
-    zurÃ¼ckmeldet).\nBeide Teilprozesse sind Ã¼ber NachrichtenflÃ¼sse (Eâ€‘Mail) miteinander
-    verbunden, sodass das Ergebnis der Entscheidung wieder zum Mitarbeitenden zurÃ¼ckkehrt.\n\n\n\n\n1.
-    Prozess â€žMitarbeiterâ€œ (Urlaub beantragen)\n\n\nSchritt\tWas passiert\tZweck\nStartâ€‘Ereignis
-    â€žUrlaub beantragenâ€œ\tDer Mitarbeitende initiiert den Vorgang, z.â€¯B. indem er in
-    seinem Kalender oder Ã¼ber ein Formular den Wunsch Ã¤uÃŸert.\tEinstiegspunkt des
-    Prozesses.\nAufgabe â€žUrlaubsantrag per Eâ€‘Mail senden\tDer Mitarbeitende schreibt
-    eine Eâ€‘Mail mit den gewÃ¼nschten Urlaubsterminen und sendet sie an die Verwaltung.\tFormaler
-    Antrag wird an die zustÃ¤ndige Stelle Ã¼bermittelt.\nZwischenereignis â€žEntscheidung
-    erhalten (Nachrichtenâ€‘Catchâ€‘Event)\tDer Mitarbeitende wartet auf eine Antwortâ€‘Nachricht
-    (Eâ€‘Mail) von der Verwaltung.\tSynchronisation: Der Prozess wird hier pausiert,
-    bis die Verwaltung zurÃ¼ckmeldet.\nExklusives Gateway â€žZusage erhalten?\tSobald
-    die Antwort eingetroffen ist, wird geprÃ¼ft, ob die Entscheidung eine Zusage ist.\tEntscheidungspunkt,
-    der den weiteren Fluss bestimmt.\nâ€“ Jaâ€‘Pfad â†’ Endâ€‘Ereignis â€žProzess beendet\tBei
-    einer Zusage wird der Prozess erfolgreich beendet.\tDer Mitarbeitende erhÃ¤lt die
-    BestÃ¤tigung und kann den Urlaub planen.\nâ€“ Neinâ€‘Pfad â†’ ZurÃ¼ck zur Aufgabe â€žUrlaubsantrag
-    per Eâ€‘Mail senden\tBei einer Absage (z.â€¯B. weil das Zeitfenster nicht passt) wird
-    der Mitarbeitende zurÃ¼ck zur Eingabestelle gefÃ¼hrt, um ggf. einen neuen Zeitraum
-    zu wÃ¤hlen und den Vorgang erneut zu starten.\tMÃ¶glichkeit zur Korrektur / Wiederholung,
-    bis eine Zusage vorliegt.\nWiederholungsschleife: Der Entscheidungsâ€‘Gateway fÃ¼hrt
-    bei einer negativen Entscheidung zurÃ¼ck zur Antragstellung, wodurch ein iterativer
-    Ablauf entsteht:â€¯Antragâ€¯â†’â€¯Entscheidungâ€¯â†’â€¯Absageâ€¯â†’â€¯Neuer Antrag â€¦ bis die Bedingung
-    â€žZusage erhaltenâ€œ erfÃ¼llt ist.\n\n\n\n\n2. Prozess â€žVerwaltungâ€œ (Entscheidung
-    vorbereiten)\n\n\nSchritt\tWas passiert\tZweck\nStartâ€‘Ereignis â€žEntscheidung vorbereiten
-    (Nachrichtenâ€‘Startâ€‘Event)\tDer Verwaltungsbereich wird durch das Eintreffen einer
-    Eâ€‘Mail mit dem Urlaubsantrag aktiviert.\tEinstiegspunkt, der an den Eingang einer
-    Nachricht (Eâ€‘Mail) gekoppelt ist.\nAufgabe â€žEâ€‘Mail erhalten\tDie eingegangene
-    Urlaubsanfrage wird geÃ¶ffnet und registriert.\tSichtbarmachung des Antrags fÃ¼r
-    die nachfolgenden PrÃ¼fungsschritte.\nAufgabe â€žZeitraum prÃ¼fen\tDie Verwaltung
-    prÃ¼ft, ob der gewÃ¼nschte Urlaubszeitraum mit den betrieblichen Erfordernissen
-    (z.â€¯B. Personalplanung, andere Urlaube) vereinbar ist.\tFachliche Bewertung der
-    Anfrage.\nExklusives Gateway â€žZeitraum passend?\tBasierend auf der PrÃ¼fung wird
+    der Verwaltung (wie sie den Antrag prüft, ggf. zusagt oder absagt und das Ergebnis
+    zurückmeldet).\nBeide Teilprozesse sind über Nachrichtenflüsse (E�Mail) miteinander
+    verbunden, sodass das Ergebnis der Entscheidung wieder zum Mitarbeitenden zurückkehrt.\n\n\n\n\n1.
+    Prozess „Mitarbeiter" (Urlaub beantragen)\n\n\nSchritt\tWas passiert\tZweck\nStart�Ereignis
+    „Urlaub beantragen"\tDer Mitarbeitende initiiert den Vorgang, z.⬯B. indem er in
+    seinem Kalender oder über ein Formular den Wunsch äußert.\tEinstiegspunkt des
+    Prozesses.\nAufgabe „Urlaubsantrag per E�Mail senden\tDer Mitarbeitende schreibt
+    eine E�Mail mit den gewünschten Urlaubsterminen und sendet sie an die Verwaltung.\tFormaler
+    Antrag wird an die zuständige Stelle übermittelt.\nZwischenereignis „Entscheidung
+    erhalten (Nachrichten�Catch�Event)\tDer Mitarbeitende wartet auf eine Antwort�Nachricht
+    (E�Mail) von der Verwaltung.\tSynchronisation: Der Prozess wird hier pausiert,
+    bis die Verwaltung zurückmeldet.\nExklusives Gateway „Zusage erhalten?\tSobald
+    die Antwort eingetroffen ist, wird geprüft, ob die Entscheidung eine Zusage ist.\tEntscheidungspunkt,
+    der den weiteren Fluss bestimmt.\n� Ja�Pfad �  End�Ereignis „Prozess beendet\tBei
+    einer Zusage wird der Prozess erfolgreich beendet.\tDer Mitarbeitende erhält die
+    Bestätigung und kann den Urlaub planen.\n� Nein�Pfad �  Zurück zur Aufgabe „Urlaubsantrag
+    per E�Mail senden\tBei einer Absage (z.⬯B. weil das Zeitfenster nicht passt) wird
+    der Mitarbeitende zurück zur Eingabestelle geführt, um ggf. einen neuen Zeitraum
+    zu wählen und den Vorgang erneut zu starten.\tMöglichkeit zur Korrektur / Wiederholung,
+    bis eine Zusage vorliegt.\nWiederholungsschleife: Der Entscheidungs�Gateway führt
+    bei einer negativen Entscheidung zurück zur Antragstellung, wodurch ein iterativer
+    Ablauf entsteht:⬯Antrag⬯� ⬯Entscheidung⬯� ⬯Absage⬯� ⬯Neuer Antrag ⬦ bis die Bedingung
+    „Zusage erhalten" erfüllt ist.\n\n\n\n\n2. Prozess „Verwaltung" (Entscheidung
+    vorbereiten)\n\n\nSchritt\tWas passiert\tZweck\nStart�Ereignis „Entscheidung vorbereiten
+    (Nachrichten�Start�Event)\tDer Verwaltungsbereich wird durch das Eintreffen einer
+    E�Mail mit dem Urlaubsantrag aktiviert.\tEinstiegspunkt, der an den Eingang einer
+    Nachricht (E�Mail) gekoppelt ist.\nAufgabe „E�Mail erhalten\tDie eingegangene
+    Urlaubsanfrage wird geöffnet und registriert.\tSichtbarmachung des Antrags für
+    die nachfolgenden Prüfungsschritte.\nAufgabe „Zeitraum prüfen\tDie Verwaltung
+    prüft, ob der gewünschte Urlaubszeitraum mit den betrieblichen Erfordernissen
+    (z.⬯B. Personalplanung, andere Urlaube) vereinbar ist.\tFachliche Bewertung der
+    Anfrage.\nExklusives Gateway „Zeitraum passend?\tBasierend auf der Prüfung wird
     entschieden, ob der Zeitraum akzeptabel ist.\tEntscheidungspunkt, der den Pfad
-    zur Zusage oder zur Absage auswÃ¤hlt.\nâ€“ Jaâ€‘Pfad â†’ Aufgabe â€žZusage per Eâ€‘Mail senden\tBei
-    positiver PrÃ¼fung wird eine BestÃ¤tigungsâ€‘Eâ€‘Mail an den Mitarbeitenden geschickt.\tRÃ¼ckmeldung,
-    dass der Urlaub genehmigt ist.\nâ€“ Neinâ€‘Pfad â†’ Aufgabe â€žAbsage per Eâ€‘Mail senden\tBei
-    negativer PrÃ¼fung wird eine Absageâ€‘Eâ€‘Mail an den Mitarbeitenden geschickt, oft
-    mit Hinweis auf alternative Termine.\tRÃ¼ckmeldung, dass der beantragte Zeitraum
-    nicht mÃ¶glich ist.\nEndâ€‘Ereignis â€žEntscheidung getroffen (Nachrichtenâ€‘Endâ€‘Event)\tNachdem
+    zur Zusage oder zur Absage auswählt.\n� Ja�Pfad �  Aufgabe „Zusage per E�Mail senden\tBei
+    positiver Prüfung wird eine Bestätigungs�E�Mail an den Mitarbeitenden geschickt.\tRückmeldung,
+    dass der Urlaub genehmigt ist.\n� Nein�Pfad �  Aufgabe „Absage per E�Mail senden\tBei
+    negativer Prüfung wird eine Absage�E�Mail an den Mitarbeitenden geschickt, oft
+    mit Hinweis auf alternative Termine.\tRückmeldung, dass der beantragte Zeitraum
+    nicht möglich ist.\nEnd�Ereignis „Entscheidung getroffen (Nachrichten�End�Event)\tNachdem
     die entsprechende Nachricht (Zusage oder Absage) versendet wurde, endet der Verwaltungsprozess.\tAbschluss
-    des Entscheidungsvorgangs.\n\n\n3. Interaktion zwischen den beiden Pools (Mitarbeiterâ€¯â†”â€¯Verwaltung)\n\n\nNachrichtenfluss
+    des Entscheidungsvorgangs.\n\n\n3. Interaktion zwischen den beiden Pools (Mitarbeiter⬯� ⬯Verwaltung)\n\n\nNachrichtenfluss
     vom Mitarbeitenden zur Verwaltung\n\n\nSobald der Mitarbeitende den Antrag per
-    Eâ€‘Mail sendet, wird die Nachricht an die Verwaltung Ã¼bergeben.\nIn BPMNâ€‘Begriffen
-    ist das ein Messageâ€‘Flow von der Aufgabe â€žUrlaubsantrag per Eâ€‘Mail sendenâ€œ zum
-    Startâ€‘Ereignis â€žEntscheidung vorbereitenâ€œ der Verwaltung.\nNachrichtenfluss von
-    der Verwaltung zurÃ¼ck zum Mitarbeitenden\n\n\nDie Verwaltung schickt entweder
-    eine Zusageâ€‘ oder eine Absageâ€‘Eâ€‘Mail.\nDieser Nachrichtenfluss fÃ¼hrt zu dem Intermediate
-    Catch Event â€žEntscheidung erhaltenâ€œ im Mitarbeitendenâ€‘Pool, wodurch dieser Prozess
-    wieder aktiviert wird und die Entscheidung auswertet.\nDamit entsteht ein RÃ¼ckkopplungsâ€‘Loop:
-    Der Mitarbeitende initiiert den Antrag, die Verwaltung prÃ¼ft und beantwortet,
+    E�Mail sendet, wird die Nachricht an die Verwaltung übergeben.\nIn BPMN�Begriffen
+    ist das ein Message�Flow von der Aufgabe „Urlaubsantrag per E�Mail senden" zum
+    Start�Ereignis „Entscheidung vorbereiten" der Verwaltung.\nNachrichtenfluss von
+    der Verwaltung zurück zum Mitarbeitenden\n\n\nDie Verwaltung schickt entweder
+    eine Zusage� oder eine Absage�E�Mail.\nDieser Nachrichtenfluss führt zu dem Intermediate
+    Catch Event „Entscheidung erhalten" im Mitarbeitenden�Pool, wodurch dieser Prozess
+    wieder aktiviert wird und die Entscheidung auswertet.\nDamit entsteht ein Rückkopplungs�Loop:
+    Der Mitarbeitende initiiert den Antrag, die Verwaltung prüft und beantwortet,
     und der Mitarbeitende reagiert (Akzeptieren oder Neuauswahl). Der Loop wiederholt
-    sich, solange die Entscheidung negativ ist.\n\n\n\n\n4. GeschÃ¤ftslogik und mÃ¶gliche
+    sich, solange die Entscheidung negativ ist.\n\n\n\n\n4. Geschäftslogik und mögliche
     Varianten\n\n\nBedingung\tErgebnis\tAuswirkungen\n${zeitraumPassend} (aus Sicht
-    der Verwaltung)\tDie gewÃ¼nschten Urlaubstage passen in den betrieblichen Kalender.\tVerwaltung
-    sendet Zusage â†’ Mitarbeitender erhÃ¤lt positive RÃ¼ckmeldung â†’ Prozess endet.\n${!zeitraumPassend}\tDer
-    Zeitraum kollidiert mit anderen Vorgaben.\tVerwaltung sendet Absage â†’ Mitarbeitender
-    wird zurÃ¼ck zur Antragstellung geleitet, um einen anderen Zeitraum zu wÃ¤hlen.\n${entscheidungZusage}
-    (aus Sicht des Mitarbeitendenâ€‘Gateways)\tDas erhaltene Nachrichtenelement wird
-    als Zusage interpretiert.\tDer exklusive Gateway leitet zum Endâ€‘Ereignis (Prozess
-    beendet).\n${!entscheidungZusage}\tDie Nachricht enthÃ¤lt eine Absage.\tDer exklusive
-    Gateway fÃ¼hrt zurÃ¼ck zur Aufgabe â€žUrlaubsantrag per Eâ€‘Mail sendenâ€œ und ermÃ¶glicht
-    eine Wiederholung.\nErweiterungsmÃ¶glichkeiten\n\n\nAutomatisierte PrÃ¼fungen: Statt
-    einer manuellen â€žZeitraum prÃ¼fenâ€œ-Aufgabe kÃ¶nnte ein System automatisch KalendereintrÃ¤ge
-    prÃ¼fen und das Ergebnis als Nachricht zurÃ¼ckgeben.\nMehrstufige Genehmigung: Bei
-    grÃ¶ÃŸeren Abwesenheiten kÃ¶nnte ein zweiter Genehmigungsâ€‘Gateway (z.â€¯B. Vorgesetzter)
-    eingefÃ¼hrt werden.\nBenachrichtigungen: ZusÃ¤tzliche Informationsâ€‘Eâ€‘Mails (EingangsbestÃ¤tigung,
-    Erinnerungen) kÃ¶nnten als weitere Nachrichtenâ€‘Flows ergÃ¤nzt werden.\n\n\n5. Zusammenfassung
+    der Verwaltung)\tDie gewünschten Urlaubstage passen in den betrieblichen Kalender.\tVerwaltung
+    sendet Zusage �  Mitarbeitender erhält positive Rückmeldung �  Prozess endet.\n${!zeitraumPassend}\tDer
+    Zeitraum kollidiert mit anderen Vorgaben.\tVerwaltung sendet Absage �  Mitarbeitender
+    wird zurück zur Antragstellung geleitet, um einen anderen Zeitraum zu wählen.\n${entscheidungZusage}
+    (aus Sicht des Mitarbeitenden�Gateways)\tDas erhaltene Nachrichtenelement wird
+    als Zusage interpretiert.\tDer exklusive Gateway leitet zum End�Ereignis (Prozess
+    beendet).\n${!entscheidungZusage}\tDie Nachricht enthält eine Absage.\tDer exklusive
+    Gateway führt zurück zur Aufgabe „Urlaubsantrag per E�Mail senden" und ermöglicht
+    eine Wiederholung.\nErweiterungsmöglichkeiten\n\n\nAutomatisierte Prüfungen: Statt
+    einer manuellen „Zeitraum prüfen"-Aufgabe könnte ein System automatisch Kalendereinträge
+    prüfen und das Ergebnis als Nachricht zurückgeben.\nMehrstufige Genehmigung: Bei
+    größeren Abwesenheiten könnte ein zweiter Genehmigungs�Gateway (z.⬯B. Vorgesetzter)
+    eingeführt werden.\nBenachrichtigungen: Zusätzliche Informations�E�Mails (Eingangsbestätigung,
+    Erinnerungen) könnten als weitere Nachrichten�Flows ergänzt werden.\n\n\n5. Zusammenfassung
     des Gesamtablaufs\n\n\nMitarbeiter startet den Vorgang, sendet einen Urlaubsantrag
-    per Eâ€‘Mail.\nVerwaltung empfÃ¤ngt die Mail, prÃ¼ft den gewÃ¼nschten Zeitraum und
-    entscheidet.\nVerwaltung schickt entweder eine Zusageâ€‘ oder eine Absageâ€‘Mail zurÃ¼ck.\nMitarbeiter
-    erhÃ¤lt die Nachricht, das exklusive Gateway prÃ¼ft, ob es sich um eine Zusage handelt.\nBei
-    Zusage: Prozess endet erfolgreich.\nBei Absage: Der Mitarbeitende wird zurÃ¼ck
-    zur Antragstellung geleitet, um einen anderen Zeitraum zu wÃ¤hlen, und der Zyklus
-    beginnt erneut.\nDurch den klaren Nachrichtenâ€‘Austausch und den Entscheidungspunkten
-    wird gewÃ¤hrleistet, dass sowohl die betrieblichen Anforderungen als auch die WÃ¼nsche
-    des Mitarbeitenden berÃ¼cksichtigt werden, wÃ¤hrend gleichzeitig ein transparenter,
+    per E�Mail.\nVerwaltung empfängt die Mail, prüft den gewünschten Zeitraum und
+    entscheidet.\nVerwaltung schickt entweder eine Zusage� oder eine Absage�Mail zurück.\nMitarbeiter
+    erhält die Nachricht, das exklusive Gateway prüft, ob es sich um eine Zusage handelt.\nBei
+    Zusage: Prozess endet erfolgreich.\nBei Absage: Der Mitarbeitende wird zurück
+    zur Antragstellung geleitet, um einen anderen Zeitraum zu wählen, und der Zyklus
+    beginnt erneut.\nDurch den klaren Nachrichten�Austausch und den Entscheidungspunkten
+    wird gewährleistet, dass sowohl die betrieblichen Anforderungen als auch die Wünsche
+    des Mitarbeitenden berücksichtigt werden, während gleichzeitig ein transparenter,
     nachvollziehbarer Ablauf entsteht."
   time:timestamp: '2025-12-23T11:34:00.855052+01:00'
 ---
@@ -219,7 +219,7 @@ event:
       0:startevent:((startevent))
       1:task:(Urlaubsantrag per E-Mail senden)
       2:task:(E-Mail erhalten)
-      3:task:(Zeitraum prÃ¼fen)
+      3:task:(Zeitraum prüfen)
       4:exclusivegateway:{x}
       5:task:(Zusage per E-Mail senden)
       6:task:(Absage per E-Mail senden)
@@ -233,8 +233,8 @@ event:
       7:exclusivegateway:{x} --> |Ja| 10:endevent:(((endevent)))
       7:exclusivegateway:{x} --> |Nein| 1:task:(Urlaubsantrag per E-Mail senden)
       9:startevent:((startevent)) --> 2:task:(E-Mail erhalten)
-      2:task:(E-Mail erhalten) --> 3:task:(Zeitraum prÃ¼fen)
-      3:task:(Zeitraum prÃ¼fen) --> 4:exclusivegateway:{x}
+      2:task:(E-Mail erhalten) --> 3:task:(Zeitraum prüfen)
+      3:task:(Zeitraum prüfen) --> 4:exclusivegateway:{x}
       4:exclusivegateway:{x} --> |Ja| 5:task:(Zusage per E-Mail senden)
       4:exclusivegateway:{x} --> |Nein| 6:task:(Absage per E-Mail senden)
       5:task:(Zusage per E-Mail senden) --> 8:endevent:(((endevent)))
@@ -397,7 +397,7 @@ event:
   cpee:exposition: |-
     # User Input:
     Ich habe den folgenden Prozess:
-    Innerhalb des Unternehmens "PDC" gibt es zum einen die "Verwaltung" und zum anderen die "Mitarbeiter". Wenn nun ein Mitarbeiter Urlaub einreichen will, so schreibt er den Verwaltung eine E-Mail mit dem Zeitraum des gewÃ¼nschten Urlaubs. Die Verwaltung prÃ¼ft bei Erhalt der E-Mail, ob der Zeitraum passt und der Mitarbeiter dort Urlaub nehmen kann. Wenn der Zeitraum passt, so schreibt die Verwaltung dem Mitarbeiter eine E-Mail mit der Zusage fÃ¼r den Urlaub. Passt der Zeitraum nicht, schickt die Verwaltung dem Mitarbeiter eine Absage fÃ¼r den Urlaub.
+    Innerhalb des Unternehmens "PDC" gibt es zum einen die "Verwaltung" und zum anderen die "Mitarbeiter". Wenn nun ein Mitarbeiter Urlaub einreichen will, so schreibt er den Verwaltung eine E-Mail mit dem Zeitraum des gewünschten Urlaubs. Die Verwaltung prüft bei Erhalt der E-Mail, ob der Zeitraum passt und der Mitarbeiter dort Urlaub nehmen kann. Wenn der Zeitraum passt, so schreibt die Verwaltung dem Mitarbeiter eine E-Mail mit der Zusage für den Urlaub. Passt der Zeitraum nicht, schickt die Verwaltung dem Mitarbeiter eine Absage für den Urlaub.
   time:timestamp: '2025-12-23T11:57:26.936066+01:00'
 ---
 event:
@@ -449,8 +449,8 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent)) --> a1:task:(Urlaubsantrag per E-Mail senden)
-        a1:task:(Urlaubsantrag per E-Mail senden) --> a2:task:(Verwaltung prÃ¼ft Urlaubsantrag)
-        a2:task:(Verwaltung prÃ¼ft Urlaubsantrag) --> gw1s:exclusivegateway:{x}
+        a1:task:(Urlaubsantrag per E-Mail senden) --> a2:task:(Verwaltung prüft Urlaubsantrag)
+        a2:task:(Verwaltung prüft Urlaubsantrag) --> gw1s:exclusivegateway:{x}
         gw1s:exclusivegateway:{x} --> |"Zeitraum passt"| a3:task:(Zusage per E-Mail senden)
         gw1s:exclusivegateway:{x} --> |"Zeitraum passt nicht"| a4:task:(Absage per E-Mail senden)
         a3:task:(Zusage per E-Mail senden) --> ee:endevent:(((endevent)))
@@ -585,7 +585,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a2">
         <parameters>
-          <label>Verwaltung prÃ¼ft Urlaubsantrag</label>
+          <label>Verwaltung prüft Urlaubsantrag</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -626,7 +626,7 @@ event:
   cpee:change_uuid: 1aaae43965e48c7185e11405f1298118cb193b96
   cpee:exposition: |+
     # User Input:
-    kannst du den Prozess erklÃ¤ren?
+    kannst du den Prozess erklären?
 
   time:timestamp: '2025-12-23T12:01:17.776351+01:00'
 ...
@@ -656,8 +656,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Urlaubsantrag per E-Mail senden)
-    a1:task:(Urlaubsantrag per E-Mail senden)-->a3:task:(Verwaltung prÃ¼ft Urlaubsantrag)
-    a3:task:(Verwaltung prÃ¼ft Urlaubsantrag)-->gw1s:exclusivegateway:{x}
+    a1:task:(Urlaubsantrag per E-Mail senden)-->a3:task:(Verwaltung prüft Urlaubsantrag)
+    a3:task:(Verwaltung prüft Urlaubsantrag)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Zeitraum passt"|a7:task:(Zusage per E-Mail senden)
     a7:task:(Zusage per E-Mail senden)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Zeitraum passt nicht"|a9:task:(Absage per E-Mail senden)
@@ -678,8 +678,8 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->a1:task:(Urlaubsantrag per E-Mail senden)
-        a1:task:(Urlaubsantrag per E-Mail senden)-->a3:task:(Verwaltung prÃ¼ft Urlaubsantrag)
-        a3:task:(Verwaltung prÃ¼ft Urlaubsantrag)-->gw1s:exclusivegateway:{x}
+        a1:task:(Urlaubsantrag per E-Mail senden)-->a3:task:(Verwaltung prüft Urlaubsantrag)
+        a3:task:(Verwaltung prüft Urlaubsantrag)-->gw1s:exclusivegateway:{x}
         gw1s:exclusivegateway:{x}-->|"Zeitraum passt"|a7:task:(Zusage per E-Mail senden)
         a7:task:(Zusage per E-Mail senden)-->gw1e:exclusivegateway:{x}
         gw1s:exclusivegateway:{x}-->|"Zeitraum passt nicht"|a9:task:(Absage per E-Mail senden)

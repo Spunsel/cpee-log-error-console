@@ -123,7 +123,7 @@ event:
   cpee:change_uuid: 98c237fd7bc4a63578443f60c50a7d6e824c10d4
   cpee:exposition: |-
     # User Input:
-    Der Bestellprozess in SAP beginnt mit der Bedarfsermittlung, bei der meist eine Bestellanforderung durch eine Fachabteilung oder automatisch Ã¼ber die Materialbedarfsplanung generiert wird. Nachdem eine geeignete Bezugsquelle Ã¼ber bestehende Kontrakte oder ein Anfrageverfahren identifiziert wurde, erfolgt die Erstellung der formalen Bestellung, die alle relevanten Konditionen und Liefertermine fixiert. Sobald die Ware im Unternehmen eintrifft, wird ein Wareneingang mit Bezug zur Bestellung gebucht, wodurch sich die BestÃ¤nde erhÃ¶hen und die Bestellentwicklung aktualisiert wird. Im Anschluss daran geht die Lieferantenrechnung ein, die im Rahmen der RechnungsprÃ¼fung gegen die Bestellung und den Wareneingang abgeglichen wird, um Mengen- oder Preisabweichungen auszuschlieÃŸen. Den formalen Abschluss des Prozesses bildet die Ãœbergabe an die Finanzbuchhaltung, wo die Rechnung schlieÃŸlich zur Zahlung freigegeben und ausgeglichen wird.
+    Der Bestellprozess in SAP beginnt mit der Bedarfsermittlung, bei der meist eine Bestellanforderung durch eine Fachabteilung oder automatisch über die Materialbedarfsplanung generiert wird. Nachdem eine geeignete Bezugsquelle über bestehende Kontrakte oder ein Anfrageverfahren identifiziert wurde, erfolgt die Erstellung der formalen Bestellung, die alle relevanten Konditionen und Liefertermine fixiert. Sobald die Ware im Unternehmen eintrifft, wird ein Wareneingang mit Bezug zur Bestellung gebucht, wodurch sich die Bestände erhöhen und die Bestellentwicklung aktualisiert wird. Im Anschluss daran geht die Lieferantenrechnung ein, die im Rahmen der Rechnungsprüfung gegen die Bestellung und den Wareneingang abgeglichen wird, um Mengen- oder Preisabweichungen auszuschließen. Den formalen Abschluss des Prozesses bildet die Übergabe an die Finanzbuchhaltung, wo die Rechnung schließlich zur Zahlung freigegeben und ausgeglichen wird.
   time:timestamp: '2026-03-27T14:39:57.210242+01:00'
 ---
 event:
@@ -163,9 +163,9 @@ event:
         1:task:(Bedarfsermittlung) --> 2:task:(Bezugsquellen ermitteln)
         2:task:(Bezugsquellen ermitteln) --> 3:task:(Bestellung erstellen)
         3:task:(Bestellung erstellen) --> 4:task:(Wareneingang buchen)
-        4:task:(Wareneingang buchen) --> 5:task:(Lieferantenrechnung prÃ¼fen)
-        5:task:(Lieferantenrechnung prÃ¼fen) --> 6:task:(Ãœbergabe an Finanzbuchhaltung)
-        6:task:(Ãœbergabe an Finanzbuchhaltung) --> 7:endevent:(((endevent)))
+        4:task:(Wareneingang buchen) --> 5:task:(Lieferantenrechnung prüfen)
+        5:task:(Lieferantenrechnung prüfen) --> 6:task:(Übergabe an Finanzbuchhaltung)
+        6:task:(Übergabe an Finanzbuchhaltung) --> 7:endevent:(((endevent)))
     ```
   time:timestamp: '2026-03-27T14:39:57.210845+01:00'
 ---
@@ -393,7 +393,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="5">
         <parameters>
-          <label>Lieferantenrechnung prÃ¼fen</label>
+          <label>Lieferantenrechnung prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -401,7 +401,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="6">
         <parameters>
-          <label>Ãœbergabe an Finanzbuchhaltung</label>
+          <label>Übergabe an Finanzbuchhaltung</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -419,7 +419,7 @@ event:
   cpee:change_uuid: 42fd9f86d44ad9b7a496f55529a63b17ca68261f
   cpee:exposition: |-
     # User Input:
-    Der Bestellprozess in SAP beginnt klassisch mit einer Bestellanforderung, kann jedoch je nach Bedarf variieren, etwa wenn bei fehlender Bezugsquelle zunÃ¤chst ein mehrstufiges Anfrage- und Angebotsverfahren durchlaufen wird, um Preise verschiedener Kreditoren zu vergleichen. Sobald ein Lieferant feststeht, wird die Bestellung erzeugt, wobei bei hochwertigen GÃ¼tern oder hohen Auftragswerten oft ein Freigabeverfahren zwischengeschaltet ist, das die Bestellung erst nach der Genehmigung durch einen Verantwortlichen fÃ¼r den Versand freigibt. In der Logistikphase folgt nach der Warenlieferung Ã¼blicherweise die Erfassung des Wareneingangs, doch bei Dienstleistungen tritt an diese Stelle das Leistungserfassungsblatt, welches die erbrachte Arbeit dokumentiert und separat abgenommen werden muss. Eine weitere Variante stellt das Gutschriftverfahren dar, bei dem kein Rechnungseingang vom Lieferanten abgewartet wird, sondern das System die Abrechnung basierend auf den Wareneingangsdaten automatisch anstÃ¶ÃŸt. Falls die gelieferte Ware MÃ¤ngel aufweist, wird der Standardfluss durch eine RÃ¼cklieferung oder eine Teilstornierung unterbrochen, was wiederum eine Gutschriftanforderung in der RechnungsprÃ¼fung auslÃ¶st. Den Abschluss bildet in jedem Fall die Ãœberleitung an die Finanzbuchhaltung, wo die Zahlung entweder nach dem Drei-Wege-Match zwischen Bestellung, Wareneingang und Rechnung oder bei KleinbetrÃ¤gen direkt nach der Rechnungserfassung ohne vorherigen Lagerzugang erfolgt.
+    Der Bestellprozess in SAP beginnt klassisch mit einer Bestellanforderung, kann jedoch je nach Bedarf variieren, etwa wenn bei fehlender Bezugsquelle zunächst ein mehrstufiges Anfrage- und Angebotsverfahren durchlaufen wird, um Preise verschiedener Kreditoren zu vergleichen. Sobald ein Lieferant feststeht, wird die Bestellung erzeugt, wobei bei hochwertigen Gütern oder hohen Auftragswerten oft ein Freigabeverfahren zwischengeschaltet ist, das die Bestellung erst nach der Genehmigung durch einen Verantwortlichen für den Versand freigibt. In der Logistikphase folgt nach der Warenlieferung üblicherweise die Erfassung des Wareneingangs, doch bei Dienstleistungen tritt an diese Stelle das Leistungserfassungsblatt, welches die erbrachte Arbeit dokumentiert und separat abgenommen werden muss. Eine weitere Variante stellt das Gutschriftverfahren dar, bei dem kein Rechnungseingang vom Lieferanten abgewartet wird, sondern das System die Abrechnung basierend auf den Wareneingangsdaten automatisch anstößt. Falls die gelieferte Ware Mängel aufweist, wird der Standardfluss durch eine Rücklieferung oder eine Teilstornierung unterbrochen, was wiederum eine Gutschriftanforderung in der Rechnungsprüfung auslöst. Den Abschluss bildet in jedem Fall die Überleitung an die Finanzbuchhaltung, wo die Zahlung entweder nach dem Drei-Wege-Match zwischen Bestellung, Wareneingang und Rechnung oder bei Kleinbeträgen direkt nach der Rechnungserfassung ohne vorherigen Lagerzugang erfolgt.
   time:timestamp: '2026-03-27T14:41:02.433698+01:00'
 ---
 event:
@@ -448,9 +448,9 @@ event:
     a1:task:(Bedarfsermittlung)-->a3:task:(Bezugsquellen ermitteln)
     a3:task:(Bezugsquellen ermitteln)-->a5:task:(Bestellung erstellen)
     a5:task:(Bestellung erstellen)-->a7:task:(Wareneingang buchen)
-    a7:task:(Wareneingang buchen)-->a9:task:(Lieferantenrechnung prÃ¼fen)
-    a9:task:(Lieferantenrechnung prÃ¼fen)-->a11:task:(Ãœbergabe an Finanzbuchhaltung)
-    a11:task:(Ãœbergabe an Finanzbuchhaltung)-->ee:endevent:((endevent))
+    a7:task:(Wareneingang buchen)-->a9:task:(Lieferantenrechnung prüfen)
+    a9:task:(Lieferantenrechnung prüfen)-->a11:task:(Übergabe an Finanzbuchhaltung)
+    a11:task:(Übergabe an Finanzbuchhaltung)-->ee:endevent:((endevent))
   time:timestamp: '2026-03-27T14:41:02.434288+01:00'
 ---
 event:
@@ -471,23 +471,23 @@ event:
         a2:subprocess:(Anfrage- und Angebotsverfahren) --> a3:task:(Bezugsquellen ermitteln)
         a3:task:(Bezugsquellen ermitteln) --> a5:task:(Bestellung erstellen)
         a5:task:(Bestellung erstellen) --> ex2:exclusivegateway:{x}
-        ex2:exclusivegateway:{x} --> |hochwertige GÃ¼ter oder hohe Auftragswerte| a6:subprocess:(Freigabeverfahren)
+        ex2:exclusivegateway:{x} --> |hochwertige Güter oder hohe Auftragswerte| a6:subprocess:(Freigabeverfahren)
         ex2:exclusivegateway:{x} --> |andere| a7:task:(Wareneingang buchen)
         a6:subprocess:(Freigabeverfahren) --> a7:task:(Wareneingang buchen)
         a7:task:(Wareneingang buchen) --> ex3:exclusivegateway:{x}
-        ex3:exclusivegateway:{x} --> |Wareneingang| a9:task:(Lieferantenrechnung prÃ¼fen)
+        ex3:exclusivegateway:{x} --> |Wareneingang| a9:task:(Lieferantenrechnung prüfen)
         ex3:exclusivegateway:{x} --> |Dienstleistungen| a8:task:(Leistungserfassungsblatt)
-        a8:task:(Leistungserfassungsblatt) --> a9:task:(Lieferantenrechnung prÃ¼fen)
-        a9:task:(Lieferantenrechnung prÃ¼fen) --> ex4:exclusivegateway:{x}
-        ex4:exclusivegateway:{x} --> |Gutschriftverfahren| a10:task:(Abrechnung anstoÃŸen)
+        a8:task:(Leistungserfassungsblatt) --> a9:task:(Lieferantenrechnung prüfen)
+        a9:task:(Lieferantenrechnung prüfen) --> ex4:exclusivegateway:{x}
+        ex4:exclusivegateway:{x} --> |Gutschriftverfahren| a10:task:(Abrechnung anstoßen)
         ex4:exclusivegateway:{x} --> |kein Gutschriftverfahren| ex5:exclusivegateway:{x}
-        a10:task:(Abrechnung anstoÃŸen) --> a11:task:(Ãœbergabe an Finanzbuchhaltung)
-        ex5:exclusivegateway:{x} --> |MÃ¤ngel| a12:subprocess:(RÃ¼cklieferung/Teilstornierung)
-        ex5:exclusivegateway:{x} --> |keine MÃ¤ngel| a11:task:(Ãœbergabe an Finanzbuchhaltung)
-        a12:subprocess:(RÃ¼cklieferung/Teilstornierung) --> a9:(Lieferantenrechnung prÃ¼fen)
-        a11:task:(Ãœbergabe an Finanzbuchhaltung) --> ex6:exclusivegateway:{x}
+        a10:task:(Abrechnung anstoßen) --> a11:task:(Übergabe an Finanzbuchhaltung)
+        ex5:exclusivegateway:{x} --> |Mängel| a12:subprocess:(Rücklieferung/Teilstornierung)
+        ex5:exclusivegateway:{x} --> |keine Mängel| a11:task:(Übergabe an Finanzbuchhaltung)
+        a12:subprocess:(Rücklieferung/Teilstornierung) --> a9:(Lieferantenrechnung prüfen)
+        a11:task:(Übergabe an Finanzbuchhaltung) --> ex6:exclusivegateway:{x}
         ex6:exclusivegateway:{x} --> |Drei-Wege-Match| ee:endevent:((endevent))
-        ex6:exclusivegateway:{x} --> |KleinbetrÃ¤ge| ee:(endevent)
+        ex6:exclusivegateway:{x} --> |Kleinbeträge| ee:(endevent)
     ```
   time:timestamp: '2026-03-27T14:41:02.434450+01:00'
 ---
@@ -649,7 +649,7 @@ event:
         </parameters>
       </call>
       <choose mode="exclusive" a:alt_id="ex2">
-        <alternative condition="hochwertige GÃ¼ter oder hohe Auftragswerte or andere" language="text/javascript"/>
+        <alternative condition="hochwertige Güter oder hohe Auftragswerte or andere" language="text/javascript"/>
         <alternative condition="andere" language="text/javascript"/>
       </choose>
       <call id="a17" endpoint="" a:alt_id="a7">
@@ -676,7 +676,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a23" endpoint="" a:alt_id="a9">
           <parameters>
-            <label>Lieferantenrechnung prÃ¼fen</label>
+            <label>Lieferantenrechnung prüfen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -684,20 +684,20 @@ event:
         </call>
         <loop mode="pre_test" condition="kein Gutschriftverfahren">
           <choose mode="exclusive" a:alt_id="ex5">
-            <alternative condition="MÃ¤ngel" language="text/javascript">
+            <alternative condition="Mängel" language="text/javascript">
               <call id="a23" endpoint="" a:alt_id="a9">
                 <parameters>
-                  <label>Lieferantenrechnung prÃ¼fen</label>
+                  <label>Lieferantenrechnung prüfen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
                 </parameters>
               </call>
             </alternative>
-            <alternative condition="keine MÃ¤ngel" language="text/javascript">
+            <alternative condition="keine Mängel" language="text/javascript">
               <call id="a35" endpoint="" a:alt_id="a11">
                 <parameters>
-                  <label>Ãœbergabe an Finanzbuchhaltung</label>
+                  <label>Übergabe an Finanzbuchhaltung</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -709,7 +709,7 @@ event:
         </loop>
         <call id="a31" endpoint="" a:alt_id="a10">
           <parameters>
-            <label>Abrechnung anstoÃŸen</label>
+            <label>Abrechnung anstoßen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -717,7 +717,7 @@ event:
         </call>
         <call id="a35" endpoint="" a:alt_id="a11">
           <parameters>
-            <label>Ãœbergabe an Finanzbuchhaltung</label>
+            <label>Übergabe an Finanzbuchhaltung</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -919,7 +919,7 @@ event:
   cpee:change_uuid: 42438fe1acada36082720e166a73505077dfea3e
   cpee:exposition: |-
     # User Input:
-    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und OrderbÃ¼cher steuern, welcher Lieferant den Zuschlag erhÃ¤lt oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelÃ¶st wird, durchlÃ¤uft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhÃ¤ngen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits Ã¼berwacht. Treten wÃ¤hrend der Beschaffung Ã„nderungen auf, ermÃ¶glicht SAP Ã¼ber BestÃ¤tigungssteuerschlÃ¼ssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die KomplexitÃ¤t zusÃ¤tzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten Ã¼berwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden mÃ¼ssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine QualitÃ¤tsprÃ¼fung durch das QM-Modul, bei der die Ware zunÃ¤chst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid fÃ¼r den freien Bestand freigegeben wird. Die anschlieÃŸende RechnungsprÃ¼fung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbststÃ¤ndig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen Ã¼berschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen KlÃ¤rung oder einer Preisdifferenzbuchung im Rahmen der RechnungskÃ¼rzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
+    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und Orderbücher steuern, welcher Lieferant den Zuschlag erhält oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelöst wird, durchläuft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhängen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits überwacht. Treten während der Beschaffung Änderungen auf, ermöglicht SAP über Bestätigungssteuerschlüssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die Komplexität zusätzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten überwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden müssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine Qualitätsprüfung durch das QM-Modul, bei der die Ware zunächst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid für den freien Bestand freigegeben wird. Die anschließende Rechnungsprüfung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbstständig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen überschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen Klärung oder einer Preisdifferenzbuchung im Rahmen der Rechnungskürzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
   time:timestamp: '2026-03-27T14:41:55.710774+01:00'
 ---
 event:
@@ -954,14 +954,14 @@ event:
     a25:task:(Leistungserfassungsblatt)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
-    gw2e:exclusivegateway:{x}-->|"true"|a23:task:(Lieferantenrechnung prÃ¼fen)
-    a23:task:(Lieferantenrechnung prÃ¼fen)-->gw3s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a23:task:(Lieferantenrechnung prüfen)
+    a23:task:(Lieferantenrechnung prüfen)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"kein Gutschriftverfahren"|gw5s:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"keine MÃ¤ngel"|a35:task:(Ãœbergabe an Finanzbuchhaltung)
-    a35:task:(Ãœbergabe an Finanzbuchhaltung)-->gw6s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"keine Mängel"|a35:task:(Übergabe an Finanzbuchhaltung)
+    a35:task:(Übergabe an Finanzbuchhaltung)-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
     gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
@@ -969,13 +969,13 @@ event:
     gw7e:exclusivegateway:{x}-->-1:escalate:((^))
     -1:escalate:((^))-->gw6e:exclusivegateway:{x}
     gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"MÃ¤ngel"|a23:task:(Lieferantenrechnung prÃ¼fen)
-    a23:task:(Lieferantenrechnung prÃ¼fen)-->-1:escalate:((^))
+    gw5s:exclusivegateway:{x}-->|"Mängel"|a23:task:(Lieferantenrechnung prüfen)
+    a23:task:(Lieferantenrechnung prüfen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->a31:task:(Abrechnung anstoÃŸen)
-    a31:task:(Abrechnung anstoÃŸen)-->a35:task:(Ãœbergabe an Finanzbuchhaltung)
-    a35:task:(Ãœbergabe an Finanzbuchhaltung)-->gw8s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->a31:task:(Abrechnung anstoßen)
+    a31:task:(Abrechnung anstoßen)-->a35:task:(Übergabe an Finanzbuchhaltung)
+    a35:task:(Übergabe an Finanzbuchhaltung)-->gw8s:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}
     gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
@@ -1008,14 +1008,14 @@ event:
     a25:task:(Leistungserfassungsblatt)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
-    gw2e:exclusivegateway:{x}-->|"true"|a23:task:(Lieferantenrechnung prÃ¼fen)
-    a23:task:(Lieferantenrechnung prÃ¼fen)-->gw3s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a23:task:(Lieferantenrechnung prüfen)
+    a23:task:(Lieferantenrechnung prüfen)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"kein Gutschriftverfahren"|gw5s:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"keine MÃ¤ngel"|a35:task:(Ãœbergabe an Finanzbuchhaltung)
-    a35:task:(Ãœbergabe an Finanzbuchhaltung)-->gw6s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"keine Mängel"|a35:task:(Übergabe an Finanzbuchhaltung)
+    a35:task:(Übergabe an Finanzbuchhaltung)-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
     gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
@@ -1023,13 +1023,13 @@ event:
     gw7e:exclusivegateway:{x}-->100:escalate:((^))
     100:escalate:((^))-->gw6e:exclusivegateway:{x}
     gw6e:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"MÃ¤ngel"|a23:task:(Lieferantenrechnung prÃ¼fen)
-    a23:task:(Lieferantenrechnung prÃ¼fen)-->100:escalate:((^))
+    gw5s:exclusivegateway:{x}-->|"Mängel"|a23:task:(Lieferantenrechnung prüfen)
+    a23:task:(Lieferantenrechnung prüfen)-->100:escalate:((^))
     100:escalate:((^))-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->a31:task:(Abrechnung anstoÃŸen)
-    a31:task:(Abrechnung anstoÃŸen)-->a35:task:(Ãœbergabe an Finanzbuchhaltung)
-    a35:task:(Ãœbergabe an Finanzbuchhaltung)-->gw8s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->a31:task:(Abrechnung anstoßen)
+    a31:task:(Abrechnung anstoßen)-->a35:task:(Übergabe an Finanzbuchhaltung)
+    a35:task:(Übergabe an Finanzbuchhaltung)-->gw8s:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}
     gw9s:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
@@ -1299,7 +1299,7 @@ event:
           <alternative condition="true" language="text/javascript">
             <call id="a21" endpoint="" a:alt_id="a23">
               <parameters>
-                <label>Lieferantenrechnung prÃ¼fen</label>
+                <label>Lieferantenrechnung prüfen</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -1313,7 +1313,7 @@ event:
                       <alternative condition="">
                         <call id="a33" endpoint="" a:alt_id="a35">
                           <parameters>
-                            <label>Ãœbergabe an Finanzbuchhaltung</label>
+                            <label>Übergabe an Finanzbuchhaltung</label>
                             <method/>
                             <type>:task</type>
                             <arguments/>
@@ -1346,10 +1346,10 @@ event:
                           </alternative>
                         </choose>
                       </alternative>
-                      <alternative condition="MÃ¤ngel" language="text/javascript">
+                      <alternative condition="Mängel" language="text/javascript">
                         <call id="a21" endpoint="" a:alt_id="a23">
                           <parameters>
-                            <label>Lieferantenrechnung prÃ¼fen</label>
+                            <label>Lieferantenrechnung prüfen</label>
                             <method/>
                             <type>:task</type>
                             <arguments/>
@@ -1362,7 +1362,7 @@ event:
                   <alternative condition="">
                     <call id="a59" endpoint="" a:alt_id="a31">
                       <parameters>
-                        <label>Abrechnung anstoÃŸen</label>
+                        <label>Abrechnung anstoßen</label>
                         <method/>
                         <type>:task</type>
                         <arguments/>
@@ -1370,7 +1370,7 @@ event:
                     </call>
                     <call id="a33" endpoint="" a:alt_id="a35">
                       <parameters>
-                        <label>Ãœbergabe an Finanzbuchhaltung</label>
+                        <label>Übergabe an Finanzbuchhaltung</label>
                         <method/>
                         <type>:task</type>
                         <arguments/>
@@ -1465,13 +1465,13 @@ event:
     gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->|"true"|gw3s:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"true"|a21:task:(Lieferantenrechnung prÃ¼fen)
-    a21:task:(Lieferantenrechnung prÃ¼fen)-->gw4s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"true"|a21:task:(Lieferantenrechnung prüfen)
+    a21:task:(Lieferantenrechnung prüfen)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->|"kein Gutschriftverfahren"|gw7s:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->a33:task:(Ãœbergabe an Finanzbuchhaltung)
-    a33:task:(Ãœbergabe an Finanzbuchhaltung)-->gw8s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->a33:task:(Übergabe an Finanzbuchhaltung)
+    a33:task:(Übergabe an Finanzbuchhaltung)-->gw8s:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}
     gw9s:exclusivegateway:{x}-->gw10s:exclusivegateway:{x}
     gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
@@ -1493,13 +1493,13 @@ event:
     gw14e:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
     gw12e:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
     gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->|"MÃ¤ngel"|a21:task:(Lieferantenrechnung prÃ¼fen)
-    a21:task:(Lieferantenrechnung prÃ¼fen)-->-1:escalate:((^))
+    gw7s:exclusivegateway:{x}-->|"Mängel"|a21:task:(Lieferantenrechnung prüfen)
+    a21:task:(Lieferantenrechnung prüfen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw7e:exclusivegateway:{x}
     gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
-    gw6s:exclusivegateway:{x}-->a59:task:(Abrechnung anstoÃŸen)
-    a59:task:(Abrechnung anstoÃŸen)-->a33:task:(Ãœbergabe an Finanzbuchhaltung)
-    a33:task:(Ãœbergabe an Finanzbuchhaltung)-->gw15s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->a59:task:(Abrechnung anstoßen)
+    a59:task:(Abrechnung anstoßen)-->a33:task:(Übergabe an Finanzbuchhaltung)
+    a33:task:(Übergabe an Finanzbuchhaltung)-->gw15s:exclusivegateway:{x}
     gw15s:exclusivegateway:{x}-->gw16s:exclusivegateway:{x}
     gw16s:exclusivegateway:{x}-->gw17s:exclusivegateway:{x}
     gw17s:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
@@ -1629,7 +1629,7 @@ event:
           <alternative condition="true" language="text/javascript">
             <call id="a21" endpoint="" a:alt_id="a23">
               <parameters>
-                <label>Lieferantenrechnung prÃ¼fen</label>
+                <label>Lieferantenrechnung prüfen</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -1643,7 +1643,7 @@ event:
                       <alternative condition="">
                         <call id="a33" endpoint="" a:alt_id="a35">
                           <parameters>
-                            <label>Ãœbergabe an Finanzbuchhaltung</label>
+                            <label>Übergabe an Finanzbuchhaltung</label>
                             <method/>
                             <type>:task</type>
                             <arguments/>
@@ -1676,10 +1676,10 @@ event:
                           </alternative>
                         </choose>
                       </alternative>
-                      <alternative condition="MÃ¤ngel" language="text/javascript">
+                      <alternative condition="Mängel" language="text/javascript">
                         <call id="a21" endpoint="" a:alt_id="a23">
                           <parameters>
-                            <label>Lieferantenrechnung prÃ¼fen</label>
+                            <label>Lieferantenrechnung prüfen</label>
                             <method/>
                             <type>:task</type>
                             <arguments/>
@@ -1692,7 +1692,7 @@ event:
                   <alternative condition="">
                     <call id="a59" endpoint="" a:alt_id="a31">
                       <parameters>
-                        <label>Abrechnung anstoÃŸen</label>
+                        <label>Abrechnung anstoßen</label>
                         <method/>
                         <type>:task</type>
                         <arguments/>
@@ -1700,7 +1700,7 @@ event:
                     </call>
                     <call id="a33" endpoint="" a:alt_id="a35">
                       <parameters>
-                        <label>Ãœbergabe an Finanzbuchhaltung</label>
+                        <label>Übergabe an Finanzbuchhaltung</label>
                         <method/>
                         <type>:task</type>
                         <arguments/>
@@ -1761,7 +1761,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und OrderbÃ¼cher steuern, welcher Lieferant den Zuschlag erhÃ¤lt oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelÃ¶st wird, durchlÃ¤uft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhÃ¤ngen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits Ã¼berwacht. Treten wÃ¤hrend der Beschaffung Ã„nderungen auf, ermÃ¶glicht SAP Ã¼ber BestÃ¤tigungssteuerschlÃ¼ssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die KomplexitÃ¤t zusÃ¤tzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten Ã¼berwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden mÃ¼ssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine QualitÃ¤tsprÃ¼fung durch das QM-Modul, bei der die Ware zunÃ¤chst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid fÃ¼r den freien Bestand freigegeben wird. Die anschlieÃŸende RechnungsprÃ¼fung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbststÃ¤ndig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen Ã¼berschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen KlÃ¤rung oder einer Preisdifferenzbuchung im Rahmen der RechnungskÃ¼rzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
+    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und Orderbücher steuern, welcher Lieferant den Zuschlag erhält oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelöst wird, durchläuft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhängen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits überwacht. Treten während der Beschaffung Änderungen auf, ermöglicht SAP über Bestätigungssteuerschlüssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die Komplexität zusätzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten überwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden müssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine Qualitätsprüfung durch das QM-Modul, bei der die Ware zunächst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid für den freien Bestand freigegeben wird. Die anschließende Rechnungsprüfung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbstständig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen überschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen Klärung oder einer Preisdifferenzbuchung im Rahmen der Rechnungskürzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
   time:timestamp: '2026-03-27T14:42:29.438280+01:00'
 ---
 event:
@@ -1797,13 +1797,13 @@ event:
     gw1e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->|"true"|gw3s:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"true"|a21:task:(Lieferantenrechnung prÃ¼fen)
-    a21:task:(Lieferantenrechnung prÃ¼fen)-->gw4s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"true"|a21:task:(Lieferantenrechnung prüfen)
+    a21:task:(Lieferantenrechnung prüfen)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->|"kein Gutschriftverfahren"|gw7s:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->a33:task:(Ãœbergabe an Finanzbuchhaltung)
-    a33:task:(Ãœbergabe an Finanzbuchhaltung)-->gw8s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->a33:task:(Übergabe an Finanzbuchhaltung)
+    a33:task:(Übergabe an Finanzbuchhaltung)-->gw8s:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->gw9s:exclusivegateway:{x}
     gw9s:exclusivegateway:{x}-->gw10s:exclusivegateway:{x}
     gw10s:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
@@ -1825,13 +1825,13 @@ event:
     gw14e:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
     gw12e:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
     gw8e:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->|"MÃ¤ngel"|a21:task:(Lieferantenrechnung prÃ¼fen)
-    a21:task:(Lieferantenrechnung prÃ¼fen)-->-1:escalate:((^))
+    gw7s:exclusivegateway:{x}-->|"Mängel"|a21:task:(Lieferantenrechnung prüfen)
+    a21:task:(Lieferantenrechnung prüfen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw7e:exclusivegateway:{x}
     gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
-    gw6s:exclusivegateway:{x}-->a59:task:(Abrechnung anstoÃŸen)
-    a59:task:(Abrechnung anstoÃŸen)-->a33:task:(Ãœbergabe an Finanzbuchhaltung)
-    a33:task:(Ãœbergabe an Finanzbuchhaltung)-->gw15s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->a59:task:(Abrechnung anstoßen)
+    a59:task:(Abrechnung anstoßen)-->a33:task:(Übergabe an Finanzbuchhaltung)
+    a33:task:(Übergabe an Finanzbuchhaltung)-->gw15s:exclusivegateway:{x}
     gw15s:exclusivegateway:{x}-->gw16s:exclusivegateway:{x}
     gw16s:exclusivegateway:{x}-->gw17s:exclusivegateway:{x}
     gw17s:exclusivegateway:{x}-->gw17e:exclusivegateway:{x}
@@ -1875,7 +1875,7 @@ event:
     However, the changes are described in a narrative form without specifying which
     tasks or gateways need to be added, removed, or modified in the BPMN model. \n\nTo
     update the BPMN model, I need more specific instructions. For example, \"Add a
-    new task after task 'Bedarfsermittlung' with the label 'Quotenregelungen und OrderbÃ¼cher
+    new task after task 'Bedarfsermittlung' with the label 'Quotenregelungen und Orderbücher
     steuern'\", or \"Replace the exclusive gateway 'gw1s' with a parallel gateway\".
     \n\nCould you please provide more specific modifications for the BPMN model?"
   time:timestamp: '2026-03-27T14:42:29.438665+01:00'
@@ -2014,7 +2014,7 @@ event:
   cpee:change_uuid: 7f9a0184eaf6be09d5a93b9c56c24c543abcc4cf
   cpee:exposition: |-
     # User Input:
-    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und OrderbÃ¼cher steuern, welcher Lieferant den Zuschlag erhÃ¤lt oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelÃ¶st wird, durchlÃ¤uft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhÃ¤ngen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits Ã¼berwacht. Treten wÃ¤hrend der Beschaffung Ã„nderungen auf, ermÃ¶glicht SAP Ã¼ber BestÃ¤tigungssteuerschlÃ¼ssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die KomplexitÃ¤t zusÃ¤tzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten Ã¼berwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden mÃ¼ssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine QualitÃ¤tsprÃ¼fung durch das QM-Modul, bei der die Ware zunÃ¤chst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid fÃ¼r den freien Bestand freigegeben wird. Die anschlieÃŸende RechnungsprÃ¼fung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbststÃ¤ndig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen Ã¼berschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen KlÃ¤rung oder einer Preisdifferenzbuchung im Rahmen der RechnungskÃ¼rzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
+    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und Orderbücher steuern, welcher Lieferant den Zuschlag erhält oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelöst wird, durchläuft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhängen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits überwacht. Treten während der Beschaffung Änderungen auf, ermöglicht SAP über Bestätigungssteuerschlüssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die Komplexität zusätzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten überwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden müssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine Qualitätsprüfung durch das QM-Modul, bei der die Ware zunächst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid für den freien Bestand freigegeben wird. Die anschließende Rechnungsprüfung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbstständig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen überschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen Klärung oder einer Preisdifferenzbuchung im Rahmen der Rechnungskürzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
   time:timestamp: '2026-03-27T14:43:03.668073+01:00'
 ---
 event:
@@ -2316,7 +2316,7 @@ event:
   cpee:change_uuid: 3694df4588d2e3ee03c75dacce9f4caa99573a2e
   cpee:exposition: |-
     # User Input:
-    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und OrderbÃ¼cher steuern, welcher Lieferant den Zuschlag erhÃ¤lt oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelÃ¶st wird, durchlÃ¤uft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhÃ¤ngen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits Ã¼berwacht. Treten wÃ¤hrend der Beschaffung Ã„nderungen auf, ermÃ¶glicht SAP Ã¼ber BestÃ¤tigungssteuerschlÃ¼ssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die KomplexitÃ¤t zusÃ¤tzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten Ã¼berwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden mÃ¼ssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine QualitÃ¤tsprÃ¼fung durch das QM-Modul, bei der die Ware zunÃ¤chst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid fÃ¼r den freien Bestand freigegeben wird. Die anschlieÃŸende RechnungsprÃ¼fung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbststÃ¤ndig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen Ã¼berschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen KlÃ¤rung oder einer Preisdifferenzbuchung im Rahmen der RechnungskÃ¼rzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
+    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und Orderbücher steuern, welcher Lieferant den Zuschlag erhält oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelöst wird, durchläuft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhängen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits überwacht. Treten während der Beschaffung Änderungen auf, ermöglicht SAP über Bestätigungssteuerschlüssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die Komplexität zusätzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten überwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden müssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine Qualitätsprüfung durch das QM-Modul, bei der die Ware zunächst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid für den freien Bestand freigegeben wird. Die anschließende Rechnungsprüfung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbstständig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen überschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen Klärung oder einer Preisdifferenzbuchung im Rahmen der Rechnungskürzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
   time:timestamp: '2026-03-27T14:44:20.355566+01:00'
 ---
 event:
@@ -2361,20 +2361,20 @@ event:
         5:task:(Lohnbearbeitungsbestellung anlegen) --> 6:exclusivegateway:{x}
         6:exclusivegateway:{x} --> 7:task:(Wareneingang buchen)
         7:task:(Wareneingang buchen) --> 8:exclusivegateway:{x}
-        8:exclusivegateway:{x} --> |Ja| 9:task:(QualitÃ¤tsprÃ¼fung durchfÃ¼hren & freigeben)
+        8:exclusivegateway:{x} --> |Ja| 9:task:(Qualitätsprüfung durchführen & freigeben)
         8:exclusivegateway:{x} --> |Nein| 10:exclusivegateway:{x}
-        9:task:(QualitÃ¤tsprÃ¼fung durchfÃ¼hren & freigeben) --> 10:exclusivegateway:{x}
+        9:task:(Qualitätsprüfung durchführen & freigeben) --> 10:exclusivegateway:{x}
         10:exclusivegateway:{x} --> 11:exclusivegateway:{x}
         11:exclusivegateway:{x} --> |Automatisch (ERS)| 12:task:(Automatische Gutschrift erstellen)
-        11:exclusivegateway:{x} --> |Klassisch| 13:task:(Manuelle RechnungsprÃ¼fung)
+        11:exclusivegateway:{x} --> |Klassisch| 13:task:(Manuelle Rechnungsprüfung)
         12:task:(Automatische Gutschrift erstellen) --> 14:exclusivegateway:{x}
-        13:task:(Manuelle RechnungsprÃ¼fung) --> 14:exclusivegateway:{x}
+        13:task:(Manuelle Rechnungsprüfung) --> 14:exclusivegateway:{x}
         14:exclusivegateway:{x} --> 15:exclusivegateway:{x}
-        15:exclusivegateway:{x} --> |Abweichung > Toleranz| 16:task:(Zahlung sperren & Differenzen klÃ¤ren)
+        15:exclusivegateway:{x} --> |Abweichung > Toleranz| 16:task:(Zahlung sperren & Differenzen klären)
         15:exclusivegateway:{x} --> |Abweichung <= Toleranz| 17:exclusivegateway:{x}
-        16:task:(Zahlung sperren & Differenzen klÃ¤ren) --> 17:exclusivegateway:{x}
-        17:exclusivegateway:{x} --> 18:task:(Zahlungslauf durchfÃ¼hren)
-        18:task:(Zahlungslauf durchfÃ¼hren) --> 19:endevent:(((endevent)))
+        16:task:(Zahlung sperren & Differenzen klären) --> 17:exclusivegateway:{x}
+        17:exclusivegateway:{x} --> 18:task:(Zahlungslauf durchführen)
+        18:task:(Zahlungslauf durchführen) --> 19:endevent:(((endevent)))
     ```
   time:timestamp: '2026-03-27T14:44:20.356018+01:00'
 ---
@@ -2673,7 +2673,7 @@ event:
   cpee:change_uuid: 3679caadfa1bae07420bee430c0358dfb201f75f
   cpee:exposition: |-
     # User Input:
-    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und OrderbÃ¼cher steuern, welcher Lieferant den Zuschlag erhÃ¤lt oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelÃ¶st wird, durchlÃ¤uft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhÃ¤ngen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits Ã¼berwacht. Treten wÃ¤hrend der Beschaffung Ã„nderungen auf, ermÃ¶glicht SAP Ã¼ber BestÃ¤tigungssteuerschlÃ¼ssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die KomplexitÃ¤t zusÃ¤tzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten Ã¼berwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden mÃ¼ssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine QualitÃ¤tsprÃ¼fung durch das QM-Modul, bei der die Ware zunÃ¤chst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid fÃ¼r den freien Bestand freigegeben wird. Die anschlieÃŸende RechnungsprÃ¼fung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbststÃ¤ndig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen Ã¼berschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen KlÃ¤rung oder einer Preisdifferenzbuchung im Rahmen der RechnungskÃ¼rzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
+    Der hochkomplexe Bestellbearbeitungsfluss in SAP beginnt meist mit einer automatisierten Bedarfsermittlung durch das MRP-System, wobei komplexe Quotenregelungen und Orderbücher steuern, welcher Lieferant den Zuschlag erhält oder ob eine interne Umlagerungsbestellung zwischen Werken bevorzugt wird. Bevor die eigentliche Bestellung ausgelöst wird, durchläuft die Bestellanforderung oft mehrstufige Freigabestrategien mit Klassifizierung, die von Budgetgrenzen oder Warengruppen abhängen und eine elektronische Signatur der Verantwortlichen erfordern. In der operativen Phase kann die Bestellung als klassische Einzelbestellung, aber auch als Abruf aus einem langfristigen Rahmenvertrag oder einem wertbasierten Kontrakt generiert werden, wobei das System im Hintergrund permanent die Einhaltung der vereinbarten Konditionen und Limits überwacht. Treten während der Beschaffung Änderungen auf, ermöglicht SAP über Bestätigungssteuerschlüssel die Integration von Lieferavisierungen per EDI, die bereits vor dem physischen Eintreffen der Ware einen statistischen Wareneingang oder eine Anlieferung im System anlegen. Bei der Abwicklung von Lohnbearbeitungsprozessen wird die Komplexität zusätzlich gesteigert, da hierbei die Beistellkomponenten an den Lieferanten überwacht und bei der Wareneingangsbuchung automatisch vom Bestand abgebucht werden müssen. Im Bereich der Logistik folgt auf die Warenankunft nicht immer eine einfache Einlagerung, sondern oft eine Qualitätsprüfung durch das QM-Modul, bei der die Ware zunächst im Sperrbestand verbleibt und erst nach einem positiven Verwendungsentscheid für den freien Bestand freigegeben wird. Die anschließende Rechnungsprüfung kann durch das ERS-Verfahren (Evaluated Receipt Settlement) automatisiert werden, bei dem das System basierend auf den Wareneingangsdaten selbstständig Gutschriften erstellt, oder sie erfolgt klassisch durch den Abgleich von Teilrechnungen und Anzahlungen, die zuvor im Finanzwesen geleistet wurden. Sollten Abweichungen zwischen Bestellung, Wareneingang und Rechnung die definierten Toleranzgrenzen überschreiten, setzt das System automatisch eine Zahlungssperre, die erst nach einer manuellen Klärung oder einer Preisdifferenzbuchung im Rahmen der Rechnungskürzung aufgehoben wird, bevor der Prozess mit dem maschinellen Zahllauf im FI-Modul endet.
   time:timestamp: '2026-03-27T14:44:20.391194+01:00'
 ---
 event:
@@ -2711,7 +2711,7 @@ event:
     bpmn
       direction LR
         0:startevent:((startevent))
-        1:task:(Bedarfsermittlung durchfÃ¼hren)
+        1:task:(Bedarfsermittlung durchführen)
         2:task:(Bestellanforderung erstellen und freigeben)
         3:exclusivegateway:{x}
         4:task:(Standardbestellung anlegen)
@@ -2720,24 +2720,24 @@ event:
         7:exclusivegateway:{x}
         8:task:(Wareneingang buchen)
         9:exclusivegateway:{x}
-        10:task:(QualitÃ¤tsprÃ¼fung durchfÃ¼hren)
+        10:task:(Qualitätsprüfung durchführen)
         11:task:(Verwendungsentscheid treffen)
         12:exclusivegateway:{x}
-        13:task:(Rechnung prÃ¼fen)
+        13:task:(Rechnung prüfen)
         14:exclusivegateway:{x}
-        15:task:(Automatisierte Abrechnung (ERS) durchfÃ¼hren)
-        16:task:(Klassische RechnungsprÃ¼fung durchfÃ¼hren)
+        15:task:(Automatisierte Abrechnung (ERS) durchführen)
+        16:task:(Klassische Rechnungsprüfung durchführen)
         17:exclusivegateway:{x}
         18:exclusivegateway:{x}
         19:task:(Zahlsperre setzen)
-        20:task:(Abweichungen klÃ¤ren)
+        20:task:(Abweichungen klären)
         21:task:(Zahlsperre aufheben)
         22:exclusivegateway:{x}
-        23:task:(Zahllauf ausfÃ¼hren)
+        23:task:(Zahllauf ausführen)
         24:endevent:(((endevent)))
 
-        0:startevent:((startevent)) --> 1:task:(Bedarfsermittlung durchfÃ¼hren)
-        1:task:(Bedarfsermittlung durchfÃ¼hren) --> 2:task:(Bestellanforderung erstellen und freigeben)
+        0:startevent:((startevent)) --> 1:task:(Bedarfsermittlung durchführen)
+        1:task:(Bedarfsermittlung durchführen) --> 2:task:(Bestellanforderung erstellen und freigeben)
         2:task:(Bestellanforderung erstellen und freigeben) --> 3:exclusivegateway:{x}
         3:exclusivegateway:{x} --> |Standard|4:task:(Standardbestellung anlegen)
         3:exclusivegateway:{x} --> |Vertragsabruf|5:task:(Abruf aus Rahmenvertrag anlegen)
@@ -2747,24 +2747,24 @@ event:
         6:task:(Lohnbearbeitungsbestellung anlegen) --> 7:exclusivegateway:{x}
         7:exclusivegateway:{x} --> 8:task:(Wareneingang buchen)
         8:task:(Wareneingang buchen) --> 9:exclusivegateway:{x}
-        9:exclusivegateway:{x} --> |QM-PrÃ¼fung nÃ¶tig|10:task:(QualitÃ¤tsprÃ¼fung durchfÃ¼hren)
-        10:task:(QualitÃ¤tsprÃ¼fung durchfÃ¼hren) --> 11:task:(Verwendungsentscheid treffen)
+        9:exclusivegateway:{x} --> |QM-Prüfung nötig|10:task:(Qualitätsprüfung durchführen)
+        10:task:(Qualitätsprüfung durchführen) --> 11:task:(Verwendungsentscheid treffen)
         11:task:(Verwendungsentscheid treffen) --> 12:exclusivegateway:{x}
-        9:exclusivegateway:{x} --> |Keine PrÃ¼fung|12:exclusivegateway:{x}
-        12:exclusivegateway:{x} --> 13:task:(Rechnung prÃ¼fen)
-        13:task:(Rechnung prÃ¼fen) --> 14:exclusivegateway:{x}
-        14:exclusivegateway:{x} --> |ERS|15:task:(Automatisierte Abrechnung (ERS) durchfÃ¼hren)
-        14:exclusivegateway:{x} --> |Klassisch|16:task:(Klassische RechnungsprÃ¼fung durchfÃ¼hren)
-        15:task:(Automatisierte Abrechnung (ERS) durchfÃ¼hren) --> 17:exclusivegateway:{x}
-        16:task:(Klassische RechnungsprÃ¼fung durchfÃ¼hren) --> 17:exclusivegateway:{x}
+        9:exclusivegateway:{x} --> |Keine Prüfung|12:exclusivegateway:{x}
+        12:exclusivegateway:{x} --> 13:task:(Rechnung prüfen)
+        13:task:(Rechnung prüfen) --> 14:exclusivegateway:{x}
+        14:exclusivegateway:{x} --> |ERS|15:task:(Automatisierte Abrechnung (ERS) durchführen)
+        14:exclusivegateway:{x} --> |Klassisch|16:task:(Klassische Rechnungsprüfung durchführen)
+        15:task:(Automatisierte Abrechnung (ERS) durchführen) --> 17:exclusivegateway:{x}
+        16:task:(Klassische Rechnungsprüfung durchführen) --> 17:exclusivegateway:{x}
         17:exclusivegateway:{x} --> 18:exclusivegateway:{x}
         18:exclusivegateway:{x} --> |Abweichung > Toleranz|19:task:(Zahlsperre setzen)
-        19:task:(Zahlsperre setzen) --> 20:task:(Abweichungen klÃ¤ren)
-        20:task:(Abweichungen klÃ¤ren) --> 21:task:(Zahlsperre aufheben)
+        19:task:(Zahlsperre setzen) --> 20:task:(Abweichungen klären)
+        20:task:(Abweichungen klären) --> 21:task:(Zahlsperre aufheben)
         21:task:(Zahlsperre aufheben) --> 22:exclusivegateway:{x}
         18:exclusivegateway:{x} --> |Abweichung <= Toleranz|22:exclusivegateway:{x}
-        22:exclusivegateway:{x} --> 23:task:(Zahllauf ausfÃ¼hren)
-        23:task:(Zahllauf ausfÃ¼hren) --> 24:endevent:(((endevent)))
+        22:exclusivegateway:{x} --> 23:task:(Zahllauf ausführen)
+        23:task:(Zahllauf ausführen) --> 24:endevent:(((endevent)))
     ```
   time:timestamp: '2026-03-27T14:44:20.391508+01:00'
 ---

@@ -4559,15 +4559,15 @@ event:
     # User Input:
     The process starts with two parallel subprocesses: one for Member State and one for AI Office.
 
-    Â 
+     
 
-    The parallel gateway of Member State includes: â€œFacilitate the participation in the development processâ€ which sends the message flow to SME; exclusive gateway with the condition â€œdedicated communication channels exist?â€; and exclusive gateway with the condition â€œSMEs fulfil the eligibility conditions?â€ The exclusive gateway with the condition â€œSMEs fulfil the eligibility conditions?â€ has two paths: â€œyesâ€ leads to â€œProvide with priority access to the AI regulatory sandboxesâ€ which is sending a message flow to SME, which SME receives as â€œreceive accessâ€ and starts its process, which then connects to joint gateway and â€œnoâ€ leads to joint gateway. The exclusive gateway with the condition â€œdedicated communication channels exist?â€ has two paths: â€œyesâ€ leads to â€œUtilise existing channelsâ€, sending a message flow to SME, and â€œnoâ€ leads to â€œEstablish new channelsâ€, also sending a message flow to SME. Then both paths are connected with joint exclusive gateway, after which SME â€œShare interests and needsâ€, sends message flow and ends its process and so a message event â€œReceive interests and needsâ€ is received by Member State and the task â€œTake the needs into account when setting feesâ€ happens. Now, all these elements are connected with joint parallel gateway and the process ends for the Member State.
+    The parallel gateway of Member State includes: ÜSFacilitate the participation in the development process⬝ which sends the message flow to SME; exclusive gateway with the condition ÜSdedicated communication channels exist?⬝; and exclusive gateway with the condition ÜSSMEs fulfil the eligibility conditions?⬝ The exclusive gateway with the condition ÜSSMEs fulfil the eligibility conditions?⬝ has two paths: ÜSyes⬝ leads to ÜSProvide with priority access to the AI regulatory sandboxes⬝ which is sending a message flow to SME, which SME receives as ÜSreceive access⬝ and starts its process, which then connects to joint gateway and ÜSno⬝ leads to joint gateway. The exclusive gateway with the condition ÜSdedicated communication channels exist?⬝ has two paths: ÜSyes⬝ leads to ÜSUtilise existing channels⬝, sending a message flow to SME, and ÜSno⬝ leads to ÜSEstablish new channels⬝, also sending a message flow to SME. Then both paths are connected with joint exclusive gateway, after which SME ÜSShare interests and needs⬝, sends message flow and ends its process and so a message event ÜSReceive interests and needs⬝ is received by Member State and the task ÜSTake the needs into account when setting fees⬝ happens. Now, all these elements are connected with joint parallel gateway and the process ends for the Member State.
 
-    Â 
+     
 
-    The parallel gateway of AI Office includes: â€œEvaluate the convergence of best practicesâ€ and following â€œPromote the convergence of best practicesâ€; â€œOrganise appropriate communication campaignsâ€; â€œDevelop a single information platformâ€ and following â€œMaintain a single information platformâ€; receiving a message â€œReceive requestâ€ from the Boardâ€™s task â€œRequest standardised templatesâ€ before the task â€œProvide standardised templatesâ€, which sends the templates to the Board and the board ends its process. Now, the parallel gateway joints all elements of AI Office and ends the process.
+    The parallel gateway of AI Office includes: ÜSEvaluate the convergence of best practices⬝ and following ÜSPromote the convergence of best practices⬝; ÜSOrganise appropriate communication campaigns⬝; ÜSDevelop a single information platform⬝ and following ÜSMaintain a single information platform⬝; receiving a message ÜSReceive request⬝ from the Board’s task ÜSRequest standardised templates⬝ before the task ÜSProvide standardised templates⬝, which sends the templates to the Board and the board ends its process. Now, the parallel gateway joints all elements of AI Office and ends the process.
 
-    Â 
+     
   time:timestamp: '2026-03-23T13:38:19.860944+01:00'
 ---
 event:
@@ -5121,35 +5121,35 @@ event:
     # User Input:
     The process starts with two parallel subprocesses: one for Member State and one for AI Office.
 
-    Â 
+     
 
     The parallel gateway of Member State includes:
 
-    -Â Â Â Â Â Â  â€œFacilitate the participation in the development processâ€ which sends the message flow to SME;
+    -       ÜSFacilitate the participation in the development process⬝ which sends the message flow to SME;
 
-    -Â Â Â Â Â Â  exclusive gateway with the condition â€œdedicated communication channels exist?â€; and
+    -       exclusive gateway with the condition ÜSdedicated communication channels exist?⬝; and
 
-    -Â Â Â Â Â Â  exclusive gateway with the condition â€œSMEs fulfil the eligibility conditions?â€
+    -       exclusive gateway with the condition ÜSSMEs fulfil the eligibility conditions?⬝
 
-    The exclusive gateway with the condition â€œSMEs fulfil the eligibility conditions?â€ has two paths: â€œyesâ€ leads to â€œProvide with priority access to the AI regulatory sandboxesâ€ which is sending a message flow to SME, which SME receives as â€œreceive accessâ€ and starts its process, which then connects to joint gateway and â€œnoâ€ leads to joint gateway.
+    The exclusive gateway with the condition ÜSSMEs fulfil the eligibility conditions?⬝ has two paths: ÜSyes⬝ leads to ÜSProvide with priority access to the AI regulatory sandboxes⬝ which is sending a message flow to SME, which SME receives as ÜSreceive access⬝ and starts its process, which then connects to joint gateway and ÜSno⬝ leads to joint gateway.
 
-    The exclusive gateway with the condition â€œdedicated communication channels exist?â€ has two paths: â€œyesâ€ leads to â€œUtilise existing channelsâ€, sending a message flow to SME, and â€œnoâ€ leads to â€œEstablish new channelsâ€, also sending a message flow to SME. Then both paths are connected with joint exclusive gateway, after which SME â€œShare interests and needsâ€, sends message flow and ends its process and so a message event â€œReceive interests and needsâ€ is received by Member State and the task â€œTake the needs into account when setting feesâ€ happens. Now, all these elements are connected with joint parallel gateway and the process ends for the Member State.
+    The exclusive gateway with the condition ÜSdedicated communication channels exist?⬝ has two paths: ÜSyes⬝ leads to ÜSUtilise existing channels⬝, sending a message flow to SME, and ÜSno⬝ leads to ÜSEstablish new channels⬝, also sending a message flow to SME. Then both paths are connected with joint exclusive gateway, after which SME ÜSShare interests and needs⬝, sends message flow and ends its process and so a message event ÜSReceive interests and needs⬝ is received by Member State and the task ÜSTake the needs into account when setting fees⬝ happens. Now, all these elements are connected with joint parallel gateway and the process ends for the Member State.
 
-    Â 
+     
 
     The parallel gateway of AI Office includes:
 
-    -Â Â Â Â Â Â  â€œEvaluate the convergence of best practicesâ€ and following â€œPromote the convergence of best practicesâ€;
+    -       ÜSEvaluate the convergence of best practices⬝ and following ÜSPromote the convergence of best practices⬝;
 
-    -Â Â Â Â Â Â  â€œOrganise appropriate communication campaignsâ€;
+    -       ÜSOrganise appropriate communication campaigns⬝;
 
-    -Â Â Â Â Â Â  â€œDevelop a single information platformâ€ and following â€œMaintain a single information platformâ€;
+    -       ÜSDevelop a single information platform⬝ and following ÜSMaintain a single information platform⬝;
 
-    -Â Â Â Â Â Â  receiving a message â€œReceive requestâ€ from the Boardâ€™s task â€œRequest standardised templatesâ€ before the task â€œProvide standardised templatesâ€, which sends the templates to the Board and the board ends its process.
+    -       receiving a message ÜSReceive request⬝ from the Board’s task ÜSRequest standardised templates⬝ before the task ÜSProvide standardised templates⬝, which sends the templates to the Board and the board ends its process.
 
     Now, the parallel gateway joints all elements of AI Office and ends the process.
 
-    Â 
+     
   time:timestamp: '2026-03-23T13:40:43.898221+01:00'
 ---
 event:
@@ -5510,35 +5510,35 @@ event:
     # User Input:
     The process starts with two parallel subprocesses: one for Member State and one for AI Office.
 
-    Â 
+     
 
     The parallel gateway of Member State includes the following activities occurring in parallel:
 
-    -Â Â Â Â Â Â  â€œFacilitate the participation in the development processâ€ which sends the message flow to SME;
+    -       ÜSFacilitate the participation in the development process⬝ which sends the message flow to SME;
 
-    -Â Â Â Â Â Â  exclusive gateway with the condition â€œdedicated communication channels exist?â€; and
+    -       exclusive gateway with the condition ÜSdedicated communication channels exist?⬝; and
 
-    -Â Â Â Â Â Â  exclusive gateway with the condition â€œSMEs fulfil the eligibility conditions?â€
+    -       exclusive gateway with the condition ÜSSMEs fulfil the eligibility conditions?⬝
 
-    The exclusive gateway with the condition â€œSMEs fulfil the eligibility conditions?â€ has two paths: â€œyesâ€ leads to â€œProvide with priority access to the AI regulatory sandboxesâ€ which is sending a message flow to SME, which SME receives as â€œreceive accessâ€ and starts its process, which then connects to joint gateway and â€œnoâ€ leads to joint gateway.
+    The exclusive gateway with the condition ÜSSMEs fulfil the eligibility conditions?⬝ has two paths: ÜSyes⬝ leads to ÜSProvide with priority access to the AI regulatory sandboxes⬝ which is sending a message flow to SME, which SME receives as ÜSreceive access⬝ and starts its process, which then connects to joint gateway and ÜSno⬝ leads to joint gateway.
 
-    The exclusive gateway with the condition â€œdedicated communication channels exist?â€ has two paths: â€œyesâ€ leads to â€œUtilise existing channelsâ€, sending a message flow to SME, and â€œnoâ€ leads to â€œEstablish new channelsâ€, also sending a message flow to SME. Then both paths are connected with joint exclusive gateway, after which SME â€œShare interests and needsâ€, sends message flow and ends its process and so a message event â€œReceive interests and needsâ€ is received by Member State and the task â€œTake the needs into account when setting feesâ€ happens. Now, all these elements are connected with joint parallel gateway and the process ends for the Member State.
+    The exclusive gateway with the condition ÜSdedicated communication channels exist?⬝ has two paths: ÜSyes⬝ leads to ÜSUtilise existing channels⬝, sending a message flow to SME, and ÜSno⬝ leads to ÜSEstablish new channels⬝, also sending a message flow to SME. Then both paths are connected with joint exclusive gateway, after which SME ÜSShare interests and needs⬝, sends message flow and ends its process and so a message event ÜSReceive interests and needs⬝ is received by Member State and the task ÜSTake the needs into account when setting fees⬝ happens. Now, all these elements are connected with joint parallel gateway and the process ends for the Member State.
 
-    Â 
+     
 
     The parallel gateway of AI Office includes the following activities occurring in parallel:
 
-    -Â Â Â Â Â Â  â€œEvaluate the convergence of best practicesâ€ and following â€œPromote the convergence of best practicesâ€;
+    -       ÜSEvaluate the convergence of best practices⬝ and following ÜSPromote the convergence of best practices⬝;
 
-    -Â Â Â Â Â Â  â€œOrganise appropriate communication campaignsâ€;
+    -       ÜSOrganise appropriate communication campaigns⬝;
 
-    -Â Â Â Â Â Â  â€œDevelop a single information platformâ€ and following â€œMaintain a single information platformâ€;
+    -       ÜSDevelop a single information platform⬝ and following ÜSMaintain a single information platform⬝;
 
-    -Â Â Â Â Â Â  receiving a message â€œReceive requestâ€ from the Boardâ€™s task â€œRequest standardised templatesâ€ before the task â€œProvide standardised templatesâ€, which sends the templates to the Board and the board ends its process.
+    -       receiving a message ÜSReceive request⬝ from the Board’s task ÜSRequest standardised templates⬝ before the task ÜSProvide standardised templates⬝, which sends the templates to the Board and the board ends its process.
 
     Now, the parallel gateway joints all elements of AI Office and ends the process.
 
-    Â 
+     
   time:timestamp: '2026-03-23T13:42:07.003957+01:00'
 ---
 event:
@@ -6896,33 +6896,33 @@ event:
     # User Input:
     The process contains the following actors: Member State, AI Office, SME, and Board.
 
-    Â 
+     
 
     The process starts with two parallel subprocesses: one for Member State and one for AI Office.
 
-    Â 
+     
 
     Following activities occur in parallel for Member State:
 
-    -Â Â Â Â Â Â  Member State shall facilitate the participation of SMEs and other relevant stakeholders in the standardisation development process;
+    -       Member State shall facilitate the participation of SMEs and other relevant stakeholders in the standardisation development process;
 
-    -Â Â Â Â Â Â  Member State shall organise specific awareness raising and training activities
+    -       Member State shall organise specific awareness raising and training activities
 
-    -Â Â Â Â Â Â  Member State shall either utilise existing dedicated channels OR Member State shall establish new channels if no exist. After that, SME may share interests and needs and following, Member State take into account the specific interests and needs;
+    -       Member State shall either utilise existing dedicated channels OR Member State shall establish new channels if no exist. After that, SME may share interests and needs and following, Member State take into account the specific interests and needs;
 
-    -Â Â Â Â Â Â  Member State shall provide SMEs with priority access to the AI regulatory sandboxes to the extent that they fulfil the eligibility conditions and selection criteria and having a registered office or a branch in the Union
+    -       Member State shall provide SMEs with priority access to the AI regulatory sandboxes to the extent that they fulfil the eligibility conditions and selection criteria and having a registered office or a branch in the Union
 
-    Â 
+     
 
     Following activities occur in parallel for AI Office:
 
-    -Â Â Â Â Â Â  Board shall request standardised templates and after that AI Office shall provide standardised templates;
+    -       Board shall request standardised templates and after that AI Office shall provide standardised templates;
 
-    -Â Â Â Â Â Â  AI Office shall develop a single information platform and afterwards maintain a single information platform;
+    -       AI Office shall develop a single information platform and afterwards maintain a single information platform;
 
-    -Â Â Â Â Â Â  AI Office shall organise appropriate communication campaigns;
+    -       AI Office shall organise appropriate communication campaigns;
 
-    -Â Â Â Â Â Â  AI Office shall evaluate the convergence of best practices in public procurement procedures in relation to AI systems. Then, AI Office shall promote the convergence of best practices in public procurement procedures in relation to AI systems
+    -       AI Office shall evaluate the convergence of best practices in public procurement procedures in relation to AI systems. Then, AI Office shall promote the convergence of best practices in public procurement procedures in relation to AI systems
   time:timestamp: '2026-03-23T19:51:07.313937+01:00'
 ---
 event:

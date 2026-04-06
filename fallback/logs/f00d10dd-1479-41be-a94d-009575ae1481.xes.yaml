@@ -117,7 +117,7 @@ event:
   cpee:change_uuid: af3513c143d4bcb32fdf063969c040d0a588aaa6
   cpee:exposition: |-
     # User Input:
-    Zuerst soll Wasser gekocht werden. Dann bitte Salz hinzufÃ¼gen. Parallel dazu kannst du schon eine Sauce kochen.
+    Zuerst soll Wasser gekocht werden. Dann bitte Salz hinzufügen. Parallel dazu kannst du schon eine Sauce kochen.
   time:timestamp: '2025-12-15T15:53:00.099892+01:00'
 ---
 event:
@@ -157,8 +157,8 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Wasser kochen)
-        1:task:(Wasser kochen) --> 2:task:(Salz hinzufÃ¼gen)
-        2:task:(Salz hinzufÃ¼gen) --> 3:parallelgateway:{AND}
+        1:task:(Wasser kochen) --> 2:task:(Salz hinzufügen)
+        2:task:(Salz hinzufügen) --> 3:parallelgateway:{AND}
         3:parallelgateway:{AND} --> 4:task:(Sauce kochen)
         3:parallelgateway:{AND} --> 5:task:(Warten)
         4:task:(Sauce kochen) --> 6:parallelgateway:{AND}
@@ -302,7 +302,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Salz hinzufÃ¼gen</label>
+          <label>Salz hinzufügen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -343,7 +343,7 @@ event:
   cpee:change_uuid: febe0b3131ebf671fae33024940cc1517e17a144
   cpee:exposition: |-
     # User Input:
-    bitte fÃ¼ge zwischen "wasser kochen" und "salz hinzufÃ¼gen" noch einen weiteren Schritt "Herd einschalten" ein
+    bitte füge zwischen "wasser kochen" und "salz hinzufügen" noch einen weiteren Schritt "Herd einschalten" ein
   time:timestamp: '2025-12-15T15:53:50.149193+01:00'
 ---
 event:
@@ -371,8 +371,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Wasser kochen)
-    a1:task:(Wasser kochen)-->a3:task:(Salz hinzufÃ¼gen)
-    a3:task:(Salz hinzufÃ¼gen)-->gw1s:parallelgateway:{AND}
+    a1:task:(Wasser kochen)-->a3:task:(Salz hinzufügen)
+    a3:task:(Salz hinzufügen)-->gw1s:parallelgateway:{AND}
     -->a7:task:(Sauce kochen)
     a7:task:(Sauce kochen)-->gw1e:parallelgateway:{AND}
     -->a9:task:(Warten)
@@ -394,8 +394,8 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Wasser kochen)
     a1:task:(Wasser kochen)-->a2:task:(Herd einschalten)
-    a2:task:(Herd einschalten)-->a3:task:(Salz hinzufÃ¼gen)
-    a3:task:(Salz hinzufÃ¼gen)-->gw1s:parallelgateway:{AND}
+    a2:task:(Herd einschalten)-->a3:task:(Salz hinzufügen)
+    a3:task:(Salz hinzufügen)-->gw1s:parallelgateway:{AND}
     gw1s:parallelgateway:{AND}-->a7:task:(Sauce kochen)
     a7:task:(Sauce kochen)-->gw1e:parallelgateway:{AND}
     gw1s:parallelgateway:{AND}-->a9:task:(Warten)

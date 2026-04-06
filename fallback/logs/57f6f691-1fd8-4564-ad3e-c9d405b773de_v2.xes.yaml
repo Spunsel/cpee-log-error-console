@@ -113,7 +113,7 @@ event:
   cpee:change_uuid: b2d048a8dc66bda7b4a262f880cca0a394fd931b
   cpee:exposition: |+
     # User Input:
-    ErklÃ¤re mir in einem Schaubild, wie sich Wasserstoff mit Sauerstoff zu Wasser wird
+    Erkläre mir in einem Schaubild, wie sich Wasserstoff mit Sauerstoff zu Wasser wird
 
   time:timestamp: '2026-03-26T17:59:55.877428+01:00'
 ...
@@ -152,8 +152,8 @@ event:
     ```mermaid
     graph LR
     0:startevent:((startevent)) --> 1:task:(Wasserstoff und Sauerstoff mischen)
-    1:task:(Wasserstoff und Sauerstoff mischen) --> 2:task:(ZÃ¼ndung einleiten)
-    2:task:(ZÃ¼ndung einleiten) --> 3:exclusivegateway:{x}
+    1:task:(Wasserstoff und Sauerstoff mischen) --> 2:task:(Zündung einleiten)
+    2:task:(Zündung einleiten) --> 3:exclusivegateway:{x}
     3:exclusivegateway:{x} --> |Erfolgreich?| 4:task:(Wasser bilden)
     3:exclusivegateway:{x} --> |Nein| 5:task:(Prozess wiederholen)
     4:task:(Wasser bilden) --> 6:inclusivegateway:{O}

@@ -203,10 +203,10 @@ event:
         1:task:(Hochzeit planen) --> 2:exclusivegateway:{x}
         2:exclusivegateway:{x} --> |Budget vorhanden| 3:task:(Budget festlegen)
         2:exclusivegateway:{x} --> |Kein Budget| 4:task:(Sponsoren suchen)
-        3:task:(Budget festlegen) --> 5:task:(Location auswÃ¤hlen)
-        4:task:(Sponsoren suchen) --> 5:task:(Location auswÃ¤hlen)
-        5:task:(Location auswÃ¤hlen) --> 6:task:(GÃ¤steliste erstellen)
-        6:task:(GÃ¤steliste erstellen) --> 7:task:(Einladungen versenden)
+        3:task:(Budget festlegen) --> 5:task:(Location auswählen)
+        4:task:(Sponsoren suchen) --> 5:task:(Location auswählen)
+        5:task:(Location auswählen) --> 6:task:(Gästeliste erstellen)
+        6:task:(Gästeliste erstellen) --> 7:task:(Einladungen versenden)
         7:task:(Einladungen versenden) --> 8:exclusivegateway:{x}
         8:exclusivegateway:{x} --> |Zusagen erhalten| 9:task:(Catering buchen)
         8:exclusivegateway:{x} --> |Keine Zusagen| 10:task:(Erinnerungen versenden)

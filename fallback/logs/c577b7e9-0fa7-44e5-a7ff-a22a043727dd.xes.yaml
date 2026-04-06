@@ -2530,7 +2530,7 @@ event:
   cpee:change_uuid: e93ee01b0d14edf881058492c1fc108518e971eb
   cpee:exposition: |-
     # User Input:
-    To be clear, can you add the label "Yes" to the first condition of the first gateway after the activity "Service Necessary"?Â 
+    To be clear, can you add the label "Yes" to the first condition of the first gateway after the activity "Service Necessary"? 
   time:timestamp: '2026-01-13T16:13:38.088554+01:00'
 ---
 event:
@@ -13831,7 +13831,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Capture chainsaw properties: SchwertlÃ¤nge, chain width, power type, guide bar type, chain pitch</label>
+          <label>Capture chainsaw properties: Schwertlänge, chain width, power type, guide bar type, chain pitch</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -14024,8 +14024,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Gather customer request)
-    a1:task:(Gather customer request)-->a3:task:(Capture chainsaw properties: SchwertlÃ¤nge, chain width, power type, guide bar type, chain pitch)
-    a3:task:(Capture chainsaw properties: SchwertlÃ¤nge, chain width, power type, guide bar type, chain pitch)-->a5:task:(Confirm specifications with customer)
+    a1:task:(Gather customer request)-->a3:task:(Capture chainsaw properties: Schwertlänge, chain width, power type, guide bar type, chain pitch)
+    a3:task:(Capture chainsaw properties: Schwertlänge, chain width, power type, guide bar type, chain pitch)-->a5:task:(Confirm specifications with customer)
     a5:task:(Confirm specifications with customer)-->gw1s:parallelgateway:{AND}
     gw1s:parallelgateway:{AND}-->a9:task:(Order guide bar)
     a9:task:(Order guide bar)-->gw1e:parallelgateway:{AND}

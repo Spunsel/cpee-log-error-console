@@ -170,7 +170,7 @@ event:
   cpee:change_uuid: e03e2bce9c078daf7b9bacabe29d2bd9499ec68c
   cpee:exposition: |-
     # User Input:
-    Log-In Service fÃ¼r ein Videospiel. Wenn ein nutzer das spiel gekauft hat, erhÃ¤lt er einen Key, den er bei der Registrierung fÃ¼r die Online-Services angeben muss, zusammen mit einer E-Mail-Adresse und einem passwort. wenn eines der dinge nicht passt, soll eine fehlermeldung erscheinen. Wenn alles passt, soll eine bestÃ¤tigungsmail an die person versendet werden. diese muss er Ã¶ffnen und auf den link klicken. wenn er das getan hat, muss er sich ein letztes mal einloggen und ist dann eingeloggt. der prozess endet. wenn er das spiel nicht neu gekauft hat, kann er sich mit seinem email und passwort anmelden und ist startklar. der prozess endet.
+    Log-In Service für ein Videospiel. Wenn ein nutzer das spiel gekauft hat, erhält er einen Key, den er bei der Registrierung für die Online-Services angeben muss, zusammen mit einer E-Mail-Adresse und einem passwort. wenn eines der dinge nicht passt, soll eine fehlermeldung erscheinen. Wenn alles passt, soll eine bestätigungsmail an die person versendet werden. diese muss er öffnen und auf den link klicken. wenn er das getan hat, muss er sich ein letztes mal einloggen und ist dann eingeloggt. der prozess endet. wenn er das spiel nicht neu gekauft hat, kann er sich mit seinem email und passwort anmelden und ist startklar. der prozess endet.
   time:timestamp: '2026-01-11T21:16:48.148560+01:00'
 ---
 event:
@@ -209,21 +209,21 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-        0:startevent:((startevent)) --> 1:task:(Nutzer mÃ¶chte sich einloggen)
-        1:task:(Nutzer mÃ¶chte sich einloggen) --> 2:exclusivegateway:{x}
+        0:startevent:((startevent)) --> 1:task:(Nutzer möchte sich einloggen)
+        1:task:(Nutzer möchte sich einloggen) --> 2:exclusivegateway:{x}
         2:exclusivegateway:{x} --> |Spiel gekauft?| 3:task:(Registrierung mit Key, E-Mail, Passwort)
         2:exclusivegateway:{x} --> |Spiel nicht gekauft| 14:task:(Anmeldung mit E-Mail und Passwort)
         3:task:(Registrierung mit Key, E-Mail, Passwort) --> 4:exclusivegateway:{x}
-        4:exclusivegateway:{x} --> |Daten korrekt?| 5:task:(BestÃ¤tigungsmail versenden)
+        4:exclusivegateway:{x} --> |Daten korrekt?| 5:task:(Bestätigungsmail versenden)
         4:exclusivegateway:{x} --> |Daten inkorrekt| 6:task:(Fehlermeldung anzeigen)
-        5:task:(BestÃ¤tigungsmail versenden) --> 7:task:(Nutzer Ã¶ffnet Link)
+        5:task:(Bestätigungsmail versenden) --> 7:task:(Nutzer öffnet Link)
         6:task:(Fehlermeldung anzeigen) --> 16:exclusivegateway:{x}
-        7:task:(Nutzer Ã¶ffnet Link) --> 8:task:(Letzter Login)
+        7:task:(Nutzer öffnet Link) --> 8:task:(Letzter Login)
         8:task:(Letzter Login) --> 9:task:(Eingeloggt)
         9:task:(Eingeloggt) --> 10:endevent:(((endevent)))
         14:task:(Anmeldung mit E-Mail und Passwort) --> 15:task:(Eingeloggt)
         15:task:(Eingeloggt) --> 10:endevent:(((endevent)))
-        16:exclusivegateway:{x} --> 1:task:(Nutzer mÃ¶chte sich einloggen)
+        16:exclusivegateway:{x} --> 1:task:(Nutzer möchte sich einloggen)
     ```
   time:timestamp: '2026-01-11T21:16:48.148905+01:00'
 ---
@@ -574,7 +574,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a1" endpoint="" a:alt_id="1">
           <parameters>
-            <label>Nutzer mÃ¶chte sich einloggen</label>
+            <label>Nutzer möchte sich einloggen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -601,7 +601,7 @@ event:
               </call>
               <call id="a1" endpoint="" a:alt_id="1">
                 <parameters>
-                  <label>Nutzer mÃ¶chte sich einloggen</label>
+                  <label>Nutzer möchte sich einloggen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -611,7 +611,7 @@ event:
             <alternative condition="Daten korrekt?" language="text/javascript">
               <call id="a11" endpoint="" a:alt_id="5">
                 <parameters>
-                  <label>BestÃ¤tigungsmail versenden</label>
+                  <label>Bestätigungsmail versenden</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -619,7 +619,7 @@ event:
               </call>
               <call id="a15" endpoint="" a:alt_id="7">
                 <parameters>
-                  <label>Nutzer Ã¶ffnet Link</label>
+                  <label>Nutzer öffnet Link</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -724,8 +724,8 @@ event:
     flowchart LR
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Nutzer mÃ¶chte sich einloggen)
-    a1:task:(Nutzer mÃ¶chte sich einloggen)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Nutzer möchte sich einloggen)
+    a1:task:(Nutzer möchte sich einloggen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
@@ -735,11 +735,11 @@ event:
     gw3s:exclusivegateway:{x}-->|"Spiel gekauft?"|a5:task:(Registrierung mit Key, E-Mail, Passwort)
     a5:task:(Registrierung mit Key, E-Mail, Passwort)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Daten inkorrekt"|a13:task:(Fehlermeldung anzeigen)
-    a13:task:(Fehlermeldung anzeigen)-->a1:task:(Nutzer mÃ¶chte sich einloggen)
-    a1:task:(Nutzer mÃ¶chte sich einloggen)-->gw4e:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"Daten korrekt?"|a11:task:(BestÃ¤tigungsmail versenden)
-    a11:task:(BestÃ¤tigungsmail versenden)-->a15:task:(Nutzer Ã¶ffnet Link)
-    a15:task:(Nutzer Ã¶ffnet Link)-->a19:task:(Letzter Login)
+    a13:task:(Fehlermeldung anzeigen)-->a1:task:(Nutzer möchte sich einloggen)
+    a1:task:(Nutzer möchte sich einloggen)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Daten korrekt?"|a11:task:(Bestätigungsmail versenden)
+    a11:task:(Bestätigungsmail versenden)-->a15:task:(Nutzer öffnet Link)
+    a15:task:(Nutzer öffnet Link)-->a19:task:(Letzter Login)
     a19:task:(Letzter Login)-->a21:task:(Eingeloggt)
     a21:task:(Eingeloggt)-->gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
@@ -879,8 +879,8 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"true"|a1:task:(Nutzer mÃ¶chte sich einloggen)
-        a1:task:(Nutzer mÃ¶chte sich einloggen)-->gw2s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"true"|a1:task:(Nutzer möchte sich einloggen)
+        a1:task:(Nutzer möchte sich einloggen)-->gw2s:exclusivegateway:{x}
         gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
         gw2e:exclusivegateway:{x}-->gw3s:parallelgateway:{AND}
         gw3s:parallelgateway:{AND}-->a7:task:(Anmeldung mit E-Mail und Passwort)
@@ -889,11 +889,11 @@ event:
         gw3s:parallelgateway:{AND}-->|"Spiel gekauft?"|a5:task:(Registrierung mit Key, E-Mail, Passwort)
         a5:task:(Registrierung mit Key, E-Mail, Passwort)-->gw4s:exclusivegateway:{x}
         gw4s:exclusivegateway:{x}-->|"Daten inkorrekt"|a13:task:(Fehlermeldung anzeigen)
-        a13:task:(Fehlermeldung anzeigen)-->a1:task:(Nutzer mÃ¶chte sich einloggen)
-        a1:task:(Nutzer mÃ¶chte sich einloggen)-->gw5e:exclusivegateway:{x}
-        gw4s:exclusivegateway:{x}-->|"Daten korrekt?"|a11:task:(BestÃ¤tigungsmail versenden)
-        a11:task:(BestÃ¤tigungsmail versenden)-->a15:task:(Nutzer Ã¶ffnet Link)
-        a15:task:(Nutzer Ã¶ffnet Link)-->a19:task:(Letzter Login)
+        a13:task:(Fehlermeldung anzeigen)-->a1:task:(Nutzer möchte sich einloggen)
+        a1:task:(Nutzer möchte sich einloggen)-->gw5e:exclusivegateway:{x}
+        gw4s:exclusivegateway:{x}-->|"Daten korrekt?"|a11:task:(Bestätigungsmail versenden)
+        a11:task:(Bestätigungsmail versenden)-->a15:task:(Nutzer öffnet Link)
+        a15:task:(Nutzer öffnet Link)-->a19:task:(Letzter Login)
         a19:task:(Letzter Login)-->a21:task:(Eingeloggt)
         a21:task:(Eingeloggt)-->gw5s:parallelgateway:{AND}
         gw5s:parallelgateway:{AND}-->gw5e:exclusivegateway:{x}
@@ -1164,7 +1164,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a3" endpoint="" a:alt_id="a1">
           <parameters>
-            <label>Nutzer mÃ¶chte sich einloggen</label>
+            <label>Nutzer möchte sich einloggen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -1204,7 +1204,7 @@ event:
                   <alternative condition="Daten korrekt?" language="text/javascript">
                     <call id="a27" endpoint="" a:alt_id="a11">
                       <parameters>
-                        <label>BestÃ¤tigungsmail versenden</label>
+                        <label>Bestätigungsmail versenden</label>
                         <method/>
                         <type>:task</type>
                         <arguments/>
@@ -1212,7 +1212,7 @@ event:
                     </call>
                     <call id="a29" endpoint="" a:alt_id="a15">
                       <parameters>
-                        <label>Nutzer Ã¶ffnet Link</label>
+                        <label>Nutzer öffnet Link</label>
                         <method/>
                         <type>:task</type>
                         <arguments/>
@@ -1246,7 +1246,7 @@ event:
                     </call>
                     <call id="a3" endpoint="" a:alt_id="a1">
                       <parameters>
-                        <label>Nutzer mÃ¶chte sich einloggen</label>
+                        <label>Nutzer möchte sich einloggen</label>
                         <method/>
                         <type>:task</type>
                         <arguments/>
@@ -1309,9 +1309,9 @@ event:
     ```mermaid
     flowchart LR
         0:startevent:((startevent)) --> 1:exclusivegateway:{x}
-        1:exclusivegateway:{x} --> |"true"| 2:task:(Nutzer mÃ¶chte sich einloggen)
+        1:exclusivegateway:{x} --> |"true"| 2:task:(Nutzer möchte sich einloggen)
         1:exclusivegateway:{x} --> |"false"| 3:endevent:(((endevent)))
-        2:task:(Nutzer mÃ¶chte sich einloggen) --> 4:exclusivegateway:{x}
+        2:task:(Nutzer möchte sich einloggen) --> 4:exclusivegateway:{x}
         4:exclusivegateway:{x} --> |"true"| 5:exclusivegateway:{x}
         4:exclusivegateway:{x} --> |"false"| 1:exclusivegateway:{x}
         5:exclusivegateway:{x} --> |"true"| 6:parallelgateway:{AND}
@@ -1321,9 +1321,9 @@ event:
         8:task:(Eingeloggt) --> 9:parallelgateway:{AND}
         6:parallelgateway:{AND} --> 10:task:(Registrierung mit Key, E-Mail, Passwort)
         10:task:(Registrierung mit Key, E-Mail, Passwort) --> 11:exclusivegateway:{x}
-        11:exclusivegateway:{x} --> |"Daten korrekt?"| 12:task:(BestÃ¤tigungsmail versenden)
-        12:task:(BestÃ¤tigungsmail versenden) --> 13:task:(Nutzer Ã¶ffnet Link)
-        13:task:(Nutzer Ã¶ffnet Link) --> 14:task:(Letzter Login)
+        11:exclusivegateway:{x} --> |"Daten korrekt?"| 12:task:(Bestätigungsmail versenden)
+        12:task:(Bestätigungsmail versenden) --> 13:task:(Nutzer öffnet Link)
+        13:task:(Nutzer öffnet Link) --> 14:task:(Letzter Login)
         14:task:(Letzter Login) --> 15:task:(Eingeloggt)
         15:task:(Eingeloggt) --> 16:exclusivegateway:{x}
         11:exclusivegateway:{x} --> |"Daten inkorrekt"| 17:task:(Fehlermeldung anzeigen)
@@ -1476,8 +1476,8 @@ event:
     flowchart LR
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Nutzer mÃ¶chte sich einloggen)
-    a3:task:(Nutzer mÃ¶chte sich einloggen)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Nutzer möchte sich einloggen)
+    a3:task:(Nutzer möchte sich einloggen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw4s:parallelgateway:{AND}
     gw4s:parallelgateway:{AND}-->a11:task:(Anmeldung mit E-Mail und Passwort)
@@ -1485,14 +1485,14 @@ event:
     a13:task:(Eingeloggt)-->gw4e:parallelgateway:{AND}
     gw4s:parallelgateway:{AND}-->a17:task:(Registrierung mit Key, E-Mail, Passwort)
     a17:task:(Registrierung mit Key, E-Mail, Passwort)-->gw5s:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"Daten korrekt?"|a27:task:(BestÃ¤tigungsmail versenden)
-    a27:task:(BestÃ¤tigungsmail versenden)-->a29:task:(Nutzer Ã¶ffnet Link)
-    a29:task:(Nutzer Ã¶ffnet Link)-->a31:task:(Letzter Login)
+    gw5s:exclusivegateway:{x}-->|"Daten korrekt?"|a27:task:(Bestätigungsmail versenden)
+    a27:task:(Bestätigungsmail versenden)-->a29:task:(Nutzer öffnet Link)
+    a29:task:(Nutzer öffnet Link)-->a31:task:(Letzter Login)
     a31:task:(Letzter Login)-->a33:task:(Eingeloggt)
     a33:task:(Eingeloggt)-->gw5e:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->|"Daten inkorrekt"|a21:task:(Fehlermeldung anzeigen)
-    a21:task:(Fehlermeldung anzeigen)-->a3:task:(Nutzer mÃ¶chte sich einloggen)
-    a3:task:(Nutzer mÃ¶chte sich einloggen)-->-1:escalate:((^))
+    a21:task:(Fehlermeldung anzeigen)-->a3:task:(Nutzer möchte sich einloggen)
+    a3:task:(Nutzer möchte sich einloggen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw4e:parallelgateway:{AND}
     gw4e:parallelgateway:{AND}-->gw3e:exclusivegateway:{x}

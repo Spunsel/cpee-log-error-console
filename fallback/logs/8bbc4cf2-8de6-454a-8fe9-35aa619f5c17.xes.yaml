@@ -233,108 +233,108 @@ event:
   cpee:exposition: "# User Input:\nBased on our detailed conversation about building
     a Composable ABM Orchestration engine, here is a comprehensive glossary with detailed
     explanations for each key concept, organized by theme.\n\n\n### **\U0001F4D6 Glossary
-    of Key Concepts**\n\n\n---\n\n\n### **\U0001F52D Core Framework & Philosophy**\n\n\n*Â 
-    Â **Composable ABM (Account-Based Marketing) Orchestration**\nÂ  Â  *Â  Â **Definition**:
+    of Key Concepts**\n\n\n---\n\n\n### **\U0001F52D Core Framework & Philosophy**\n\n\n* 
+     **Composable ABM (Account-Based Marketing) Orchestration**\n    *   **Definition**:
     A modern GTM (Go-to-Market) technology strategy that involves assembling a best-in-class
     tech stack from specialized tools rather than using a single, monolithic platform.
     \"Orchestration\" refers to the automated coordination of data and actions between
-    these tools to execute personalized, multi-channel campaigns for target accounts.\nÂ 
-    Â  *Â  Â **Why It Matters**: It offers flexibility, cost control (~60-70% lower cost
+    these tools to execute personalized, multi-channel campaigns for target accounts.\n 
+      *   **Why It Matters**: It offers flexibility, cost control (~60-70% lower cost
     than all-in-one suites), and the ability to choose the best tool for each job
-    (data, outreach, ads, CRM). It avoids vendor lock-in and allows for rapid iteration.\n\n\n*Â 
-    Â **Single Source of Truth (SSOT)**\nÂ  Â  *Â  Â **Definition**: The centralized system,
+    (data, outreach, ads, CRM). It avoids vendor lock-in and allows for rapid iteration.\n\n\n* 
+     **Single Source of Truth (SSOT)**\n    *   **Definition**: The centralized system,
     typically a CRM like **Attio**, **HubSpot**, or **Salesforce**, that holds the
-    definitive, most current, and reliable data for all target accounts and contacts.\nÂ 
-    Â  *Â  Â **Why It Matters**: Ensures sales and marketing teams are aligned on the
+    definitive, most current, and reliable data for all target accounts and contacts.\n 
+      *   **Why It Matters**: Ensures sales and marketing teams are aligned on the
     same data. All enrichment, scoring, and engagement activities should sync back
-    to the SSOT to create a complete account timeline and avoid data silos.\n\n\n*Â 
-    Â **Orchestration Layer**\nÂ  Â  *Â  Â **Definition**: The \"central nervous system\"
+    to the SSOT to create a complete account timeline and avoid data silos.\n\n\n* 
+     **Orchestration Layer**\n    *   **Definition**: The \"central nervous system\"
     of the framework, built using tools like **n8n**, **Make**, or **Zapier**. It
     consists of automated workflows that listen for triggers (e.g., \"new account
     added\") and execute a series of actions across different tools (e.g., enrich,
-    score, add to email sequence).\nÂ  Â  *Â  Â **Why It Matters**: It is the glue that
+    score, add to email sequence).\n    *   **Why It Matters**: It is the glue that
     makes the composable stack work as a unified system, replacing manual processes
-    and enabling scale.\n\n\n---\n\n\n### **\U0001F6E0ï¸ Key Tools & Platforms (The
-    \"Composable\" Stack)**\n\n\n*Â  Â **Apollo.io / LeadMagic**\nÂ  Â  *Â  Â **Definition**:
+    and enabling scale.\n\n\n---\n\n\n### **\U0001F6E0️ Key Tools & Platforms (The
+    \"Composable\" Stack)**\n\n\n*   **Apollo.io / LeadMagic**\n    *   **Definition**:
     Data enrichment and intelligence platforms. They provide API access to vast B2B
     databases to fetch firmographic data (industry, employee count, revenue), technographics
-    (tech stack), and contact information for target accounts.\nÂ  Â  *Â  Â **Role in
+    (tech stack), and contact information for target accounts.\n    *   **Role in
     Framework**: The primary \"data suppliers.\" When a new target account is identified,
     these tools are queried via API to fill in missing information, which is crucial
-    for accurate ICP scoring.\n\n\n*Â  Â **Clay**\nÂ  Â  *Â  Â **Definition**: A data unification
+    for accurate ICP scoring.\n\n\n*   **Clay**\n    *   **Definition**: A data unification
     and automation platform. It allows you to build \"enrichment pipelines\" that
     query multiple data sources (Apollo, LinkedIn, Clearbit), merge the results, resolve
-    conflicts, and output clean, unified data.\nÂ  Â  *Â  Â **Role in Framework**: Acts
+    conflicts, and output clean, unified data.\n    *   **Role in Framework**: Acts
     as the \"data engineer.\" It intelligently merges data from various sources, implements
     **waterfall enrichment** (checking cheaper sources first), and sends the clean
-    dataset to the CRM and orchestration layer.\n\n\n*Â  Â **n8n / Make**\nÂ  Â  *Â  Â **Definition**:
+    dataset to the CRM and orchestration layer.\n\n\n*   **n8n / Make**\n    *   **Definition**:
     Visual workflow automation platforms. They allow you to create complex, multi-step
     automations (workflows) by connecting different apps and services with a drag-and-drop
-    interface, using their native integrations or HTTP requests.\nÂ  Â  *Â  Â **Role in
+    interface, using their native integrations or HTTP requests.\n    *   **Role in
     Framework**: Serves as the **Orchestration Layer**. It runs the core logic: triggering
     processes, managing data flow between tools, executing the ICP scoring algorithm,
-    and initiating outreach sequences.\n\n\n*Â  Â **Attio**\nÂ  Â  *Â  Â **Definition**:
+    and initiating outreach sequences.\n\n\n*   **Attio**\n    *   **Definition**:
     A modern, API-first CRM built for flexibility. It allows you to create custom
     objects (like \"Target Account\") and relationships to model your specific GTM
-    process.\nÂ  Â  *Â  Â **Role in Framework**: Recommended as the **Single Source of
+    process.\n    *   **Role in Framework**: Recommended as the **Single Source of
     Truth (SSOT)**. Its flexibility makes it ideal for storing enriched ABM data,
-    ICP scores, tiers, and engagement history.\n\n\n*Â  Â **Instantly / heyreach**\nÂ 
-    Â  *Â  Â **Definition**: Sales engagement and email outreach platforms specialized
+    ICP scores, tiers, and engagement history.\n\n\n*   **Instantly / heyreach**\n 
+      *   **Definition**: Sales engagement and email outreach platforms specialized
     in cold email deliverability. They manage email sending infrastructure, sequencing,
-    and reply handling.\nÂ  Â  *Â  Â **Role in Framework**: The \"outreach executors\"
+    and reply handling.\n    *   **Role in Framework**: The \"outreach executors\"
     for the email channel. They receive commands from the orchestration layer (e.g.,
-    \"launch Tier 1 sequence for this contact\") and handle the execution and tracking.\n\n\n*Â 
-    Â **Unity / Attention**\nÂ  Â  *Â  Â **Definition**: Platforms for executing and managing
+    \"launch Tier 1 sequence for this contact\") and handle the execution and tracking.\n\n\n* 
+     **Unity / Attention**\n    *   **Definition**: Platforms for executing and managing
     account-based advertising (ABA) on channels like LinkedIn and Facebook. They allow
     you to sync target account lists from your CRM and serve personalized ads to employees
-    of those companies.\nÂ  Â  *Â  Â **Role in Framework**: The \"ad channel activators.\"
+    of those companies.\n    *   **Role in Framework**: The \"ad channel activators.\"
     They close the loop by retargeting engaged accounts or contacts with relevant
-    ads, creating a true multi-channel surround-sound effect.\n\n\n---\n\n\n### **âš™ï¸
-    Technical Processes & Components**\n\n\n*Â  Â **ICP (Ideal Customer Profile) Scoring**\nÂ 
-    Â  *Â  Â **Definition**: A quantitative algorithm that evaluates and ranks target
+    ads, creating a true multi-channel surround-sound effect.\n\n\n---\n\n\n### **�a"️
+    Technical Processes & Components**\n\n\n*   **ICP (Ideal Customer Profile) Scoring**\n 
+      *   **Definition**: A quantitative algorithm that evaluates and ranks target
     accounts based on their fit and likelihood to buy. The algorithm assigns points
     across weighted categories (Firmographic, Technographic, Behavioral, Intent) to
-    produce a score (e.g., 0-100).\nÂ  Â  *Â  Â **Why It Matters**: Automates account
-    prioritization. Scores determine the immediate next action: Tier 1 (score â‰¥ 70)
-    triggers immediate multi-channel outreach, while lower tiers enter nurture flows.\n\n\n*Â 
-    Â **Waterfall Enrichment**\nÂ  Â  *Â  Â **Definition**: A cost-optimization strategy
+    produce a score (e.g., 0-100).\n    *   **Why It Matters**: Automates account
+    prioritization. Scores determine the immediate next action: Tier 1 (score �0� 70)
+    triggers immediate multi-channel outreach, while lower tiers enter nurture flows.\n\n\n* 
+     **Waterfall Enrichment**\n    *   **Definition**: A cost-optimization strategy
     for data enrichment. The system is configured to check a cheaper or faster data
     source first (e.g., Apollo's basic data). If the data is insufficient, it then
-    \"waterfalls\" to a more expensive or comprehensive source (e.g., LeadMagic).\nÂ 
-    Â  *Â  Â **Why It Matters**: Can reduce data enrichment costs by up to 50% by avoiding
+    \"waterfalls\" to a more expensive or comprehensive source (e.g., LeadMagic).\n 
+      *   **Why It Matters**: Can reduce data enrichment costs by up to 50% by avoiding
     unnecessary expensive API calls for data that is readily available from a cheaper
-    source.\n\n\n*Â  Â **Workflow (in n8n/Make)**\nÂ  Â  *Â  Â **Definition**: A defined,
+    source.\n\n\n*   **Workflow (in n8n/Make)**\n    *   **Definition**: A defined,
     automated sequence of steps that connects multiple applications. In our context,
-    the \"ABM Full-Cycle Orchestration\" workflow includes: trigger â†’ validate â†’ enrich
-    (Apollo/LeadMagic) â†’ merge (Clay) â†’ score (ICP algorithm) â†’ update CRM â†’ branch
-    by tier â†’ activate channels.\nÂ  Â  *Â  Â **Why It Matters**: This is the executable
+    the \"ABM Full-Cycle Orchestration\" workflow includes: trigger �  validate �  enrich
+    (Apollo/LeadMagic) �  merge (Clay) �  score (ICP algorithm) �  update CRM �  branch
+    by tier �  activate channels.\n    *   **Why It Matters**: This is the executable
     blueprint of your entire ABM process. A single triggering event (like a new account)
-    can automatically initiate a complex, multi-tool sequence.\n\n\n*Â  Â **Bring Your
-    Own Key (BYOK)**\nÂ  Â  *Â  Â **Definition**: A cost-saving model where you purchase
+    can automatically initiate a complex, multi-tool sequence.\n\n\n*   **Bring Your
+    Own Key (BYOK)**\n    *   **Definition**: A cost-saving model where you purchase
     API credits directly from a data or AI provider (like OpenAI, Apollo) and use
     those keys within another orchestration tool (like Clay or n8n), instead of buying
-    marked-up credits through an intermediary platform.\nÂ  Â  *Â  Â **Why It Matters**:
+    marked-up credits through an intermediary platform.\n    *   **Why It Matters**:
     It is a core financial advantage of the composable stack, providing full cost
     transparency and avoiding the hefty margins charged by all-in-one platforms on
-    underlying data/AI services.\n\n\n---\n\n\n### **\U0001F4C8 Measurement & Analytics**\n\n\n*Â 
-    Â **Grafana Dashboard**\nÂ  Â  *Â  Â **Definition**: An open-source analytics and monitoring
+    underlying data/AI services.\n\n\n---\n\n\n### **\U0001F4C8 Measurement & Analytics**\n\n\n* 
+     **Grafana Dashboard**\n    *   **Definition**: An open-source analytics and monitoring
     platform. It can pull data from various databases and APIs to create visual, real-time
-    dashboards.\nÂ  Â  *Â  Â **Role in Framework**: The \"mission control center\" for
+    dashboards.\n    *   **Role in Framework**: The \"mission control center\" for
     monitoring the health and performance of the ABM engine. It tracks metrics across
     five layers: Orchestration Health, Data Quality, ICP Scoring, Engagement, and
-    Pipeline Impact.\n\n\n*Â  Â **Orchestration Health Metrics**\nÂ  Â  *Â  Â **Definition**:
+    Pipeline Impact.\n\n\n*   **Orchestration Health Metrics**\n    *   **Definition**:
     Key performance indicators (KPIs) that monitor the technical reliability of the
     automation system. Examples: Workflow success/failure rate, average execution
-    time, and error counts from n8n.\nÂ  Â  *Â  Â **Why It Matters**: Ensures the \"central
+    time, and error counts from n8n.\n    *   **Why It Matters**: Ensures the \"central
     nervous system\" is functioning correctly. A failure here can halt the entire
-    ABM engine.\n\n\n*Â  Â **Enrichment Coverage Rate**\nÂ  Â  *Â  Â **Definition**: The
+    ABM engine.\n\n\n*   **Enrichment Coverage Rate**\n    *   **Definition**: The
     percentage of target accounts for which your system successfully finds and appends
-    key firmographic data (e.g., industry, employee count). A target might be >85%.\nÂ 
-    Â  *Â  Â **Why It Matters**: Measures the effectiveness of your data layer. Low coverage
-    means your ICP scoring and personalization will be based on incomplete information.\n\n\n*Â 
-    Â **Multi-Channel Engagement**\nÂ  Â  *Â  Â **Definition**: The practice of interacting
+    key firmographic data (e.g., industry, employee count). A target might be >85%.\n 
+      *   **Why It Matters**: Measures the effectiveness of your data layer. Low coverage
+    means your ICP scoring and personalization will be based on incomplete information.\n\n\n* 
+     **Multi-Channel Engagement**\n    *   **Definition**: The practice of interacting
     with target accounts across several coordinated channels (email, LinkedIn, ads,
-    phone) based on their behavior and tier.\nÂ  Â  *Â  Â **Why It Matters**: ABM is most
+    phone) based on their behavior and tier.\n    *   **Why It Matters**: ABM is most
     effective with a \"surround-sound\" approach. This metric tracks performance (open
     rates, click-through rates, cost-per-lead) across each channel to optimize the
     mix.\n\n\n### **Comparison: Composable vs. All-in-One ABM**\n\n\n| Concept | Composable

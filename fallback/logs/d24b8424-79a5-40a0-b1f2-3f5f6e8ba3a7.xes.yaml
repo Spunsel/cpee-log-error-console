@@ -131,7 +131,7 @@ event:
   cpee:change_uuid: e6fb6e0ce2b4d6a3988a5f3b6e9ff944928be686
   cpee:exposition: |+
     # User Input:
-    generiere mir ein modell zu einkaufzentrenÂ 
+    generiere mir ein modell zu einkaufzentren 
 
   time:timestamp: '2026-01-31T10:03:07.626501+01:00'
 ...
@@ -174,9 +174,9 @@ event:
     graph LR
       0:startevent:((startevent)) --> 1:task:(Bestellung aufgeben)
       1:task:(Bestellung aufgeben) --> 2:exclusivegateway:{x}
-      2:exclusivegateway:{x} --> |Bestellung korrekt| 3:task:(Bestellung prÃ¼fen)
+      2:exclusivegateway:{x} --> |Bestellung korrekt| 3:task:(Bestellung prüfen)
       2:exclusivegateway:{x} --> |Bestellung fehlerhaft| 4:task:(Bestellung korrigieren)
-      3:task:(Bestellung prÃ¼fen) --> 5:exclusivegateway:{x}
+      3:task:(Bestellung prüfen) --> 5:exclusivegateway:{x}
       4:task:(Bestellung korrigieren) --> 5:exclusivegateway:{x}
       5:exclusivegateway:{x} --> |Bestellung genehmigt| 6:task:(Ware erhalten)
       5:exclusivegateway:{x} --> |Bestellung abgelehnt| 7:task:(Bestellung stornieren)

@@ -518,148 +518,148 @@ event:
   cpee:change_uuid: d9273339499ad9ef1e086b1cf69e15851787f268
   cpee:exposition: |
     # User Input:
-    POOL: Drittmittelmanagement â€“ GefÃ¶rderte Projekte
+    POOL: Drittmittelmanagement � Geförderte Projekte
     LANE: Forschende / Projektleitung
     Start-Ereignis
-    â†’
+    � 
     Erarbeitung einer Forschungsprojektidee
-    â†’
-    Identifikation passender FÃ¶rderprogramme
-    â†’
-    Ausarbeitung und Einreichung des FÃ¶rderantrags
-    â†’
-    XOR-Gateway: FÃ¶rderzusage?
-    Ja â†’ Prozess lÃ¤uft weiter
-    Nein â†’ Prozessende
-    â†’
-    4. FÃ¶rderzusage erhalten (Ereignis)
-    â†’
-    5. Ãœbermittlung der Projektinformationen an das Drittmittelmanagement
-    â†’
-    6. Fachliche Abstimmung zu MittelherkÃ¼nften und Strukturierung
-    â†’ Weiter zu Drittmittelmanagement
+    � 
+    Identifikation passender Förderprogramme
+    � 
+    Ausarbeitung und Einreichung des Förderantrags
+    � 
+    XOR-Gateway: Förderzusage?
+    Ja �  Prozess läuft weiter
+    Nein �  Prozessende
+    � 
+    4. Förderzusage erhalten (Ereignis)
+    � 
+    5. Übermittlung der Projektinformationen an das Drittmittelmanagement
+    � 
+    6. Fachliche Abstimmung zu Mittelherkünften und Strukturierung
+    �  Weiter zu Drittmittelmanagement
     LANE: Drittmittelmanagement (DM)
-    PrÃ¼fung der FÃ¶rderzusage und Vertragsunterlagen
-    â†’
-    KlÃ¤rung der FÃ¶rderbedingungen und Nebenbestimmungen
-    â†’
-    XOR-Gateway: Anzahl der FÃ¶rdervertrÃ¤ge?
-    1 Vertrag â†’ 1 Projektdefinition
-    Mehrere VertrÃ¤ge â†’ je Vertrag 1 Projektdefinition
-    â†’
+    Prüfung der Förderzusage und Vertragsunterlagen
+    � 
+    Klärung der Förderbedingungen und Nebenbestimmungen
+    � 
+    XOR-Gateway: Anzahl der Förderverträge?
+    1 Vertrag �  1 Projektdefinition
+    Mehrere Verträge �  je Vertrag 1 Projektdefinition
+    � 
     Festlegung der Stammdatenstruktur (PS / FM / GM)
-    MittelherkÃ¼nfte
+    Mittelherkünfte
     PSP-Struktur
     Fonds & Fondsarten
-    â†’
+    � 
     Abstimmung mit PS/PSM-FM/PSM-GM
-    â†’ Weiter an PS/Projektadministration
+    �  Weiter an PS/Projektadministration
     LANE: PS / Projektadministration (PS)
     Anlage der Projektdefinition(en)
     [CJ20N / PS]
-    â†’
-    Anlage der PSP-Elemente gemÃ¤ÃŸ Struktur
-    â€“ inkl. Verantwortlicher, Kostenstelle, Zusatzfelder
+    � 
+    Anlage der PSP-Elemente gemäß Struktur
+    � inkl. Verantwortlicher, Kostenstelle, Zusatzfelder
     [CJ20N / /GISA/MEZUSATZFELDER]
     XOR-Gateway: Mittelherkunft pro Projektdefinition
-    Nur FÃ¶rdermittel â†’ 1 PSP-Element
-    FÃ¶rdermittel + Eigenmittel â†’ mind. 2 PSP-Elemente
+    Nur Fördermittel �  1 PSP-Element
+    Fördermittel + Eigenmittel �  mind. 2 PSP-Elemente
     Optional: mehrere PSP-Elemente zur Steuerung
-    â†’
+    � 
     AND-Gateway: Parallele Weiterverarbeitung in FM & GM & DM
-    A â†’ Haushaltsprogramme anlegen
-    B â†’ FÃ¶rderungen & Vorhaben anlegen
-    C â†’ EA-Arten & Ableitungen pflegen
-    D â†’ PrÃ¼fung Zusatzattribute durch DM
+    A �  Haushaltsprogramme anlegen
+    B �  Förderungen & Vorhaben anlegen
+    C �  EA-Arten & Ableitungen pflegen
+    D �  Prüfung Zusatzattribute durch DM
     LANE: PSM-FM (Haushaltsmanagement)
     A) Haushaltsprogramme
     14A. Automatische Anlage Haushaltsprogramme
     [FMMDAUTO]
-    â†’
+    � 
     XOR-Gateway:
     Automatisch erfolgreich
-    Manuelle Pflege notwendig â†’ FMMEASURE
-    â†’
+    Manuelle Pflege notwendig �  FMMEASURE
+    � 
     15A. Validierung FM-Stammdaten
-    â†’
-    16A. Ableitungstabellen prÃ¼fen
+    � 
+    16A. Ableitungstabellen prüfen
     [FMDERIVE]
-    LANE: PSM-GM (FÃ¶rdermittelmanagement)
-    B) FÃ¶rderung & Vorhaben
-    14B. Automatische Anlage FÃ¶rderung & Vorhaben
+    LANE: PSM-GM (Fördermittelmanagement)
+    B) Förderung & Vorhaben
+    14B. Automatische Anlage Förderung & Vorhaben
     [/GISA/GMGENERATE]
-    â†’
+    � 
     XOR-Gateway: Automatisch erfolgreich?
-    Ja â†’ Weiter
-    Nein â†’ Manuelle GM-Pflege (GMGRANT, GMPROGRAM)
-    â†’
-    15B. PrÃ¼fung GM-relevanter Attribute
-    â†’
-    16B. Aktualisierung FÃ¶rdergeberdaten & Zuordnungen
+    Ja �  Weiter
+    Nein �  Manuelle GM-Pflege (GMGRANT, GMPROGRAM)
+    � 
+    15B. Prüfung GM-relevanter Attribute
+    � 
+    16B. Aktualisierung Fördergeberdaten & Zuordnungen
     C) EA-Arten
     14C. Einnahmen-/Ausgabearten pflegen
     [GMCLASS]
-    â†’
+    � 
     15C. EA-Ableitungen PSP-/Geber-/Default-spezifisch pflegen
     [/GISA/PSM_EAART_*]
     Synchronisationspunkt (AND-Join)
-    â†’ Alle Stammdaten FM/GM/PS vollstÃ¤ndig
+    �  Alle Stammdaten FM/GM/PS vollständig
     LANE: PSM-FM & PSM-GM (Budgetierung)
-    Budget erfassen (externe FÃ¶rdermittel)
+    Budget erfassen (externe Fördermittel)
     [GM_CREATE_BUDGET]
-    â†’
-    Budget fÃ¼r interne Mittel (Eigenmittel)
+    � 
+    Budget für interne Mittel (Eigenmittel)
     [GM_CREATE_BUDGET]
     XOR-Gateway: Budgetierungsstrategie
     Externe Mittel
     Interne Mittel
     Beide parallel
-    â†’
+    � 
     19. Budgetverteilung und Anpassung
     [GM_MODIFY_BUDGET]
-    â†’
-    20. BudgetprÃ¼fung via AVK
-    (PSM-FM â†’ Ledger 9H, PSM-GM â†’ Ledger 9K/ZK)
+    � 
+    20. Budgetprüfung via AVK
+    (PSM-FM �  Ledger 9H, PSM-GM �  Ledger 9K/ZK)
     LANE: Einkauf / Reisekosten / HR / FI / PSP-Verantwortliche
-    AND-Gateway â€“ Parallele BuchungsstrÃ¶me
+    AND-Gateway � Parallele Buchungsströme
     Laufender Betrieb:
     21A. Personalkosten projektfinanzierte MA
     (HR-Schnittstelle)
-    â†’ FI â†’ AVK-PrÃ¼fung
+    �  FI �  AVK-Prüfung
     21B. Personalkosten haushaltsfinanzierte MA
     (Umbuchung FB50 oder HR)
     21C. Material-/Dienstleistungsbeschaffung
-    (MM â†’ Bestellung â†’ Rechnung)
-    â†’ GM/PM-Kontierung
+    (MM �  Bestellung �  Rechnung)
+    �  GM/PM-Kontierung
     21D. Reisekostenabrechnung
-    (Reisekosten-System â†’ FI)
+    (Reisekosten-System �  FI)
     21E. Manuelle Obligos anlegen
-    [FMX1â€“3, FMX6]
-    LANE: FI â€“ Mittelabruf & Rechnungsstellung
+    [FMX1�3, FMX6]
+    LANE: FI � Mittelabruf & Rechnungsstellung
     Ansprechpartner pflegen
     (Rechnung)
-    â†’
+    � 
     Ausgangsrechnungsvorgang erfassen
-    [Prozess anstoÃŸen Ausgangsrechnungen]
-    â†’
+    [Prozess anstoßen Ausgangsrechnungen]
+    � 
     Genehmigungsworkflow durchlaufen
     [Aufgaben & Entscheidungen]
-    â†’
+    � 
     Rechnung verbuchen
     [/BPCDEV/GSST]
-    â†’
+    � 
     Rechnung drucken & bereitstellen
     [ZAR_PRINT]
-    â†’
-    Versand Rechnung an FÃ¶rdermittelgeber
+    � 
+    Versand Rechnung an Fördermittelgeber
     LANE: Drittmittelmanagement / PSM-FM / PSM-GM
     Overheadparameter pflegen
     [/GISA/ME_OVH_PARAM]
-    â†’
-    Overheadumbuchung durchfÃ¼hren
+    � 
+    Overheadumbuchung durchführen
     [/GISA/ME_OVERHEAD]
     LANE: PS / Projektadministration
-    Projektdefinition & PSP-Elemente auf â€žAbgeschlossenâ€œ setzen
+    Projektdefinition & PSP-Elemente auf „Abgeschlossen" setzen
     [CJ20N]
     LANE: Drittmittelmanagement / Fachbereich / PSM-GM
     Projekt auswerten
@@ -667,12 +667,12 @@ event:
     [GM_E_4GBA]
     Jahreszahlen
     [S_ALN_01000003]
-    â†’
+    � 
     Verwendungsnachweis-Einzelpostenliste erzeugen
     [/GISA/GM_VERWENDUNG]
-    â†’
-    Verwendungsnachweis erstellen (auÃŸerhalb SAP)
-    â†’
+    � 
+    Verwendungsnachweis erstellen (außerhalb SAP)
+    � 
     Ende-Ereignis
   time:timestamp: '2025-12-11T16:32:50.675308+01:00'
 ---
@@ -713,52 +713,52 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Erarbeitung einer Forschungsprojektidee)
-        1:task:(Erarbeitung einer Forschungsprojektidee) --> 2:task:(Identifikation passender FÃ¶rderprogramme)
-        2:task:(Identifikation passender FÃ¶rderprogramme) --> 3:task:(Ausarbeitung und Einreichung des FÃ¶rderantrags)
-        3:task:(Ausarbeitung und Einreichung des FÃ¶rderantrags) --> 4:exclusivegateway:{x}
-        4:exclusivegateway:{x} --> |Ja| 5:task:(FÃ¶rderzusage erhalten)
+        1:task:(Erarbeitung einer Forschungsprojektidee) --> 2:task:(Identifikation passender Förderprogramme)
+        2:task:(Identifikation passender Förderprogramme) --> 3:task:(Ausarbeitung und Einreichung des Förderantrags)
+        3:task:(Ausarbeitung und Einreichung des Förderantrags) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Ja| 5:task:(Förderzusage erhalten)
         4:exclusivegateway:{x} --> |Nein| 44:endevent:(((endevent)))
-        5:task:(FÃ¶rderzusage erhalten) --> 6:task:(Ãœbermittlung der Projektinformationen an das Drittmittelmanagement)
-        6:task:(Ãœbermittlung der Projektinformationen an das Drittmittelmanagement) --> 7:task:(Fachliche Abstimmung zu MittelherkÃ¼nften und Strukturierung)
-        7:task:(Fachliche Abstimmung zu MittelherkÃ¼nften und Strukturierung) --> 8:task:(PrÃ¼fung der FÃ¶rderzusage und Vertragsunterlagen)
-        8:task:(PrÃ¼fung der FÃ¶rderzusage und Vertragsunterlagen) --> 9:task:(KlÃ¤rung der FÃ¶rderbedingungen und Nebenbestimmungen)
-        9:task:(KlÃ¤rung der FÃ¶rderbedingungen und Nebenbestimmungen) --> 10:exclusivegateway:{x}
+        5:task:(Förderzusage erhalten) --> 6:task:(Übermittlung der Projektinformationen an das Drittmittelmanagement)
+        6:task:(Übermittlung der Projektinformationen an das Drittmittelmanagement) --> 7:task:(Fachliche Abstimmung zu Mittelherkünften und Strukturierung)
+        7:task:(Fachliche Abstimmung zu Mittelherkünften und Strukturierung) --> 8:task:(Prüfung der Förderzusage und Vertragsunterlagen)
+        8:task:(Prüfung der Förderzusage und Vertragsunterlagen) --> 9:task:(Klärung der Förderbedingungen und Nebenbestimmungen)
+        9:task:(Klärung der Förderbedingungen und Nebenbestimmungen) --> 10:exclusivegateway:{x}
         10:exclusivegateway:{x} --> |1 Vertrag| 11:task:(1 Projektdefinition)
-        10:exclusivegateway:{x} --> |Mehrere VertrÃ¤ge| 12:task:(je Vertrag 1 Projektdefinition)
+        10:exclusivegateway:{x} --> |Mehrere Verträge| 12:task:(je Vertrag 1 Projektdefinition)
         11:task:(1 Projektdefinition) --> 13:task:(Festlegung der Stammdatenstruktur (PS / FM / GM))
         12:task:(je Vertrag 1 Projektdefinition) --> 13:task:(Festlegung der Stammdatenstruktur (PS / FM / GM))
         13:task:(Festlegung der Stammdatenstruktur (PS / FM / GM)) --> 14:task:(Abstimmung mit PS/PSM-FM/PSM-GM)
         14:task:(Abstimmung mit PS/PSM-FM/PSM-GM) --> 15:task:(Anlage der Projektdefinition(en))
-        15:task:(Anlage der Projektdefinition(en)) --> 16:task:(Anlage der PSP-Elemente gemÃ¤ÃŸ Struktur)
-        16:task:(Anlage der PSP-Elemente gemÃ¤ÃŸ Struktur) --> 17:exclusivegateway:{x}
-        17:exclusivegateway:{x} --> |Nur FÃ¶rdermittel| 18:task:(1 PSP-Element)
-        17:exclusivegateway:{x} --> |FÃ¶rdermittel + Eigenmittel| 19:task:(mind. 2 PSP-Elemente)
+        15:task:(Anlage der Projektdefinition(en)) --> 16:task:(Anlage der PSP-Elemente gemäß Struktur)
+        16:task:(Anlage der PSP-Elemente gemäß Struktur) --> 17:exclusivegateway:{x}
+        17:exclusivegateway:{x} --> |Nur Fördermittel| 18:task:(1 PSP-Element)
+        17:exclusivegateway:{x} --> |Fördermittel + Eigenmittel| 19:task:(mind. 2 PSP-Elemente)
         17:exclusivegateway:{x} --> |Optional: mehrere PSP-Elemente zur Steuerung| 19:task:(mind. 2 PSP-Elemente)
         18:task:(1 PSP-Element) --> 20:parallelgateway:{AND}
         19:task:(mind. 2 PSP-Elemente) --> 20:parallelgateway:{AND}
         20:parallelgateway:{AND} --> 21:task:(Automatische Anlage Haushaltsprogramme)
-        20:parallelgateway:{AND} --> 22:task:(Automatische Anlage FÃ¶rderung & Vorhaben)
+        20:parallelgateway:{AND} --> 22:task:(Automatische Anlage Förderung & Vorhaben)
         20:parallelgateway:{AND} --> 23:task:(Einnahmen-/Ausgabearten pflegen)
-        20:parallelgateway:{AND} --> 45:task:(PrÃ¼fung Zusatzattribute durch DM)
+        20:parallelgateway:{AND} --> 45:task:(Prüfung Zusatzattribute durch DM)
         21:task:(Automatische Anlage Haushaltsprogramme) --> 24:exclusivegateway:{x}
-        22:task:(Automatische Anlage FÃ¶rderung & Vorhaben) --> 25:exclusivegateway:{x}
+        22:task:(Automatische Anlage Förderung & Vorhaben) --> 25:exclusivegateway:{x}
         23:task:(Einnahmen-/Ausgabearten pflegen) --> 26:task:(EA-Ableitungen PSP-/Geber-/Default-spezifisch pflegen)
         24:exclusivegateway:{x} --> 27:task:(Validierung FM-Stammdaten)
         24:exclusivegateway:{x} --> 28:task:(Manuelle Pflege notwendig)
-        25:exclusivegateway:{x} --> |Ja| 29:task:(PrÃ¼fung GM-relevanter Attribute)
+        25:exclusivegateway:{x} --> |Ja| 29:task:(Prüfung GM-relevanter Attribute)
         25:exclusivegateway:{x} --> |Nein| 30:task:(Manuelle GM-Pflege)
         26:task:(EA-Ableitungen PSP-/Geber-/Default-spezifisch pflegen) --> 31:parallelgateway:{AND}
-        27:task:(Validierung FM-Stammdaten) --> 28:task:(Ableitungstabellen prÃ¼fen)
-        28:task:(Ableitungstabellen prÃ¼fen) --> 31:parallelgateway:{AND}
-        29:task:(PrÃ¼fung GM-relevanter Attribute) --> 30:task:(Aktualisierung FÃ¶rdergeberdaten & Zuordnungen)
-        30:task:(Aktualisierung FÃ¶rdergeberdaten & Zuordnungen) --> 31:parallelgateway:{AND}
-        45:task:(PrÃ¼fung Zusatzattribute durch DM) --> 31:parallelgateway:{AND}
-        31:parallelgateway:{AND} --> 32:task:(Budget erfassen (externe FÃ¶rdermittel))
-        32:task:(Budget erfassen (externe FÃ¶rdermittel)) --> 33:task:(Budget fÃ¼r interne Mittel (Eigenmittel))
-        33:task:(Budget fÃ¼r interne Mittel (Eigenmittel)) --> 34:exclusivegateway:{x}
+        27:task:(Validierung FM-Stammdaten) --> 28:task:(Ableitungstabellen prüfen)
+        28:task:(Ableitungstabellen prüfen) --> 31:parallelgateway:{AND}
+        29:task:(Prüfung GM-relevanter Attribute) --> 30:task:(Aktualisierung Fördergeberdaten & Zuordnungen)
+        30:task:(Aktualisierung Fördergeberdaten & Zuordnungen) --> 31:parallelgateway:{AND}
+        45:task:(Prüfung Zusatzattribute durch DM) --> 31:parallelgateway:{AND}
+        31:parallelgateway:{AND} --> 32:task:(Budget erfassen (externe Fördermittel))
+        32:task:(Budget erfassen (externe Fördermittel)) --> 33:task:(Budget für interne Mittel (Eigenmittel))
+        33:task:(Budget für interne Mittel (Eigenmittel)) --> 34:exclusivegateway:{x}
         34:exclusivegateway:{x} --> 35:task:(Budgetverteilung und Anpassung)
-        35:task:(Budgetverteilung und Anpassung) --> 36:task:(BudgetprÃ¼fung via AVK)
-        36:task:(BudgetprÃ¼fung via AVK) --> 37:parallelgateway:{AND}
+        35:task:(Budgetverteilung und Anpassung) --> 36:task:(Budgetprüfung via AVK)
+        36:task:(Budgetprüfung via AVK) --> 37:parallelgateway:{AND}
         37:parallelgateway:{AND} --> 38:task:(Personalkosten projektfinanzierte MA)
         37:parallelgateway:{AND} --> 39:task:(Personalkosten haushaltsfinanzierte MA)
         37:parallelgateway:{AND} --> 40:task:(Material-/Dienstleistungsbeschaffung)
@@ -773,11 +773,11 @@ event:
         46:task:(Ausgangsrechnungsvorgang erfassen) --> 47:task:(Genehmigungsworkflow durchlaufen)
         47:task:(Genehmigungsworkflow durchlaufen) --> 48:task:(Rechnung verbuchen)
         48:task:(Rechnung verbuchen) --> 49:task:(Rechnung drucken & bereitstellen)
-        49:task:(Rechnung drucken & bereitstellen) --> 50:task:(Versand Rechnung an FÃ¶rdermittelgeber)
-        50:task:(Versand Rechnung an FÃ¶rdermittelgeber) --> 51:task:(Overheadparameter pflegen)
-        51:task:(Overheadparameter pflegen) --> 52:task:(Overheadumbuchung durchfÃ¼hren)
-        52:task:(Overheadumbuchung durchfÃ¼hren) --> 53:task:(Projektdefinition & PSP-Elemente auf â€žAbgeschlossenâ€œ setzen)
-        53:task:(Projektdefinition & PSP-Elemente auf â€žAbgeschlossenâ€œ setzen) --> 54:task:(Projekt auswerten)
+        49:task:(Rechnung drucken & bereitstellen) --> 50:task:(Versand Rechnung an Fördermittelgeber)
+        50:task:(Versand Rechnung an Fördermittelgeber) --> 51:task:(Overheadparameter pflegen)
+        51:task:(Overheadparameter pflegen) --> 52:task:(Overheadumbuchung durchführen)
+        52:task:(Overheadumbuchung durchführen) --> 53:task:(Projektdefinition & PSP-Elemente auf „Abgeschlossen" setzen)
+        53:task:(Projektdefinition & PSP-Elemente auf „Abgeschlossen" setzen) --> 54:task:(Projekt auswerten)
         54:task:(Projekt auswerten) --> 55:task:(Verwendungsnachweis-Einzelpostenliste erzeugen)
         55:task:(Verwendungsnachweis-Einzelpostenliste erzeugen) --> 56:task:(Verwendungsnachweis erstellen)
         56:task:(Verwendungsnachweis erstellen) --> 44:endevent:(((endevent)))

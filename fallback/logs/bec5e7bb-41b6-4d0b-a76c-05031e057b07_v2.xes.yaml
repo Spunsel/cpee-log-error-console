@@ -112,7 +112,7 @@ event:
   cpee:change_uuid: 2041bffd553d98b26ecb707f77b6a2c03237a61a
   cpee:exposition: |-
     # User Input:
-    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag für einen Prozess zu Verrechnung von Infrastrukturkosten
   time:timestamp: '2025-11-06T05:12:57.317861+01:00'
 ---
 event:
@@ -528,7 +528,7 @@ event:
   cpee:change_uuid: 2f7317fc050d5a551e2875f2d4a8ea23a53d50ad
   cpee:exposition: |-
     # User Input:
-    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag für einen Prozess zu Verrechnung von Infrastrukturkosten
   time:timestamp: '2025-11-06T05:13:55.588119+01:00'
 ---
 event:
@@ -989,7 +989,7 @@ event:
   cpee:change_uuid: da7096d3d7ec784698119ccf5332f821ae06d7fd
   cpee:exposition: |-
     # User Input:
-    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag für einen Prozess zu Verrechnung von Infrastrukturkosten
   time:timestamp: '2025-11-06T05:15:08.529693+01:00'
 ---
 event:
@@ -1018,12 +1018,12 @@ event:
     ```mermaid
     graph LR
       0:startevent:((startevent)) --> 1:task:(Infrastrukturkosten ermitteln)
-      1:task:(Infrastrukturkosten ermitteln) --> 2:task:(VerteilungsschlÃ¼ssel definieren)
-      2:task:(VerteilungsschlÃ¼ssel definieren) --> 3:task:(Kosten auf Bereiche verteilen)
-      3:task:(Kosten auf Bereiche verteilen) --> 4:task:(VerrechnungssÃ¤tze berechnen)
-      4:task:(VerrechnungssÃ¤tze berechnen) --> 5:task:(Verrechnung durchfÃ¼hren)
-      5:task:(Verrechnung durchfÃ¼hren) --> 6:task:(Ergebnisse prÃ¼fen und freigeben)
-      6:task:(Ergebnisse prÃ¼fen und freigeben) --> 7:endevent:(((endevent)))
+      1:task:(Infrastrukturkosten ermitteln) --> 2:task:(Verteilungsschlüssel definieren)
+      2:task:(Verteilungsschlüssel definieren) --> 3:task:(Kosten auf Bereiche verteilen)
+      3:task:(Kosten auf Bereiche verteilen) --> 4:task:(Verrechnungssätze berechnen)
+      4:task:(Verrechnungssätze berechnen) --> 5:task:(Verrechnung durchführen)
+      5:task:(Verrechnung durchführen) --> 6:task:(Ergebnisse prüfen und freigeben)
+      6:task:(Ergebnisse prüfen und freigeben) --> 7:endevent:(((endevent)))
     ```
   time:timestamp: '2025-11-06T05:15:08.530284+01:00'
 ---
@@ -1136,7 +1136,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>VerteilungsschlÃ¼ssel definieren</label>
+          <label>Verteilungsschlüssel definieren</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1152,7 +1152,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>VerrechnungssÃ¤tze berechnen</label>
+          <label>Verrechnungssätze berechnen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1160,7 +1160,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="5">
         <parameters>
-          <label>Verrechnung durchfÃ¼hren</label>
+          <label>Verrechnung durchführen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1168,7 +1168,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="6">
         <parameters>
-          <label>Ergebnisse prÃ¼fen und freigeben</label>
+          <label>Ergebnisse prüfen und freigeben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1202,12 +1202,12 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Infrastrukturkosten ermitteln)
-    a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(VerteilungsschlÃ¼ssel definieren)
-    a3:task:(VerteilungsschlÃ¼ssel definieren)-->a5:task:(Kosten auf Bereiche verteilen)
-    a5:task:(Kosten auf Bereiche verteilen)-->a7:task:(VerrechnungssÃ¤tze berechnen)
-    a7:task:(VerrechnungssÃ¤tze berechnen)-->a9:task:(Verrechnung durchfÃ¼hren)
-    a9:task:(Verrechnung durchfÃ¼hren)-->a11:task:(Ergebnisse prÃ¼fen und freigeben)
-    a11:task:(Ergebnisse prÃ¼fen und freigeben)-->ee:endevent:((endevent))
+    a1:task:(Infrastrukturkosten ermitteln)-->a3:task:(Verteilungsschlüssel definieren)
+    a3:task:(Verteilungsschlüssel definieren)-->a5:task:(Kosten auf Bereiche verteilen)
+    a5:task:(Kosten auf Bereiche verteilen)-->a7:task:(Verrechnungssätze berechnen)
+    a7:task:(Verrechnungssätze berechnen)-->a9:task:(Verrechnung durchführen)
+    a9:task:(Verrechnung durchführen)-->a11:task:(Ergebnisse prüfen und freigeben)
+    a11:task:(Ergebnisse prüfen und freigeben)-->ee:endevent:((endevent))
   time:timestamp: '2025-11-06T05:15:53.911716+01:00'
 ---
 event:
@@ -1398,7 +1398,7 @@ event:
   cpee:change_uuid: e8373491abf4d4b0e750f71f614e57f906dafbfd
   cpee:exposition: |-
     # User Input:
-    Finanzabteilung eines Uniklinikums: mache mir einen BPMN-Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+    Finanzabteilung eines Uniklinikums: mache mir einen BPMN-Vorschlag für einen Prozess zu Verrechnung von Infrastrukturkosten
   time:timestamp: '2025-11-06T05:15:58.454970+01:00'
 ---
 event:
@@ -1657,7 +1657,7 @@ event:
   cpee:change_uuid: cbe95c6fe1365df89bf332b6469fd95279a5dfda
   cpee:exposition: |-
     # User Input:
-    Finanzabteilung eines Uniklinikums: mache mir einen BPMN-Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+    Finanzabteilung eines Uniklinikums: mache mir einen BPMN-Vorschlag für einen Prozess zu Verrechnung von Infrastrukturkosten
   time:timestamp: '2025-11-06T05:17:15.050020+01:00'
 ---
 event:
@@ -2235,42 +2235,42 @@ event:
   lifecycle:transition: unknown
   cpee:lifecycle:transition: description/exposition
   cpee:change_uuid: aeab9a39a68ff60e3fad87332d79ef379aacfef2
-  cpee:exposition: "# User Input:\nHier ist ein Vorschlag fÃ¼r einen BPMN-Prozess (Business
-    Process Model and Notation) fÃ¼r die\n\U0001F449 â€žVerrechnung von Infrastrukturkostenâ€œ
-    im UniversitÃ¤tsklinikumskontext.\n\U0001F9E9 Prozessname: Verrechnung von Infrastrukturkosten\nProzessziel:\nZurechnung
-    und Umlage von zentralen Infrastrukturkosten (z. B. IT, GebÃ¤ude, Energie, Reinigung,
+  cpee:exposition: "# User Input:\nHier ist ein Vorschlag für einen BPMN-Prozess (Business
+    Process Model and Notation) für die\n\U0001F449 „Verrechnung von Infrastrukturkosten"
+    im Universitätsklinikumskontext.\n\U0001F9E9 Prozessname: Verrechnung von Infrastrukturkosten\nProzessziel:\nZurechnung
+    und Umlage von zentralen Infrastrukturkosten (z. B. IT, Gebäude, Energie, Reinigung,
     Verwaltung) auf nutzende Organisationseinheiten (Kliniken, Institute, Forschungsbereiche)
-    gemÃ¤ÃŸ interner Kostenverteilungslogik und Trennungsrechnung.\n\U0001F3D7ï¸ BPMN-Akteure
+    gemäß interner Kostenverteilungslogik und Trennungsrechnung.\n\U0001F3D7️ BPMN-Akteure
     (Swimlanes)\nKostenstellenverantwortliche / Fachabteilungen\n(z. B. Technischer
     Dienst, IT, Verwaltung)\nFinanzabteilung / Controlling\n(z. B. KLR-Team, Finanzcontrolling)\nDatenmanagement
-    / ERP-System\n(z. B. SAP, BI-System)\nKliniken & Institute (KostentrÃ¤ger)\n(EmpfÃ¤nger
+    / ERP-System\n(z. B. SAP, BI-System)\nKliniken & Institute (Kostenträger)\n(Empfänger
     der Umlage)\nLeitung Finanzen / Vorstand Verwaltung\n(Freigabe und Reporting)\n\U0001F9ED
     BPMN-Prozessbeschreibung (Textform)\n1. Start: Periodenbeginn (z. B. Quartal /
-    Jahr)\nEreignis: â€žKostenverteilungsperiode beginntâ€œ\nTrigger: Automatischer Prozessstart
+    Jahr)\nEreignis: „Kostenverteilungsperiode beginnt"\nTrigger: Automatischer Prozessstart
     im ERP-System oder durch Controlling-Kalender.\n2. Sammeln der Infrastrukturkosten
-    (Kostenstellenverantwortliche)\nAktivitÃ¤ten:\nErfassung der angefallenen Infrastrukturkosten
-    (z. B. IT, Strom, GebÃ¤udereinigung, Verwaltung)\nZuordnung zu Kostenstellen (PrimÃ¤rkosten)\nÃœbermittlung
-    an Controlling\nDatenaustausch: BuchungslÃ¤ufe, Kostenartenberichte\n3. PlausibilitÃ¤tsprÃ¼fung
-    der Daten (Finanzabteilung)\nAktivitÃ¤ten:\nPrÃ¼fung der VollstÃ¤ndigkeit und Korrektheit
-    der Kostenarten\nAbgleich mit Budget- und Vorperiodenwerten\nRÃ¼ckmeldung bei AuffÃ¤lligkeiten
-    an Fachabteilungen\nEntscheidungspunkt: â€žKosten plausibel?â€œ\nNein: RÃ¼ckgabe zur
-    Korrektur\nJa: Weiter\n4. Definition der VerteilungsschlÃ¼ssel (Controlling)\nAktivitÃ¤ten:\nFestlegung
-    oder Aktualisierung der UmlageschlÃ¼ssel (z. B. mÂ², Personalstellen, IT-Nutzer,
+    (Kostenstellenverantwortliche)\nAktivitäten:\nErfassung der angefallenen Infrastrukturkosten
+    (z. B. IT, Strom, Gebäudereinigung, Verwaltung)\nZuordnung zu Kostenstellen (Primärkosten)\nÜbermittlung
+    an Controlling\nDatenaustausch: Buchungsläufe, Kostenartenberichte\n3. Plausibilitätsprüfung
+    der Daten (Finanzabteilung)\nAktivitäten:\nPrüfung der Vollständigkeit und Korrektheit
+    der Kostenarten\nAbgleich mit Budget- und Vorperiodenwerten\nRückmeldung bei Auffälligkeiten
+    an Fachabteilungen\nEntscheidungspunkt: „Kosten plausibel?"\nNein: Rückgabe zur
+    Korrektur\nJa: Weiter\n4. Definition der Verteilungsschlüssel (Controlling)\nAktivitäten:\nFestlegung
+    oder Aktualisierung der Umlageschlüssel (z. B. m², Personalstellen, IT-Nutzer,
     Laborstunden)\nGenehmigung durch Leitung Finanzen (falls notwendig)\nDatenbasis:
-    Stammdaten, Nutzungsstatistiken, HR-Daten\n5. DurchfÃ¼hrung der Umlage (ERP-System
-    / Controlling)\nAktivitÃ¤ten:\nBerechnung der Umlage auf EmpfÃ¤nger-Kostenstellen
-    gemÃ¤ÃŸ SchlÃ¼ssel\nBuchung der sekundÃ¤ren Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\nSystemereignis:
-    â€žUmlauf abgeschlossenâ€œ\n6. PrÃ¼fung der Umlageergebnisse (Controlling + EmpfÃ¤nger)\nAktivitÃ¤ten:\nEmpfÃ¤nger
+    Stammdaten, Nutzungsstatistiken, HR-Daten\n5. Durchführung der Umlage (ERP-System
+    / Controlling)\nAktivitäten:\nBerechnung der Umlage auf Empfänger-Kostenstellen
+    gemäß Schlüssel\nBuchung der sekundären Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\nSystemereignis:
+    „Umlauf abgeschlossen"\n6. Prüfung der Umlageergebnisse (Controlling + Empfänger)\nAktivitäten:\nEmpfänger
     erhalten Umlageberichte\nKontrolle auf sachliche und rechnerische Richtigkeit\nFeedback
-    an Controlling bei AuffÃ¤lligkeiten\nEntscheidungspunkt: â€žErgebnisse korrekt?â€œ\nNein:
-    Korrektur und Neuverteilung\nJa: Weiter\n7. Reporting und Freigabe (Finanzleitung)\nAktivitÃ¤ten:\nErstellung
+    an Controlling bei Auffälligkeiten\nEntscheidungspunkt: „Ergebnisse korrekt?"\nNein:
+    Korrektur und Neuverteilung\nJa: Weiter\n7. Reporting und Freigabe (Finanzleitung)\nAktivitäten:\nErstellung
     des Verrechnungsberichts (z. B. je Klinik/Institut)\nVorlage an Leitung Finanzen
     / Vorstand Verwaltung\nFreigabe und Kommunikation an alle Einheiten\nDokumentation
-    im ERP/BI-System\n8. Ende des Prozesses\nEreignis: â€žUmlage abgeschlossen und freigegebenâ€œ\nOutput:\nBuchungssÃ¤tze
-    im ERP-System\nBericht an Ministerium/UniversitÃ¤t (Trennungsrechnung)\nGrundlage
-    fÃ¼r Budgetplanung und Controlling\n\U0001F9EE Optional: Erweiterungen / Subprozesse\nAutomatisierte
-    DatenÃ¼bernahme aus GebÃ¤udemanagement oder Zeiterfassungssystemen\nTrennungsrechnung:
-    Separate Umlagen fÃ¼r Klinik, Forschung, Lehre\nAuditprozess: Nachgelagerte PrÃ¼fung
+    im ERP/BI-System\n8. Ende des Prozesses\nEreignis: „Umlage abgeschlossen und freigegeben"\nOutput:\nBuchungssätze
+    im ERP-System\nBericht an Ministerium/Universität (Trennungsrechnung)\nGrundlage
+    für Budgetplanung und Controlling\n\U0001F9EE Optional: Erweiterungen / Subprozesse\nAutomatisierte
+    Datenübernahme aus Gebäudemanagement oder Zeiterfassungssystemen\nTrennungsrechnung:
+    Separate Umlagen für Klinik, Forschung, Lehre\nAuditprozess: Nachgelagerte Prüfung
     durch Revision oder Ministerium\nDashboards: Visualisierung der Kostenstruktur
     und Umlageeffekte\n\n"
   time:timestamp: '2025-11-06T05:18:18.833198+01:00'
@@ -2300,29 +2300,29 @@ event:
     graph LR
         0:startevent:((startevent))
         1:task:(Sammeln der Infrastrukturkosten)
-        2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+        2:task:(Plausibilitätsprüfung der Daten)
         3:exclusivegateway:{x}
         4:task:(Korrektur der Daten)
-        5:task:(Definition der VerteilungsschlÃ¼ssel)
-        6:task:(DurchfÃ¼hrung der Umlage)
-        7:task:(PrÃ¼fung der Umlageergebnisse)
+        5:task:(Definition der Verteilungsschlüssel)
+        6:task:(Durchführung der Umlage)
+        7:task:(Prüfung der Umlageergebnisse)
         8:exclusivegateway:{x}
         9:task:(Korrektur und Neuverteilung)
         10:task:(Reporting und Freigabe)
         11:endevent:(((endevent)))
 
         0:startevent:((startevent)) --> 1:task:(Sammeln der Infrastrukturkosten)
-        1:task:(Sammeln der Infrastrukturkosten) --> 2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
-        2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten) --> 3:exclusivegateway:{x}
+        1:task:(Sammeln der Infrastrukturkosten) --> 2:task:(Plausibilitätsprüfung der Daten)
+        2:task:(Plausibilitätsprüfung der Daten) --> 3:exclusivegateway:{x}
         3:exclusivegateway:{x} --> |Nein| 4:task:(Korrektur der Daten)
-        3:exclusivegateway:{x} --> |Ja| 5:task:(Definition der VerteilungsschlÃ¼ssel)
-        4:task:(Korrektur der Daten) --> 2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
-        5:task:(Definition der VerteilungsschlÃ¼ssel) --> 6:task:(DurchfÃ¼hrung der Umlage)
-        6:task:(DurchfÃ¼hrung der Umlage) --> 7:task:(PrÃ¼fung der Umlageergebnisse)
-        7:task:(PrÃ¼fung der Umlageergebnisse) --> 8:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Ja| 5:task:(Definition der Verteilungsschlüssel)
+        4:task:(Korrektur der Daten) --> 2:task:(Plausibilitätsprüfung der Daten)
+        5:task:(Definition der Verteilungsschlüssel) --> 6:task:(Durchführung der Umlage)
+        6:task:(Durchführung der Umlage) --> 7:task:(Prüfung der Umlageergebnisse)
+        7:task:(Prüfung der Umlageergebnisse) --> 8:exclusivegateway:{x}
         8:exclusivegateway:{x} --> |Nein| 9:task:(Korrektur und Neuverteilung)
         8:exclusivegateway:{x} --> |Ja| 10:task:(Reporting und Freigabe)
-        9:task:(Korrektur und Neuverteilung) --> 7:task:(PrÃ¼fung der Umlageergebnisse)
+        9:task:(Korrektur und Neuverteilung) --> 7:task:(Prüfung der Umlageergebnisse)
         10:task:(Reporting und Freigabe) --> 11:endevent:(((endevent)))
     ```
   time:timestamp: '2025-11-06T05:18:18.833884+01:00'
@@ -2453,7 +2453,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a3" endpoint="" a:alt_id="2">
           <parameters>
-            <label>PlausibilitÃ¤tsprÃ¼fung der Daten</label>
+            <label>Plausibilitätsprüfung der Daten</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -2470,7 +2470,7 @@ event:
           </call>
           <call id="a3" endpoint="" a:alt_id="2">
             <parameters>
-              <label>PlausibilitÃ¤tsprÃ¼fung der Daten</label>
+              <label>Plausibilitätsprüfung der Daten</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2479,7 +2479,7 @@ event:
         </loop>
         <call id="a9" endpoint="" a:alt_id="5">
           <parameters>
-            <label>Definition der VerteilungsschlÃ¼ssel</label>
+            <label>Definition der Verteilungsschlüssel</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -2487,7 +2487,7 @@ event:
         </call>
         <call id="a13" endpoint="" a:alt_id="6">
           <parameters>
-            <label>DurchfÃ¼hrung der Umlage</label>
+            <label>Durchführung der Umlage</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -2496,7 +2496,7 @@ event:
         <loop mode="pre_test" condition="true">
           <call id="a15" endpoint="" a:alt_id="7">
             <parameters>
-              <label>PrÃ¼fung der Umlageergebnisse</label>
+              <label>Prüfung der Umlageergebnisse</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2513,7 +2513,7 @@ event:
             </call>
             <call id="a15" endpoint="" a:alt_id="7">
               <parameters>
-                <label>PrÃ¼fung der Umlageergebnisse</label>
+                <label>Prüfung der Umlageergebnisse</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -2601,25 +2601,25 @@ event:
     se:startevent:((startevent))-->a1:task:(Sammeln der Infrastrukturkosten)
     a1:task:(Sammeln der Infrastrukturkosten)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
-    a3:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->a9:task:(Definition der VerteilungsschlÃ¼ssel)
-    a9:task:(Definition der VerteilungsschlÃ¼ssel)-->a13:task:(DurchfÃ¼hrung der Umlage)
-    a13:task:(DurchfÃ¼hrung der Umlage)-->gw3s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Plausibilitätsprüfung der Daten)
+    a3:task:(Plausibilitätsprüfung der Daten)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a9:task:(Definition der Verteilungsschlüssel)
+    a9:task:(Definition der Verteilungsschlüssel)-->a13:task:(Durchführung der Umlage)
+    a13:task:(Durchführung der Umlage)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"true"|a15:task:(PrÃ¼fung der Umlageergebnisse)
-    a15:task:(PrÃ¼fung der Umlageergebnisse)-->gw4s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"true"|a15:task:(Prüfung der Umlageergebnisse)
+    a15:task:(Prüfung der Umlageergebnisse)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Nein"|a19:task:(Korrektur und Neuverteilung)
-    a19:task:(Korrektur und Neuverteilung)-->a15:task:(PrÃ¼fung der Umlageergebnisse)
-    a15:task:(PrÃ¼fung der Umlageergebnisse)-->gw4e:exclusivegateway:{x}
+    a19:task:(Korrektur und Neuverteilung)-->a15:task:(Prüfung der Umlageergebnisse)
+    a15:task:(Prüfung der Umlageergebnisse)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->a21:task:(Reporting und Freigabe)
     a21:task:(Reporting und Freigabe)-->gw4e:exclusivegateway:{x}
     gw4e:exclusivegateway:{x}-->-1:escalate:((^))
     -1:escalate:((^))-->gw3e:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Nein"|a7:task:(Korrektur der Daten)
-    a7:task:(Korrektur der Daten)-->a3:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
-    a3:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)-->-1:escalate:((^))
+    a7:task:(Korrektur der Daten)-->a3:task:(Plausibilitätsprüfung der Daten)
+    a3:task:(Plausibilitätsprüfung der Daten)-->-1:escalate:((^))
     -1:escalate:((^))-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -2776,42 +2776,42 @@ event:
   lifecycle:transition: unknown
   cpee:lifecycle:transition: description/exposition
   cpee:change_uuid: a7a17d277393271d4cc0fb5de9f1710bdf1e1929
-  cpee:exposition: "# User Input:\nHier ist ein Vorschlag fÃ¼r einen BPMN-Prozess (Business
-    Process Model and Notation) fÃ¼r die\n\U0001F449 â€žVerrechnung von Infrastrukturkostenâ€œ
-    im UniversitÃ¤tsklinikumskontext.\n\U0001F9E9 Prozessname: Verrechnung von Infrastrukturkosten\nProzessziel:\nZurechnung
-    und Umlage von zentralen Infrastrukturkosten (z. B. IT, GebÃ¤ude, Energie, Reinigung,
+  cpee:exposition: "# User Input:\nHier ist ein Vorschlag für einen BPMN-Prozess (Business
+    Process Model and Notation) für die\n\U0001F449 „Verrechnung von Infrastrukturkosten"
+    im Universitätsklinikumskontext.\n\U0001F9E9 Prozessname: Verrechnung von Infrastrukturkosten\nProzessziel:\nZurechnung
+    und Umlage von zentralen Infrastrukturkosten (z. B. IT, Gebäude, Energie, Reinigung,
     Verwaltung) auf nutzende Organisationseinheiten (Kliniken, Institute, Forschungsbereiche)
-    gemÃ¤ÃŸ interner Kostenverteilungslogik und Trennungsrechnung.\n\U0001F3D7ï¸ BPMN-Akteure
+    gemäß interner Kostenverteilungslogik und Trennungsrechnung.\n\U0001F3D7️ BPMN-Akteure
     (Swimlanes)\nKostenstellenverantwortliche / Fachabteilungen\n(z. B. Technischer
     Dienst, IT, Verwaltung)\nFinanzabteilung / Controlling\n(z. B. KLR-Team, Finanzcontrolling)\nDatenmanagement
-    / ERP-System\n(z. B. SAP, BI-System)\nKliniken & Institute (KostentrÃ¤ger)\n(EmpfÃ¤nger
+    / ERP-System\n(z. B. SAP, BI-System)\nKliniken & Institute (Kostenträger)\n(Empfänger
     der Umlage)\nLeitung Finanzen / Vorstand Verwaltung\n(Freigabe und Reporting)\n\U0001F9ED
     BPMN-Prozessbeschreibung (Textform)\n1. Start: Periodenbeginn (z. B. Quartal /
-    Jahr)\nEreignis: â€žKostenverteilungsperiode beginntâ€œ\nTrigger: Automatischer Prozessstart
+    Jahr)\nEreignis: „Kostenverteilungsperiode beginnt"\nTrigger: Automatischer Prozessstart
     im ERP-System oder durch Controlling-Kalender.\n2. Sammeln der Infrastrukturkosten
-    (Kostenstellenverantwortliche)\nAktivitÃ¤ten:\nErfassung der angefallenen Infrastrukturkosten
-    (z. B. IT, Strom, GebÃ¤udereinigung, Verwaltung)\nZuordnung zu Kostenstellen (PrimÃ¤rkosten)\nÃœbermittlung
-    an Controlling\nDatenaustausch: BuchungslÃ¤ufe, Kostenartenberichte\n3. PlausibilitÃ¤tsprÃ¼fung
-    der Daten (Finanzabteilung)\nAktivitÃ¤ten:\nPrÃ¼fung der VollstÃ¤ndigkeit und Korrektheit
-    der Kostenarten\nAbgleich mit Budget- und Vorperiodenwerten\nRÃ¼ckmeldung bei AuffÃ¤lligkeiten
-    an Fachabteilungen\nEntscheidungspunkt: â€žKosten plausibel?â€œ\nNein: RÃ¼ckgabe zur
-    Korrektur\nJa: Weiter\n4. Definition der VerteilungsschlÃ¼ssel (Controlling)\nAktivitÃ¤ten:\nFestlegung
-    oder Aktualisierung der UmlageschlÃ¼ssel (z. B. mÂ², Personalstellen, IT-Nutzer,
+    (Kostenstellenverantwortliche)\nAktivitäten:\nErfassung der angefallenen Infrastrukturkosten
+    (z. B. IT, Strom, Gebäudereinigung, Verwaltung)\nZuordnung zu Kostenstellen (Primärkosten)\nÜbermittlung
+    an Controlling\nDatenaustausch: Buchungsläufe, Kostenartenberichte\n3. Plausibilitätsprüfung
+    der Daten (Finanzabteilung)\nAktivitäten:\nPrüfung der Vollständigkeit und Korrektheit
+    der Kostenarten\nAbgleich mit Budget- und Vorperiodenwerten\nRückmeldung bei Auffälligkeiten
+    an Fachabteilungen\nEntscheidungspunkt: „Kosten plausibel?"\nNein: Rückgabe zur
+    Korrektur\nJa: Weiter\n4. Definition der Verteilungsschlüssel (Controlling)\nAktivitäten:\nFestlegung
+    oder Aktualisierung der Umlageschlüssel (z. B. m², Personalstellen, IT-Nutzer,
     Laborstunden)\nGenehmigung durch Leitung Finanzen (falls notwendig)\nDatenbasis:
-    Stammdaten, Nutzungsstatistiken, HR-Daten\n5. DurchfÃ¼hrung der Umlage (ERP-System
-    / Controlling)\nAktivitÃ¤ten:\nBerechnung der Umlage auf EmpfÃ¤nger-Kostenstellen
-    gemÃ¤ÃŸ SchlÃ¼ssel\nBuchung der sekundÃ¤ren Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\nSystemereignis:
-    â€žUmlauf abgeschlossenâ€œ\n6. PrÃ¼fung der Umlageergebnisse (Controlling + EmpfÃ¤nger)\nAktivitÃ¤ten:\nEmpfÃ¤nger
+    Stammdaten, Nutzungsstatistiken, HR-Daten\n5. Durchführung der Umlage (ERP-System
+    / Controlling)\nAktivitäten:\nBerechnung der Umlage auf Empfänger-Kostenstellen
+    gemäß Schlüssel\nBuchung der sekundären Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\nSystemereignis:
+    „Umlauf abgeschlossen"\n6. Prüfung der Umlageergebnisse (Controlling + Empfänger)\nAktivitäten:\nEmpfänger
     erhalten Umlageberichte\nKontrolle auf sachliche und rechnerische Richtigkeit\nFeedback
-    an Controlling bei AuffÃ¤lligkeiten\nEntscheidungspunkt: â€žErgebnisse korrekt?â€œ\nNein:
-    Korrektur und Neuverteilung\nJa: Weiter\n7. Reporting und Freigabe (Finanzleitung)\nAktivitÃ¤ten:\nErstellung
+    an Controlling bei Auffälligkeiten\nEntscheidungspunkt: „Ergebnisse korrekt?"\nNein:
+    Korrektur und Neuverteilung\nJa: Weiter\n7. Reporting und Freigabe (Finanzleitung)\nAktivitäten:\nErstellung
     des Verrechnungsberichts (z. B. je Klinik/Institut)\nVorlage an Leitung Finanzen
     / Vorstand Verwaltung\nFreigabe und Kommunikation an alle Einheiten\nDokumentation
-    im ERP/BI-System\n8. Ende des Prozesses\nEreignis: â€žUmlage abgeschlossen und freigegebenâ€œ\nOutput:\nBuchungssÃ¤tze
-    im ERP-System\nBericht an Ministerium/UniversitÃ¤t (Trennungsrechnung)\nGrundlage
-    fÃ¼r Budgetplanung und Controlling\n\U0001F9EE Optional: Erweiterungen / Subprozesse\nAutomatisierte
-    DatenÃ¼bernahme aus GebÃ¤udemanagement oder Zeiterfassungssystemen\nTrennungsrechnung:
-    Separate Umlagen fÃ¼r Klinik, Forschung, Lehre\nAuditprozess: Nachgelagerte PrÃ¼fung
+    im ERP/BI-System\n8. Ende des Prozesses\nEreignis: „Umlage abgeschlossen und freigegeben"\nOutput:\nBuchungssätze
+    im ERP-System\nBericht an Ministerium/Universität (Trennungsrechnung)\nGrundlage
+    für Budgetplanung und Controlling\n\U0001F9EE Optional: Erweiterungen / Subprozesse\nAutomatisierte
+    Datenübernahme aus Gebäudemanagement oder Zeiterfassungssystemen\nTrennungsrechnung:
+    Separate Umlagen für Klinik, Forschung, Lehre\nAuditprozess: Nachgelagerte Prüfung
     durch Revision oder Ministerium\nDashboards: Visualisierung der Kostenstruktur
     und Umlageeffekte\n\n"
   time:timestamp: '2025-11-06T05:20:03.182158+01:00'
@@ -2829,24 +2829,24 @@ event:
     graph LR
       0:startevent:((Periodenbeginn))
       1:task:(Sammeln der Infrastrukturkosten)
-      2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
+      2:task:(Plausibilitätsprüfung der Daten)
       3:exclusivegateway:{x}
-      4:task:(Definition der VerteilungsschlÃ¼ssel)
-      5:task:(DurchfÃ¼hrung der Umlage)
-      6:task:(PrÃ¼fung der Umlageergebnisse)
+      4:task:(Definition der Verteilungsschlüssel)
+      5:task:(Durchführung der Umlage)
+      6:task:(Prüfung der Umlageergebnisse)
       7:exclusivegateway:{x}
       8:task:(Reporting und Freigabe)
       9:endevent:(((Prozessende)))
 
       0:startevent:((Periodenbeginn)) --> 1:task:(Sammeln der Infrastrukturkosten)
-      1:task:(Sammeln der Infrastrukturkosten) --> 2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten)
-      2:task:(PlausibilitÃ¤tsprÃ¼fung der Daten) --> 3:exclusivegateway:{x}
+      1:task:(Sammeln der Infrastrukturkosten) --> 2:task:(Plausibilitätsprüfung der Daten)
+      2:task:(Plausibilitätsprüfung der Daten) --> 3:exclusivegateway:{x}
       3:exclusivegateway:{x} --> |Nein|1:task:(Sammeln der Infrastrukturkosten)
-      3:exclusivegateway:{x} --> |Ja|4:task:(Definition der VerteilungsschlÃ¼ssel)
-      4:task:(Definition der VerteilungsschlÃ¼ssel) --> 5:task:(DurchfÃ¼hrung der Umlage)
-      5:task:(DurchfÃ¼hrung der Umlage) --> 6:task:(PrÃ¼fung der Umlageergebnisse)
-      6:task:(PrÃ¼fung der Umlageergebnisse) --> 7:exclusivegateway:{x}
-      7:exclusivegateway:{x} --> |Nein|5:task:(DurchfÃ¼hrung der Umlage)
+      3:exclusivegateway:{x} --> |Ja|4:task:(Definition der Verteilungsschlüssel)
+      4:task:(Definition der Verteilungsschlüssel) --> 5:task:(Durchführung der Umlage)
+      5:task:(Durchführung der Umlage) --> 6:task:(Prüfung der Umlageergebnisse)
+      6:task:(Prüfung der Umlageergebnisse) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> |Nein|5:task:(Durchführung der Umlage)
       7:exclusivegateway:{x} --> |Ja|8:task:(Reporting und Freigabe)
       8:task:(Reporting und Freigabe) --> 9:endevent:(((Prozessende)))
   time:timestamp: '2025-11-06T05:20:03.183707+01:00'

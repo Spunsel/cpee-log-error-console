@@ -189,17 +189,17 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Einkaufszentrum planen)
-        1:task:(Einkaufszentrum planen) --> 2:task:(GrundstÃ¼ck erwerben)
-        2:task:(GrundstÃ¼ck erwerben) --> 3:task:(Baugenehmigung einholen)
+        1:task:(Einkaufszentrum planen) --> 2:task:(Grundstück erwerben)
+        2:task:(Grundstück erwerben) --> 3:task:(Baugenehmigung einholen)
         3:task:(Baugenehmigung einholen) --> 4:task:(Einkaufszentrum bauen)
         4:task:(Einkaufszentrum bauen) --> 5:task:(Mieter suchen)
         5:task:(Mieter suchen) --> 6:exclusivegateway:{x}
-        6:exclusivegateway:{x} -->|Mieter gefunden| 7:task:(MietvertrÃ¤ge abschlieÃŸen)
+        6:exclusivegateway:{x} -->|Mieter gefunden| 7:task:(Mietverträge abschließen)
         6:exclusivegateway:{x} -->|Keine Mieter gefunden| 8:task:(Marketing verbessern)
-        7:task:(MietvertrÃ¤ge abschlieÃŸen) --> 9:exclusivegateway:{x}
+        7:task:(Mietverträge abschließen) --> 9:exclusivegateway:{x}
         8:task:(Marketing verbessern) --> 9:exclusivegateway:{x}
-        9:exclusivegateway:{x} --> 10:task:(Einkaufszentrum erÃ¶ffnen)
-        10:task:(Einkaufszentrum erÃ¶ffnen) --> 11:endevent:(((endevent)))
+        9:exclusivegateway:{x} --> 10:task:(Einkaufszentrum eröffnen)
+        10:task:(Einkaufszentrum eröffnen) --> 11:endevent:(((endevent)))
     ```
   time:timestamp: '2026-01-31T11:05:38.923465+01:00'
 ---

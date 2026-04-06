@@ -459,25 +459,25 @@ event:
   cpee:change_uuid: 84cb7050ad34dd17c1b919cb2c5d5dbaa6750136
   cpee:exposition: |
     # User Input:
-    POOL: Drittmittelmanagement â€“ GefÃ¶rderte Projekte (HS/FE)
+    POOL: Drittmittelmanagement � Geförderte Projekte (HS/FE)
     LANE: Fachbereich / Projektleitung
     Projektidee entwickeln
-    â†’
-    FÃ¶rderprogramm identifizieren
-    â†’
-    FÃ¶rderantrag erstellen & einreichen
-    â†’
-    FÃ¶rderzusage erhalten (Ereignis)
-    â†’ Ãœbergabe an Drittmittelmanagement
+    � 
+    Förderprogramm identifizieren
+    � 
+    Förderantrag erstellen & einreichen
+    � 
+    Förderzusage erhalten (Ereignis)
+    �  Übergabe an Drittmittelmanagement
     LANE: Drittmittelmanagement (DM)
-    FÃ¶rdervertrag prÃ¼fen & finalisieren
-    â†’
-    Stammdatenanforderungen definieren (Projektstruktur, MittelherkÃ¼nfte)
-    XOR-Gateway: MittelherkÃ¼nfte bestimmen
-    Ohne Eigenmittel â†’ â€ž1 PSP-Element FÃ¶rdermittelâ€œ
-    Mit Eigenmitteln â†’ â€ž2 PSP-Elemente: FÃ¶rdermittel + Eigenmittelâ€œ
+    Fördervertrag prüfen & finalisieren
+    � 
+    Stammdatenanforderungen definieren (Projektstruktur, Mittelherkünfte)
+    XOR-Gateway: Mittelherkünfte bestimmen
+    Ohne Eigenmittel �  „1 PSP-Element Fördermittel"
+    Mit Eigenmitteln �  „2 PSP-Elemente: Fördermittel + Eigenmittel"
     Optional: weitere PSP-Elemente (z. B. Meilensteine / Bauabschnitte)
-    â†’ Weiter an PS/Projektadministration
+    �  Weiter an PS/Projektadministration
     LANE: PS / Projektadministration (PS)
     PS Stammdaten anlegen
     Projektdefinition anlegen [CJ20N]
@@ -489,10 +489,10 @@ event:
     Fonds (D- oder H-Fondsart)
     Zusatzfelder [ /GISA/MEZUSATZFELDER ]
     Overheadparameter
-    AND-Gateway: parallele Folgeschritte mÃ¶glich
-    â†’ A: Haushaltsprogramme anlegen (PSM-FM)
-    â†’ B: FÃ¶rderungen & Vorhaben anlegen (PSM-GM)
-    â†’ C: EA-Arten / Ableitungen pflegen (PSM-GM)
+    AND-Gateway: parallele Folgeschritte möglich
+    �  A: Haushaltsprogramme anlegen (PSM-FM)
+    �  B: Förderungen & Vorhaben anlegen (PSM-GM)
+    �  C: EA-Arten / Ableitungen pflegen (PSM-GM)
     LANE: PSM-FM (Haushaltsmanagement)
     A. Haushaltsprogramme (FM)
     9A. Automatische Anlage Haushaltsprogramme [FMMDAUTO]
@@ -500,56 +500,56 @@ event:
     Testlauf optional
     XOR-Gateway:
     Automatische Anlage erfolgreich
-    Oder manuelle Anlage â†’ FMMEASURE
-    LANE: PSM-GM (FÃ¶rdermittelmanagement)
-    B. FÃ¶rderungen & Vorhaben
+    Oder manuelle Anlage �  FMMEASURE
+    LANE: PSM-GM (Fördermittelmanagement)
+    B. Förderungen & Vorhaben
     9B. Automatische GM-Generierung [/GISA/GMGENERATE]
-    FÃ¶rderung je Projektdefinition
+    Förderung je Projektdefinition
     Vorhaben je PSP-Element
-    KonsistenzprÃ¼fung
+    Konsistenzprüfung
     XOR-Gateway:
     Automatisch erfolgreich
-    Oder manuelle Pflege â†’ GMGRANT / GMPROGRAM
+    Oder manuelle Pflege �  GMGRANT / GMPROGRAM
     C. EA-Arten / Ableitungstabellen
     9C. E/A-Arten pflegen [GMCLASS]
     9D. EA-Ableitungen je PSP/Geber/Default pflegen
     [/GISA/PSM_EAART_*]
-    â†’ Synchronisationspunkt: â€žStammdaten vollstÃ¤ndigâ€œ
+    �  Synchronisationspunkt: „Stammdaten vollständig"
     LANE: PSM-GM & PSM-FM (Budgetverwaltung)
     Budgetierung
     Budget erfassen [GM_CREATE_BUDGET]
-    Kombination: Fonds + FÃ¶rderung + Vorhaben + EA-Art
+    Kombination: Fonds + Förderung + Vorhaben + EA-Art
     Version 0
     XOR-Gateway: Budgetierungsstrategie
     Nur externe Mittel
     Nur interne Mittel
     Beide parallel
-    Budget verteilen / Ã¤ndern [GM_MODIFY_BUDGET]
+    Budget verteilen / ändern [GM_MODIFY_BUDGET]
     Budget anzeigen [GM_DISPLAY_BUDGET]
     LANE: PSM-FM / PSM-GM (AVK)
-    Aktive VerfÃ¼gbarkeitskontrolle
-    AVK prÃ¼fen & aktualisieren
+    Aktive Verfügbarkeitskontrolle
+    AVK prüfen & aktualisieren
     FM-Ledger 9H (Eigenmittel)
     GM-Ledger 9K (Ausgabearten)
     GM-Ledger ZK (Projektaggregation)
-    â†’ Parallele PrÃ¼fung bei jedem Beleg (automatisches Hintergrundverhalten)
+    �  Parallele Prüfung bei jedem Beleg (automatisches Hintergrundverhalten)
     LANE: Fachbereich / Projektleitung / FI / Einkauf / Travel
-    Laufende Bewirtschaftung (parallel wÃ¤hrend Projektlaufzeit)
-    AND-Gateway â€“ parallele KostenstrÃ¶me:
+    Laufende Bewirtschaftung (parallel während Projektlaufzeit)
+    AND-Gateway � parallele Kostenströme:
     14A. Personalkosten projektfinanzierte MA
-    - HR-Schnittstelle â†’ FI â†’ AVK
+    - HR-Schnittstelle �  FI �  AVK
     14B. Personalkosten haushaltsfinanzierte MA
     - Umbuchung [FB50] oder HR-Schnittstelle
     14C. Sach-/Dienstleistungs-/Investitionsbeschaffungen
     - MM-Prozess, PSP-Kontierung
     14D. Reisekosten
-    - Reisekosten-System â†’ FI â†’ AVK
-    14E. Optional: Manuelle Obligos [FMX1â€“3, FMX6]
+    - Reisekosten-System �  FI �  AVK
+    14E. Optional: Manuelle Obligos [FMX1�3, FMX6]
     LANE: Drittmittelmanagement / FI
     Mittelabrufprozess
     Ansprechpartner pflegen
     Ausgangsrechnungsvorgang erfassen
-    [Prozess anstoÃŸen Ausgangsrechnungen]
+    [Prozess anstoßen Ausgangsrechnungen]
     Genehmigungsworkflow durchlaufen
     [Aufgaben & Entscheidungen]
     Verbuchen [/BPCDEV/GSST]
@@ -557,18 +557,18 @@ event:
     LANE: PSM-GM / PSM-FM
     Overheadumbuchung (periodisch)
     Overhead-Parameter pflegen [/GISA/ME_OVH_PARAM]
-    Overheadumbuchung durchfÃ¼hren [/GISA/ME_OVERHEAD]
+    Overheadumbuchung durchführen [/GISA/ME_OVERHEAD]
     LANE: PS / Projektadministration
     Projektabschluss
-    PSP-Elemente & Projektdefinition auf â€žAbgeschlossenâ€œ setzen [CJ20N]
+    PSP-Elemente & Projektdefinition auf „Abgeschlossen" setzen [CJ20N]
     LANE: DM / PSM-GM / Fachbereich
     Auswertung & Nachweis
     Projekt auswerten
     [GM_E_4GBA]
     [S_ALN_01000003]
     Verwendungsnachweis Einzelpostenliste erstellen [/GISA/GM_VERWENDUNG]
-    Formellen Verwendungsnachweis erstellen (auÃŸerhalb SAP)
-    Einreichung beim FÃ¶rdermittelgeber
+    Formellen Verwendungsnachweis erstellen (außerhalb SAP)
+    Einreichung beim Fördermittelgeber
   time:timestamp: '2025-12-11T16:07:52.692196+01:00'
 ---
 event:
@@ -608,30 +608,30 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Projektidee entwickeln)
-        1:task:(Projektidee entwickeln) --> 2:task:(FÃ¶rderprogramm identifizieren)
-        2:task:(FÃ¶rderprogramm identifizieren) --> 3:task:(FÃ¶rderantrag erstellen & einreichen)
-        3:task:(FÃ¶rderantrag erstellen & einreichen) --> 4:task:(FÃ¶rderzusage erhalten)
-        4:task:(FÃ¶rderzusage erhalten) --> 5:task:(Ãœbergabe an Drittmittelmanagement)
-        5:task:(Ãœbergabe an Drittmittelmanagement) --> 6:task:(FÃ¶rdervertrag prÃ¼fen & finalisieren)
-        6:task:(FÃ¶rdervertrag prÃ¼fen & finalisieren) --> 7:task:(Stammdatenanforderungen definieren)
+        1:task:(Projektidee entwickeln) --> 2:task:(Förderprogramm identifizieren)
+        2:task:(Förderprogramm identifizieren) --> 3:task:(Förderantrag erstellen & einreichen)
+        3:task:(Förderantrag erstellen & einreichen) --> 4:task:(Förderzusage erhalten)
+        4:task:(Förderzusage erhalten) --> 5:task:(Übergabe an Drittmittelmanagement)
+        5:task:(Übergabe an Drittmittelmanagement) --> 6:task:(Fördervertrag prüfen & finalisieren)
+        6:task:(Fördervertrag prüfen & finalisieren) --> 7:task:(Stammdatenanforderungen definieren)
         7:task:(Stammdatenanforderungen definieren) --> 8:exclusivegateway:{x}
-        8:exclusivegateway:{x} --> |Ohne Eigenmittel| 9:task:(1 PSP-Element FÃ¶rdermittel)
-        8:exclusivegateway:{x} --> |Mit Eigenmitteln| 10:task:(2 PSP-Elemente: FÃ¶rdermittel + Eigenmittel)
-        9:task:(1 PSP-Element FÃ¶rdermittel) --> 11:task:(Optionale PSP-Elemente)
-        10:task:(2 PSP-Elemente: FÃ¶rdermittel + Eigenmittel) --> 11:task:(Optionale PSP-Elemente)
+        8:exclusivegateway:{x} --> |Ohne Eigenmittel| 9:task:(1 PSP-Element Fördermittel)
+        8:exclusivegateway:{x} --> |Mit Eigenmitteln| 10:task:(2 PSP-Elemente: Fördermittel + Eigenmittel)
+        9:task:(1 PSP-Element Fördermittel) --> 11:task:(Optionale PSP-Elemente)
+        10:task:(2 PSP-Elemente: Fördermittel + Eigenmittel) --> 11:task:(Optionale PSP-Elemente)
         11:task:(Optionale PSP-Elemente) --> 12:task:(PS Stammdaten anlegen)
         12:task:(PS Stammdaten anlegen) --> 13:task:(Projektdefinition anlegen)
         13:task:(Projektdefinition anlegen) --> 14:task:(PSP-Element(e) anlegen)
         14:task:(PSP-Element(e) anlegen) --> 15:parallelgateway:{AND}
         15:parallelgateway:{AND} --> 16:task:(Haushaltsprogramme anlegen)
-        15:parallelgateway:{AND} --> 17:task:(FÃ¶rderungen & Vorhaben anlegen)
+        15:parallelgateway:{AND} --> 17:task:(Förderungen & Vorhaben anlegen)
         15:parallelgateway:{AND} --> 18:task:(EA-Arten / Ableitungen pflegen)
         16:task:(Haushaltsprogramme anlegen) --> 19:task:(Automatische Anlage Haushaltsprogramme)
         19:task:(Automatische Anlage Haushaltsprogramme) --> 20:exclusivegateway:{x}
         20:exclusivegateway:{x} --> |Automatische Anlage erfolgreich| 23:parallelgateway:{AND}
         20:exclusivegateway:{x} --> |Manuelle Anlage| 21:task:(FMMEASURE)
         21:task:(FMMEASURE) --> 23:parallelgateway:{AND}
-        17:task:(FÃ¶rderungen & Vorhaben anlegen) --> 22:task:(Automatische GM-Generierung)
+        17:task:(Förderungen & Vorhaben anlegen) --> 22:task:(Automatische GM-Generierung)
         22:task:(Automatische GM-Generierung) --> 24:exclusivegateway:{x}
         24:exclusivegateway:{x} --> |Automatisch erfolgreich| 23:parallelgateway:{AND}
         24:exclusivegateway:{x} --> |Manuelle Pflege| 25:task:(GMGRANT / GMPROGRAM)
@@ -641,12 +641,12 @@ event:
         27:task:(EA-Ableitungen je PSP/Geber/Default pflegen) --> 23:parallelgateway:{AND}
         23:parallelgateway:{AND} --> 28:task:(Budget erfassen)
         28:task:(Budget erfassen) --> 29:exclusivegateway:{x}
-        29:exclusivegateway:{x} --> |Nur externe Mittel| 30:task:(Budget verteilen / Ã¤ndern)
-        29:exclusivegateway:{x} --> |Nur interne Mittel| 30:task:(Budget verteilen / Ã¤ndern)
-        29:exclusivegateway:{x} --> |Beide parallel| 30:task:(Budget verteilen / Ã¤ndern)
-        30:task:(Budget verteilen / Ã¤ndern) --> 31:task:(Budget anzeigen)
-        31:task:(Budget anzeigen) --> 32:task:(AVK prÃ¼fen & aktualisieren)
-        32:task:(AVK prÃ¼fen & aktualisieren) --> 33:parallelgateway:{AND}
+        29:exclusivegateway:{x} --> |Nur externe Mittel| 30:task:(Budget verteilen / ändern)
+        29:exclusivegateway:{x} --> |Nur interne Mittel| 30:task:(Budget verteilen / ändern)
+        29:exclusivegateway:{x} --> |Beide parallel| 30:task:(Budget verteilen / ändern)
+        30:task:(Budget verteilen / ändern) --> 31:task:(Budget anzeigen)
+        31:task:(Budget anzeigen) --> 32:task:(AVK prüfen & aktualisieren)
+        32:task:(AVK prüfen & aktualisieren) --> 33:parallelgateway:{AND}
         33:parallelgateway:{AND} --> 34:task:(Personalkosten projektfinanzierte MA)
         33:parallelgateway:{AND} --> 35:task:(Personalkosten haushaltsfinanzierte MA)
         33:parallelgateway:{AND} --> 36:task:(Sach-/Dienstleistungs-/Investitionsbeschaffungen)
@@ -663,13 +663,13 @@ event:
         42:task:(Genehmigungsworkflow durchlaufen) --> 43:task:(Verbuchen)
         43:task:(Verbuchen) --> 44:task:(Druck & Versand)
         44:task:(Druck & Versand) --> 45:task:(Overhead-Parameter pflegen)
-        45:task:(Overhead-Parameter pflegen) --> 46:task:(Overheadumbuchung durchfÃ¼hren)
-        46:task:(Overheadumbuchung durchfÃ¼hren) --> 47:task:(PSP-Elemente & Projektdefinition auf Abgeschlossen setzen)
+        45:task:(Overhead-Parameter pflegen) --> 46:task:(Overheadumbuchung durchführen)
+        46:task:(Overheadumbuchung durchführen) --> 47:task:(PSP-Elemente & Projektdefinition auf Abgeschlossen setzen)
         47:task:(PSP-Elemente & Projektdefinition auf Abgeschlossen setzen) --> 48:task:(Projekt auswerten)
         48:task:(Projekt auswerten) --> 49:task:(Verwendungsnachweis Einzelpostenliste erstellen)
         49:task:(Verwendungsnachweis Einzelpostenliste erstellen) --> 50:task:(Formellen Verwendungsnachweis erstellen)
-        50:task:(Formellen Verwendungsnachweis erstellen) --> 51:task:(Einreichung beim FÃ¶rdermittelgeber)
-        51:task:(Einreichung beim FÃ¶rdermittelgeber) --> 52:endevent:(((endevent)))
+        50:task:(Formellen Verwendungsnachweis erstellen) --> 51:task:(Einreichung beim Fördermittelgeber)
+        51:task:(Einreichung beim Fördermittelgeber) --> 52:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-11T16:07:52.694196+01:00'
 ---

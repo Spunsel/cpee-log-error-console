@@ -230,7 +230,7 @@ event:
   cpee:change_uuid: 4a2a4526dbf811f2dfb6ed5f0a4b7d42c8cad6b7
   cpee:exposition: |+
     # User Input:
-    Process description:Â 
+    Process description: 
 
     You want to build a tree house. First you collect your requirements, and send
     them to a tree house architect. The architect sends you back a draft, which
@@ -240,14 +240,14 @@ event:
     to several of your friends to build the house. After the house is built, you send invitations
     for a tree house party to your friends. In order to buy the snacks for the party, a list
     of people that attend the party is created.
-    Additional Information:Â 
+    Additional Information: 
     The Mermaid.js syntax for BPMN models is described as follows:
     Each mermaid ja node must have the following structure:
     id:type:shape and text
-    id â€“ it is a unique identifier, Id can be only an integer from n to n.
+    id � it is a unique identifier, Id can be only an integer from n to n.
     Each node has a unique identifier
-    type â€“ defines the type of element regarding to BPMN 2.0 notation.
-    possible types are:Â 
+    type � defines the type of element regarding to BPMN 2.0 notation.
+    possible types are: 
     start event, end event, task, subprocess, exclusive, inclusive and parallel gateway.
     Based on the type of the node following shapes and texts are to be used:
     startevent:((startevent)) i.e., id:startevent:((startevent))
@@ -269,17 +269,17 @@ event:
     Give me just the raw Mermaid.js code without mardown formatting.
     Example of mermaid.js:
     flowchart LR
-    Â  0:startevent:((startevent)) --> 1:task:(task A)
-    Â  1:task: --> 2:exclusivegateway:{x}
-    Â  2:exclusivegateway: --> 3:task:(task B)
-    Â  2:exclusivegateway: --> 4:task(task C)
-    Â  3:task: --> 5:exclusivegateway:{x}
-    Â  4:task --> 5:exclusivegateway:
-    Â  5:exclusivegateway: --> 6:task:(task D)
-    Â  6:task: --> 7:endevent:((endevent))
+      0:startevent:((startevent)) --> 1:task:(task A)
+      1:task: --> 2:exclusivegateway:{x}
+      2:exclusivegateway: --> 3:task:(task B)
+      2:exclusivegateway: --> 4:task(task C)
+      3:task: --> 5:exclusivegateway:{x}
+      4:task --> 5:exclusivegateway:
+      5:exclusivegateway: --> 6:task:(task D)
+      6:task: --> 7:endevent:((endevent))
 
-    Your task:Â 
-    Output a valid mermaid.js diagram showing the sequence of tasks and events in the description above.Â Â 
+    Your task: 
+    Output a valid mermaid.js diagram showing the sequence of tasks and events in the description above.  
 
 
 
@@ -792,16 +792,16 @@ event:
   cpee:change_uuid: 731a131fd82233e5f80c140a9086068c28fd5f40
   cpee:exposition: |+
     # User Input:
-    Process Description:Â 
-    The current process model describes a sequence of â€œSend Requirements to Architectâ€, â€œReceive Draftâ€ and â€œRefine Draftâ€ with three subsequent tasks.
+    Process Description: 
+    The current process model describes a sequence of ÜSSend Requirements to Architect⬝, ÜSReceive Draft⬝ and ÜSRefine Draft⬝ with three subsequent tasks.
     Additional Information:
     The Mermaid.js syntax for BPMN models is described as follows:
     Each mermaid ja node must have the following structure:
     id:type:shape and text
-    id â€“ it is a unique identifier, Id can be only an integer from n to n.
+    id � it is a unique identifier, Id can be only an integer from n to n.
     Each node has a unique identifier
-    type â€“ defines the type of element regarding to BPMN 2.0 notation.
-    possible types are:Â 
+    type � defines the type of element regarding to BPMN 2.0 notation.
+    possible types are: 
     start event, end event, task, subprocess, exclusive, inclusive and parallel gateway.
     Based on the type of the node following shapes and texts are to be used:
     startevent:((startevent)) i.e., id:startevent:((startevent))
@@ -825,7 +825,7 @@ event:
     Modify the model so that these three tasks form a loop, representing a refinement cycle that continues until approval is reached.
     Use a gateway (e.g., a decision node {Approved}) to close the loop.
     Keep the start and end events, labels and flow direction intact.
-    Redesign the previous mermaid model by adding a refinement loop around the three tasks after the task â€œCollect Requirements
+    Redesign the previous mermaid model by adding a refinement loop around the three tasks after the task ÜSCollect Requirements
 
 
   time:timestamp: '2025-11-04T23:36:06.359232+01:00'

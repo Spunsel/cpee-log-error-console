@@ -136,7 +136,7 @@ event:
       </call>
       <call id="a4" endpoint="">
         <parameters>
-          <label>PrÃ¼fen Labormaterial</label>
+          <label>Prüfen Labormaterial</label>
           <method/>
           <type>:task</type>
           <mid>'sid-FA318C48-1B62-48A9-9DAA-E6080A5FF356'</mid>
@@ -145,7 +145,7 @@ event:
       </call>
       <call id="a3" endpoint="">
         <parameters>
-          <label>DurchfÃ¼hren Untersuchung</label>
+          <label>Durchführen Untersuchung</label>
           <method/>
           <type>:task</type>
           <mid>'sid-4E05D72D-34CE-4D03-A7B1-AE6030057AAF'</mid>
@@ -230,9 +230,9 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a5:task:(Entgegennehmen Labormaterial)
-    a5:task:(Entgegennehmen Labormaterial)-->a4:task:(PrÃ¼fen Labormaterial)
-    a4:task:(PrÃ¼fen Labormaterial)-->a3:task:(DurchfÃ¼hren Untersuchung)
-    a3:task:(DurchfÃ¼hren Untersuchung)-->a2:task:(Erstellen Befund)
+    a5:task:(Entgegennehmen Labormaterial)-->a4:task:(Prüfen Labormaterial)
+    a4:task:(Prüfen Labormaterial)-->a3:task:(Durchführen Untersuchung)
+    a3:task:(Durchführen Untersuchung)-->a2:task:(Erstellen Befund)
     a2:task:(Erstellen Befund)-->ee:endevent:((endevent))
   time:timestamp: '2025-10-27T11:06:45.898015+01:00'
 ---

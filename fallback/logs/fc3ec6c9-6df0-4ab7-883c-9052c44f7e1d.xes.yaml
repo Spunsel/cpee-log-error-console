@@ -120,10 +120,10 @@ event:
   cpee:exposition: |-
     # User Input:
     Der Kunde ruft den Kundensupport an.
-    Der Agent fragt nach der Bestellnummer des Kunden.Â 
-    Der Agent prÃ¼ft die Bestellung.Â 
-    Der Agent informiert den Kunden Ã¼ber den Status der Bestellung.Â 
-    Der Kunde verabschiedet sich.Â 
+    Der Agent fragt nach der Bestellnummer des Kunden. 
+    Der Agent prüft die Bestellung. 
+    Der Agent informiert den Kunden über den Status der Bestellung. 
+    Der Kunde verabschiedet sich. 
   time:timestamp: '2025-12-16T14:36:54.007252+01:00'
 ---
 event:
@@ -164,9 +164,9 @@ event:
     graph LR
       0:startevent:((startevent)) --> 1:task:(Kunde ruft Kundensupport an)
       1:task:(Kunde ruft Kundensupport an) --> 2:task:(Agent fragt nach Bestellnummer)
-      2:task:(Agent fragt nach Bestellnummer) --> 3:task:(Agent prÃ¼ft die Bestellung)
-      3:task:(Agent prÃ¼ft die Bestellung) --> 4:task:(Agent informiert Kunde Ã¼ber Status)
-      4:task:(Agent informiert Kunde Ã¼ber Status) --> 5:task:(Kunde verabschiedet sich)
+      2:task:(Agent fragt nach Bestellnummer) --> 3:task:(Agent prüft die Bestellung)
+      3:task:(Agent prüft die Bestellung) --> 4:task:(Agent informiert Kunde über Status)
+      4:task:(Agent informiert Kunde über Status) --> 5:task:(Kunde verabschiedet sich)
       5:task:(Kunde verabschiedet sich) --> 6:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-16T14:36:54.007543+01:00'
@@ -310,7 +310,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Agent prÃ¼ft die Bestellung</label>
+          <label>Agent prüft die Bestellung</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -318,7 +318,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Agent informiert Kunde Ã¼ber Status</label>
+          <label>Agent informiert Kunde über Status</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -345,7 +345,7 @@ event:
   cpee:change_uuid: 69258e07dcbe9e56a4992ee6b7da57157cedc4dd
   cpee:exposition: |-
     # User Input:
-    Â 
+     
   time:timestamp: '2025-12-16T14:38:28.392153+01:00'
 ---
 event:
@@ -374,9 +374,9 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Kunde ruft Kundensupport an)
     a1:task:(Kunde ruft Kundensupport an)-->a3:task:(Agent fragt nach Bestellnummer)
-    a3:task:(Agent fragt nach Bestellnummer)-->a5:task:(Agent prÃ¼ft die Bestellung)
-    a5:task:(Agent prÃ¼ft die Bestellung)-->a7:task:(Agent informiert Kunde Ã¼ber Status)
-    a7:task:(Agent informiert Kunde Ã¼ber Status)-->a9:task:(Kunde verabschiedet sich)
+    a3:task:(Agent fragt nach Bestellnummer)-->a5:task:(Agent prüft die Bestellung)
+    a5:task:(Agent prüft die Bestellung)-->a7:task:(Agent informiert Kunde über Status)
+    a7:task:(Agent informiert Kunde über Status)-->a9:task:(Kunde verabschiedet sich)
     a9:task:(Kunde verabschiedet sich)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-16T14:38:28.392418+01:00'
 ---
@@ -394,9 +394,9 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Kunde ruft Kundensupport an)
     a1:task:(Kunde ruft Kundensupport an)-->a3:task:(Agent fragt nach Bestellnummer)
-    a3:task:(Agent fragt nach Bestellnummer)-->a5:task:(Agent prÃ¼ft die Bestellung)
-    a5:task:(Agent prÃ¼ft die Bestellung)-->a7:task:(Agent informiert Kunde Ã¼ber Status)
-    a7:task:(Agent informiert Kunde Ã¼ber Status)-->a9:task:(Kunde verabschiedet sich)
+    a3:task:(Agent fragt nach Bestellnummer)-->a5:task:(Agent prüft die Bestellung)
+    a5:task:(Agent prüft die Bestellung)-->a7:task:(Agent informiert Kunde über Status)
+    a7:task:(Agent informiert Kunde über Status)-->a9:task:(Kunde verabschiedet sich)
     a9:task:(Kunde verabschiedet sich)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-16T14:38:28.392573+01:00'
@@ -540,7 +540,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Agent prÃ¼ft die Bestellung</label>
+          <label>Agent prüft die Bestellung</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -548,7 +548,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Agent informiert Kunde Ã¼ber Status</label>
+          <label>Agent informiert Kunde über Status</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -602,9 +602,9 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Kunde ruft Kundensupport an)
     a1:task:(Kunde ruft Kundensupport an)-->a3:task:(Agent fragt nach Bestellnummer)
-    a3:task:(Agent fragt nach Bestellnummer)-->a5:task:(Agent prÃ¼ft die Bestellung)
-    a5:task:(Agent prÃ¼ft die Bestellung)-->a7:task:(Agent informiert Kunde Ã¼ber Status)
-    a7:task:(Agent informiert Kunde Ã¼ber Status)-->a9:task:(Kunde verabschiedet sich)
+    a3:task:(Agent fragt nach Bestellnummer)-->a5:task:(Agent prüft die Bestellung)
+    a5:task:(Agent prüft die Bestellung)-->a7:task:(Agent informiert Kunde über Status)
+    a7:task:(Agent informiert Kunde über Status)-->a9:task:(Kunde verabschiedet sich)
     a9:task:(Kunde verabschiedet sich)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-16T14:38:30.780514+01:00'
 ---
@@ -622,9 +622,9 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Kunde ruft Kundensupport an)
     a1:task:(Kunde ruft Kundensupport an)-->a3:task:(Agent fragt nach Bestellnummer)
-    a3:task:(Agent fragt nach Bestellnummer)-->a5:task:(Agent prÃ¼ft die Bestellung)
-    a5:task:(Agent prÃ¼ft die Bestellung)-->a7:task:(Agent informiert Kunde Ã¼ber Status)
-    a7:task:(Agent informiert Kunde Ã¼ber Status)-->a9:task:(Kunde verabschiedet sich)
+    a3:task:(Agent fragt nach Bestellnummer)-->a5:task:(Agent prüft die Bestellung)
+    a5:task:(Agent prüft die Bestellung)-->a7:task:(Agent informiert Kunde über Status)
+    a7:task:(Agent informiert Kunde über Status)-->a9:task:(Kunde verabschiedet sich)
     a9:task:(Kunde verabschiedet sich)-->ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-16T14:38:30.780884+01:00'

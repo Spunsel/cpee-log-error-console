@@ -135,8 +135,8 @@ event:
 
 
     1. Anfrage erhalten
-    2. Dokumente prÃ¼fen
-    3. wenn nicht genÃ¼gend Informationen, springe zurÃ¼ck zu 2. Wenn genÃ¼gend Informationen, springe zu 4.
+    2. Dokumente prüfen
+    3. wenn nicht genügend Informationen, springe zurück zu 2. Wenn genügend Informationen, springe zu 4.
     4. Votum verfassen
     5. Fall dokumentieren
     6. Fall archivieren
@@ -179,10 +179,10 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Anfrage erhalten)
-        1:task:(Anfrage erhalten) --> 2:task:(Dokumente prÃ¼fen)
-        2:task:(Dokumente prÃ¼fen) --> 3:exclusivegateway:{x}
-        3:exclusivegateway:{x} --> |nicht genÃ¼gend Informationen| 2:task:(Dokumente prÃ¼fen)
-        3:exclusivegateway:{x} --> |genÃ¼gend Informationen| 4:task:(Votum verfassen)
+        1:task:(Anfrage erhalten) --> 2:task:(Dokumente prüfen)
+        2:task:(Dokumente prüfen) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |nicht genügend Informationen| 2:task:(Dokumente prüfen)
+        3:exclusivegateway:{x} --> |genügend Informationen| 4:task:(Votum verfassen)
         4:task:(Votum verfassen) --> 5:task:(Fall dokumentieren)
         5:task:(Fall dokumentieren) --> 6:task:(Fall archivieren)
         6:task:(Fall archivieren) --> 7:endevent:(((endevent)))
@@ -350,16 +350,16 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a3" endpoint="" a:alt_id="2">
           <parameters>
-            <label>Dokumente prÃ¼fen</label>
+            <label>Dokumente prüfen</label>
             <method/>
             <type>:task</type>
             <arguments/>
           </parameters>
         </call>
-        <loop mode="pre_test" condition="nicht genÃ¼gend Informationen" a:alt_id="3" language="text/javascript">
+        <loop mode="pre_test" condition="nicht genügend Informationen" a:alt_id="3" language="text/javascript">
           <call id="a3" endpoint="" a:alt_id="2">
             <parameters>
-              <label>Dokumente prÃ¼fen</label>
+              <label>Dokumente prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -404,7 +404,7 @@ event:
   cpee:change_uuid: 52fcf90b564faca7ddf0ca31d66991f03dd0a535
   cpee:exposition: |-
     # User Input:
-    was hast du hier fÃ¼r komische schleifen modelliert? mach nur eine draus.
+    was hast du hier für komische schleifen modelliert? mach nur eine draus.
   time:timestamp: '2025-12-10T14:31:23.014417+01:00'
 ---
 event:
@@ -434,13 +434,13 @@ event:
     flowchart LR
         se:startevent:((startevent))-->a1:task:(Anfrage erhalten)
         a1:task:(Anfrage erhalten)-->gw1s:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->|"true"|a3:task:(Dokumente prÃ¼fen)
-        a3:task:(Dokumente prÃ¼fen)-->gw2s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"true"|a3:task:(Dokumente prüfen)
+        a3:task:(Dokumente prüfen)-->gw2s:exclusivegateway:{x}
         gw2s:exclusivegateway:{x}-->a9:task:(Votum verfassen)
         a9:task:(Votum verfassen)-->a11:task:(Fall dokumentieren)
         a11:task:(Fall dokumentieren)-->a13:task:(Fall archivieren)
         a13:task:(Fall archivieren)-->gw2e:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|"nicht genÃ¼gend Informationen"|a3:task:(Dokumente prÃ¼fen)
+        gw2s:exclusivegateway:{x}-->|"nicht genügend Informationen"|a3:task:(Dokumente prüfen)
         a3:task: -->-1:escalate:((^))
         -1:escalate:((^))-->gw2e:exclusivegateway:{x}
         gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
@@ -535,14 +535,14 @@ event:
     se:startevent:((startevent))-->a1:task:(Anfrage erhalten)
     a1:task:(Anfrage erhalten)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Dokumente prÃ¼fen)
-    a3:task:(Dokumente prÃ¼fen)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Dokumente prüfen)
+    a3:task:(Dokumente prüfen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->a9:task:(Votum verfassen)
     a9:task:(Votum verfassen)-->a11:task:(Fall dokumentieren)
     a11:task:(Fall dokumentieren)-->a13:task:(Fall archivieren)
     a13:task:(Fall archivieren)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"nicht genÃ¼gend Informationen"|a3:task:(Dokumente prÃ¼fen)
-    a3:task:(Dokumente prÃ¼fen)-->-1:escalate:((^))
+    gw2s:exclusivegateway:{x}-->|"nicht genügend Informationen"|a3:task:(Dokumente prüfen)
+    a3:task:(Dokumente prüfen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -855,16 +855,16 @@ event:
           <loop mode="pre_test" condition="true">
             <call id="a5" endpoint="" a:alt_id="a3">
               <parameters>
-                <label>Dokumente prÃ¼fen</label>
+                <label>Dokumente prüfen</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
               </parameters>
             </call>
-            <loop mode="pre_test" condition="nicht genÃ¼gend Informationen" a:alt_id="gw2s" language="text/javascript">
+            <loop mode="pre_test" condition="nicht genügend Informationen" a:alt_id="gw2s" language="text/javascript">
               <call id="a5" endpoint="" a:alt_id="a3">
                 <parameters>
-                  <label>Dokumente prÃ¼fen</label>
+                  <label>Dokumente prüfen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -913,8 +913,8 @@ event:
   cpee:exposition: |-
     # User Input:
     der prozess startet mit der eigentlichen anfrage.
-    anschlieÃŸend wird die anfrage vom Datenschutzbeauftragten geprÃ¼ft. Wenn die PrÃ¼fung anzeigt, dass Dokumente fehlen, frag bitte beim Antragsteller erneut nach. Dann wird erneut Ã¼berprÃ¼ft.
-    Wenn alle notwendigen Informationen da sind, muss eine Antwort in Form eines Votums verfasst werden. Der Fall wird anschlieÃŸend dokumentiert und archiviert.
+    anschließend wird die anfrage vom Datenschutzbeauftragten geprüft. Wenn die Prüfung anzeigt, dass Dokumente fehlen, frag bitte beim Antragsteller erneut nach. Dann wird erneut überprüft.
+    Wenn alle notwendigen Informationen da sind, muss eine Antwort in Form eines Votums verfasst werden. Der Fall wird anschließend dokumentiert und archiviert.
   time:timestamp: '2025-12-10T14:36:25.940523+01:00'
 ---
 event:
@@ -945,14 +945,14 @@ event:
     a1:task:(Anfrage erhalten)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"true"|gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
-    gw2e:exclusivegateway:{x}-->|"true"|a5:task:(Dokumente prÃ¼fen)
-    a5:task:(Dokumente prÃ¼fen)-->gw3s:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->|"true"|a5:task:(Dokumente prüfen)
+    a5:task:(Dokumente prüfen)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->a9:task:(Votum verfassen)
     a9:task:(Votum verfassen)-->a11:task:(Fall dokumentieren)
     a11:task:(Fall dokumentieren)-->a13:task:(Fall archivieren)
     a13:task:(Fall archivieren)-->gw3e:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"nicht genÃ¼gend Informationen"|a5:task:(Dokumente prÃ¼fen)
-    a5:task:(Dokumente prÃ¼fen)-->-1:escalate:((^))
+    gw3s:exclusivegateway:{x}-->|"nicht genügend Informationen"|a5:task:(Dokumente prüfen)
+    a5:task:(Dokumente prüfen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw3e:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
@@ -973,10 +973,10 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Anfrage erhalten)
-    a1:task:(Anfrage erhalten)-->a2:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
-    a2:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)-->gw1s:exclusivegateway:{x}
+    a1:task:(Anfrage erhalten)-->a2:task:(Anfrage vom Datenschutzbeauftragten prüfen)
+    a2:task:(Anfrage vom Datenschutzbeauftragten prüfen)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Dokumente fehlen"|a3:task:(Antragsteller erneut fragen)
-    a3:task:(Antragsteller erneut fragen)-->a2:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
+    a3:task:(Antragsteller erneut fragen)-->a2:task:(Anfrage vom Datenschutzbeauftragten prüfen)
     gw1s:exclusivegateway:{x}-->|"Alle notwendigen Informationen"|a9:task:(Votum verfassen)
     a9:task:(Votum verfassen)-->a11:task:(Fall dokumentieren)
     a11:task:(Fall dokumentieren)-->a13:task:(Fall archivieren)
@@ -1156,7 +1156,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a3" endpoint="" a:alt_id="a2">
           <parameters>
-            <label>Anfrage vom Datenschutzbeauftragten prÃ¼fen</label>
+            <label>Anfrage vom Datenschutzbeauftragten prüfen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -1173,7 +1173,7 @@ event:
           </call>
           <call id="a3" endpoint="" a:alt_id="a2">
             <parameters>
-              <label>Anfrage vom Datenschutzbeauftragten prÃ¼fen</label>
+              <label>Anfrage vom Datenschutzbeauftragten prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1248,15 +1248,15 @@ event:
     se:startevent:((startevent))-->a1:task:(Anfrage erhalten)
     a1:task:(Anfrage erhalten)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
-    a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)
+    a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->a11:task:(Votum verfassen)
     a11:task:(Votum verfassen)-->a13:task:(Fall dokumentieren)
     a13:task:(Fall dokumentieren)-->a15:task:(Fall archivieren)
     a15:task:(Fall archivieren)-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Dokumente fehlen"|a7:task:(Antragsteller erneut fragen)
-    a7:task:(Antragsteller erneut fragen)-->a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
-    a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)-->-1:escalate:((^))
+    a7:task:(Antragsteller erneut fragen)-->a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)
+    a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -1275,15 +1275,15 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Anfrage erhalten)
-    a1:task:(Anfrage erhalten)-->a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
-    a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)-->gw2s:exclusivegateway:{x}
+    a1:task:(Anfrage erhalten)-->a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)
+    a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->a11:task:(Votum verfassen)
     a11:task:(Votum verfassen)-->a13:task:(Fall dokumentieren)
     a13:task:(Fall dokumentieren)-->a15:task:(Fall archivieren)
     a15:task:(Fall archivieren)-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Dokumente fehlen"|a7:task:(Antragsteller erneut fragen)
-    a7:task:(Antragsteller erneut fragen)-->a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
-    a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)-->-1:escalate:((^))
+    a7:task:(Antragsteller erneut fragen)-->a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)
+    a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
     ```
@@ -1461,7 +1461,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a3" endpoint="" a:alt_id="a3">
           <parameters>
-            <label>Anfrage vom Datenschutzbeauftragten prÃ¼fen</label>
+            <label>Anfrage vom Datenschutzbeauftragten prüfen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -1478,7 +1478,7 @@ event:
           </call>
           <call id="a3" endpoint="" a:alt_id="a3">
             <parameters>
-              <label>Anfrage vom Datenschutzbeauftragten prÃ¼fen</label>
+              <label>Anfrage vom Datenschutzbeauftragten prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1523,7 +1523,7 @@ event:
   cpee:change_uuid: 189bdd650c15a15a8371529a4f09ce7a76d85882
   cpee:exposition: |-
     # User Input:
-    der prozess startet mit der eigentlichen anfrage.anschlieÃŸend wird die anfrage vom Datenschutzbeauftragten geprÃ¼ft. Wenn die PrÃ¼fung anzeigt, dass Dokumente fehlen, frag bitte beim Antragsteller erneut nach. Dann wird erneut Ã¼berprÃ¼ft.Wenn alle notwendigen Informationen da sind, muss eine Antwort in Form eines Votums verfasst werden. Der Fall wird anschlieÃŸend dokumentiert und archiviert.
+    der prozess startet mit der eigentlichen anfrage.anschließend wird die anfrage vom Datenschutzbeauftragten geprüft. Wenn die Prüfung anzeigt, dass Dokumente fehlen, frag bitte beim Antragsteller erneut nach. Dann wird erneut überprüft.Wenn alle notwendigen Informationen da sind, muss eine Antwort in Form eines Votums verfasst werden. Der Fall wird anschließend dokumentiert und archiviert.
   time:timestamp: '2025-12-10T14:39:23.485887+01:00'
 ---
 event:
@@ -1553,15 +1553,15 @@ event:
     se:startevent:((startevent))-->a1:task:(Anfrage erhalten)
     a1:task:(Anfrage erhalten)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
-    a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)
+    a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->a7:task:(Votum verfassen)
     a7:task:(Votum verfassen)-->a9:task:(Fall dokumentieren)
     a9:task:(Fall dokumentieren)-->a11:task:(Fall archivieren)
     a11:task:(Fall archivieren)-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Dokumente fehlen"|a15:task:(Antragsteller erneut fragen)
-    a15:task:(Antragsteller erneut fragen)-->a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
-    a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)-->-1:escalate:((^))
+    a15:task:(Antragsteller erneut fragen)-->a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)
+    a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -1577,7 +1577,7 @@ event:
   cpee:change_uuid: 189bdd650c15a15a8371529a4f09ce7a76d85882
   cpee:exposition: "%% Output Intermediate\ngraph LR\n0:startevent:((startevent))\n0:startevent:((startevent))
     --> 1:task:(Anfrage erhalten)\n1:task:(Anfrage erhalten) --> 2:task:(Anfrage vom
-    Datenschutzbeauftragten prÃ¼fen)\n2:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
+    Datenschutzbeauftragten prüfen)\n2:task:(Anfrage vom Datenschutzbeauftragten prüfen)
     --> 3:exclusivegateway:{x}\n3:exclusivegateway:{x} --> |\"Dokumente fehlen\"|
     4:task:(Antragsteller erneut fragen)\n4:task:(Antragsteller erneut fragen) -->
     2:task: \n3:exclusivegateway:{x} --> |\"alle Informationen vorhanden\"| 5:task:(Votum
@@ -1757,7 +1757,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a3" endpoint="" a:alt_id="2">
           <parameters>
-            <label>Anfrage vom Datenschutzbeauftragten prÃ¼fen</label>
+            <label>Anfrage vom Datenschutzbeauftragten prüfen</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -1774,7 +1774,7 @@ event:
           </call>
           <call id="a3" endpoint="" a:alt_id="2">
             <parameters>
-              <label>Anfrage vom Datenschutzbeauftragten prÃ¼fen</label>
+              <label>Anfrage vom Datenschutzbeauftragten prüfen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1819,7 +1819,7 @@ event:
   cpee:change_uuid: 189bdd650c15a15a8371529a4f09ce7a76d85882
   cpee:exposition: |-
     # User Input:
-    der prozess startet mit der eigentlichen anfrage.anschlieÃŸend wird die anfrage vom Datenschutzbeauftragten geprÃ¼ft. Wenn die PrÃ¼fung anzeigt, dass Dokumente fehlen, frag bitte beim Antragsteller erneut nach. Dann wird erneut Ã¼berprÃ¼ft.Wenn alle notwendigen Informationen da sind, muss eine Antwort in Form eines Votums verfasst werden. Der Fall wird anschlieÃŸend dokumentiert und archiviert.
+    der prozess startet mit der eigentlichen anfrage.anschließend wird die anfrage vom Datenschutzbeauftragten geprüft. Wenn die Prüfung anzeigt, dass Dokumente fehlen, frag bitte beim Antragsteller erneut nach. Dann wird erneut überprüft.Wenn alle notwendigen Informationen da sind, muss eine Antwort in Form eines Votums verfasst werden. Der Fall wird anschließend dokumentiert und archiviert.
   time:timestamp: '2025-12-10T14:40:07.694522+01:00'
 ---
 event:
@@ -1849,15 +1849,15 @@ event:
     se:startevent:((startevent))-->a1:task:(Anfrage erhalten)
     a1:task:(Anfrage erhalten)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
-    a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)
+    a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->a11:task:(Votum verfassen)
     a11:task:(Votum verfassen)-->a13:task:(Fall dokumentieren)
     a13:task:(Fall dokumentieren)-->a15:task:(Fall archivieren)
     a15:task:(Fall archivieren)-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Dokumente fehlen"|a7:task:(Antragsteller erneut fragen)
-    a7:task:(Antragsteller erneut fragen)-->a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
-    a3:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)-->-1:escalate:((^))
+    a7:task:(Antragsteller erneut fragen)-->a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)
+    a3:task:(Anfrage vom Datenschutzbeauftragten prüfen)-->-1:escalate:((^))
     -1:escalate:((^))-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -1873,7 +1873,7 @@ event:
   cpee:change_uuid: 189bdd650c15a15a8371529a4f09ce7a76d85882
   cpee:exposition: "%% Output Intermediate\ngraph LR\n0:startevent:((startevent))\n0:startevent:((startevent))
     --> 1:task:(Anfrage erhalten)\n1:task:(Anfrage erhalten) --> 2:task:(Anfrage vom
-    Datenschutzbeauftragten prÃ¼fen)\n2:task:(Anfrage vom Datenschutzbeauftragten prÃ¼fen)
+    Datenschutzbeauftragten prüfen)\n2:task:(Anfrage vom Datenschutzbeauftragten prüfen)
     --> 3:exclusivegateway:{x}\n3:exclusivegateway:{x} --> |\"Dokumente fehlen\"|
     4:task:(Antragsteller erneut fragen)\n4:task:(Antragsteller erneut fragen) -->
     2:task: \n3:exclusivegateway:{x} --> |\"alle Informationen vorhanden\"| 5:task:(Votum
@@ -2045,7 +2045,7 @@ event:
   cpee:change_uuid: cb1f04601af98b0c5d2483e05111dda74df6a0e4
   cpee:exposition: |-
     # User Input:
-    der prozess startet mit der eigentlichen anfrage.anschlieÃŸend wird die anfrage vom Datenschutzbeauftragten geprÃ¼ft. Wenn die PrÃ¼fung anzeigt, dass Dokumente fehlen, frag bitte beim Antragsteller erneut nach. Dann wird erneut Ã¼berprÃ¼ft.Wenn alle notwendigen Informationen da sind, muss eine Antwort in Form eines Votums verfasst werden. Der Fall wird anschlieÃŸend dokumentiert und archiviert.
+    der prozess startet mit der eigentlichen anfrage.anschließend wird die anfrage vom Datenschutzbeauftragten geprüft. Wenn die Prüfung anzeigt, dass Dokumente fehlen, frag bitte beim Antragsteller erneut nach. Dann wird erneut überprüft.Wenn alle notwendigen Informationen da sind, muss eine Antwort in Form eines Votums verfasst werden. Der Fall wird anschließend dokumentiert und archiviert.
   time:timestamp: '2025-12-10T14:40:51.533172+01:00'
 ---
 event:
@@ -2085,10 +2085,10 @@ event:
     ```mermaid
     graph LR
     0:startevent:((startevent)) --> 1:task:(Anfrage erhalten)
-    1:task:(Anfrage erhalten) --> 2:task:(DatenschutzprÃ¼fung)
-    2:task:(DatenschutzprÃ¼fung) --> 3:exclusivegateway:{x}
+    1:task:(Anfrage erhalten) --> 2:task:(Datenschutzprüfung)
+    2:task:(Datenschutzprüfung) --> 3:exclusivegateway:{x}
     3:exclusivegateway:{x} --> |Dokumente fehlen| 4:task:(Nachfrage beim Antragsteller)
-    4:task:(Nachfrage beim Antragsteller) --> 2:task:(DatenschutzprÃ¼fung)
+    4:task:(Nachfrage beim Antragsteller) --> 2:task:(Datenschutzprüfung)
     3:exclusivegateway:{x} --> |Alle Informationen vorhanden| 5:task:(Votum verfassen)
     5:task:(Votum verfassen) --> 6:task:(Fall dokumentieren und archivieren)
     6:task:(Fall dokumentieren und archivieren) --> 7:endevent:(((endevent)))

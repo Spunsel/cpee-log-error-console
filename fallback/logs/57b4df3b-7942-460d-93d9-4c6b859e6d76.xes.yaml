@@ -215,24 +215,24 @@ event:
     # User Input:
     Workshop Prozessmanagement 10.12.2025
     1. Licht anschalten
-    2. ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
-    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln
-    4. Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben
-    5. Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind
-    6. Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben
-    7. Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen
-    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen
-    9. Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen
+    2. Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
+    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln
+    4. Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben
+    5. Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind
+    6. Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben
+    7. Temperatur des Topfes reduzieren und die Sauce köcheln lassen
+    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen
+    9. Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen
     10. Sieb in den Abguss stellen
-    11. Sauce ab und zu umrÃ¼hren, GewÃ¼rze hinzufÃ¼gen und abschmecken
-    12. WÃ¤hrend die Nudeln kochen und die Sauce auf dem Herd kÃ¶chelt, kann der Tisch gedeckt werden
-    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen
-    14. Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen
+    11. Sauce ab und zu umrühren, Gewürze hinzufügen und abschmecken
+    12. Während die Nudeln kochen und die Sauce auf dem Herd köchelt, kann der Tisch gedeckt werden
+    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen
+    14. Nudeln in das Sieb kippen und in eine Schüssel kippen
     15. Herd abschalten
-    16. Topf und SchÃ¼ssel auf den Tisch stellen
+    16. Topf und Schüssel auf den Tisch stellen
     17. Guten Appetit
     Parallel:
-    - Sauce kÃ¶chelt auf dem Herd und das Nudelwasser kocht
+    - Sauce köchelt auf dem Herd und das Nudelwasser kocht
     - Tisch decken
     -
 
@@ -276,24 +276,24 @@ event:
     ```mermaid
     graph LR
       0:startevent:((startevent)) --> 1:task:(Licht anschalten)
-      1:task:(Licht anschalten) --> 2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-      2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-      3:task:(Zwiebeln und Knoblauch wÃ¼rfeln) --> 4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-      4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andÃ¼nsten)
-      5:task:(Zwiebel und Knoblauch andÃ¼nsten) --> 6:task:(Tomaten in Topf geben)
-      6:task:(Tomaten in Topf geben) --> 7:task:(Temperatur reduzieren, Sauce kÃ¶cheln)
-      7:task:(Temperatur reduzieren, Sauce kÃ¶cheln) --> 8:task:(Zweiten Topf mit Wasser fÃ¼llen und erhitzen)
-      8:task:(Zweiten Topf mit Wasser fÃ¼llen und erhitzen) --> 9:parallelgateway:{AND}
+      1:task:(Licht anschalten) --> 2:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+      2:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch würfeln)
+      3:task:(Zwiebeln und Knoblauch würfeln) --> 4:task:(Topf auf Herd, Herd an, �l in Pfanne)
+      4:task:(Topf auf Herd, Herd an, �l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andünsten)
+      5:task:(Zwiebel und Knoblauch andünsten) --> 6:task:(Tomaten in Topf geben)
+      6:task:(Tomaten in Topf geben) --> 7:task:(Temperatur reduzieren, Sauce köcheln)
+      7:task:(Temperatur reduzieren, Sauce köcheln) --> 8:task:(Zweiten Topf mit Wasser füllen und erhitzen)
+      8:task:(Zweiten Topf mit Wasser füllen und erhitzen) --> 9:parallelgateway:{AND}
       9:parallelgateway:{AND} --> 10:task:(Nudeln kochen)
       9:parallelgateway:{AND} --> 16:task:(Tisch decken)
       10:task:(Nudeln kochen) --> 11:parallelgateway:{AND}
       16:task:(Tisch decken) --> 11:parallelgateway:{AND}
       11:parallelgateway:{AND} --> 12:task:(Sieb vorbereiten)
-      12:task:(Sieb vorbereiten) --> 13:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)
-      13:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken) --> 14:task:(Nudeln abgieÃŸen)
-      14:task:(Nudeln abgieÃŸen) --> 15:task:(Herd abschalten)
-      15:task:(Herd abschalten) --> 17:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-      17:task:(Topf und SchÃ¼ssel auf Tisch stellen) --> 18:task:(Guten Appetit)
+      12:task:(Sieb vorbereiten) --> 13:task:(Sauce umrühren, würzen, abschmecken)
+      13:task:(Sauce umrühren, würzen, abschmecken) --> 14:task:(Nudeln abgießen)
+      14:task:(Nudeln abgießen) --> 15:task:(Herd abschalten)
+      15:task:(Herd abschalten) --> 17:task:(Topf und Schüssel auf Tisch stellen)
+      17:task:(Topf und Schüssel auf Tisch stellen) --> 18:task:(Guten Appetit)
       18:task:(Guten Appetit) --> 19:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-10T14:04:52.963841+01:00'
@@ -482,7 +482,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <label>Arbeitsfläche freiräumen und Zutaten vorbereiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -490,7 +490,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <label>Zwiebeln und Knoblauch würfeln</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -498,7 +498,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <label>Topf auf Herd, Herd an, �l in Pfanne</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -506,7 +506,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="5">
         <parameters>
-          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <label>Zwiebel und Knoblauch andünsten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -522,7 +522,7 @@ event:
       </call>
       <call id="a13" endpoint="" a:alt_id="7">
         <parameters>
-          <label>Temperatur reduzieren, Sauce kÃ¶cheln</label>
+          <label>Temperatur reduzieren, Sauce köcheln</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -530,7 +530,7 @@ event:
       </call>
       <call id="a15" endpoint="" a:alt_id="8">
         <parameters>
-          <label>Zweiten Topf mit Wasser fÃ¼llen und erhitzen</label>
+          <label>Zweiten Topf mit Wasser füllen und erhitzen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -568,7 +568,7 @@ event:
       </call>
       <call id="a29" endpoint="" a:alt_id="13">
         <parameters>
-          <label>Sauce umrÃ¼hren, wÃ¼rzen, abschmecken</label>
+          <label>Sauce umrühren, würzen, abschmecken</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -576,7 +576,7 @@ event:
       </call>
       <call id="a31" endpoint="" a:alt_id="14">
         <parameters>
-          <label>Nudeln abgieÃŸen</label>
+          <label>Nudeln abgießen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -592,7 +592,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="17">
         <parameters>
-          <label>Topf und SchÃ¼ssel auf Tisch stellen</label>
+          <label>Topf und Schüssel auf Tisch stellen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -619,7 +619,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche alles
+    lösche alles
   time:timestamp: '2025-12-10T14:05:20.240979+01:00'
 ---
 event:
@@ -647,24 +647,24 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
-    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten in Topf geben)
-    a11:task:(Tomaten in Topf geben)-->a13:task:(Temperatur reduzieren, Sauce kÃ¶cheln)
-    a13:task:(Temperatur reduzieren, Sauce kÃ¶cheln)-->a15:task:(Zweiten Topf mit Wasser fÃ¼llen und erhitzen)
-    a15:task:(Zweiten Topf mit Wasser fÃ¼llen und erhitzen)-->gw1s:parallelgateway:{AND}
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch würfeln)
+    a5:task:(Zwiebeln und Knoblauch würfeln)-->a7:task:(Topf auf Herd, Herd an, �l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, �l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andünsten)
+    a9:task:(Zwiebel und Knoblauch andünsten)-->a11:task:(Tomaten in Topf geben)
+    a11:task:(Tomaten in Topf geben)-->a13:task:(Temperatur reduzieren, Sauce köcheln)
+    a13:task:(Temperatur reduzieren, Sauce köcheln)-->a15:task:(Zweiten Topf mit Wasser füllen und erhitzen)
+    a15:task:(Zweiten Topf mit Wasser füllen und erhitzen)-->gw1s:parallelgateway:{AND}
     -->a19:task:(Nudeln kochen)
     a19:task:(Nudeln kochen)-->gw1e:parallelgateway:{AND}
     -->a21:task:(Tisch decken)
     a21:task:(Tisch decken)-->gw1e:parallelgateway:{AND}
     gw1e:parallelgateway:{AND}-->a27:task:(Sieb vorbereiten)
-    a27:task:(Sieb vorbereiten)-->a29:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)
-    a29:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)-->a31:task:(Nudeln abgieÃŸen)
-    a31:task:(Nudeln abgieÃŸen)-->a33:task:(Herd abschalten)
-    a33:task:(Herd abschalten)-->a35:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-    a35:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->a37:task:(Guten Appetit)
+    a27:task:(Sieb vorbereiten)-->a29:task:(Sauce umrühren, würzen, abschmecken)
+    a29:task:(Sauce umrühren, würzen, abschmecken)-->a31:task:(Nudeln abgießen)
+    a31:task:(Nudeln abgießen)-->a33:task:(Herd abschalten)
+    a33:task:(Herd abschalten)-->a35:task:(Topf und Schüssel auf Tisch stellen)
+    a35:task:(Topf und Schüssel auf Tisch stellen)-->a37:task:(Guten Appetit)
     a37:task:(Guten Appetit)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T14:05:20.241279+01:00'
 ---
@@ -864,21 +864,21 @@ event:
   cpee:exposition: |+
     # User Input:
     1. Licht anschalten
-    2. ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
-    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln
-    4. Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben
-    5. Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind
-    6. Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben
-    7. Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen
-    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen
-    9. Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen
+    2. Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
+    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln
+    4. Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben
+    5. Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind
+    6. Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben
+    7. Temperatur des Topfes reduzieren und die Sauce köcheln lassen
+    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen
+    9. Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen
     10. Sieb in den Abguss stellen
-    11. Sauce ab und zu umrÃ¼hren, GewÃ¼rze hinzufÃ¼gen und abschmecken
-    12. WÃ¤hrend die Nudeln kochen und die Sauce auf dem Herd kÃ¶chelt, kann der Tisch gedeckt werden
-    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen
-    14. Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen
+    11. Sauce ab und zu umrühren, Gewürze hinzufügen und abschmecken
+    12. Während die Nudeln kochen und die Sauce auf dem Herd köchelt, kann der Tisch gedeckt werden
+    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen
+    14. Nudeln in das Sieb kippen und in eine Schüssel kippen
     15. Herd abschalten
-    16. Topf und SchÃ¼ssel auf den Tisch stellen
+    16. Topf und Schüssel auf den Tisch stellen
     17. Guten Appetit
 
   time:timestamp: '2025-12-10T14:05:56.452726+01:00'
@@ -921,21 +921,21 @@ event:
     ```mermaid
     graph LR
         0:startevent:((startevent)) --> 1:task:(Licht anschalten)
-        1:task:(Licht anschalten) --> 2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-        2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-        3:task:(Zwiebeln und Knoblauch wÃ¼rfeln) --> 4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-        4:task:(Topf auf Herd, Herd an, Ã–l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andÃ¼nsten)
-        5:task:(Zwiebel und Knoblauch andÃ¼nsten) --> 6:task:(Tomaten Ã¶ffnen und in Topf geben)
-        6:task:(Tomaten Ã¶ffnen und in Topf geben) --> 7:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-        7:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen) --> 8:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)
-        8:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten) --> 9:task:(Nudeln kochen)
+        1:task:(Licht anschalten) --> 2:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+        2:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten) --> 3:task:(Zwiebeln und Knoblauch würfeln)
+        3:task:(Zwiebeln und Knoblauch würfeln) --> 4:task:(Topf auf Herd, Herd an, �l in Pfanne)
+        4:task:(Topf auf Herd, Herd an, �l in Pfanne) --> 5:task:(Zwiebel und Knoblauch andünsten)
+        5:task:(Zwiebel und Knoblauch andünsten) --> 6:task:(Tomaten öffnen und in Topf geben)
+        6:task:(Tomaten öffnen und in Topf geben) --> 7:task:(Temperatur reduzieren und Sauce köcheln lassen)
+        7:task:(Temperatur reduzieren und Sauce köcheln lassen) --> 8:task:(Zweiten Topf für Nudeln vorbereiten)
+        8:task:(Zweiten Topf für Nudeln vorbereiten) --> 9:task:(Nudeln kochen)
         9:task:(Nudeln kochen) --> 10:task:(Sieb vorbereiten)
-        10:task:(Sieb vorbereiten) --> 11:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)
-        11:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken) --> 12:task:(Tisch decken)
-        12:task:(Tisch decken) --> 14:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)
-        14:task:(Nudeln abgieÃŸen und in SchÃ¼ssel) --> 15:task:(Herd abschalten)
-        15:task:(Herd abschalten) --> 16:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-        16:task:(Topf und SchÃ¼ssel auf Tisch stellen) --> 17:task:(Guten Appetit)
+        10:task:(Sieb vorbereiten) --> 11:task:(Sauce umrühren, würzen, abschmecken)
+        11:task:(Sauce umrühren, würzen, abschmecken) --> 12:task:(Tisch decken)
+        12:task:(Tisch decken) --> 14:task:(Nudeln abgießen und in Schüssel)
+        14:task:(Nudeln abgießen und in Schüssel) --> 15:task:(Herd abschalten)
+        15:task:(Herd abschalten) --> 16:task:(Topf und Schüssel auf Tisch stellen)
+        16:task:(Topf und Schüssel auf Tisch stellen) --> 17:task:(Guten Appetit)
         17:task:(Guten Appetit) --> 18:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-10T14:05:56.453041+01:00'
@@ -1261,7 +1261,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <label>Arbeitsfläche freiräumen und Zutaten vorbereiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1269,7 +1269,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <label>Zwiebeln und Knoblauch würfeln</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1277,7 +1277,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <label>Topf auf Herd, Herd an, �l in Pfanne</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1285,7 +1285,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="5">
         <parameters>
-          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <label>Zwiebel und Knoblauch andünsten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1293,7 +1293,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="6">
         <parameters>
-          <label>Tomaten Ã¶ffnen und in Topf geben</label>
+          <label>Tomaten öffnen und in Topf geben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1301,7 +1301,7 @@ event:
       </call>
       <call id="a13" endpoint="" a:alt_id="7">
         <parameters>
-          <label>Temperatur reduzieren und Sauce kÃ¶cheln lassen</label>
+          <label>Temperatur reduzieren und Sauce köcheln lassen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1309,7 +1309,7 @@ event:
       </call>
       <call id="a15" endpoint="" a:alt_id="8">
         <parameters>
-          <label>Zweiten Topf fÃ¼r Nudeln vorbereiten</label>
+          <label>Zweiten Topf für Nudeln vorbereiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1333,7 +1333,7 @@ event:
       </call>
       <call id="a21" endpoint="" a:alt_id="11">
         <parameters>
-          <label>Sauce umrÃ¼hren, wÃ¼rzen, abschmecken</label>
+          <label>Sauce umrühren, würzen, abschmecken</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1349,7 +1349,7 @@ event:
       </call>
       <call id="a25" endpoint="" a:alt_id="14">
         <parameters>
-          <label>Nudeln abgieÃŸen und in SchÃ¼ssel</label>
+          <label>Nudeln abgießen und in Schüssel</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1365,7 +1365,7 @@ event:
       </call>
       <call id="a29" endpoint="" a:alt_id="16">
         <parameters>
-          <label>Topf und SchÃ¼ssel auf Tisch stellen</label>
+          <label>Topf und Schüssel auf Tisch stellen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1392,7 +1392,7 @@ event:
   cpee:change_uuid: 51b6843ba5d7613ca209c375ae4ad1a25aff5172
   cpee:exposition: |-
     # User Input:
-    fÃ¼ge als komplett parallelen zweig ein, dass wir nebenher noch fernseh schauen
+    füge als komplett parallelen zweig ein, dass wir nebenher noch fernseh schauen
   time:timestamp: '2025-12-10T14:07:30.166169+01:00'
 ---
 event:
@@ -1420,21 +1420,21 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
-    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten Ã¶ffnen und in Topf geben)
-    a11:task:(Tomaten Ã¶ffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)-->a15:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)
-    a15:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)-->a17:task:(Nudeln kochen)
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch würfeln)
+    a5:task:(Zwiebeln und Knoblauch würfeln)-->a7:task:(Topf auf Herd, Herd an, �l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, �l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andünsten)
+    a9:task:(Zwiebel und Knoblauch andünsten)-->a11:task:(Tomaten öffnen und in Topf geben)
+    a11:task:(Tomaten öffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce köcheln lassen)
+    a13:task:(Temperatur reduzieren und Sauce köcheln lassen)-->a15:task:(Zweiten Topf für Nudeln vorbereiten)
+    a15:task:(Zweiten Topf für Nudeln vorbereiten)-->a17:task:(Nudeln kochen)
     a17:task:(Nudeln kochen)-->a19:task:(Sieb vorbereiten)
-    a19:task:(Sieb vorbereiten)-->a21:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)
-    a21:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)-->a23:task:(Tisch decken)
-    a23:task:(Tisch decken)-->a25:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)
-    a25:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)-->a27:task:(Herd abschalten)
-    a27:task:(Herd abschalten)-->a29:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-    a29:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->a31:task:(Guten Appetit)
+    a19:task:(Sieb vorbereiten)-->a21:task:(Sauce umrühren, würzen, abschmecken)
+    a21:task:(Sauce umrühren, würzen, abschmecken)-->a23:task:(Tisch decken)
+    a23:task:(Tisch decken)-->a25:task:(Nudeln abgießen und in Schüssel)
+    a25:task:(Nudeln abgießen und in Schüssel)-->a27:task:(Herd abschalten)
+    a27:task:(Herd abschalten)-->a29:task:(Topf und Schüssel auf Tisch stellen)
+    a29:task:(Topf und Schüssel auf Tisch stellen)-->a31:task:(Guten Appetit)
     a31:task:(Guten Appetit)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T14:07:30.167561+01:00'
 ---
@@ -1451,24 +1451,24 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
-    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten Ã¶ffnen und in Topf geben)
-    a11:task:(Tomaten Ã¶ffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)-->pg1:parallelgateway:{AND}
-    pg1:parallelgateway:{AND}-->a15:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)
-    pg1:parallelgateway:{AND}-->tv1:task:(Fernseher einschalten und Lieblingssendung auswÃ¤hlen)
-    a15:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)-->a17:task:(Nudeln kochen)
-    tv1:task:(Fernseher einschalten und Lieblingssendung auswÃ¤hlen)-->a17:task:
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch würfeln)
+    a5:task:(Zwiebeln und Knoblauch würfeln)-->a7:task:(Topf auf Herd, Herd an, �l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, �l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andünsten)
+    a9:task:(Zwiebel und Knoblauch andünsten)-->a11:task:(Tomaten öffnen und in Topf geben)
+    a11:task:(Tomaten öffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce köcheln lassen)
+    a13:task:(Temperatur reduzieren und Sauce köcheln lassen)-->pg1:parallelgateway:{AND}
+    pg1:parallelgateway:{AND}-->a15:task:(Zweiten Topf für Nudeln vorbereiten)
+    pg1:parallelgateway:{AND}-->tv1:task:(Fernseher einschalten und Lieblingssendung auswählen)
+    a15:task:(Zweiten Topf für Nudeln vorbereiten)-->a17:task:(Nudeln kochen)
+    tv1:task:(Fernseher einschalten und Lieblingssendung auswählen)-->a17:task:
     a17:task:(Nudeln kochen)-->a19:task:(Sieb vorbereiten)
-    a19:task:(Sieb vorbereiten)-->a21:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)
-    a21:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)-->a23:task:(Tisch decken)
-    a23:task:(Tisch decken)-->a25:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)
-    a25:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)-->a27:task:(Herd abschalten)
-    a27:task:(Herd abschalten)-->a29:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-    a29:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->a31:task:(Guten Appetit)
+    a19:task:(Sieb vorbereiten)-->a21:task:(Sauce umrühren, würzen, abschmecken)
+    a21:task:(Sauce umrühren, würzen, abschmecken)-->a23:task:(Tisch decken)
+    a23:task:(Tisch decken)-->a25:task:(Nudeln abgießen und in Schüssel)
+    a25:task:(Nudeln abgießen und in Schüssel)-->a27:task:(Herd abschalten)
+    a27:task:(Herd abschalten)-->a29:task:(Topf und Schüssel auf Tisch stellen)
+    a29:task:(Topf und Schüssel auf Tisch stellen)-->a31:task:(Guten Appetit)
     a31:task:(Guten Appetit)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2025-12-10T14:07:30.167722+01:00'
@@ -1808,7 +1808,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+          <label>Arbeitsfläche freiräumen und Zutaten vorbereiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1816,7 +1816,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="a5">
         <parameters>
-          <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+          <label>Zwiebeln und Knoblauch würfeln</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1824,7 +1824,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+          <label>Topf auf Herd, Herd an, �l in Pfanne</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1832,7 +1832,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a9">
         <parameters>
-          <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+          <label>Zwiebel und Knoblauch andünsten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1840,7 +1840,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="a11">
         <parameters>
-          <label>Tomaten Ã¶ffnen und in Topf geben</label>
+          <label>Tomaten öffnen und in Topf geben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1848,7 +1848,7 @@ event:
       </call>
       <call id="a13" endpoint="" a:alt_id="a13">
         <parameters>
-          <label>Temperatur reduzieren und Sauce kÃ¶cheln lassen</label>
+          <label>Temperatur reduzieren und Sauce köcheln lassen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1858,7 +1858,7 @@ event:
         <parallel_branch>
           <call id="a17" endpoint="" a:alt_id="a15">
             <parameters>
-              <label>Zweiten Topf fÃ¼r Nudeln vorbereiten</label>
+              <label>Zweiten Topf für Nudeln vorbereiten</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1868,7 +1868,7 @@ event:
         <parallel_branch>
           <call id="a19" endpoint="" a:alt_id="tv1">
             <parameters>
-              <label>Fernseher einschalten und Lieblingssendung auswÃ¤hlen</label>
+              <label>Fernseher einschalten und Lieblingssendung auswählen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1894,7 +1894,7 @@ event:
       </call>
       <call id="a27" endpoint="" a:alt_id="a21">
         <parameters>
-          <label>Sauce umrÃ¼hren, wÃ¼rzen, abschmecken</label>
+          <label>Sauce umrühren, würzen, abschmecken</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1910,7 +1910,7 @@ event:
       </call>
       <call id="a31" endpoint="" a:alt_id="a25">
         <parameters>
-          <label>Nudeln abgieÃŸen und in SchÃ¼ssel</label>
+          <label>Nudeln abgießen und in Schüssel</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1926,7 +1926,7 @@ event:
       </call>
       <call id="a35" endpoint="" a:alt_id="a29">
         <parameters>
-          <label>Topf und SchÃ¼ssel auf Tisch stellen</label>
+          <label>Topf und Schüssel auf Tisch stellen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -1981,25 +1981,25 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
-    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten Ã¶ffnen und in Topf geben)
-    a11:task:(Tomaten Ã¶ffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)-->gw1s:parallelgateway:{AND}
-    -->a17:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)
-    a17:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)-->gw1e:parallelgateway:{AND}
-    -->a19:task:(Fernseher einschalten und Lieblingssendung auswÃ¤hlen)
-    a19:task:(Fernseher einschalten und Lieblingssendung auswÃ¤hlen)-->gw1e:parallelgateway:{AND}
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch würfeln)
+    a5:task:(Zwiebeln und Knoblauch würfeln)-->a7:task:(Topf auf Herd, Herd an, �l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, �l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andünsten)
+    a9:task:(Zwiebel und Knoblauch andünsten)-->a11:task:(Tomaten öffnen und in Topf geben)
+    a11:task:(Tomaten öffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce köcheln lassen)
+    a13:task:(Temperatur reduzieren und Sauce köcheln lassen)-->gw1s:parallelgateway:{AND}
+    -->a17:task:(Zweiten Topf für Nudeln vorbereiten)
+    a17:task:(Zweiten Topf für Nudeln vorbereiten)-->gw1e:parallelgateway:{AND}
+    -->a19:task:(Fernseher einschalten und Lieblingssendung auswählen)
+    a19:task:(Fernseher einschalten und Lieblingssendung auswählen)-->gw1e:parallelgateway:{AND}
     gw1e:parallelgateway:{AND}-->a21:task:(Nudeln kochen)
     a21:task:(Nudeln kochen)-->a25:task:(Sieb vorbereiten)
-    a25:task:(Sieb vorbereiten)-->a27:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)
-    a27:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)-->a29:task:(Tisch decken)
-    a29:task:(Tisch decken)-->a31:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)
-    a31:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)-->a33:task:(Herd abschalten)
-    a33:task:(Herd abschalten)-->a35:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-    a35:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->a37:task:(Guten Appetit)
+    a25:task:(Sieb vorbereiten)-->a27:task:(Sauce umrühren, würzen, abschmecken)
+    a27:task:(Sauce umrühren, würzen, abschmecken)-->a29:task:(Tisch decken)
+    a29:task:(Tisch decken)-->a31:task:(Nudeln abgießen und in Schüssel)
+    a31:task:(Nudeln abgießen und in Schüssel)-->a33:task:(Herd abschalten)
+    a33:task:(Herd abschalten)-->a35:task:(Topf und Schüssel auf Tisch stellen)
+    a35:task:(Topf und Schüssel auf Tisch stellen)-->a37:task:(Guten Appetit)
     a37:task:(Guten Appetit)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T14:08:14.796332+01:00'
 ---
@@ -2017,24 +2017,24 @@ event:
     flowchart LR
     se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
     gw1s:parallelgateway:{AND}-->a1:task:(Licht anschalten)
-    gw1s:parallelgateway:{AND}-->a19:task:(Fernseher einschalten und Lieblingssendung auswÃ¤hlen)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-    a7:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andÃ¼nsten)
-    a9:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a11:task:(Tomaten Ã¶ffnen und in Topf geben)
-    a11:task:(Tomaten Ã¶ffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)-->a17:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)
-    a17:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)-->gw1e:parallelgateway:{AND}
-    a19:task:(Fernseher einschalten und Lieblingssendung auswÃ¤hlen)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a19:task:(Fernseher einschalten und Lieblingssendung auswählen)
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)-->a5:task:(Zwiebeln und Knoblauch würfeln)
+    a5:task:(Zwiebeln und Knoblauch würfeln)-->a7:task:(Topf auf Herd, Herd an, �l in Pfanne)
+    a7:task:(Topf auf Herd, Herd an, �l in Pfanne)-->a9:task:(Zwiebel und Knoblauch andünsten)
+    a9:task:(Zwiebel und Knoblauch andünsten)-->a11:task:(Tomaten öffnen und in Topf geben)
+    a11:task:(Tomaten öffnen und in Topf geben)-->a13:task:(Temperatur reduzieren und Sauce köcheln lassen)
+    a13:task:(Temperatur reduzieren und Sauce köcheln lassen)-->a17:task:(Zweiten Topf für Nudeln vorbereiten)
+    a17:task:(Zweiten Topf für Nudeln vorbereiten)-->gw1e:parallelgateway:{AND}
+    a19:task:(Fernseher einschalten und Lieblingssendung auswählen)-->gw1e:parallelgateway:{AND}
     gw1e:parallelgateway:{AND}-->a21:task:(Nudeln kochen)
     a21:task:(Nudeln kochen)-->a25:task:(Sieb vorbereiten)
-    a25:task:(Sieb vorbereiten)-->a27:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)
-    a27:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)-->a29:task:(Tisch decken)
-    a29:task:(Tisch decken)-->a31:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)
-    a31:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)-->a33:task:(Herd abschalten)
-    a33:task:(Herd abschalten)-->a35:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-    a35:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->a37:task:(Guten Appetit)
+    a25:task:(Sieb vorbereiten)-->a27:task:(Sauce umrühren, würzen, abschmecken)
+    a27:task:(Sauce umrühren, würzen, abschmecken)-->a29:task:(Tisch decken)
+    a29:task:(Tisch decken)-->a31:task:(Nudeln abgießen und in Schüssel)
+    a31:task:(Nudeln abgießen und in Schüssel)-->a33:task:(Herd abschalten)
+    a33:task:(Herd abschalten)-->a35:task:(Topf und Schüssel auf Tisch stellen)
+    a35:task:(Topf und Schüssel auf Tisch stellen)-->a37:task:(Guten Appetit)
     a37:task:(Guten Appetit)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2025-12-10T14:08:14.796510+01:00'
@@ -2233,7 +2233,7 @@ event:
           </call>
           <call id="a7" endpoint="" a:alt_id="a3">
             <parameters>
-              <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten</label>
+              <label>Arbeitsfläche freiräumen und Zutaten vorbereiten</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2241,7 +2241,7 @@ event:
           </call>
           <call id="a9" endpoint="" a:alt_id="a5">
             <parameters>
-              <label>Zwiebeln und Knoblauch wÃ¼rfeln</label>
+              <label>Zwiebeln und Knoblauch würfeln</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2249,7 +2249,7 @@ event:
           </call>
           <call id="a11" endpoint="" a:alt_id="a7">
             <parameters>
-              <label>Topf auf Herd, Herd an, Ã–l in Pfanne</label>
+              <label>Topf auf Herd, Herd an, �l in Pfanne</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2257,7 +2257,7 @@ event:
           </call>
           <call id="a13" endpoint="" a:alt_id="a9">
             <parameters>
-              <label>Zwiebel und Knoblauch andÃ¼nsten</label>
+              <label>Zwiebel und Knoblauch andünsten</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2265,7 +2265,7 @@ event:
           </call>
           <call id="a15" endpoint="" a:alt_id="a11">
             <parameters>
-              <label>Tomaten Ã¶ffnen und in Topf geben</label>
+              <label>Tomaten öffnen und in Topf geben</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2273,7 +2273,7 @@ event:
           </call>
           <call id="a17" endpoint="" a:alt_id="a13">
             <parameters>
-              <label>Temperatur reduzieren und Sauce kÃ¶cheln lassen</label>
+              <label>Temperatur reduzieren und Sauce köcheln lassen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2281,7 +2281,7 @@ event:
           </call>
           <call id="a19" endpoint="" a:alt_id="a17">
             <parameters>
-              <label>Zweiten Topf fÃ¼r Nudeln vorbereiten</label>
+              <label>Zweiten Topf für Nudeln vorbereiten</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2291,7 +2291,7 @@ event:
         <parallel_branch>
           <call id="a5" endpoint="" a:alt_id="a19">
             <parameters>
-              <label>Fernseher einschalten und Lieblingssendung auswÃ¤hlen</label>
+              <label>Fernseher einschalten und Lieblingssendung auswählen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -2317,7 +2317,7 @@ event:
       </call>
       <call id="a29" endpoint="" a:alt_id="a27">
         <parameters>
-          <label>Sauce umrÃ¼hren, wÃ¼rzen, abschmecken</label>
+          <label>Sauce umrühren, würzen, abschmecken</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2333,7 +2333,7 @@ event:
       </call>
       <call id="a33" endpoint="" a:alt_id="a31">
         <parameters>
-          <label>Nudeln abgieÃŸen und in SchÃ¼ssel</label>
+          <label>Nudeln abgießen und in Schüssel</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2349,7 +2349,7 @@ event:
       </call>
       <call id="a37" endpoint="" a:alt_id="a35">
         <parameters>
-          <label>Topf und SchÃ¼ssel auf Tisch stellen</label>
+          <label>Topf und Schüssel auf Tisch stellen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -2376,7 +2376,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche alles
+    lösche alles
   time:timestamp: '2025-12-10T14:09:35.116199+01:00'
 ---
 event:
@@ -2405,24 +2405,24 @@ event:
     flowchart LR
     se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
     -->a3:task:(Licht anschalten)
-    a3:task:(Licht anschalten)-->a7:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)
-    a7:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten vorbereiten)-->a9:task:(Zwiebeln und Knoblauch wÃ¼rfeln)
-    a9:task:(Zwiebeln und Knoblauch wÃ¼rfeln)-->a11:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)
-    a11:task:(Topf auf Herd, Herd an, Ã–l in Pfanne)-->a13:task:(Zwiebel und Knoblauch andÃ¼nsten)
-    a13:task:(Zwiebel und Knoblauch andÃ¼nsten)-->a15:task:(Tomaten Ã¶ffnen und in Topf geben)
-    a15:task:(Tomaten Ã¶ffnen und in Topf geben)-->a17:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)
-    a17:task:(Temperatur reduzieren und Sauce kÃ¶cheln lassen)-->a19:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)
-    a19:task:(Zweiten Topf fÃ¼r Nudeln vorbereiten)-->gw1e:parallelgateway:{AND}
-    -->a5:task:(Fernseher einschalten und Lieblingssendung auswÃ¤hlen)
-    a5:task:(Fernseher einschalten und Lieblingssendung auswÃ¤hlen)-->gw1e:parallelgateway:{AND}
+    a3:task:(Licht anschalten)-->a7:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)
+    a7:task:(Arbeitsfläche freiräumen und Zutaten vorbereiten)-->a9:task:(Zwiebeln und Knoblauch würfeln)
+    a9:task:(Zwiebeln und Knoblauch würfeln)-->a11:task:(Topf auf Herd, Herd an, �l in Pfanne)
+    a11:task:(Topf auf Herd, Herd an, �l in Pfanne)-->a13:task:(Zwiebel und Knoblauch andünsten)
+    a13:task:(Zwiebel und Knoblauch andünsten)-->a15:task:(Tomaten öffnen und in Topf geben)
+    a15:task:(Tomaten öffnen und in Topf geben)-->a17:task:(Temperatur reduzieren und Sauce köcheln lassen)
+    a17:task:(Temperatur reduzieren und Sauce köcheln lassen)-->a19:task:(Zweiten Topf für Nudeln vorbereiten)
+    a19:task:(Zweiten Topf für Nudeln vorbereiten)-->gw1e:parallelgateway:{AND}
+    -->a5:task:(Fernseher einschalten und Lieblingssendung auswählen)
+    a5:task:(Fernseher einschalten und Lieblingssendung auswählen)-->gw1e:parallelgateway:{AND}
     gw1e:parallelgateway:{AND}-->a25:task:(Nudeln kochen)
     a25:task:(Nudeln kochen)-->a27:task:(Sieb vorbereiten)
-    a27:task:(Sieb vorbereiten)-->a29:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)
-    a29:task:(Sauce umrÃ¼hren, wÃ¼rzen, abschmecken)-->a31:task:(Tisch decken)
-    a31:task:(Tisch decken)-->a33:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)
-    a33:task:(Nudeln abgieÃŸen und in SchÃ¼ssel)-->a35:task:(Herd abschalten)
-    a35:task:(Herd abschalten)-->a37:task:(Topf und SchÃ¼ssel auf Tisch stellen)
-    a37:task:(Topf und SchÃ¼ssel auf Tisch stellen)-->a39:task:(Guten Appetit)
+    a27:task:(Sieb vorbereiten)-->a29:task:(Sauce umrühren, würzen, abschmecken)
+    a29:task:(Sauce umrühren, würzen, abschmecken)-->a31:task:(Tisch decken)
+    a31:task:(Tisch decken)-->a33:task:(Nudeln abgießen und in Schüssel)
+    a33:task:(Nudeln abgießen und in Schüssel)-->a35:task:(Herd abschalten)
+    a35:task:(Herd abschalten)-->a37:task:(Topf und Schüssel auf Tisch stellen)
+    a37:task:(Topf und Schüssel auf Tisch stellen)-->a39:task:(Guten Appetit)
     a39:task:(Guten Appetit)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T14:09:35.116521+01:00'
 ---
@@ -2629,24 +2629,24 @@ event:
     # User Input:
     Workshop Prozessmanagement 10.12.2025
     1. Licht anschalten
-    2. ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
-    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln
-    4. Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben
-    5. Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind
-    6. Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben
-    7. Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen
-    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen
-    9. Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen
+    2. Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten
+    3. Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln
+    4. Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben
+    5. Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind
+    6. Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben
+    7. Temperatur des Topfes reduzieren und die Sauce köcheln lassen
+    8. Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen
+    9. Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen
     10. Sieb in den Abguss stellen
-    11. Sauce ab und zu umrÃ¼hren, GewÃ¼rze hinzufÃ¼gen und abschmecken
-    12. WÃ¤hrend die Nudeln kochen und die Sauce auf dem Herd kÃ¶chelt, kann der Tisch gedeckt werden
-    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen
-    14. Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen
+    11. Sauce ab und zu umrühren, Gewürze hinzufügen und abschmecken
+    12. Während die Nudeln kochen und die Sauce auf dem Herd köchelt, kann der Tisch gedeckt werden
+    13. Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen
+    14. Nudeln in das Sieb kippen und in eine Schüssel kippen
     15. Herd abschalten
-    16. Topf und SchÃ¼ssel auf den Tisch stellen
+    16. Topf und Schüssel auf den Tisch stellen
     17. Guten Appetit
     Parallel:
-    - Sauce kÃ¶chelt auf dem Herd und das Nudelwasser kocht
+    - Sauce köchelt auf dem Herd und das Nudelwasser kocht
     - Tisch decken
     -
 
@@ -2690,23 +2690,23 @@ event:
     ```mermaid
     graph LR
     0:startevent:((startevent)) --> 1:task:(Licht anschalten)
-    1:task:(Licht anschalten) --> 2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)
-    2:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten) --> 3:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln)
-    3:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln) --> 4:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben)
-    4:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben) --> 5:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind)
-    5:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind) --> 6:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben)
-    6:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben) --> 7:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen)
-    7:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen) --> 8:parallelgateway:{AND}
-    8:parallelgateway:{AND} --> 9:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen)
+    1:task:(Licht anschalten) --> 2:task:(Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)
+    2:task:(Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten) --> 3:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln)
+    3:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln) --> 4:task:(Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben)
+    4:task:(Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben) --> 5:task:(Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind)
+    5:task:(Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind) --> 6:task:(Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben)
+    6:task:(Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben) --> 7:task:(Temperatur des Topfes reduzieren und die Sauce köcheln lassen)
+    7:task:(Temperatur des Topfes reduzieren und die Sauce köcheln lassen) --> 8:parallelgateway:{AND}
+    8:parallelgateway:{AND} --> 9:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen)
     8:parallelgateway:{AND} --> 12:task:(Tisch decken)
-    9:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen) --> 10:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen)
-    10:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen) --> 11:task:(Sieb in den Abguss stellen)
-    11:task:(Sieb in den Abguss stellen) --> 13:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen)
-    12:task:(Tisch decken) --> 14:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen)
-    13:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen) --> 15:task:(Herd abschalten)
-    14:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen) --> 16:task:(Topf und SchÃ¼ssel auf den Tisch stellen)
+    9:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen) --> 10:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen)
+    10:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen) --> 11:task:(Sieb in den Abguss stellen)
+    11:task:(Sieb in den Abguss stellen) --> 13:task:(Nudeln in das Sieb kippen und in eine Schüssel kippen)
+    12:task:(Tisch decken) --> 14:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen)
+    13:task:(Nudeln in das Sieb kippen und in eine Schüssel kippen) --> 15:task:(Herd abschalten)
+    14:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen) --> 16:task:(Topf und Schüssel auf den Tisch stellen)
     15:task:(Herd abschalten) --> 17:task:(Guten Appetit)
-    16:task:(Topf und SchÃ¼ssel auf den Tisch stellen) --> 17:task:(Guten Appetit)
+    16:task:(Topf und Schüssel auf den Tisch stellen) --> 17:task:(Guten Appetit)
     17:task:(Guten Appetit) --> 18:endevent:(((endevent)))
     ```
   time:timestamp: '2025-12-10T14:10:30.464131+01:00'
@@ -3040,7 +3040,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten</label>
+          <label>Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3048,7 +3048,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln</label>
+          <label>Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3056,7 +3056,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben</label>
+          <label>Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3064,7 +3064,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="5">
         <parameters>
-          <label>Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind</label>
+          <label>Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3072,7 +3072,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="6">
         <parameters>
-          <label>Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben</label>
+          <label>Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3080,7 +3080,7 @@ event:
       </call>
       <call id="a13" endpoint="" a:alt_id="7">
         <parameters>
-          <label>Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen</label>
+          <label>Temperatur des Topfes reduzieren und die Sauce köcheln lassen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3090,7 +3090,7 @@ event:
         <parallel_branch>
           <call id="a17" endpoint="" a:alt_id="9">
             <parameters>
-              <label>Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen</label>
+              <label>Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3098,7 +3098,7 @@ event:
           </call>
           <call id="a21" endpoint="" a:alt_id="10">
             <parameters>
-              <label>Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen</label>
+              <label>Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3114,7 +3114,7 @@ event:
           </call>
           <call id="a25" endpoint="" a:alt_id="13">
             <parameters>
-              <label>Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen</label>
+              <label>Nudeln in das Sieb kippen und in eine Schüssel kippen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3140,7 +3140,7 @@ event:
           </call>
           <call id="a27" endpoint="" a:alt_id="14">
             <parameters>
-              <label>Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen</label>
+              <label>Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3148,7 +3148,7 @@ event:
           </call>
           <call id="a31" endpoint="" a:alt_id="16">
             <parameters>
-              <label>Topf und SchÃ¼ssel auf den Tisch stellen</label>
+              <label>Topf und Schüssel auf den Tisch stellen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3177,7 +3177,7 @@ event:
   cpee:change_uuid: 38577057e6e71b2b64af1ff4352e9a9ec6991d85
   cpee:exposition: |-
     # User Input:
-    packe die aktivitÃ¤t fernseh schauen parallel dazu
+    packe die aktivität fernseh schauen parallel dazu
   time:timestamp: '2025-12-10T14:11:36.956129+01:00'
 ---
 event:
@@ -3205,23 +3205,23 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)-->a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln)-->a7:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben)
-    a7:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben)-->a9:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind)
-    a9:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind)-->a11:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben)
-    a11:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben)-->a13:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen)-->gw1s:parallelgateway:{AND}
-    -->a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen)
-    a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen)-->a21:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen)
-    a21:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen)-->a23:task:(Sieb in den Abguss stellen)
-    a23:task:(Sieb in den Abguss stellen)-->a25:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen)
-    a25:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen)-->a29:task:(Herd abschalten)
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)-->a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln)
+    a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln)-->a7:task:(Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben)
+    a7:task:(Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben)-->a9:task:(Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind)
+    a9:task:(Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind)-->a11:task:(Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben)
+    a11:task:(Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben)-->a13:task:(Temperatur des Topfes reduzieren und die Sauce köcheln lassen)
+    a13:task:(Temperatur des Topfes reduzieren und die Sauce köcheln lassen)-->gw1s:parallelgateway:{AND}
+    -->a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen)
+    a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen)-->a21:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen)
+    a21:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen)-->a23:task:(Sieb in den Abguss stellen)
+    a23:task:(Sieb in den Abguss stellen)-->a25:task:(Nudeln in das Sieb kippen und in eine Schüssel kippen)
+    a25:task:(Nudeln in das Sieb kippen und in eine Schüssel kippen)-->a29:task:(Herd abschalten)
     a29:task:(Herd abschalten)-->gw1e:parallelgateway:{AND}
     -->a19:task:(Tisch decken)
-    a19:task:(Tisch decken)-->a27:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen)
-    a27:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen)-->a31:task:(Topf und SchÃ¼ssel auf den Tisch stellen)
-    a31:task:(Topf und SchÃ¼ssel auf den Tisch stellen)-->gw1e:parallelgateway:{AND}
+    a19:task:(Tisch decken)-->a27:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen)
+    a27:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen)-->a31:task:(Topf und Schüssel auf den Tisch stellen)
+    a31:task:(Topf und Schüssel auf den Tisch stellen)-->gw1e:parallelgateway:{AND}
     gw1e:parallelgateway:{AND}-->a33:task:(Guten Appetit)
     a33:task:(Guten Appetit)-->ee:endevent:((endevent))
   time:timestamp: '2025-12-10T14:11:36.956403+01:00'
@@ -3241,23 +3241,23 @@ event:
     ```mermaid
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)
-    a3:task:(ArbeitsflÃ¤che freirÃ¤umen und Zutaten aus dem KÃ¼hlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)-->a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln)
-    a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein wÃ¼rfeln)-->a7:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben)
-    a7:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben)-->a9:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind)
-    a9:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind)-->a11:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben)
-    a11:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben)-->a13:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen)-->gw1s:parallelgateway:{AND}
-    gw1s:parallelgateway:{AND}-->a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen)
-    a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen)-->a21:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen)
-    a21:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen)-->a23:task:(Sieb in den Abguss stellen)
-    a23:task:(Sieb in den Abguss stellen)-->a25:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen)
-    a25:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen)-->a29:task:(Herd abschalten)
+    a1:task:(Licht anschalten)-->a3:task:(Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)
+    a3:task:(Arbeitsfläche freiräumen und Zutaten aus dem Kühlschrank nehmen und Hilfsmittel/Werkzeuge vorbereiten)-->a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln)
+    a5:task:(Zwiebeln und Knoblauch auf einem Schneidbrett klein würfeln)-->a7:task:(Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben)
+    a7:task:(Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben)-->a9:task:(Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind)
+    a9:task:(Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind)-->a11:task:(Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben)
+    a11:task:(Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben)-->a13:task:(Temperatur des Topfes reduzieren und die Sauce köcheln lassen)
+    a13:task:(Temperatur des Topfes reduzieren und die Sauce köcheln lassen)-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen)
+    a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen)-->a21:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen)
+    a21:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen)-->a23:task:(Sieb in den Abguss stellen)
+    a23:task:(Sieb in den Abguss stellen)-->a25:task:(Nudeln in das Sieb kippen und in eine Schüssel kippen)
+    a25:task:(Nudeln in das Sieb kippen und in eine Schüssel kippen)-->a29:task:(Herd abschalten)
     a29:task:(Herd abschalten)-->gw1e:parallelgateway:{AND}
     gw1s:parallelgateway:{AND}-->a19:task:(Tisch decken)
-    a19:task:(Tisch decken)-->a27:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen)
-    a27:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen)-->a31:task:(Topf und SchÃ¼ssel auf den Tisch stellen)
-    a31:task:(Topf und SchÃ¼ssel auf den Tisch stellen)-->gw1e:parallelgateway:{AND}
+    a19:task:(Tisch decken)-->a27:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen)
+    a27:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen)-->a31:task:(Topf und Schüssel auf den Tisch stellen)
+    a31:task:(Topf und Schüssel auf den Tisch stellen)-->gw1e:parallelgateway:{AND}
     gw1s:parallelgateway:{AND}-->a35:task:(Fernseh schauen)
     a35:task:(Fernseh schauen)-->gw1e:parallelgateway:{AND}
     gw1e:parallelgateway:{AND}-->a33:task:(Guten Appetit)
@@ -3837,7 +3837,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="a3">
         <parameters>
-          <label>ZÃ¤hne putzen</label>
+          <label>Zähne putzen</label>
           <color/>
           <method>:post</method>
           <arguments/>
@@ -3877,7 +3877,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben</label>
+          <label>Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3885,7 +3885,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a9">
         <parameters>
-          <label>Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind</label>
+          <label>Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3893,7 +3893,7 @@ event:
       </call>
       <call id="a11" endpoint="" a:alt_id="a11">
         <parameters>
-          <label>Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben</label>
+          <label>Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3901,7 +3901,7 @@ event:
       </call>
       <call id="a13" endpoint="" a:alt_id="a13">
         <parameters>
-          <label>Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen</label>
+          <label>Temperatur des Topfes reduzieren und die Sauce köcheln lassen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -3911,7 +3911,7 @@ event:
         <parallel_branch>
           <call id="a17" endpoint="" a:alt_id="a17">
             <parameters>
-              <label>Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen</label>
+              <label>Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3919,7 +3919,7 @@ event:
           </call>
           <call id="a19" endpoint="" a:alt_id="a21">
             <parameters>
-              <label>Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen</label>
+              <label>Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3935,7 +3935,7 @@ event:
           </call>
           <call id="a23" endpoint="" a:alt_id="a25">
             <parameters>
-              <label>Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen</label>
+              <label>Nudeln in das Sieb kippen und in eine Schüssel kippen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3961,7 +3961,7 @@ event:
           </call>
           <call id="a31" endpoint="" a:alt_id="a27">
             <parameters>
-              <label>Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen</label>
+              <label>Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -3969,7 +3969,7 @@ event:
           </call>
           <call id="a33" endpoint="" a:alt_id="a31">
             <parameters>
-              <label>Topf und SchÃ¼ssel auf den Tisch stellen</label>
+              <label>Topf und Schüssel auf den Tisch stellen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -4008,7 +4008,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche alles
+    lösche alles
   time:timestamp: '2025-12-10T14:33:13.924492+01:00'
 ---
 event:
@@ -4036,22 +4036,22 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Licht anschalten)
-    a1:task:(Licht anschalten)-->a3:task:(ZÃ¤hne putzen)
-    a3:task:(ZÃ¤hne putzen)-->a7:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben)
-    a7:task:(Topf auf den Herd stellen, Herd anschalten und Ã–l in die Pfanne geben)-->a9:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind)
-    a9:task:(Zwiebel und Knoblauch, wenn das Ã–l heiÃŸ ist in die Pfanne geben und andÃ¼nsten bis die Zwiebeln glasig sind)-->a11:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben)
-    a11:task:(Tomatendosen Ã¶ffnen und mit dem DosenÃ¶ffner Ã¶ffnen und in den Topf geben)-->a13:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen)
-    a13:task:(Temperatur des Topfes reduzieren und die Sauce kÃ¶cheln lassen)-->gw1s:parallelgateway:{AND}
-    -->a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen)
-    a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, Â¾ mit Wasser fÃ¼llen und 1-2 Prisen Salz hinzufÃ¼gen â€“ Wasser zum kochen bringen)-->a19:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen)
-    a19:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufÃ¼gen und Temperatur reduzieren, sodass es nicht Ã¼berkocht, Nudeln nach Packung kochen)-->a21:task:(Sieb in den Abguss stellen)
-    a21:task:(Sieb in den Abguss stellen)-->a23:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen)
-    a23:task:(Nudeln in das Sieb kippen und in eine SchÃ¼ssel kippen)-->a25:task:(Herd abschalten)
+    a1:task:(Licht anschalten)-->a3:task:(Zähne putzen)
+    a3:task:(Zähne putzen)-->a7:task:(Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben)
+    a7:task:(Topf auf den Herd stellen, Herd anschalten und �l in die Pfanne geben)-->a9:task:(Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind)
+    a9:task:(Zwiebel und Knoblauch, wenn das �l heiß ist in die Pfanne geben und andünsten bis die Zwiebeln glasig sind)-->a11:task:(Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben)
+    a11:task:(Tomatendosen öffnen und mit dem Dosenöffner öffnen und in den Topf geben)-->a13:task:(Temperatur des Topfes reduzieren und die Sauce köcheln lassen)
+    a13:task:(Temperatur des Topfes reduzieren und die Sauce köcheln lassen)-->gw1s:parallelgateway:{AND}
+    -->a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen)
+    a17:task:(Einen zweiten Topf zum Nudelkochen auf den Herd stellen, ¾ mit Wasser füllen und 1-2 Prisen Salz hinzufügen � Wasser zum kochen bringen)-->a19:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen)
+    a19:task:(Wenn das Wasser kocht, 500gr Nudeln hinzufügen und Temperatur reduzieren, sodass es nicht überkocht, Nudeln nach Packung kochen)-->a21:task:(Sieb in den Abguss stellen)
+    a21:task:(Sieb in den Abguss stellen)-->a23:task:(Nudeln in das Sieb kippen und in eine Schüssel kippen)
+    a23:task:(Nudeln in das Sieb kippen und in eine Schüssel kippen)-->a25:task:(Herd abschalten)
     a25:task:(Herd abschalten)-->gw1e:parallelgateway:{AND}
     -->a29:task:(Tisch decken)
-    a29:task:(Tisch decken)-->a31:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen)
-    a31:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, ParmesankÃ¤se und Salz und Pfeffer auf dem Tisch stellen)-->a33:task:(Topf und SchÃ¼ssel auf den Tisch stellen)
-    a33:task:(Topf und SchÃ¼ssel auf den Tisch stellen)-->gw1e:parallelgateway:{AND}
+    a29:task:(Tisch decken)-->a31:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen)
+    a31:task:(Teller, Besteck, Servierbesteck und Untersetzer vorbereiten und auf dem Tisch vorbereiten, Parmesankäse und Salz und Pfeffer auf dem Tisch stellen)-->a33:task:(Topf und Schüssel auf den Tisch stellen)
+    a33:task:(Topf und Schüssel auf den Tisch stellen)-->gw1e:parallelgateway:{AND}
     -->a37:task:(Fernseh schauen)
     a37:task:(Fernseh schauen)-->gw1e:parallelgateway:{AND}
     gw1e:parallelgateway:{AND}-->a41:task:(Guten Appetit)
@@ -4174,7 +4174,7 @@ event:
   cpee:change_uuid: 8c58cde651345f14ee47e93fe3f8813e26357876
   cpee:exposition: |-
     # User Input:
-    gib mir bitte einen prozess zur datenschutzberatung in einem bayerischen universitÃ¤tsklinikum
+    gib mir bitte einen prozess zur datenschutzberatung in einem bayerischen universitätsklinikum
   time:timestamp: '2025-12-10T14:34:07.632845+01:00'
 ---
 event:
@@ -4214,11 +4214,11 @@ event:
     ```mermaid
     graph LR
     0:startevent:((startevent)) --> 1:task:(Anfrage zur Datenschutzberatung)
-    1:task:(Anfrage zur Datenschutzberatung) --> 2:task:(PrÃ¼fung der Anfrage)
-    2:task:(PrÃ¼fung der Anfrage) --> 3:exclusivegateway:{x}
-    3:exclusivegateway:{x} --> |Anfrage berechtigt| 4:task:(Datenschutzberatung durchfÃ¼hren)
+    1:task:(Anfrage zur Datenschutzberatung) --> 2:task:(Prüfung der Anfrage)
+    2:task:(Prüfung der Anfrage) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Anfrage berechtigt| 4:task:(Datenschutzberatung durchführen)
     3:exclusivegateway:{x} --> |Anfrage nicht berechtigt| 5:task:(Anfrage ablehnen)
-    4:task:(Datenschutzberatung durchfÃ¼hren) --> 6:exclusivegateway:{x}
+    4:task:(Datenschutzberatung durchführen) --> 6:exclusivegateway:{x}
     5:task:(Anfrage ablehnen) --> 6:exclusivegateway:{x}
     6:exclusivegateway:{x} --> 7:task:(Dokumentation der Beratung)
     7:task:(Dokumentation der Beratung) --> 8:endevent:(((endevent)))

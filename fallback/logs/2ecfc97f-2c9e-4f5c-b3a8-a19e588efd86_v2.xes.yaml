@@ -174,55 +174,55 @@ event:
 
     Ablauf:
 
-    Start-Ereignis (Vertrieb): Ein Auftrag geht per E-Mail oder Ã¼ber ein Online-Formular ein.
+    Start-Ereignis (Vertrieb): Ein Auftrag geht per E-Mail oder über ein Online-Formular ein.
 
-    AktivitÃ¤t (Vertrieb): Auftrag im ERP-System erfassen.
+    Aktivität (Vertrieb): Auftrag im ERP-System erfassen.
 
     Exklusives Gateway (Vertrieb): Existiert der Kunde bereits im System?
 
-    Pfad "Nein": AktivitÃ¤t: Kundendaten anlegen. Danach ZusammenfÃ¼hrung in den Hauptprozess.
+    Pfad "Nein": Aktivität: Kundendaten anlegen. Danach Zusammenführung in den Hauptprozess.
 
-    Pfad "Ja": Direkte WeiterfÃ¼hrung im Hauptprozess.
+    Pfad "Ja": Direkte Weiterführung im Hauptprozess.
 
-    Exklusives Gateway (Vertrieb): Ist der Auftragswert grÃ¶ÃŸer als X?
+    Exklusives Gateway (Vertrieb): Ist der Auftragswert größer als X?
 
-    Pfad "Ja": AktivitÃ¤t: Zahlungsbedingungen anpassen (Vorkasse). Danach ZusammenfÃ¼hrung in den Hauptprozess.
+    Pfad "Ja": Aktivität: Zahlungsbedingungen anpassen (Vorkasse). Danach Zusammenführung in den Hauptprozess.
 
-    Pfad "Nein": Direkte WeiterfÃ¼hrung im Hauptprozess.
+    Pfad "Nein": Direkte Weiterführung im Hauptprozess.
 
-    AktivitÃ¤t (Vertrieb): Auftrag an Logistik weitergeben.
+    Aktivität (Vertrieb): Auftrag an Logistik weitergeben.
 
-    AktivitÃ¤t (Logistik): MaterialverfÃ¼gbarkeit prÃ¼fen.
+    Aktivität (Logistik): Materialverfügbarkeit prüfen.
 
     Exklusives Gateway (Logistik): Ist ausreichend Material vorhanden?
 
-    Pfad "Nein": AktivitÃ¤t: Nachbestellung auslÃ¶sen. Folgend ein Zwischenereignis (Timer/Message): Auf Materialeingang warten. Danach WeiterfÃ¼hrung zur Einplanung.
+    Pfad "Nein": Aktivität: Nachbestellung auslösen. Folgend ein Zwischenereignis (Timer/Message): Auf Materialeingang warten. Danach Weiterführung zur Einplanung.
 
-    Pfad "Ja": Direkte WeiterfÃ¼hrung zur Einplanung.
+    Pfad "Ja": Direkte Weiterführung zur Einplanung.
 
-    AktivitÃ¤t (Logistik): Auftrag fÃ¼r Produktion und Versand einplanen und Liefertermin ermitteln.
+    Aktivität (Logistik): Auftrag für Produktion und Versand einplanen und Liefertermin ermitteln.
 
-    AktivitÃ¤t (Logistik): Ermittelten Liefertermin an Vertrieb Ã¼bergeben.
+    Aktivität (Logistik): Ermittelten Liefertermin an Vertrieb übergeben.
 
-    AktivitÃ¤t (Vertrieb): AuftragsbestÃ¤tigung mit realistischem Liefertermin an den Kunden versenden.
+    Aktivität (Vertrieb): Auftragsbestätigung mit realistischem Liefertermin an den Kunden versenden.
 
-    End-Ereignis (Vertrieb): AuftragsbestÃ¤tigung versendet.
+    End-Ereignis (Vertrieb): Auftragsbestätigung versendet.
 
-    Dokumentation fÃ¼r deine Abgabe (Teil von Aufgabe 1)
+    Dokumentation für deine Abgabe (Teil von Aufgabe 1)
 
     Neben dem Modell musst du laut Aufgabenstellung noch zwei Dinge festhalten:
 
     1. Umgang mit dem Expressauftrag
 
-    Entscheidung: ExpressauftrÃ¤ge werden im Modell bewusst ausgeklammert. Sie werden lediglich als Priorisierungsregel bei der PrÃ¼fung und Einplanung behandelt, jedoch nicht als eigener Prozesspfad dargestellt.
+    Entscheidung: Expressaufträge werden im Modell bewusst ausgeklammert. Sie werden lediglich als Priorisierungsregel bei der Prüfung und Einplanung behandelt, jedoch nicht als eigener Prozesspfad dargestellt.
 
-    BegrÃ¼ndung: Die Interview-Notizen geben explizit an, dass dies "kein eigener Prozess" ist. Die grundlegenden fachlichen Schritte (Erfassen, PrÃ¼fen, Einplanen) bleiben gleich. Ein zusÃ¤tzlicher Pfad fÃ¼r ExpressauftrÃ¤ge wÃ¼rde das Modell ohne fachlichen Mehrwert unnÃ¶tig komplex machen.
+    Begründung: Die Interview-Notizen geben explizit an, dass dies "kein eigener Prozess" ist. Die grundlegenden fachlichen Schritte (Erfassen, Prüfen, Einplanen) bleiben gleich. Ein zusätzlicher Pfad für Expressaufträge würde das Modell ohne fachlichen Mehrwert unnötig komplex machen.
 
     2. Getroffene Annahmen
 
-    Annahme 1 (Informationsfluss): Da der Vertrieb am Ende die AuftragsbestÃ¤tigung inklusive eines realistischen Liefertermins versendet , muss die Logistik diesen Termin nach der Einplanung zwingend an den Vertrieb zurÃ¼ckmelden. Dieser RÃ¼ckfluss wurde im Modell explizit ergÃ¤nzt.
+    Annahme 1 (Informationsfluss): Da der Vertrieb am Ende die Auftragsbestätigung inklusive eines realistischen Liefertermins versendet , muss die Logistik diesen Termin nach der Einplanung zwingend an den Vertrieb zurückmelden. Dieser Rückfluss wurde im Modell explizit ergänzt.
 
-    Annahme 2 (Reihenfolge der PrÃ¼fungen): Es wird angenommen, dass die Anlage fehlender Kundendaten vor der PrÃ¼fung der Zahlungsbedingungen erfolgt, da der Auftrag so vorbereitet werden soll, dass vollstÃ¤ndige Stammdaten fÃ¼r nachfolgende Schritte vorliegen.
+    Annahme 2 (Reihenfolge der Prüfungen): Es wird angenommen, dass die Anlage fehlender Kundendaten vor der Prüfung der Zahlungsbedingungen erfolgt, da der Auftrag so vorbereitet werden soll, dass vollständige Stammdaten für nachfolgende Schritte vorliegen.
   time:timestamp: '2026-03-23T10:18:29.993481+01:00'
 ---
 event:
@@ -265,13 +265,13 @@ event:
     4:exclusivegateway:{x}
     5:task:(Zahlungsbedingungen anpassen)
     6:task:(Auftrag an Logistik weitergeben)
-    7:task:(MaterialverfÃ¼gbarkeit prÃ¼fen)
+    7:task:(Materialverfügbarkeit prüfen)
     8:exclusivegateway:{x}
-    9:task:(Nachbestellung auslÃ¶sen)
+    9:task:(Nachbestellung auslösen)
     10:task:(Auf Materialeingang warten)
     11:task:(Auftrag einplanen und Liefertermin ermitteln)
-    12:task:(Liefertermin an Vertrieb Ã¼bergeben)
-    13:task:(AuftragsbestÃ¤tigung versenden)
+    12:task:(Liefertermin an Vertrieb übergeben)
+    13:task:(Auftragsbestätigung versenden)
     14:endevent:(((Ende)))
 
     0:startevent:((Start)) --> 1:task:(Auftrag erfassen)
@@ -282,15 +282,15 @@ event:
     4:exclusivegateway:{x} --> |Ja| 5:task:(Zahlungsbedingungen anpassen)
     4:exclusivegateway:{x} --> |Nein| 6:task:(Auftrag an Logistik weitergeben)
     5:task:(Zahlungsbedingungen anpassen) --> 6:task:(Auftrag an Logistik weitergeben)
-    6:task:(Auftrag an Logistik weitergeben) --> 7:task:(MaterialverfÃ¼gbarkeit prÃ¼fen)
-    7:task:(MaterialverfÃ¼gbarkeit prÃ¼fen) --> 8:exclusivegateway:{x}
-    8:exclusivegateway:{x} --> |Nein| 9:task:(Nachbestellung auslÃ¶sen)
+    6:task:(Auftrag an Logistik weitergeben) --> 7:task:(Materialverfügbarkeit prüfen)
+    7:task:(Materialverfügbarkeit prüfen) --> 8:exclusivegateway:{x}
+    8:exclusivegateway:{x} --> |Nein| 9:task:(Nachbestellung auslösen)
     8:exclusivegateway:{x} --> |Ja| 11:task:(Auftrag einplanen und Liefertermin ermitteln)
-    9:task:(Nachbestellung auslÃ¶sen) --> 10:task:(Auf Materialeingang warten)
+    9:task:(Nachbestellung auslösen) --> 10:task:(Auf Materialeingang warten)
     10:task:(Auf Materialeingang warten) --> 11:task:(Auftrag einplanen und Liefertermin ermitteln)
-    11:task:(Auftrag einplanen und Liefertermin ermitteln) --> 12:task:(Liefertermin an Vertrieb Ã¼bergeben)
-    12:task:(Liefertermin an Vertrieb Ã¼bergeben) --> 13:task:(AuftragsbestÃ¤tigung versenden)
-    13:task:(AuftragsbestÃ¤tigung versenden) --> 14:endevent:(((Ende)))
+    11:task:(Auftrag einplanen und Liefertermin ermitteln) --> 12:task:(Liefertermin an Vertrieb übergeben)
+    12:task:(Liefertermin an Vertrieb übergeben) --> 13:task:(Auftragsbestätigung versenden)
+    13:task:(Auftragsbestätigung versenden) --> 14:endevent:(((Ende)))
     ```
   time:timestamp: '2026-03-23T10:18:29.994002+01:00'
 ---

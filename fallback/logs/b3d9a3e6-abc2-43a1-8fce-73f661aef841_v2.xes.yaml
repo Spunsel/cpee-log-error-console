@@ -95,9 +95,9 @@ event:
   cpee:change_uuid: 129ca26a42b7553a2371c8ef87c9efe557e99ef7
   cpee:exposition: |+
     # User Input:
-    Modelliere mir den Prozess einer Notaufnahme.Â 
-    Dabei wird der Patient vom Rettungsdienst eingeliefert.Â 
-    Dann wartet der Patient im Wartebereich, bis er aufgerufen wird.Â 
+    Modelliere mir den Prozess einer Notaufnahme. 
+    Dabei wird der Patient vom Rettungsdienst eingeliefert. 
+    Dann wartet der Patient im Wartebereich, bis er aufgerufen wird. 
 
   time:timestamp: '2025-10-29T14:16:29.770868+01:00'
 ...
@@ -254,7 +254,7 @@ event:
   cpee:change_uuid: 8b1da3963b26e81278e9d1aed9fb741b0a79930e
   cpee:exposition: |+
     # User Input:
-    FÃ¼ge hinzu, dass der Patient nach dem Warten aufgerufen wird und in ein Behandlungszimmer gebracht wird.
+    Füge hinzu, dass der Patient nach dem Warten aufgerufen wird und in ein Behandlungszimmer gebracht wird.
 
   time:timestamp: '2025-10-29T14:19:34.225572+01:00'
 ...
@@ -468,7 +468,7 @@ event:
   cpee:change_uuid: 24c957d88dce89b78357cb2ffdca9294d30ca816
   cpee:exposition: |+
     # User Input:
-    Danach geht es entweder zum rÃ¶ntgen oder zur Blutabnahme.
+    Danach geht es entweder zum röntgen oder zur Blutabnahme.
 
   time:timestamp: '2025-10-29T14:19:58.978783+01:00'
 ...
@@ -506,9 +506,9 @@ event:
     a1:task:(Patienteneinlieferung durch Rettungsdienst)-->a3:task:(Warten im Wartebereich)
     a3:task:(Warten im Wartebereich)-->a5:task:(Aufruf und Transport in Behandlungszimmer)
     a5:task:(Aufruf und Transport in Behandlungszimmer)-->ex1:exclusivegateway:{x}
-    ex1:exclusivegateway:{x}-->a6:task:(RÃ¶ntgen)
+    ex1:exclusivegateway:{x}-->a6:task:(Röntgen)
     ex1:exclusivegateway:{x}-->a7:task:(Blutabnahme)
-    a6:task:(RÃ¶ntgen)-->ex2:exclusivegateway:{x}
+    a6:task:(Röntgen)-->ex2:exclusivegateway:{x}
     a7:task:(Blutabnahme)-->ex2:exclusivegateway:{x}
     ex2:exclusivegateway:{x}-->ee:endevent:(((endevent)))
     ```
@@ -664,7 +664,7 @@ event:
   cpee:change_uuid: 0cbc2f65f882b0de9b9ebc8a539ee40690121895
   cpee:exposition: |+
     # User Input:
-    Wenn der Patient beim RÃ¶ntgen war, geht er entweder danach wieder in den Wartebereich, bis er wieder aufgerufen wird oder ins Behandlungszimmer. Je nachdem, ob gerade ein Behandlungsraum frei ist.
+    Wenn der Patient beim Röntgen war, geht er entweder danach wieder in den Wartebereich, bis er wieder aufgerufen wird oder ins Behandlungszimmer. Je nachdem, ob gerade ein Behandlungsraum frei ist.
 
   time:timestamp: '2025-10-29T14:21:31.987275+01:00'
 ...
@@ -709,7 +709,7 @@ event:
         <alternative condition="">
           <call id="a9" endpoint="" a:alt_id="a6">
             <parameters>
-              <label>RÃ¶ntgen</label>
+              <label>Röntgen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -758,8 +758,8 @@ event:
     a1:task:(Patienteneinlieferung durch Rettungsdienst)-->a3:task:(Warten im Wartebereich)
     a3:task:(Warten im Wartebereich)-->a5:task:(Aufruf und Transport in Behandlungszimmer)
     a5:task:(Aufruf und Transport in Behandlungszimmer)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|""|a9:task:(RÃ¶ntgen)
-    a9:task:(RÃ¶ntgen)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a9:task:(Röntgen)
+    a9:task:(Röntgen)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|""|a11:task:(Blutabnahme)
     a11:task:(Blutabnahme)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
@@ -781,8 +781,8 @@ event:
     a1:task:(Patienteneinlieferung durch Rettungsdienst)-->a3:task:(Warten im Wartebereich)
     a3:task:(Warten im Wartebereich)-->a5:task:(Aufruf und Transport in Behandlungszimmer)
     a5:task:(Aufruf und Transport in Behandlungszimmer)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|""|a9:task:(RÃ¶ntgen)
-    a9:task:(RÃ¶ntgen)-->gw2s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|""|a9:task:(Röntgen)
+    a9:task:(Röntgen)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|Behandlungsraum frei|a5:task:
     gw2s:exclusivegateway:{x}-->|Warten|a3:task:
     gw1s:exclusivegateway:{x}-->|""|a11:task:(Blutabnahme)
@@ -911,7 +911,7 @@ event:
         <loop mode="pre_test" condition="true" a:alt_id="gw1s" language="text/javascript">
           <call id="a9" endpoint="" a:alt_id="a9">
             <parameters>
-              <label>RÃ¶ntgen</label>
+              <label>Röntgen</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -1110,7 +1110,7 @@ event:
   cpee:change_uuid: e4f0e0c8dfb2951a584bb85edd2bc33bc02455a0
   cpee:exposition: |-
     # User Input:
-    Wenn aus dem RÃ¶ntgen ein Bruch hervorgeht, muss der Patient fÃ¼r den OP angemeldet werden. Wenn nicht werden die Entlassungspapiere fertig gemacht und der Patient anschlieÃŸend entlassen.Â 
+    Wenn aus dem Röntgen ein Bruch hervorgeht, muss der Patient für den OP angemeldet werden. Wenn nicht werden die Entlassungspapiere fertig gemacht und der Patient anschließend entlassen. 
   time:timestamp: '2025-10-29T14:23:59.149229+01:00'
 ---
 event:
@@ -1136,10 +1136,10 @@ event:
         a5:task:(Aufruf und Transport in Behandlungszimmer)-->gw3s:exclusivegateway:{x}
         gw3s:exclusivegateway:{x}-->a17:task:(Blutabnahme)
         a17:task:(Blutabnahme)-->gw3e:exclusivegateway:{x}
-        gw3s:exclusivegateway:{x}-->|"true"|a9:task:(RÃ¶ntgen)
-        a9:task:(RÃ¶ntgen)-->gw4s:exclusivegateway:{x}
-        gw4s:exclusivegateway:{x}-->|"Bruch"|a18:task:(Patient fÃ¼r OP anmelden)
-        a18:task:(Patient fÃ¼r OP anmelden)-->gw4e:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"true"|a9:task:(Röntgen)
+        a9:task:(Röntgen)-->gw4s:exclusivegateway:{x}
+        gw4s:exclusivegateway:{x}-->|"Bruch"|a18:task:(Patient für OP anmelden)
+        a18:task:(Patient für OP anmelden)-->gw4e:exclusivegateway:{x}
         gw4s:exclusivegateway:{x}-->|"kein Bruch"|a19:task:(Entlassungspapiere fertig machen)
         a19:task:(Entlassungspapiere fertig machen)-->a20:task:(Patient entlassen)
         a20:task:(Patient entlassen)-->gw4e:exclusivegateway:{x}
@@ -1178,8 +1178,8 @@ event:
     a5:task:(Aufruf und Transport in Behandlungszimmer)-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->a17:task:(Blutabnahme)
     a17:task:(Blutabnahme)-->gw3e:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"true"|a9:task:(RÃ¶ntgen)
-    a9:task:(RÃ¶ntgen)-->gw4s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"true"|a9:task:(Röntgen)
+    a9:task:(Röntgen)-->gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Warten"|a3:task:(Warten im Wartebereich)
     a3:task:(Warten im Wartebereich)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Behandlungsraum frei"|gw5s:exclusivegateway:{x}
@@ -1647,7 +1647,7 @@ event:
                       <alternative condition="true" language="text/javascript">
                         <call id="a23" endpoint="" a:alt_id="a9">
                           <parameters>
-                            <label>RÃ¶ntgen</label>
+                            <label>Röntgen</label>
                             <color>#d4e1f1</color>
                             <method>:post</method>
                             <arguments/>
@@ -1685,7 +1685,7 @@ event:
                           <alternative condition="Bruch" language="text/javascript">
                             <call id="a27" endpoint="" a:alt_id="a18">
                               <parameters>
-                                <label>Patient fÃ¼r OP anmelden</label>
+                                <label>Patient für OP anmelden</label>
                                 <method/>
                                 <type>:task</type>
                                 <arguments/>
@@ -1868,7 +1868,7 @@ event:
   cpee:change_uuid: 47e7be5c75cf1f34dff6ccd1d77e66f7db1d1086
   cpee:exposition: |+
     # User Input:
-    fÃ¼ge nach der Blutabnahme noch einen Labortest mit ein
+    füge nach der Blutabnahme noch einen Labortest mit ein
 
   time:timestamp: '2025-10-29T14:42:39.111509+01:00'
 ...
@@ -1897,10 +1897,10 @@ event:
     gw6s:exclusivegateway:{x}-->|""|gw7s:exclusivegateway:{x}
     gw7s:exclusivegateway:{x}-->|""|a19:task:(Blutabnahme)
     a19:task:(Blutabnahme)-->gw7e:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->|"true"|a23:task:(RÃ¶ntgen)
-    a23:task:(RÃ¶ntgen)-->gw8s:exclusivegateway:{x}
-    gw8s:exclusivegateway:{x}-->|"Bruch"|a27:task:(Patient fÃ¼r OP anmelden)
-    a27:task:(Patient fÃ¼r OP anmelden)-->gw8e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"true"|a23:task:(Röntgen)
+    a23:task:(Röntgen)-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->|"Bruch"|a27:task:(Patient für OP anmelden)
+    a27:task:(Patient für OP anmelden)-->gw8e:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->|"kein Bruch"|a31:task:(Entlassungspapiere fertig machen)
     a31:task:(Entlassungspapiere fertig machen)-->a33:task:(Patient entlassen)
     a33:task:(Patient entlassen)-->gw8e:exclusivegateway:{x}
@@ -1968,10 +1968,10 @@ event:
     gw7s:exclusivegateway:{x}-->|""|a19:task:(Blutabnahme)
     a19:task:(Blutabnahme)-->a34:task:(Labortest)
     a34:task:(Labortest)-->gw7e:exclusivegateway:{x}
-    gw7s:exclusivegateway:{x}-->|"true"|a23:task:(RÃ¶ntgen)
-    a23:task:(RÃ¶ntgen)-->gw8s:exclusivegateway:{x}
-    gw8s:exclusivegateway:{x}-->|"Bruch"|a27:task:(Patient fÃ¼r OP anmelden)
-    a27:task:(Patient fÃ¼r OP anmelden)-->gw8e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->|"true"|a23:task:(Röntgen)
+    a23:task:(Röntgen)-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->|"Bruch"|a27:task:(Patient für OP anmelden)
+    a27:task:(Patient für OP anmelden)-->gw8e:exclusivegateway:{x}
     gw8s:exclusivegateway:{x}-->|"kein Bruch"|a31:task:(Entlassungspapiere fertig machen)
     a31:task:(Entlassungspapiere fertig machen)-->a33:task:(Patient entlassen)
     a33:task:(Patient entlassen)-->gw8e:exclusivegateway:{x}
@@ -2486,7 +2486,7 @@ event:
                                           <alternative condition="true" language="text/javascript">
                                             <call id="a29" endpoint="" a:alt_id="a23">
                                               <parameters>
-                                                <label>RÃ¶ntgen</label>
+                                                <label>Röntgen</label>
                                                 <method/>
                                                 <type>:task</type>
                                                 <arguments/>
@@ -2496,7 +2496,7 @@ event:
                                               <alternative condition="Bruch" language="text/javascript">
                                                 <call id="a33" endpoint="" a:alt_id="a27">
                                                   <parameters>
-                                                    <label>Patient fÃ¼r OP anmelden</label>
+                                                    <label>Patient für OP anmelden</label>
                                                     <method/>
                                                     <type>:task</type>
                                                     <arguments/>
@@ -2610,7 +2610,7 @@ event:
   cpee:change_uuid: 564dbc36a53fbec83d1b6409ff40ea4d1141c04b
   cpee:exposition: |-
     # User Input:
-    FÃ¼ge nach dem Labortest noch das Laborergebnis mit ein
+    Füge nach dem Labortest noch das Laborergebnis mit ein
   time:timestamp: '2025-10-29T14:43:08.055697+01:00'
 ---
 event:
@@ -2643,10 +2643,10 @@ event:
     gw12s:exclusivegateway:{x}-->|""|a23:task:(Blutabnahme)
     a23:task:(Blutabnahme)-->a25:task:(Labortest)
     a25:task:(Labortest)-->gw12e:exclusivegateway:{x}
-    gw12s:exclusivegateway:{x}-->|"true"|a29:task:(RÃ¶ntgen)
-    a29:task:(RÃ¶ntgen)-->gw13s:exclusivegateway:{x}
-    gw13s:exclusivegateway:{x}-->|"Bruch"|a33:task:(Patient fÃ¼r OP anmelden)
-    a33:task:(Patient fÃ¼r OP anmelden)-->gw13e:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->|"true"|a29:task:(Röntgen)
+    a29:task:(Röntgen)-->gw13s:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->|"Bruch"|a33:task:(Patient für OP anmelden)
+    a33:task:(Patient für OP anmelden)-->gw13e:exclusivegateway:{x}
     gw13s:exclusivegateway:{x}-->|"kein Bruch"|a37:task:(Entlassungspapiere fertig machen)
     a37:task:(Entlassungspapiere fertig machen)-->a39:task:(Patient entlassen)
     a39:task:(Patient entlassen)-->gw13e:exclusivegateway:{x}
@@ -2952,10 +2952,10 @@ event:
     a23:task:(Blutabnahme)-->a25:task:(Labortest)
     a25:task:(Labortest)-->a46:task:(Laborergebnis)
     a46:task:(Laborergebnis)-->gw12e:exclusivegateway:{x}
-    gw12s:exclusivegateway:{x}-->|"true"|a29:task:(RÃ¶ntgen)
-    a29:task:(RÃ¶ntgen)-->gw13s:exclusivegateway:{x}
-    gw13s:exclusivegateway:{x}-->|"Bruch"|a33:task:(Patient fÃ¼r OP anmelden)
-    a33:task:(Patient fÃ¼r OP anmelden)-->gw13e:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->|"true"|a29:task:(Röntgen)
+    a29:task:(Röntgen)-->gw13s:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->|"Bruch"|a33:task:(Patient für OP anmelden)
+    a33:task:(Patient für OP anmelden)-->gw13e:exclusivegateway:{x}
     gw13s:exclusivegateway:{x}-->|"kein Bruch"|a37:task:(Entlassungspapiere fertig machen)
     a37:task:(Entlassungspapiere fertig machen)-->a39:task:(Patient entlassen)
     a39:task:(Patient entlassen)-->gw13e:exclusivegateway:{x}
@@ -3334,7 +3334,7 @@ event:
                                                               <alternative condition="true" language="text/javascript">
                                                                 <call id="a41" endpoint="" a:alt_id="a29">
                                                                   <parameters>
-                                                                    <label>RÃ¶ntgen</label>
+                                                                    <label>Röntgen</label>
                                                                     <method/>
                                                                     <type>:task</type>
                                                                     <arguments/>
@@ -3344,7 +3344,7 @@ event:
                                                                   <alternative condition="Bruch" language="text/javascript">
                                                                     <call id="a45" endpoint="" a:alt_id="a33">
                                                                       <parameters>
-                                                                        <label>Patient fÃ¼r OP anmelden</label>
+                                                                        <label>Patient für OP anmelden</label>
                                                                         <method/>
                                                                         <type>:task</type>
                                                                         <arguments/>
@@ -3486,7 +3486,7 @@ event:
   cpee:change_uuid: 5dc6053d5420b9f4434dda1a6ce2d7d9395614b8
   cpee:exposition: |-
     # User Input:
-    FÃ¼ge bei Patient entlassen noch ein: "Hoch damit und raus mit ihnen!"
+    Füge bei Patient entlassen noch ein: "Hoch damit und raus mit ihnen!"
   time:timestamp: '2025-10-29T14:44:38.923535+01:00'
 ---
 event:
@@ -3526,10 +3526,10 @@ event:
     a33:task:(Blutabnahme)-->a35:task:(Labortest)
     a35:task:(Labortest)-->a37:task:(Laborergebnis)
     a37:task:(Laborergebnis)-->gw17e:exclusivegateway:{x}
-    gw17s:exclusivegateway:{x}-->|"true"|a41:task:(RÃ¶ntgen)
-    a41:task:(RÃ¶ntgen)-->gw18s:exclusivegateway:{x}
-    gw18s:exclusivegateway:{x}-->|"Bruch"|a45:task:(Patient fÃ¼r OP anmelden)
-    a45:task:(Patient fÃ¼r OP anmelden)-->gw18e:exclusivegateway:{x}
+    gw17s:exclusivegateway:{x}-->|"true"|a41:task:(Röntgen)
+    a41:task:(Röntgen)-->gw18s:exclusivegateway:{x}
+    gw18s:exclusivegateway:{x}-->|"Bruch"|a45:task:(Patient für OP anmelden)
+    a45:task:(Patient für OP anmelden)-->gw18e:exclusivegateway:{x}
     gw18s:exclusivegateway:{x}-->|"kein Bruch"|a49:task:(Entlassungspapiere fertig machen)
     a49:task:(Entlassungspapiere fertig machen)-->a51:task:(Patient entlassen)
     a51:task:(Patient entlassen Hoch damit und raus mit ihnen!)-->gw18e:exclusivegateway:{x}
@@ -3615,10 +3615,10 @@ event:
     a33:task:(Blutabnahme)-->a35:task:(Labortest)
     a35:task:(Labortest)-->a37:task:(Laborergebnis)
     a37:task:(Laborergebnis)-->gw17e:exclusivegateway:{x}
-    gw17s:exclusivegateway:{x}-->|"true"|a41:task:(RÃ¶ntgen)
-    a41:task:(RÃ¶ntgen)-->gw18s:exclusivegateway:{x}
-    gw18s:exclusivegateway:{x}-->|"Bruch"|a45:task:(Patient fÃ¼r OP anmelden)
-    a45:task:(Patient fÃ¼r OP anmelden)-->gw18e:exclusivegateway:{x}
+    gw17s:exclusivegateway:{x}-->|"true"|a41:task:(Röntgen)
+    a41:task:(Röntgen)-->gw18s:exclusivegateway:{x}
+    gw18s:exclusivegateway:{x}-->|"Bruch"|a45:task:(Patient für OP anmelden)
+    a45:task:(Patient für OP anmelden)-->gw18e:exclusivegateway:{x}
     gw18s:exclusivegateway:{x}-->|"kein Bruch"|a49:task:(Entlassungspapiere fertig machen)
     a49:task:(Entlassungspapiere fertig machen)-->a51:task:(Patient entlassen)
     a51:task:(Patient entlassen)-->gw18e:exclusivegateway:{x}
@@ -4470,7 +4470,7 @@ event:
                                           <alternative condition="true" language="text/javascript">
                                             <call id="a29" endpoint="" a:alt_id="a23">
                                               <parameters>
-                                                <label>RÃ¶ntgen</label>
+                                                <label>Röntgen</label>
                                                 <method/>
                                                 <type>:task</type>
                                                 <arguments/>
@@ -4480,7 +4480,7 @@ event:
                                               <alternative condition="Bruch" language="text/javascript">
                                                 <call id="a33" endpoint="" a:alt_id="a27">
                                                   <parameters>
-                                                    <label>Patient fÃ¼r OP anmelden</label>
+                                                    <label>Patient für OP anmelden</label>
                                                     <method/>
                                                     <type>:task</type>
                                                     <arguments/>
@@ -4818,7 +4818,7 @@ event:
   cpee:change_uuid: 5cc2f2815ae2a45dc1b8357c0ce7efc30cbde33a
   cpee:exposition: |-
     # User Input:
-    FÃ¼ge nach Patient entlassen "Hoch damit und raus mit ihnen!" ein.
+    Füge nach Patient entlassen "Hoch damit und raus mit ihnen!" ein.
   time:timestamp: '2025-10-29T14:46:48.194145+01:00'
 ---
 event:
@@ -4852,10 +4852,10 @@ event:
         gw12s:exclusivegateway:{x}-->|""|a23:task:(Blutabnahme)
         a23:task:(Blutabnahme)-->a25:task:(Labortest)
         a25:task:(Labortest)-->gw12e:exclusivegateway:{x}
-        gw12s:exclusivegateway:{x}-->|"true"|a29:task:(RÃ¶ntgen)
-        a29:task:(RÃ¶ntgen)-->gw13s:exclusivegateway:{x}
-        gw13s:exclusivegateway:{x}-->|"Bruch"|a33:task:(Patient fÃ¼r OP anmelden)
-        a33:task:(Patient fÃ¼r OP anmelden)-->gw13e:exclusivegateway:{x}
+        gw12s:exclusivegateway:{x}-->|"true"|a29:task:(Röntgen)
+        a29:task:(Röntgen)-->gw13s:exclusivegateway:{x}
+        gw13s:exclusivegateway:{x}-->|"Bruch"|a33:task:(Patient für OP anmelden)
+        a33:task:(Patient für OP anmelden)-->gw13e:exclusivegateway:{x}
         gw13s:exclusivegateway:{x}-->|"kein Bruch"|a37:task:(Entlassungspapiere fertig machen)
         a37:task:(Entlassungspapiere fertig machen)-->a39:task:(Patient entlassen)
         a39:task:(Patient entlassen)-->a40:task:(Hoch damit und raus mit ihnen!)
@@ -4926,10 +4926,10 @@ event:
     gw12s:exclusivegateway:{x}-->|""|a23:task:(Blutabnahme)
     a23:task:(Blutabnahme)-->a25:task:(Labortest)
     a25:task:(Labortest)-->gw12e:exclusivegateway:{x}
-    gw12s:exclusivegateway:{x}-->|"true"|a29:task:(RÃ¶ntgen)
-    a29:task:(RÃ¶ntgen)-->gw13s:exclusivegateway:{x}
-    gw13s:exclusivegateway:{x}-->|"Bruch"|a33:task:(Patient fÃ¼r OP anmelden)
-    a33:task:(Patient fÃ¼r OP anmelden)-->gw13e:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->|"true"|a29:task:(Röntgen)
+    a29:task:(Röntgen)-->gw13s:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->|"Bruch"|a33:task:(Patient für OP anmelden)
+    a33:task:(Patient für OP anmelden)-->gw13e:exclusivegateway:{x}
     gw13s:exclusivegateway:{x}-->|"kein Bruch"|a37:task:(Entlassungspapiere fertig machen)
     a37:task:(Entlassungspapiere fertig machen)-->a39:task:(Patient entlassen)
     a39:task:(Patient entlassen)-->gw13e:exclusivegateway:{x}
@@ -5275,7 +5275,7 @@ event:
                                                               <alternative condition="true" language="text/javascript">
                                                                 <call id="a39" endpoint="" a:alt_id="a29">
                                                                   <parameters>
-                                                                    <label>RÃ¶ntgen</label>
+                                                                    <label>Röntgen</label>
                                                                     <method/>
                                                                     <type>:task</type>
                                                                     <arguments/>
@@ -5285,7 +5285,7 @@ event:
                                                                   <alternative condition="Bruch" language="text/javascript">
                                                                     <call id="a43" endpoint="" a:alt_id="a33">
                                                                       <parameters>
-                                                                        <label>Patient fÃ¼r OP anmelden</label>
+                                                                        <label>Patient für OP anmelden</label>
                                                                         <method/>
                                                                         <type>:task</type>
                                                                         <arguments/>
@@ -5521,7 +5521,7 @@ event:
   cpee:change_uuid: 44ddfc5e3edb5844870b5f25afa550048e110fb8
   cpee:exposition: |-
     # User Input:
-    Entferne unnÃ¶tige Verzweigungen
+    Entferne unnötige Verzweigungen
   time:timestamp: '2025-10-29T14:47:16.625159+01:00'
 ---
 event:
@@ -5559,10 +5559,10 @@ event:
     gw17s:exclusivegateway:{x}-->|""|a33:task:(Blutabnahme)
     a33:task:(Blutabnahme)-->a35:task:(Labortest)
     a35:task:(Labortest)-->gw17e:exclusivegateway:{x}
-    gw17s:exclusivegateway:{x}-->|"true"|a39:task:(RÃ¶ntgen)
-    a39:task:(RÃ¶ntgen)-->gw18s:exclusivegateway:{x}
-    gw18s:exclusivegateway:{x}-->|"Bruch"|a43:task:(Patient fÃ¼r OP anmelden)
-    a43:task:(Patient fÃ¼r OP anmelden)-->gw18e:exclusivegateway:{x}
+    gw17s:exclusivegateway:{x}-->|"true"|a39:task:(Röntgen)
+    a39:task:(Röntgen)-->gw18s:exclusivegateway:{x}
+    gw18s:exclusivegateway:{x}-->|"Bruch"|a43:task:(Patient für OP anmelden)
+    a43:task:(Patient für OP anmelden)-->gw18e:exclusivegateway:{x}
     gw18s:exclusivegateway:{x}-->|"kein Bruch"|a47:task:(Entlassungspapiere fertig machen)
     a47:task:(Entlassungspapiere fertig machen)-->a49:task:(Patient entlassen)
     a49:task:(Patient entlassen)-->a51:task:(Hoch damit und raus mit ihnen!)
@@ -5648,10 +5648,10 @@ event:
     gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
-    gw17s:exclusivegateway:{x}-->|"true"|a39:task:(RÃ¶ntgen)
-    a39:task:(RÃ¶ntgen)-->gw18s:exclusivegateway:{x}
-    gw18s:exclusivegateway:{x}-->|"Bruch"|a43:task:(Patient fÃ¼r OP anmelden)
-    a43:task:(Patient fÃ¼r OP anmelden)-->gw18e:exclusivegateway:{x}
+    gw17s:exclusivegateway:{x}-->|"true"|a39:task:(Röntgen)
+    a39:task:(Röntgen)-->gw18s:exclusivegateway:{x}
+    gw18s:exclusivegateway:{x}-->|"Bruch"|a43:task:(Patient für OP anmelden)
+    a43:task:(Patient für OP anmelden)-->gw18e:exclusivegateway:{x}
     gw18s:exclusivegateway:{x}-->|"kein Bruch"|a47:task:(Entlassungspapiere fertig machen)
     a47:task:(Entlassungspapiere fertig machen)-->a49:task:(Patient entlassen)
     a49:task:(Patient entlassen)-->a51:task:(Hoch damit und raus mit ihnen!)
@@ -6774,7 +6774,7 @@ event:
   cpee:change_uuid: 2d7ec83a1f7f814757a732d3db584a35138b39f4
   cpee:exposition: |-
     # User Input:
-    FÃ¤rbe den Schritt Patienteneinlieferung durch Rettungsdienst grÃ¼n
+    Färbe den Schritt Patienteneinlieferung durch Rettungsdienst grün
   time:timestamp: '2025-10-29T14:56:26.242670+01:00'
 ---
 event:

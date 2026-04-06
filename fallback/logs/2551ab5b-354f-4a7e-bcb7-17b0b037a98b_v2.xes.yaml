@@ -269,7 +269,7 @@ event:
   cpee:change_uuid: 957345e8d775921d44b7dc4a584a026d0e8b708a
   cpee:exposition: |+
     # User Input:
-    Process description:Â 
+    Process description: 
 
     You want to build a tree house. First you collect your requirements, and send
     them to a tree house architect. The architect sends you back a draft, which
@@ -279,14 +279,14 @@ event:
     to several of your friends to build the house. After the house is built, you send invitations
     for a tree house party to your friends. In order to buy the snacks for the party, a list
     of people that attend the party is created.
-    Additional Information:Â 
+    Additional Information: 
     The Mermaid.js syntax for BPMN models is described as follows:
     Each mermaid ja node must have the following structure:
     id:type:shape and text
-    id â€“ it is a unique identifier, Id can be only an integer from n to n.
+    id � it is a unique identifier, Id can be only an integer from n to n.
     Each node has a unique identifier
-    type â€“ defines the type of element regarding to BPMN 2.0 notation.
-    possible types are:Â 
+    type � defines the type of element regarding to BPMN 2.0 notation.
+    possible types are: 
     start event, end event, task, subprocess, exclusive, inclusive and parallel gateway.
     Based on the type of the node following shapes and texts are to be used:
     startevent:((startevent)) i.e., id:startevent:((startevent))
@@ -308,17 +308,17 @@ event:
     Give me just the raw Mermaid.js code without mardown formatting.
     Example of mermaid.js:
     flowchart LR
-    Â  0:startevent:((startevent)) --> 1:task:(task A)
-    Â  1:task: --> 2:exclusivegateway:{x}
-    Â  2:exclusivegateway: --> 3:task:(task B)
-    Â  2:exclusivegateway: --> 4:task(task C)
-    Â  3:task: --> 5:exclusivegateway:{x}
-    Â  4:task --> 5:exclusivegateway:
-    Â  5:exclusivegateway: --> 6:task:(task D)
-    Â  6:task: --> 7:endevent:((endevent))
+      0:startevent:((startevent)) --> 1:task:(task A)
+      1:task: --> 2:exclusivegateway:{x}
+      2:exclusivegateway: --> 3:task:(task B)
+      2:exclusivegateway: --> 4:task(task C)
+      3:task: --> 5:exclusivegateway:{x}
+      4:task --> 5:exclusivegateway:
+      5:exclusivegateway: --> 6:task:(task D)
+      6:task: --> 7:endevent:((endevent))
 
-    Your task:Â 
-    Output a valid mermaid.js diagram showing the sequence of tasks and events in the description above.Â 
+    Your task: 
+    Output a valid mermaid.js diagram showing the sequence of tasks and events in the description above. 
 
   time:timestamp: '2025-11-04T19:49:31.790715+01:00'
 ...

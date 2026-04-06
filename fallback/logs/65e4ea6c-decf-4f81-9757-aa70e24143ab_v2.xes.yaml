@@ -177,7 +177,7 @@ event:
   cpee:change_uuid: 0b01534e8e9ca47ce16069cbad6b1eb4871d3f92
   cpee:exposition: |+
     # User Input:
-    Zeige mir ein Model fÃ¼r einen normalen Ablauf einer Familie mit 2 Kindern
+    Zeige mir ein Model für einen normalen Ablauf einer Familie mit 2 Kindern
 
   time:timestamp: '2026-03-26T11:33:37.383940+01:00'
 ...
@@ -216,10 +216,10 @@ event:
     ```mermaid
     graph LR
       0:startevent:((startevent)) --> 1:task:(Aufwachen)
-      1:task:(Aufwachen) --> 2:task:(FrÃ¼hstÃ¼ck zubereiten)
-      2:task:(FrÃ¼hstÃ¼ck zubereiten) --> 3:task:(Kinder wecken)
-      3:task:(Kinder wecken) --> 4:task:(Alle frÃ¼hstÃ¼cken)
-      4:task:(Alle frÃ¼hstÃ¼cken) --> 5:exclusivegateway:{x}
+      1:task:(Aufwachen) --> 2:task:(Frühstück zubereiten)
+      2:task:(Frühstück zubereiten) --> 3:task:(Kinder wecken)
+      3:task:(Kinder wecken) --> 4:task:(Alle frühstücken)
+      4:task:(Alle frühstücken) --> 5:exclusivegateway:{x}
       5:exclusivegateway:{x} --> |Arbeitstag| 6:task:(Eltern arbeiten)
       5:exclusivegateway:{x} --> |Schultag| 7:task:(Kinder in die Schule bringen)
       6:task:(Eltern arbeiten) --> 8:parallelgateway:{AND}
@@ -613,7 +613,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>FrÃ¼hstÃ¼ck zubereiten</label>
+          <label>Frühstück zubereiten</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -629,7 +629,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Alle frÃ¼hstÃ¼cken</label>
+          <label>Alle frühstücken</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -717,7 +717,7 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |+
     # User Input:
-    Zeige mir ein Model fÃ¼r eine erfolgreich s/4-HANA migration.
+    Zeige mir ein Model für eine erfolgreich s/4-HANA migration.
 
   time:timestamp: '2026-03-26T11:35:45.549392+01:00'
 ...
@@ -745,10 +745,10 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Aufwachen)
-    a1:task:(Aufwachen)-->a3:task:(FrÃ¼hstÃ¼ck zubereiten)
-    a3:task:(FrÃ¼hstÃ¼ck zubereiten)-->a5:task:(Kinder wecken)
-    a5:task:(Kinder wecken)-->a7:task:(Alle frÃ¼hstÃ¼cken)
-    a7:task:(Alle frÃ¼hstÃ¼cken)-->gw1s:exclusivegateway:{x}
+    a1:task:(Aufwachen)-->a3:task:(Frühstück zubereiten)
+    a3:task:(Frühstück zubereiten)-->a5:task:(Kinder wecken)
+    a5:task:(Kinder wecken)-->a7:task:(Alle frühstücken)
+    a7:task:(Alle frühstücken)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Arbeitstag"|a11:task:(Eltern arbeiten)
     a11:task:(Eltern arbeiten)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"Schultag"|a13:task:(Kinder in die Schule bringen)
@@ -1102,7 +1102,7 @@ event:
   cpee:change_uuid: 3e04c82af153e0e90153b8a0a953189e66098bc7
   cpee:exposition: |+
     # User Input:
-    ZEige mir ein Model fÃ¼r ein Unternehmen fÃ¼r eine erfolgreiche Migration auf S/4HANA.
+    ZEige mir ein Model für ein Unternehmen für eine erfolgreiche Migration auf S/4HANA.
 
   time:timestamp: '2026-03-26T11:36:26.618306+01:00'
 ...
@@ -1596,7 +1596,7 @@ event:
   cpee:change_uuid: e0d43d22cd3c777961ea2691a8ab48faba38cf98
   cpee:exposition: |-
     # User Input:
-    Zeige mir den Ablauf fÃ¼r ein erfolgreiches Projekt.
+    Zeige mir den Ablauf für ein erfolgreiches Projekt.
   time:timestamp: '2026-03-26T11:36:56.591717+01:00'
 ---
 event:

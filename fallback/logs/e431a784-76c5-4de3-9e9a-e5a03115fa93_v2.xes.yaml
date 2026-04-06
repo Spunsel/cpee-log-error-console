@@ -198,16 +198,16 @@ event:
   cpee:change_uuid: 7dfb8446c3ab915b600fefc41b66ebe66007f048
   cpee:exposition: |-
     # User Input:
-    Startereignis ist "Dienstreise steht an"Â 
-    Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP ausÂ 
-    Der Antrag geht elektronisch an seine FÃ¼hrungskraft.Â 
-    Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien.Â 
-    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden FÃ¤llen erhÃ¤lt der Mitarbeiter eine RÃ¼ckmeldung per E-Mail (aus SAP).Â 
-    Es gibt den Fall, dass die FÃ¼hrungskraft RÃ¼ckfragen an den Mitarbeiter hat, die geklÃ¤rt werden mÃ¼ssen. Dann ergÃ¤nzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP.Â 
-    Bei Genehmigung fÃ¼hrt der Mitarbeiter in Reiseportalen die Buchungen durch.Â 
-    Dann fÃ¼hrt er die Dienstreise durch. Dabei entstehen Belege als Dokumente.Â 
-    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege hinzu.Â 
-    Ende: Dienstreise ist abgerechnet.Â 
+    Startereignis ist "Dienstreise steht an" 
+    Der Mitarbeiter füllt einen DR-Antrag in SAP aus 
+    Der Antrag geht elektronisch an seine Führungskraft. 
+    Die Führungskraft prüft den Antrag auf Vollständigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien. 
+    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden Fällen erhält der Mitarbeiter eine Rückmeldung per E-Mail (aus SAP). 
+    Es gibt den Fall, dass die Führungskraft Rückfragen an den Mitarbeiter hat, die geklärt werden müssen. Dann ergänzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP. 
+    Bei Genehmigung führt der Mitarbeiter in Reiseportalen die Buchungen durch. 
+    Dann führt er die Dienstreise durch. Dabei entstehen Belege als Dokumente. 
+    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fügt er die elektronischen Belege hinzu. 
+    Ende: Dienstreise ist abgerechnet. 
   time:timestamp: '2026-03-19T20:18:59.446330+01:00'
 ---
 event:
@@ -243,19 +243,19 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-    0:startevent:((startevent)) --> 1:task:(Mitarbeiter fÃ¼llt DR-Antrag in SAP aus)
-    1:task:(Mitarbeiter fÃ¼llt DR-Antrag in SAP aus) --> 2:task:(Antrag geht elektronisch an FÃ¼hrungskraft)
-    2:task:(Antrag geht elektronisch an FÃ¼hrungskraft) --> 3:task:(FÃ¼hrungskraft prÃ¼ft den Antrag)
-    3:task:(FÃ¼hrungskraft prÃ¼ft den Antrag) --> 4:exclusivegateway:{x}
-    4:exclusivegateway:{x} --> |Genehmigt| 5:task:(Mitarbeiter erhÃ¤lt Genehmigung per E-Mail)
-    4:exclusivegateway:{x} --> |Abgelehnt| 6:task:(Mitarbeiter erhÃ¤lt Ablehnung per E-Mail)
-    4:exclusivegateway:{x} --> |RÃ¼ckfragen| 7:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag)
-    7:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag) --> 2:task:(Antrag geht elektronisch an FÃ¼hrungskraft)
-    5:task:(Mitarbeiter erhÃ¤lt Genehmigung per E-Mail) --> 8:task:(Mitarbeiter fÃ¼hrt Buchungen in Reiseportalen durch)
-    8:task:(Mitarbeiter fÃ¼hrt Buchungen in Reiseportalen durch) --> 9:task:(Mitarbeiter fÃ¼hrt die Dienstreise durch)
-    9:task:(Mitarbeiter fÃ¼hrt die Dienstreise durch) --> 10:task:(Mitarbeiter macht Reisekostenabrechnung in SAP)
+    0:startevent:((startevent)) --> 1:task:(Mitarbeiter füllt DR-Antrag in SAP aus)
+    1:task:(Mitarbeiter füllt DR-Antrag in SAP aus) --> 2:task:(Antrag geht elektronisch an Führungskraft)
+    2:task:(Antrag geht elektronisch an Führungskraft) --> 3:task:(Führungskraft prüft den Antrag)
+    3:task:(Führungskraft prüft den Antrag) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Genehmigt| 5:task:(Mitarbeiter erhält Genehmigung per E-Mail)
+    4:exclusivegateway:{x} --> |Abgelehnt| 6:task:(Mitarbeiter erhält Ablehnung per E-Mail)
+    4:exclusivegateway:{x} --> |Rückfragen| 7:task:(Mitarbeiter ergänzt den DR-Antrag)
+    7:task:(Mitarbeiter ergänzt den DR-Antrag) --> 2:task:(Antrag geht elektronisch an Führungskraft)
+    5:task:(Mitarbeiter erhält Genehmigung per E-Mail) --> 8:task:(Mitarbeiter führt Buchungen in Reiseportalen durch)
+    8:task:(Mitarbeiter führt Buchungen in Reiseportalen durch) --> 9:task:(Mitarbeiter führt die Dienstreise durch)
+    9:task:(Mitarbeiter führt die Dienstreise durch) --> 10:task:(Mitarbeiter macht Reisekostenabrechnung in SAP)
     10:task:(Mitarbeiter macht Reisekostenabrechnung in SAP) --> 11:endevent:(((endevent)))
-    6:task:(Mitarbeiter erhÃ¤lt Ablehnung per E-Mail) --> 11:endevent:(((endevent)))
+    6:task:(Mitarbeiter erhält Ablehnung per E-Mail) --> 11:endevent:(((endevent)))
     ```
 
     This code will generate a BPMN diagram that accurately represents the described business process.
@@ -531,16 +531,16 @@ event:
   cpee:change_uuid: 6ca02e36f63d0edaff94ad8f5f4b699212e17d27
   cpee:exposition: |-
     # User Input:
-    Startereignis ist "Dienstreise steht an"Â 
-    Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP ausÂ 
-    Der Antrag geht elektronisch an seine FÃ¼hrungskraft.Â 
-    Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien.Â 
-    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden FÃ¤llen erhÃ¤lt der Mitarbeiter eine RÃ¼ckmeldung per E-Mail (aus SAP).Â 
-    Es gibt den Fall, dass die FÃ¼hrungskraft RÃ¼ckfragen an den Mitarbeiter hat, die geklÃ¤rt werden mÃ¼ssen. Dann ergÃ¤nzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP.Â 
-    Bei Genehmigung fÃ¼hrt der Mitarbeiter in Reiseportalen die Buchungen durch.Â 
-    Dann fÃ¼hrt er die Dienstreise durch. Dabei entstehen Belege als Dokumente.Â 
-    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege hinzu.Â 
-    Ende: Dienstreise ist abgerechnet.Â 
+    Startereignis ist "Dienstreise steht an" 
+    Der Mitarbeiter füllt einen DR-Antrag in SAP aus 
+    Der Antrag geht elektronisch an seine Führungskraft. 
+    Die Führungskraft prüft den Antrag auf Vollständigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien. 
+    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden Fällen erhält der Mitarbeiter eine Rückmeldung per E-Mail (aus SAP). 
+    Es gibt den Fall, dass die Führungskraft Rückfragen an den Mitarbeiter hat, die geklärt werden müssen. Dann ergänzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP. 
+    Bei Genehmigung führt der Mitarbeiter in Reiseportalen die Buchungen durch. 
+    Dann führt er die Dienstreise durch. Dabei entstehen Belege als Dokumente. 
+    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fügt er die elektronischen Belege hinzu. 
+    Ende: Dienstreise ist abgerechnet. 
   time:timestamp: '2026-03-19T20:19:42.628808+01:00'
 ---
 event:
@@ -577,18 +577,18 @@ event:
     ```mermaid
     graph LR
     0:startevent:((startevent)) --> 1:task:(Dienstreise steht an)
-    1:task:(Dienstreise steht an) --> 2:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)
-    2:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus) --> 3:task:(Antrag geht elektronisch an seine FÃ¼hrungskraft)
-    3:task:(Antrag geht elektronisch an seine FÃ¼hrungskraft) --> 4:task:(FÃ¼hrungskraft prÃ¼ft den Antrag)
-    4:task:(FÃ¼hrungskraft prÃ¼ft den Antrag) --> 5:exclusivegateway:{x}
-    5:exclusivegateway:{x} --> |Genehmigt| 6:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)
-    5:exclusivegateway:{x} --> |Abgelehnt| 7:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)
-    5:exclusivegateway:{x} --> |RÃ¼ckfragen| 8:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag)
-    6:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail) --> 9:task:(Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch)
-    7:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail) --> 10:endevent:(((endevent)))
-    8:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag) --> 2:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)
-    9:task:(Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch) --> 11:task:(Dienstreise durchfÃ¼hren)
-    11:task:(Dienstreise durchfÃ¼hren) --> 12:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung)
+    1:task:(Dienstreise steht an) --> 2:task:(Mitarbeiter füllt einen DR-Antrag in SAP aus)
+    2:task:(Mitarbeiter füllt einen DR-Antrag in SAP aus) --> 3:task:(Antrag geht elektronisch an seine Führungskraft)
+    3:task:(Antrag geht elektronisch an seine Führungskraft) --> 4:task:(Führungskraft prüft den Antrag)
+    4:task:(Führungskraft prüft den Antrag) --> 5:exclusivegateway:{x}
+    5:exclusivegateway:{x} --> |Genehmigt| 6:task:(Mitarbeiter erhält eine Rückmeldung per E-Mail)
+    5:exclusivegateway:{x} --> |Abgelehnt| 7:task:(Mitarbeiter erhält eine Rückmeldung per E-Mail)
+    5:exclusivegateway:{x} --> |Rückfragen| 8:task:(Mitarbeiter ergänzt den DR-Antrag)
+    6:task:(Mitarbeiter erhält eine Rückmeldung per E-Mail) --> 9:task:(Mitarbeiter führt in Reiseportalen die Buchungen durch)
+    7:task:(Mitarbeiter erhält eine Rückmeldung per E-Mail) --> 10:endevent:(((endevent)))
+    8:task:(Mitarbeiter ergänzt den DR-Antrag) --> 2:task:(Mitarbeiter füllt einen DR-Antrag in SAP aus)
+    9:task:(Mitarbeiter führt in Reiseportalen die Buchungen durch) --> 11:task:(Dienstreise durchführen)
+    11:task:(Dienstreise durchführen) --> 12:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung)
     12:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung) --> 13:endevent:(((endevent)))
     ```
 
@@ -762,7 +762,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a3" endpoint="" a:alt_id="2">
           <parameters>
-            <label>Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus</label>
+            <label>Mitarbeiter füllt einen DR-Antrag in SAP aus</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -770,7 +770,7 @@ event:
         </call>
         <call id="a5" endpoint="" a:alt_id="3">
           <parameters>
-            <label>Antrag geht elektronisch an seine FÃ¼hrungskraft</label>
+            <label>Antrag geht elektronisch an seine Führungskraft</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -778,18 +778,18 @@ event:
         </call>
         <call id="a7" endpoint="" a:alt_id="4">
           <parameters>
-            <label>FÃ¼hrungskraft prÃ¼ft den Antrag</label>
+            <label>Führungskraft prüft den Antrag</label>
             <method/>
             <type>:task</type>
             <arguments/>
           </parameters>
         </call>
-        <loop mode="pre_test" condition="RÃ¼ckfragen">
+        <loop mode="pre_test" condition="Rückfragen">
           <choose mode="exclusive" a:alt_id="5">
-            <alternative condition="RÃ¼ckfragen" language="text/javascript">
+            <alternative condition="Rückfragen" language="text/javascript">
               <call id="a15" endpoint="" a:alt_id="8">
                 <parameters>
-                  <label>Mitarbeiter ergÃ¤nzt den DR-Antrag</label>
+                  <label>Mitarbeiter ergänzt den DR-Antrag</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -797,7 +797,7 @@ event:
               </call>
               <call id="a3" endpoint="" a:alt_id="2">
                 <parameters>
-                  <label>Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus</label>
+                  <label>Mitarbeiter füllt einen DR-Antrag in SAP aus</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -805,7 +805,7 @@ event:
               </call>
               <call id="a5" endpoint="" a:alt_id="3">
                 <parameters>
-                  <label>Antrag geht elektronisch an seine FÃ¼hrungskraft</label>
+                  <label>Antrag geht elektronisch an seine Führungskraft</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -813,7 +813,7 @@ event:
               </call>
               <call id="a7" endpoint="" a:alt_id="4">
                 <parameters>
-                  <label>FÃ¼hrungskraft prÃ¼ft den Antrag</label>
+                  <label>Führungskraft prüft den Antrag</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -826,7 +826,7 @@ event:
             <alternative condition="Genehmigt" language="text/javascript">
               <call id="a11" endpoint="" a:alt_id="6">
                 <parameters>
-                  <label>Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail</label>
+                  <label>Mitarbeiter erhält eine Rückmeldung per E-Mail</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -834,7 +834,7 @@ event:
               </call>
               <call id="a17" endpoint="" a:alt_id="9">
                 <parameters>
-                  <label>Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch</label>
+                  <label>Mitarbeiter führt in Reiseportalen die Buchungen durch</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -842,7 +842,7 @@ event:
               </call>
               <call id="a23" endpoint="" a:alt_id="11">
                 <parameters>
-                  <label>Dienstreise durchfÃ¼hren</label>
+                  <label>Dienstreise durchführen</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -860,7 +860,7 @@ event:
             <alternative condition="Abgelehnt" language="text/javascript">
               <call id="a13" endpoint="" a:alt_id="7">
                 <parameters>
-                  <label>Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail</label>
+                  <label>Mitarbeiter erhält eine Rückmeldung per E-Mail</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -882,8 +882,8 @@ event:
   cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
   cpee:exposition: |-
     # User Input:
-    Kannst du die erwÃ¤hnten Systeme wie SAP oder E-Mail als eigenstÃ¤ndige Schwimmbahn darstellen?Â 
-    Kannst du die Rollen FÃ¼hrungskraft und Mitarbeiter als Schwimmbahnen darstellen?
+    Kannst du die erwähnten Systeme wie SAP oder E-Mail als eigenständige Schwimmbahn darstellen? 
+    Kannst du die Rollen Führungskraft und Mitarbeiter als Schwimmbahnen darstellen?
   time:timestamp: '2026-03-19T20:21:35.854634+01:00'
 ---
 event:
@@ -911,32 +911,32 @@ event:
     se:startevent:((startevent))-->a1:task:(Dienstreise steht an)
     a1:task:(Dienstreise steht an)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)
-    a3:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)-->a5:task:(Antrag geht elektronisch an seine FÃ¼hrungskraft)
-    a5:task:(Antrag geht elektronisch an seine FÃ¼hrungskraft)-->a7:task:(FÃ¼hrungskraft prÃ¼ft den Antrag)
-    a7:task:(FÃ¼hrungskraft prÃ¼ft den Antrag)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Mitarbeiter füllt einen DR-Antrag in SAP aus)
+    a3:task:(Mitarbeiter füllt einen DR-Antrag in SAP aus)-->a5:task:(Antrag geht elektronisch an seine Führungskraft)
+    a5:task:(Antrag geht elektronisch an seine Führungskraft)-->a7:task:(Führungskraft prüft den Antrag)
+    a7:task:(Führungskraft prüft den Antrag)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"RÃ¼ckfragen"|gw4s:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"RÃ¼ckfragen"|a15:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag)
-    a15:task:(Mitarbeiter ergÃ¤nzt den DR-Antrag)-->a3:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)
-    a3:task:(Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)-->gw4e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Rückfragen"|gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Rückfragen"|a15:task:(Mitarbeiter ergänzt den DR-Antrag)
+    a15:task:(Mitarbeiter ergänzt den DR-Antrag)-->a3:task:(Mitarbeiter füllt einen DR-Antrag in SAP aus)
+    a3:task:(Mitarbeiter füllt einen DR-Antrag in SAP aus)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"Genehmigt"|a11:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)
-    a11:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)-->a17:task:(Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch)
-    a17:task:(Mitarbeiter fÃ¼hrt in Reiseportalen die Buchungen durch)-->a23:task:(Dienstreise durchfÃ¼hren)
-    a23:task:(Dienstreise durchfÃ¼hren)-->a25:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung)
+    gw4s:exclusivegateway:{x}-->|"Genehmigt"|a11:task:(Mitarbeiter erhält eine Rückmeldung per E-Mail)
+    a11:task:(Mitarbeiter erhält eine Rückmeldung per E-Mail)-->a17:task:(Mitarbeiter führt in Reiseportalen die Buchungen durch)
+    a17:task:(Mitarbeiter führt in Reiseportalen die Buchungen durch)-->a23:task:(Dienstreise durchführen)
+    a23:task:(Dienstreise durchführen)-->a25:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung)
     a25:task:(Mitarbeiter macht in SAP die Reisekostenabrechnung)-->gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
     gw6e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|a13:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)
-    a13:task:(Mitarbeiter erhÃ¤lt eine RÃ¼ckmeldung per E-Mail)-->gw7s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Abgelehnt"|a13:task:(Mitarbeiter erhält eine Rückmeldung per E-Mail)
+    a13:task:(Mitarbeiter erhält eine Rückmeldung per E-Mail)-->gw7s:exclusivegateway:{x}
     gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
     gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
     gw7e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
@@ -956,7 +956,7 @@ event:
   cpee:exposition: "%% Output Intermediate\nI'm sorry for the confusion, but Mermaid.js
     does not support swimlanes or pools in its BPMN modeling. It's a limitation of
     the library. Therefore, it's not possible to represent systems like SAP or E-Mail,
-    or roles like FÃ¼hrungskraft and Mitarbeiter as separate swimlanes in the Mermaid.js
+    or roles like Führungskraft and Mitarbeiter as separate swimlanes in the Mermaid.js
     format. \n\nHowever, you can use other BPMN modeling tools that support swimlanes
     to represent these systems and roles. For example, tools like Bizagi Modeler,
     Camunda Modeler, or Signavio Process Manager support swimlanes in their BPMN models."
@@ -1117,30 +1117,30 @@ event:
   cpee:change_uuid: e8a4dd4e858425f399ee3ec4a2d20d7e36aa4e99
   cpee:exposition: |+
     # User Input:
-    Startereignis ist "Dienstreise steht an"Â 
+    Startereignis ist "Dienstreise steht an" 
 
-    Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP ausÂ 
+    Der Mitarbeiter füllt einen DR-Antrag in SAP aus 
 
-    Der Antrag geht elektronisch an seine FÃ¼hrungskraft.Â 
+    Der Antrag geht elektronisch an seine Führungskraft. 
 
-    Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien.Â 
+    Die Führungskraft prüft den Antrag auf Vollständigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien. 
 
-    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden FÃ¤llen erhÃ¤lt der Mitarbeiter eine RÃ¼ckmeldung per E-Mail (aus SAP).Â 
+    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden Fällen erhält der Mitarbeiter eine Rückmeldung per E-Mail (aus SAP). 
 
-    Es gibt den Fall, dass die FÃ¼hrungskraft RÃ¼ckfragen an den Mitarbeiter hat, die geklÃ¤rt werden mÃ¼ssen. Dann ergÃ¤nzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP.Â 
+    Es gibt den Fall, dass die Führungskraft Rückfragen an den Mitarbeiter hat, die geklärt werden müssen. Dann ergänzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP. 
 
-    Bei Genehmigung fÃ¼hrt der Mitarbeiter in Reiseportalen die Buchungen durch.Â 
+    Bei Genehmigung führt der Mitarbeiter in Reiseportalen die Buchungen durch. 
 
-    Dann fÃ¼hrt er die Dienstreise durch. Dabei entstehen Belege als Dokumente.Â 
+    Dann führt er die Dienstreise durch. Dabei entstehen Belege als Dokumente. 
 
-    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege hinzu.Â 
+    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fügt er die elektronischen Belege hinzu. 
 
-    Ende: Dienstreise ist abgerechnet.Â 
+    Ende: Dienstreise ist abgerechnet. 
 
-    Bitte erstelle ein Schwimmbahn-Diagramm mit den Rollen FÃ¼hrungskraft, Mitarbeiter und Systeme.Â 
-    Packe in die Systeme-Schwimmbahn alle Systeme wie SAP, E-Mail etc.Â 
-    Modelliere Dokumente an die AktivitÃ¤ten.Â 
-    Wenn mÃ¶glich modelliere von links nach rechts.Â 
+    Bitte erstelle ein Schwimmbahn-Diagramm mit den Rollen Führungskraft, Mitarbeiter und Systeme. 
+    Packe in die Systeme-Schwimmbahn alle Systeme wie SAP, E-Mail etc. 
+    Modelliere Dokumente an die Aktivitäten. 
+    Wenn möglich modelliere von links nach rechts. 
 
   time:timestamp: '2026-03-19T20:25:08.345746+01:00'
 ...
@@ -1541,30 +1541,30 @@ event:
   cpee:change_uuid: '0489b1c9763c9cd4f016a9edc65d4cc1a3a93d8a'
   cpee:exposition: |
     # User Input:
-    Startereignis ist "Dienstreise steht an"Â 
+    Startereignis ist "Dienstreise steht an" 
 
-    Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP ausÂ 
+    Der Mitarbeiter füllt einen DR-Antrag in SAP aus 
 
-    Der Antrag geht elektronisch an seine FÃ¼hrungskraft.Â 
+    Der Antrag geht elektronisch an seine Führungskraft. 
 
-    Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien.Â 
+    Die Führungskraft prüft den Antrag auf Vollständigkeit, Sinnhaftigkeit und weitere Entscheidungskriterien. 
 
-    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden FÃ¤llen erhÃ¤lt der Mitarbeiter eine RÃ¼ckmeldung per E-Mail (aus SAP).Â 
+    Entweder wird die Dienstreise genehmigt, oder sie wird abgelehnt. In beiden Fällen erhält der Mitarbeiter eine Rückmeldung per E-Mail (aus SAP). 
 
-    Es gibt den Fall, dass die FÃ¼hrungskraft RÃ¼ckfragen an den Mitarbeiter hat, die geklÃ¤rt werden mÃ¼ssen. Dann ergÃ¤nzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP.Â 
+    Es gibt den Fall, dass die Führungskraft Rückfragen an den Mitarbeiter hat, die geklärt werden müssen. Dann ergänzt der Mitarbeiter den DR-Antrag und sendet ihn erneut im SAP. 
 
-    Bei Genehmigung fÃ¼hrt der Mitarbeiter in Reiseportalen die Buchungen durch.Â 
+    Bei Genehmigung führt der Mitarbeiter in Reiseportalen die Buchungen durch. 
 
-    Dann fÃ¼hrt er die Dienstreise durch. Dabei entstehen Belege als Dokumente.Â 
+    Dann führt er die Dienstreise durch. Dabei entstehen Belege als Dokumente. 
 
-    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege hinzu.Â 
+    Nach der Dienstreise macht der Mitarbeiter in SAP die Reisekostenabrechnung. Dabei fügt er die elektronischen Belege hinzu. 
 
-    Ende: Dienstreise ist abgerechnet.Â 
+    Ende: Dienstreise ist abgerechnet. 
 
-    Bitte erstelle ein Schwimmbahn-Diagramm mit den Rollen FÃ¼hrungskraft, Mitarbeiter und Systeme.Â 
-    Packe in die Systeme-Schwimmbahn alle Systeme wie SAP, E-Mail etc.Â 
-    Modelliere Dokumente an die AktivitÃ¤ten.Â 
-    Wenn mÃ¶glich modelliere von links nach rechts.Â 
+    Bitte erstelle ein Schwimmbahn-Diagramm mit den Rollen Führungskraft, Mitarbeiter und Systeme. 
+    Packe in die Systeme-Schwimmbahn alle Systeme wie SAP, E-Mail etc. 
+    Modelliere Dokumente an die Aktivitäten. 
+    Wenn möglich modelliere von links nach rechts. 
   time:timestamp: '2026-03-19T20:26:40.057590+01:00'
 ---
 event:
@@ -1634,26 +1634,26 @@ event:
   cpee:change_uuid: '0489b1c9763c9cd4f016a9edc65d4cc1a3a93d8a'
   cpee:exposition: "%% Output Intermediate\nBased on the provided changes, the updated
     Mermaid.js BPMN model would look like this:\n\n```mermaid\nflowchart LR\nse:startevent:((Dienstreise
-    steht an))-->a1:task:(Der Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)\na1:task:(Der
-    Mitarbeiter fÃ¼llt einen DR-Antrag in SAP aus)-->a2:task:(Der Antrag geht elektronisch
-    an seine FÃ¼hrungskraft)\na2:task:(Der Antrag geht elektronisch an seine FÃ¼hrungskraft)-->a3:task:(Die
-    FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit, Sinnhaftigkeit und weitere
-    Entscheidungskriterien)\na3:task:(Die FÃ¼hrungskraft prÃ¼ft den Antrag auf VollstÃ¤ndigkeit,
+    steht an))-->a1:task:(Der Mitarbeiter füllt einen DR-Antrag in SAP aus)\na1:task:(Der
+    Mitarbeiter füllt einen DR-Antrag in SAP aus)-->a2:task:(Der Antrag geht elektronisch
+    an seine Führungskraft)\na2:task:(Der Antrag geht elektronisch an seine Führungskraft)-->a3:task:(Die
+    Führungskraft prüft den Antrag auf Vollständigkeit, Sinnhaftigkeit und weitere
+    Entscheidungskriterien)\na3:task:(Die Führungskraft prüft den Antrag auf Vollständigkeit,
     Sinnhaftigkeit und weitere Entscheidungskriterien)-->gw1s:exclusivegateway:{x}\ngw1s:exclusivegateway:{x}-->|\"Genehmigt\"|a4:task:(Der
-    Mitarbeiter erhÃ¤lt eine Genehmigungs-E-Mail aus SAP)\ngw1s:exclusivegateway:{x}-->|\"Abgelehnt\"|a5:task:(Der
-    Mitarbeiter erhÃ¤lt eine Ablehnungs-E-Mail aus SAP)\ngw1s:exclusivegateway:{x}-->|\"RÃ¼ckfragen\"|a6:task:(Der
-    Mitarbeiter ergÃ¤nzt den DR-Antrag und sendet ihn erneut im SAP)\na4:task:(Der
-    Mitarbeiter erhÃ¤lt eine Genehmigungs-E-Mail aus SAP)-->a7:task:(Der Mitarbeiter
-    fÃ¼hrt in Reiseportalen die Buchungen durch)\na7:task:(Der Mitarbeiter fÃ¼hrt in
-    Reiseportalen die Buchungen durch)-->a8:task:(Der Mitarbeiter fÃ¼hrt die Dienstreise
-    durch. Dabei entstehen Belege als Dokumente)\na8:task:(Der Mitarbeiter fÃ¼hrt die
+    Mitarbeiter erhält eine Genehmigungs-E-Mail aus SAP)\ngw1s:exclusivegateway:{x}-->|\"Abgelehnt\"|a5:task:(Der
+    Mitarbeiter erhält eine Ablehnungs-E-Mail aus SAP)\ngw1s:exclusivegateway:{x}-->|\"Rückfragen\"|a6:task:(Der
+    Mitarbeiter ergänzt den DR-Antrag und sendet ihn erneut im SAP)\na4:task:(Der
+    Mitarbeiter erhält eine Genehmigungs-E-Mail aus SAP)-->a7:task:(Der Mitarbeiter
+    führt in Reiseportalen die Buchungen durch)\na7:task:(Der Mitarbeiter führt in
+    Reiseportalen die Buchungen durch)-->a8:task:(Der Mitarbeiter führt die Dienstreise
+    durch. Dabei entstehen Belege als Dokumente)\na8:task:(Der Mitarbeiter führt die
     Dienstreise durch. Dabei entstehen Belege als Dokumente)-->a9:task:(Der Mitarbeiter
-    macht in SAP die Reisekostenabrechnung. Dabei fÃ¼gt er die elektronischen Belege
+    macht in SAP die Reisekostenabrechnung. Dabei fügt er die elektronischen Belege
     hinzu)\na9:task:(Der Mitarbeiter macht in SAP die Reisekostenabrechnung. Dabei
-    fÃ¼gt er die elektronischen Belege hinzu)-->ee:endevent:((Dienstreise ist abgerechnet))\n```\n\nPlease
+    fügt er die elektronischen Belege hinzu)-->ee:endevent:((Dienstreise ist abgerechnet))\n```\n\nPlease
     note that Mermaid.js does not support swimlanes or lanes, which are used to represent
     different roles or participants in a BPMN diagram. Therefore, it's not possible
-    to create a swimlane diagram with the roles \"FÃ¼hrungskraft\", \"Mitarbeiter\"
+    to create a swimlane diagram with the roles \"Führungskraft\", \"Mitarbeiter\"
     and \"Systeme\" in Mermaid.js. \n\nAlso, Mermaid.js does not support modeling
     of documents attached to activities. However, you can represent documents as tasks
     or events in the process flow. \n\nThe direction of the process flow is from left

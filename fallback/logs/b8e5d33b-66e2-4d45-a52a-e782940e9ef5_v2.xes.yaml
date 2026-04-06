@@ -300,7 +300,7 @@ event:
   cpee:change_uuid: 1c8f3783a140f864700451c99b56353714ddf658
   cpee:exposition: |+
     # User Input:
-    FÃ¼ge eine task hinter dem xor join ein
+    Füge eine task hinter dem xor join ein
 
   time:timestamp: '2026-04-02T17:41:41.938008+02:00'
 ...
@@ -574,7 +574,7 @@ event:
   cpee:change_uuid: e716f560beee295dc3e7d91a8d51d949c58d1b19
   cpee:exposition: |+
     # User Input:
-    fÃ¼ge einen task C hinter dem xor join ein
+    füge einen task C hinter dem xor join ein
 
   time:timestamp: '2026-04-02T17:41:59.483083+02:00'
 ...
@@ -725,7 +725,7 @@ event:
   cpee:change_uuid: 74729edd0f97d29058c578afed5d06e893fb4203
   cpee:exposition: |
     # User Input:
-    Wenn new task ausgefÃƒÂ¼hrt wurde soll entschieden werden ob man den prozess beendet oder an den anfang zurÃƒÂ¼ck geht
+    Wenn new task ausgefÒ¼hrt wurde soll entschieden werden ob man den prozess beendet oder an den anfang zurÒ¼ck geht
   time:timestamp: '2026-04-02T17:43:09.683684+02:00'
 ---
 event:
@@ -776,8 +776,8 @@ event:
     gw1s:parallelgateway:{AND}-->a7:task:(Task B)
     a7:task:(Task B)-->gw1e:parallelgateway:{AND}
     gw1e:parallelgateway:{AND}-->a11:task:(Task C)
-    a11:task:(Task C)-->newTask:task:(Wenn neue Task ausgefÃ¼hrt wurde)
-    newTask:task:(Wenn neue Task ausgefÃ¼hrt wurde)-->gw2s:exclusivegateway:{x}
+    a11:task:(Task C)-->newTask:task:(Wenn neue Task ausgeführt wurde)
+    newTask:task:(Wenn neue Task ausgeführt wurde)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|Ja|se:startevent:
     gw2s:exclusivegateway:{x}-->|Nein|ee:endevent:(((endevent)))
     ```

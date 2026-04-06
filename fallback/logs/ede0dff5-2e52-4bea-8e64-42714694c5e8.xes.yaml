@@ -111,7 +111,7 @@ event:
   cpee:change_uuid: b3e394b77da0b13880e854bfac4b072b8c22e8ef
   cpee:exposition: |-
     # User Input:
-    Der Rechnungsprozess beginnt mit der PrÃ¼fung der Rechnung, dann wird diese in eine Excel Datei eingetragen. Nun wird es in der Excel Tabelle von der buchhaltung entgegen genommen und Ã¼berwiesen
+    Der Rechnungsprozess beginnt mit der Prüfung der Rechnung, dann wird diese in eine Excel Datei eingetragen. Nun wird es in der Excel Tabelle von der buchhaltung entgegen genommen und überwiesen
   time:timestamp: '2025-11-29T09:10:03.462995+01:00'
 ---
 event:
@@ -150,11 +150,11 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-      0:startevent:((startevent)) --> 1:task:(Rechnung prÃ¼fen)
-      1:task:(Rechnung prÃ¼fen) --> 2:task:(In Excel eintragen)
+      0:startevent:((startevent)) --> 1:task:(Rechnung prüfen)
+      1:task:(Rechnung prüfen) --> 2:task:(In Excel eintragen)
       2:task:(In Excel eintragen) --> 3:task:(Von Buchhaltung entgegennehmen)
-      3:task:(Von Buchhaltung entgegennehmen) --> 4:task:(Ãœberweisen)
-      4:task:(Ãœberweisen) --> 5:endevent:(((endevent)))
+      3:task:(Von Buchhaltung entgegennehmen) --> 4:task:(Überweisen)
+      4:task:(Überweisen) --> 5:endevent:(((endevent)))
     ```
   time:timestamp: '2025-11-29T09:10:03.463303+01:00'
 ---
@@ -273,7 +273,7 @@ event:
       xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>Rechnung prÃ¼fen</label>
+          <label>Rechnung prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -297,7 +297,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="4">
         <parameters>
-          <label>Ãœberweisen</label>
+          <label>Überweisen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -316,7 +316,7 @@ event:
   cpee:change_uuid: 5d56e9a19e001a82ecbdaa7f870ff3675858cb0d
   cpee:exposition: |-
     # User Input:
-    die Buchhaltung prÃ¼ft auch nochmal bevor sie Ã¼berweist
+    die Buchhaltung prüft auch nochmal bevor sie überweist
   time:timestamp: '2025-11-29T09:12:18.243276+01:00'
 ---
 event:
@@ -343,11 +343,11 @@ event:
   cpee:exposition: |-
     %% Input Intermediate
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(Rechnung prÃ¼fen)
-    a1:task:(Rechnung prÃ¼fen)-->a3:task:(In Excel eintragen)
+    se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+    a1:task:(Rechnung prüfen)-->a3:task:(In Excel eintragen)
     a3:task:(In Excel eintragen)-->a5:task:(Von Buchhaltung entgegennehmen)
-    a5:task:(Von Buchhaltung entgegennehmen)-->a7:task:(Ãœberweisen)
-    a7:task:(Ãœberweisen)-->ee:endevent:((endevent))
+    a5:task:(Von Buchhaltung entgegennehmen)-->a7:task:(Überweisen)
+    a7:task:(Überweisen)-->ee:endevent:((endevent))
   time:timestamp: '2025-11-29T09:12:18.243449+01:00'
 ---
 event:
@@ -362,12 +362,12 @@ event:
     %% Output Intermediate
     ```mermaid
     flowchart LR
-        se:startevent:((startevent)) --> a1:task:(Rechnung prÃ¼fen)
-        a1:task:(Rechnung prÃ¼fen) --> a3:task:(In Excel eintragen)
+        se:startevent:((startevent)) --> a1:task:(Rechnung prüfen)
+        a1:task:(Rechnung prüfen) --> a3:task:(In Excel eintragen)
         a3:task:(In Excel eintragen) --> a5:task:(Von Buchhaltung entgegennehmen)
-        a5:task:(Von Buchhaltung entgegennehmen) --> a6:task:(Buchhaltung prÃ¼fen)
-        a6:task:(Buchhaltung prÃ¼fen) --> a7:task:(Ãœberweisen)
-        a7:task:(Ãœberweisen) --> ee:endevent:(((endevent)))
+        a5:task:(Von Buchhaltung entgegennehmen) --> a6:task:(Buchhaltung prüfen)
+        a6:task:(Buchhaltung prüfen) --> a7:task:(Überweisen)
+        a7:task:(Überweisen) --> ee:endevent:(((endevent)))
     ```
   time:timestamp: '2025-11-29T09:12:18.243604+01:00'
 ---
@@ -499,7 +499,7 @@ event:
       xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="a1">
         <parameters>
-          <label>Rechnung prÃ¼fen</label>
+          <label>Rechnung prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -523,7 +523,7 @@ event:
       </call>
       <call id="a7" endpoint="" a:alt_id="a6">
         <parameters>
-          <label>Buchhaltung prÃ¼fen</label>
+          <label>Buchhaltung prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -531,7 +531,7 @@ event:
       </call>
       <call id="a9" endpoint="" a:alt_id="a7">
         <parameters>
-          <label>Ãœberweisen</label>
+          <label>Überweisen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -550,7 +550,7 @@ event:
   cpee:change_uuid: d38806657a61b9e534e614b6211d02f0f169ef89
   cpee:exposition: |-
     # User Input:
-    evtl wird es nach der PrÃ¼fung verworfen
+    evtl wird es nach der Prüfung verworfen
   time:timestamp: '2025-11-29T09:12:35.230804+01:00'
 ---
 event:
@@ -577,12 +577,12 @@ event:
   cpee:exposition: |-
     %% Input Intermediate
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(Rechnung prÃ¼fen)
-    a1:task:(Rechnung prÃ¼fen)-->a3:task:(In Excel eintragen)
+    se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+    a1:task:(Rechnung prüfen)-->a3:task:(In Excel eintragen)
     a3:task:(In Excel eintragen)-->a5:task:(Von Buchhaltung entgegennehmen)
-    a5:task:(Von Buchhaltung entgegennehmen)-->a7:task:(Buchhaltung prÃ¼fen)
-    a7:task:(Buchhaltung prÃ¼fen)-->a9:task:(Ãœberweisen)
-    a9:task:(Ãœberweisen)-->ee:endevent:((endevent))
+    a5:task:(Von Buchhaltung entgegennehmen)-->a7:task:(Buchhaltung prüfen)
+    a7:task:(Buchhaltung prüfen)-->a9:task:(Überweisen)
+    a9:task:(Überweisen)-->ee:endevent:((endevent))
   time:timestamp: '2025-11-29T09:12:35.231886+01:00'
 ---
 event:
@@ -597,13 +597,13 @@ event:
     %% Output Intermediate
     ```mermaid
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(Rechnung prÃ¼fen)
-    a1:task:(Rechnung prÃ¼fen)-->a3:task:(In Excel eintragen)
+    se:startevent:((startevent))-->a1:task:(Rechnung prüfen)
+    a1:task:(Rechnung prüfen)-->a3:task:(In Excel eintragen)
     a3:task:(In Excel eintragen)-->a5:task:(Von Buchhaltung entgegennehmen)
-    a5:task:(Von Buchhaltung entgegennehmen)-->a7:task:(Buchhaltung prÃ¼fen)
-    a7:task:(Buchhaltung prÃ¼fen)-->a9:task:(Ãœberweisen)
-    a9:task:(Ãœberweisen)-->ee:endevent:(((endevent)))
-    a1:task: --> |evtl wird es nach der PrÃ¼fung verworfen| ee:endevent:
+    a5:task:(Von Buchhaltung entgegennehmen)-->a7:task:(Buchhaltung prüfen)
+    a7:task:(Buchhaltung prüfen)-->a9:task:(Überweisen)
+    a9:task:(Überweisen)-->ee:endevent:(((endevent)))
+    a1:task: --> |evtl wird es nach der Prüfung verworfen| ee:endevent:
     ```
   time:timestamp: '2025-11-29T09:12:35.232194+01:00'
 ---

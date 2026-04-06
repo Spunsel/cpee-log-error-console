@@ -143,12 +143,12 @@ event:
     ```mermaid
     graph LR
     0:startevent:((startevent)) --> 1:task:(Infrastrukturkosten ermitteln)
-    1:task:(Infrastrukturkosten ermitteln) --> 2:task:(VerteilungsschlÃ¼ssel definieren)
-    2:task:(VerteilungsschlÃ¼ssel definieren) --> 3:task:(Kosten auf Bereiche verteilen)
-    3:task:(Kosten auf Bereiche verteilen) --> 4:task:(VerrechnungssÃ¤tze berechnen)
-    4:task:(VerrechnungssÃ¤tze berechnen) --> 5:task:(Verrechnung durchfÃ¼hren)
-    5:task:(Verrechnung durchfÃ¼hren) --> 6:task:(Ergebnisse prÃ¼fen und freigeben)
-    6:task:(Ergebnisse prÃ¼fen und freigeben) --> 7:endevent:(((endevent)))
+    1:task:(Infrastrukturkosten ermitteln) --> 2:task:(Verteilungsschlüssel definieren)
+    2:task:(Verteilungsschlüssel definieren) --> 3:task:(Kosten auf Bereiche verteilen)
+    3:task:(Kosten auf Bereiche verteilen) --> 4:task:(Verrechnungssätze berechnen)
+    4:task:(Verrechnungssätze berechnen) --> 5:task:(Verrechnung durchführen)
+    5:task:(Verrechnung durchführen) --> 6:task:(Ergebnisse prüfen und freigeben)
+    6:task:(Ergebnisse prüfen und freigeben) --> 7:endevent:(((endevent)))
     ```
   time:timestamp: '2025-11-05T15:56:03.169121+01:00'
 ---
@@ -162,7 +162,7 @@ event:
   cpee:change_uuid: da7096d3d7ec784698119ccf5332f821ae06d7fd
   cpee:exposition: |-
     # User Input:
-    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag fÃ¼r einen Prozess zu Verrechnung von Infrastrukturkosten
+    Finanzabteilung eines Uniklinikums: mache mir einen Vorschlag für einen Prozess zu Verrechnung von Infrastrukturkosten
   time:timestamp: '2025-11-05T15:56:03.168448+01:00'
 ---
 event:

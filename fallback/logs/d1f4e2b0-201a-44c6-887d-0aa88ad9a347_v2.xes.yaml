@@ -138,9 +138,9 @@ event:
     ```mermaid
     graph LR
     0:startevent:((startevent)) --> 1:task:(Visite planen)
-    1:task:(Visite planen) --> 2:task:(Patienten auswÃ¤hlen)
-    2:task:(Patienten auswÃ¤hlen) --> 3:task:(Visite durchfÃ¼hren)
-    3:task:(Visite durchfÃ¼hren) --> 4:task:(Ergebnisse dokumentieren)
+    1:task:(Visite planen) --> 2:task:(Patienten auswählen)
+    2:task:(Patienten auswählen) --> 3:task:(Visite durchführen)
+    3:task:(Visite durchführen) --> 4:task:(Ergebnisse dokumentieren)
     4:task:(Ergebnisse dokumentieren) --> 5:endevent:(((endevent)))
     ```
   time:timestamp: '2025-11-03T15:55:57.843076+01:00'
@@ -155,7 +155,7 @@ event:
   cpee:change_uuid: 87106a74585db49dc7658e60c4baea51075113f6
   cpee:exposition: |-
     # User Input:
-    mache einen prozessvorschlag fÃ¼r eine visite in der klinik
+    mache einen prozessvorschlag für eine visite in der klinik
   time:timestamp: '2025-11-03T15:55:57.842329+01:00'
 ---
 event:
@@ -273,7 +273,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Patienten auswÃ¤hlen</label>
+          <label>Patienten auswählen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -281,7 +281,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Visite durchfÃ¼hren</label>
+          <label>Visite durchführen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -308,7 +308,7 @@ event:
   cpee:change_uuid: 0111a98fcf505b5ec5ba78287eafb0ed5c535214
   cpee:exposition: |-
     # User Input:
-    lÃ¶sche nochmals alles
+    lösche nochmals alles
   time:timestamp: '2025-11-03T15:56:29.839916+01:00'
 ---
 event:
@@ -336,9 +336,9 @@ event:
     %% Output Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Visite planen)
-    a1:task:(Visite planen)-->a3:task:(Patienten auswÃ¤hlen)
-    a3:task:(Patienten auswÃ¤hlen)-->a5:task:(Visite durchfÃ¼hren)
-    a5:task:(Visite durchfÃ¼hren)-->a7:task:(Ergebnisse dokumentieren)
+    a1:task:(Visite planen)-->a3:task:(Patienten auswählen)
+    a3:task:(Patienten auswählen)-->a5:task:(Visite durchführen)
+    a5:task:(Visite durchführen)-->a7:task:(Ergebnisse dokumentieren)
     a7:task:(Ergebnisse dokumentieren)-->ee:endevent:(((endevent)))
   time:timestamp: '2025-11-03T15:56:29.840325+01:00'
 ---
@@ -354,9 +354,9 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Visite planen)
-    a1:task:(Visite planen)-->a3:task:(Patienten auswÃ¤hlen)
-    a3:task:(Patienten auswÃ¤hlen)-->a5:task:(Visite durchfÃ¼hren)
-    a5:task:(Visite durchfÃ¼hren)-->a7:task:(Ergebnisse dokumentieren)
+    a1:task:(Visite planen)-->a3:task:(Patienten auswählen)
+    a3:task:(Patienten auswählen)-->a5:task:(Visite durchführen)
+    a5:task:(Visite durchführen)-->a7:task:(Ergebnisse dokumentieren)
     a7:task:(Ergebnisse dokumentieren)-->ee:endevent:((endevent))
   time:timestamp: '2025-11-03T15:56:29.840228+01:00'
 ---
@@ -442,7 +442,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Patienten auswÃ¤hlen</label>
+          <label>Patienten auswählen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -450,7 +450,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Visite durchfÃ¼hren</label>
+          <label>Visite durchführen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -505,9 +505,9 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Visite planen)
-    a1:task:(Visite planen)-->a3:task:(Patienten auswÃ¤hlen)
-    a3:task:(Patienten auswÃ¤hlen)-->a5:task:(Visite durchfÃ¼hren)
-    a5:task:(Visite durchfÃ¼hren)-->a7:task:(Ergebnisse dokumentieren)
+    a1:task:(Visite planen)-->a3:task:(Patienten auswählen)
+    a3:task:(Patienten auswählen)-->a5:task:(Visite durchführen)
+    a5:task:(Visite durchführen)-->a7:task:(Ergebnisse dokumentieren)
     a7:task:(Ergebnisse dokumentieren)-->ee:endevent:((endevent))
   time:timestamp: '2025-11-03T15:56:54.783066+01:00'
 ---
@@ -659,7 +659,7 @@ event:
   cpee:change_uuid: c94caab96d396eaac4572b2e70aa5a468b2ce321
   cpee:exposition: |-
     # User Input:
-    mache einen vorschlag fÃ¼r einen visiteprozess in der klinik
+    mache einen vorschlag für einen visiteprozess in der klinik
   time:timestamp: '2025-11-03T15:57:38.582835+01:00'
 ---
 event:
@@ -1035,7 +1035,7 @@ event:
   cpee:change_uuid: 6e6511979d8b93988e6b05c1de11556dedb99a8b
   cpee:exposition: |-
     # User Input:
-    fÃ¼ge am ende eine aktivitÃ¤t hinzu, die die abrechnung durchfÃ¼hrt
+    füge am ende eine aktivität hinzu, die die abrechnung durchführt
   time:timestamp: '2025-11-03T15:59:56.856796+01:00'
 ---
 event:

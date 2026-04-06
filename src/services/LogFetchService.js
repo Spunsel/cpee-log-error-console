@@ -142,7 +142,8 @@ export class LogFetchService {
                     throw new Error(`LogFetchService: HTTP ${response.status} - ${response.statusText}`);
                 }
                 
-                const yamlContent = await response.text();
+                const buffer = await response.arrayBuffer();
+                const yamlContent = new TextDecoder('utf-8').decode(buffer);
                 
                 clearTimeout(timeoutId);
                 

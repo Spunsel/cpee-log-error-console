@@ -155,7 +155,7 @@ event:
   cpee:change_uuid: 2b38fbe2ea97404532c3a4ac1923e8c21dea1d22
   cpee:exposition: |-
     # User Input:
-    Der Mitarbeiter aus der Abteilung fÃ¼llt das Formular aus und schickt es an jemanden. Er prÃ¼ft es dann sofort oder irgendwann spÃ¤ter und leitet es eventuell weiter. Der zustÃ¤ndige Manager â€” also entweder Herr MÃ¼ller oder die Controllerin â€” muss das genehmigen, sofern der Betrag stimmt oder auch nicht. Danach macht sie das dann. Wenn alles passt, wird der Vorgang abgeschlossen. Falls nicht, passiert was. Der Antragsteller bekommt in einem angemessenen Zeitraum eine RÃ¼ckmeldung Ã¼ber seine Anfrage bezÃ¼glich des Budgets fÃ¼r das Projekt, welches bereits vorher eingereicht wurde. Das System schickt ihm eine E-Mail. AnschlieÃŸend wird der Prozess beendet, aber vorher muss noch das Ding erledigt werden.
+    Der Mitarbeiter aus der Abteilung füllt das Formular aus und schickt es an jemanden. Er prüft es dann sofort oder irgendwann später und leitet es eventuell weiter. Der zuständige Manager � also entweder Herr Müller oder die Controllerin � muss das genehmigen, sofern der Betrag stimmt oder auch nicht. Danach macht sie das dann. Wenn alles passt, wird der Vorgang abgeschlossen. Falls nicht, passiert was. Der Antragsteller bekommt in einem angemessenen Zeitraum eine Rückmeldung über seine Anfrage bezüglich des Budgets für das Projekt, welches bereits vorher eingereicht wurde. Das System schickt ihm eine E-Mail. Anschließend wird der Prozess beendet, aber vorher muss noch das Ding erledigt werden.
   time:timestamp: '2026-03-29T13:29:30.351515+02:00'
 ---
 event:
@@ -191,9 +191,9 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-        0:startevent:((startevent)) --> 1:task:(Formular ausfÃ¼llen und senden)
-        1:task:(Formular ausfÃ¼llen und senden) --> 2:task:(Formular prÃ¼fen)
-        2:task:(Formular prÃ¼fen) --> 3:exclusivegateway:{x}
+        0:startevent:((startevent)) --> 1:task:(Formular ausfüllen und senden)
+        1:task:(Formular ausfüllen und senden) --> 2:task:(Formular prüfen)
+        2:task:(Formular prüfen) --> 3:exclusivegateway:{x}
         3:exclusivegateway:{x} --> |weiterleiten| 4:task:(Weiterleiten)
         3:exclusivegateway:{x} --> |nicht weiterleiten| 5:exclusivegateway:{x}
         4:task:(Weiterleiten) --> 5:exclusivegateway:{x}
@@ -411,7 +411,7 @@ event:
       xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>Formular ausfÃ¼llen und senden</label>
+          <label>Formular ausfüllen und senden</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -419,7 +419,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Formular prÃ¼fen</label>
+          <label>Formular prüfen</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -526,9 +526,9 @@ event:
   cpee:exposition: |-
     %% Input Intermediate
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(Formular ausfÃ¼llen und senden)
-    a1:task:(Formular ausfÃ¼llen und senden)-->a3:task:(Formular prÃ¼fen)
-    a3:task:(Formular prÃ¼fen)-->gw1s:exclusivegateway:{x}
+    se:startevent:((startevent))-->a1:task:(Formular ausfüllen und senden)
+    a1:task:(Formular ausfüllen und senden)-->a3:task:(Formular prüfen)
+    a3:task:(Formular prüfen)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"weiterleiten"|a7:task:(Weiterleiten)
     a7:task:(Weiterleiten)-->gw1e:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->|"nicht weiterleiten"|gw1e:exclusivegateway:{x}
@@ -557,9 +557,9 @@ event:
     %% Output Intermediate
     ```mermaid
     flowchart LR
-        0:startevent:((startevent)) --> 1:task:(Formular ausfÃ¼llen und senden)
-        1:task:(Formular ausfÃ¼llen und senden) --> 2:task:(Formular prÃ¼fen)
-        2:task:(Formular prÃ¼fen) --> 3:exclusivegateway:{x}
+        0:startevent:((startevent)) --> 1:task:(Formular ausfüllen und senden)
+        1:task:(Formular ausfüllen und senden) --> 2:task:(Formular prüfen)
+        2:task:(Formular prüfen) --> 3:exclusivegateway:{x}
         3:exclusivegateway:{x} --> |"weiterleiten"| 4:task:(Weiterleiten)
         4:task:(Weiterleiten) --> 5:exclusivegateway:{x}
         3:exclusivegateway:{x} --> |"nicht weiterleiten"| 5:exclusivegateway:{x}

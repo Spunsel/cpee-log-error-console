@@ -240,108 +240,108 @@ event:
   cpee:exposition: |-
     # User Input:
     <description xmlns="http://cpee.org/ns/description/1.0"
-    Â  Â  Â  Â  Â  Â  Â xmlns:a="http://cpee.org/ns/annotation/1.0">
+                 xmlns:a="http://cpee.org/ns/annotation/1.0">
 
 
-    Â  <!-- A: Simple task (call) â€” covers task accumulation -->
-    Â  <call id="1" a:alt_id="A">
-    Â  Â  <parameters><label>"Task A"</label></parameters>
-    Â  </call>
+      <!-- A: Simple task (call) � covers task accumulation -->
+      <call id="1" a:alt_id="A">
+        <parameters><label>"Task A"</label></parameters>
+      </call>
 
 
-    Â  <!-- XOR gateway with 3 branches â€” covers choose, alternative, otherwise, escape -->
-    Â  <choose id="2">
+      <!-- XOR gateway with 3 branches � covers choose, alternative, otherwise, escape -->
+      <choose id="2">
 
 
-    Â  Â  <!-- Branch 1: alternative with normal tasks (no escape) -->
-    Â  Â  <alternative condition="data.x == 1">
-    Â  Â  Â  <call id="3" a:alt_id="B">
-    Â  Â  Â  Â  <parameters><label>"Task B"</label></parameters>
-    Â  Â  Â  </call>
-    Â  Â  </alternative>
+        <!-- Branch 1: alternative with normal tasks (no escape) -->
+        <alternative condition="data.x == 1">
+          <call id="3" a:alt_id="B">
+            <parameters><label>"Task B"</label></parameters>
+          </call>
+        </alternative>
 
 
-    Â  Â  <!-- Branch 2: alternative with task before escape -->
-    Â  Â  <alternative condition="data.x == 2">
-    Â  Â  Â  <call id="4" a:alt_id="C">
-    Â  Â  Â  Â  <parameters><label>"Task C"</label></parameters>
-    Â  Â  Â  </call>
-    Â  Â  Â  <escape a:alt_id="-1"/>
-    Â  Â  </alternative>
+        <!-- Branch 2: alternative with task before escape -->
+        <alternative condition="data.x == 2">
+          <call id="4" a:alt_id="C">
+            <parameters><label>"Task C"</label></parameters>
+          </call>
+          <escape a:alt_id="-1"/>
+        </alternative>
 
 
-    Â  Â  <!-- Branch 3: alternative with escape immediately (no tasks before) -->
-    Â  Â  <alternative condition="data.x == 3">
-    Â  Â  Â  <escape a:alt_id="-1"/>
-    Â  Â  </alternative>
+        <!-- Branch 3: alternative with escape immediately (no tasks before) -->
+        <alternative condition="data.x == 3">
+          <escape a:alt_id="-1"/>
+        </alternative>
 
 
-    Â  Â  <!-- Branch 4: empty otherwise (returns FT unchanged) -->
-    Â  Â  <otherwise/>
+        <!-- Branch 4: empty otherwise (returns FT unchanged) -->
+        <otherwise/>
 
 
-    Â  </choose>
+      </choose>
 
 
-    Â  <!-- D: Task after choose â€” demonstrates escape propagation:
-    Â  Â  Â  Â traces terminated by escape in branches 2/3 skip this task -->
-    Â  <call id="5" a:alt_id="D">
-    Â  Â  <parameters><label>"Task D"</label></parameters>
-    Â  </call>
+      <!-- D: Task after choose � demonstrates escape propagation:
+           traces terminated by escape in branches 2/3 skip this task -->
+      <call id="5" a:alt_id="D">
+        <parameters><label>"Task D"</label></parameters>
+      </call>
 
 
-    Â  <!-- Parallel gateway with 2 branches â€” covers interleaving -->
-    Â  <parallel id="6">
-    Â  Â  <parallel_branch>
-    Â  Â  Â  <call id="7" a:alt_id="E">
-    Â  Â  Â  Â  <parameters><label>"Task E"</label></parameters>
-    Â  Â  Â  </call>
-    Â  Â  </parallel_branch>
-    Â  Â  <parallel_branch>
-    Â  Â  Â  <call id="8" a:alt_id="F">
-    Â  Â  Â  Â  <parameters><label>"Task F"</label></parameters>
-    Â  Â  Â  </call>
-    Â  Â  Â  <manipulate id="9" a:alt_id="G" label="Task G"/>
-    Â  Â  </parallel_branch>
-    Â  </parallel>
+      <!-- Parallel gateway with 2 branches � covers interleaving -->
+      <parallel id="6">
+        <parallel_branch>
+          <call id="7" a:alt_id="E">
+            <parameters><label>"Task E"</label></parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="8" a:alt_id="F">
+            <parameters><label>"Task F"</label></parameters>
+          </call>
+          <manipulate id="9" a:alt_id="G" label="Task G"/>
+        </parallel_branch>
+      </parallel>
 
 
-    Â  <!-- Conditional loop (condition != "true") â€” covers allow-0-iterations path -->
-    Â  <loop id="10" condition="data.count &gt; 0">
-    Â  Â  <call id="11" a:alt_id="H">
-    Â  Â  Â  <parameters><label>"Task H"</label></parameters>
-    Â  Â  </call>
-    Â  </loop>
+      <!-- Conditional loop (condition != "true") � covers allow-0-iterations path -->
+      <loop id="10" condition="data.count &gt; 0">
+        <call id="11" a:alt_id="H">
+          <parameters><label>"Task H"</label></parameters>
+        </call>
+      </loop>
 
 
-    Â  <!-- Unconditional loop with escape inside XOR â€” covers:
-    Â  Â  Â  Â - mandatory first iteration (condition="true", body not in FT)
-    Â  Â  Â  Â - cotree exit (body in FT on re-encounter)
-    Â  Â  Â  Â - escape path raises min iterations to 2
-    Â  Â  Â  Â - 2-iteration constraints (no same XOR branch, escape-only 2nd)
-    Â  Â  Â  Â - multiple non-escape XOR paths (lifts escape-only restriction) -->
-    Â  <loop id="12" condition="true">
-    Â  Â  <choose id="13">
-    Â  Â  Â  <alternative condition="data.action == 'approve'">
-    Â  Â  Â  Â  <call id="14" a:alt_id="I">
-    Â  Â  Â  Â  Â  <parameters><label>"Task I"</label></parameters>
-    Â  Â  Â  Â  </call>
-    Â  Â  Â  </alternative>
-    Â  Â  Â  <alternative condition="data.action == 'reject'">
-    Â  Â  Â  Â  <call id="15" a:alt_id="J">
-    Â  Â  Â  Â  Â  <parameters><label>"Task J"</label></parameters>
-    Â  Â  Â  Â  </call>
-    Â  Â  Â  </alternative>
-    Â  Â  Â  <alternative condition="data.action == 'cancel'">
-    Â  Â  Â  Â  <escape a:alt_id="-1"/>
-    Â  Â  Â  </alternative>
-    Â  Â  Â  <otherwise>
-    Â  Â  Â  Â  <call id="16" a:alt_id="K">
-    Â  Â  Â  Â  Â  <parameters><label>"Task K"</label></parameters>
-    Â  Â  Â  Â  </call>
-    Â  Â  Â  </otherwise>
-    Â  Â  </choose>
-    Â  </loop>
+      <!-- Unconditional loop with escape inside XOR � covers:
+           - mandatory first iteration (condition="true", body not in FT)
+           - cotree exit (body in FT on re-encounter)
+           - escape path raises min iterations to 2
+           - 2-iteration constraints (no same XOR branch, escape-only 2nd)
+           - multiple non-escape XOR paths (lifts escape-only restriction) -->
+      <loop id="12" condition="true">
+        <choose id="13">
+          <alternative condition="data.action == 'approve'">
+            <call id="14" a:alt_id="I">
+              <parameters><label>"Task I"</label></parameters>
+            </call>
+          </alternative>
+          <alternative condition="data.action == 'reject'">
+            <call id="15" a:alt_id="J">
+              <parameters><label>"Task J"</label></parameters>
+            </call>
+          </alternative>
+          <alternative condition="data.action == 'cancel'">
+            <escape a:alt_id="-1"/>
+          </alternative>
+          <otherwise>
+            <call id="16" a:alt_id="K">
+              <parameters><label>"Task K"</label></parameters>
+            </call>
+          </otherwise>
+        </choose>
+      </loop>
 
 
     </description>

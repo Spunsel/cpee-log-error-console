@@ -180,7 +180,7 @@ event:
   cpee:change_uuid: 01c96c3f2dc4e4cb025eeff47bb17e1f72095b27
   cpee:exposition: |+
     # User Input:
-    Erstelle mir einen Lernprozess fÃ¼r das Abtiur bzgl. Mathematik
+    Erstelle mir einen Lernprozess für das Abtiur bzgl. Mathematik
 
   time:timestamp: '2026-03-26T17:56:56.734175+01:00'
 ...
@@ -222,10 +222,10 @@ event:
         1:task:(Definiere Lernziele) --> 2:task:(Erstelle Lernplan)
         2:task:(Erstelle Lernplan) --> 3:task:(Sammle Lernmaterialien)
         3:task:(Sammle Lernmaterialien) --> 4:task:(Lerne Grundlagen)
-        4:task:(Lerne Grundlagen) --> 5:task:(Ãœbe Aufgaben)
-        5:task:(Ãœbe Aufgaben) --> 6:exclusivegateway:{x}
+        4:task:(Lerne Grundlagen) --> 5:task:(Übe Aufgaben)
+        5:task:(Übe Aufgaben) --> 6:exclusivegateway:{x}
         6:exclusivegateway:{x} -->|Aufgaben gemeistert?| 7:task:(Wiederhole schwierige Themen)
-        7:task:(Wiederhole schwierige Themen) --> 5:task:(Ãœbe Aufgaben)
+        7:task:(Wiederhole schwierige Themen) --> 5:task:(Übe Aufgaben)
         6:exclusivegateway:{x} -->|Nein| 7:task:(Wiederhole schwierige Themen)
         6:exclusivegateway:{x} -->|Ja| 8:exclusivegateway:{x}
         8:exclusivegateway:{x} --> 9:task:(Mache Probeklausur)
@@ -233,8 +233,8 @@ event:
         10:exclusivegateway:{x} -->|Bestanden?| 12:endevent:(((endevent)))
         10:exclusivegateway:{x} -->|Nein| 11:task:(Analysiere Fehler)
         11:task:(Analysiere Fehler) --> 7:task:(Wiederhole schwierige Themen)
-        7:task:(Wiederhole schwierige Themen) --> 5:task:(Ãœbe Aufgaben)
-        5:task:(Ãœbe Aufgaben) --> 6:exclusivegateway:{x}
+        7:task:(Wiederhole schwierige Themen) --> 5:task:(Übe Aufgaben)
+        5:task:(Übe Aufgaben) --> 6:exclusivegateway:{x}
         12:endevent:(((endevent)))
     ```
   time:timestamp: '2026-03-26T17:56:56.735395+01:00'
@@ -563,7 +563,7 @@ event:
       <loop mode="pre_test" condition="true">
         <call id="a9" endpoint="" a:alt_id="5">
           <parameters>
-            <label>Ãœbe Aufgaben</label>
+            <label>Übe Aufgaben</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -582,7 +582,7 @@ event:
               </call>
               <call id="a9" endpoint="" a:alt_id="5">
                 <parameters>
-                  <label>Ãœbe Aufgaben</label>
+                  <label>Übe Aufgaben</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -618,7 +618,7 @@ event:
                   </call>
                   <call id="a9" endpoint="" a:alt_id="5">
                     <parameters>
-                      <label>Ãœbe Aufgaben</label>
+                      <label>Übe Aufgaben</label>
                       <method/>
                       <type>:task</type>
                       <arguments/>
@@ -645,7 +645,7 @@ event:
   cpee:change_uuid: 6b3c0e8a027f0296ab0e064a5d121d2aa06fcd96
   cpee:exposition: |+
     # User Input:
-    ErklÃ¤re mir in einem Schaubild wie ein Atom entsteht.
+    Erkläre mir in einem Schaubild wie ein Atom entsteht.
 
   time:timestamp: '2026-03-26T17:58:30.123406+01:00'
 ...
@@ -678,8 +678,8 @@ event:
     a5:task:(Sammle Lernmaterialien)-->a7:task:(Lerne Grundlagen)
     a7:task:(Lerne Grundlagen)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"true"|a9:task:(Ãœbe Aufgaben)
-    a9:task:(Ãœbe Aufgaben)-->gw2s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a9:task:(Übe Aufgaben)
+    a9:task:(Übe Aufgaben)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
@@ -687,14 +687,14 @@ event:
     gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
     gw3s:exclusivegateway:{x}-->|"Aufgaben gemeistert?"|gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Aufgaben gemeistert?"|a13:task:(Wiederhole schwierige Themen)
-    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
-    a9:task:(Ãœbe Aufgaben)-->gw4e:exclusivegateway:{x}
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Übe Aufgaben)
+    a9:task:(Übe Aufgaben)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Ja"|a21:task:(Mache Probeklausur)
     a21:task:(Mache Probeklausur)-->gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->|"Nein"|a27:task:(Analysiere Fehler)
     a27:task:(Analysiere Fehler)-->a13:task:(Wiederhole schwierige Themen)
-    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
-    a9:task:(Ãœbe Aufgaben)-->gw5e:exclusivegateway:{x}
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Übe Aufgaben)
+    a9:task:(Übe Aufgaben)-->gw5e:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->|"Bestanden?"|gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->gw7s:exclusivegateway:{x}
     gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
@@ -725,24 +725,24 @@ event:
     a3:task:(Erstelle Lernplan)-->a5:task:(Sammle Lernmaterialien)
     a5:task:(Sammle Lernmaterialien)-->a7:task:(Lerne Grundlagen)
     a7:task:(Lerne Grundlagen)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"true"|a9:task:(Ãœbe Aufgaben)
-    a9:task:(Ãœbe Aufgaben)-->gw2s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|a9:task:(Übe Aufgaben)
+    a9:task:(Übe Aufgaben)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Aufgaben gemeistert?"|gw4s:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Nein"|a13:task:(Wiederhole schwierige Themen)
-    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
-    a9:task:(Ãœbe Aufgaben)-->gw4e:exclusivegateway:{x}
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Übe Aufgaben)
+    a9:task:(Übe Aufgaben)-->gw4e:exclusivegateway:{x}
     gw4s:exclusivegateway:{x}-->|"Ja"|a21:task:(Mache Probeklausur)
     a21:task:(Mache Probeklausur)-->gw5s:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->|"Nein"|a27:task:(Analysiere Fehler)
     a27:task:(Analysiere Fehler)-->a13:task:(Wiederhole schwierige Themen)
-    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
-    a9:task:(Ãœbe Aufgaben)-->gw5e:exclusivegateway:{x}
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Übe Aufgaben)
+    a9:task:(Übe Aufgaben)-->gw5e:exclusivegateway:{x}
     gw5s:exclusivegateway:{x}-->|"Bestanden?"|gw6s:exclusivegateway:{x}
     gw6s:exclusivegateway:{x}-->|"Ja"|ee:endevent:(((endevent)))
     gw6s:exclusivegateway:{x}-->|"Nein"|a27:task:(Analysiere Fehler)
     a27:task:(Analysiere Fehler)-->a13:task:(Wiederhole schwierige Themen)
-    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Ãœbe Aufgaben)
-    a9:task:(Ãœbe Aufgaben)-->gw5e:exclusivegateway:{x}
+    a13:task:(Wiederhole schwierige Themen)-->a9:task:(Übe Aufgaben)
+    a9:task:(Übe Aufgaben)-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
     gw4e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"false"|gw2e:exclusivegateway:{x}
