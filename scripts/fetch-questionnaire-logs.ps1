@@ -23,7 +23,7 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 [System.Net.ServicePointManager]::DefaultConnectionLimit = 50
 
 # Create directories
-$outputDir = "scripts\questionnaire-logs"
+$outputDir = "questionnaire-logs"
 
 if (-not (Test-Path $outputDir)) {
     New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
