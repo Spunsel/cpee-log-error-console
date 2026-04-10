@@ -204,14 +204,74 @@
 /* Known Instances Filter */
 .known-instances-filter {
    margin-bottom: var(--spacing-sm);
+   display: flex;
+   gap: var(--spacing-sm);
+   flex-wrap: wrap;
+   align-items: center;
 }
 
 .known-instances-filter .search-input-group {
    max-width: 250px;
 }
 
+.known-instances-filter .error-filter-group {
+   max-width: 280px;
+}
+
 .known-instances-filter .search-input {
    font-size: var(--font-size-sm);
+}
+
+.known-instances-filter .error-type-select {
+   appearance: auto;
+   cursor: pointer;
+   color: var(--text-secondary);
+}
+
+.known-instances-filter .error-type-select.has-selection {
+   color: var(--text-primary);
+}
+
+/* Error type option colors - use border colors of the respective alert boxes */
+.error-option-warning,
+.error-option-warning:hover,
+.error-option-warning:checked {
+   background-color: var(--alert-warning-border) !important;
+   color: var(--text-white) !important;
+}
+
+.error-option-error,
+.error-option-error:hover,
+.error-option-error:checked {
+   background-color: var(--alert-danger-border) !important;
+   color: var(--text-white) !important;
+}
+
+.error-option-conversion,
+.error-option-conversion:hover,
+.error-option-conversion:checked {
+   background-color: var(--alert-info-border) !important;
+   color: var(--text-white) !important;
+}
+
+.error-option-structural,
+.error-option-structural:hover,
+.error-option-structural:checked {
+   background-color: var(--alert-success-border) !important;
+   color: var(--text-white) !important;
+}
+
+/* Clear button for error filter dropdown - inside the box, left of the expand arrow */
+.known-instances-filter .error-filter-clear-btn {
+   position: absolute;
+   right: 22px;
+   top: 50%;
+   transform: translateY(-50%);
+}
+
+/* Add right padding to the select so text doesn't overlap clear + arrow */
+.known-instances-filter .error-type-select.has-selection {
+   padding-right: 42px;
 }
 
 /* Highlight matching substring in instance number boxes */

@@ -17,6 +17,12 @@ import { serviceFactory } from '../../core/ServiceFactory.js';
 
 let globalRenderCount = 0;
 
+// Mermaid.js uses a single global instance (window.mermaid) that is not
+// re-entrant. Concurrent initialize+render calls corrupt internal state
+// and produce spurious "Cannot read properties of null" errors.
+// This queue serializes all render calls across all MermaidRenderer instances.
+let renderQueue = Promise.resolve();
+
 export class MermaidRenderer {
     constructor(eventBus = null, stateManager = null, domRegistry = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
@@ -187,6 +193,17 @@ export class MermaidRenderer {
      * @param {string} mermaidCode - Raw Mermaid diagram code
      */
     async renderGraph(mermaidCode) {
+        // Enqueue this render so that only one mermaid.render() runs at a time.
+        const job = renderQueue.then(() => this._doRenderGraph(mermaidCode));
+        renderQueue = job.catch(() => {});
+        return job;
+    }
+
+    /**
+     * Internal render implementation, called exclusively through the serial queue.
+     * @param {string} mermaidCode - Raw Mermaid diagram code
+     */
+    async _doRenderGraph(mermaidCode) {
         try {
             const cleanResult = this.contentProcessingService.processAndValidateMermaid(mermaidCode);
             const cleanedCode = cleanResult.code;
@@ -256,7 +273,6 @@ export class MermaidRenderer {
                 return;
             }
             
-            // Check for error messages rendered as nodes
             const svgText = svgElement.textContent || '';
             const errorMessages = ['Maximum text size in diagram exceeded', 'text size exceeded', 'text size in diagram'];
             const foundError = errorMessages.find(msg => svgText.includes(msg));
@@ -271,13 +287,11 @@ export class MermaidRenderer {
             MermaidErrorHandler.removeErrorIndicator(this.container);
             this.currentSvgElement = svgElement;
 
-            // Apply font sizes to all text elements
             const fontSizeStr = `${fontSize}px`;
             for (const el of svgElement.querySelectorAll('text, tspan')) {
                 el.style.setProperty('font-size', fontSizeStr, 'important');
             }
             
-            // Apply background and scale
             Object.assign(svgElement.style, {
                 background: backgroundColor,
                 backgroundColor: backgroundColor,
@@ -285,7 +299,6 @@ export class MermaidRenderer {
             });
             SVGScaleUtility.applyScale(svgElement, this.currentScale, 'mermaid');
             
-            // Force reflow then reveal
             void svgElement.offsetHeight;
             graphDiv.style.opacity = '1';
 

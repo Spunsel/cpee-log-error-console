@@ -741,7 +741,7 @@ export class InstanceLoaderViewer {
      * Load all CPEE instances - displays buttons for predefined process numbers
      * Does not fetch logs, just creates the buttons that can be clicked to load instances
      */
-    loadAllCPEEInstances() {
+    async loadAllCPEEInstances() {
         const instanceListContainer = this.getElement('loadAllInstancesListContainer');
         const instanceList = this.getElement('loadAllInstancesList');
         
@@ -754,6 +754,9 @@ export class InstanceLoaderViewer {
             alert('No process numbers configured. Please check the configuration.');
             return;
         }
+        
+        // Load error counts for filter dropdown
+        await this.loadErrorCounts();
         
         // Show the instance list container
         if (instanceListContainer) {
@@ -809,6 +812,23 @@ export class InstanceLoaderViewer {
     }
     
     /**
+     * Load error counts from fallback JSON for the error type filter
+     */
+    async loadErrorCounts() {
+        if (this.errorCountsData) {
+            return;
+        }
+        try {
+            const response = await fetch('./fallback/errorCounts.json');
+            if (response.ok) {
+                this.errorCountsData = await response.json();
+            }
+        } catch (error) {
+            console.warn('Failed to load errorCounts.json:', error.message);
+        }
+    }
+    
+    /**
      * Create filter input for known instances list
      * @param {HTMLElement} container - The instance list container
      */
@@ -825,6 +845,7 @@ export class InstanceLoaderViewer {
         const filterWrapper = document.createElement('div');
         filterWrapper.className = 'known-instances-filter';
         
+        // Text filter (existing)
         const inputGroup = document.createElement('div');
         inputGroup.className = 'search-input-group';
         
@@ -849,6 +870,53 @@ export class InstanceLoaderViewer {
         
         filterWrapper.appendChild(inputGroup);
         
+        // Error type filter dropdown
+        const errorFilterGroup = document.createElement('div');
+        errorFilterGroup.className = 'search-input-group error-filter-group';
+        
+        const errorIcon = document.createElement('div');
+        errorIcon.className = 'search-icon';
+        errorIcon.innerHTML = ICONS.FILTER;
+        errorFilterGroup.appendChild(errorIcon);
+        
+        const errorSelect = document.createElement('select');
+        errorSelect.className = 'search-input error-type-select';
+        
+        // Hidden placeholder -- shown in the select box but not in the dropdown list
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Filter by occurring errors';
+        placeholder.hidden = true;
+        placeholder.selected = true;
+        errorSelect.appendChild(placeholder);
+        
+        const counts = this.getErrorTypeCounts();
+        const options = [
+            { value: 'warningCount', label: `Syntax Warning [${counts.warningCount}]`, className: 'error-option-warning' },
+            { value: 'errorCount', label: `Syntax Error [${counts.errorCount}]`, className: 'error-option-error' },
+            { value: 'conversionErrors', label: `Conversion Error [${counts.conversionErrors}]`, className: 'error-option-conversion' },
+            { value: 'structuralErrors', label: `Structural Violation [${counts.structuralErrors}]`, className: 'error-option-structural' },
+        ];
+        
+        options.forEach(({ value, label, className }) => {
+            const opt = document.createElement('option');
+            opt.value = value;
+            opt.textContent = label;
+            if (className) opt.className = className;
+            errorSelect.appendChild(opt);
+        });
+        
+        errorFilterGroup.appendChild(errorSelect);
+        
+        const errorClearBtn = document.createElement('button');
+        errorClearBtn.className = 'search-clear-btn error-filter-clear-btn';
+        errorClearBtn.innerHTML = ICONS.CLEAR_SEARCH;
+        errorClearBtn.setAttribute('aria-label', 'Clear error filter');
+        errorClearBtn.style.display = 'none';
+        errorFilterGroup.appendChild(errorClearBtn);
+        
+        filterWrapper.appendChild(errorFilterGroup);
+        
         // Insert filter after the h5 label
         const h5Label = container.querySelector('h5');
         if (h5Label) {
@@ -858,57 +926,101 @@ export class InstanceLoaderViewer {
         }
         
         // Setup event listeners
-        input.addEventListener('input', () => {
-            const filterValue = input.value.trim();
-            clearBtn.style.display = filterValue ? 'block' : 'none';
-            this.filterKnownInstances(filterValue);
-        });
+        const applyFilters = () => {
+            const textValue = input.value.trim();
+            const errorType = errorSelect.value;
+            clearBtn.style.display = textValue ? 'block' : 'none';
+            errorClearBtn.style.display = errorType ? 'block' : 'none';
+            errorSelect.classList.toggle('has-selection', !!errorType);
+            this.filterKnownInstances(textValue, errorType);
+        };
+        
+        input.addEventListener('input', applyFilters);
+        errorSelect.addEventListener('change', applyFilters);
         
         clearBtn.addEventListener('click', () => {
             input.value = '';
             clearBtn.style.display = 'none';
-            this.filterKnownInstances('');
+            this.filterKnownInstances('', errorSelect.value);
             input.focus();
         });
         
-        // Store reference for later use
+        errorClearBtn.addEventListener('click', () => {
+            errorSelect.value = '';
+            errorClearBtn.style.display = 'none';
+            errorSelect.classList.remove('has-selection');
+            this.filterKnownInstances(input.value.trim(), '');
+            errorSelect.focus();
+        });
+        
+        // Store references for later use
         this.knownInstancesFilterInput = input;
+        this.knownInstancesErrorSelect = errorSelect;
     }
     
     /**
-     * Filter known instances by partial match on instance number
-     * @param {string} filterValue - The filter string to match against instance numbers
+     * Count how many known instances have each error type (count > 0)
+     * @returns {Object} Counts per error type key
      */
-    filterKnownInstances(filterValue) {
+    getErrorTypeCounts() {
+        const processNumbers = configManager.get('ui.instances.processNumbers', []);
+        const data = this.errorCountsData || {};
+        const counts = { warningCount: 0, errorCount: 0, conversionErrors: 0, structuralErrors: 0 };
+        
+        for (const pn of processNumbers) {
+            const entry = data[String(pn)];
+            if (!entry) continue;
+            if (entry.warningCount > 0) counts.warningCount++;
+            if (entry.errorCount > 0) counts.errorCount++;
+            if (entry.conversionErrors > 0) counts.conversionErrors++;
+            if (entry.structuralErrors > 0) counts.structuralErrors++;
+        }
+        return counts;
+    }
+    
+    /**
+     * Filter known instances by partial match on instance number and/or error type
+     * @param {string} filterValue - The filter string to match against instance numbers
+     * @param {string} [errorType=''] - Error type key to filter by (e.g. 'warningCount')
+     */
+    filterKnownInstances(filterValue, errorType = '') {
         const instanceList = this.getElement('loadAllInstancesList');
         if (!instanceList) {
             return;
         }
         
+        const errorData = this.errorCountsData || {};
         const instanceBoxes = instanceList.querySelectorAll('.instance-number-box');
         
         instanceBoxes.forEach((box) => {
             const instanceNumber = box.dataset.processNumber || box.textContent;
             
-            if (!filterValue) {
-                // No filter - show all and restore original text
-                box.style.display = '';
-                box.innerHTML = instanceNumber;
+            // Check error type filter
+            let passesErrorFilter = true;
+            if (errorType) {
+                const entry = errorData[instanceNumber];
+                passesErrorFilter = entry && entry[errorType] > 0;
+            }
+            
+            // Check text filter
+            let passesTextFilter = true;
+            let matchIndex = -1;
+            if (filterValue) {
+                matchIndex = instanceNumber.indexOf(filterValue);
+                passesTextFilter = matchIndex !== -1;
+            }
+            
+            const visible = passesTextFilter && passesErrorFilter;
+            box.style.display = visible ? '' : 'none';
+            
+            // Update highlight markup
+            if (filterValue && passesTextFilter) {
+                const before = instanceNumber.substring(0, matchIndex);
+                const match = instanceNumber.substring(matchIndex, matchIndex + filterValue.length);
+                const after = instanceNumber.substring(matchIndex + filterValue.length);
+                box.innerHTML = `${before}<span class="instance-filter-match">${match}</span>${after}`;
             } else {
-                // Check if instance number contains the filter value (partial match)
-                const matchIndex = instanceNumber.indexOf(filterValue);
-                const matches = matchIndex !== -1;
-                box.style.display = matches ? '' : 'none';
-                
-                if (matches) {
-                    // Highlight the matching substring
-                    const before = instanceNumber.substring(0, matchIndex);
-                    const match = instanceNumber.substring(matchIndex, matchIndex + filterValue.length);
-                    const after = instanceNumber.substring(matchIndex + filterValue.length);
-                    box.innerHTML = `${before}<span class="instance-filter-match">${match}</span>${after}`;
-                } else {
-                    box.innerHTML = instanceNumber;
-                }
+                box.innerHTML = instanceNumber;
             }
         });
     }
