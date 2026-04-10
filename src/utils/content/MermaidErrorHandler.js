@@ -87,30 +87,28 @@ export class MermaidErrorHandler {
      * @returns {Object} Categorized error object
      */
     static categorizeError(error, mermaidCode = null) {
-        // Format validation errors as Mermaid syntax errors
         let formattedMessage = error?.message || 'Unknown error occurred';
         const codeToUse = error?.code || mermaidCode;
         
         if (error?.validationType) {
             formattedMessage = this.formatValidationError(error);
         } else {
-            // Check if this is a "No diagram type detected" error from Mermaid.js
             const message = error?.message || '';
             const noDiagramTypeMatch = message.match(/No diagram type detected matching given configuration for text:\s*(\w+)/i);
             if (noDiagramTypeMatch && codeToUse) {
-                // Extract the actual diagram type from the first line of code (not from error message)
-                // The error message might only have "bpmn" but the code might have "bpmn-lr"
                 const lines = codeToUse.split('\n');
                 const firstLine = lines[0] || '';
-                // Extract the first word/token from the first line (e.g., "bpmn-lr" from "bpmn-lr")
                 const actualDiagramType = firstLine.trim().split(/\s+/)[0] || noDiagramTypeMatch[1];
                 
-                // Format this as a syntax error with proper structure
                 formattedMessage = this.formatMissingDiagramTypeError(actualDiagramType, codeToUse);
-                // Mark as validation error so it gets treated as syntax error
                 error.validationType = 'missingDiagramType';
                 error.expected = ['flowchart', 'graph', 'stateDiagram', 'stateDiagram-v2', 'sequenceDiagram', 'journey'];
                 error.got = actualDiagramType;
+            } else if (codeToUse && this._isGraphRenderError(message)) {
+                const diagResult = this._diagnoseGraphError(message, codeToUse);
+                if (diagResult) {
+                    formattedMessage = diagResult.formattedMessage;
+                }
             }
         }
         
@@ -123,7 +121,6 @@ export class MermaidErrorHandler {
             name: error?.name || 'Error'
         };
 
-        // Determine error type
         if (this.isSyntaxError(error)) {
             categorizedError.errorType = 'syntax';
             categorizedError.category = 'MermaidSyntaxError';
@@ -133,6 +130,121 @@ export class MermaidErrorHandler {
         }
 
         return categorizedError;
+    }
+
+    /**
+     * Check if an error message indicates a graph rendering crash
+     * (as opposed to a parse error that already has structured info).
+     * @param {string} message - Error message
+     * @returns {boolean}
+     */
+    static _isGraphRenderError(message) {
+        if (!message) return false;
+        const lower = message.toLowerCase();
+        if (lower.includes('parse error on line')) return false;
+        return lower.includes('cannot read properties of null') ||
+               lower.includes('cannot read property') ||
+               lower.includes('is not a function') ||
+               lower.includes('undefined') ||
+               lower.includes('is null');
+    }
+
+    /**
+     * Diagnose a graph render error by scanning the mermaid code for known
+     * problematic patterns and produce a formatted error message matching
+     * the ParseError style (line number, snippet, expected/got).
+     * @param {string} errorMessage - Original error message from Mermaid
+     * @param {string} code - Mermaid code that was being rendered
+     * @returns {Object|null} { formattedMessage } or null if no diagnosis found
+     */
+    static _diagnoseGraphError(errorMessage, code) {
+        if (!code) return null;
+
+        const lines = code.split('\n');
+        const issues = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            const lineNum = i + 1;
+
+            // Empty parentheses: node:() - Mermaid creates a shape but no text element
+            const emptyParensMatch = line.match(/(\S*:\(\))/);
+            if (emptyParensMatch) {
+                const col = line.indexOf(emptyParensMatch[1]);
+                issues.push({
+                    line: lineNum,
+                    column: col + emptyParensMatch[1].length,
+                    snippet: line,
+                    pattern: emptyParensMatch[1],
+                    expected: 'non-empty node label, e.g. (label)',
+                    got: '() (empty node label)'
+                });
+            }
+
+            // Node ID starting with hyphen: -1:something
+            const hyphenIdMatch = line.match(/(-->|\s|^)(-\d+:\S+)/);
+            if (hyphenIdMatch) {
+                const fullMatch = hyphenIdMatch[2];
+                const col = line.indexOf(fullMatch);
+                issues.push({
+                    line: lineNum,
+                    column: col + fullMatch.length,
+                    snippet: line,
+                    pattern: fullMatch,
+                    expected: 'node ID starting with a letter or digit',
+                    got: `'${fullMatch.split(':')[0]}' (starts with hyphen)`
+                });
+            }
+
+            // Empty curly braces: {} without content
+            const emptyBracesMatch = line.match(/(\S*:\{\})/);
+            if (emptyBracesMatch) {
+                const col = line.indexOf(emptyBracesMatch[1]);
+                issues.push({
+                    line: lineNum,
+                    column: col + emptyBracesMatch[1].length,
+                    snippet: line,
+                    pattern: emptyBracesMatch[1],
+                    expected: 'non-empty node label, e.g. {label}',
+                    got: '{} (empty node label)'
+                });
+            }
+
+            // Empty double parentheses: (())
+            const emptyDblParensMatch = line.match(/(\S*:\(\(\)\))/);
+            if (emptyDblParensMatch) {
+                const col = line.indexOf(emptyDblParensMatch[1]);
+                issues.push({
+                    line: lineNum,
+                    column: col + emptyDblParensMatch[1].length,
+                    snippet: line,
+                    pattern: emptyDblParensMatch[1],
+                    expected: 'non-empty node label, e.g. ((label))',
+                    got: '(()) (empty node label)'
+                });
+            }
+        }
+
+        if (issues.length === 0) return null;
+
+        const primary = issues[0];
+        const snippetDisplay = primary.snippet.length > 60
+            ? '...' + primary.snippet.slice(Math.max(0, primary.column - 40))
+            : primary.snippet;
+        const caretPos = snippetDisplay.length - (primary.snippet.length - primary.column);
+        const caretLine = '-'.repeat(Math.max(0, caretPos)) + '^';
+
+        let msg = `Graph error on line ${primary.line}:\n`;
+        msg += `${snippetDisplay}\n`;
+        msg += `${caretLine}\n`;
+        msg += `Expected: ${primary.expected}\n`;
+        msg += `Got: ${primary.got}`;
+
+        if (issues.length > 1) {
+            msg += `\n\n(${issues.length - 1} more issue${issues.length > 2 ? 's' : ''} found)`;
+        }
+
+        return { formattedMessage: msg, issues };
     }
 
     /**
@@ -239,8 +351,8 @@ export class MermaidErrorHandler {
             rawMessage: message
         };
 
-        // Try to extract line number from "Parse error on line X:"
-        const lineMatch = message.match(/Parse error on line (\d+):/i);
+        // Try to extract line number from "Parse error on line X:" or "Graph error on line X:"
+        const lineMatch = message.match(/(?:Parse|Graph) error on line (\d+):/i);
         if (lineMatch) {
             parsed.lineNumber = parseInt(lineMatch[1], 10);
             parsed.header = `on line ${parsed.lineNumber}:`;
@@ -305,7 +417,7 @@ export class MermaidErrorHandler {
         // Try to extract "Expected:" and "Got:" parts (new format)
         // Format: "Expected: 'TOKEN1' or 'TOKEN2' or ...\nGot: TOKEN"
         const expectedMatch = message.match(/Expected:\s*(.+?)(?:\n|$)/i);
-        const gotMatch = message.match(/Got:\s*(\S+)/i);
+        const gotMatch = message.match(/Got:\s*(.+?)(?:\n|$)/i);
         
         if (expectedMatch && gotMatch) {
             // Clean up the expected part - remove quotes and 'or' separators
