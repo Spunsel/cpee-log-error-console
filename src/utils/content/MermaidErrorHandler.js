@@ -108,6 +108,7 @@ export class MermaidErrorHandler {
                 const diagResult = this._diagnoseGraphError(message, codeToUse);
                 if (diagResult) {
                     formattedMessage = diagResult.formattedMessage;
+                    error._diagnosedAsSyntax = true;
                 }
             }
         }
@@ -121,7 +122,7 @@ export class MermaidErrorHandler {
             name: error?.name || 'Error'
         };
 
-        if (this.isSyntaxError(error)) {
+        if (this.isSyntaxError(error) || error?._diagnosedAsSyntax) {
             categorizedError.errorType = 'syntax';
             categorizedError.category = 'MermaidSyntaxError';
         } else {
@@ -151,100 +152,104 @@ export class MermaidErrorHandler {
 
     /**
      * Diagnose a graph render error by scanning the mermaid code for known
-     * problematic patterns and produce a formatted error message matching
-     * the ParseError style (line number, snippet, expected/got).
+     * problematic patterns and produce a formatted error message that matches
+     * the exact format of Mermaid's native ParseError output.
+     *
+     * Mermaid format:
+     *   Parse error on line <N>:
+     *   ...<truncated snippet>
+     *   -----------------------^
+     *   Expected: 'TOKEN1', 'TOKEN2', ...
+     *   Got: TOKEN
+     *
      * @param {string} errorMessage - Original error message from Mermaid
      * @param {string} code - Mermaid code that was being rendered
-     * @returns {Object|null} { formattedMessage } or null if no diagnosis found
+     * @returns {Object|null} { formattedMessage, issues } or null if nothing found
      */
     static _diagnoseGraphError(errorMessage, code) {
         if (!code) return null;
 
         const lines = code.split('\n');
-        const issues = [];
 
+        // Each entry: { regex, errorColumn(match,line) -> column of the error char,
+        //               expected, got }
+        // expected/got use Mermaid's internal token names.
+        const patterns = [
+            {
+                // Empty parentheses: :()  -- caret points at ) which is the unexpected PE token
+                regex: /:\(\)/,
+                errorColumn: (match, line) => line.indexOf(match[0]) + 2,
+                expected: "'PS', 'TAGEND', 'STR', 'MD_STR', 'UNICODE_TEXT', 'TEXT', 'TAGSTART'",
+                got: 'PE'
+            },
+            {
+                // Empty double parentheses: :(()) -- caret points at inner )
+                regex: /:\(\(\)\)/,
+                errorColumn: (match, line) => line.indexOf(match[0]) + 3,
+                expected: "'PS', 'TAGEND', 'STR', 'MD_STR', 'UNICODE_TEXT', 'TEXT', 'TAGSTART'",
+                got: 'PE'
+            },
+            {
+                // Empty curly braces: :{} -- caret points at } (the unexpected DIAMOND_STOP)
+                regex: /:\{\}/,
+                errorColumn: (match, line) => line.indexOf(match[0]) + 2,
+                expected: "'STR', 'MD_STR', 'UNICODE_TEXT', 'TEXT', 'TAGSTART'",
+                got: 'DIAMOND_STOP'
+            },
+            {
+                // Node ID starting with hyphen: -1:type:
+                regex: /(-->|--|\s|^)(-\d+:\S+)/,
+                errorColumn: (match, line) => {
+                    const fullMatch = match[2];
+                    return line.indexOf(fullMatch);
+                },
+                expected: "'NODE_ID', 'STR', 'MD_STR', 'UNICODE_TEXT', 'TEXT'",
+                got: 'MINUS'
+            }
+        ];
+
+        // Scan for the first matching issue (first occurrence in the code)
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
             const lineNum = i + 1;
 
-            // Empty parentheses: node:() - Mermaid creates a shape but no text element
-            const emptyParensMatch = line.match(/(\S*:\(\))/);
-            if (emptyParensMatch) {
-                const col = line.indexOf(emptyParensMatch[1]);
-                issues.push({
-                    line: lineNum,
-                    column: col + emptyParensMatch[1].length,
-                    snippet: line,
-                    pattern: emptyParensMatch[1],
-                    expected: 'non-empty node label, e.g. (label)',
-                    got: '() (empty node label)'
-                });
-            }
+            for (const pat of patterns) {
+                const match = line.match(pat.regex);
+                if (!match) continue;
 
-            // Node ID starting with hyphen: -1:something
-            const hyphenIdMatch = line.match(/(-->|\s|^)(-\d+:\S+)/);
-            if (hyphenIdMatch) {
-                const fullMatch = hyphenIdMatch[2];
-                const col = line.indexOf(fullMatch);
-                issues.push({
-                    line: lineNum,
-                    column: col + fullMatch.length,
-                    snippet: line,
-                    pattern: fullMatch,
-                    expected: 'node ID starting with a letter or digit',
-                    got: `'${fullMatch.split(':')[0]}' (starts with hyphen)`
-                });
-            }
+                const errorCol = pat.errorColumn(match, line);
 
-            // Empty curly braces: {} without content
-            const emptyBracesMatch = line.match(/(\S*:\{\})/);
-            if (emptyBracesMatch) {
-                const col = line.indexOf(emptyBracesMatch[1]);
-                issues.push({
-                    line: lineNum,
-                    column: col + emptyBracesMatch[1].length,
-                    snippet: line,
-                    pattern: emptyBracesMatch[1],
-                    expected: 'non-empty node label, e.g. {label}',
-                    got: '{} (empty node label)'
-                });
-            }
+                // Build snippet matching Mermaid's native format:
+                // Mermaid truncates from the left with "..." showing context
+                // before the error, plus the rest of the line after it.
+                // The caret aligns exactly under the error column.
+                const CONTEXT_BEFORE = 20;
+                let snippet;
+                let caretOffset;
 
-            // Empty double parentheses: (())
-            const emptyDblParensMatch = line.match(/(\S*:\(\(\)\))/);
-            if (emptyDblParensMatch) {
-                const col = line.indexOf(emptyDblParensMatch[1]);
-                issues.push({
-                    line: lineNum,
-                    column: col + emptyDblParensMatch[1].length,
-                    snippet: line,
-                    pattern: emptyDblParensMatch[1],
-                    expected: 'non-empty node label, e.g. ((label))',
-                    got: '(()) (empty node label)'
-                });
+                if (errorCol > CONTEXT_BEFORE) {
+                    const prefix = '...';
+                    const sliceStart = errorCol - CONTEXT_BEFORE;
+                    snippet = prefix + line.slice(sliceStart);
+                    caretOffset = prefix.length + (errorCol - sliceStart);
+                } else {
+                    snippet = line;
+                    caretOffset = errorCol;
+                }
+
+                const caretLine = '-'.repeat(caretOffset) + '^';
+
+                let msg = `Parse error on line ${lineNum}:\n`;
+                msg += `${snippet}\n`;
+                msg += `${caretLine}\n`;
+                msg += `Expected: ${pat.expected}\n`;
+                msg += `Got: ${pat.got}`;
+
+                return { formattedMessage: msg, issues: [{ line: lineNum, column: errorCol }] };
             }
         }
 
-        if (issues.length === 0) return null;
-
-        const primary = issues[0];
-        const snippetDisplay = primary.snippet.length > 60
-            ? '...' + primary.snippet.slice(Math.max(0, primary.column - 40))
-            : primary.snippet;
-        const caretPos = snippetDisplay.length - (primary.snippet.length - primary.column);
-        const caretLine = '-'.repeat(Math.max(0, caretPos)) + '^';
-
-        let msg = `Graph error on line ${primary.line}:\n`;
-        msg += `${snippetDisplay}\n`;
-        msg += `${caretLine}\n`;
-        msg += `Expected: ${primary.expected}\n`;
-        msg += `Got: ${primary.got}`;
-
-        if (issues.length > 1) {
-            msg += `\n\n(${issues.length - 1} more issue${issues.length > 2 ? 's' : ''} found)`;
-        }
-
-        return { formattedMessage: msg, issues };
+        return null;
     }
 
     /**
@@ -351,8 +356,8 @@ export class MermaidErrorHandler {
             rawMessage: message
         };
 
-        // Try to extract line number from "Parse error on line X:" or "Graph error on line X:"
-        const lineMatch = message.match(/(?:Parse|Graph) error on line (\d+):/i);
+        // Try to extract line number from "Parse error on line X:"
+        const lineMatch = message.match(/Parse error on line (\d+):/i);
         if (lineMatch) {
             parsed.lineNumber = parseInt(lineMatch[1], 10);
             parsed.header = `on line ${parsed.lineNumber}:`;
@@ -420,10 +425,7 @@ export class MermaidErrorHandler {
         const gotMatch = message.match(/Got:\s*(.+?)(?:\n|$)/i);
         
         if (expectedMatch && gotMatch) {
-            // Clean up the expected part - remove quotes and 'or' separators
             let expectedText = expectedMatch[1].trim();
-            // Remove quotes and 'or' to get clean list
-            expectedText = expectedText.replace(/'/g, '').replace(/\s+or\s+/g, ' or ').trim();
             parsed.expecting = expectedText;
             parsed.got = gotMatch[1].trim();
         } else {
