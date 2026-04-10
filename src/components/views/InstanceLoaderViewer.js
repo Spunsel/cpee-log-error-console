@@ -845,9 +845,9 @@ export class InstanceLoaderViewer {
         const filterWrapper = document.createElement('div');
         filterWrapper.className = 'known-instances-filter';
         
-        // Text filter (existing)
+        // Text filter
         const inputGroup = document.createElement('div');
-        inputGroup.className = 'search-input-group';
+        inputGroup.className = 'search-input-group text-filter-group';
         
         const searchIcon = document.createElement('div');
         searchIcon.className = 'search-icon';

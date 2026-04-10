@@ -75,17 +75,16 @@ const STEPS = [
 
   /* 4a — typing step: advances automatically once a match is visible */
   {
-    target: () => document.querySelector('.known-instances-filter'),
+    target: () => document.querySelector('.known-instances-filter .text-filter-group'),
     title: '4 — Filter Instances',
     body: `Type <code>1124</code> in the filter field.`,
     position: 'bottom', padding: 6,
     passthroughOverlay: true,
     autoAdvance: true,
-    onEnter: (advance) => {
-      const input = document.querySelector('.known-instances-filter input.search-input');
+    onEnter: async (advance) => {
+      const input = await until('.known-instances-filter input.search-input', 15, 200);
       if (!input) return;
 
-      // Reset the error-type dropdown so it doesn't interfere with text filtering
       const errorSelect = document.querySelector('.known-instances-filter select.error-type-select');
       if (errorSelect && errorSelect.value) {
         errorSelect.value = '';
@@ -495,7 +494,10 @@ export class DemoTour {
         const step   = STEPS[index];
         const isLast = index === STEPS.length - 1;
 
-        const targetEl = this._resolve(step.target);
+        let targetEl = this._resolve(step.target);
+        if (!targetEl && typeof step.target === 'function') {
+            targetEl = await until(step.target, 15, 200);
+        }
         if (targetEl) {
             await this._focusElement(targetEl, step.padding ?? 8, !!step.scrollToTop);
         } else {
