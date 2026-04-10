@@ -1,10 +1,11 @@
 /**
  * MermaidErrorHandler - Handles errors from Mermaid.js rendering
- * 
- * Catches and categorizes different types of Mermaid rendering errors:
- * - MermaidSyntaxError: Syntax errors in the Mermaid code
- * - Other rendering errors: General rendering failures
- * 
+ *
+ * Takes error messages produced by the Mermaid library and reformats their
+ * LAYOUT for display in the error indicator box, without altering the
+ * actual error content. The only special formatting is for "No diagram type
+ * detected" errors from Mermaid which lack structured output.
+ *
  * Provides visual feedback by displaying error indicators (red boxes)
  * in the affected graph sections.
  */
@@ -12,9 +13,6 @@
 import { ICON_ERROR } from '../../assets/icons.js';
 
 export class MermaidErrorHandler {
-    /**
-     * Custom error class for Mermaid syntax errors
-     */
     static MermaidSyntaxError = class MermaidSyntaxError extends Error {
         constructor(message, originalError = null, code = null) {
             super(message);
@@ -26,65 +24,36 @@ export class MermaidErrorHandler {
     };
 
     /**
-     * Detect if an error is a Mermaid syntax error.
-     * Checks the original error AND the formatted message so that
-     * diagnosed graph-render errors (whose formatted message starts
-     * with "Parse error on line") are also recognised as syntax errors
-     * without needing a separate flag.
-     *
+     * Detect if an error is a Mermaid syntax/parse error (as opposed to a
+     * generic rendering crash).
      * @param {Error} error - Error to check
-     * @param {string} [formattedMessage] - The formatted message produced by categorizeError
-     * @returns {boolean} True if it's a syntax error
+     * @returns {boolean}
      */
-    static isSyntaxError(error, formattedMessage = null) {
-        if (!error) {
-            return false;
-        }
+    static isSyntaxError(error) {
+        if (!error) return false;
 
-        if (error.name === 'MermaidValidationError' || error.validationType) {
-            return true;
-        }
+        if (error.name === 'MermaidValidationError' || error.validationType) return true;
+        if (error instanceof MermaidErrorHandler.MermaidSyntaxError || error.errorType === 'syntax') return true;
 
-        if (error instanceof MermaidErrorHandler.MermaidSyntaxError ||
-            error.errorType === 'syntax') {
-            return true;
-        }
-
-        const messagesToCheck = [error.message || ''];
-        if (formattedMessage) {
-            messagesToCheck.push(formattedMessage);
-        }
-
+        const message = (error.message || '').toLowerCase();
         const syntaxIndicators = [
-            'syntax error',
-            'parse error on line',
-            'parsing error',
-            'invalid syntax',
-            'unexpected token',
-            'unexpected character',
-            'invalid character',
-            'malformed',
-            'parse failed',
-            'lexer error',
-            'no diagram type detected',
-            'diagram type'
+            'syntax error', 'parse error on line', 'parse error', 'parsing error',
+            'unexpected token', 'unexpected character', 'invalid character',
+            'malformed', 'parse failed', 'lexer error',
+            'no diagram type detected', 'diagram type',
+            'expecting ', 'expected:'
         ];
-
-        for (const msg of messagesToCheck) {
-            const lower = msg.toLowerCase();
-            if (syntaxIndicators.some(ind => lower.includes(ind))) {
-                return true;
-            }
-        }
+        if (syntaxIndicators.some(ind => message.includes(ind))) return true;
 
         const errorName = (error.name || '').toLowerCase();
-        return errorName.includes('syntax') ||
-               errorName.includes('parse') ||
-               errorName.includes('lexer');
+        return errorName.includes('syntax') || errorName.includes('parse') || errorName.includes('lexer');
     }
 
     /**
      * Categorize an error and produce a structured error object.
+     * The error message from Mermaid is passed through as-is; only
+     * "No diagram type detected" gets special formatting because Mermaid
+     * doesn't produce structured output for that case.
      * @param {Error} error - Original error
      * @param {string} mermaidCode - Mermaid code that caused the error
      * @returns {Object} Categorized error object
@@ -97,24 +66,17 @@ export class MermaidErrorHandler {
             formattedMessage = this._formatValidationError(error);
         } else {
             const message = error?.message || '';
-
             const noDiagramTypeMatch = message.match(
                 /No diagram type detected matching given configuration for text:\s*(\w+)/i
             );
             if (noDiagramTypeMatch && codeToUse) {
                 const firstLine = (codeToUse.split('\n')[0] || '').trim();
                 const actualDiagramType = firstLine.split(/\s+/)[0] || noDiagramTypeMatch[1];
-
                 error.validationType = 'missingDiagramType';
                 error.code = codeToUse;
                 error.expected = ['flowchart', 'graph', 'stateDiagram', 'stateDiagram-v2', 'sequenceDiagram', 'journey'];
                 error.got = actualDiagramType;
                 formattedMessage = this._formatValidationError(error);
-            } else if (codeToUse && this._isGraphRenderError(message)) {
-                const diagResult = this._diagnoseGraphError(message, codeToUse);
-                if (diagResult) {
-                    formattedMessage = diagResult.formattedMessage;
-                }
             }
         }
 
@@ -127,7 +89,7 @@ export class MermaidErrorHandler {
             name: error?.name || 'Error'
         };
 
-        if (this.isSyntaxError(error, formattedMessage)) {
+        if (this.isSyntaxError(error)) {
             categorizedError.errorType = 'syntax';
             categorizedError.category = 'MermaidSyntaxError';
         } else {
@@ -139,147 +101,18 @@ export class MermaidErrorHandler {
     }
 
     /**
-     * Check if an error message indicates a graph rendering crash
-     * (as opposed to a parse error that already has structured info).
-     * @param {string} message - Error message
-     * @returns {boolean}
-     */
-    static _isGraphRenderError(message) {
-        if (!message) return false;
-        const lower = message.toLowerCase();
-        if (lower.includes('parse error on line')) return false;
-        return lower.includes('cannot read properties of null') ||
-               lower.includes('cannot read property') ||
-               lower.includes('is not a function') ||
-               lower.includes('is null');
-    }
-
-    /**
-     * Diagnose a graph render error by scanning the mermaid code for known
-     * problematic patterns and produce a formatted error message that matches
-     * the exact format of Mermaid's native ParseError output.
-     *
-     * Mermaid format:
-     *   Parse error on line <N>:
-     *   ...<truncated snippet>
-     *   -----------------------^
-     *   Expected: 'TOKEN1', 'TOKEN2', ...
-     *   Got: TOKEN
-     *
-     * @param {string} _errorMessage - Original error message from Mermaid (unused, kept for signature clarity)
-     * @param {string} code - Mermaid code that was being rendered
-     * @returns {Object|null} { formattedMessage, issues } or null if nothing found
-     */
-    static _diagnoseGraphError(_errorMessage, code) {
-        if (!code) return null;
-
-        const lines = code.split('\n');
-
-        // Empty graph: only the header line (e.g. "flowchart LR") with no nodes/edges
-        const nonEmptyLines = lines.filter(l => l.trim().length > 0);
-        if (nonEmptyLines.length <= 1) {
-            const header = nonEmptyLines[0] || code.trim();
-            let msg = `Parse error on line 1:\n${header}\n`;
-            msg += `Expected: at least one node or edge definition\n`;
-            msg += `Got: empty graph`;
-            return { formattedMessage: msg, issues: [{ line: 1, column: 0 }] };
-        }
-
-        const patterns = [
-            {
-                regex: /:\(\)/,
-                errorColumn: (match, line) => line.indexOf(match[0]) + 2,
-                expected: "'PS', 'TAGEND', 'STR', 'MD_STR', 'UNICODE_TEXT', 'TEXT', 'TAGSTART'",
-                got: 'PE'
-            },
-            {
-                regex: /:\(\(\)\)/,
-                errorColumn: (match, line) => line.indexOf(match[0]) + 3,
-                expected: "'PS', 'TAGEND', 'STR', 'MD_STR', 'UNICODE_TEXT', 'TEXT', 'TAGSTART'",
-                got: 'PE'
-            },
-            {
-                regex: /:\{\}/,
-                errorColumn: (match, line) => line.indexOf(match[0]) + 2,
-                expected: "'STR', 'MD_STR', 'UNICODE_TEXT', 'TEXT', 'TAGSTART'",
-                got: 'DIAMOND_STOP'
-            },
-            {
-                regex: /(-->|--|\s|^)(-\d+:\S+)/,
-                errorColumn: (match, line) => line.indexOf(match[2]),
-                expected: "'NODE_ID', 'STR', 'MD_STR', 'UNICODE_TEXT', 'TEXT'",
-                got: 'MINUS'
-            },
-            {
-                // Unescaped pipe inside a parenthesized label: :(text|more)
-                // Mermaid treats | as edge-label delimiter, not as literal text.
-                regex: /:\([^)]*(?<!\\)\|/,
-                errorColumn: (match, line) => {
-                    const start = line.indexOf(match[0]);
-                    return start + match[0].length - 1;
-                },
-                expected: "'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'SHAPE_DATA', 'STYLE_SEPARATOR', 'START_LINK', 'LINK', 'LINK_ID'",
-                got: 'PIPE'
-            }
-        ];
-
-        for (let i = 0; i < lines.length; i++) {
-            const line = lines[i];
-            const lineNum = i + 1;
-
-            for (const pat of patterns) {
-                const match = line.match(pat.regex);
-                if (!match) continue;
-
-                const errorCol = pat.errorColumn(match, line);
-
-                const CONTEXT_BEFORE = 20;
-                let snippet;
-                let caretOffset;
-
-                if (errorCol > CONTEXT_BEFORE) {
-                    const sliceStart = errorCol - CONTEXT_BEFORE;
-                    snippet = '...' + line.slice(sliceStart);
-                    caretOffset = 3 + CONTEXT_BEFORE;
-                } else {
-                    snippet = line;
-                    caretOffset = errorCol;
-                }
-
-                const caretLine = '-'.repeat(caretOffset) + '^';
-
-                let msg = `Parse error on line ${lineNum}:\n`;
-                msg += `${snippet}\n`;
-                msg += `${caretLine}\n`;
-                msg += `Expected: ${pat.expected}\n`;
-                msg += `Got: ${pat.got}`;
-
-                return { formattedMessage: msg, issues: [{ line: lineNum, column: errorCol }] };
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Format a validation error as a Mermaid-style error message.
-     * Handles missingDiagramType, invalidInput, and emptyCode.
      * @param {Error} error - Validation error with metadata
      * @returns {string} Formatted error message
      */
     static _formatValidationError(error) {
-        if (!error.validationType) {
-            return error.message;
-        }
+        if (!error.validationType) return error.message;
 
         if (error.validationType === 'missingDiagramType') {
             const code = error.code;
-            if (!code) {
-                return error.message;
-            }
+            if (!code) return error.message;
 
-            const lines = code.split('\n');
-            let problematicLine = lines[0] || '';
+            let problematicLine = (code.split('\n')[0] || '').trim();
             if (problematicLine.length > 20) {
                 problematicLine = problematicLine.slice(0, 20) + '...';
             }
@@ -288,9 +121,7 @@ export class MermaidErrorHandler {
                 ? error.expected.map(v => `'${v}'`).join(' or ')
                 : "'flowchart' or 'graph'";
 
-            let msg = `Parse error on line 1:\n${problematicLine}\n`;
-            msg += `Expected: ${expectedStr}\nGot: ${error.got || 'unknown'}`;
-            return msg;
+            return `Parse error on line 1:\n${problematicLine}\nExpected: ${expectedStr}\nGot: ${error.got || 'unknown'}`;
         }
 
         if (error.validationType === 'invalidInput' || error.validationType === 'emptyCode') {
@@ -302,7 +133,14 @@ export class MermaidErrorHandler {
 
     /**
      * Parse an error message string to extract structured information
-     * for display (line number, snippet, caret, expected/got).
+     * for display layout (line number, snippet, caret, expected/got).
+     *
+     * Handles two Mermaid message formats:
+     *   New: "Parse error on line N:\n...snippet\n---^...\nExpecting ..., got ..."
+     *   Old: "Error: Parse error on line N:\n...snippet\n---^...\nExpecting ..., got ..."
+     *
+     * Also normalizes "Expecting X, got Y" to Expected/Got labels.
+     *
      * @param {string} message - Error message
      * @returns {Object} Parsed error information
      */
@@ -326,6 +164,7 @@ export class MermaidErrorHandler {
         let snippetLine = null;
         let caretLine = null;
 
+        // Look for the caret line (---^) and the snippet line above it
         for (let i = 0; i < messageLines.length; i++) {
             const line = messageLines[i];
             if (line.includes('^') && /^[-\s]*\^[-\s]*$/.test(line)) {
@@ -337,15 +176,13 @@ export class MermaidErrorHandler {
             }
         }
 
-        // If no caret was found, look for snippet lines between the header
-        // and the Expected/Got lines (e.g. missingDiagramType errors).
+        // Fallback: find snippet lines between header and Expected/Got
+        // (for errors without a caret, like missingDiagramType)
         if (!snippetLine && parsed.lineNumber) {
-            for (let i = 0; i < messageLines.length; i++) {
-                const line = messageLines[i];
+            for (const line of messageLines) {
                 if (!line.trim()) continue;
-                if (/^Parse error on line/i.test(line)) continue;
-                if (/^Expected:/i.test(line)) break;
-                if (/^Got:/i.test(line)) break;
+                if (/^(Error:\s*)*Parse error on line/i.test(line)) continue;
+                if (/^(Expected|Expecting|Got)[\s:]/i.test(line)) break;
                 snippetLine = line;
                 break;
             }
@@ -360,6 +197,7 @@ export class MermaidErrorHandler {
             parsed.errorSnippet = snippetLine;
         }
 
+        // New format: "Expected: ...\nGot: ..."
         const expectedMatch = message.match(/Expected:\s*(.+?)(?:\n|$)/i);
         const gotMatch = message.match(/Got:\s*(.+?)(?:\n|$)/i);
 
@@ -367,7 +205,7 @@ export class MermaidErrorHandler {
             parsed.expecting = expectedMatch[1].trim();
             parsed.got = gotMatch[1].trim();
         } else {
-            // Mermaid older format: "Expecting 'TOKEN1', 'TOKEN2', ..., got 'TOKEN'"
+            // Old Mermaid format: "Expecting 'T1', 'T2', ..., got 'T'"
             const expectingMatch = message.match(/Expecting\s+(.+?),\s+got\s+'([^']+)'/i);
             if (expectingMatch) {
                 parsed.expecting = expectingMatch[1].trim().replace(/,\s*$/, '');
@@ -388,7 +226,7 @@ export class MermaidErrorHandler {
     }
 
     /**
-     * Determine the error title shown in the UI error box.
+     * Determine the error title shown in the UI error box header.
      * @param {Object} categorizedError - Categorized error object
      * @returns {string} Error title string
      */
@@ -441,7 +279,7 @@ export class MermaidErrorHandler {
 
     /**
      * Display a visual error indicator (red box) in the graph container.
-     * @param {HTMLElement} container - Container element where the graph should be rendered
+     * @param {HTMLElement} container - Container element
      * @param {Object} categorizedError - Categorized error object
      */
     static displayErrorIndicator(container, categorizedError) {

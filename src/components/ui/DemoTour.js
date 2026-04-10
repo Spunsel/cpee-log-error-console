@@ -82,8 +82,18 @@ const STEPS = [
     passthroughOverlay: true,
     autoAdvance: true,
     onEnter: (advance) => {
-      const input = document.querySelector('.known-instances-filter .search-input');
+      const input = document.querySelector('.known-instances-filter input.search-input');
       if (!input) return;
+
+      // Reset the error-type dropdown so it doesn't interfere with text filtering
+      const errorSelect = document.querySelector('.known-instances-filter select.error-type-select');
+      if (errorSelect && errorSelect.value) {
+        errorSelect.value = '';
+        errorSelect.classList.remove('has-selection');
+        const errorClearBtn = document.querySelector('.known-instances-filter .error-filter-clear-btn');
+        if (errorClearBtn) errorClearBtn.style.display = 'none';
+      }
+
       input.focus();
       input.select();
 
