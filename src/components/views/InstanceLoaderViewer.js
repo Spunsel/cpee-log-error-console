@@ -1072,13 +1072,12 @@ export class InstanceLoaderViewer {
                     loadAllKnownButton.textContent = `Loading ${loadedCount + 1}/${processNumbers.length}...`;
                 }
                 
-                // Fetch UUID for this process number
+                // Fetch UUID from fallback (known instances always use local data)
                 const cpeeService = serviceFactory.get('CPEEService');
-                const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber);
+                const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber, { source: 'fallback' });
                 const uuid = result.uuid;
                 
                 if (uuid) {
-                    // Wait for instance to load using a promise that resolves on load completion
                     await this.loadInstanceAndWait(uuid, processNumber);
                     loadedCount++;
                     console.log(`Successfully loaded instance ${processNumber} (${loadedCount}/${processNumbers.length})`);
@@ -1144,9 +1143,8 @@ export class InstanceLoaderViewer {
                 processNumberInput.value = processNumber.toString();
             }
             
-            // Trigger the load
             this.stateManager.setState('ui.loading', true);
-            this.eventBus.emit('instanceLoader:loadInstance', { uuid });
+            this.eventBus.emit('instanceLoader:loadInstance', { uuid, source: 'fallback' });
             
             // Set a timeout to prevent hanging forever
             setTimeout(() => {
