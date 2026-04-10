@@ -1031,12 +1031,27 @@ export class InstanceLoaderViewer {
      */
     async loadAllKnownInstancesSequentially() {
         const loadAllKnownButton = this.getElement('loadAllKnownInstances');
-        const processNumbers = configManager.get('ui.instances.processNumbers', []);
-        
-        // Validate that we have process numbers
+
+        // When a filter is active, only load the visible (filtered) instances
+        const errorSelect = this.knownInstancesErrorSelect;
+        const textInput = this.knownInstancesFilterInput;
+        const hasActiveFilter = (errorSelect && errorSelect.value) || (textInput && textInput.value.trim());
+
+        let processNumbers;
+        if (hasActiveFilter) {
+            const instanceList = this.getElement('loadAllInstancesList');
+            const visibleBoxes = instanceList
+                ? Array.from(instanceList.querySelectorAll('.instance-number-box'))
+                      .filter(box => box.style.display !== 'none')
+                : [];
+            processNumbers = visibleBoxes.map(box => box.dataset.processNumber || box.textContent.trim());
+        } else {
+            processNumbers = configManager.get('ui.instances.processNumbers', []);
+        }
+
         if (!Array.isArray(processNumbers) || processNumbers.length === 0) {
-            console.warn('No process numbers configured in ui.instances.processNumbers');
-            alert('No process numbers configured. Please check the configuration.');
+            console.warn('No process numbers match the current filter');
+            alert('No instances match the current filter.');
             return;
         }
         
