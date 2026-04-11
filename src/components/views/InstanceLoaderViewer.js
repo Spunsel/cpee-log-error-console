@@ -261,9 +261,13 @@ export class InstanceLoaderViewer {
         try {
             let finalUuid = uuid;
             
-            // If process number is provided, always use it to fetch UUID
-            // This ensures process number takes priority when both fields have values
-            if (processNumber) {
+            // If UUID is provided, use it directly (UUID takes precedence over process number)
+            if (uuid && this.isValidUUID(uuid)) {
+                console.log(`Loading instance with UUID: ${uuid}`);
+            } else if (uuid && !this.isValidUUID(uuid)) {
+                alert('Please enter a valid UUID format (e.g., 8a22c296-daa5-4acf-b167-4286c998e54e).');
+                return;
+            } else if (processNumber) {
                 const processNum = parseInt(processNumber, 10);
                 if (isNaN(processNum) || processNum <= 0) {
                     alert('Please enter a valid process number (positive integer).');
@@ -272,27 +276,16 @@ export class InstanceLoaderViewer {
                 
                 console.log(`Fetching UUID for process number: ${processNum} (server only)`);
                 
-                // Fetch UUID from server only (manual input uses server)
                 const cpeeService = serviceFactory.get('CPEEService');
                 const result = await cpeeService.fetchUUIDFromProcessNumber(processNum, { source: 'server' });
                 finalUuid = result.uuid;
                 
-                // Update UUID input with fetched value
                 if (uuidInput) {
                     uuidInput.value = finalUuid;
                     uuidInput.dataset.processNumber = processNum.toString();
                 }
                 
                 console.log(`UUID fetched successfully from server: ${finalUuid}`);
-            } 
-            // If only UUID is provided (no process number), use it directly
-            else if (uuid && this.isValidUUID(uuid)) {
-                // UUID provided - load directly
-                console.log(`Loading instance with UUID: ${uuid}`);
-            } else {
-                // UUID was provided but invalid format
-                alert('Please enter a valid UUID format (e.g., 8a22c296-daa5-4acf-b167-4286c998e54e).');
-                return;
             }
             
             // Store process number if available
@@ -349,34 +342,31 @@ export class InstanceLoaderViewer {
         try {
             let finalUuid = uuid;
             
-            // If process number is provided, always use it to fetch UUID
-            // This ensures process number takes priority when both fields have values
-            if (processNumber) {
+            // If UUID is provided, use it directly (UUID takes precedence over process number)
+            if (uuid && this.isValidUUID(uuid)) {
+                console.log(`Viewing log with UUID: ${uuid}`);
+            } else if (processNumber) {
                 const processNum = parseInt(processNumber, 10);
                 if (isNaN(processNum) || processNum <= 0) {
                     alert('Please enter a valid process number.');
                     return;
                 }
                 
-                // Temporarily disable button
                 if (viewLogButton) {
                     viewLogButton.disabled = true;
                     viewLogButton.textContent = 'Fetching...';
                 }
                 
-                // Fetch UUID from server only (manual input uses server)
                 const cpeeService = serviceFactory.get('CPEEService');
                 const result = await cpeeService.fetchUUIDFromProcessNumber(processNum, { source: 'server' });
                 finalUuid = result.uuid;
                 
-                // Update UUID input
                 if (uuidInput) {
                     uuidInput.value = finalUuid;
                     uuidInput.dataset.processNumber = processNum.toString();
                 }
             }
             
-            // Emit view log event (manual input uses server only)
             this.eventBus.emit('instanceLoader:viewLog', { uuid: finalUuid, source: 'server' });
             
         } catch (error) {
