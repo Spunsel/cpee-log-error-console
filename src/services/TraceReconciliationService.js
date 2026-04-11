@@ -15,8 +15,8 @@
  * @class TraceReconciliationService
  */
 
-import { CPEETraceCalculator } from '../utils/trace/CPEETraceCalculator.js';
-import { MermaidTraceCalculator } from '../utils/trace/MermaidTraceCalculator.js';
+import { CPEETraceWalker } from '../utils/trace/CPEETraceWalker.js';
+import { MermaidTraceWalker } from '../utils/trace/MermaidTraceWalker.js';
 import { Trace } from '../models/Trace.js';
 import { eventBus as defaultEventBus } from '../core/EventBus.js';
 
@@ -65,11 +65,10 @@ export class TraceReconciliationService {
         // Extract sequences from unique traces
         const sequences = uniqueMermaidTraces.map(trace => trace.sequence);
 
-        // Validate all sequences against CPEE graph
-        const validationResult = CPEETraceCalculator.validateMultipleTraces(
+        // Walk each trace through the CPEE XML tree
+        const validationResult = CPEETraceWalker.validateMultipleTraces(
             cpeeXmlString,
-            sequences,
-            options
+            sequences
         );
 
         // Create validated traces with reconciliation metadata
@@ -155,11 +154,10 @@ export class TraceReconciliationService {
         // Extract sequences from unique traces
         const sequences = uniqueCPEETraces.map(trace => trace.sequence);
 
-        // Validate all sequences against Mermaid graph
-        const validationResult = MermaidTraceCalculator.validateMultipleTraces(
+        // Walk each trace through the Mermaid graph
+        const validationResult = MermaidTraceWalker.validateMultipleTraces(
             mermaidString,
-            sequences,
-            options
+            sequences
         );
 
         // Create validated traces with reconciliation metadata
