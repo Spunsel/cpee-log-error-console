@@ -165,7 +165,7 @@ export class NodeMappingService {
         
         const jaccard = calculateJaccardSimilarity(s1, s2, { minSubsetRatio: 0.6, subsetMatchBoost: 0.25 });
         const jaroWinkler = calculateJaroWinkler(s1, s2);
-        return 0.6 * jaccard + 0.35 * jaroWinkler;
+        return 0.6 * jaccard + 0.4 * jaroWinkler;
     }
 }
 

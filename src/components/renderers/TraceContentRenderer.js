@@ -476,7 +476,7 @@ export class TraceContentRenderer {
         const pathPreview = this.domRegistry.createElement('div', {
             className: 'trace-path-preview'
         });
-        const previewText = this.formatTracePathAltIds(trace);
+        const previewText = this.formatTracePathAltIds(trace, { sectionId });
         pathPreview.textContent = previewText;
         traceHeader.appendChild(pathPreview);
 
@@ -586,20 +586,26 @@ export class TraceContentRenderer {
     }
 
     /**
-     * Format trace path as readable string using alt_ids (merged from TraceRenderer)
+     * Format trace path as readable string.
+     * For input-cpee sections the primary id is shown (matches the XML element ids
+     * visible in the raw view); all other sections show alt_id with id fallback.
      * @param {Trace} trace - Trace object
      * @param {Object} options - Formatting options
      * @param {number} options.maxLength - Maximum length for preview
-     * @returns {string} Formatted path string with alt_ids
+     * @param {string} options.sectionId - Section identifier
+     * @returns {string} Formatted path string
      */
     formatTracePathAltIds(trace, options = {}) {
-        const { maxLength = null } = options;
+        const { maxLength = null, sectionId = null } = options;
         
         if (trace.path.length === 0) {
             return '(empty trace)';
         }
 
-        const parts = trace.path.map(task => task.alt_id || task.id || '?');
+        const useId = sectionId === 'input-cpee';
+        const parts = trace.path.map(task =>
+            useId ? (task.id || task.alt_id || '?') : (task.alt_id || task.id || '?')
+        );
 
         let pathStr = parts.join(' → ');
         
