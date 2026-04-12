@@ -14,6 +14,8 @@ import { MermaidParser } from '../content/MermaidParser.js';
 
 const MAX_LOOP_ITERATIONS = 1;
 const TIMEOUT_MS = 2000;
+const MAX_GATEWAY_ONLY_STEPS = 2;
+const MAX_GATEWAY_VISITS = MAX_LOOP_ITERATIONS + 1;
 
 class TimeoutChecker {
     constructor(timeoutMs) {
@@ -91,9 +93,10 @@ class TraceSets {
      * @param {number} maxLoopIterations - Maximum loop iterations
      * @param {TimeoutChecker} timeoutChecker - Timeout checker
      * @param {number} nonTaskSteps - Consecutive non-task steps (for gateway-only cycle detection)
+     * @param {Map<string,number>} gatewayVisits - Per-gateway visit counts (bounds gateway loops with interleaved tasks)
      * @returns {Array<Array<Object>>} Array of forward trace arrays
      */
-    static forwardTrace(graph, currentNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nonTaskSteps = 0) {
+    static forwardTrace(graph, currentNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nonTaskSteps = 0, gatewayVisits = new Map()) {
         timeoutChecker.check();
         
         if (currentNodeId === targetNodeId) {
@@ -105,9 +108,7 @@ class TraceSets {
         
         const isTaskType = node.type === 'task' || node.type.endsWith('task') || node.type === 'subprocess';
         
-        // Gateway-only cycle detection: if we've traversed more consecutive non-task
-        // nodes than exist in the graph, we must be in a cycle
-        if (!isTaskType && nonTaskSteps > graph.nodes.length) {
+        if (!isTaskType && nonTaskSteps > MAX_GATEWAY_ONLY_STEPS) {
             return [];
         }
         
@@ -133,17 +134,22 @@ class TraceSets {
             
             const newFT = [...currentFT, task];
             return nextNodeIds.flatMap(nextNodeId => 
-                this.forwardTrace(graph, nextNodeId, targetNodeId, newFT, maxLoopIterations, timeoutChecker, 0)
+                this.forwardTrace(graph, nextNodeId, targetNodeId, newFT, maxLoopIterations, timeoutChecker, 0, gatewayVisits)
             );
         }
         
         const nextNTS = nonTaskSteps + 1;
         
         switch (node.type) {
-            case 'exclusivegateway':
+            case 'exclusivegateway': {
+                const visits = (gatewayVisits.get(currentNodeId) || 0) + 1;
+                if (visits > MAX_GATEWAY_VISITS) { return []; }
+                const newGatewayVisits = new Map(gatewayVisits);
+                newGatewayVisits.set(currentNodeId, visits);
                 return nextNodeIds.flatMap(nextNodeId => 
-                    this.forwardTrace(graph, nextNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS)
+                    this.forwardTrace(graph, nextNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, newGatewayVisits)
                 );
+            }
             
             case 'parallelgateway':
                 return this.handleParallelGateway(graph, currentNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker);
@@ -155,8 +161,7 @@ class TraceSets {
                 return [[...currentFT]];
             
             default:
-                // start/end events + unknown types: pass through
-                return this.forwardTrace(graph, nextNodeIds[0], targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS);
+                return this.forwardTrace(graph, nextNodeIds[0], targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, gatewayVisits);
         }
     }
 
