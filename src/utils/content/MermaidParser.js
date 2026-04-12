@@ -123,16 +123,6 @@ export class MermaidParser {
             });
         }
         
-        // Fix 7: Handle malformed node references in edge labels
-        const beforeFix7 = processedCode;
-        const fix7LineNumbers = findLineNumbersMultiLine(processedCode, /(\|\s*[^|]*\s*\|\s*)(\w+:\w+:)\s+(\([^)]+\))/g);
-        processedCode = processedCode.replace(/(\|\s*[^|]*\s*\|\s*)(\w+:\w+:)\s+(\([^)]+\))/g, '$1$2$3');
-        if (beforeFix7 !== processedCode) {
-            appliedSteps.push({
-                description: 'Fixed malformed node references in edge labels',
-                lineNumbers: Array.from(new Set(fix7LineNumbers)).sort((a, b) => a - b)
-            });
-        }
         
         // Fix 8: Remove space between node type and {x} (e.g., :exclusivegateway: {x} -> :exclusivegateway:{x})
         const beforeFix8 = processedCode;
