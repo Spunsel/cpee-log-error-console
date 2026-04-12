@@ -14,7 +14,6 @@ import { MermaidParser } from '../content/MermaidParser.js';
 
 const MAX_LOOP_ITERATIONS = 1;
 const TIMEOUT_MS = 2000;
-const MAX_GATEWAY_ONLY_STEPS = 2;
 const MAX_GATEWAY_VISITS = MAX_LOOP_ITERATIONS + 1;
 
 class TimeoutChecker {
@@ -108,7 +107,7 @@ class TraceSets {
         
         const isTaskType = node.type === 'task' || node.type.endsWith('task') || node.type === 'subprocess';
         
-        if (!isTaskType && nonTaskSteps > MAX_GATEWAY_ONLY_STEPS) {
+        if (!isTaskType && nonTaskSteps > (graph.maxGatewayOnlySteps ?? 2)) {
             return [];
         }
         
@@ -386,6 +385,9 @@ export class MermaidTraceCalculator {
             
             const graph = this.parseMermaid(preprocessedCode);
             if (!graph || graph.nodes.length === 0) { return []; }
+            
+            const isTaskNode = n => n.type === 'task' || n.type.endsWith('task') || n.type === 'subprocess';
+            graph.maxGatewayOnlySteps = graph.nodes.filter(n => !isTaskNode(n)).length;
             
             const startNodes = graph.nodes.filter(n => n.type === 'startevent');
             const endNodes = graph.nodes.filter(n => n.type === 'endevent');
