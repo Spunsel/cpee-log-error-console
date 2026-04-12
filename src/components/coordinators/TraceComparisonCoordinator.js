@@ -205,10 +205,8 @@ export class TraceComparisonCoordinator {
             return null;
         }
         
-        // Perform comparison
-        const comparisonResult = compareTraces(cpeeTraces, mermaidTraces);
+        const comparisonResult = compareTraces(cpeeTraces, mermaidTraces, { sectionPair: 'input' });
         
-        // Cache result
         this.comparisonCache.input = comparisonResult;
         
         // Update info box
@@ -249,10 +247,8 @@ export class TraceComparisonCoordinator {
             return null;
         }
         
-        // Perform comparison
-        const comparisonResult = compareTraces(cpeeTraces, mermaidTraces);
+        const comparisonResult = compareTraces(cpeeTraces, mermaidTraces, { sectionPair: 'output' });
         
-        // Cache result
         this.comparisonCache.output = comparisonResult;
         
         // Update info box

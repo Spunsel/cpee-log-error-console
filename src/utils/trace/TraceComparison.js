@@ -1,72 +1,48 @@
 /**
  * Trace Comparison Utility
- * Compares traces between CPEE and Mermaid formats
- * 
- * This utility compares execution traces calculated from CPEE XML trees and Mermaid flowcharts
- * to identify discrepancies between the two formats.
- * 
- * Comparison Algorithm:
- * 1. First checks if trace counts match between CPEE and Mermaid
- * 2. If counts don't match, all traces are marked as discrepancies
- * 3. If counts match, compares sequences element by element:
- *    - Mermaid traces use alt_id for comparison
- *    - CPEE traces prefer alt_id over id (falls back to id if alt_id not available)
- *    - Sequences must match exactly (same length, same values in same order)
- *    - Null values are treated as non-matching
- * 
- * Edge Cases:
- * - Handles null/undefined trace arrays gracefully
- * - Handles missing or null task identifiers
- * - Returns empty arrays for invalid trace structures
- * 
+ * Compares traces between CPEE and Mermaid formats.
+ *
+ * Identifier convention (canonical ID chain):
+ *   Input CPEE  id  =  Input Mermaid id  =  Output Mermaid id  =  Output CPEE alt_id
+ *
+ * For comparison the system extracts one identifier per task:
+ *   - Input CPEE    → task.id     (primary XML element id)
+ *   - Input Mermaid → task.alt_id (diagram node id stored in alt_id by the calculator)
+ *   - Output Mermaid→ task.alt_id (same convention)
+ *   - Output CPEE   → task.alt_id (carries the preserved Mermaid id)
+ *
+ * When no sectionPair is supplied the legacy extraction is used (CPEE: alt_id
+ * else id; Mermaid: alt_id) with dual-field matching.  This keeps all existing
+ * call-sites working while new callers benefit from the simpler path.
+ *
  * @module TraceComparison
  */
 
 /**
- * Extract sequence of alt_id values from a Mermaid trace
- * 
- * Extracts the alt_id values from each task in the trace path,
- * maintaining the order of execution. Returns null for tasks without alt_id.
- * 
- * @param {Trace} mermaidTrace - Mermaid trace object with path array
- * @returns {Array<string|null>} Array of alt_id values in trace execution order
- * @example
- * // Input: { path: [{ alt_id: 'A' }, { alt_id: 'B' }, { alt_id: null }] }
- * // Output: ['A', 'B', null]
+ * Extract a flat identifier sequence from a CPEE trace.
+ *
+ * @param {Trace} cpeeTrace
+ * @param {string|null} sectionPair - 'input' or 'output'; null for legacy mode
+ * @returns {Array<string|null>}
  */
-function extractMermaidSequence(mermaidTrace) {
-    if (!mermaidTrace || !mermaidTrace.path || !Array.isArray(mermaidTrace.path)) {
-        return [];
-    }
-
-    return mermaidTrace.path.map(task => 
-        // Mermaid traces use alt_id for comparison
-        task.alt_id !== undefined && task.alt_id !== null ? String(task.alt_id) : null
-    );
-}
-
-/**
- * Extract sequence of id or alt_id values from a CPEE trace
- * 
- * Extracts identifiers from each task in the trace path, preferring alt_id over id.
- * This allows flexible matching between CPEE and Mermaid formats where identifiers
- * may be stored differently.
- * 
- * Priority: alt_id > id > null
- * 
- * @param {Trace} cpeeTrace - CPEE trace object with path array
- * @returns {Array<string|null>} Array of id/alt_id values in trace execution order
- * @example
- * // Input: { path: [{ alt_id: 'A', id: 'A1' }, { id: 'B1' }, {}] }
- * // Output: ['A', 'B1', null]
- */
-function extractCPEESequence(cpeeTrace) {
+function extractCPEESequence(cpeeTrace, sectionPair = null) {
     if (!cpeeTrace || !cpeeTrace.path || !Array.isArray(cpeeTrace.path)) {
         return [];
     }
 
+    if (sectionPair === 'input') {
+        return cpeeTrace.path.map(task =>
+            task.id !== undefined && task.id !== null ? String(task.id) : null
+        );
+    }
+
+    if (sectionPair === 'output') {
+        return cpeeTrace.path.map(task =>
+            task.alt_id !== undefined && task.alt_id !== null ? String(task.alt_id) : null
+        );
+    }
+
     return cpeeTrace.path.map(task => {
-        // Prefer alt_id over id for CPEE traces
         if (task.alt_id !== undefined && task.alt_id !== null) {
             return String(task.alt_id);
         }
@@ -78,14 +54,26 @@ function extractCPEESequence(cpeeTrace) {
 }
 
 /**
- * Compare Mermaid sequence with CPEE trace
- * 
- * Compares a Mermaid sequence (alt_id values) with a CPEE trace.
- * Mermaid's alt_id can match either CPEE's alt_id OR id for each task.
- * 
- * @param {Array<string|null>} mermaidSeq - Mermaid sequence (alt_id values)
- * @param {Trace} cpeeTrace - CPEE trace object with path array
- * @returns {boolean} True if sequences match (Mermaid alt_id matches CPEE alt_id or id)
+ * Extract a flat identifier sequence from a Mermaid trace.
+ * The Mermaid trace calculator stores the diagram node id in the alt_id field.
+ *
+ * @param {Trace} mermaidTrace
+ * @returns {Array<string|null>}
+ */
+function extractMermaidSequence(mermaidTrace) {
+    if (!mermaidTrace || !mermaidTrace.path || !Array.isArray(mermaidTrace.path)) {
+        return [];
+    }
+
+    return mermaidTrace.path.map(task =>
+        task.alt_id !== undefined && task.alt_id !== null ? String(task.alt_id) : null
+    );
+}
+
+/**
+ * Legacy dual-field matcher: Mermaid alt_id may equal CPEE alt_id OR CPEE id.
+ * Used only when no sectionPair is provided (backward-compatible path).
+ *
  * @private
  */
 function compareMermaidWithCPEE(mermaidSeq, cpeeTrace) {
@@ -101,20 +89,17 @@ function compareMermaidWithCPEE(mermaidSeq, cpeeTrace) {
         const mermaidAltId = mermaidSeq[i];
         const cpeeTask = cpeeTrace.path[i];
 
-        // Mermaid alt_id must be non-null
         if (mermaidAltId === null) {
             return false;
         }
 
-        // Check if Mermaid alt_id matches CPEE alt_id OR id
-        const cpeeAltId = cpeeTask.alt_id !== undefined && cpeeTask.alt_id !== null 
-            ? String(cpeeTask.alt_id) 
+        const cpeeAltId = cpeeTask.alt_id !== undefined && cpeeTask.alt_id !== null
+            ? String(cpeeTask.alt_id)
             : null;
-        const cpeeId = cpeeTask.id !== undefined && cpeeTask.id !== null 
-            ? String(cpeeTask.id) 
+        const cpeeId = cpeeTask.id !== undefined && cpeeTask.id !== null
+            ? String(cpeeTask.id)
             : null;
 
-        // Match if Mermaid alt_id equals CPEE alt_id OR CPEE id
         if (mermaidAltId !== cpeeAltId && mermaidAltId !== cpeeId) {
             return false;
         }
@@ -124,166 +109,115 @@ function compareMermaidWithCPEE(mermaidSeq, cpeeTrace) {
 }
 
 /**
- * Compare traces between CPEE and Mermaid formats
- * 
- * Performs comprehensive comparison of trace arrays from CPEE and Mermaid formats.
- * Returns detailed results including match statistics and per-trace comparison details.
- * 
- * Algorithm:
- * 1. Validates input arrays (handles null/undefined)
- * 2. Checks if trace counts match
- * 3. If counts don't match, marks all as discrepancies
- * 4. If counts match, compares traces order-independently:
- *    - For each CPEE trace, finds a matching Mermaid trace (by sequence content)
- *    - Mermaid traces can be in different order than CPEE traces
- *    - Each Mermaid trace can only be matched once
- *    - Mermaid's alt_id can match either CPEE's alt_id OR id for each task
- *    - Compares sequences element by element using flexible matching
- *    - Records match/mismatch status for each trace
- * 
- * Error Handling:
- * - Returns empty arrays for null/undefined inputs
- * - Handles missing trace paths gracefully
- * - Logs comparison progress for debugging
- * 
- * @param {Array<Trace>} cpeeTraces - Array of CPEE trace objects
- * @param {Array<Trace>} mermaidTraces - Array of Mermaid trace objects
- * @returns {Object} Comparison result object with the following structure:
- *   @property {number} matchCount - Number of matching traces
- *   @property {number} totalCount - Total number of traces (max of both arrays)
- *   @property {number} cpeeCount - Number of CPEE traces
- *   @property {number} mermaidCount - Number of Mermaid traces
- *   @property {Array<number>} discrepancies - Array of trace indices (0-based) with mismatches
- *   @property {boolean} isMatch - True if all traces match and counts match
- *   @property {boolean} traceCountMatch - True if trace counts are equal
- *   @property {Array<Object>} details - Detailed comparison results for each trace pair:
- *     @property {number} traceIndex - Index of the trace (0-based)
- *     @property {Array<string|null>} cpeeSequence - Extracted CPEE sequence
- *     @property {Array<string|null>} mermaidSequence - Extracted Mermaid sequence
- *     @property {boolean} match - Whether this trace pair matches
- * 
- * @example
- * const result = compareTraces(cpeeTraces, mermaidTraces);
- * if (!result.isMatch) {
- *   console.log(`Found ${result.discrepancies.length} mismatches`);
- *   result.details.forEach(detail => {
- *     if (!detail.match) {
- *       console.log(`Trace ${detail.traceIndex} mismatch`);
- *     }
- *   });
- * }
+ * Simple sequence equality: two flat string arrays match iff they have the same
+ * length and every element is equal and non-null.
+ *
+ * @private
  */
-export function compareTraces(cpeeTraces, mermaidTraces) {
-    // Handle null/undefined inputs
+function sequencesEqual(seqA, seqB) {
+    if (seqA.length !== seqB.length) { return false; }
+    for (let i = 0; i < seqA.length; i++) {
+        if (seqA[i] === null || seqB[i] === null) { return false; }
+        if (seqA[i] !== seqB[i]) { return false; }
+    }
+    return true;
+}
+
+/**
+ * Compare traces between CPEE and Mermaid formats.
+ *
+ * @param {Array<Trace>} cpeeTraces
+ * @param {Array<Trace>} mermaidTraces
+ * @param {Object} [options]
+ * @param {string|null} [options.sectionPair] - 'input' | 'output' | null.
+ *   When provided, uses the simplified per-field extraction and plain string
+ *   equality.  When null (default), uses the legacy dual-field matcher.
+ * @returns {Object} Comparison result
+ */
+export function compareTraces(cpeeTraces, mermaidTraces, options = {}) {
+    const { sectionPair = null } = options;
+
     const cpee = Array.isArray(cpeeTraces) ? cpeeTraces : [];
     const mermaid = Array.isArray(mermaidTraces) ? mermaidTraces : [];
 
-    // Check trace count match
     const traceCountMatch = cpee.length === mermaid.length;
     const totalCount = Math.max(cpee.length, mermaid.length);
 
-    // Even if counts don't match, we still compare traces to find matches
-    // Unmatched traces will be marked as unique
-
-    // Compare traces order-independently by matching sequences
-    // Mermaid traces can be in different order than CPEE traces
     let matchCount = 0;
     const discrepancies = [];
     const details = [];
-    
-    // Track which Mermaid traces have been matched
     const matchedMermaidIndices = new Set();
-    
-    // For each CPEE trace, find a matching Mermaid trace
+
     for (let i = 0; i < cpee.length; i++) {
         const cpeeTrace = cpee[i];
-        const cpeeSeq = extractCPEESequence(cpeeTrace);
-                
-        // Find matching Mermaid trace (order-independent)
+        const cpeeSeq = extractCPEESequence(cpeeTrace, sectionPair);
+
         let matchedMermaidIndex = -1;
         let matchedMermaidSeq = null;
-        
+
         for (let j = 0; j < mermaid.length; j++) {
-            // Skip if this Mermaid trace was already matched
-            if (matchedMermaidIndices.has(j)) {
-                continue;
-            }
-            
+            if (matchedMermaidIndices.has(j)) { continue; }
+
             const mermaidTrace = mermaid[j];
             const mermaidSeq = extractMermaidSequence(mermaidTrace);
-            
-            // Check if Mermaid sequence matches CPEE trace
-            // Mermaid alt_id can match either CPEE alt_id or id
-            if (compareMermaidWithCPEE(mermaidSeq, cpeeTrace)) {
+
+            const isMatch = sectionPair
+                ? sequencesEqual(cpeeSeq, mermaidSeq)
+                : compareMermaidWithCPEE(mermaidSeq, cpeeTrace);
+
+            if (isMatch) {
                 matchedMermaidIndex = j;
                 matchedMermaidSeq = mermaidSeq;
                 matchedMermaidIndices.add(j);
                 break;
             }
         }
-        
+
         const sequencesMatch = matchedMermaidIndex !== -1;
-        
-        const detail = {
+
+        details.push({
             traceIndex: i,
             cpeeSequence: cpeeSeq,
-            mermaidSequence: matchedMermaidSeq || (matchedMermaidIndex === -1 && mermaid.length > 0 ? extractMermaidSequence(mermaid[0]) : []),
+            mermaidSequence: matchedMermaidSeq || (mermaid.length > 0 ? extractMermaidSequence(mermaid[0]) : []),
             mermaidTraceIndex: matchedMermaidIndex,
             match: sequencesMatch
-        };
+        });
 
-        details.push(detail);
-
-        if (sequencesMatch) {
-            matchCount++;
-        } else {
-            discrepancies.push(i);
-        }
+        if (sequencesMatch) { matchCount++; }
+        else { discrepancies.push(i); }
     }
-    
-    // Find unique traces (traces that don't have matches)
+
     const uniqueCPEETraces = [];
     const uniqueMermaidTraces = [];
-    
-    // CPEE traces without matches
+
     for (let i = 0; i < cpee.length; i++) {
-        const detail = details[i];
-        if (!detail.match) {
-            uniqueCPEETraces.push({
-                traceIndex: i,
-                sequence: detail.cpeeSequence
-            });
+        if (!details[i].match) {
+            uniqueCPEETraces.push({ traceIndex: i, sequence: details[i].cpeeSequence });
         }
     }
-    
-    // Mermaid traces without matches
+
     for (let j = 0; j < mermaid.length; j++) {
         if (!matchedMermaidIndices.has(j)) {
-            const mermaidTrace = mermaid[j];
-            const mermaidSeq = extractMermaidSequence(mermaidTrace);
             uniqueMermaidTraces.push({
                 traceIndex: j,
-                sequence: mermaidSeq
+                sequence: extractMermaidSequence(mermaid[j])
             });
         }
     }
 
     const isMatch = matchCount === totalCount && traceCountMatch;
-    const problematicCount = uniqueCPEETraces.length + uniqueMermaidTraces.length;
 
-    const result = {
-        matchCount: matchCount,
-        totalCount: totalCount,
+    return {
+        matchCount,
+        totalCount,
         cpeeCount: cpee.length,
         mermaidCount: mermaid.length,
-        discrepancies: discrepancies,
-        isMatch: isMatch,
-        traceCountMatch: traceCountMatch,
-        details: details,
-        uniqueCPEETraces: uniqueCPEETraces,
-        uniqueMermaidTraces: uniqueMermaidTraces,
-        problematicCount: problematicCount
+        discrepancies,
+        isMatch,
+        traceCountMatch,
+        details,
+        uniqueCPEETraces,
+        uniqueMermaidTraces,
+        problematicCount: uniqueCPEETraces.length + uniqueMermaidTraces.length
     };
-    return result;
 }
-
