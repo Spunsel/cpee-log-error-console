@@ -128,17 +128,71 @@ export class CPEETraceWalker {
      * entries as possible starting at `pos`.
      *
      * @returns {boolean} true if the entire remaining sequence was consumed
-     *   (pos reached sequence.length) after processing all children.
+     *   (pos reached sequence.length) after processing all children,
+     *   AND all remaining children after the sequence is consumed can
+     *   legitimately produce zero tasks.
      */
     static walkBlock(children, sequence, pos, taskMap, matchedPath) {
-        for (const child of children) {
-            if (pos >= sequence.length) { return true; }
+        for (let i = 0; i < children.length; i++) {
+            if (pos >= sequence.length) {
+                for (let j = i; j < children.length; j++) {
+                    if (!this.canBeEmpty(children[j])) { return false; }
+                }
+                return true;
+            }
 
-            const result = this.walkNode(child, sequence, pos, taskMap, matchedPath);
+            const result = this.walkNode(children[i], sequence, pos, taskMap, matchedPath);
             if (result === -1) { return false; }
             pos = result;
         }
         return pos >= sequence.length;
+    }
+
+    /**
+     * Check whether a node can legitimately produce zero task matches.
+     * Task nodes (call, manipulate, script) are mandatory and cannot be empty.
+     * Loops can execute 0 iterations. Choose/parallel can have empty branches.
+     */
+    static canBeEmpty(node) {
+        const tag = (node.tagName || '').toLowerCase();
+
+        switch (tag) {
+            case 'call':
+            case 'manipulate':
+            case 'script':
+                return false;
+
+            case 'loop':
+                return true;
+
+            case 'choose': {
+                const alternatives = Array.from(node.children).filter(c => {
+                    const t = c.tagName.toLowerCase();
+                    return t === 'alternative' || t === 'otherwise';
+                });
+                return alternatives.some(alt => this.canBlockBeEmpty(Array.from(alt.children)));
+            }
+
+            case 'parallel': {
+                const branches = Array.from(node.children).filter(c =>
+                    c.tagName.toLowerCase() === 'parallel_branch'
+                );
+                return branches.every(b => this.canBlockBeEmpty(Array.from(b.children)));
+            }
+
+            case 'escape':
+                return true;
+
+            default:
+                return this.canBlockBeEmpty(Array.from(node.children || []));
+        }
+    }
+
+    /**
+     * Check whether a block of children can all produce zero tasks.
+     */
+    static canBlockBeEmpty(children) {
+        return children.every(c => this.canBeEmpty(c));
     }
 
     /**
