@@ -279,8 +279,12 @@ export class CPEEDebugConsole {
                 return;
             }
             
-            // Get process number from InstanceLoaderViewer
-            const processNumber = this.instanceLoaderViewer.getProcessNumberFromUUIDInput();
+            // Get process number from InstanceLoaderViewer, or extract from log data
+            let processNumber = this.instanceLoaderViewer.getProcessNumberFromUUIDInput();
+            
+            if (!processNumber) {
+                processNumber = this._extractProcessNumberFromLog(logData);
+            }
             
             // Store instance data
             this.instanceService.addInstance(uuid, steps, processNumber);
@@ -407,6 +411,35 @@ export class CPEEDebugConsole {
         
         this.instanceLoaderViewer.clearInputs();
         this.instanceLoaderViewer.focusProcessNumberInput();
+    }
+
+    /**
+     * Extract process number from parsed log data.
+     * Checks the log header (trace.concept:name) and event-level concept:instance fields.
+     * @param {Array} logData - Parsed log events from LogParser
+     * @returns {number|null} Process number or null
+     * @private
+     */
+    _extractProcessNumberFromLog(logData) {
+        if (!Array.isArray(logData)) return null;
+        
+        for (const entry of logData) {
+            // Log header: { log: { trace: { "concept:name": 50423 } } }
+            const traceNum = entry?.log?.trace?.['concept:name'];
+            if (traceNum != null) {
+                const parsed = parseInt(traceNum, 10);
+                if (!isNaN(parsed) && parsed > 0) return parsed;
+            }
+            
+            // Event entries: { event: { "concept:instance": 50423 } }
+            const instanceNum = entry?.event?.['concept:instance'];
+            if (instanceNum != null) {
+                const parsed = parseInt(instanceNum, 10);
+                if (!isNaN(parsed) && parsed > 0) return parsed;
+            }
+        }
+        
+        return null;
     }
 
 }
