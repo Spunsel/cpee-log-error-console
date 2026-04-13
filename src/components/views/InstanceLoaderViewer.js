@@ -234,8 +234,8 @@ export class InstanceLoaderViewer {
     
     /**
      * Handle load instance - bidirectional loading logic
-     * - If UUID is provided → load directly
-     * - If only process number → fetch UUID first, then load
+     * - If process number is provided → fetch UUID from server (process number takes precedence)
+     * - If only UUID is provided → load directly
      * - If neither → show error
      */
     async handleLoadInstance() {
@@ -261,13 +261,8 @@ export class InstanceLoaderViewer {
         try {
             let finalUuid = uuid;
             
-            // If UUID is provided, use it directly (UUID takes precedence over process number)
-            if (uuid && this.isValidUUID(uuid)) {
-                console.log(`Loading instance with UUID: ${uuid}`);
-            } else if (uuid && !this.isValidUUID(uuid)) {
-                alert('Please enter a valid UUID format (e.g., 8a22c296-daa5-4acf-b167-4286c998e54e).');
-                return;
-            } else if (processNumber) {
+            // Process number takes precedence over UUID when both are provided
+            if (processNumber) {
                 const processNum = parseInt(processNumber, 10);
                 if (isNaN(processNum) || processNum <= 0) {
                     alert('Please enter a valid process number (positive integer).');
@@ -286,6 +281,11 @@ export class InstanceLoaderViewer {
                 }
                 
                 console.log(`UUID fetched successfully from server: ${finalUuid}`);
+            } else if (uuid && this.isValidUUID(uuid)) {
+                console.log(`Loading instance with UUID: ${uuid}`);
+            } else if (uuid && !this.isValidUUID(uuid)) {
+                alert('Please enter a valid UUID format (e.g., 8a22c296-daa5-4acf-b167-4286c998e54e).');
+                return;
             }
             
             // Store process number if available
@@ -342,10 +342,8 @@ export class InstanceLoaderViewer {
         try {
             let finalUuid = uuid;
             
-            // If UUID is provided, use it directly (UUID takes precedence over process number)
-            if (uuid && this.isValidUUID(uuid)) {
-                console.log(`Viewing log with UUID: ${uuid}`);
-            } else if (processNumber) {
+            // Process number takes precedence over UUID when both are provided
+            if (processNumber) {
                 const processNum = parseInt(processNumber, 10);
                 if (isNaN(processNum) || processNum <= 0) {
                     alert('Please enter a valid process number.');
@@ -365,6 +363,8 @@ export class InstanceLoaderViewer {
                     uuidInput.value = finalUuid;
                     uuidInput.dataset.processNumber = processNum.toString();
                 }
+            } else if (uuid && this.isValidUUID(uuid)) {
+                console.log(`Viewing log with UUID: ${uuid}`);
             }
             
             this.eventBus.emit('instanceLoader:viewLog', { uuid: finalUuid, source: 'server' });
