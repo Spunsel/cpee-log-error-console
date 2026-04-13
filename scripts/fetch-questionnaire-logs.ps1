@@ -7,6 +7,9 @@ $processNumbers = @(8654..9000)
 
 $questionnaireLink = "https://spunsel.github.io/cpee-log-error-console/"
 
+# Skip logs whose first event date is strictly before this day (DD.MM.YYYY: 13.04.2026)
+$minimumLogDate = [DateTime]::new(2026, 4, 13)
+
 # Initialize SSL bypass
 Write-Host "Initializing..." -ForegroundColor Cyan
 add-type @"
@@ -101,6 +104,7 @@ foreach ($kvp in $uuidMapping.GetEnumerator()) {
 
 $logCompleted = 0
 $savedCount = 0
+$skippedOldCount = 0
 foreach ($job in $logJobs) {
     $result = $job.PowerShell.EndInvoke($job.Handle)
     $job.PowerShell.Dispose()
@@ -109,22 +113,42 @@ foreach ($job in $logJobs) {
         # Parse the first timestamp from the log
         # XES YAML timestamps look like: "time:timestamp: '2026-03-31T20:34:00.000+01:00'"
         $timestampMatch = [regex]::Match($result.Content, "time:timestamp:\s*['""]?(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})")
+        $excludeByDate = $false
         if ($timestampMatch.Success) {
-            $year  = $timestampMatch.Groups[1].Value
-            $month = $timestampMatch.Groups[2].Value
-            $day   = $timestampMatch.Groups[3].Value
-            $hour  = $timestampMatch.Groups[4].Value
-            $min   = $timestampMatch.Groups[5].Value
-            $fileName = "date_${year}_${month}_${day}_time_${hour}_${min}.xes.yaml"
-        } else {
-            # Fallback: use UUID if no timestamp found
-            $fileName = "$($result.UUID).xes.yaml"
+            $year  = [int]$timestampMatch.Groups[1].Value
+            $month = [int]$timestampMatch.Groups[2].Value
+            $day   = [int]$timestampMatch.Groups[3].Value
+            try {
+                $firstEventDate = [DateTime]::new($year, $month, $day).Date
+                if ($firstEventDate -lt $minimumLogDate.Date) {
+                    $excludeByDate = $true
+                }
+            } catch {
+                $excludeByDate = $false
+            }
         }
 
-        $filePath = Join-Path $outputDir $fileName
-        [System.IO.File]::WriteAllText($filePath, $result.Content)
-        $savedCount++
-        Write-Host "`n  Saved: $fileName (instance $($result.ProcessNumber))" -ForegroundColor Green
+        if (-not $excludeByDate) {
+            if ($timestampMatch.Success) {
+                $yearS  = $timestampMatch.Groups[1].Value
+                $monthS = $timestampMatch.Groups[2].Value
+                $dayS   = $timestampMatch.Groups[3].Value
+                $hour   = $timestampMatch.Groups[4].Value
+                $min    = $timestampMatch.Groups[5].Value
+                $fileName = "date_${yearS}_${monthS}_${dayS}_time_${hour}_${min}.xes.yaml"
+            } else {
+                # Fallback: use UUID if no timestamp found
+                $fileName = "$($result.UUID).xes.yaml"
+            }
+
+            $filePath = Join-Path $outputDir $fileName
+            [System.IO.File]::WriteAllText($filePath, $result.Content)
+            $savedCount++
+            Write-Host "`n  Saved: $fileName (instance $($result.ProcessNumber))" -ForegroundColor Green
+        } else {
+            $skippedOldCount++
+            Write-Host "`n  Skipped (before $($minimumLogDate.ToString('yyyy-MM-dd'))): instance $($result.ProcessNumber)" -ForegroundColor DarkYellow
+        }
     }
 
     $logCompleted++
@@ -135,4 +159,4 @@ foreach ($job in $logJobs) {
 $logRunspacePool.Close()
 $logRunspacePool.Dispose()
 
-Write-Host "`n`nDone! Saved $savedCount questionnaire log(s) to $outputDir" -ForegroundColor Green
+Write-Host "`n`nDone! Saved $savedCount questionnaire log(s) to $outputDir (skipped $skippedOldCount older than $($minimumLogDate.ToString('yyyy-MM-dd')))" -ForegroundColor Green
