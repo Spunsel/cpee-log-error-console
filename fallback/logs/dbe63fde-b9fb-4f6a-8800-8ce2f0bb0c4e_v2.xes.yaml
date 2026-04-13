@@ -110,7 +110,7 @@ event:
   cpee:change_uuid: 509e8b2516809c7830a4b34ee968068f7fb20caa
   cpee:exposition: |-
     # User Input:
-    Please generate a process for invoice approval, with several approval levels for invoice amounts of more than 1000â‚¬, 10000â‚¬ and 100000â‚¬
+    Please generate a process for invoice approval, with several approval levels for invoice amounts of more than 1000€, 10000€ and 100000€
   time:timestamp: '2025-10-23T13:52:42.728546+02:00'
 ---
 event:
@@ -139,10 +139,10 @@ event:
     0:startevent:((startevent)) --> 1:task:(Receive Invoice)
     1 --> 2:task:(Verify Invoice Details)
     2 --> 3:exclusivegateway:{x}
-    3 -- |Invoice <= 1000â‚¬| --> 4:task:(Approve Invoice - Level 1)
-    3 -- |1000â‚¬ < Invoice <= 10000â‚¬| --> 5:task:(Approve Invoice - Level 2)
-    3 -- |10000â‚¬ < Invoice <= 100000â‚¬| --> 6:task:(Approve Invoice - Level 3)
-    3 -- |Invoice > 100000â‚¬| --> 7:task:(Approve Invoice - Level 4)
+    3 -- |Invoice <= 1000€| --> 4:task:(Approve Invoice - Level 1)
+    3 -- |1000€ < Invoice <= 10000€| --> 5:task:(Approve Invoice - Level 2)
+    3 -- |10000€ < Invoice <= 100000€| --> 6:task:(Approve Invoice - Level 3)
+    3 -- |Invoice > 100000€| --> 7:task:(Approve Invoice - Level 4)
     4 --> 8:exclusivegateway:{x}
     5 --> 8:exclusivegateway:{x}
     6 --> 8:exclusivegateway:{x}
@@ -551,7 +551,7 @@ event:
   cpee:change_uuid: 6abfce103e9ef1f349fe47de1535ddd94d91be3c
   cpee:exposition: |-
     # User Input:
-    Please generate a process model for invoice approval having additional approval levels for amounts greater than 1000â‚¬ and greater than 10000â‚¬
+    Please generate a process model for invoice approval having additional approval levels for amounts greater than 1000€ and greater than 10000€
   time:timestamp: '2025-10-23T13:54:57.054888+02:00'
 ---
 event:
@@ -569,9 +569,9 @@ event:
     0:startevent:((startevent)) --> 1:task:(Receive Invoice)
     1:task:(Receive Invoice) --> 2:task:(Verify Invoice Details)
     2:task:(Verify Invoice Details) --> 3:exclusivegateway:{x}
-    3:exclusivegateway:{x} --> |"Approved and <= 1000â‚¬"| 4:task:(Approve Invoice)
-    3:exclusivegateway:{x} --> |"Approved and > 1000â‚¬ and <= 10000â‚¬"| 5:task:(Manager Approval)
-    3:exclusivegateway:{x} --> |"Approved and > 10000â‚¬"| 6:task:(Director Approval)
+    3:exclusivegateway:{x} --> |"Approved and <= 1000€"| 4:task:(Approve Invoice)
+    3:exclusivegateway:{x} --> |"Approved and > 1000€ and <= 10000€"| 5:task:(Manager Approval)
+    3:exclusivegateway:{x} --> |"Approved and > 10000€"| 6:task:(Director Approval)
     3:exclusivegateway:{x} --> |"Rejected"| 7:task:(Reject Invoice)
     4:task:(Approve Invoice) --> 8:exclusivegateway:{x}
     5:task:(Manager Approval) --> 8:exclusivegateway:{x}

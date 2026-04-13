@@ -291,71 +291,71 @@ event:
     # User Input:
     create a process model of this structure:
 
-    <description>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  // (2) sequential container
-    Â  <call id="a1" />Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â // (1) call task
-    Â  <manipulate id="a2" />Â  Â  Â  Â  Â  Â  Â  Â // (1) manipulate task
-    Â  <script id="a3" />Â  Â  Â  Â  Â  Â  Â  Â  Â  Â // (1) script task
-    Â  <choose>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â // (3) XOR gateway
-    Â  Â  <alternative>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  //Â  Â branch with tasks
-    Â  Â  Â  <call id="b1" />
-    Â  Â  </alternative>
-    Â  Â  <alternative>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  //Â  Â branch with escape (terminates trace)
-    Â  Â  Â  <call id="b2" />
-    Â  Â  Â  <escape alt_id="-1" />
-    Â  Â  </alternative>
-    Â  Â  <alternative>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  //Â  Â empty escape (immediate termination)
-    Â  Â  Â  <escape alt_id="-1" />
-    Â  Â  </alternative>
-    Â  Â  <otherwise>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  //Â  Â default branch (empty = skip path)
-    Â  Â  </otherwise>
-    Â  </choose>
-    Â  <parallel>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â // (4) AND gateway (interleaving)
-    Â  Â  <parallel_branch>
-    Â  Â  Â  <call id="c1" />
-    Â  Â  </parallel_branch>
-    Â  Â  <parallel_branch>
-    Â  Â  Â  <call id="c2" />
-    Â  Â  Â  <choose>Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â //Â  Â nested XOR inside parallel
-    Â  Â  Â  Â  <alternative>
-    Â  Â  Â  Â  Â  <call id="c3" />
-    Â  Â  Â  Â  </alternative>
-    Â  Â  Â  Â  <otherwise>
-    Â  Â  Â  Â  Â  <manipulate id="c4" />
-    Â  Â  Â  Â  </otherwise>
-    Â  Â  Â  </choose>
-    Â  Â  </parallel_branch>
-    Â  </parallel>
-    Â  <loop condition="true">Â  Â  Â  Â  Â  Â  Â  // (5) mandatory loop (condition="true")
-    Â  Â  <call id="d1" />
-    Â  </loop>
-    Â  <loop condition="data.x > 0">Â  Â  Â  Â // (5) optional loop (can skip)
-    Â  Â  <call id="d2" />
-    Â  </loop>
-    Â  <loop condition="data.y > 0">Â  Â  Â  Â // (5) loop with escape path inside XOR
-    Â  Â  <choose>
-    Â  Â  Â  <alternative>
-    Â  Â  Â  Â  <call id="d3" />Â  Â  Â  Â  Â  Â  Â  //Â  Â normal path
-    Â  Â  Â  </alternative>
-    Â  Â  Â  <alternative>
-    Â  Â  Â  Â  <call id="d4" />
-    Â  Â  Â  Â  <escape alt_id="-1" />Â  Â  Â  Â  //Â  Â escape path -> forces 2 iterations
-    Â  Â  Â  </alternative>
-    Â  Â  </choose>
-    Â  </loop>
-    Â  <loop condition="true">Â  Â  Â  Â  Â  Â  Â // (5) mandatory loop with multiple XOR paths
-    Â  Â  <choose>
-    Â  Â  Â  <alternative>
-    Â  Â  Â  Â  <call id="e1" />Â  Â  Â  Â  Â  Â  Â //Â  Â path A
-    Â  Â  Â  </alternative>
-    Â  Â  Â  <alternative>
-    Â  Â  Â  Â  <call id="e2" />Â  Â  Â  Â  Â  Â  Â //Â  Â path B
-    Â  Â  Â  </alternative>
-    Â  Â  Â  <alternative>
-    Â  Â  Â  Â  <escape alt_id="-1" />Â  Â  Â  Â //Â  Â escape path
-    Â  Â  Â  </alternative>
-    Â  Â  </choose>
-    Â  </loop>
-    Â  <call id="final" />Â  Â  Â  Â  Â  Â  Â  Â  Â // final sequential task
+    <description>                          // (2) sequential container
+      <call id="a1" />                     // (1) call task
+      <manipulate id="a2" />               // (1) manipulate task
+      <script id="a3" />                   // (1) script task
+      <choose>                             // (3) XOR gateway
+        <alternative>                      //   branch with tasks
+          <call id="b1" />
+        </alternative>
+        <alternative>                      //   branch with escape (terminates trace)
+          <call id="b2" />
+          <escape alt_id="-1" />
+        </alternative>
+        <alternative>                      //   empty escape (immediate termination)
+          <escape alt_id="-1" />
+        </alternative>
+        <otherwise>                        //   default branch (empty = skip path)
+        </otherwise>
+      </choose>
+      <parallel>                           // (4) AND gateway (interleaving)
+        <parallel_branch>
+          <call id="c1" />
+        </parallel_branch>
+        <parallel_branch>
+          <call id="c2" />
+          <choose>                         //   nested XOR inside parallel
+            <alternative>
+              <call id="c3" />
+            </alternative>
+            <otherwise>
+              <manipulate id="c4" />
+            </otherwise>
+          </choose>
+        </parallel_branch>
+      </parallel>
+      <loop condition="true">              // (5) mandatory loop (condition="true")
+        <call id="d1" />
+      </loop>
+      <loop condition="data.x > 0">       // (5) optional loop (can skip)
+        <call id="d2" />
+      </loop>
+      <loop condition="data.y > 0">       // (5) loop with escape path inside XOR
+        <choose>
+          <alternative>
+            <call id="d3" />              //   normal path
+          </alternative>
+          <alternative>
+            <call id="d4" />
+            <escape alt_id="-1" />        //   escape path -> forces 2 iterations
+          </alternative>
+        </choose>
+      </loop>
+      <loop condition="true">             // (5) mandatory loop with multiple XOR paths
+        <choose>
+          <alternative>
+            <call id="e1" />             //   path A
+          </alternative>
+          <alternative>
+            <call id="e2" />             //   path B
+          </alternative>
+          <alternative>
+            <escape alt_id="-1" />       //   escape path
+          </alternative>
+        </choose>
+      </loop>
+      <call id="final" />                 // final sequential task
     </description>
   time:timestamp: '2026-04-03T13:33:27.421297+02:00'
 ---

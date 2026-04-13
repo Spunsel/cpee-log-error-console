@@ -146,7 +146,7 @@ event:
     E.g. manufacturing the vodka bar is done by the Russian team, the whiskey bar is manufactured by an Irish team.
     After receiving the individual bits and pieces, the interior of the plane is assembled, and the plane is sent on a test flight.
     During the flight you create a test protocol which is sent to you and the customer.
-    The plane is delivered to the customer, which has to confirm. Constrct the model as following: First, receive the order from the customer; Second, send the order to the manufacturing teams; 3. Task: Manufacture seats, 4. Task: set water amount. Tasks 3, 4, and the process of manufacturing bars should run in parallel, and the process has to wait until all of Tasks 3, 4, and the process of manufacturing bars are finished, then it is allowed to proceed. The process of manufacturing bars involves tasks 4 to 9, which include manufacturing vodka/whiskey/ wine/ gin/ juice bars. From tasks 4 to 9, a minimum of 0 and a maximum of 5 tasks can be done. After all of Tasks 3, 4, and the process of manufacturing bars are finished, comes Task 10: assemble interior. Then the test flight should be conducted, and then the task â€œcollect flight dataâ€, then the task â€œcreate test protocolâ€; After this, the protocol should be sent simultaneously to â€œmeâ€ and the â€œcustomerâ€. Then comes the task â€œdeliver planeâ€, then the task â€œreceive customer confirmationâ€.
+    The plane is delivered to the customer, which has to confirm. Constrct the model as following: First, receive the order from the customer; Second, send the order to the manufacturing teams; 3. Task: Manufacture seats, 4. Task: set water amount. Tasks 3, 4, and the process of manufacturing bars should run in parallel, and the process has to wait until all of Tasks 3, 4, and the process of manufacturing bars are finished, then it is allowed to proceed. The process of manufacturing bars involves tasks 4 to 9, which include manufacturing vodka/whiskey/ wine/ gin/ juice bars. From tasks 4 to 9, a minimum of 0 and a maximum of 5 tasks can be done. After all of Tasks 3, 4, and the process of manufacturing bars are finished, comes Task 10: assemble interior. Then the test flight should be conducted, and then the task “collect flight data”, then the task “create test protocol”; After this, the protocol should be sent simultaneously to “me” and the “customer”. Then comes the task “deliver plane”, then the task “receive customer confirmation”.
 
   time:timestamp: '2025-11-04T20:42:58.310828+01:00'
 ...
@@ -956,7 +956,7 @@ event:
   cpee:change_uuid: 077d7cebd2618169ad3883f5e03bee152a978639
   cpee:exposition: |-
     # User Input:
-    After receiving the customerâ€™s order, it is sent to the respective manufacturing teams.
+    After receiving the customer’s order, it is sent to the respective manufacturing teams.
     The production process then splits into three parallel branches:
 
 
@@ -969,12 +969,12 @@ event:
     Manufacture the selected bars.
 
 
-    The bar manufacturing process functions as an optional parallel subprocess. Depending on the customerâ€™s customization, none, some, or all of the five available bar types (Vodka, Whiskey, Wine, Gin, and Juice Bar) may be produced simultaneously.
-    Once all parallel tasks â€” seat manufacturing, water adjustment, and the selected bar productions â€” are completed, the process flow continues with assembling the airplane interior.
+    The bar manufacturing process functions as an optional parallel subprocess. Depending on the customer’s customization, none, some, or all of the five available bar types (Vodka, Whiskey, Wine, Gin, and Juice Bar) may be produced simultaneously.
+    Once all parallel tasks — seat manufacturing, water adjustment, and the selected bar productions — are completed, the process flow continues with assembling the airplane interior.
 
 
     After the interior has been assembled, the plane undergoes a test flight. During this flight, the system simultaneously collects flight data and creates a test protocol.
-    Once the protocol is complete, it is sent simultaneously to both the manufacturer (â€œmeâ€) and the customer for review.
+    Once the protocol is complete, it is sent simultaneously to both the manufacturer (“me”) and the customer for review.
     Finally, the airplane is delivered to the customer, who must confirm receipt and acceptance of the product, thereby completing the process.
   time:timestamp: '2025-11-04T20:51:37.316021+01:00'
 ---
@@ -1651,21 +1651,21 @@ event:
   cpee:change_uuid: 9e5f61e1b875843709bc1ca6071d69e86a002e2b
   cpee:exposition: |-
     # User Input:
-    After receiving the customerâ€™s order, it is forwarded to the respective manufacturing teams.
+    After receiving the customer’s order, it is forwarded to the respective manufacturing teams.
     The production process then splits into three parallel branches:
     Manufacture the seats,
     Set the water amount, and
     Manufacture the selected bars.
-    The bar manufacturing process operates as an inclusive subprocess. Depending on the customer's customization, any combination of the five available bar types â€” Vodka, Whiskey, Wine, Gin, and Juice Bar â€” may be produced, including none, some, or all of them. The process continues once all selected bars have been manufactured. Once all parallel tasks â€” seat manufacturing, water adjustment, and the selected bar productions â€” are completed, the process flow continues with assembling the airplane interior.
+    The bar manufacturing process operates as an inclusive subprocess. Depending on the customer's customization, any combination of the five available bar types — Vodka, Whiskey, Wine, Gin, and Juice Bar — may be produced, including none, some, or all of them. The process continues once all selected bars have been manufactured. Once all parallel tasks — seat manufacturing, water adjustment, and the selected bar productions — are completed, the process flow continues with assembling the airplane interior.
     After the interior has been assembled, the plane undergoes a test flight. During this flight, the system collects flight data and, after the flight, creates a test protocol.
-    Once the protocol is complete, it is sent simultaneously to both the manufacturer (â€œmeâ€) and the customer for review.
+    Once the protocol is complete, it is sent simultaneously to both the manufacturer (“me”) and the customer for review.
     Finally, the airplane is delivered to the customer, who must confirm receipt and acceptance of the product, thereby completing the process.
 
 
 
 
     After the interior has been assembled, the plane undergoes a test flight. During this flight, the system simultaneously collects flight data and creates a test protocol.
-    Once the protocol is complete, it is sent simultaneously to both the manufacturer (â€œmeâ€) and the customer for review.
+    Once the protocol is complete, it is sent simultaneously to both the manufacturer (“me”) and the customer for review.
     Finally, the airplane is delivered to the customer, who must confirm receipt and acceptance of the product, thereby completing the process.
   time:timestamp: '2025-11-04T21:00:41.283226+01:00'
 ---
@@ -2317,14 +2317,14 @@ event:
   cpee:change_uuid: 86c572bed288874c688587f51d883d4657c5ae75
   cpee:exposition: |+
     # User Input:
-    After receiving the customerâ€™s order, it is forwarded to the respective manufacturing teams.
+    After receiving the customer’s order, it is forwarded to the respective manufacturing teams.
     The production process then splits into three parallel branches:
     Manufacture the seats,
     Set the water amount, and
     Manufacture the selected bars.
-    The bar manufacturing process operates as an inclusive subprocess. Depending on the customer's customization, any combination of the five available bar types â€” Vodka, Whiskey, Wine, Gin, and Juice Bar â€” may be produced, including none, some, or all of them. The process continues once all selected bars have been manufactured. Once all parallel tasks â€” seat manufacturing, water adjustment, and the selected bar productions â€” are completed, the process flow continues with assembling the airplane interior.
+    The bar manufacturing process operates as an inclusive subprocess. Depending on the customer's customization, any combination of the five available bar types — Vodka, Whiskey, Wine, Gin, and Juice Bar — may be produced, including none, some, or all of them. The process continues once all selected bars have been manufactured. Once all parallel tasks — seat manufacturing, water adjustment, and the selected bar productions — are completed, the process flow continues with assembling the airplane interior.
     After the interior has been assembled, the plane undergoes a test flight. During this flight, the system collects flight data. Then, after the flight, a test protocol should be created.
-    Once the protocol is complete, it is sent simultaneously to both the manufacturer (â€œmeâ€) and the customer for review. Finally, the airplane is delivered to the customer, who must confirm receipt and acceptance of the product, thereby completing the process.
+    Once the protocol is complete, it is sent simultaneously to both the manufacturer (“me”) and the customer for review. Finally, the airplane is delivered to the customer, who must confirm receipt and acceptance of the product, thereby completing the process.
 
   time:timestamp: '2025-11-04T21:02:45.887718+01:00'
 ...

@@ -657,7 +657,7 @@ event:
           </call>
           <call id="a27" endpoint="" a:alt_id="14">
             <parameters>
-              <label>Wait 30 days â€“ check if service done</label>
+              <label>Wait 30 days – check if service done</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -712,8 +712,8 @@ event:
     a17:task:(Check if car is registered)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->a21:task:(Notify car owner via app)
     a21:task:(Notify car owner via app)-->a25:task:(Take car to service when notified)
-    a25:task:(Take car to service when notified)-->a27:task:(Wait 30 days â€“ check if service done)
-    a27:task:(Wait 30 days â€“ check if service done)-->gw2s:exclusivegateway:{x}
+    a25:task:(Take car to service when notified)-->a27:task:(Wait 30 days – check if service done)
+    a27:task:(Wait 30 days – check if service done)-->gw2s:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"Service done"|gw2e:exclusivegateway:{x}
     gw2s:exclusivegateway:{x}-->|"No service within 30 days"|a33:task:(Fine car owner)
     a33:task:(Fine car owner)-->gw2e:exclusivegateway:{x}

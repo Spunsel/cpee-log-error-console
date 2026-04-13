@@ -150,7 +150,7 @@ event:
   cpee:change_uuid: a1eb4d2f23573ed0f5b5a001acd7e263661d83d4
   cpee:exposition: |-
     # User Input:
-    Please generate an invoice approval process with additional approval levels for amounts greater than 1000â‚¬ and greater than 10000â‚¬
+    Please generate an invoice approval process with additional approval levels for amounts greater than 1000€ and greater than 10000€
   time:timestamp: '2025-10-23T13:56:36.620654+02:00'
 ---
 event:
@@ -192,9 +192,9 @@ event:
       0:startevent:((startevent)) --> 1:task:(Receive Invoice)
       1:task:(Receive Invoice) --> 2:task:(Verify Invoice Details)
       2:task:(Verify Invoice Details) --> 3:exclusivegateway:{x}
-      3:exclusivegateway:{x} --> 4:task:(First Level Approval) |Amount <= 1000â‚¬|
-      3:exclusivegateway:{x} --> 5:task:(Second Level Approval) |Amount > 1000â‚¬ and <= 10000â‚¬|
-      3:exclusivegateway:{x} --> 6:task:(Third Level Approval) |Amount > 10000â‚¬|
+      3:exclusivegateway:{x} --> 4:task:(First Level Approval) |Amount <= 1000€|
+      3:exclusivegateway:{x} --> 5:task:(Second Level Approval) |Amount > 1000€ and <= 10000€|
+      3:exclusivegateway:{x} --> 6:task:(Third Level Approval) |Amount > 10000€|
       4:task:(First Level Approval) --> 7:exclusivegateway:{x}
       5:task:(Second Level Approval) --> 7:exclusivegateway:{x}
       6:task:(Third Level Approval) --> 7:exclusivegateway:{x}

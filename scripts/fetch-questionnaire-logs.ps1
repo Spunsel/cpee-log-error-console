@@ -1,6 +1,9 @@
 # PowerShell script to fetch logs that contain the questionnaire link
 # Run from the cpee-log-error-console directory:
 #   powershell -ExecutionPolicy Bypass -File scripts/fetch-questionnaire-logs.ps1
+#
+# Encoding: use DownloadData + UTF-8 decode (not WebClient.DownloadString) so YAML
+# with non-ASCII text is not corrupted on Windows (.NET Framework default encoding).
 
 # Process numbers to scan
 $processNumbers = @(8654..9000)
@@ -25,6 +28,8 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 [System.Net.ServicePointManager]::DefaultConnectionLimit = 50
 
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
 # Create directories
 $outputDir = "questionnaire-logs"
 
@@ -44,7 +49,13 @@ $runspacePool.Open()
 $uuidScript = {
     param($processNumber)
     try {
-        $uuid = (New-Object System.Net.WebClient).DownloadString("https://cpee.org/flow/engine/$processNumber/properties/attributes/uuid/").Trim()
+        $wc = New-Object System.Net.WebClient
+        try {
+            $bytes = $wc.DownloadData("https://cpee.org/flow/engine/$processNumber/properties/attributes/uuid/")
+            $uuid = [System.Text.Encoding]::UTF8.GetString($bytes).Trim()
+        } finally {
+            $wc.Dispose()
+        }
         if ($uuid -match '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$') {
             return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $true }
         }
@@ -82,7 +93,13 @@ Write-Host "`nFetching logs and filtering for questionnaire link..." -Foreground
 $logScript = {
     param($processNumber, $uuid, $link)
     try {
-        $content = (New-Object System.Net.WebClient).DownloadString("https://cpee.org/logs/$uuid.xes.yaml")
+        $wc = New-Object System.Net.WebClient
+        try {
+            $bytes = $wc.DownloadData("https://cpee.org/logs/$uuid.xes.yaml")
+            $content = [System.Text.Encoding]::UTF8.GetString($bytes)
+        } finally {
+            $wc.Dispose()
+        }
         if ($content -match [regex]::Escape($link)) {
             return @{ ProcessNumber = $processNumber; UUID = $uuid; Content = $content; Success = $true; Selected = $true }
         }
@@ -142,7 +159,7 @@ foreach ($job in $logJobs) {
             }
 
             $filePath = Join-Path $outputDir $fileName
-            [System.IO.File]::WriteAllText($filePath, $result.Content)
+            [System.IO.File]::WriteAllText($filePath, $result.Content, $utf8NoBom)
             $savedCount++
             Write-Host "`n  Saved: $fileName (instance $($result.ProcessNumber))" -ForegroundColor Green
         } else {

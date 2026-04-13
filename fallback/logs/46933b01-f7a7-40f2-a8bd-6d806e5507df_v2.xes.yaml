@@ -243,13 +243,13 @@ event:
                  xmlns:a="http://cpee.org/ns/annotation/1.0">
 
 
-      <!-- A: Simple task (call) � covers task accumulation -->
+      <!-- A: Simple task (call) — covers task accumulation -->
       <call id="1" a:alt_id="A">
         <parameters><label>"Task A"</label></parameters>
       </call>
 
 
-      <!-- XOR gateway with 3 branches � covers choose, alternative, otherwise, escape -->
+      <!-- XOR gateway with 3 branches — covers choose, alternative, otherwise, escape -->
       <choose id="2">
 
 
@@ -283,14 +283,14 @@ event:
       </choose>
 
 
-      <!-- D: Task after choose � demonstrates escape propagation:
+      <!-- D: Task after choose — demonstrates escape propagation:
            traces terminated by escape in branches 2/3 skip this task -->
       <call id="5" a:alt_id="D">
         <parameters><label>"Task D"</label></parameters>
       </call>
 
 
-      <!-- Parallel gateway with 2 branches � covers interleaving -->
+      <!-- Parallel gateway with 2 branches — covers interleaving -->
       <parallel id="6">
         <parallel_branch>
           <call id="7" a:alt_id="E">
@@ -306,7 +306,7 @@ event:
       </parallel>
 
 
-      <!-- Conditional loop (condition != "true") � covers allow-0-iterations path -->
+      <!-- Conditional loop (condition != "true") — covers allow-0-iterations path -->
       <loop id="10" condition="data.count &gt; 0">
         <call id="11" a:alt_id="H">
           <parameters><label>"Task H"</label></parameters>
@@ -314,7 +314,7 @@ event:
       </loop>
 
 
-      <!-- Unconditional loop with escape inside XOR � covers:
+      <!-- Unconditional loop with escape inside XOR — covers:
            - mandatory first iteration (condition="true", body not in FT)
            - cotree exit (body in FT on re-encounter)
            - escape path raises min iterations to 2

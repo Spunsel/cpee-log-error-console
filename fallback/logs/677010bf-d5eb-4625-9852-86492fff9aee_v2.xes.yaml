@@ -1434,7 +1434,7 @@ event:
     / ERP-System\n(z. B. SAP, BI-System)\n\nKliniken & Institute (Kostenträger)\n(Empfänger
     der Umlage)\n\nLeitung Finanzen / Vorstand Verwaltung\n(Freigabe und Reporting)\n\n\U0001F9ED
     BPMN-Prozessbeschreibung (Textform)\n1. Start: Periodenbeginn (z. B. Quartal /
-    Jahr)\n\nEreignis: „Kostenverteilungsperiode beginnt"\n\nTrigger: Automatischer
+    Jahr)\n\nEreignis: „Kostenverteilungsperiode beginnt“\n\nTrigger: Automatischer
     Prozessstart im ERP-System oder durch Controlling-Kalender.\n\n2. Sammeln der
     Infrastrukturkosten (Kostenstellenverantwortliche)\n\nAktivitäten:\n\nErfassung
     der angefallenen Infrastrukturkosten (z. B. IT, Strom, Gebäudereinigung, Verwaltung)\n\nZuordnung
@@ -1442,21 +1442,21 @@ event:
     Buchungsläufe, Kostenartenberichte\n\n3. Plausibilitätsprüfung der Daten (Finanzabteilung)\n\nAktivitäten:\n\nPrüfung
     der Vollständigkeit und Korrektheit der Kostenarten\n\nAbgleich mit Budget- und
     Vorperiodenwerten\n\nRückmeldung bei Auffälligkeiten an Fachabteilungen\n\nEntscheidungspunkt:
-    „Kosten plausibel?"\n\nNein: Rückgabe zur Korrektur\n\nJa: Weiter\n\n4. Definition
+    „Kosten plausibel?“\n\nNein: Rückgabe zur Korrektur\n\nJa: Weiter\n\n4. Definition
     der Verteilungsschlüssel (Controlling)\n\nAktivitäten:\n\nFestlegung oder Aktualisierung
     der Umlageschlüssel (z. B. m², Personalstellen, IT-Nutzer, Laborstunden)\n\nGenehmigung
     durch Leitung Finanzen (falls notwendig)\n\nDatenbasis: Stammdaten, Nutzungsstatistiken,
     HR-Daten\n\n5. Durchführung der Umlage (ERP-System / Controlling)\n\nAktivitäten:\n\nBerechnung
     der Umlage auf Empfänger-Kostenstellen gemäß Schlüssel\n\nBuchung der sekundären
-    Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\n\nSystemereignis: „Umlauf abgeschlossen"\n\n6.
+    Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\n\nSystemereignis: „Umlauf abgeschlossen“\n\n6.
     Prüfung der Umlageergebnisse (Controlling + Empfänger)\n\nAktivitäten:\n\nEmpfänger
     erhalten Umlageberichte\n\nKontrolle auf sachliche und rechnerische Richtigkeit\n\nFeedback
-    an Controlling bei Auffälligkeiten\n\nEntscheidungspunkt: „Ergebnisse korrekt?"\n\nNein:
+    an Controlling bei Auffälligkeiten\n\nEntscheidungspunkt: „Ergebnisse korrekt?“\n\nNein:
     Korrektur und Neuverteilung\n\nJa: Weiter\n\n7. Reporting und Freigabe (Finanzleitung)\n\nAktivitäten:\n\nErstellung
     des Verrechnungsberichts (z. B. je Klinik/Institut)\n\nVorlage an Leitung Finanzen
     / Vorstand Verwaltung\n\nFreigabe und Kommunikation an alle Einheiten\n\nDokumentation
     im ERP/BI-System\n\n8. Ende des Prozesses\n\nEreignis: „Umlage abgeschlossen und
-    freigegeben"\n\nOutput:\n\nBuchungssätze im ERP-System\n\nBericht an Ministerium/Universität
+    freigegeben“\n\nOutput:\n\nBuchungssätze im ERP-System\n\nBericht an Ministerium/Universität
     (Trennungsrechnung)\n\nGrundlage für Budgetplanung und Controlling"
   time:timestamp: '2025-11-05T12:12:59.382315+01:00'
 ---
@@ -2017,7 +2017,7 @@ event:
     / ERP-System\n(z. B. SAP, BI-System)\n\nKliniken & Institute (Kostenträger)\n(Empfänger
     der Umlage)\n\nLeitung Finanzen / Vorstand Verwaltung\n(Freigabe und Reporting)\n\n\U0001F9ED
     BPMN-Prozessbeschreibung (Textform)\n1. Start: Periodenbeginn (z. B. Quartal /
-    Jahr)\n\nEreignis: „Kostenverteilungsperiode beginnt"\n\nTrigger: Automatischer
+    Jahr)\n\nEreignis: „Kostenverteilungsperiode beginnt“\n\nTrigger: Automatischer
     Prozessstart im ERP-System oder durch Controlling-Kalender.\n\n2. Sammeln der
     Infrastrukturkosten (Kostenstellenverantwortliche)\n\nAktivitäten:\n\nErfassung
     der angefallenen Infrastrukturkosten (z. B. IT, Strom, Gebäudereinigung, Verwaltung)\n\nZuordnung
@@ -2025,21 +2025,21 @@ event:
     Buchungsläufe, Kostenartenberichte\n\n3. Plausibilitätsprüfung der Daten (Finanzabteilung)\n\nAktivitäten:\n\nPrüfung
     der Vollständigkeit und Korrektheit der Kostenarten\n\nAbgleich mit Budget- und
     Vorperiodenwerten\n\nRückmeldung bei Auffälligkeiten an Fachabteilungen\n\nEntscheidungspunkt:
-    „Kosten plausibel?"\n\nNein: Rückgabe zur Korrektur\n\nJa: Weiter\n\n4. Definition
+    „Kosten plausibel?“\n\nNein: Rückgabe zur Korrektur\n\nJa: Weiter\n\n4. Definition
     der Verteilungsschlüssel (Controlling)\n\nAktivitäten:\n\nFestlegung oder Aktualisierung
     der Umlageschlüssel (z. B. m², Personalstellen, IT-Nutzer, Laborstunden)\n\nGenehmigung
     durch Leitung Finanzen (falls notwendig)\n\nDatenbasis: Stammdaten, Nutzungsstatistiken,
     HR-Daten\n\n5. Durchführung der Umlage (ERP-System / Controlling)\n\nAktivitäten:\n\nBerechnung
     der Umlage auf Empfänger-Kostenstellen gemäß Schlüssel\n\nBuchung der sekundären
-    Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\n\nSystemereignis: „Umlauf abgeschlossen"\n\n6.
+    Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\n\nSystemereignis: „Umlauf abgeschlossen“\n\n6.
     Prüfung der Umlageergebnisse (Controlling + Empfänger)\n\nAktivitäten:\n\nEmpfänger
     erhalten Umlageberichte\n\nKontrolle auf sachliche und rechnerische Richtigkeit\n\nFeedback
-    an Controlling bei Auffälligkeiten\n\nEntscheidungspunkt: „Ergebnisse korrekt?"\n\nNein:
+    an Controlling bei Auffälligkeiten\n\nEntscheidungspunkt: „Ergebnisse korrekt?“\n\nNein:
     Korrektur und Neuverteilung\n\nJa: Weiter\n\n7. Reporting und Freigabe (Finanzleitung)\n\nAktivitäten:\n\nErstellung
     des Verrechnungsberichts (z. B. je Klinik/Institut)\n\nVorlage an Leitung Finanzen
     / Vorstand Verwaltung\n\nFreigabe und Kommunikation an alle Einheiten\n\nDokumentation
     im ERP/BI-System\n\n8. Ende des Prozesses\n\nEreignis: „Umlage abgeschlossen und
-    freigegeben"\n\nOutput:\n\nBuchungssätze im ERP-System\n\nBericht an Ministerium/Universität
+    freigegeben“\n\nOutput:\n\nBuchungssätze im ERP-System\n\nBericht an Ministerium/Universität
     (Trennungsrechnung)\n\nGrundlage für Budgetplanung und Controlling"
   time:timestamp: '2025-11-05T12:14:30.436148+01:00'
 ---
@@ -2503,7 +2503,7 @@ event:
     / ERP-System\n(z. B. SAP, BI-System)\n\nKliniken & Institute (Kostenträger)\n(Empfänger
     der Umlage)\n\nLeitung Finanzen / Vorstand Verwaltung\n(Freigabe und Reporting)\n\n\U0001F9ED
     BPMN-Prozessbeschreibung (Textform)\n1. Start: Periodenbeginn (z. B. Quartal /
-    Jahr)\n\nEreignis: „Kostenverteilungsperiode beginnt"\n\nTrigger: Automatischer
+    Jahr)\n\nEreignis: „Kostenverteilungsperiode beginnt“\n\nTrigger: Automatischer
     Prozessstart im ERP-System oder durch Controlling-Kalender.\n\n2. Sammeln der
     Infrastrukturkosten (Kostenstellenverantwortliche)\n\nAktivitäten:\n\nErfassung
     der angefallenen Infrastrukturkosten (z. B. IT, Strom, Gebäudereinigung, Verwaltung)\n\nZuordnung
@@ -2511,21 +2511,21 @@ event:
     Buchungsläufe, Kostenartenberichte\n\n3. Plausibilitätsprüfung der Daten (Finanzabteilung)\n\nAktivitäten:\n\nPrüfung
     der Vollständigkeit und Korrektheit der Kostenarten\n\nAbgleich mit Budget- und
     Vorperiodenwerten\n\nRückmeldung bei Auffälligkeiten an Fachabteilungen\n\nEntscheidungspunkt:
-    „Kosten plausibel?"\n\nNein: Rückgabe zur Korrektur\n\nJa: Weiter\n\n4. Definition
+    „Kosten plausibel?“\n\nNein: Rückgabe zur Korrektur\n\nJa: Weiter\n\n4. Definition
     der Verteilungsschlüssel (Controlling)\n\nAktivitäten:\n\nFestlegung oder Aktualisierung
     der Umlageschlüssel (z. B. m², Personalstellen, IT-Nutzer, Laborstunden)\n\nGenehmigung
     durch Leitung Finanzen (falls notwendig)\n\nDatenbasis: Stammdaten, Nutzungsstatistiken,
     HR-Daten\n\n5. Durchführung der Umlage (ERP-System / Controlling)\n\nAktivitäten:\n\nBerechnung
     der Umlage auf Empfänger-Kostenstellen gemäß Schlüssel\n\nBuchung der sekundären
-    Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\n\nSystemereignis: „Umlauf abgeschlossen"\n\n6.
+    Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\n\nSystemereignis: „Umlauf abgeschlossen“\n\n6.
     Prüfung der Umlageergebnisse (Controlling + Empfänger)\n\nAktivitäten:\n\nEmpfänger
     erhalten Umlageberichte\n\nKontrolle auf sachliche und rechnerische Richtigkeit\n\nFeedback
-    an Controlling bei Auffälligkeiten\n\nEntscheidungspunkt: „Ergebnisse korrekt?"\n\nNein:
+    an Controlling bei Auffälligkeiten\n\nEntscheidungspunkt: „Ergebnisse korrekt?“\n\nNein:
     Korrektur und Neuverteilung\n\nJa: Weiter\n\n7. Reporting und Freigabe (Finanzleitung)\n\nAktivitäten:\n\nErstellung
     des Verrechnungsberichts (z. B. je Klinik/Institut)\n\nVorlage an Leitung Finanzen
     / Vorstand Verwaltung\n\nFreigabe und Kommunikation an alle Einheiten\n\nDokumentation
     im ERP/BI-System\n\n8. Ende des Prozesses\n\nEreignis: „Umlage abgeschlossen und
-    freigegeben"\n\nOutput:\n\nBuchungssätze im ERP-System\n\nBericht an Ministerium/Universität
+    freigegeben“\n\nOutput:\n\nBuchungssätze im ERP-System\n\nBericht an Ministerium/Universität
     (Trennungsrechnung)\n\nGrundlage für Budgetplanung und Controlling"
   time:timestamp: '2025-11-05T12:15:52.857563+01:00'
 ---
@@ -3041,7 +3041,7 @@ event:
     / ERP-System\n(z. B. SAP, BI-System)\n\nKliniken & Institute (Kostenträger)\n(Empfänger
     der Umlage)\n\nLeitung Finanzen / Vorstand Verwaltung\n(Freigabe und Reporting)\n\n\U0001F9ED
     BPMN-Prozessbeschreibung (Textform)\n1. Start: Periodenbeginn (z. B. Quartal /
-    Jahr)\n\nEreignis: „Kostenverteilungsperiode beginnt"\n\nTrigger: Automatischer
+    Jahr)\n\nEreignis: „Kostenverteilungsperiode beginnt“\n\nTrigger: Automatischer
     Prozessstart im ERP-System oder durch Controlling-Kalender.\n\n2. Sammeln der
     Infrastrukturkosten (Kostenstellenverantwortliche)\n\nAktivitäten:\n\nErfassung
     der angefallenen Infrastrukturkosten (z. B. IT, Strom, Gebäudereinigung, Verwaltung)\n\nZuordnung
@@ -3049,21 +3049,21 @@ event:
     Buchungsläufe, Kostenartenberichte\n\n3. Plausibilitätsprüfung der Daten (Finanzabteilung)\n\nAktivitäten:\n\nPrüfung
     der Vollständigkeit und Korrektheit der Kostenarten\n\nAbgleich mit Budget- und
     Vorperiodenwerten\n\nRückmeldung bei Auffälligkeiten an Fachabteilungen\n\nEntscheidungspunkt:
-    „Kosten plausibel?"\n\nNein: Rückgabe zur Korrektur\n\nJa: Weiter\n\n4. Definition
+    „Kosten plausibel?“\n\nNein: Rückgabe zur Korrektur\n\nJa: Weiter\n\n4. Definition
     der Verteilungsschlüssel (Controlling)\n\nAktivitäten:\n\nFestlegung oder Aktualisierung
     der Umlageschlüssel (z. B. m², Personalstellen, IT-Nutzer, Laborstunden)\n\nGenehmigung
     durch Leitung Finanzen (falls notwendig)\n\nDatenbasis: Stammdaten, Nutzungsstatistiken,
     HR-Daten\n\n5. Durchführung der Umlage (ERP-System / Controlling)\n\nAktivitäten:\n\nBerechnung
     der Umlage auf Empfänger-Kostenstellen gemäß Schlüssel\n\nBuchung der sekundären
-    Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\n\nSystemereignis: „Umlauf abgeschlossen"\n\n6.
+    Kosten im ERP-System (z. B. SAP-CO Umlagezyklus)\n\nSystemereignis: „Umlauf abgeschlossen“\n\n6.
     Prüfung der Umlageergebnisse (Controlling + Empfänger)\n\nAktivitäten:\n\nEmpfänger
     erhalten Umlageberichte\n\nKontrolle auf sachliche und rechnerische Richtigkeit\n\nFeedback
-    an Controlling bei Auffälligkeiten\n\nEntscheidungspunkt: „Ergebnisse korrekt?"\n\nNein:
+    an Controlling bei Auffälligkeiten\n\nEntscheidungspunkt: „Ergebnisse korrekt?“\n\nNein:
     Korrektur und Neuverteilung\n\nJa: Weiter\n\n7. Reporting und Freigabe (Finanzleitung)\n\nAktivitäten:\n\nErstellung
     des Verrechnungsberichts (z. B. je Klinik/Institut)\n\nVorlage an Leitung Finanzen
     / Vorstand Verwaltung\n\nFreigabe und Kommunikation an alle Einheiten\n\nDokumentation
     im ERP/BI-System\n\n8. Ende des Prozesses\n\nEreignis: „Umlage abgeschlossen und
-    freigegeben"\n\nOutput:\n\nBuchungssätze im ERP-System\n\nBericht an Ministerium/Universität
+    freigegeben“\n\nOutput:\n\nBuchungssätze im ERP-System\n\nBericht an Ministerium/Universität
     (Trennungsrechnung)\n\nGrundlage für Budgetplanung und Controlling"
   time:timestamp: '2025-11-05T12:16:55.582769+01:00'
 ---

@@ -62,26 +62,26 @@ event:
   cpee:change_uuid: 630d5d609b2bb13894d7234f891237a309a03753
   cpee:exposition: |-
     # User Input:
-    1. æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰
-    ç‰©æ–™å…¥åº“å‰ï¼ŒIQC æŒ‰æµç¨‹å›¾è§„å®šçš„æŠ½æ£€æ¯”ä¾‹ã€æ£€éªŒé¡¹ç›®ï¼ˆå¤–è§‚ã€å°ºå¯¸ã€æ€§èƒ½ï¼‰è¿›è¡Œæ£€æµ‹ã€‚
-    åˆæ ¼ï¼šæµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚ã€‚
-    ä¸åˆæ ¼ï¼šæŒ‰æµç¨‹å›¾åˆ¤å®šæ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸ã€‚
-    2. åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰
-    ç”Ÿäº§çº¿ä¸ŠæŒ‰å›ºå®šé¢‘æ¬¡å·¡æ£€ï¼Œæµç¨‹å›¾æ˜Žç¡®å…³é”®å·¥åºæŽ§åˆ¶ç‚¹ã€‚
-    æ­£å¸¸ï¼šç»§ç»­ç”Ÿäº§ã€‚
-    å¼‚å¸¸ï¼šç«‹å³æŒ‰æµç¨‹å›¾æ‰§è¡Œåœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€ã€‚
-    3. æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰
-    æˆå“ä¸‹çº¿åŽï¼Œä¾æ®æµç¨‹å›¾é€é¡¹æ ¸å¯¹åŠŸèƒ½ã€å¤–è§‚ã€åŒ…è£…ã€æ ‡ç­¾ã€‚
-    åˆæ ¼ï¼šæµè½¬è‡³å¾…å‡ºè´§åŒºã€‚
-    ä¸åˆæ ¼ï¼šè¿›å…¥è¿”å·¥ / æŠ¥åºŸæµç¨‹ï¼Œæµç¨‹å›¾è§„å®šè¿”å·¥æœ€å¤š 1 æ¬¡ï¼Œé¿å…é‡å¤ä¸è‰¯ã€‚
-    4. å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰
-    å‡ºè´§å‰æŒ‰æµç¨‹å›¾æ‰§è¡Œæ‰¹é‡æŠ½æ£€ã€‚
-    åˆæ ¼ï¼šå…è®¸å‡ºè´§ã€‚
-    ä¸åˆæ ¼ï¼šæ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰ã€‚
-    5. å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯
-    å®¢æˆ·åé¦ˆè´¨é‡é—®é¢˜åŽï¼ŒæŒ‰æµç¨‹å›¾è¿½æº¯ï¼š
-    å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­ã€‚
-    æµç¨‹å›¾ç¡®ä¿æ¯ä¸€æ­¥å¯è¿½æº¯ã€ä¸é—æ¼ã€‚
+    1. 来料检验（IQC）
+    物料入库前，IQC 按流程图规定的抽检比例、检验项目（外观、尺寸、性能）进行检测。
+    合格：流入仓库，进入生产环节。
+    不合格：按流程图判定拒收 / 返工 / 特采，并记录异常。
+    2. 制程巡检（IPQC）
+    生产线上按固定频次巡检，流程图明确关键工序控制点。
+    正常：继续生产。
+    异常：立即按流程图执行停机→标识隔离→原因分析→整改→复检。
+    3. 成品终检（FQC）
+    成品下线后，依据流程图逐项核对功能、外观、包装、标签。
+    合格：流转至待出货区。
+    不合格：进入返工 / 报废流程，流程图规定返工最多 1 次，避免重复不良。
+    4. 出货抽检（OQC）
+    出货前按流程图执行批量抽检。
+    合格：允许出货。
+    不合格：整批隔离，重新全检，同时启动纠正预防措施（CAPA）。
+    5. 客诉反馈与闭环
+    客户反馈质量问题后，按流程图追溯：
+    客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭。
+    流程图确保每一步可追溯、不遗漏。
   time:timestamp: '2026-03-17T08:58:04.074296+01:00'
 ---
 event:
@@ -384,17 +384,17 @@ event:
     graph LR
         0:startevent:((startevent)) --> 1:task:(Incoming Material Inspection (IQC))
         1:task:(Incoming Material Inspection (IQC)) --> 2:exclusivegateway:{x}
-        2:exclusivegateway:{x} --> |åˆæ ¼| 3:task:(Enter Warehouse)
-        2:exclusivegateway:{x} --> |ä¸åˆæ ¼| 4:exclusivegateway:{x}
+        2:exclusivegateway:{x} --> |合格| 3:task:(Enter Warehouse)
+        2:exclusivegateway:{x} --> |不合格| 4:exclusivegateway:{x}
         3:task:(Enter Warehouse) --> 18:endevent:(((endevent)))
         4:exclusivegateway:{x} --> 5:task:(Reject/Rework/Special Adoption)
         5:task:(Reject/Rework/Special Adoption) --> 6:task:(Record Exception)
         6:task:(Record Exception) --> 18:endevent:(((endevent)))
         0:startevent:((startevent)) --> 7:task:(In-Process Inspection (IPQC))
         7:task:(In-Process Inspection (IPQC)) --> 8:exclusivegateway:{x}
-        8:exclusivegateway:{x} --> |æ­£å¸¸| 9:task:(Continue Production)
+        8:exclusivegateway:{x} --> |正常| 9:task:(Continue Production)
         9:task:(Continue Production) --> 18:endevent:(((endevent)))
-        8:exclusivegateway:{x} --> |å¼‚å¸¸| 10:task:(Stop Machine)
+        8:exclusivegateway:{x} --> |异常| 10:task:(Stop Machine)
         10:task:(Stop Machine) --> 11:task:(Identify Isolation)
         11:task:(Identify Isolation) --> 12:task:(Root Cause Analysis)
         12:task:(Root Cause Analysis) --> 13:task:(Corrective Action)
@@ -402,15 +402,15 @@ event:
         14:task:(Re-inspection) --> 18:endevent:(((endevent)))
         0:startevent:((startevent)) --> 15:task:(Final Inspection (FQC))
         15:task:(Final Inspection (FQC)) --> 16:exclusivegateway:{x}
-        16:exclusivegateway:{x} --> |åˆæ ¼| 17:task:(Transfer to Awaiting Shipment Area)
+        16:exclusivegateway:{x} --> |合格| 17:task:(Transfer to Awaiting Shipment Area)
         17:task:(Transfer to Awaiting Shipment Area) --> 18:endevent:(((endevent)))
-        16:exclusivegateway:{x} --> |ä¸åˆæ ¼| 19:task:(Rework/Scrap)
+        16:exclusivegateway:{x} --> |不合格| 19:task:(Rework/Scrap)
         19:task:(Rework/Scrap) --> 18:endevent:(((endevent)))
         0:startevent:((startevent)) --> 20:task:(Outgoing Quality Control (OQC))
         20:task:(Outgoing Quality Control (OQC)) --> 21:exclusivegateway:{x}
-        21:exclusivegateway:{x} --> |åˆæ ¼| 22:task:(Allow Shipment)
+        21:exclusivegateway:{x} --> |合格| 22:task:(Allow Shipment)
         22:task:(Allow Shipment) --> 18:endevent:(((endevent)))
-        21:exclusivegateway:{x} --> |ä¸åˆæ ¼| 23:task:(Isolate Entire Batch)
+        21:exclusivegateway:{x} --> |不合格| 23:task:(Isolate Entire Batch)
         23:task:(Isolate Entire Batch) --> 24:task:(Re-inspect Entire Batch)
         24:task:(Re-inspect Entire Batch) --> 25:task:(Initiate CAPA)
         25:task:(Initiate CAPA) --> 18:endevent:(((endevent)))

@@ -243,34 +243,34 @@ event:
   cpee:exposition: |
     # User Input:
     Rolle: Agiere als erfahrener Business Process Engineer.
-    Aufgabe: Erstelle ein BPMN 2.0 Diagramm für den Prozess „Auftragsabwicklung" der GreenSupply GmbH basierend auf folgenden Anforderungen:
+    Aufgabe: Erstelle ein BPMN 2.0 Diagramm für den Prozess „Auftragsabwicklung“ der GreenSupply GmbH basierend auf folgenden Anforderungen:
     1. Struktur & Beteiligte:
-    ⬢ Verwende einen Pool „GreenSupply GmbH" mit zwei Lanes: Vertrieb und Logistik.  
-    ⬢ Start-Ereignis: Eingang eines Auftrags (per E-Mail oder Online-Formular) im Vertrieb.  
-    ⬢ End-Ereignis: Auftragsbestätigung an den Kunden versendet.  
+    • Verwende einen Pool „GreenSupply GmbH“ mit zwei Lanes: Vertrieb und Logistik.  
+    • Start-Ereignis: Eingang eines Auftrags (per E-Mail oder Online-Formular) im Vertrieb.  
+    • End-Ereignis: Auftragsbestätigung an den Kunden versendet.  
     2. Prozessschritte im Vertrieb:
-    ⬢ Auftrag im ERP erfassen.  
-    ⬢ Exklusives Gateway (XOR): Prüfen, ob der Kunde bereits im System existiert.  
-    ⬢ Falls Nein: Kundendaten anlegen.  
-    ⬢ Falls Ja: Weiter zum nächsten Schritt.
-    ⬢ Optionaler Schritt (Bedingung): Wenn Auftragswert > X, dann Zahlungsbedingungen anpassen (Vorkasse).  
-    ⬢ Auftrag an Logistik weitergeben.  
+    • Auftrag im ERP erfassen.  
+    • Exklusives Gateway (XOR): Prüfen, ob der Kunde bereits im System existiert.  
+    • Falls Nein: Kundendaten anlegen.  
+    • Falls Ja: Weiter zum nächsten Schritt.
+    • Optionaler Schritt (Bedingung): Wenn Auftragswert > X, dann Zahlungsbedingungen anpassen (Vorkasse).  
+    • Auftrag an Logistik weitergeben.  
     3. Prozessschritte in der Logistik:
-    ⬢ Materialverfügbarkeit prüfen.  
-    ⬢ Exklusives Gateway (XOR): Ist ausreichend Material vorhanden?.  
-    ⬢ Falls Nein: Nachbestellung auslösen und auf Materialeingang warten.  
-    ⬢ Falls Ja: Direkt weiter.
-    ⬢ Auftrag für Produktion und Versand einplanen und Liefertermin ermitteln.  
-    ⬢ Hinweis: Expressaufträge werden hierbei priorisiert (als Annotation oder Attribut am Task „Einplanen" vermerken).  
-    ⬢ Information über Liefertermin an Vertrieb zurückgeben.
+    • Materialverfügbarkeit prüfen.  
+    • Exklusives Gateway (XOR): Ist ausreichend Material vorhanden?.  
+    • Falls Nein: Nachbestellung auslösen und auf Materialeingang warten.  
+    • Falls Ja: Direkt weiter.
+    • Auftrag für Produktion und Versand einplanen und Liefertermin ermitteln.  
+    • Hinweis: Expressaufträge werden hierbei priorisiert (als Annotation oder Attribut am Task „Einplanen“ vermerken).  
+    • Information über Liefertermin an Vertrieb zurückgeben.
     4. Abschluss im Vertrieb:
-    ⬢ Auftragsbestätigung versenden (inkl. des ermittelten Liefertermins).  
+    • Auftragsbestätigung versenden (inkl. des ermittelten Liefertermins).  
     Technische Vorgaben:
-    ⬢ Nutze korrekte BPMN 2.0 Symbole (Tasks, XOR-Gateways, Sequence Flows).
-    ⬢ Achte auf eine klare Trennung der Verantwortlichkeiten zwischen den Lanes.  
-    ⬢ Stelle sicher, dass der Prozess erst endet, wenn der Liefertermin feststeht.  
+    • Nutze korrekte BPMN 2.0 Symbole (Tasks, XOR-Gateways, Sequence Flows).
+    • Achte auf eine klare Trennung der Verantwortlichkeiten zwischen den Lanes.  
+    • Stelle sicher, dass der Prozess erst endet, wenn der Liefertermin feststeht.  
     Zusätzliche Tipps für deine Übung:
-    ⬢ Annahme zum Expressauftrag: Da die Aufgabenstellung verlangt, dass du entscheidest, wie der Expressauftrag modelliert wird, ist es im Prompt oben als Priorisierungsregel am Task integriert. Das entspricht der Aussage von Interview B.  
+    • Annahme zum Expressauftrag: Da die Aufgabenstellung verlangt, dass du entscheidest, wie der Expressauftrag modelliert wird, ist es im Prompt oben als Priorisierungsregel am Task integriert. Das entspricht der Aussage von Interview B.  
   time:timestamp: '2026-03-23T10:14:19.391185+01:00'
 ---
 event:
@@ -830,24 +830,24 @@ event:
   cpee:exposition: |
     # User Input:
     Pool: GreenSupply GmbH
-    ⬢ Lane 1: Vertrieb
-    ⬢ Start: "Auftrag eingegangen".  
-    ⬢ Task: "Auftrag im ERP erfassen".  
-    ⬢ Gateway (XOR): "Kunde bekannt?".  
-    ⬢ Task (Pfad Nein): "Kundendaten im System anlegen".  
-    ⬢ Gateway (XOR): "Wert > X?".  
-    ⬢ Task (Pfad Ja): "Zahlungsbedingungen auf Vorkasse anpassen".  
-    ⬢ Task: "Auftrag an Logistik übermitteln".  
-    ⬢ Lane 2: Logistik
-    ⬢ Task: "Materialverfügbarkeit prüfen".  
-    ⬢ Gateway (XOR): "Material vorhanden?".  
-    ⬢ Task (Pfad Nein): "Nachbestellung auslösen".  
-    ⬢ Task (Pfad Nein): "Materialeingang abwarten".  
-    ⬢ Task: "Produktion und Versand einplanen" (Hinweis: Expressaufträge priorisieren).  
-    ⬢ Task: "Liefertermin ermitteln".  
-    ⬢ Zurück zu Lane 1: Vertrieb
-    ⬢ Task: "Auftragsbestätigung mit Liefertermin versenden".  
-    ⬢ Ende: "Prozess abgeschlossen".
+    • Lane 1: Vertrieb
+    • Start: "Auftrag eingegangen".  
+    • Task: "Auftrag im ERP erfassen".  
+    • Gateway (XOR): "Kunde bekannt?".  
+    • Task (Pfad Nein): "Kundendaten im System anlegen".  
+    • Gateway (XOR): "Wert > X?".  
+    • Task (Pfad Ja): "Zahlungsbedingungen auf Vorkasse anpassen".  
+    • Task: "Auftrag an Logistik übermitteln".  
+    • Lane 2: Logistik
+    • Task: "Materialverfügbarkeit prüfen".  
+    • Gateway (XOR): "Material vorhanden?".  
+    • Task (Pfad Nein): "Nachbestellung auslösen".  
+    • Task (Pfad Nein): "Materialeingang abwarten".  
+    • Task: "Produktion und Versand einplanen" (Hinweis: Expressaufträge priorisieren).  
+    • Task: "Liefertermin ermitteln".  
+    • Zurück zu Lane 1: Vertrieb
+    • Task: "Auftragsbestätigung mit Liefertermin versenden".  
+    • Ende: "Prozess abgeschlossen".
     Formatierungsvorgabe: Benutze für alle Schritte den Typ "Task" oder "User Task", damit die Beschreibungen (z.B. "Material prüfen") permanent im Diagramm sichtbar sind. Vermeide reine Service-Icons ohne Label.
   time:timestamp: '2026-03-23T10:16:47.969530+01:00'
 ---

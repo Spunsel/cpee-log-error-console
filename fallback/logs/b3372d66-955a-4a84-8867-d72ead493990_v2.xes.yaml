@@ -67,11 +67,11 @@ event:
 
     Proces: Start-up onderneming zoekt financiering (AS-IS)
 
-    Pool: Start-up onderneming (Ã©Ã©n pool, drie swimlanes)
+    Pool: Start-up onderneming (één pool, drie swimlanes)
 
-    Swimlane 1 â€” Hoofdproces (founder) Het proces start met een startgebeurtenis. De founder doorloopt achtereenvolgens: (1) Valideer idee en markt, (2) Uitwerken financieel plan, (3) Bepaal financiÃ«le behoeften, (4) Verzamel ecosysteemondersteuning. Daarna volgt een exclusieve gateway "Voldoende?": bij Ja eindigt het proces met "Geen funding nodig"; bij Nee gaat de flow naar een inclusieve gateway die twee parallelle subprocessen activeert: "Werken met de overheid" en "Zoeken op private markt". Na beide subprocessen convergeert de flow naar "Funding proces afgerond".
+    Swimlane 1 — Hoofdproces (founder) Het proces start met een startgebeurtenis. De founder doorloopt achtereenvolgens: (1) Valideer idee en markt, (2) Uitwerken financieel plan, (3) Bepaal financiële behoeften, (4) Verzamel ecosysteemondersteuning. Daarna volgt een exclusieve gateway "Voldoende?": bij Ja eindigt het proces met "Geen funding nodig"; bij Nee gaat de flow naar een inclusieve gateway die twee parallelle subprocessen activeert: "Werken met de overheid" en "Zoeken op private markt". Na beide subprocessen convergeert de flow naar "Funding proces afgerond".
 
-    Swimlane 2 â€” Subproces: Werken met de overheid
+    Swimlane 2 — Subproces: Werken met de overheid
 
     De subproces start met een inclusieve gateway "Soort investeringsmechanisme?" met vijf uitgaande paden: Tax Shelter, Winwinlening, LRM, PMV, VLAIO.
 
@@ -81,7 +81,7 @@ event:
     Investeerders zoeken
     Fiscaal attest opmaken per investeerder
     Attesten indienen bij fiscus (Belcotax-on-web)
-    Exclusieve gateway "Goedgekeurd?": Ja â†’ Kapitaalverhoging doorvoeren â†’ Uitgeven aandelen aan investeerders â†’ eindgebeurtenis "Fiscaal voordeel"; Nee â†’ eindgebeurtenis "Geen fiscaal voordeel"
+    Exclusieve gateway "Goedgekeurd?": Ja → Kapitaalverhoging doorvoeren → Uitgeven aandelen aan investeerders → eindgebeurtenis "Fiscaal voordeel"; Nee → eindgebeurtenis "Geen fiscaal voordeel"
 
     Pad Winwinlening:
 
@@ -90,41 +90,41 @@ event:
     Leningsakte aanmaken
     Akte & aflossingstabel digitaal bezorgen
     Leningsakte ondertekenen
-    Exclusieve gateway "Goedgekeurd?": Ja â†’ eindgebeurtenis "Financiering verkregen"; Nee â†’ eindgebeurtenis "Geen lening ontvangen"
+    Exclusieve gateway "Goedgekeurd?": Ja → eindgebeurtenis "Financiering verkregen"; Nee → eindgebeurtenis "Geen lening ontvangen"
 
     Pad LRM:
 
     Intakegesprek met LRM
     Financieel plan indienen
-    Exclusieve gateway "Goedgekeurd?": Ja â†’ Ingaan op voorstel â†’ eindgebeurtenis "Financiering verkregen"; Nee â†’ eindgebeurtenis "Geen financiering"
+    Exclusieve gateway "Goedgekeurd?": Ja → Ingaan op voorstel → eindgebeurtenis "Financiering verkregen"; Nee → eindgebeurtenis "Geen financiering"
 
     Pad PMV:
 
     Aanvraag indienen via platform
     Financieel plan indienen
-    Exclusieve gateway "Goedgekeurd?": Ja â†’ eindgebeurtenis "Financiering verkregen"; Nee â†’ eindgebeurtenis "Geen financiering"
+    Exclusieve gateway "Goedgekeurd?": Ja → eindgebeurtenis "Financiering verkregen"; Nee → eindgebeurtenis "Geen financiering"
 
     Pad VLAIO:
 
     Nagaan voorwaarden
-    Exclusieve gateway "Voldaan?": Ja â†’ Plan indienen â†’ exclusieve gateway "Goedgekeurd?": Ja â†’ eindgebeurtenis "Financiering verkregen"; Nee â†’ eindgebeurtenis "Geen financiering"; Nee â†’ eindgebeurtenis "Geen financiering"
+    Exclusieve gateway "Voldaan?": Ja → Plan indienen → exclusieve gateway "Goedgekeurd?": Ja → eindgebeurtenis "Financiering verkregen"; Nee → eindgebeurtenis "Geen financiering"; Nee → eindgebeurtenis "Geen financiering"
 
-    Swimlane 3 â€” Subproces: Zoeken op private markt
+    Swimlane 3 — Subproces: Zoeken op private markt
 
     De subproces start met een exclusieve gateway met drie uitgaande paden: Business angels, Venture capital, Banken.
 
     Pad Business angels:
 
-    Identificeer potentiÃ«le business angels
+    Identificeer potentiële business angels
     Pitchen voor Investment Forum
-    Exclusieve gateway "Positief?": Ja â†’ Onderhandelen over deal â†’ Ondertekenen fundingcontract â†’ eindgebeurtenis "Financiering ontvangen"; Nee â†’ eindgebeurtenis "Geen funding ontvangen"
+    Exclusieve gateway "Positief?": Ja → Onderhandelen over deal → Ondertekenen fundingcontract → eindgebeurtenis "Financiering ontvangen"; Nee → eindgebeurtenis "Geen funding ontvangen"
 
     Pad Venture capital:
 
     Identificeer geschikte VC fondsen
     Voorbereiden pitch
     Screening- en partner meeting (timer: 4-8 weken)
-    Exclusieve gateway "Positief?": Ja â†’ Term sheet reviewen â†’ Onderhandelen voorwaarden en waardering â†’ Closing en post-closing afspraken â†’ eindgebeurtenis "Financiering ontvangen"; Nee â†’ eindgebeurtenis "Geen funding ontvangen"
+    Exclusieve gateway "Positief?": Ja → Term sheet reviewen → Onderhandelen voorwaarden en waardering → Closing en post-closing afspraken → eindgebeurtenis "Financiering ontvangen"; Nee → eindgebeurtenis "Geen funding ontvangen"
 
     Pad Banken:
 
@@ -132,16 +132,16 @@ event:
     Aanvragen banklening
     Gesprek met bankadviseur
     Aanvraag indienen via platform
-    Exclusieve gateway "Goedgekeurd?" (timer: 2 weken): Ja â†’ Ondertekenen leningsovereenkomst â†’ eindgebeurtenis "Krediet ontvangen"; Nee â†’ eindgebeurtenis "Geen lening ontvangen"
+    Exclusieve gateway "Goedgekeurd?" (timer: 2 weken): Ja → Ondertekenen leningsovereenkomst → eindgebeurtenis "Krediet ontvangen"; Nee → eindgebeurtenis "Geen lening ontvangen"
 
     Timers aanwezig in het diagram:
 
     Due diligence business angels: 2-6 weken
     Due diligence VC: 4-8 weken
     Bankbeoordeling: 2 weken
-    PMV: Â±4 weken
-    VLAIO: Â±8 weken
-    LRM: Â±10 dagen
+    PMV: ±4 weken
+    VLAIO: ±8 weken
+    LRM: ±10 dagen
   time:timestamp: '2026-04-04T14:35:37.128227+02:00'
 ---
 event:
@@ -589,8 +589,8 @@ event:
     graph LR
         0:startevent:((startevent)) --> 1:task:(Valideer idee en markt)
         1:task:(Valideer idee en markt) --> 2:task:(Uitwerken financieel plan)
-        2:task:(Uitwerken financieel plan) --> 3:task:(Bepaal financiÃ«le behoeften)
-        3:task:(Bepaal financiÃ«le behoeften) --> 4:task:(Verzamel ecosysteemondersteuning)
+        2:task:(Uitwerken financieel plan) --> 3:task:(Bepaal financiële behoeften)
+        3:task:(Bepaal financiële behoeften) --> 4:task:(Verzamel ecosysteemondersteuning)
         4:task:(Verzamel ecosysteemondersteuning) --> 5:exclusivegateway:{x}
         5:exclusivegateway:{x} --> |Ja| 6:endevent:(((endevent)))
         5:exclusivegateway:{x} --> |Nee| 7:inclusivegateway:{O}
@@ -637,10 +637,10 @@ event:
         67:exclusivegateway:{x} --> |Ja| 68:endevent:(((endevent)))
         67:exclusivegateway:{x} --> |Nee| 69:endevent:(((endevent)))
         24:subprocess:(Zoeken op private markt) --> 25:exclusivegateway:{x}
-        25:exclusivegateway:{x} --> 26:task:(Identificeer potentiÃ«le business angels)
+        25:exclusivegateway:{x} --> 26:task:(Identificeer potentiële business angels)
         25:exclusivegateway:{x} --> 32:task:(Identificeer geschikte VC fondsen)
         25:exclusivegateway:{x} --> 37:task:(Selecteer geschikte bank)
-        26:task:(Identificeer potentiÃ«le business angels) --> 27:task:(Pitchen voor Investment Forum)
+        26:task:(Identificeer potentiële business angels) --> 27:task:(Pitchen voor Investment Forum)
         27:task:(Pitchen voor Investment Forum) --> 28:exclusivegateway:{x}
         28:exclusivegateway:{x} --> |Ja| 29:task:(Onderhandelen over deal)
         28:exclusivegateway:{x} --> |Nee| 31:endevent:(((endevent)))

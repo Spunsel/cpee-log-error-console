@@ -6,6 +6,7 @@
 
 import { LogParser } from '../utils/content/LogParser.js';
 import { configManager } from '../config/ConfigManager.js';
+import { buildCpeeLogXesYamlUrl } from '../utils/url/CpeeLogUrl.js';
 import { instanceFallbackService } from './InstanceFallbackService.js';
 
 export class LogFetchService {
@@ -115,7 +116,10 @@ export class LogFetchService {
      * @private
      */
     async _fetchFromServer(uuid) {
-        const logUrl = `${this.configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
+        const logUrl = buildCpeeLogXesYamlUrl(
+            this.configManager.get('api.endpoints.cpeeLogs'),
+            uuid
+        );
         
         if (this.debugMode) {
             console.log(`[LogFetchService] Fetching log from server: ${logUrl}`);

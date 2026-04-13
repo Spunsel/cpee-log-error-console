@@ -459,7 +459,7 @@ event:
   cpee:change_uuid: 33f9e3333ead2e5ff40dd9deadb228e733d251d0
   cpee:exposition: |-
     # User Input:
-    Add tasks where the customer defines the airplane’s interior: choose one of five bar types, number and color of seats, lighting, carpet and wall color, entertainment system, and water amount in toilets. Add a parallel gateway to start all configuration tasks at the same time. Inside the ÜSChoose Bar Type⬝ branch, include an exclusive gateway with five options: vodka bar, whiskey bar, wine bar, cocktail bar, and coffee bar. Only one of these options should be selected. When all configuration branches are finished, merge them back together.
+    Add tasks where the customer defines the airplane’s interior: choose one of five bar types, number and color of seats, lighting, carpet and wall color, entertainment system, and water amount in toilets. Add a parallel gateway to start all configuration tasks at the same time. Inside the “Choose Bar Type” branch, include an exclusive gateway with five options: vodka bar, whiskey bar, wine bar, cocktail bar, and coffee bar. Only one of these options should be selected. When all configuration branches are finished, merge them back together.
   time:timestamp: '2025-11-03T16:13:53.400006+01:00'
 ---
 event:
@@ -7045,7 +7045,7 @@ event:
   cpee:change_uuid: 81ab4b30aa6bc20b452e5ef23d6da03385bbfdd4
   cpee:exposition: |-
     # User Input:
-    Please fix the model so that only the selected bar type is produced. The customer chooses one bar type using an exclusive gateway with five options, each option should lead to the corresponding manufacturing task for that bar type, and after that, all paths should join again before ÜSAssemble Interior⬝. Only the chosen bar branch should be executed, not all of them in parallel.
+    Please fix the model so that only the selected bar type is produced. The customer chooses one bar type using an exclusive gateway with five options, each option should lead to the corresponding manufacturing task for that bar type, and after that, all paths should join again before “Assemble Interior”. Only the chosen bar branch should be executed, not all of them in parallel.
   time:timestamp: '2025-11-03T16:26:48.829517+01:00'
 ---
 event:

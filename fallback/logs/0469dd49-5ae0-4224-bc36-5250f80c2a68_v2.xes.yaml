@@ -4469,7 +4469,7 @@ event:
   cpee:change_uuid: 12072f47c6cd02cba733f57428108f599f9cb940
   cpee:exposition: |-
     # User Input:
-    Place ÜSChoose Bar Type⬝, ÜSSet Lighting⬝, ÜSSet Entertainment System⬝, ÜSSet Carpet and Wall Color⬝, and ÜSSet Water Amount in Toilets⬝ under a parallel block (since these can be decided independently).
+    Place “Choose Bar Type”, “Set Lighting”, “Set Entertainment System”, “Set Carpet and Wall Color”, and “Set Water Amount in Toilets” under a parallel block (since these can be decided independently).
   time:timestamp: '2025-11-03T15:38:27.796522+01:00'
 ---
 event:
@@ -5144,7 +5144,7 @@ event:
   cpee:change_uuid: 3e0161aa0b56abbb0de188c3bea85eaf65ce3369
   cpee:exposition: |-
     # User Input:
-    After ÜSCreate Test Protocol⬝, add two message flows running in parallel to send the protocol to me and to the customer before delivery. Make sure all parallel branches are synchronized properly
+    After “Create Test Protocol”, add two message flows running in parallel to send the protocol to me and to the customer before delivery. Make sure all parallel branches are synchronized properly
   time:timestamp: '2025-11-03T15:39:39.799217+01:00'
 ---
 event:
@@ -5702,7 +5702,7 @@ event:
   cpee:change_uuid: 9fd2143b379bbe1817f4929c1d2ff3f124cce6eb
   cpee:exposition: |-
     # User Input:
-    Please modify the model so that the customer chooses one bar type from several options. Add an exclusive gateway after ÜSChoose Bar Type⬝ with the following options: Vodka bar, Whiskey bar, Wine bar, Cocktail bar, Coffee bar.
+    Please modify the model so that the customer chooses one bar type from several options. Add an exclusive gateway after “Choose Bar Type” with the following options: Vodka bar, Whiskey bar, Wine bar, Cocktail bar, Coffee bar.
   time:timestamp: '2025-11-03T15:47:43.859186+01:00'
 ---
 event:
@@ -6685,11 +6685,11 @@ event:
     # User Input:
     Please modify the model as follows:
     Add a parallel gateway to start all configuration tasks at the same time:
-    ÜSChoose Bar Type⬝, ÜSSet Number and Color of Seats⬝, ÜSSet Lighting⬝, ÜSSet Carpet and Wall Color⬝, ÜSSet Entertainment System⬝, and ÜSSet Water Amount in Toilets⬝.
-    Inside the ÜSChoose Bar Type⬝ branch, include an exclusive gateway with five options: vodka bar, whiskey bar, wine bar, cocktail bar, and coffee bar.
+    “Choose Bar Type”, “Set Number and Color of Seats”, “Set Lighting”, “Set Carpet and Wall Color”, “Set Entertainment System”, and “Set Water Amount in Toilets”.
+    Inside the “Choose Bar Type” branch, include an exclusive gateway with five options: vodka bar, whiskey bar, wine bar, cocktail bar, and coffee bar.
     Only one of these options should be selected.
-    After each configuration branch (including each bar option), add a task ÜSConfirm and Document Configuration⬝ before they join again.
-    When all configuration branches are finished, merge them back together and continue with ÜSSend Specs to Manufacturing Team⬝, then ÜSManufacture Components⬝, ÜSAssemble Interior⬝, ÜSTest Flight⬝, and ÜSDeliver Airplane⬝.
+    After each configuration branch (including each bar option), add a task “Confirm and Document Configuration” before they join again.
+    When all configuration branches are finished, merge them back together and continue with “Send Specs to Manufacturing Team”, then “Manufacture Components”, “Assemble Interior”, “Test Flight”, and “Deliver Airplane”.
 
   time:timestamp: '2025-11-03T15:53:40.455078+01:00'
 ...

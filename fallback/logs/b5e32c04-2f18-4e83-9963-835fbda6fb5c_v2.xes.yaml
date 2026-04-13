@@ -107,18 +107,18 @@ event:
   cpee:change_uuid: 7e5e1e133571ea74d57aec1f9a0454fa174cea7f
   cpee:exposition: |+
     # User Input:
-    AuslÃ¶ser oder StatusÃ¤nderung
+    Auslöser oder Statusänderung
 
 
 
 
-    1.Â Â Â  Indikation zur Vorstellung Patient im Krankenhaus
+    1.    Indikation zur Vorstellung Patient im Krankenhaus
 
-    2.Â Â Â  Zuweisung Klinik durch Leitstelle
+    2.    Zuweisung Klinik durch Leitstelle
 
-    3.Â Â Â  Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst (Anruf nur bei Triage â€žRotâ€œ)
+    3.    Anmeldung über IVENA durch Leitstelle und NIDA Rettungsdienst (Anruf nur bei Triage „Rot“)
 
-    4.Â Â Â  Ankunft Patient
+    4.    Ankunft Patient
 
 
 
@@ -133,7 +133,7 @@ event:
 
 
 
-    UnabhÃ¤ngige AktivitÃ¤ten, die aber parallel laufen kÃ¶nnen
+    Unabhängige Aktivitäten, die aber parallel laufen können
 
 
 
@@ -179,8 +179,8 @@ event:
     graph LR
         0:startevent:((startevent)) --> 1:task:(Indikation zur Vorstellung Patient im Krankenhaus)
         1:task:(Indikation zur Vorstellung Patient im Krankenhaus) --> 2:task:(Zuweisung Klinik durch Leitstelle)
-        2:task:(Zuweisung Klinik durch Leitstelle) --> 3:task:(Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst)
-        3:task:(Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst) --> 4:task:(Ankunft Patient)
+        2:task:(Zuweisung Klinik durch Leitstelle) --> 3:task:(Anmeldung über IVENA durch Leitstelle und NIDA Rettungsdienst)
+        3:task:(Anmeldung über IVENA durch Leitstelle und NIDA Rettungsdienst) --> 4:task:(Ankunft Patient)
         4:task:(Ankunft Patient) --> 5:endevent:(((endevent)))
     ```
   time:timestamp: '2026-04-08T08:06:16.704277+02:00'
@@ -319,7 +319,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst</label>
+          <label>Anmeldung über IVENA durch Leitstelle und NIDA Rettungsdienst</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -350,16 +350,16 @@ event:
 
 
 
-    1.Â Â Â  Meldung bei Leitstelle, wenn stationÃ¤re Behandlung erforderlich
+    1.    Meldung bei Leitstelle, wenn stationäre Behandlung erforderlich
 
-    2.Â Â Â  Zuweisung nach KapazitÃ¤ten in IVENA
+    2.    Zuweisung nach Kapazitäten in IVENA
 
-    3.Â Â Â  Meldung Ã¼ber IVENA durch Leitstelle. NIDA wird durch Rettungsdienst angemeldet. Geschieht jedoch hÃ¤ufig erst nach Ankunft Patient.
-
-
+    3.    Meldung über IVENA durch Leitstelle. NIDA wird durch Rettungsdienst angemeldet. Geschieht jedoch häufig erst nach Ankunft Patient.
 
 
-    Â 
+
+
+     
 
 
 
@@ -374,7 +374,7 @@ event:
 
 
 
-    Â 
+     
   time:timestamp: '2026-04-08T08:06:35.991156+02:00'
 ---
 event:
@@ -401,8 +401,8 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Indikation zur Vorstellung Patient im Krankenhaus)
     a1:task:(Indikation zur Vorstellung Patient im Krankenhaus)-->a3:task:(Zuweisung Klinik durch Leitstelle)
-    a3:task:(Zuweisung Klinik durch Leitstelle)-->a5:task:(Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst)
-    a5:task:(Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst)-->a7:task:(Ankunft Patient)
+    a3:task:(Zuweisung Klinik durch Leitstelle)-->a5:task:(Anmeldung über IVENA durch Leitstelle und NIDA Rettungsdienst)
+    a5:task:(Anmeldung über IVENA durch Leitstelle und NIDA Rettungsdienst)-->a7:task:(Ankunft Patient)
     a7:task:(Ankunft Patient)-->ee:endevent:((endevent))
   time:timestamp: '2026-04-08T08:06:35.991358+02:00'
 ---
@@ -417,12 +417,12 @@ event:
     %% Output Intermediate
     ```mermaid
     flowchart LR
-        se:startevent:((startevent)) --> a1:task:(Meldung bei Leitstelle, wenn stationÃ¤re Behandlung erforderlich)
-        a1:task:(Meldung bei Leitstelle, wenn stationÃ¤re Behandlung erforderlich) --> a2:task:(Zuweisung nach KapazitÃ¤ten in IVENA)
-        a2:task:(Zuweisung nach KapazitÃ¤ten in IVENA) --> pg1:parallelgateway:{AND}
-        pg1:parallelgateway:{AND} --> a3:task:(Meldung Ã¼ber IVENA durch Leitstelle)
+        se:startevent:((startevent)) --> a1:task:(Meldung bei Leitstelle, wenn stationäre Behandlung erforderlich)
+        a1:task:(Meldung bei Leitstelle, wenn stationäre Behandlung erforderlich) --> a2:task:(Zuweisung nach Kapazitäten in IVENA)
+        a2:task:(Zuweisung nach Kapazitäten in IVENA) --> pg1:parallelgateway:{AND}
+        pg1:parallelgateway:{AND} --> a3:task:(Meldung über IVENA durch Leitstelle)
         pg1:parallelgateway:{AND} --> a4:task:(NIDA wird durch Rettungsdienst angemeldet)
-        a3:task:(Meldung Ã¼ber IVENA durch Leitstelle) --> pg2:parallelgateway:{AND}
+        a3:task:(Meldung über IVENA durch Leitstelle) --> pg2:parallelgateway:{AND}
         a4:task:(NIDA wird durch Rettungsdienst angemeldet) --> pg2:parallelgateway:{AND}
         pg2:parallelgateway:{AND} --> a7:task:(Ankunft Patient)
         a7:task:(Ankunft Patient) --> ee:endevent:(((endevent)))

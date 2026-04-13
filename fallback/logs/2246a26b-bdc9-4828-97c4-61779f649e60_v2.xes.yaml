@@ -159,11 +159,11 @@ event:
   cpee:change_uuid: 94246e9af7dff1e8092a7eeef4d5112ffaaf0525
   cpee:exposition: |-
     # User Input:
-    (InÃ­cio) â†’ [Acessar tela] â†’ [Preencher nome, e-mail, telefone, descriÃ§Ã£o] â†’ [Clicar em "Continuar"] â†’ [Sistema valida dados] â†’ {Dados vÃ¡lidos?}
-    Â  Â â”‚
-    Â  Â â”œâ”€(NÃ£o)â†’ [Exibir erro na tela] â†’ (retorna para preenchimento)
-    Â  Â â”‚
-    Â  Â â””â”€(Sim)â†’ [Salvar fornecedor] â†’ [Enviar confirmaÃ§Ã£o] â†’ (Fim)
+    (Início) → [Acessar tela] → [Preencher nome, e-mail, telefone, descrição] → [Clicar em "Continuar"] → [Sistema valida dados] → {Dados válidos?}
+       │
+       ├─(Não)→ [Exibir erro na tela] → (retorna para preenchimento)
+       │
+       └─(Sim)→ [Salvar fornecedor] → [Enviar confirmação] → (Fim)
   time:timestamp: '2026-04-03T17:53:53.872798+02:00'
 ---
 event:
@@ -200,15 +200,15 @@ event:
     ```mermaid
     graph LR
       0:startevent:((startevent)) --> 1:task:(Acessar tela)
-      1:task:(Acessar tela) --> 2:task:(Preencher nome, e-mail, telefone, descriÃ§Ã£o)
-      2:task:(Preencher nome, e-mail, telefone, descriÃ§Ã£o) --> 3:task:(Clicar em "Continuar")
+      1:task:(Acessar tela) --> 2:task:(Preencher nome, e-mail, telefone, descrição)
+      2:task:(Preencher nome, e-mail, telefone, descrição) --> 3:task:(Clicar em "Continuar")
       3:task:(Clicar em "Continuar") --> 4:task:(Sistema valida dados)
       4:task:(Sistema valida dados) --> 5:exclusivegateway:{x}
-      5:exclusivegateway:{x} --> |NÃ£o| 6:task:(Exibir erro na tela)
-      6:task:(Exibir erro na tela) --> 2:task:(Preencher nome, e-mail, telefone, descriÃ§Ã£o)
+      5:exclusivegateway:{x} --> |Não| 6:task:(Exibir erro na tela)
+      6:task:(Exibir erro na tela) --> 2:task:(Preencher nome, e-mail, telefone, descrição)
       5:exclusivegateway:{x} --> |Sim| 7:task:(Salvar fornecedor)
-      7:task:(Salvar fornecedor) --> 8:task:(Enviar confirmaÃ§Ã£o)
-      8:task:(Enviar confirmaÃ§Ã£o) --> 9:endevent:(((endevent)))
+      7:task:(Salvar fornecedor) --> 8:task:(Enviar confirmação)
+      8:task:(Enviar confirmação) --> 9:endevent:(((endevent)))
     ```
   time:timestamp: '2026-04-03T17:53:53.873472+02:00'
 ---

@@ -1,9 +1,13 @@
 # PowerShell script to fetch UUIDs and logs from CPEE
 # Run from the cpee-log-error-console directory:
 #   powershell -ExecutionPolicy Bypass -File scripts/fetch-and-update.ps1
+#
+# Encoding: WebClient.DownloadString() uses the system default code page on Windows
+# (.NET Framework), which corrupts UTF-8 YAML (e.g. ü -> Ã¼). Logs are fetched as
+# raw bytes and decoded as UTF-8; files are written as UTF-8 without BOM.
 
 # Process numbers to fetch
-$processNumbers = @(8797..9163)
+$processNumbers = @(1..9163)
 
 # Resolve project root (parent of scripts/)
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
@@ -24,6 +28,8 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 [System.Net.ServicePointManager]::DefaultConnectionLimit = 50
+
+$utf8NoBom = New-Object System.Text.UTF8Encoding $false
 
 # Create directories
 $tempUuidDir = "scripts\temp\uuids"
@@ -78,7 +84,13 @@ if ($needFetch.Count -gt 0) {
     $uuidScript = {
         param($processNumber)
         try {
-            $uuid = (New-Object System.Net.WebClient).DownloadString("https://cpee.org/flow/engine/$processNumber/properties/attributes/uuid/").Trim()
+            $wc = New-Object System.Net.WebClient
+            try {
+                $bytes = $wc.DownloadData("https://cpee.org/flow/engine/$processNumber/properties/attributes/uuid/")
+                $uuid = [System.Text.Encoding]::UTF8.GetString($bytes).Trim()
+            } finally {
+                $wc.Dispose()
+            }
             if ($uuid -match '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$') {
                 return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $true }
             }
@@ -123,9 +135,16 @@ Remove-Item -Path "$tempLogDir\*" -Force -ErrorAction SilentlyContinue
 $logScript = {
     param($processNumber, $uuid, $outputDir)
     try {
-        $content = (New-Object System.Net.WebClient).DownloadString("https://cpee.org/logs/$uuid.xes.yaml")
+        $wc = New-Object System.Net.WebClient
+        try {
+            $bytes = $wc.DownloadData("https://cpee.org/logs/$uuid.xes.yaml")
+            $content = [System.Text.Encoding]::UTF8.GetString($bytes)
+        } finally {
+            $wc.Dispose()
+        }
         if ($content.Substring(0, [Math]::Min($content.Length, 1000000)) -match "exposition") {
-            [System.IO.File]::WriteAllText((Join-Path $outputDir "${uuid}_v2.xes.yaml"), $content)
+            $outPath = Join-Path $outputDir "${uuid}_v2.xes.yaml"
+            [System.IO.File]::WriteAllText($outPath, $content, (New-Object System.Text.UTF8Encoding $false))
             return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $true; Selected = $true }
         }
         return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $true; Selected = $false }
@@ -212,7 +231,7 @@ $selectedMapping.GetEnumerator() | ForEach-Object {
 $sortedKeys = $combinedHash.Keys | Sort-Object { [int]$_ }
 $json = "{" + "`n" + (($sortedKeys | ForEach-Object { "  `"$_`": `"$($combinedHash[$_])`"" }) -join ",`n") + "`n}"
 $absFallbackMapping = Join-Path (Resolve-Path $fallbackDir).Path "uuid-mapping.json"
-[System.IO.File]::WriteAllText($absFallbackMapping, $json)
+[System.IO.File]::WriteAllText($absFallbackMapping, $json, $utf8NoBom)
 Write-Host "UUID mapping saved to fallback\uuid-mapping.json ($newCount new, $($combinedHash.Count) total)" -ForegroundColor Green
 
 # Copy logs (with _v2 suffix)

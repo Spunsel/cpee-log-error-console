@@ -223,26 +223,26 @@ event:
   cpee:change_uuid: 10f04ab9b60a228fb514cc6bac6b0128b72fdaec
   cpee:exposition: |-
     # User Input:
-    æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰
-    ç‰©æ–™å…¥åº“å‰ï¼ŒIQC æŒ‰æµç¨‹å›¾è§„å®šçš„æŠ½æ£€æ¯”ä¾‹ã€æ£€éªŒé¡¹ç›®ï¼ˆå¤–è§‚ã€å°ºå¯¸ã€æ€§èƒ½ï¼‰è¿›è¡Œæ£€æµ‹ã€‚
-    åˆæ ¼ï¼šæµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚ã€‚
-    ä¸åˆæ ¼ï¼šæŒ‰æµç¨‹å›¾åˆ¤å®šæ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸ã€‚
-    åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰
-    ç”Ÿäº§çº¿ä¸ŠæŒ‰å›ºå®šé¢‘æ¬¡å·¡æ£€ï¼Œæµç¨‹å›¾æ˜Žç¡®å…³é”®å·¥åºæŽ§åˆ¶ç‚¹ã€‚
-    æ­£å¸¸ï¼šç»§ç»­ç”Ÿäº§ã€‚
-    å¼‚å¸¸ï¼šç«‹å³æŒ‰æµç¨‹å›¾æ‰§è¡Œåœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€ã€‚
-    æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰
-    æˆå“ä¸‹çº¿åŽï¼Œä¾æ®æµç¨‹å›¾é€é¡¹æ ¸å¯¹åŠŸèƒ½ã€å¤–è§‚ã€åŒ…è£…ã€æ ‡ç­¾ã€‚
-    åˆæ ¼ï¼šæµè½¬è‡³å¾…å‡ºè´§åŒºã€‚
-    ä¸åˆæ ¼ï¼šè¿›å…¥è¿”å·¥ / æŠ¥åºŸæµç¨‹ï¼Œæµç¨‹å›¾è§„å®šè¿”å·¥æœ€å¤š 1 æ¬¡ï¼Œé¿å…é‡å¤ä¸è‰¯ã€‚
-    å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰
-    å‡ºè´§å‰æŒ‰æµç¨‹å›¾æ‰§è¡Œæ‰¹é‡æŠ½æ£€ã€‚
-    åˆæ ¼ï¼šå…è®¸å‡ºè´§ã€‚
-    ä¸åˆæ ¼ï¼šæ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰ã€‚
-    å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯
-    å®¢æˆ·åé¦ˆè´¨é‡é—®é¢˜åŽï¼ŒæŒ‰æµç¨‹å›¾è¿½æº¯ï¼š
-    å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­ã€‚
-    æµç¨‹å›¾ç¡®ä¿æ¯ä¸€æ­¥å¯è¿½æº¯ã€ä¸é—æ¼ã€‚
+    来料检验（IQC）
+    物料入库前，IQC 按流程图规定的抽检比例、检验项目（外观、尺寸、性能）进行检测。
+    合格：流入仓库，进入生产环节。
+    不合格：按流程图判定拒收 / 返工 / 特采，并记录异常。
+    制程巡检（IPQC）
+    生产线上按固定频次巡检，流程图明确关键工序控制点。
+    正常：继续生产。
+    异常：立即按流程图执行停机→标识隔离→原因分析→整改→复检。
+    成品终检（FQC）
+    成品下线后，依据流程图逐项核对功能、外观、包装、标签。
+    合格：流转至待出货区。
+    不合格：进入返工 / 报废流程，流程图规定返工最多 1 次，避免重复不良。
+    出货抽检（OQC）
+    出货前按流程图执行批量抽检。
+    合格：允许出货。
+    不合格：整批隔离，重新全检，同时启动纠正预防措施（CAPA）。
+    客诉反馈与闭环
+    客户反馈质量问题后，按流程图追溯：
+    客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭。
+    流程图确保每一步可追溯、不遗漏。
   time:timestamp: '2026-03-17T08:51:22.573482+01:00'
 ---
 event:
@@ -278,33 +278,33 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-        0:startevent:((startevent)) --> 1:task:(æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰)
-        1:task:(æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰) --> 2:exclusivegateway:{x}
-        2:exclusivegateway:{x} --> |åˆæ ¼| 3:task:(æµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚)
-        2:exclusivegateway:{x} --> |ä¸åˆæ ¼| 4:task:(æ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸)
-        3:task:(æµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚) --> 19:endevent:(((endevent)))
-        4:task:(æ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸) --> 19:endevent:(((endevent)))
-        0:startevent:((startevent)) --> 5:task:(åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰)
-        5:task:(åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰) --> 6:exclusivegateway:{x}
-        6:exclusivegateway:{x} --> |æ­£å¸¸| 7:task:(ç»§ç»­ç”Ÿäº§)
-        6:exclusivegateway:{x} --> |å¼‚å¸¸| 8:task:(åœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€)
-        7:task:(ç»§ç»­ç”Ÿäº§) --> 19:endevent:(((endevent)))
-        8:task:(åœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€) --> 19:endevent:(((endevent)))
-        0:startevent:((startevent)) --> 9:task:(æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰)
-        9:task:(æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰) --> 10:exclusivegateway:{x}
-        10:exclusivegateway:{x} --> |åˆæ ¼| 11:task:(æµè½¬è‡³å¾…å‡ºè´§åŒº)
-        10:exclusivegateway:{x} --> |ä¸åˆæ ¼| 12:task:(è¿”å·¥ / æŠ¥åºŸæµç¨‹)
-        11:task:(æµè½¬è‡³å¾…å‡ºè´§åŒº) --> 19:endevent:(((endevent)))
-        12:task:(è¿”å·¥ / æŠ¥åºŸæµç¨‹) --> 19:endevent:(((endevent)))
-        0:startevent:((startevent)) --> 13:task:(å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰)
-        13:task:(å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰) --> 14:exclusivegateway:{x}
-        14:exclusivegateway:{x} --> |åˆæ ¼| 15:task:(å…è®¸å‡ºè´§)
-        14:exclusivegateway:{x} --> |ä¸åˆæ ¼| 16:task:(æ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰)
-        15:task:(å…è®¸å‡ºè´§) --> 19:endevent:(((endevent)))
-        16:task:(æ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰) --> 19:endevent:(((endevent)))
-        0:startevent:((startevent)) --> 17:task:(å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯)
-        17:task:(å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯) --> 18:task:(å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­)
-        18:task:(å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­) --> 19:endevent:(((endevent)))
+        0:startevent:((startevent)) --> 1:task:(来料检验（IQC）)
+        1:task:(来料检验（IQC）) --> 2:exclusivegateway:{x}
+        2:exclusivegateway:{x} --> |合格| 3:task:(流入仓库，进入生产环节)
+        2:exclusivegateway:{x} --> |不合格| 4:task:(拒收 / 返工 / 特采，并记录异常)
+        3:task:(流入仓库，进入生产环节) --> 19:endevent:(((endevent)))
+        4:task:(拒收 / 返工 / 特采，并记录异常) --> 19:endevent:(((endevent)))
+        0:startevent:((startevent)) --> 5:task:(制程巡检（IPQC）)
+        5:task:(制程巡检（IPQC）) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} --> |正常| 7:task:(继续生产)
+        6:exclusivegateway:{x} --> |异常| 8:task:(停机→标识隔离→原因分析→整改→复检)
+        7:task:(继续生产) --> 19:endevent:(((endevent)))
+        8:task:(停机→标识隔离→原因分析→整改→复检) --> 19:endevent:(((endevent)))
+        0:startevent:((startevent)) --> 9:task:(成品终检（FQC）)
+        9:task:(成品终检（FQC）) --> 10:exclusivegateway:{x}
+        10:exclusivegateway:{x} --> |合格| 11:task:(流转至待出货区)
+        10:exclusivegateway:{x} --> |不合格| 12:task:(返工 / 报废流程)
+        11:task:(流转至待出货区) --> 19:endevent:(((endevent)))
+        12:task:(返工 / 报废流程) --> 19:endevent:(((endevent)))
+        0:startevent:((startevent)) --> 13:task:(出货抽检（OQC）)
+        13:task:(出货抽检（OQC）) --> 14:exclusivegateway:{x}
+        14:exclusivegateway:{x} --> |合格| 15:task:(允许出货)
+        14:exclusivegateway:{x} --> |不合格| 16:task:(整批隔离，重新全检，同时启动纠正预防措施（CAPA）)
+        15:task:(允许出货) --> 19:endevent:(((endevent)))
+        16:task:(整批隔离，重新全检，同时启动纠正预防措施（CAPA）) --> 19:endevent:(((endevent)))
+        0:startevent:((startevent)) --> 17:task:(客诉反馈与闭环)
+        17:task:(客诉反馈与闭环) --> 18:task:(客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭)
+        18:task:(客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭) --> 19:endevent:(((endevent)))
     ```
   time:timestamp: '2026-03-17T08:51:22.574350+01:00'
 ---
@@ -646,27 +646,27 @@ event:
         <alternative condition="">
           <call id="a1" endpoint="" a:alt_id="1">
             <parameters>
-              <label>æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰</label>
+              <label>来料检验（IQC）</label>
               <method/>
               <type>:task</type>
               <arguments/>
             </parameters>
           </call>
           <choose mode="exclusive" a:alt_id="2">
-            <alternative condition="åˆæ ¼" language="text/javascript">
+            <alternative condition="合格" language="text/javascript">
               <call id="a5" endpoint="" a:alt_id="3">
                 <parameters>
-                  <label>æµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚</label>
+                  <label>流入仓库，进入生产环节</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
                 </parameters>
               </call>
             </alternative>
-            <alternative condition="ä¸åˆæ ¼" language="text/javascript">
+            <alternative condition="不合格" language="text/javascript">
               <call id="a7" endpoint="" a:alt_id="4">
                 <parameters>
-                  <label>æ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸</label>
+                  <label>拒收 / 返工 / 特采，并记录异常</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -678,27 +678,27 @@ event:
         <alternative condition="">
           <call id="a13" endpoint="" a:alt_id="5">
             <parameters>
-              <label>åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰</label>
+              <label>制程巡检（IPQC）</label>
               <method/>
               <type>:task</type>
               <arguments/>
             </parameters>
           </call>
           <choose mode="exclusive" a:alt_id="6">
-            <alternative condition="æ­£å¸¸" language="text/javascript">
+            <alternative condition="正常" language="text/javascript">
               <call id="a17" endpoint="" a:alt_id="7">
                 <parameters>
-                  <label>ç»§ç»­ç”Ÿäº§</label>
+                  <label>继续生产</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
                 </parameters>
               </call>
             </alternative>
-            <alternative condition="å¼‚å¸¸" language="text/javascript">
+            <alternative condition="异常" language="text/javascript">
               <call id="a19" endpoint="" a:alt_id="8">
                 <parameters>
-                  <label>åœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€</label>
+                  <label>停机→标识隔离→原因分析→整改→复检</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -710,27 +710,27 @@ event:
         <alternative condition="">
           <call id="a25" endpoint="" a:alt_id="9">
             <parameters>
-              <label>æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰</label>
+              <label>成品终检（FQC）</label>
               <method/>
               <type>:task</type>
               <arguments/>
             </parameters>
           </call>
           <choose mode="exclusive" a:alt_id="10">
-            <alternative condition="åˆæ ¼" language="text/javascript">
+            <alternative condition="合格" language="text/javascript">
               <call id="a29" endpoint="" a:alt_id="11">
                 <parameters>
-                  <label>æµè½¬è‡³å¾…å‡ºè´§åŒº</label>
+                  <label>流转至待出货区</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
                 </parameters>
               </call>
             </alternative>
-            <alternative condition="ä¸åˆæ ¼" language="text/javascript">
+            <alternative condition="不合格" language="text/javascript">
               <call id="a31" endpoint="" a:alt_id="12">
                 <parameters>
-                  <label>è¿”å·¥ / æŠ¥åºŸæµç¨‹</label>
+                  <label>返工 / 报废流程</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -742,27 +742,27 @@ event:
         <alternative condition="">
           <call id="a37" endpoint="" a:alt_id="13">
             <parameters>
-              <label>å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰</label>
+              <label>出货抽检（OQC）</label>
               <method/>
               <type>:task</type>
               <arguments/>
             </parameters>
           </call>
           <choose mode="exclusive" a:alt_id="14">
-            <alternative condition="åˆæ ¼" language="text/javascript">
+            <alternative condition="合格" language="text/javascript">
               <call id="a41" endpoint="" a:alt_id="15">
                 <parameters>
-                  <label>å…è®¸å‡ºè´§</label>
+                  <label>允许出货</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
                 </parameters>
               </call>
             </alternative>
-            <alternative condition="ä¸åˆæ ¼" language="text/javascript">
+            <alternative condition="不合格" language="text/javascript">
               <call id="a43" endpoint="" a:alt_id="16">
                 <parameters>
-                  <label>æ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰</label>
+                  <label>整批隔离，重新全检，同时启动纠正预防措施（CAPA）</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -774,7 +774,7 @@ event:
         <alternative condition="">
           <call id="a49" endpoint="" a:alt_id="17">
             <parameters>
-              <label>å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯</label>
+              <label>客诉反馈与闭环</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -782,7 +782,7 @@ event:
           </call>
           <call id="a51" endpoint="" a:alt_id="18">
             <parameters>
-              <label>å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­</label>
+              <label>客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭</label>
               <method/>
               <type>:task</type>
               <arguments/>
@@ -802,26 +802,26 @@ event:
   cpee:change_uuid: 313a8835b9d171746b10491ab5f68cf3a09c4dd5
   cpee:exposition: |-
     # User Input:
-    1. æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰
-    ç‰©æ–™å…¥åº“å‰ï¼ŒIQC æŒ‰æµç¨‹å›¾è§„å®šçš„æŠ½æ£€æ¯”ä¾‹ã€æ£€éªŒé¡¹ç›®ï¼ˆå¤–è§‚ã€å°ºå¯¸ã€æ€§èƒ½ï¼‰è¿›è¡Œæ£€æµ‹ã€‚
-    åˆæ ¼ï¼šæµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚ã€‚
-    ä¸åˆæ ¼ï¼šæŒ‰æµç¨‹å›¾åˆ¤å®šæ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸ã€‚
-    2. åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰
-    ç”Ÿäº§çº¿ä¸ŠæŒ‰å›ºå®šé¢‘æ¬¡å·¡æ£€ï¼Œæµç¨‹å›¾æ˜Žç¡®å…³é”®å·¥åºæŽ§åˆ¶ç‚¹ã€‚
-    æ­£å¸¸ï¼šç»§ç»­ç”Ÿäº§ã€‚
-    å¼‚å¸¸ï¼šç«‹å³æŒ‰æµç¨‹å›¾æ‰§è¡Œåœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€ã€‚
-    3. æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰
-    æˆå“ä¸‹çº¿åŽï¼Œä¾æ®æµç¨‹å›¾é€é¡¹æ ¸å¯¹åŠŸèƒ½ã€å¤–è§‚ã€åŒ…è£…ã€æ ‡ç­¾ã€‚
-    åˆæ ¼ï¼šæµè½¬è‡³å¾…å‡ºè´§åŒºã€‚
-    ä¸åˆæ ¼ï¼šè¿›å…¥è¿”å·¥ / æŠ¥åºŸæµç¨‹ï¼Œæµç¨‹å›¾è§„å®šè¿”å·¥æœ€å¤š 1 æ¬¡ï¼Œé¿å…é‡å¤ä¸è‰¯ã€‚
-    4. å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰
-    å‡ºè´§å‰æŒ‰æµç¨‹å›¾æ‰§è¡Œæ‰¹é‡æŠ½æ£€ã€‚
-    åˆæ ¼ï¼šå…è®¸å‡ºè´§ã€‚
-    ä¸åˆæ ¼ï¼šæ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰ã€‚
-    5. å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯
-    å®¢æˆ·åé¦ˆè´¨é‡é—®é¢˜åŽï¼ŒæŒ‰æµç¨‹å›¾è¿½æº¯ï¼š
-    å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­ã€‚
-    æµç¨‹å›¾ç¡®ä¿æ¯ä¸€æ­¥å¯è¿½æº¯ã€ä¸é—æ¼ã€‚
+    1. 来料检验（IQC）
+    物料入库前，IQC 按流程图规定的抽检比例、检验项目（外观、尺寸、性能）进行检测。
+    合格：流入仓库，进入生产环节。
+    不合格：按流程图判定拒收 / 返工 / 特采，并记录异常。
+    2. 制程巡检（IPQC）
+    生产线上按固定频次巡检，流程图明确关键工序控制点。
+    正常：继续生产。
+    异常：立即按流程图执行停机→标识隔离→原因分析→整改→复检。
+    3. 成品终检（FQC）
+    成品下线后，依据流程图逐项核对功能、外观、包装、标签。
+    合格：流转至待出货区。
+    不合格：进入返工 / 报废流程，流程图规定返工最多 1 次，避免重复不良。
+    4. 出货抽检（OQC）
+    出货前按流程图执行批量抽检。
+    合格：允许出货。
+    不合格：整批隔离，重新全检，同时启动纠正预防措施（CAPA）。
+    5. 客诉反馈与闭环
+    客户反馈质量问题后，按流程图追溯：
+    客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭。
+    流程图确保每一步可追溯、不遗漏。
   time:timestamp: '2026-03-17T08:55:28.373159+01:00'
 ---
 event:
@@ -847,37 +847,37 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->a1:task:(æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰)
-    a1:task:(æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰)-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"åˆæ ¼"|a5:task:(æµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚)
-    a5:task:(æµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"ä¸åˆæ ¼"|a7:task:(æ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸)
-    a7:task:(æ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸)-->gw2e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a1:task:(来料检验（IQC）)
+    a1:task:(来料检验（IQC）)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"合格"|a5:task:(流入仓库，进入生产环节)
+    a5:task:(流入仓库，进入生产环节)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"不合格"|a7:task:(拒收 / 返工 / 特采，并记录异常)
+    a7:task:(拒收 / 返工 / 特采，并记录异常)-->gw2e:exclusivegateway:{x}
     gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->a13:task:(åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰)
-    a13:task:(åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰)-->gw3s:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"æ­£å¸¸"|a17:task:(ç»§ç»­ç”Ÿäº§)
-    a17:task:(ç»§ç»­ç”Ÿäº§)-->gw3e:exclusivegateway:{x}
-    gw3s:exclusivegateway:{x}-->|"å¼‚å¸¸"|a19:task:(åœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€)
-    a19:task:(åœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€)-->gw3e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a13:task:(制程巡检（IPQC）)
+    a13:task:(制程巡检（IPQC）)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"正常"|a17:task:(继续生产)
+    a17:task:(继续生产)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"异常"|a19:task:(停机→标识隔离→原因分析→整改→复检)
+    a19:task:(停机→标识隔离→原因分析→整改→复检)-->gw3e:exclusivegateway:{x}
     gw3e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->a25:task:(æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰)
-    a25:task:(æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰)-->gw4s:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"åˆæ ¼"|a29:task:(æµè½¬è‡³å¾…å‡ºè´§åŒº)
-    a29:task:(æµè½¬è‡³å¾…å‡ºè´§åŒº)-->gw4e:exclusivegateway:{x}
-    gw4s:exclusivegateway:{x}-->|"ä¸åˆæ ¼"|a31:task:(è¿”å·¥ / æŠ¥åºŸæµç¨‹)
-    a31:task:(è¿”å·¥ / æŠ¥åºŸæµç¨‹)-->gw4e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a25:task:(成品终检（FQC）)
+    a25:task:(成品终检（FQC）)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"合格"|a29:task:(流转至待出货区)
+    a29:task:(流转至待出货区)-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"不合格"|a31:task:(返工 / 报废流程)
+    a31:task:(返工 / 报废流程)-->gw4e:exclusivegateway:{x}
     gw4e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->a37:task:(å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰)
-    a37:task:(å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰)-->gw5s:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"åˆæ ¼"|a41:task:(å…è®¸å‡ºè´§)
-    a41:task:(å…è®¸å‡ºè´§)-->gw5e:exclusivegateway:{x}
-    gw5s:exclusivegateway:{x}-->|"ä¸åˆæ ¼"|a43:task:(æ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰)
-    a43:task:(æ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰)-->gw5e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a37:task:(出货抽检（OQC）)
+    a37:task:(出货抽检（OQC）)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"合格"|a41:task:(允许出货)
+    a41:task:(允许出货)-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->|"不合格"|a43:task:(整批隔离，重新全检，同时启动纠正预防措施（CAPA）)
+    a43:task:(整批隔离，重新全检，同时启动纠正预防措施（CAPA）)-->gw5e:exclusivegateway:{x}
     gw5e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->a49:task:(å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯)
-    a49:task:(å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯)-->a51:task:(å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­)
-    a51:task:(å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a49:task:(客诉反馈与闭环)
+    a49:task:(客诉反馈与闭环)-->a51:task:(客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭)
+    a51:task:(客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭)-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
   time:timestamp: '2026-03-17T08:55:28.373353+01:00'
 ---
@@ -893,37 +893,37 @@ event:
     ```mermaid
     flowchart LR
         se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->a1:task:(æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰)
-        a1:task:(æ¥æ–™æ£€éªŒï¼ˆIQCï¼‰)-->gw2s:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|"åˆæ ¼"|a5:task:(æµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚)
-        a5:task:(æµå…¥ä»“åº“ï¼Œè¿›å…¥ç”Ÿäº§çŽ¯èŠ‚)-->gw2e:exclusivegateway:{x}
-        gw2s:exclusivegateway:{x}-->|"ä¸åˆæ ¼"|a7:task:(æ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸)
-        a7:task:(æ‹’æ”¶ / è¿”å·¥ / ç‰¹é‡‡ï¼Œå¹¶è®°å½•å¼‚å¸¸)-->gw2e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->a1:task:(来料检验（IQC）)
+        a1:task:(来料检验（IQC）)-->gw2s:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"合格"|a5:task:(流入仓库，进入生产环节)
+        a5:task:(流入仓库，进入生产环节)-->gw2e:exclusivegateway:{x}
+        gw2s:exclusivegateway:{x}-->|"不合格"|a7:task:(拒收 / 返工 / 特采，并记录异常)
+        a7:task:(拒收 / 返工 / 特采，并记录异常)-->gw2e:exclusivegateway:{x}
         gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->a13:task:(åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰)
-        a13:task:(åˆ¶ç¨‹å·¡æ£€ï¼ˆIPQCï¼‰)-->gw3s:exclusivegateway:{x}
-        gw3s:exclusivegateway:{x}-->|"æ­£å¸¸"|a17:task:(ç»§ç»­ç”Ÿäº§)
-        a17:task:(ç»§ç»­ç”Ÿäº§)-->gw3e:exclusivegateway:{x}
-        gw3s:exclusivegateway:{x}-->|"å¼‚å¸¸"|a19:task:(åœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€)
-        a19:task:(åœæœºâ†’æ ‡è¯†éš”ç¦»â†’åŽŸå› åˆ†æžâ†’æ•´æ”¹â†’å¤æ£€)-->gw3e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->a13:task:(制程巡检（IPQC）)
+        a13:task:(制程巡检（IPQC）)-->gw3s:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"正常"|a17:task:(继续生产)
+        a17:task:(继续生产)-->gw3e:exclusivegateway:{x}
+        gw3s:exclusivegateway:{x}-->|"异常"|a19:task:(停机→标识隔离→原因分析→整改→复检)
+        a19:task:(停机→标识隔离→原因分析→整改→复检)-->gw3e:exclusivegateway:{x}
         gw3e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->a25:task:(æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰)
-        a25:task:(æˆå“ç»ˆæ£€ï¼ˆFQCï¼‰)-->gw4s:exclusivegateway:{x}
-        gw4s:exclusivegateway:{x}-->|"åˆæ ¼"|a29:task:(æµè½¬è‡³å¾…å‡ºè´§åŒº)
-        a29:task:(æµè½¬è‡³å¾…å‡ºè´§åŒº)-->gw4e:exclusivegateway:{x}
-        gw4s:exclusivegateway:{x}-->|"ä¸åˆæ ¼"|a31:task:(è¿”å·¥ / æŠ¥åºŸæµç¨‹)
-        a31:task:(è¿”å·¥ / æŠ¥åºŸæµç¨‹)-->gw4e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->a25:task:(成品终检（FQC）)
+        a25:task:(成品终检（FQC）)-->gw4s:exclusivegateway:{x}
+        gw4s:exclusivegateway:{x}-->|"合格"|a29:task:(流转至待出货区)
+        a29:task:(流转至待出货区)-->gw4e:exclusivegateway:{x}
+        gw4s:exclusivegateway:{x}-->|"不合格"|a31:task:(返工 / 报废流程)
+        a31:task:(返工 / 报废流程)-->gw4e:exclusivegateway:{x}
         gw4e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->a37:task:(å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰)
-        a37:task:(å‡ºè´§æŠ½æ£€ï¼ˆOQCï¼‰)-->gw5s:exclusivegateway:{x}
-        gw5s:exclusivegateway:{x}-->|"åˆæ ¼"|a41:task:(å…è®¸å‡ºè´§)
-        a41:task:(å…è®¸å‡ºè´§)-->gw5e:exclusivegateway:{x}
-        gw5s:exclusivegateway:{x}-->|"ä¸åˆæ ¼"|a43:task:(æ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰)
-        a43:task:(æ•´æ‰¹éš”ç¦»ï¼Œé‡æ–°å…¨æ£€ï¼ŒåŒæ—¶å¯åŠ¨çº æ­£é¢„é˜²æŽªæ–½ï¼ˆCAPAï¼‰)-->gw5e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->a37:task:(出货抽检（OQC）)
+        a37:task:(出货抽检（OQC）)-->gw5s:exclusivegateway:{x}
+        gw5s:exclusivegateway:{x}-->|"合格"|a41:task:(允许出货)
+        a41:task:(允许出货)-->gw5e:exclusivegateway:{x}
+        gw5s:exclusivegateway:{x}-->|"不合格"|a43:task:(整批隔离，重新全检，同时启动纠正预防措施（CAPA）)
+        a43:task:(整批隔离，重新全检，同时启动纠正预防措施（CAPA）)-->gw5e:exclusivegateway:{x}
         gw5e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-        gw1s:exclusivegateway:{x}-->a49:task:(å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯)
-        a49:task:(å®¢è¯‰åé¦ˆä¸Žé—­çŽ¯)-->a51:task:(å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­)
-        a51:task:(å®¢è¯‰ç™»è®°â†’é—®é¢˜é‡çŽ°â†’å®šä½å·¥åºâ†’è´£ä»»åˆ¤å®šâ†’æ•´æ”¹â†’éªŒè¯â†’å…³é—­)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->a49:task:(客诉反馈与闭环)
+        a49:task:(客诉反馈与闭环)-->a51:task:(客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭)
+        a51:task:(客诉登记→问题重现→定位工序→责任判定→整改→验证→关闭)-->gw1e:exclusivegateway:{x}
         gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-03-17T08:55:28.373509+01:00'

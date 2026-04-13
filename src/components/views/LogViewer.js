@@ -4,6 +4,8 @@
  */
 
 import { configManager } from '../../config/ConfigManager.js';
+import { buildCpeeLogXesYamlUrl } from '../../utils/url/CpeeLogUrl.js';
+import { fixUtf8MojibakeIfPresent } from '../../utils/text/utf8Mojibake.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { DOMRegistry } from '../../core/DOMRegistry.js';
@@ -53,7 +55,10 @@ export class LogViewer {
             this.showLogLoading();
             
             // Fetch raw log using proxy for CORS handling
-            const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
+            const logUrl = buildCpeeLogXesYamlUrl(
+                configManager.get('api.endpoints.cpeeLogs'),
+                uuid
+            );
             
             // Create timeout controller
             const controller = new AbortController();
@@ -73,7 +78,7 @@ export class LogViewer {
             
             if (response.ok) {
                 const buffer = await response.arrayBuffer();
-                const content = new TextDecoder('utf-8').decode(buffer);
+                const content = fixUtf8MojibakeIfPresent(new TextDecoder('utf-8').decode(buffer));
                 this.displayRawLog(content);
                 this.updateViewLogButton('Hide Log');
             } else {
@@ -177,7 +182,10 @@ export class LogViewer {
                 header.textContent = 'Raw Log Content';
             }
             
-            const originalUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${uuid}.xes.yaml`;
+            const originalUrl = buildCpeeLogXesYamlUrl(
+                configManager.get('api.endpoints.cpeeLogs'),
+                uuid
+            );
             rawLogContent.innerHTML = `
                 <div style="color: var(--error-color); margin-bottom: 1rem;">
                     <strong>CORS Error:</strong> Unable to fetch log directly. Try these options:

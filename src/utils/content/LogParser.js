@@ -6,6 +6,8 @@
  * Consolidates XMLParser and YAMLParser functionality
  */
 
+import { fixUtf8MojibakeIfPresent } from '../text/utf8Mojibake.js';
+
 export class LogParser {
     
     // YAML-specific constants
@@ -163,6 +165,8 @@ export class LogParser {
         if (!yamlContent || typeof yamlContent !== 'string') {
             throw new Error('LogParser: Invalid YAML content - must be a non-empty string');
         }
+
+        yamlContent = fixUtf8MojibakeIfPresent(yamlContent);
 
         return yamlContent
             .split(/^---$/m)

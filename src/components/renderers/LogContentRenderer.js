@@ -9,6 +9,7 @@
 import { ActionBar } from '../ui/ActionBar.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
 import { configManager } from '../../config/ConfigManager.js';
+import { buildCpeeLogXesYamlUrl } from '../../utils/url/CpeeLogUrl.js';
 
 export class LogContentRenderer {
     constructor(domRegistry = null) {
@@ -200,7 +201,10 @@ export class LogContentRenderer {
             const instanceService = serviceFactory.get('InstanceService');
             const currentInstance = instanceService.getCurrentInstance();
             if (currentInstance && currentInstance.uuid) {
-                const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
+                const logUrl = buildCpeeLogXesYamlUrl(
+                    configManager.get('api.endpoints.cpeeLogs'),
+                    currentInstance.uuid
+                );
                 actionBar.setViewLogUrl(logUrl);
             }
         } catch (error) {
@@ -461,7 +465,10 @@ export class LogContentRenderer {
         }
 
         if (currentInstance && currentInstance.uuid) {
-            const logUrl = `${configManager.get('api.endpoints.cpeeLogs')}/${currentInstance.uuid}.xes.yaml`;
+            const logUrl = buildCpeeLogXesYamlUrl(
+                configManager.get('api.endpoints.cpeeLogs'),
+                currentInstance.uuid
+            );
             actionBar.setViewLogUrl(logUrl);
         }
 

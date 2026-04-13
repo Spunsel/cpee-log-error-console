@@ -458,9 +458,9 @@ event:
   cpee:change_uuid: b4cf790c058f2f09837480a31e10a749e164f14b
   cpee:exposition: |-
     # User Input:
-    The loan application process describes the sequence of activities through which a financial institution evaluates and decides on Customers upload their complaint via an online form. The form contains the insurance number, the amount of damage, and a description of the damage. If the amount of damage is â‰¤ 100 Euro, an automatic plausibility check is conducted and the complaint is approved. The customer is informed via email and the money transfer is initiated.
+    The loan application process describes the sequence of activities through which a financial institution evaluates and decides on Customers upload their complaint via an online form. The form contains the insurance number, the amount of damage, and a description of the damage. If the amount of damage is ≤ 100 Euro, an automatic plausibility check is conducted and the complaint is approved. The customer is informed via email and the money transfer is initiated.
 
-    If the damage amount is above 100 Euro, a clerk checks the complaint. The customer is informed on the decision via email. If the complaint is rejected, the customer is offered an optional meeting.Â 
+    If the damage amount is above 100 Euro, a clerk checks the complaint. The customer is informed on the decision via email. If the complaint is rejected, the customer is offered an optional meeting. 
   time:timestamp: '2026-04-13T10:40:41.071845+02:00'
 ---
 event:

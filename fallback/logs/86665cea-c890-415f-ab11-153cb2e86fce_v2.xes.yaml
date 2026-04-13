@@ -176,72 +176,72 @@ event:
   cpee:change_uuid: '080115cbbcb6e9375b79c96339d471e0454f0db4'
   cpee:exposition: |-
     # User Input:
-    丬㬁�!!购�}�:��" 管� 流�9���!"�流�9�:��0
-    ���"��"��a�ƶ鬠�a�}x材�"�!!购㬁�Ɛ"��}��ƶ㬁�:��" �! �&�
-    "��钨��提交�`�0��"�!!购��请�9
-    �:������审核"����� 欧㬁�"��!�㬁交ÜSx
-    �!!购钨�}��格�:��" 名�"中询价㬁�价
-    确�a�:��" 并�起���R / 订�"审�0�
-    �9达正式�!!购订�"�"�:��" 
-    �:��" 确认订�"㬁�0�}�x产 / �货
-    ����货㬁质棬㬁�&��
-    财�`�对账㬁��款
-    �aÜSx对�:��" �:�R交��㬁质�!�㬁价格Ä�� 
-    "���a
-    �!��漏�"㬁�"�"
-    Ä�R��:��" �! �&��}謒核
-    „�}��!!购�&�流�9可追溯
-    �R㬁�x产计���}�}产流�9���!"�流�9�:��0
-    ���"��"��a工�}�x产�}�9㬁�!��"工�&�"
-    ����钨���9达订�" / Ä�9"��
-    计��钨�!欻�R�ƶ�a主�x产计����MPS�0
-    计��0��""����MRP�0�R核对���
-    缺�"��"触��!!购流�9�:"0�"��"�9达�x产工�"
-    车���R0工�"� �"㬁�x产㬁�`�工
-    �x产�!�9中质�!�巡棬
-    �Ɛ���R工�&��
-    计��钨ß踪达�Ɛ�}!�R谒�"��}续�}产
-    "���a
-    避�&��x产�!�0���缺�"
-    提�!设�!�}人���Ʃ���}!
-    让交ÜSx�:�可�}�
-    �0㬁����}���管� 流�9���!"�流�9�:��0
-    ���"��"��a�"��}���积�}9㬁提���货�! 确�}!
-    �0��" / �Ɛ���ư货
-    ��货�"�记㬁核对�"��!��}�"据
-    质棬��格� �&���:不��格� 鬬货 / �a离
-    �位�� �&�㬁系ß�"�&����
-    �}����!���R!令���x产� �" / �����货�0
-    �9�货㬁复核㬁�0�R&
-    �!���0�描�R系ß�0��!����
-    �aÜSx�:����R谒�"�账„差�
-    "���a
-    „�}����可� �R
-    �!��� „�"�}�"�漏�
-    ���R��&��:�&��!���FIFO�0
-    �::㬁订�"履约�}�0�流�&�鬁流�9���!"�流�9�:��0
-    ���"��"��a���" 㬁快��㬁�ƶ鬠�a�Ɛ��交��
-    客�Ʒ�9�" / ������:建订�"
-    审核订�"信息㬁信��㬁���
-    ���9�货㬁�0�R&㬁贴�"
-    �0�流�" �`���件
-    "��ß踪㬁�常Ä� ��丢件㬁破ß�0
-    客�Ʒ签�� / �9��Ä� 
-    订�"�R�Ɛ�R���}�}鬬换货�}��&�
-    "���a
-    缩ß�交����ÜSx
-    提�!客�Ʒ满Ä�度
-    ��}确Ä�}��`责任
-    �㬁�:����常Ä� 流�9���!"�流�9�:��0
-    ���"��"��a���"㬁延ÜSx㬁质�!��9�"&
-    ��}��常��缺�"㬁�ư货延ß㬁质棬不��格�0
-    �9即�aß��:���㬁�!!购㬁�x产
-    Ä估影���a�ܯ否影���x产 / 订�"交ÜSx
-    �ƶ�a�����a紧欥补货㬁�:�代�"㬁谒�"�计��
-    �0��R����并ß踪�„S
-    记�"�}x�:��R�ƶ�aÄ�ܲ�}���
-    �:���流�9 / �:��" 謒核
-    "��
+    一、采购与供应商管理流程（文本流程图）
+    应用场景：制造业原材料采购、成本控制、供应商准入
+    需求部门提交《物料采购申请》
+    供应链专员审核需求合理性、数量、交期
+    采购部从合格供应商名录中询价、比价
+    确定供应商并发起合同 / 订单审批
+    下达正式采购订单给供应商
+    供应商确认订单、安排生产 / 发货
+    仓库收货、质检、入库
+    财务对账、付款
+    定期对供应商进行交付、质量、价格评分
+    作用：
+    减少漏单、错单
+    规范供应商准入与考核
+    实现采购全流程可追溯
+    二、生产计划与排产流程（文本流程图）
+    应用场景：工厂生产排程、减少停工待料
+    销售部门下达订单 / 预测需求
+    计划部汇总，制定主生产计划（MPS）
+    计算物料需求（MRP），核对库存
+    缺料则触发采购流程；有料则下达生产工单
+    车间按工单领料、生产、报工
+    生产过程中质量巡检
+    成品完工入库
+    计划部跟踪达成率，调整后续排产
+    作用：
+    避免生产过剩或缺料
+    提升设备与人员利用率
+    让交期更可控
+    三、仓储与库存管理流程（文本流程图）
+    应用场景：降低库存积压、提高发货准确率
+    物料 / 成品到货
+    收货登记、核对数量与单据
+    质检合格→入库；不合格→退货 / 隔离
+    库位分配、系统录入库存
+    接收出库指令（生产领料 / 销售发货）
+    拣货、复核、打包
+    出库扫描，系统扣减库存
+    定期盘点，调整账实差异
+    作用：
+    实现库存可视化
+    减少呆滞料与错发漏发
+    支持先进先出（FIFO）
+    四、订单履约与物流配送流程（文本流程图）
+    应用场景：电商、快消、制造业成品交付
+    客户下单 / 销售创建订单
+    审核订单信息、信用、库存
+    仓库拣货、打包、贴单
+    物流商上门取件
+    在途跟踪、异常处理（丢件、破损）
+    客户签收 / 拒收处理
+    订单完成，售后与退换货接入
+    作用：
+    缩短交付周期
+    提升客户满意度
+    明确各环节责任
+    五、供应链异常处理流程（文本流程图）
+    应用场景：断料、延期、质量事故
+    发现异常（缺料、到货延迟、质检不合格）
+    立即通知供应链、采购、生产
+    评估影响：是否影响生产 / 订单交期
+    制定方案：紧急补货、替代料、调整计划
+    执行方案并跟踪结果
+    记录原因，制定预防措施
+    更新流程 / 供应商考核
+    作用
     Important: Make the process contain detail tasks within each step
   time:timestamp: '2026-03-17T09:25:41.659650+01:00'
 ---
@@ -278,23 +278,23 @@ event:
     %% Output Intermediate
     ```mermaid
     graph LR
-        0:startevent:((startevent)) --> 1:task:(��}��常)
-        1:task:(��}��常) --> 2:task:(�aß��:���㬁�!!购㬁�x产)
-        2:task:(�aß��:���㬁�!!购㬁�x产) --> 3:task:(Ä估影��)
-        3:task:(Ä估影��) --> 4:exclusivegateway:{x}
-        4:exclusivegateway:{x} --> |影���x产/订�"交ÜSx| 5:task:(�ƶ�a����)
-        4:exclusivegateway:{x} --> |不影��| 12:task:(记�"�}x�:�)
-        5:task:(�ƶ�a����) --> 6:exclusivegateway:{x}
-        6:exclusivegateway:{x} --> |紧欥补货| 7:task:(�0��R紧欥补货����)
-        6:exclusivegateway:{x} --> |�:�代�"| 8:task:(�0��R�:�代�"����)
-        6:exclusivegateway:{x} --> |谒�"�计��| 9:task:(�0��R谒�"�计������)
-        7:task:(�0��R紧欥补货����) --> 10:task:(ß踪�„S)
-        8:task:(�0��R�:�代�"����) --> 10:task:(ß踪�„S)
-        9:task:(�0��R谒�"�计������) --> 10:task:(ß踪�„S)
-        10:task:(ß踪�„S) --> 12:task:(记�"�}x�:�)
-        12:task:(记�"�}x�:�) --> 13:task:(�ƶ�aÄ�ܲ�}���)
-        13:task:(�ƶ�aÄ�ܲ�}���) --> 14:task:(�:���流�9/�:��" 謒核)
-        14:task:(�:���流�9/�:��" 謒核) --> 15:endevent:(((endevent)))
+        0:startevent:((startevent)) --> 1:task:(发现异常)
+        1:task:(发现异常) --> 2:task:(通知供应链、采购、生产)
+        2:task:(通知供应链、采购、生产) --> 3:task:(评估影响)
+        3:task:(评估影响) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |影响生产/订单交期| 5:task:(制定方案)
+        4:exclusivegateway:{x} --> |不影响| 12:task:(记录原因)
+        5:task:(制定方案) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} --> |紧急补货| 7:task:(执行紧急补货方案)
+        6:exclusivegateway:{x} --> |替代料| 8:task:(执行替代料方案)
+        6:exclusivegateway:{x} --> |调整计划| 9:task:(执行调整计划方案)
+        7:task:(执行紧急补货方案) --> 10:task:(跟踪结果)
+        8:task:(执行替代料方案) --> 10:task:(跟踪结果)
+        9:task:(执行调整计划方案) --> 10:task:(跟踪结果)
+        10:task:(跟踪结果) --> 12:task:(记录原因)
+        12:task:(记录原因) --> 13:task:(制定预防措施)
+        13:task:(制定预防措施) --> 14:task:(更新流程/供应商考核)
+        14:task:(更新流程/供应商考核) --> 15:endevent:(((endevent)))
     ```
   time:timestamp: '2026-03-17T09:25:41.660559+01:00'
 ---
@@ -540,7 +540,7 @@ event:
       xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>��}��常</label>
+          <label>发现异常</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -548,7 +548,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>�aß��:���㬁�!!购㬁�x产</label>
+          <label>通知供应链、采购、生产</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -556,7 +556,7 @@ event:
       </call>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Ä估影��</label>
+          <label>评估影响</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -566,37 +566,37 @@ event:
         <alternative condition="">
           <call id="a9" endpoint="" a:alt_id="5">
             <parameters>
-              <label>�ƶ�a����</label>
+              <label>制定方案</label>
               <method/>
               <type>:task</type>
               <arguments/>
             </parameters>
           </call>
           <choose mode="exclusive" a:alt_id="6">
-            <alternative condition="紧欥补货" language="text/javascript">
+            <alternative condition="紧急补货" language="text/javascript">
               <call id="a15" endpoint="" a:alt_id="7">
                 <parameters>
-                  <label>�0��R紧欥补货����</label>
+                  <label>执行紧急补货方案</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
                 </parameters>
               </call>
             </alternative>
-            <alternative condition="�:�代�"" language="text/javascript">
+            <alternative condition="替代料" language="text/javascript">
               <call id="a17" endpoint="" a:alt_id="8">
                 <parameters>
-                  <label>�0��R�:�代�"����</label>
+                  <label>执行替代料方案</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
                 </parameters>
               </call>
             </alternative>
-            <alternative condition="谒�"�计��" language="text/javascript">
+            <alternative condition="调整计划" language="text/javascript">
               <call id="a19" endpoint="" a:alt_id="9">
                 <parameters>
-                  <label>�0��R谒�"�计������</label>
+                  <label>执行调整计划方案</label>
                   <method/>
                   <type>:task</type>
                   <arguments/>
@@ -606,18 +606,18 @@ event:
           </choose>
           <call id="a21" endpoint="" a:alt_id="10">
             <parameters>
-              <label>ß踪�„S</label>
+              <label>跟踪结果</label>
               <method/>
               <type>:task</type>
               <arguments/>
             </parameters>
           </call>
         </alternative>
-        <alternative condition="不影��" language="text/javascript"/>
+        <alternative condition="不影响" language="text/javascript"/>
       </choose>
       <call id="a11" endpoint="" a:alt_id="12">
         <parameters>
-          <label>记�"�}x�:�</label>
+          <label>记录原因</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -625,7 +625,7 @@ event:
       </call>
       <call id="a29" endpoint="" a:alt_id="13">
         <parameters>
-          <label>�ƶ�aÄ�ܲ�}���</label>
+          <label>制定预防措施</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -633,7 +633,7 @@ event:
       </call>
       <call id="a31" endpoint="" a:alt_id="14">
         <parameters>
-          <label>�:���流�9/�:��" 謒核</label>
+          <label>更新流程/供应商考核</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -688,25 +688,25 @@ event:
   cpee:exposition: |-
     %% Input Intermediate
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(��}��常)
-    a1:task:(��}��常)-->a3:task:(�aß��:���㬁�!!购㬁�x产)
-    a3:task:(�aß��:���㬁�!!购㬁�x产)-->a5:task:(Ä估影��)
-    a5:task:(Ä估影��)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->a9:task:(�ƶ�a����)
-    a9:task:(�ƶ�a����)-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"紧欥补货"|a15:task:(�0��R紧欥补货����)
-    a15:task:(�0��R紧欥补货����)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"�:�代�""|a17:task:(�0��R�:�代�"����)
-    a17:task:(�0��R�:�代�"����)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"谒�"�计��"|a19:task:(�0��R谒�"�计������)
-    a19:task:(�0��R谒�"�计������)-->gw2e:exclusivegateway:{x}
-    gw2e:exclusivegateway:{x}-->a21:task:(ß踪�„S)
-    a21:task:(ß踪�„S)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"不影��"|gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->a11:task:(记�"�}x�:�)
-    a11:task:(记�"�}x�:�)-->a29:task:(�ƶ�aÄ�ܲ�}���)
-    a29:task:(�ƶ�aÄ�ܲ�}���)-->a31:task:(�:���流�9/�:��" 謒核)
-    a31:task:(�:���流�9/�:��" 謒核)-->ee:endevent:((endevent))
+    se:startevent:((startevent))-->a1:task:(发现异常)
+    a1:task:(发现异常)-->a3:task:(通知供应链、采购、生产)
+    a3:task:(通知供应链、采购、生产)-->a5:task:(评估影响)
+    a5:task:(评估影响)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a9:task:(制定方案)
+    a9:task:(制定方案)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"紧急补货"|a15:task:(执行紧急补货方案)
+    a15:task:(执行紧急补货方案)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"替代料"|a17:task:(执行替代料方案)
+    a17:task:(执行替代料方案)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"调整计划"|a19:task:(执行调整计划方案)
+    a19:task:(执行调整计划方案)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a21:task:(跟踪结果)
+    a21:task:(跟踪结果)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"不影响"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a11:task:(记录原因)
+    a11:task:(记录原因)-->a29:task:(制定预防措施)
+    a29:task:(制定预防措施)-->a31:task:(更新流程/供应商考核)
+    a31:task:(更新流程/供应商考核)-->ee:endevent:((endevent))
   time:timestamp: '2026-03-17T09:44:31.834320+01:00'
 ---
 event:
@@ -720,25 +720,25 @@ event:
     %% Output Intermediate
     ```mermaid
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(��}��常)
-    a1:task:(��}��常)-->a3:task:(�aß��:���㬁�!!购㬁�x产)
-    a3:task:(�aß��:���㬁�!!购㬁�x产)-->a5:task:(Ä估影��)
-    a5:task:(Ä估影��)-->gw1s:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->a9:task:(�ƶ�a����)
-    a9:task:(�ƶ�a����)-->gw2s:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"紧欥补货"|a15:task:(�0��R紧欥补货����)
-    a15:task:(�0��R紧欥补货����)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"�:�代�""|a17:task:(�0��R�:�代�"����)
-    a17:task:(�0��R�:�代�"����)-->gw2e:exclusivegateway:{x}
-    gw2s:exclusivegateway:{x}-->|"谒�"�计��"|a19:task:(�0��R谒�"�计������)
-    a19:task:(�0��R谒�"�计������)-->gw2e:exclusivegateway:{x}
-    gw2e:exclusivegateway:{x}-->a21:task:(ß踪�„S)
-    a21:task:(ß踪�„S)-->gw1e:exclusivegateway:{x}
-    gw1s:exclusivegateway:{x}-->|"不影��"|gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->a11:task:(记�"�}x�:�)
-    a11:task:(记�"�}x�:�)-->a29:task:(�ƶ�aÄ�ܲ�}���)
-    a29:task:(�ƶ�aÄ�ܲ�}���)-->a31:task:(�:���流�9/�:��" 謒核)
-    a31:task:(�:���流�9/�:��" 謒核)-->ee:endevent:((endevent))
+    se:startevent:((startevent))-->a1:task:(发现异常)
+    a1:task:(发现异常)-->a3:task:(通知供应链、采购、生产)
+    a3:task:(通知供应链、采购、生产)-->a5:task:(评估影响)
+    a5:task:(评估影响)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a9:task:(制定方案)
+    a9:task:(制定方案)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"紧急补货"|a15:task:(执行紧急补货方案)
+    a15:task:(执行紧急补货方案)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"替代料"|a17:task:(执行替代料方案)
+    a17:task:(执行替代料方案)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"调整计划"|a19:task:(执行调整计划方案)
+    a19:task:(执行调整计划方案)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a21:task:(跟踪结果)
+    a21:task:(跟踪结果)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"不影响"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a11:task:(记录原因)
+    a11:task:(记录原因)-->a29:task:(制定预防措施)
+    a29:task:(制定预防措施)-->a31:task:(更新流程/供应商考核)
+    a31:task:(更新流程/供应商考核)-->ee:endevent:((endevent))
     ```
   time:timestamp: '2026-03-17T09:44:31.834425+01:00'
 ---

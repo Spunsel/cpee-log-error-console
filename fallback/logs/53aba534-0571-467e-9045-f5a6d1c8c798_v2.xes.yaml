@@ -142,8 +142,8 @@ event:
   cpee:change_uuid: 7a112eb7fec427047d6b879f58cb4146ce3ee7c2
   cpee:exposition: |-
     # User Input:
-    Customers upload their complaint via an online form. The form contains the insurance number, the amount of damage, and a description of the damage. If the amount of damage is â‰¤ 100 Euro, an automatic plausibility check is conducted and the complaint is approved. The customer is informed via email and the money transfer is initiated.
-    If the damage amount is above 100 Euro, a clerk checks the complaint. The customer is informed on the decision via email. If the complaint is rejected, the customer is offered an optional meeting.Â 
+    Customers upload their complaint via an online form. The form contains the insurance number, the amount of damage, and a description of the damage. If the amount of damage is ≤ 100 Euro, an automatic plausibility check is conducted and the complaint is approved. The customer is informed via email and the money transfer is initiated.
+    If the damage amount is above 100 Euro, a clerk checks the complaint. The customer is informed on the decision via email. If the complaint is rejected, the customer is offered an optional meeting. 
   time:timestamp: '2026-04-07T15:27:04.336251+02:00'
 ---
 event:

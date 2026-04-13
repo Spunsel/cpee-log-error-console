@@ -372,7 +372,7 @@ event:
     likes it, the rest of his order are produced.
 
 
-    1. Identify all roles and their associated activities from this text. If a role is a subrole of another, clearly indicate this. If a role belongs to another organization, this should also be clearly marked. Analyze the process description to model the BPMN data flow. For each task that creates a data object, create a ÜSData Output Association⬝ to that data object. Then, for each subsequent task that uses this data, create a ÜSData Input Association⬝ from the data object to the task.
+    1. Identify all roles and their associated activities from this text. If a role is a subrole of another, clearly indicate this. If a role belongs to another organization, this should also be clearly marked. Analyze the process description to model the BPMN data flow. For each task that creates a data object, create a “Data Output Association” to that data object. Then, for each subsequent task that uses this data, create a “Data Input Association” from the data object to the task.
     2. Assign a numerical timestamp to all activities and gateways to control the sequence. Ensure that any preceding element has a lower timestamp than its successor. Elements that occur in parallel must share an identical timestamp. If subsequent events depend on a decision, the XOR gateway must also have an earlier timestamp than the following elements.
     3. Connect all elements (activities, gateways, events, data objects) using the appropriate connecting objects (Sequence Flows, Message Flows, Data Associations) based on the roles, data analysis and timestamps previously established. Ensure the connections adhere strictly to the sequence defined by the timestamps. Generate the final, complete BPMN model and output it as Mermaid code fulfilling the following Mermaid Syntax:
 
@@ -773,7 +773,7 @@ event:
     Updating the customer should happen parallel to building the first saw
 
 
-    ÜSCustomer likes first saw⬝ and ÜSCustomer dislike first saw⬝ are no functions
+    “Customer likes first saw” and “Customer dislike first saw” are no functions
 
 
 

@@ -193,8 +193,8 @@ event:
         1:task:(Einreichen der Bachelorarbeit) --> 2:task:(Bewertung der Bachelorarbeit)
         2:task:(Bewertung der Bachelorarbeit) --> 3:exclusivegateway:{x}
         3:exclusivegateway:{x} --> |Bestanden| 5:task:(Abschlussdokumente erstellen)
-        3:exclusivegateway:{x} --> |Nicht bestanden| 4:task:(Ãœberarbeitung erforderlich)
-        4:task:(Ãœberarbeitung erforderlich) --> 6:exclusivegateway:{O}
+        3:exclusivegateway:{x} --> |Nicht bestanden| 4:task:(Überarbeitung erforderlich)
+        4:task:(Überarbeitung erforderlich) --> 6:exclusivegateway:{O}
         5:task:(Abschlussdokumente erstellen) --> 6:exclusivegateway:{O}
         6:exclusivegateway:{O} --> 7:endevent:(((endevent)))
     ```
