@@ -1,0 +1,1429 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8802
+    cpee:name: Plain Instance
+    cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-07T16:24:55.585393+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Antrag auf Nachteilsausgleich stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Antrag und Attest an Schriftf&#xFC;hrung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Formale Pr&#xFC;fung durch Schriftf&#xFC;hrung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Antrag korrekt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Inhaltliche Pr&#xFC;fung durch Pr&#xFC;fungsausschussvorsitzenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Bescheid erstellen und versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Liste der Nachteilsausgleiche f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Schriftf&#xFC;hrung &#xFC;ber Pr&#xFC;fungsplanung informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Nachteilsausgleiche in Excel zusammenf&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Pr&#xFC;fende informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Organisatorische Umsetzung durch Pr&#xFC;fende</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Kontakt zu Pr&#xFC;fenden aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Pr&#xFC;fungsmodalit&#xE4;ten mitteilen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Antrag inkorrekt" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 0d4951d680bdaeb4e89204a916d73ab02443119c
+  time:timestamp: '2026-04-07T16:25:06.954116+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d4951d680bdaeb4e89204a916d73ab02443119c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-07T16:25:06.954359+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d4951d680bdaeb4e89204a916d73ab02443119c
+  cpee:exposition: |-
+    # User Input:
+    Ein Nachteilsausgleichsverfahren beginnt damit, dass eine Studierende oder ein Studierender den Bedarf erkennt und einen entsprechenden Antrag stellt. Dieser Antrag wird zusammen mit einem Attest spÃ¤testens zu Beginn der PrÃ¼fungsanmeldephase per E-Mail an die zustÃ¤ndige SchriftfÃ¼hrung gesendet. Dabei kann der konkrete Adressat je nach School variieren.
+
+    Nach Eingang des Antrags Ã¼bernimmt die SchriftfÃ¼hrung des PrÃ¼fungsausschusses die formale PrÃ¼fung. Dabei wird Ã¼berprÃ¼ft, ob alle erforderlichen Unterlagen vollstÃ¤ndig vorliegen und ob die Angaben glaubhaft sind. Diese PrÃ¼fung erfolgt unmittelbar nach Erhalt des Antrags und bildet die Grundlage fÃ¼r alle weiteren Schritte.
+
+    Ist der Antrag formal korrekt, folgt die inhaltliche PrÃ¼fung. Diese liegt in der Verantwortung des PrÃ¼fungsausschussvorsitzenden, wird jedoch hÃ¤ufig in enger Abstimmung mit der SchriftfÃ¼hrung durchgefÃ¼hrt. Ziel dieses Schrittes ist es, Ã¼ber die konkrete AusfÃ¼hrungsform des Nachteilsausgleichs zu entscheiden.
+
+    Im Anschluss an die inhaltliche Entscheidung erfolgt die Verbescheidung. Die SchriftfÃ¼hrung erstellt einen Bescheid, der den Studierenden per E-Mail Ã¼bermittelt wird. Je nach Fall kann dieser eine Rechtsbehelfsbelehrung enthalten. Es wird zudem erwogen, diese standardmÃ¤ÃŸig beizufÃ¼gen, um rechtliche Klarheit zu schaffen.
+
+    Parallel dazu fÃ¼hrt die SchriftfÃ¼hrung fortlaufend eine Liste Ã¼ber alle genehmigten Nachteilsausgleiche. Diese wird aktuell in Form einer Excel-Datei auf einem NAS-Laufwerk gepflegt. Perspektivisch kÃ¶nnte dieser Schritt durch automatisierte Benachrichtigungen, etwa Ã¼ber Outlook, unterstÃ¼tzt werden.
+
+    Sobald die Studierenden ihre PrÃ¼fungen planen, informieren sie die SchriftfÃ¼hrung per E-Mail Ã¼ber die konkret vorgesehenen PrÃ¼fungen. Dies muss vor dem Ende der PrÃ¼fungsanmeldephase erfolgen und dient als Grundlage fÃ¼r die weitere Organisation.
+
+    Nach Ablauf der Anmeldephase werden alle relevanten Nachteilsausgleiche von der SchriftfÃ¼hrung manuell in einer Excel-Tabelle zusammengefÃ¼hrt. Auf dieser Basis erfolgt die Information der PrÃ¼fenden, ebenfalls per E-Mail. Dabei wird diskutiert, ob diese Form der Informationsweitergabe datenschutzrechtlich unbedenklich ist, insbesondere wenn alle PrÃ¼fenden Einblick in sÃ¤mtliche Nachteilsausgleiche erhalten, ohne dass Studierende eine Auswahl pro PrÃ¼fung treffen kÃ¶nnen.
+
+    Die PrÃ¼fenden Ã¼bernehmen daraufhin die organisatorische Umsetzung. Dazu gehÃ¶ren unter anderem die Buchung zusÃ¤tzlicher RÃ¤ume, die Einteilung von Aufsichtspersonal sowie die Bereitstellung technischer UnterstÃ¼tzung. Diese MaÃŸnahmen mÃ¼ssen rechtzeitig vor der jeweiligen PrÃ¼fung erfolgen.
+
+    ErgÃ¤nzend dazu nehmen die Studierenden bis spÃ¤testens 14 Tage vor der PrÃ¼fung eigenstÃ¤ndig Kontakt zu den PrÃ¼fenden auf, um den Nachteilsausgleich abzustimmen. In der dafÃ¼r vorgesehenen Standard-E-Mail sind die Pflichten der Studierenden bereits enthalten.
+
+    AbschlieÃŸend informieren die PrÃ¼fenden die Studierenden Ã¼ber die konkreten PrÃ¼fungsmodalitÃ¤ten sowie den PrÃ¼fungsraum. Diese Information erfolgt ebenfalls per E-Mail und stellt sicher, dass alle Beteiligten optimal vorbereitet sind.Â 
+  time:timestamp: '2026-04-07T16:25:06.954465+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d4951d680bdaeb4e89204a916d73ab02443119c
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-07T16:25:06.954579+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d4951d680bdaeb4e89204a916d73ab02443119c
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-07T16:25:06.954652+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d4951d680bdaeb4e89204a916d73ab02443119c
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent))
+        1:task:(Antrag auf Nachteilsausgleich stellen)
+        2:task:(Antrag und Attest an SchriftfÃ¼hrung senden)
+        3:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung)
+        4:exclusivegateway:{x}
+        5:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden)
+        6:task:(Bescheid erstellen und versenden)
+        7:task:(Liste der Nachteilsausgleiche fÃ¼hren)
+        8:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren)
+        9:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren)
+        10:task:(PrÃ¼fende informieren)
+        11:task:(Organisatorische Umsetzung durch PrÃ¼fende)
+        12:task:(Kontakt zu PrÃ¼fenden aufnehmen)
+        13:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen)
+        14:endevent:(((endevent)))
+        15:exclusivegateway:{x}
+
+        0:startevent:((startevent)) --> 1:task:(Antrag auf Nachteilsausgleich stellen)
+        1:task:(Antrag auf Nachteilsausgleich stellen) --> 2:task:(Antrag und Attest an SchriftfÃ¼hrung senden)
+        2:task:(Antrag und Attest an SchriftfÃ¼hrung senden) --> 3:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung)
+        3:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Antrag korrekt| 5:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden)
+        4:exclusivegateway:{x} --> |Antrag inkorrekt| 14:endevent:(((endevent)))
+        5:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden) --> 6:task:(Bescheid erstellen und versenden)
+        6:task:(Bescheid erstellen und versenden) --> 7:task:(Liste der Nachteilsausgleiche fÃ¼hren)
+        7:task:(Liste der Nachteilsausgleiche fÃ¼hren) --> 8:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren)
+        8:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren) --> 9:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren)
+        9:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren) --> 10:task:(PrÃ¼fende informieren)
+        10:task:(PrÃ¼fende informieren) --> 11:task:(Organisatorische Umsetzung durch PrÃ¼fende)
+        11:task:(Organisatorische Umsetzung durch PrÃ¼fende) --> 12:task:(Kontakt zu PrÃ¼fenden aufnehmen)
+        12:task:(Kontakt zu PrÃ¼fenden aufnehmen) --> 13:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen)
+        13:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen) --> 14:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-07T16:25:06.954723+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d4951d680bdaeb4e89204a916d73ab02443119c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Antrag auf Nachteilsausgleich stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Antrag und Attest an Schriftf&#xFC;hrung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Formale Pr&#xFC;fung durch Schriftf&#xFC;hrung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Antrag korrekt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Inhaltliche Pr&#xFC;fung durch Pr&#xFC;fungsausschussvorsitzenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Bescheid erstellen und versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Liste der Nachteilsausgleiche f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Schriftf&#xFC;hrung &#xFC;ber Pr&#xFC;fungsplanung informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Nachteilsausgleiche in Excel zusammenf&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Pr&#xFC;fende informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Organisatorische Umsetzung durch Pr&#xFC;fende</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Kontakt zu Pr&#xFC;fenden aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Pr&#xFC;fungsmodalit&#xE4;ten mitteilen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Antrag inkorrekt" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T16:25:06.954856+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Antrag auf Nachteilsausgleich stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Antrag und Attest an Schriftf&#xFC;hrung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Formale Pr&#xFC;fung durch Schriftf&#xFC;hrung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Antrag korrekt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Inhaltliche Pr&#xFC;fung durch Pr&#xFC;fungsausschussvorsitzenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Bescheid erstellen und versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Liste der Nachteilsausgleiche f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Schriftf&#xFC;hrung &#xFC;ber Pr&#xFC;fungsplanung informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Nachteilsausgleiche in Excel zusammenf&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Pr&#xFC;fende informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Organisatorische Umsetzung durch Pr&#xFC;fende</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Kontakt zu Pr&#xFC;fenden aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Pr&#xFC;fungsmodalit&#xE4;ten mitteilen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Antrag inkorrekt" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T16:25:56.886197+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: executionhandler
+    value: eval
+  time:timestamp: '2026-04-07T16:25:56.888139+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-07T16:25:57.115649+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2026-04-07T16:26:01.305485+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-07T16:26:01.512079+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Antrag auf Nachteilsausgleich stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Antrag und Attest an Schriftf&#xFC;hrung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Formale Pr&#xFC;fung durch Schriftf&#xFC;hrung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Antrag korrekt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Inhaltliche Pr&#xFC;fung durch Pr&#xFC;fungsausschussvorsitzenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Bescheid erstellen und versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Liste der Nachteilsausgleiche f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Schriftf&#xFC;hrung &#xFC;ber Pr&#xFC;fungsplanung informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Nachteilsausgleiche in Excel zusammenf&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Pr&#xFC;fende informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Organisatorische Umsetzung durch Pr&#xFC;fende</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Kontakt zu Pr&#xFC;fenden aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Pr&#xFC;fungsmodalit&#xE4;ten mitteilen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Antrag inkorrekt" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Information &#xFC;ber Ablehnung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 74eede0faf95fee5c33c9c4049d534f743ad5d15
+  time:timestamp: '2026-04-07T16:26:07.476802+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74eede0faf95fee5c33c9c4049d534f743ad5d15
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Antrag auf Nachteilsausgleich stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Antrag und Attest an SchriftfÃ¼hrung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Formale PrÃ¼fung durch SchriftfÃ¼hrung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Antrag korrekt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Bescheid erstellen und versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Liste der Nachteilsausgleiche fÃ¼hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Nachteilsausgleiche in Excel zusammenfÃ¼hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>PrÃ¼fende informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Organisatorische Umsetzung durch PrÃ¼fende</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Kontakt zu PrÃ¼fenden aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>PrÃ¼fungsmodalitÃ¤ten mitteilen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Antrag inkorrekt" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T16:26:07.477098+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74eede0faf95fee5c33c9c4049d534f743ad5d15
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2026-04-07T16:26:07.477920+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74eede0faf95fee5c33c9c4049d534f743ad5d15
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-07T16:26:07.478085+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74eede0faf95fee5c33c9c4049d534f743ad5d15
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Antrag auf Nachteilsausgleich stellen)
+    a1:task:(Antrag auf Nachteilsausgleich stellen)-->a3:task:(Antrag und Attest an SchriftfÃ¼hrung senden)
+    a3:task:(Antrag und Attest an SchriftfÃ¼hrung senden)-->a5:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung)
+    a5:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Antrag korrekt"|a9:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden)
+    a9:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden)-->a13:task:(Bescheid erstellen und versenden)
+    a13:task:(Bescheid erstellen und versenden)-->a15:task:(Liste der Nachteilsausgleiche fÃ¼hren)
+    a15:task:(Liste der Nachteilsausgleiche fÃ¼hren)-->a17:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren)
+    a17:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren)-->a19:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren)
+    a19:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren)-->a21:task:(PrÃ¼fende informieren)
+    a21:task:(PrÃ¼fende informieren)-->a23:task:(Organisatorische Umsetzung durch PrÃ¼fende)
+    a23:task:(Organisatorische Umsetzung durch PrÃ¼fende)-->a25:task:(Kontakt zu PrÃ¼fenden aufnehmen)
+    a25:task:(Kontakt zu PrÃ¼fenden aufnehmen)-->a27:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen)
+    a27:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Antrag inkorrekt"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-07T16:26:07.478191+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74eede0faf95fee5c33c9c4049d534f743ad5d15
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent))-->a1:task:(Antrag auf Nachteilsausgleich stellen)
+        a1:task:(Antrag auf Nachteilsausgleich stellen)-->a3:task:(Antrag und Attest an SchriftfÃ¼hrung senden)
+        a3:task:(Antrag und Attest an SchriftfÃ¼hrung senden)-->a5:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung)
+        a5:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung)-->gw1s:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Antrag korrekt"|a9:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden)
+        a9:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden)-->a13:task:(Bescheid erstellen und versenden)
+        a13:task:(Bescheid erstellen und versenden)-->a15:task:(Liste der Nachteilsausgleiche fÃ¼hren)
+        a15:task:(Liste der Nachteilsausgleiche fÃ¼hren)-->a17:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren)
+        a17:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren)-->a19:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren)
+        a19:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren)-->a21:task:(PrÃ¼fende informieren)
+        a21:task:(PrÃ¼fende informieren)-->a23:task:(Organisatorische Umsetzung durch PrÃ¼fende)
+        a23:task:(Organisatorische Umsetzung durch PrÃ¼fende)-->a25:task:(Kontakt zu PrÃ¼fenden aufnehmen)
+        a25:task:(Kontakt zu PrÃ¼fenden aufnehmen)-->a27:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen)
+        a27:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen)-->gw1e:exclusivegateway:{x}
+        gw1s:exclusivegateway:{x}-->|"Antrag inkorrekt"|a7:task:(Information Ã¼ber Ablehnung)
+        a7:task:(Information Ã¼ber Ablehnung)-->gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-04-07T16:26:07.478312+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 74eede0faf95fee5c33c9c4049d534f743ad5d15
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Antrag auf Nachteilsausgleich stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Antrag und Attest an Schriftf&#xFC;hrung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Formale Pr&#xFC;fung durch Schriftf&#xFC;hrung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Antrag korrekt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Inhaltliche Pr&#xFC;fung durch Pr&#xFC;fungsausschussvorsitzenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Bescheid erstellen und versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Liste der Nachteilsausgleiche f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Schriftf&#xFC;hrung &#xFC;ber Pr&#xFC;fungsplanung informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Nachteilsausgleiche in Excel zusammenf&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Pr&#xFC;fende informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Organisatorische Umsetzung durch Pr&#xFC;fende</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Kontakt zu Pr&#xFC;fenden aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Pr&#xFC;fungsmodalit&#xE4;ten mitteilen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Antrag inkorrekt" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Information &#xFC;ber Ablehnung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T16:26:07.478428+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 870bbc0d0b905f9de741b8cec6d565f0c44a4196
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Antrag auf Nachteilsausgleich stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Antrag und Attest an SchriftfÃ¼hrung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Formale PrÃ¼fung durch SchriftfÃ¼hrung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Antrag korrekt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Bescheid erstellen und versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Liste der Nachteilsausgleiche fÃ¼hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Nachteilsausgleiche in Excel zusammenfÃ¼hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>PrÃ¼fende informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Organisatorische Umsetzung durch PrÃ¼fende</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Kontakt zu PrÃ¼fenden aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>PrÃ¼fungsmodalitÃ¤ten mitteilen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Antrag inkorrekt" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Information Ã¼ber Ablehnung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T16:28:32.226694+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Antrag auf Nachteilsausgleich stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Antrag und Attest an Schriftf&#xFC;hrung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Formale Pr&#xFC;fung durch Schriftf&#xFC;hrung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Antrag korrekt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Inhaltliche Pr&#xFC;fung durch Pr&#xFC;fungsausschussvorsitzenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Bescheid erstellen und versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Liste der Nachteilsausgleiche f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Schriftf&#xFC;hrung &#xFC;ber Pr&#xFC;fungsplanung informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Nachteilsausgleiche in Excel zusammenf&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Pr&#xFC;fende informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Organisatorische Umsetzung durch Pr&#xFC;fende</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Kontakt zu Pr&#xFC;fenden aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Pr&#xFC;fungsmodalit&#xE4;ten mitteilen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Antrag inkorrekt" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Information &#xFC;ber Ablehnung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 870bbc0d0b905f9de741b8cec6d565f0c44a4196
+  time:timestamp: '2026-04-07T16:28:32.226255+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 870bbc0d0b905f9de741b8cec6d565f0c44a4196
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2026-04-07T16:28:32.226850+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 870bbc0d0b905f9de741b8cec6d565f0c44a4196
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-07T16:28:32.226989+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 870bbc0d0b905f9de741b8cec6d565f0c44a4196
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Antrag auf Nachteilsausgleich stellen)
+    a1:task:(Antrag auf Nachteilsausgleich stellen)-->a3:task:(Antrag und Attest an SchriftfÃ¼hrung senden)
+    a3:task:(Antrag und Attest an SchriftfÃ¼hrung senden)-->a5:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung)
+    a5:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Antrag korrekt"|a9:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden)
+    a9:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden)-->a11:task:(Bescheid erstellen und versenden)
+    a11:task:(Bescheid erstellen und versenden)-->a13:task:(Liste der Nachteilsausgleiche fÃ¼hren)
+    a13:task:(Liste der Nachteilsausgleiche fÃ¼hren)-->a15:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren)
+    a15:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren)-->a17:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren)
+    a17:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren)-->a19:task:(PrÃ¼fende informieren)
+    a19:task:(PrÃ¼fende informieren)-->a21:task:(Organisatorische Umsetzung durch PrÃ¼fende)
+    a21:task:(Organisatorische Umsetzung durch PrÃ¼fende)-->a23:task:(Kontakt zu PrÃ¼fenden aufnehmen)
+    a23:task:(Kontakt zu PrÃ¼fenden aufnehmen)-->a25:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen)
+    a25:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Antrag inkorrekt"|a29:task:(Information Ã¼ber Ablehnung)
+    a29:task:(Information Ã¼ber Ablehnung)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-07T16:28:32.227503+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 870bbc0d0b905f9de741b8cec6d565f0c44a4196
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    se:startevent:((startevent))
+    se:startevent:((startevent)) --> a1:task:(Antrag auf Nachteilsausgleich stellen)
+    a1:task:(Antrag auf Nachteilsausgleich stellen) --> a3:task:(Antrag und Attest an SchriftfÃ¼hrung senden)
+    a3:task:(Antrag und Attest an SchriftfÃ¼hrung senden) --> a5:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung)
+    a5:task:(Formale PrÃ¼fung durch SchriftfÃ¼hrung) --> gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x} --> |"Antrag korrekt"| a9:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden)
+    a9:task:(Inhaltliche PrÃ¼fung durch PrÃ¼fungsausschussvorsitzenden) --> a11:task:(Bescheid erstellen und versenden)
+    a11:task:(Bescheid erstellen und versenden) --> a13:task:(Liste der Nachteilsausgleiche fÃ¼hren)
+    a13:task:(Liste der Nachteilsausgleiche fÃ¼hren) --> a15:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren)
+    a15:task:(SchriftfÃ¼hrung Ã¼ber PrÃ¼fungsplanung informieren) --> a17:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren)
+    a17:task:(Nachteilsausgleiche in Excel zusammenfÃ¼hren) --> a19:task:(PrÃ¼fende informieren)
+    a19:task:(PrÃ¼fende informieren) --> a21:task:(Organisatorische Umsetzung durch PrÃ¼fende)
+    a21:task:(Organisatorische Umsetzung durch PrÃ¼fende) --> a23:task:(Kontakt zu PrÃ¼fenden aufnehmen)
+    a23:task:(Kontakt zu PrÃ¼fenden aufnehmen) --> a25:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen)
+    a25:task:(PrÃ¼fungsmodalitÃ¤ten mitteilen) --> gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x} --> |"Antrag inkorrekt"| a29:task:(Information Ã¼ber Ablehnung)
+    a29:task:(Information Ã¼ber Ablehnung) --> gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x} --> ee:endevent:(((endevent)))
+  time:timestamp: '2026-04-07T16:28:32.227640+02:00'
+---
+event:
+  concept:instance: 8802
+  id:id: ex-ante
+  cpee:instance: 702dcb5b-23e0-41f1-a496-5659924a6278
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 870bbc0d0b905f9de741b8cec6d565f0c44a4196
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Antrag auf Nachteilsausgleich stellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Antrag und Attest an Schriftf&#xFC;hrung senden</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Formale Pr&#xFC;fung durch Schriftf&#xFC;hrung</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Antrag korrekt" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Inhaltliche Pr&#xFC;fung durch Pr&#xFC;fungsausschussvorsitzenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Bescheid erstellen und versenden</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Liste der Nachteilsausgleiche f&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Schriftf&#xFC;hrung &#xFC;ber Pr&#xFC;fungsplanung informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Nachteilsausgleiche in Excel zusammenf&#xFC;hren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>Pr&#xFC;fende informieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Organisatorische Umsetzung durch Pr&#xFC;fende</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Kontakt zu Pr&#xFC;fenden aufnehmen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Pr&#xFC;fungsmodalit&#xE4;ten mitteilen</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Antrag inkorrekt" language="text/javascript">
+          <call id="a29" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Information &#xFC;ber Ablehnung</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T16:28:32.227762+02:00'

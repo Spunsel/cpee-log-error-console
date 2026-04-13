@@ -1,0 +1,490 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8804
+    cpee:name: Plain Instance
+    cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-08T08:05:01.323305+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Indikation zur Vorstellung Patient im Krankenhaus</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Zuweisung Klinik durch Leitstelle</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Anmeldung &#xFC;ber IVENA durch Leitstelle und NIDA Rettungsdienst</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Ankunft Patient</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 7e5e1e133571ea74d57aec1f9a0454fa174cea7f
+  time:timestamp: '2026-04-08T08:06:16.703208+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e5e1e133571ea74d57aec1f9a0454fa174cea7f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-08T08:06:16.703403+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e5e1e133571ea74d57aec1f9a0454fa174cea7f
+  cpee:exposition: |+
+    # User Input:
+    AuslÃ¶ser oder StatusÃ¤nderung
+
+
+
+
+    1.Â Â Â  Indikation zur Vorstellung Patient im Krankenhaus
+
+    2.Â Â Â  Zuweisung Klinik durch Leitstelle
+
+    3.Â Â Â  Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst (Anruf nur bei Triage â€žRotâ€œ)
+
+    4.Â Â Â  Ankunft Patient
+
+
+
+
+    Weichenstellungen und Logik
+
+
+
+
+    Menschen, Systeme, Daten
+
+
+
+
+    UnabhÃ¤ngige AktivitÃ¤ten, die aber parallel laufen kÃ¶nnen
+
+
+
+
+    Fristen, Dauer und Wartezeiten
+
+
+  time:timestamp: '2026-04-08T08:06:16.703822+02:00'
+...
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e5e1e133571ea74d57aec1f9a0454fa174cea7f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-08T08:06:16.704024+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e5e1e133571ea74d57aec1f9a0454fa174cea7f
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-08T08:06:16.704139+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e5e1e133571ea74d57aec1f9a0454fa174cea7f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Indikation zur Vorstellung Patient im Krankenhaus)
+        1:task:(Indikation zur Vorstellung Patient im Krankenhaus) --> 2:task:(Zuweisung Klinik durch Leitstelle)
+        2:task:(Zuweisung Klinik durch Leitstelle) --> 3:task:(Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst)
+        3:task:(Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst) --> 4:task:(Ankunft Patient)
+        4:task:(Ankunft Patient) --> 5:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-08T08:06:16.704277+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7e5e1e133571ea74d57aec1f9a0454fa174cea7f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Indikation zur Vorstellung Patient im Krankenhaus</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Zuweisung Klinik durch Leitstelle</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Anmeldung &#xFC;ber IVENA durch Leitstelle und NIDA Rettungsdienst</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Ankunft Patient</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-08T08:06:16.704377+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Meldung bei Leitstelle, wenn station&#xE4;re Behandlung erforderlich</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Zuweisung nach Kapazit&#xE4;ten in IVENA</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="pg1">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Meldung &#xFC;ber IVENA durch Leitstelle</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>NIDA wird durch Rettungsdienst angemeldet</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a15" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Ankunft Patient</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 8cbc0463587013f5cac1e3695459c551ecbf221f
+  time:timestamp: '2026-04-08T08:06:35.990496+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8cbc0463587013f5cac1e3695459c551ecbf221f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Indikation zur Vorstellung Patient im Krankenhaus</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Zuweisung Klinik durch Leitstelle</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Ankunft Patient</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-08T08:06:35.990676+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8cbc0463587013f5cac1e3695459c551ecbf221f
+  cpee:exposition: |-
+    # User Input:
+    Patientenanmeldung der Leitstelle durch IVENA
+
+
+
+
+    1.Â Â Â  Meldung bei Leitstelle, wenn stationÃ¤re Behandlung erforderlich
+
+    2.Â Â Â  Zuweisung nach KapazitÃ¤ten in IVENA
+
+    3.Â Â Â  Meldung Ã¼ber IVENA durch Leitstelle. NIDA wird durch Rettungsdienst angemeldet. Geschieht jedoch hÃ¤ufig erst nach Ankunft Patient.
+
+
+
+
+    Â 
+
+
+
+
+    IVENA, NIDA
+
+
+
+
+    Parallele Anmeldung IVENA (Leitstelle) und NIDA (Rettungsdienst)
+
+
+
+
+    Â 
+  time:timestamp: '2026-04-08T08:06:35.991156+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8cbc0463587013f5cac1e3695459c551ecbf221f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-08T08:06:35.991285+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8cbc0463587013f5cac1e3695459c551ecbf221f
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Indikation zur Vorstellung Patient im Krankenhaus)
+    a1:task:(Indikation zur Vorstellung Patient im Krankenhaus)-->a3:task:(Zuweisung Klinik durch Leitstelle)
+    a3:task:(Zuweisung Klinik durch Leitstelle)-->a5:task:(Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst)
+    a5:task:(Anmeldung Ã¼ber IVENA durch Leitstelle und NIDA Rettungsdienst)-->a7:task:(Ankunft Patient)
+    a7:task:(Ankunft Patient)-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-08T08:06:35.991358+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8cbc0463587013f5cac1e3695459c551ecbf221f
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+        se:startevent:((startevent)) --> a1:task:(Meldung bei Leitstelle, wenn stationÃ¤re Behandlung erforderlich)
+        a1:task:(Meldung bei Leitstelle, wenn stationÃ¤re Behandlung erforderlich) --> a2:task:(Zuweisung nach KapazitÃ¤ten in IVENA)
+        a2:task:(Zuweisung nach KapazitÃ¤ten in IVENA) --> pg1:parallelgateway:{AND}
+        pg1:parallelgateway:{AND} --> a3:task:(Meldung Ã¼ber IVENA durch Leitstelle)
+        pg1:parallelgateway:{AND} --> a4:task:(NIDA wird durch Rettungsdienst angemeldet)
+        a3:task:(Meldung Ã¼ber IVENA durch Leitstelle) --> pg2:parallelgateway:{AND}
+        a4:task:(NIDA wird durch Rettungsdienst angemeldet) --> pg2:parallelgateway:{AND}
+        pg2:parallelgateway:{AND} --> a7:task:(Ankunft Patient)
+        a7:task:(Ankunft Patient) --> ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-08T08:06:35.991432+02:00'
+---
+event:
+  concept:instance: 8804
+  id:id: ex-ante
+  cpee:instance: b5e32c04-2f18-4e83-9963-835fbda6fb5c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8cbc0463587013f5cac1e3695459c551ecbf221f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Meldung bei Leitstelle, wenn station&#xE4;re Behandlung erforderlich</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a2">
+        <parameters>
+          <label>Zuweisung nach Kapazit&#xE4;ten in IVENA</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="pg1">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="a3">
+            <parameters>
+              <label>Meldung &#xFC;ber IVENA durch Leitstelle</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="a4">
+            <parameters>
+              <label>NIDA wird durch Rettungsdienst angemeldet</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a15" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Ankunft Patient</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-08T08:06:35.991640+02:00'

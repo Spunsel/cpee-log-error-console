@@ -1,0 +1,1285 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8799
+    cpee:name: Plain Instance
+    cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-07T15:26:56.248960+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="8">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 7a112eb7fec427047d6b879f58cb4146ce3ee7c2
+  time:timestamp: '2026-04-07T15:27:04.335616+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7a112eb7fec427047d6b879f58cb4146ce3ee7c2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-07T15:27:04.335800+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7a112eb7fec427047d6b879f58cb4146ce3ee7c2
+  cpee:exposition: |-
+    # User Input:
+    Customers upload their complaint via an online form. The form contains the insurance number, the amount of damage, and a description of the damage. If the amount of damage is â‰¤ 100 Euro, an automatic plausibility check is conducted and the complaint is approved. The customer is informed via email and the money transfer is initiated.
+    If the damage amount is above 100 Euro, a clerk checks the complaint. The customer is informed on the decision via email. If the complaint is rejected, the customer is offered an optional meeting.Â 
+  time:timestamp: '2026-04-07T15:27:04.336251+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7a112eb7fec427047d6b879f58cb4146ce3ee7c2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-07T15:27:04.336442+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7a112eb7fec427047d6b879f58cb4146ce3ee7c2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-07T15:27:04.336535+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7a112eb7fec427047d6b879f58cb4146ce3ee7c2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Upload Complaint)
+      1:task:(Upload Complaint) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Amount <= 100| 3:task:(Automatic Plausibility Check)
+      2:exclusivegateway:{x} --> |Amount > 100| 6:task:(Clerk Checks Complaint)
+      3:task:(Automatic Plausibility Check) --> 4:task:(Approve Complaint)
+      4:task:(Approve Complaint) --> 5:task:(Inform Customer & Initiate Transfer)
+      5:task:(Inform Customer & Initiate Transfer) --> 11:endevent:(((endevent)))
+      6:task:(Clerk Checks Complaint) --> 7:task:(Inform Customer on Decision)
+      7:task:(Inform Customer on Decision) --> 8:exclusivegateway:{x}
+      8:exclusivegateway:{x} --> |Complaint Rejected| 9:task:(Offer Optional Meeting)
+      8:exclusivegateway:{x} --> |Complaint Approved| 10:exclusivegateway:{x}
+      9:task:(Offer Optional Meeting) --> 10:exclusivegateway:{x}
+      10:exclusivegateway:{x} --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-07T15:27:04.336685+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7a112eb7fec427047d6b879f58cb4146ce3ee7c2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="8">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T15:27:04.336774+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="a20">
+        <parameters>
+          <label>Analyze Case for Marketing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 988913998d8a404e1d19bade42c28fce5c53cc12
+  time:timestamp: '2026-04-07T15:30:29.316840+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 988913998d8a404e1d19bade42c28fce5c53cc12
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="8">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T15:30:29.317092+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 988913998d8a404e1d19bade42c28fce5c53cc12
+  cpee:exposition: |-
+    # User Input:
+    add task "Analyze Case for Marketing" at the end
+  time:timestamp: '2026-04-07T15:30:29.317224+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 988913998d8a404e1d19bade42c28fce5c53cc12
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-07T15:30:29.317322+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 988913998d8a404e1d19bade42c28fce5c53cc12
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Upload Complaint)
+    a1:task:(Upload Complaint)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Amount <= 100"|a5:task:(Automatic Plausibility Check)
+    a5:task:(Automatic Plausibility Check)-->a9:task:(Approve Complaint)
+    a9:task:(Approve Complaint)-->a11:task:(Inform Customer & Initiate Transfer)
+    a11:task:(Inform Customer & Initiate Transfer)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a7:task:(Clerk Checks Complaint)
+    a7:task:(Clerk Checks Complaint)-->a15:task:(Inform Customer on Decision)
+    a15:task:(Inform Customer on Decision)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Complaint Rejected"|a19:task:(Offer Optional Meeting)
+    a19:task:(Offer Optional Meeting)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Complaint Approved"|gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-07T15:30:29.317397+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 988913998d8a404e1d19bade42c28fce5c53cc12
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Upload Complaint)
+    a1:task:(Upload Complaint)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Amount <= 100"|a5:task:(Automatic Plausibility Check)
+    a5:task:(Automatic Plausibility Check)-->a9:task:(Approve Complaint)
+    a9:task:(Approve Complaint)-->a11:task:(Inform Customer & Initiate Transfer)
+    a11:task:(Inform Customer & Initiate Transfer)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a7:task:(Clerk Checks Complaint)
+    a7:task:(Clerk Checks Complaint)-->a15:task:(Inform Customer on Decision)
+    a15:task:(Inform Customer on Decision)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Complaint Rejected"|a19:task:(Offer Optional Meeting)
+    a19:task:(Offer Optional Meeting)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Complaint Approved"|gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a20:task:(Analyze Case for Marketing)
+    a20:task:(Analyze Case for Marketing)-->ee:endevent:((endevent))
+    ```
+  time:timestamp: '2026-04-07T15:30:29.317487+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 988913998d8a404e1d19bade42c28fce5c53cc12
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="a20">
+        <parameters>
+          <label>Analyze Case for Marketing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-07T15:30:29.317752+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-04-07T15:42:02.363153+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-04-07T15:42:02.567825+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-07T15:42:02.811052+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-07T15:42:02.837027+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: complaint
+    value: ''
+  time:timestamp: '2026-04-07T15:42:30.612832+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="user" a:alt_id="a1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <color/>
+          <arguments>
+            <timeout/>
+            <data/>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_logging_behavior>
+            <_exclude>false</_exclude>
+            <_include>false</_include>
+          </_logging_behavior>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="a20">
+        <parameters>
+          <label>Analyze Case for Marketing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 5928f4b98d4fa711b86cf2f035026c7507ee8bdb
+  time:timestamp: '2026-04-07T15:43:01.811900+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="user" a:alt_id="a1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <color/>
+          <arguments>
+            <timeout/>
+            <data/>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_logging_behavior>
+            <_exclude>false</_exclude>
+            <_include>false</_include>
+          </_logging_behavior>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input>
+            <item label=""/>
+          </input>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="a20">
+        <parameters>
+          <label>Analyze Case for Marketing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 3881f1493611cc1673afdfca120232292f5659c0
+  time:timestamp: '2026-04-07T15:43:39.239302+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="worklist" a:alt_id="a1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <color/>
+          <method>:post</method>
+          <arguments>
+            <timeout/>
+            <data/>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_logging_behavior>
+            <_exclude>false</_exclude>
+            <_include>false</_include>
+          </_logging_behavior>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input>
+            <item label=""/>
+          </input>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="a20">
+        <parameters>
+          <label>Analyze Case for Marketing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: '02191ef4ba76e42f2d0d607bece4eee7fd447ffa'
+  time:timestamp: '2026-04-07T15:43:54.777126+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <color/>
+          <method>:post</method>
+          <arguments>
+            <timeout/>
+            <data/>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_logging_behavior>
+            <_exclude>false</_exclude>
+            <_include>false</_include>
+          </_logging_behavior>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input>
+            <item label=""/>
+          </input>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="a20">
+        <parameters>
+          <label>Analyze Case for Marketing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 55acbff736b42f103da29029206c97c89d275bb6
+  time:timestamp: '2026-04-07T15:44:10.384203+02:00'
+---
+event:
+  concept:instance: 8799
+  id:id: ex-ante
+  cpee:instance: 53aba534-0571-467e-9045-f5a6d1c8c798
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="user" a:alt_id="a1">
+        <parameters>
+          <label>Upload Complaint</label>
+          <color/>
+          <arguments>
+            <timeout/>
+            <data/>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_logging_behavior>
+            <_exclude>false</_exclude>
+            <_include>false</_include>
+          </_logging_behavior>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input>
+            <item label=""/>
+          </input>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Amount &lt;= 100" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Automatic Plausibility Check</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Approve Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Inform Customer &amp; Initiate Transfer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Clerk Checks Complaint</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Inform Customer on Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="Complaint Rejected" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Offer Optional Meeting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Complaint Approved" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+      <call id="a27" endpoint="" a:alt_id="a20">
+        <parameters>
+          <label>Analyze Case for Marketing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 3881f1493611cc1673afdfca120232292f5659c0
+  time:timestamp: '2026-04-07T15:44:34.902179+02:00'

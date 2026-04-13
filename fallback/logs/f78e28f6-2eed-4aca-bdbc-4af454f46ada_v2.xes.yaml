@@ -1,0 +1,427 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8798
+    cpee:name: Plain Instance
+    cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-07T15:16:41.615452+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Claim Valid" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verify Claim Details</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Details Verified" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Process Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Notify Customer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Details Invalid" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Reject Claim</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Claim Invalid" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Reject Claim</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 0d380e58b46c5ce713fd11d650884a45ada59d31
+  time:timestamp: '2026-04-07T15:17:17.392615+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d380e58b46c5ce713fd11d650884a45ada59d31
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-07T15:17:17.392841+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d380e58b46c5ce713fd11d650884a45ada59d31
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-07T15:17:17.393565+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d380e58b46c5ce713fd11d650884a45ada59d31
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-07T15:17:17.393834+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d380e58b46c5ce713fd11d650884a45ada59d31
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Submit Claim)
+    1:task:(Submit Claim) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Claim Valid| 3:task:(Verify Claim Details)
+    2:exclusivegateway:{x} --> |Claim Invalid| 4:task:(Reject Claim)
+    3:task:(Verify Claim Details) --> 5:exclusivegateway:{x}
+    4:task:(Reject Claim) --> 8:endevent:(((endevent)))
+    5:exclusivegateway:{x} --> |Details Verified| 6:task:(Process Payment)
+    5:exclusivegateway:{x} --> |Details Invalid| 4:task:(Reject Claim)
+    6:task:(Process Payment) --> 7:task:(Notify Customer)
+    7:task:(Notify Customer) --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-07T15:17:17.394010+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d380e58b46c5ce713fd11d650884a45ada59d31
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Claim Valid" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verify Claim Details</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Details Verified" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Process Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Notify Customer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Details Invalid" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Reject Claim</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Claim Invalid" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Reject Claim</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T15:17:17.394101+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 0d380e58b46c5ce713fd11d650884a45ada59d31
+  cpee:exposition: |-
+    # User Input:
+    create a process model for an insurance claim
+  time:timestamp: '2026-04-07T15:17:17.393342+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-04-07T15:26:16.668184+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Claim Valid" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verify Claim Details</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Details Verified" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Process Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Notify Customer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Details Invalid" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Reject Claim</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Claim Invalid" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Reject Claim</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-07T15:26:16.668392+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete model
+  time:timestamp: '2026-04-07T15:26:16.669256+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-07T15:26:16.669471+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Submit Claim)
+    a1:task:(Submit Claim)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Claim Valid"|a5:task:(Verify Claim Details)
+    a5:task:(Verify Claim Details)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Details Verified"|a13:task:(Process Payment)
+    a13:task:(Process Payment)-->a17:task:(Notify Customer)
+    a17:task:(Notify Customer)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Details Invalid"|a7:task:(Reject Claim)
+    a7:task:(Reject Claim)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Claim Invalid"|a7:task:(Reject Claim)
+    a7:task:(Reject Claim)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-07T15:26:16.669780+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2026-04-07T15:26:16.669953+02:00'
+---
+event:
+  concept:instance: 8798
+  id:id: ex-ante
+  cpee:instance: f78e28f6-2eed-4aca-bdbc-4af454f46ada
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-04-07T15:26:16.670046+02:00'

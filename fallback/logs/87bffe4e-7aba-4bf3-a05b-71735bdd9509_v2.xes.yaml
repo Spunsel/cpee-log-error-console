@@ -1,0 +1,725 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9024
+    cpee:name: Plain Instance
+    cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-11T16:32:20.024552+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Visit Bank Website</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Fill Application Form</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Form Incomplete" a:alt_id="3" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Request Additional Info</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Fill Application Form</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Verify Identity</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="5">
+          <alternative condition="Identity Verified" language="text/javascript">
+            <call id="a13" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Approve Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a17" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Create Account</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Identity Not Verified" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Reject Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: d8aa0e71bc5a3271c54201561d47872a44d6a3a3
+  time:timestamp: '2026-04-11T16:33:12.758480+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d8aa0e71bc5a3271c54201561d47872a44d6a3a3
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-11T16:33:12.758679+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d8aa0e71bc5a3271c54201561d47872a44d6a3a3
+  cpee:exposition: |+
+    # User Input:
+    Design a customer journey for creating a bank account.Â 
+
+  time:timestamp: '2026-04-11T16:33:12.759120+02:00'
+...
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d8aa0e71bc5a3271c54201561d47872a44d6a3a3
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-11T16:33:12.759292+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d8aa0e71bc5a3271c54201561d47872a44d6a3a3
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-11T16:33:12.759380+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d8aa0e71bc5a3271c54201561d47872a44d6a3a3
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Visit Bank Website)
+      2:task:(Fill Application Form)
+      3:exclusivegateway:{x}
+      4:task:(Verify Identity)
+      5:exclusivegateway:{x}
+      6:task:(Approve Application)
+      7:task:(Create Account)
+      8:endevent:(((End)))
+      9:task:(Request Additional Info)
+      10:task:(Reject Application)
+
+      0:startevent:((Start)) --> 1:task:(Visit Bank Website)
+      1:task:(Visit Bank Website) --> 2:task:(Fill Application Form)
+      2:task:(Fill Application Form) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Form Complete| 4:task:(Verify Identity)
+      3:exclusivegateway:{x} --> |Form Incomplete| 9:task:(Request Additional Info)
+      4:task:(Verify Identity) --> 5:exclusivegateway:{x}
+      5:exclusivegateway:{x} --> |Identity Verified| 6:task:(Approve Application)
+      5:exclusivegateway:{x} --> |Identity Not Verified| 10:task:(Reject Application)
+      6:task:(Approve Application) --> 7:task:(Create Account)
+      7:task:(Create Account) --> 8:endevent:(((End)))
+      9:task:(Request Additional Info) --> 2:task:(Fill Application Form)
+      10:task:(Reject Application) --> 8:endevent:(((End)))
+    ```
+  time:timestamp: '2026-04-11T16:33:12.759460+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d8aa0e71bc5a3271c54201561d47872a44d6a3a3
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Visit Bank Website</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Fill Application Form</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Form Incomplete" a:alt_id="3" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Request Additional Info</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Fill Application Form</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Verify Identity</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="5">
+          <alternative condition="Identity Verified" language="text/javascript">
+            <call id="a13" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Approve Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a17" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Create Account</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Identity Not Verified" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Reject Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-11T16:33:12.759547+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Visit Bank Website</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="3">
+          <alternative condition="true" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Fill Application Form</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="0">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="5">
+                  <alternative condition="">
+                    <call id="a19" endpoint="" a:alt_id="8">
+                      <parameters>
+                        <label>Verify Identity</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="9">
+                      <alternative condition="Identity Verified" language="text/javascript">
+                        <call id="a23" endpoint="" a:alt_id="10">
+                          <parameters>
+                            <label>Approve Application</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="11">
+                          <alternative condition="Account Number Available" language="text/javascript">
+                            <call id="a27" endpoint="" a:alt_id="12">
+                              <parameters>
+                                <label>Create Account</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="Account Number Taken" language="text/javascript">
+                            <call id="a31" endpoint="" a:alt_id="14">
+                              <parameters>
+                                <label>Request New Account Number</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a23" endpoint="" a:alt_id="10">
+                              <parameters>
+                                <label>Approve Application</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <escape a:alt_id="-1"/>
+                          </alternative>
+                        </choose>
+                      </alternative>
+                      <alternative condition="Identity Not Verified" language="text/javascript">
+                        <call id="a35" endpoint="" a:alt_id="15">
+                          <parameters>
+                            <label>Reject Application</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition="Form Incomplete" language="text/javascript">
+                    <call id="a11" endpoint="" a:alt_id="6">
+                      <parameters>
+                        <label>Request Additional Info</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a7" endpoint="" a:alt_id="4">
+                      <parameters>
+                        <label>Fill Application Form</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition=""/>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: 3e3a70c356f68813ea773391ff7ff612357eae7d
+  time:timestamp: '2026-04-11T16:34:11.249161+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3e3a70c356f68813ea773391ff7ff612357eae7d
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Visit Bank Website</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Fill Application Form</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Form Incomplete" a:alt_id="3" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Request Additional Info</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Fill Application Form</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Verify Identity</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="5">
+          <alternative condition="Identity Verified" language="text/javascript">
+            <call id="a13" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Approve Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a17" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Create Account</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Identity Not Verified" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Reject Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-11T16:34:11.249383+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3e3a70c356f68813ea773391ff7ff612357eae7d
+  cpee:exposition: |-
+    # User Input:
+    for creating the account we have to check if the account number is already taken
+  time:timestamp: '2026-04-11T16:34:11.249480+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3e3a70c356f68813ea773391ff7ff612357eae7d
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-11T16:34:11.249554+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3e3a70c356f68813ea773391ff7ff612357eae7d
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Visit Bank Website)
+    a1:task:(Visit Bank Website)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Fill Application Form)
+    a3:task:(Fill Application Form)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a7:task:(Verify Identity)
+    a7:task:(Verify Identity)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Identity Verified"|a13:task:(Approve Application)
+    a13:task:(Approve Application)-->a17:task:(Create Account)
+    a17:task:(Create Account)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Identity Not Verified"|a15:task:(Reject Application)
+    a15:task:(Reject Application)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Form Incomplete"|a9:task:(Request Additional Info)
+    a9:task:(Request Additional Info)-->a3:task:(Fill Application Form)
+    a3:task:(Fill Application Form)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-11T16:34:11.249623+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3e3a70c356f68813ea773391ff7ff612357eae7d
+  cpee:exposition: "%% Output Intermediate\ngraph LR\n0:startevent:((startevent))\n0:startevent:((startevent))
+    --> 1:task:(Visit Bank Website)\n1:task:(Visit Bank Website) --> 2:exclusivegateway:{x}\n2:exclusivegateway:{x}
+    --> 3:exclusivegateway:{x}\n3:exclusivegateway:{x} --> |\"true\"| 4:task:(Fill
+    Application Form)\n4:task:(Fill Application Form) --> 5:exclusivegateway:{x}\n5:exclusivegateway:{x}
+    --> |\"Form Incomplete\"| 6:task:(Request Additional Info)\n6:task:(Request Additional
+    Info) --> 4:task: \n4:task: --> -1:escalate:((^))\n-1:escalate:((^)) --> 7:exclusivegateway:{x}\n5:exclusivegateway:{x}
+    --> 8:task:(Verify Identity)\n8:task:(Verify Identity) --> 9:exclusivegateway:{x}\n9:exclusivegateway:{x}
+    --> |\"Identity Verified\"| 10:task:(Approve Application)\n10:task:(Approve Application)
+    --> 11:exclusivegateway:{x}\n11:exclusivegateway:{x} --> |\"Account Number Available\"|
+    12:task:(Create Account)\n12:task:(Create Account) --> 13:exclusivegateway:{x}\n11:exclusivegateway:{x}
+    --> |\"Account Number Taken\"| 14:task:(Request New Account Number)\n14:task:(Request
+    New Account Number) --> 10:task: \n9:exclusivegateway:{x} --> |\"Identity Not
+    Verified\"| 15:task:(Reject Application)\n15:task:(Reject Application) --> 13:exclusivegateway:{x}\n13:exclusivegateway:{x}
+    --> 7:exclusivegateway:{x}\n7:exclusivegateway:{x} --> 2:exclusivegateway:{x}\n3:exclusivegateway:{x}
+    --> ee:endevent:(((endevent)))"
+  time:timestamp: '2026-04-11T16:34:11.250260+02:00'
+---
+event:
+  concept:instance: 9024
+  id:id: ex-ante
+  cpee:instance: 87bffe4e-7aba-4bf3-a05b-71735bdd9509
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3e3a70c356f68813ea773391ff7ff612357eae7d
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Visit Bank Website</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="3">
+          <alternative condition="true" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Fill Application Form</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="0">
+              <alternative condition="">
+                <choose mode="exclusive" a:alt_id="5">
+                  <alternative condition="">
+                    <call id="a19" endpoint="" a:alt_id="8">
+                      <parameters>
+                        <label>Verify Identity</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="9">
+                      <alternative condition="Identity Verified" language="text/javascript">
+                        <call id="a23" endpoint="" a:alt_id="10">
+                          <parameters>
+                            <label>Approve Application</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <choose mode="exclusive" a:alt_id="11">
+                          <alternative condition="Account Number Available" language="text/javascript">
+                            <call id="a27" endpoint="" a:alt_id="12">
+                              <parameters>
+                                <label>Create Account</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                          </alternative>
+                          <alternative condition="Account Number Taken" language="text/javascript">
+                            <call id="a31" endpoint="" a:alt_id="14">
+                              <parameters>
+                                <label>Request New Account Number</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <call id="a23" endpoint="" a:alt_id="10">
+                              <parameters>
+                                <label>Approve Application</label>
+                                <method/>
+                                <type>:task</type>
+                                <arguments/>
+                              </parameters>
+                            </call>
+                            <escape a:alt_id="-1"/>
+                          </alternative>
+                        </choose>
+                      </alternative>
+                      <alternative condition="Identity Not Verified" language="text/javascript">
+                        <call id="a35" endpoint="" a:alt_id="15">
+                          <parameters>
+                            <label>Reject Application</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition="Form Incomplete" language="text/javascript">
+                    <call id="a11" endpoint="" a:alt_id="6">
+                      <parameters>
+                        <label>Request Additional Info</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a7" endpoint="" a:alt_id="4">
+                      <parameters>
+                        <label>Fill Application Form</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition=""/>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-11T16:34:11.250443+02:00'

@@ -1,0 +1,305 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9130
+    cpee:name: Plain Instance
+    cpee:instance: ba37c7ed-f9f7-45bb-af7c-686e494bad24
+---
+event:
+  concept:instance: 9130
+  id:id: ex-ante
+  cpee:instance: ba37c7ed-f9f7-45bb-af7c-686e494bad24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-13T10:32:17.617897+02:00'
+---
+event:
+  concept:instance: 9130
+  id:id: ex-ante
+  cpee:instance: ba37c7ed-f9f7-45bb-af7c-686e494bad24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Rental Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Car Available" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Check Car Availability</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Payment Successful" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Process Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Prepare Rental Agreement</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Confirm Booking</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Hand Over Car</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Payment Failed" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Notify Customer of Unavailability</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Car Not Available" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Notify Customer of Unavailability</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: b8797565f741e8ef6328a467476f188c9aa1b92c
+  time:timestamp: '2026-04-13T10:35:15.004916+02:00'
+---
+event:
+  concept:instance: 9130
+  id:id: ex-ante
+  cpee:instance: ba37c7ed-f9f7-45bb-af7c-686e494bad24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8797565f741e8ef6328a467476f188c9aa1b92c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-13T10:35:15.006073+02:00'
+---
+event:
+  concept:instance: 9130
+  id:id: ex-ante
+  cpee:instance: ba37c7ed-f9f7-45bb-af7c-686e494bad24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8797565f741e8ef6328a467476f188c9aa1b92c
+  cpee:exposition: |-
+    # User Input:
+    Create a process model for a car rental
+  time:timestamp: '2026-04-13T10:35:15.006179+02:00'
+---
+event:
+  concept:instance: 9130
+  id:id: ex-ante
+  cpee:instance: ba37c7ed-f9f7-45bb-af7c-686e494bad24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8797565f741e8ef6328a467476f188c9aa1b92c
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-13T10:35:15.006264+02:00'
+---
+event:
+  concept:instance: 9130
+  id:id: ex-ante
+  cpee:instance: ba37c7ed-f9f7-45bb-af7c-686e494bad24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8797565f741e8ef6328a467476f188c9aa1b92c
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-13T10:35:15.006340+02:00'
+---
+event:
+  concept:instance: 9130
+  id:id: ex-ante
+  cpee:instance: ba37c7ed-f9f7-45bb-af7c-686e494bad24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8797565f741e8ef6328a467476f188c9aa1b92c
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((Start))
+    1:task:(Receive Rental Request)
+    2:exclusivegateway:{x}
+    3:task:(Check Car Availability)
+    4:exclusivegateway:{x}
+    5:task:(Process Payment)
+    6:task:(Prepare Rental Agreement)
+    7:task:(Hand Over Car)
+    8:endevent:(((End)))
+    9:task:(Notify Customer of Unavailability)
+    10:task:(Confirm Booking)
+
+    0:startevent:((Start)) --> 1:task:(Receive Rental Request)
+    1:task:(Receive Rental Request) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Car Available| 3:task:(Check Car Availability)
+    2:exclusivegateway:{x} --> |Car Not Available| 9:task:(Notify Customer of Unavailability)
+    3:task:(Check Car Availability) --> 4:exclusivegateway:{x}
+    9:task:(Notify Customer of Unavailability) --> 8:endevent:(((End))
+    4:exclusivegateway:{x} --> |Payment Successful| 5:task:(Process Payment)
+    4:exclusivegateway:{x} --> |Payment Failed| 9:task:(Notify Customer of Unavailability)
+    5:task:(Process Payment) --> 6:task:(Prepare Rental Agreement)
+    6:task:(Prepare Rental Agreement) --> 10:task:(Confirm Booking)
+    10:task:(Confirm Booking) --> 7:task:(Hand Over Car)
+    7:task:(Hand Over Car) --> 8:endevent:(((End)))
+    ```
+  time:timestamp: '2026-04-13T10:35:15.006426+02:00'
+---
+event:
+  concept:instance: 9130
+  id:id: ex-ante
+  cpee:instance: ba37c7ed-f9f7-45bb-af7c-686e494bad24
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b8797565f741e8ef6328a467476f188c9aa1b92c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Rental Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Car Available" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Check Car Availability</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Payment Successful" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Process Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Prepare Rental Agreement</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Confirm Booking</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Hand Over Car</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Payment Failed" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Notify Customer of Unavailability</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Car Not Available" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Notify Customer of Unavailability</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-13T10:35:15.006523+02:00'

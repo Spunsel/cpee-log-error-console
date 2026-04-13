@@ -1,0 +1,245 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9159
+    cpee:name: Plain Instance
+    cpee:instance: 6cdd350e-9314-4f7d-8a1d-c6326a9ec0d7
+---
+event:
+  concept:instance: 9159
+  id:id: ex-ante
+  cpee:instance: 6cdd350e-9314-4f7d-8a1d-c6326a9ec0d7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-13T10:36:36.450228+02:00'
+---
+event:
+  concept:instance: 9159
+  id:id: ex-ante
+  cpee:instance: 6cdd350e-9314-4f7d-8a1d-c6326a9ec0d7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Desk Reservation Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Large Reservation" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Check Free Space and Personnel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Enough Space and Personnel" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Reserve Desk</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Not Enough Space or Personnel" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Reject Reservation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Small Reservation" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Reserve Desk</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: cd6d9a8d8321933fbb793f65010e858408c490be
+  time:timestamp: '2026-04-13T10:37:58.589103+02:00'
+---
+event:
+  concept:instance: 9159
+  id:id: ex-ante
+  cpee:instance: 6cdd350e-9314-4f7d-8a1d-c6326a9ec0d7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cd6d9a8d8321933fbb793f65010e858408c490be
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-13T10:37:58.589315+02:00'
+---
+event:
+  concept:instance: 9159
+  id:id: ex-ante
+  cpee:instance: 6cdd350e-9314-4f7d-8a1d-c6326a9ec0d7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cd6d9a8d8321933fbb793f65010e858408c490be
+  cpee:exposition: |+
+    # User Input:
+    make a bpmn model for campus cneipe c2 modeling the process of as desk reservation including checking for large reservation if their is enough free space and personal availableÂ 
+
+  time:timestamp: '2026-04-13T10:37:58.589839+02:00'
+...
+---
+event:
+  concept:instance: 9159
+  id:id: ex-ante
+  cpee:instance: 6cdd350e-9314-4f7d-8a1d-c6326a9ec0d7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cd6d9a8d8321933fbb793f65010e858408c490be
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-13T10:37:58.590001+02:00'
+---
+event:
+  concept:instance: 9159
+  id:id: ex-ante
+  cpee:instance: 6cdd350e-9314-4f7d-8a1d-c6326a9ec0d7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cd6d9a8d8321933fbb793f65010e858408c490be
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-13T10:37:58.590227+02:00'
+---
+event:
+  concept:instance: 9159
+  id:id: ex-ante
+  cpee:instance: 6cdd350e-9314-4f7d-8a1d-c6326a9ec0d7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cd6d9a8d8321933fbb793f65010e858408c490be
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Desk Reservation Request)
+        1:task:(Desk Reservation Request) --> 2:exclusivegateway:{x}
+        2:exclusivegateway:{x} --> |Large Reservation| 3:task:(Check Free Space and Personnel)
+        2:exclusivegateway:{x} --> |Small Reservation| 6:task:(Reserve Desk)
+        3:task:(Check Free Space and Personnel) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Enough Space and Personnel| 6:task:(Reserve Desk)
+        4:exclusivegateway:{x} --> |Not Enough Space or Personnel| 5:task:(Reject Reservation)
+        5:task:(Reject Reservation) --> 7:exclusivegateway:{x}
+        6:task:(Reserve Desk) --> 7:exclusivegateway:{x}
+        7:exclusivegateway:{x} --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-13T10:37:58.592719+02:00'
+---
+event:
+  concept:instance: 9159
+  id:id: ex-ante
+  cpee:instance: 6cdd350e-9314-4f7d-8a1d-c6326a9ec0d7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: cd6d9a8d8321933fbb793f65010e858408c490be
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Desk Reservation Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Large Reservation" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Check Free Space and Personnel</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Enough Space and Personnel" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Reserve Desk</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Not Enough Space or Personnel" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Reject Reservation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Small Reservation" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Reserve Desk</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-13T10:37:58.593553+02:00'

@@ -184,20 +184,20 @@ event:
 
     <?xml version="1.0"?>
     <description xmlns="http://cpee.org/ns/description/1.0">
-      <call id="a1" endpoint="">
-        <parameters><label>A</label><method>:post</method><arguments/></parameters>
-      </call>
-      <loop mode="pre_test" condition="true">
-        <call id="a2" endpoint="">
-          <parameters><label>B</label><method>:post</method><arguments/></parameters>
-        </call>
-        <call id="a3" endpoint="">
-          <parameters><label>C</label><method>:post</method><arguments/></parameters>
-        </call>
-      </loop>
-      <call id="a99" endpoint="">
-        <parameters><label>D</label><method>:post</method><arguments/></parameters>
-      </call>
+    Â  <call id="a1" endpoint="">
+    Â  Â  <parameters><label>A</label><method>:post</method><arguments/></parameters>
+    Â  </call>
+    Â  <loop mode="pre_test" condition="true">
+    Â  Â  <call id="a2" endpoint="">
+    Â  Â  Â  <parameters><label>B</label><method>:post</method><arguments/></parameters>
+    Â  Â  </call>
+    Â  Â  <call id="a3" endpoint="">
+    Â  Â  Â  <parameters><label>C</label><method>:post</method><arguments/></parameters>
+    Â  Â  </call>
+    Â  </loop>
+    Â  <call id="a99" endpoint="">
+    Â  Â  <parameters><label>D</label><method>:post</method><arguments/></parameters>
+    Â  </call>
     </description>
   time:timestamp: '2026-04-05T01:04:00.782312+02:00'
 ---
@@ -17181,7 +17181,7 @@ event:
     loop start
     task b
     task c
-    loop end 
+    loop endÂ 
     task d
   time:timestamp: '2026-04-05T01:04:58.573162+02:00'
 ---
@@ -17507,7 +17507,7 @@ event:
     loop start
     task b
     task c
-    loop end 
+    loop endÂ 
     task d
   time:timestamp: '2026-04-05T01:06:57.079353+02:00'
 ---

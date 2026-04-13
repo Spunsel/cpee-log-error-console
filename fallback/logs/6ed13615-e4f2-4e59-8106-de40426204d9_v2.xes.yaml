@@ -1,0 +1,282 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 8883
+    cpee:name: Plain Instance
+    cpee:instance: 6ed13615-e4f2-4e59-8106-de40426204d9
+---
+event:
+  concept:instance: 8883
+  id:id: ex-ante
+  cpee:instance: 6ed13615-e4f2-4e59-8106-de40426204d9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-09T14:07:21.433791+02:00'
+---
+event:
+  concept:instance: 8883
+  id:id: ex-ante
+  cpee:instance: 6ed13615-e4f2-4e59-8106-de40426204d9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Boil Water with Salt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Add Spaghetti</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Cook Spaghetti</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Check if Al Dente</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="No" a:alt_id="5" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Cook Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Check if Al Dente</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Drain Spaghetti</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Serve with Sauce</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: '0738448c24cec1806d0d0b0b4f57e30ebcfdfbbf'
+  time:timestamp: '2026-04-09T14:07:56.833544+02:00'
+---
+event:
+  concept:instance: 8883
+  id:id: ex-ante
+  cpee:instance: 6ed13615-e4f2-4e59-8106-de40426204d9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0738448c24cec1806d0d0b0b4f57e30ebcfdfbbf'
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-09T14:07:56.834020+02:00'
+---
+event:
+  concept:instance: 8883
+  id:id: ex-ante
+  cpee:instance: 6ed13615-e4f2-4e59-8106-de40426204d9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0738448c24cec1806d0d0b0b4f57e30ebcfdfbbf'
+  cpee:exposition: |-
+    # User Input:
+    Spaghetti zu kochen ist einfach und schnell: Zuerst bringt man in einem groÃŸen Topf ausreichend Wasser mit etwas Salz zum Kochen. Sobald das Wasser sprudelt, gibt man die Spaghetti hinein und lÃ¤sst sie unter gelegentlichem UmrÃ¼hren garen. Nach etwa 8â€“10 Minuten (je nach Packungsangabe) sind sie â€žal denteâ€œ, also bissfest. AnschlieÃŸend gieÃŸt man die Nudeln in ein Sieb ab und kann sie direkt mit einer Sauce nach Wahl servieren.
+  time:timestamp: '2026-04-09T14:07:56.834182+02:00'
+---
+event:
+  concept:instance: 8883
+  id:id: ex-ante
+  cpee:instance: 6ed13615-e4f2-4e59-8106-de40426204d9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0738448c24cec1806d0d0b0b4f57e30ebcfdfbbf'
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-09T14:07:56.834479+02:00'
+---
+event:
+  concept:instance: 8883
+  id:id: ex-ante
+  cpee:instance: 6ed13615-e4f2-4e59-8106-de40426204d9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0738448c24cec1806d0d0b0b4f57e30ebcfdfbbf'
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-09T14:07:56.834736+02:00'
+---
+event:
+  concept:instance: 8883
+  id:id: ex-ante
+  cpee:instance: 6ed13615-e4f2-4e59-8106-de40426204d9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0738448c24cec1806d0d0b0b4f57e30ebcfdfbbf'
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((Start))
+      1:task:(Boil Water with Salt)
+      2:task:(Add Spaghetti)
+      3:task:(Cook Spaghetti)
+      4:task:(Check if Al Dente)
+      5:exclusivegateway:{x}
+      6:task:(Drain Spaghetti)
+      7:task:(Serve with Sauce)
+      8:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Boil Water with Salt)
+      1:task:(Boil Water with Salt) --> 2:task:(Add Spaghetti)
+      2:task:(Add Spaghetti) --> 3:task:(Cook Spaghetti)
+      3:task:(Cook Spaghetti) --> 4:task:(Check if Al Dente)
+      4:task:(Check if Al Dente) --> 5:exclusivegateway:{x}
+      5:exclusivegateway:{x} --> |Yes| 6:task:(Drain Spaghetti)
+      5:exclusivegateway:{x} --> |No| 3:task:(Cook Spaghetti)
+      6:task:(Drain Spaghetti) --> 7:task:(Serve with Sauce)
+      7:task:(Serve with Sauce) --> 8:endevent:(((End)))
+  time:timestamp: '2026-04-09T14:07:56.835002+02:00'
+---
+event:
+  concept:instance: 8883
+  id:id: ex-ante
+  cpee:instance: 6ed13615-e4f2-4e59-8106-de40426204d9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: '0738448c24cec1806d0d0b0b4f57e30ebcfdfbbf'
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Boil Water with Salt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Add Spaghetti</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Cook Spaghetti</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Check if Al Dente</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="No" a:alt_id="5" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Cook Spaghetti</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Check if Al Dente</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Drain Spaghetti</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Serve with Sauce</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-09T14:07:56.835133+02:00'
