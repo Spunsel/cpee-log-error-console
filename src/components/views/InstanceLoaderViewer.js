@@ -767,6 +767,9 @@ export class InstanceLoaderViewer {
         // Add filter input if not already present
         this.createKnownInstancesFilter(instanceListContainer);
         
+        // Clear any active filters so all instances are shown
+        this.clearKnownInstancesFilters(instanceListContainer);
+        
         // Create buttons for each process number
         processNumbers.forEach((processNumber) => {
             const box = document.createElement('div');
@@ -946,6 +949,36 @@ export class InstanceLoaderViewer {
         // Store references for later use
         this.knownInstancesFilterInput = input;
         this.knownInstancesErrorSelect = errorSelect;
+    }
+    
+    /**
+     * Reset both known-instances filters (text + error type) to their default state
+     * @param {HTMLElement} container - The instance list container
+     */
+    clearKnownInstancesFilters(container) {
+        if (!container) return;
+
+        const filterWrapper = container.querySelector('.known-instances-filter');
+        if (!filterWrapper) return;
+
+        const input = filterWrapper.querySelector('.search-input[type="text"]');
+        const errorSelect = filterWrapper.querySelector('.error-type-select');
+        const clearBtn = filterWrapper.querySelector('.text-filter-group .search-clear-btn');
+        const errorClearBtn = filterWrapper.querySelector('.error-filter-clear-btn');
+
+        if (input) {
+            input.value = '';
+        }
+        if (clearBtn) {
+            clearBtn.style.display = 'none';
+        }
+        if (errorSelect) {
+            errorSelect.value = '';
+            errorSelect.classList.remove('has-selection');
+        }
+        if (errorClearBtn) {
+            errorClearBtn.style.display = 'none';
+        }
     }
     
     /**
