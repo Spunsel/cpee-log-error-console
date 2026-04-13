@@ -206,11 +206,14 @@ class TraceSets {
         
         const branchStartIds = outgoingEdges.map(e => e.to);
         const joinGateway = MermaidTraceCalculator.findJoinGateway(graph, splitGatewayId, branchStartIds);
-        const branchTarget = joinGateway || targetNodeId;
+        const continuationPastJoin = Boolean(
+            joinGateway && MermaidTraceCalculator.pathExists(graph, joinGateway, targetNodeId)
+        );
+        const branchTarget = continuationPastJoin ? joinGateway : targetNodeId;
         
         const interleavedBranches = this.processBranches(graph, branchStartIds, branchTarget, currentFT, maxLoopIterations, timeoutChecker);
         
-        if (!joinGateway) {
+        if (!joinGateway || !continuationPastJoin) {
             return interleavedBranches.map(trace => [...currentFT, ...trace]);
         }
         
@@ -241,7 +244,10 @@ class TraceSets {
         
         const branchStartIds = outgoingEdges.map(e => e.to);
         const joinGateway = MermaidTraceCalculator.findJoinGateway(graph, splitGatewayId, branchStartIds);
-        const branchTarget = joinGateway || targetNodeId;
+        const continuationPastJoin = Boolean(
+            joinGateway && MermaidTraceCalculator.pathExists(graph, joinGateway, targetNodeId)
+        );
+        const branchTarget = continuationPastJoin ? joinGateway : targetNodeId;
         
         // Trace each branch once upfront
         const perBranchTraces = branchStartIds.map(id => {
@@ -280,7 +286,7 @@ class TraceSets {
             }
         }
         
-        if (!joinGateway) { return allTraces; }
+        if (!joinGateway || !continuationPastJoin) { return allTraces; }
         
         timeoutChecker.check();
         const joinTraces = this.forwardTrace(graph, joinGateway, targetNodeId, currentFT, maxLoopIterations, timeoutChecker);
