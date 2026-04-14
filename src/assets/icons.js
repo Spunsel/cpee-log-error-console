@@ -781,6 +781,20 @@ const ICON_SPEED_CONTROL = `
     </svg>
 `;
 
+/**
+ * Refresh icon - Circular arrow for page reload
+ * Represents reset/refresh functionality - 20x20px for header buttons
+ * Design: Circular arrow (reload)
+ */
+const ICON_REFRESH = `
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 2v6h-6"></path>
+        <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+        <path d="M3 22v-6h6"></path>
+        <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+    </svg>
+`;
+
 // ============================================
 // ICON REGISTRY
 // ============================================
@@ -840,7 +854,8 @@ export const ICONS = {
     MINIMAP: ICON_MINIMAP,
     PLAY_TRACE: ICON_PLAY_TRACE,
     PAUSE_TRACE: ICON_PAUSE_TRACE,
-    SPEED_CONTROL: ICON_SPEED_CONTROL
+    SPEED_CONTROL: ICON_SPEED_CONTROL,
+    REFRESH: ICON_REFRESH
 };
 
 /**

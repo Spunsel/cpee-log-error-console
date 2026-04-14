@@ -17,6 +17,7 @@ import { eventBus } from './EventBus.js';
 import { serviceFactory } from './ServiceFactory.js';
 import { stateManager } from './StateManager.js';
 import { URLManager } from '../utils/system/URLManager.js';
+import { ICONS } from '../assets/icons.js';
 
 export class CPEEDebugConsole {
     constructor() {
@@ -105,6 +106,21 @@ export class CPEEDebugConsole {
         const darkModeContainer = this.domRegistry.getElement('darkModeToggleContainer');
         if (darkModeContainer) {
             this.darkModeToggle.initialize(darkModeContainer);
+        }
+
+        // Mount refresh button in header (always visible)
+        const refreshBtnContainer = document.getElementById('refresh-btn-container');
+        if (refreshBtnContainer) {
+            const refreshBtn = document.createElement('button');
+            refreshBtn.id = 'refresh-btn';
+            refreshBtn.className = 'btn-icon-transparent';
+            refreshBtn.title = 'Reset Console';
+            refreshBtn.setAttribute('aria-label', 'Reset Console');
+            refreshBtn.innerHTML = ICONS.REFRESH;
+            refreshBtn.addEventListener('click', () => {
+                window.location.href = window.location.origin + window.location.pathname;
+            });
+            refreshBtnContainer.appendChild(refreshBtn);
         }
 
         // Mount demo tour button in header (shown only when instance loader is visible)
