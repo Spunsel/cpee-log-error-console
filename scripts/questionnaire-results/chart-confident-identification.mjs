@@ -84,7 +84,7 @@ function buildSvg(logData, consoleData, n) {
   parts.push(`</style>`);
   parts.push(`<rect width="${W}" height="${H}" fill="white"/>`);
 
-  parts.push(`<text x="${W / 2}" y="28" text-anchor="middle" class="title">Confident Error Identification</text>`);
+  parts.push(`<text x="${W / 2}" y="28" text-anchor="middle" class="title">Error Identification Confidence</text>`);
   parts.push(`<text x="${W / 2}" y="48" text-anchor="middle" class="subtitle">(aggregated across all three scenarios, n\u2009=\u2009${n})</text>`);
 
   const gridStep = Math.max(1, Math.ceil(maxVal / 5));

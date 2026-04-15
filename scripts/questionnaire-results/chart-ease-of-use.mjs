@@ -25,7 +25,7 @@ const THESIS_IMG = join(__dirname, '..', '..', '..', 'Thesis_Latex', 'img', 'que
 const PROCS = [9779, 9784, 140971];
 const LIKERT_MIN = -2;
 const LIKERT_MAX = 2;
-const LIKERT_LABELS = { '-2': '--', '-1': '-', '0': '0', '1': '+', '2': '++' };
+const LIKERT_LABELS = { '-2': 'very difficult', '-1': 'difficult', '0': 'neutral', '1': 'easy', '2': 'very easy' };
 const SCALE = 3;
 
 const FONT = "'Times New Roman', Times, serif";
@@ -65,7 +65,7 @@ function collectRatings(participants) {
 function buildSvg(ratings, n) {
   const W = 800;
   const H = 440;
-  const ML = 100, MR = 40, MT = 70, MB = 100;
+  const ML = 120, MR = 40, MT = 70, MB = 110;
   const plotW = W - ML - MR;
   const plotH = H - MT - MB;
 
@@ -88,13 +88,13 @@ function buildSvg(ratings, n) {
   parts.push(`</style>`);
   parts.push(`<rect width="${W}" height="${H}" fill="white"/>`);
 
-  parts.push(`<text x="${W / 2}" y="28" text-anchor="middle" class="title">Perceived Ease of Use: Raw Log File vs Debug Console</text>`);
+  parts.push(`<text x="${W / 2}" y="28" text-anchor="middle" class="title">Perceived Ease of Use</text>`);
   parts.push(`<text x="${W / 2}" y="48" text-anchor="middle" class="subtitle">(n\u2009=\u2009${n} participants with completed scenario answers)</text>`);
 
   for (let v = LIKERT_MIN; v <= LIKERT_MAX; v++) {
     const y = yScale(v);
     parts.push(`<line x1="${ML}" y1="${y}" x2="${ML + plotW}" y2="${y}" stroke="#e0e0e0" stroke-width="1.5"/>`);
-    parts.push(`<text x="${ML - 12}" y="${y + 5}" text-anchor="end" class="tick-label">${LIKERT_LABELS[String(v)]}</text>`);
+    parts.push(`<text x="${ML - 10}" y="${y + 5}" text-anchor="end" class="tick-label">${LIKERT_LABELS[String(v)]}</text>`);
   }
 
   const zeroY = yScale(0);
@@ -135,7 +135,7 @@ function buildSvg(ratings, n) {
       parts.push(`<circle cx="${consoleX + jitter(j, r.consoleVals.length)}" cy="${y}" r="5" fill="${COLOR_CONSOLE}" opacity="0.75"/>`);
     }
 
-    parts.push(`<text x="${cx}" y="${H - MB + 22}" text-anchor="middle" class="axis-label">Scenario ${r.proc}</text>`);
+    parts.push(`<text x="${cx}" y="${H - MB + 30}" text-anchor="middle" class="axis-label">Scenario ${r.proc}</text>`);
   }
 
   parts.push(`<text x="${ML / 2}" y="${MT + plotH / 2}" text-anchor="middle" class="axis-label" transform="rotate(-90, ${ML / 2}, ${MT + plotH / 2})">Rating</text>`);

@@ -31,8 +31,8 @@ const QUESTIONS = [
 ];
 
 const PALETTE = [
-  '#0065BD', '#64A0C8', '#E37222', '#A2AD00',
-  '#98C6EA', '#005293', '#DAD7CB', '#999999',
+  '#98C6EA', '#E8CBA8', '#D0D99A', '#DAD7CB',
+  '#B9D9F2', '#F2D0A9', '#C8CEA0', '#E5E3DA',
 ];
 
 const FONT = "'Times New Roman', Times, serif";
@@ -74,7 +74,7 @@ function buildSvg(participants) {
   parts.push(`<style>`);
   parts.push(`  .title { font: bold 20px ${FONT}; }`);
   parts.push(`  .row-label { font: 14px ${FONT}; fill: #333; }`);
-  parts.push(`  .bar-text { font: bold 11px ${FONT}; fill: white; }`);
+  parts.push(`  .bar-text { font: bold 11px ${FONT}; fill: #222; }`);
   parts.push(`</style>`);
   parts.push(`<rect width="${W}" height="${H}" fill="white"/>`);
   parts.push(`<text x="${W / 2}" y="30" text-anchor="middle" class="title">Participant Background (n\u2009=\u2009${n})</text>`);
