@@ -194,21 +194,12 @@ export class CPEEDebugConsole {
             this.returnToHome();
         });
 
-        // Instance loaded successfully
-        this.eventBus.on('instance:loaded', (data) => {
-            console.log(`Instance ${data.uuid} loaded successfully`);
-        });
-
         // Instance loading failed
         this.eventBus.on('instance:loadFailed', (data) => {
             console.error('Failed to load instance:', data.error);
             alert(`Failed to load instance: ${data.error.message}`);
         });
 
-        // Step display completed
-        this.eventBus.on('step:displayed', (data) => {
-            console.log(`Step ${data.stepIndex + 1} displayed for instance ${data.uuid}`);
-        });
     }
 
     /**
@@ -268,8 +259,6 @@ export class CPEEDebugConsole {
         const { source = 'auto' } = options;
         
         try {
-            console.log(`Loading instance: ${uuid} (source: ${source})`);
-            
             // Check if already loaded
             if (this.instanceService.hasInstance(uuid)) {
                 this.sidebar.addInstanceTab(uuid);
@@ -280,15 +269,7 @@ export class CPEEDebugConsole {
             const logResult = await this.logFetchService.fetchAndParseLog(uuid, { source });
             const logData = logResult.events;
             
-            if (logResult.fromFallback) {
-                console.log(`Loaded log from local fallback for UUID ${uuid}`);
-            } else {
-                console.log(`Loaded log from server for UUID ${uuid}`);
-            }
-            
             const steps = await this.stepAssemblyService.parseStepsFromLog(logData);
-            
-            console.log(`Found ${steps.length} steps`);
             
             if (steps.length === 0) {
                 alert(`No steps found in log for instance ${uuid}`);
@@ -339,8 +320,6 @@ export class CPEEDebugConsole {
      * @param {number} stepIndex - Step index (optional)
      */
     async displayInstance(uuid, stepIndex = 0) {
-        console.log(`Displaying instance: ${uuid}, step: ${stepIndex + 1}`);
-        
         // Hide raw log viewer when selecting an instance
         this.logViewer.hideRawLog();
         

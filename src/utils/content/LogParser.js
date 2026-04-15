@@ -58,8 +58,6 @@ export class LogParser {
 
         const xmlDoc = this.parseXML(xmlString);
         const jqueryXmlDoc = window.$(xmlDoc);
-        
-        console.log('📋 jQuery XML object created:', jqueryXmlDoc);
         return jqueryXmlDoc;
     }
 
@@ -78,7 +76,6 @@ export class LogParser {
         if (descElement.length === 0) {
             // Check if description is the root element
             if (xmlDoc.documentElement && xmlDoc.documentElement.tagName === 'description') {
-                console.log('📋 Description is root element');
                 return {
                     found: true,
                     isRoot: true,
@@ -94,7 +91,6 @@ export class LogParser {
                 };
             }
         } else {
-            console.log('📋 Found description as child element');
             return {
                 found: true,
                 isRoot: false,

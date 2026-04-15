@@ -70,8 +70,6 @@ export class CrossGraphHighlightCoordinator {
                 return;
             }
             
-            console.log('[CrossGraphHighlight] Received trace highlight request:', data);
-            
             // Set flag to indicate this is a trace highlight
             this.isTraceHighlight = true;
             
@@ -79,7 +77,6 @@ export class CrossGraphHighlightCoordinator {
             if (taskId && this.currentStepMapping) {
                 const task = this.currentStepMapping.getTask(taskId, sourceFormat);
                 if (task) {
-                    console.log('[CrossGraphHighlight] Found task in mapping by id:', taskId);
                     this.onTaskClicked(taskId, sourceFormat, sectionId);
                     return;
                 }
@@ -93,7 +90,6 @@ export class CrossGraphHighlightCoordinator {
                 for (const cpeeId of cpeeTaskIds) {
                     const cpeeTask = this.currentStepMapping.getTask(cpeeId, 'input-cpee');
                     if (cpeeTask && cpeeTask.id === altId) {
-                        console.log('[CrossGraphHighlight] Found input-cpee task by id (from trace alt_id):', altId, '-> CPEE id:', cpeeId);
                         // Use the CPEE task id for highlighting, but keep original source format for mapping
                         this.onTaskClicked(cpeeId, sourceFormat, sectionId);
                         return;
@@ -108,7 +104,6 @@ export class CrossGraphHighlightCoordinator {
                 for (const id of taskIds) {
                     const task = this.currentStepMapping.getTask(id, sourceFormat);
                     if (task && task.altId === altId) {
-                        console.log('[CrossGraphHighlight] Found task in mapping by altId:', altId, '-> id:', id);
                         this.onTaskClicked(id, sourceFormat, sectionId);
                         return;
                     }
@@ -118,14 +113,12 @@ export class CrossGraphHighlightCoordinator {
             // Last resort: use whatever ID we have
             const fallbackId = taskId || altId;
             if (fallbackId) {
-                console.log('[CrossGraphHighlight] Using fallback highlight with:', fallbackId);
                 this.onTaskClicked(fallbackId, sourceFormat, sectionId);
             }
         });
         
         // Listen for trace highlight clear requests
         this.eventBus.on('trace:highlight:clear', () => {
-            console.log('[CrossGraphHighlight] Received trace highlight clear request');
             // Don't emit event since TraceContentRenderer initiated the clear
             // Clear trace highlight tracking when explicitly clearing
             this.clearAllHighlights(false, true);
@@ -475,7 +468,6 @@ export class CrossGraphHighlightCoordinator {
             if (task) {
                 const isCpee = targetSection.includes('cpee');
                 const highlightId = isCpee ? (task.altId || task.id || baseTaskId) : (task.metadata?.fullId || task.id || baseTaskId);
-                console.log('[CrossGraphHighlight] Fallback highlight in', targetSection, ':', highlightId);
                 this.highlightInSection(targetSection, highlightId, false, task);
             }
         }
@@ -595,7 +587,6 @@ export class CrossGraphHighlightCoordinator {
             const isCPEESection = targetSection.includes('cpee');
             
             if (!container) {
-                console.log('[CrossGraphHighlight] No container for section:', targetSection);
                 continue;
             }
             

@@ -49,9 +49,6 @@ export class ContentVisualizationCoordinator {
         this.currentInputMermaidCode = null;
         this.currentOutputMermaidCode = null;
         
-        // Scale management - listen for scale changes to coordinate all renderers
-        this.setupScaleListener();
-        
         // Theme management - listen for theme changes to re-render CPEE graphs
         this.setupThemeListener();
         
@@ -69,16 +66,6 @@ export class ContentVisualizationCoordinator {
         
         // Current step reference for metadata
         this.currentStep = null;
-    }
-    
-    /**
-     * Setup event listener for scale changes
-     * Ensures scale coordination across all graph renderers
-     */
-    setupScaleListener() {
-        this.eventBus.on('scaleDisplay:scaleChanged', () => {
-            // Renderers handle scale updates automatically via their own listeners
-        });
     }
     
     /**
@@ -106,10 +93,7 @@ export class ContentVisualizationCoordinator {
      * Re-renders all graphs (CPEE and Mermaid) when dark mode toggles
      */
     setupDarkModeListener() {
-        this.eventBus.on('darkMode:toggled', async (data) => {
-            const isDark = data.isDark;
-            console.log(`[ContentVisualizationCoordinator] Dark mode toggled to ${isDark}, re-rendering all graphs...`);
-            
+        this.eventBus.on('darkMode:toggled', async (_data) => {
             // Re-render input CPEE graph if we have stored XML
             if (this.currentInputCpeeXml) {
                 await this.updateInputCpeeSection(this.currentInputCpeeXml);

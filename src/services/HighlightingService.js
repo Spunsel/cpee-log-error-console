@@ -494,61 +494,22 @@ export class HighlightingService {
             baseId = baseIdMatch[1];
         }
         
+        // Build Mermaid ID pattern arrays once, outside the node loops
+        const taskIdPatterns = HighlightingService._buildMermaidPatterns(taskId);
+        
         // Try pattern matching for Mermaid with the full taskId
-        // Support both task and gateway patterns
         for (const node of nodes) {
-            if (node.id) {
-                // Escape special regex characters in taskId
-                const escapedTaskId = taskId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                // Try various patterns that Mermaid might use for tasks and gateways
-                const patterns = [
-                    new RegExp(`^flowchart-${escapedTaskId}(?:-task-|:task:|-|$)`),
-                    new RegExp(`flowchart-${escapedTaskId}(?:-task-|:task:)`),
-                    new RegExp(`(?:^|-)${escapedTaskId}(?:-task-|:task:)`),
-                    new RegExp(`^${escapedTaskId}(?:-task-|:task:)`),
-                    new RegExp(`^flowchart-${escapedTaskId}(?:-exclusivegateway-|:exclusivegateway:|-|$)`),
-                    new RegExp(`flowchart-${escapedTaskId}(?:-exclusivegateway-|:exclusivegateway:)`),
-                    new RegExp(`(?:^|-)${escapedTaskId}(?:-exclusivegateway-|:exclusivegateway:)`),
-                    new RegExp(`^${escapedTaskId}(?:-exclusivegateway-|:exclusivegateway:)`),
-                    new RegExp(`^flowchart-${escapedTaskId}(?:-parallelgateway-|:parallelgateway:|-|$)`),
-                    new RegExp(`flowchart-${escapedTaskId}(?:-parallelgateway-|:parallelgateway:)`),
-                    new RegExp(`(?:^|-)${escapedTaskId}(?:-parallelgateway-|:parallelgateway:)`),
-                    new RegExp(`^${escapedTaskId}(?:-parallelgateway-|:parallelgateway:)`)
-                ];
-                
-                for (const pattern of patterns) {
-                    if (pattern.test(node.id)) {
-                        return node;
-                    }
-                }
+            if (node.id && taskIdPatterns.some(p => p.test(node.id))) {
+                return node;
             }
         }
         
         // Try pattern matching with base ID (if different from taskId)
         if (baseId !== taskId) {
+            const baseIdPatterns = HighlightingService._buildMermaidPatterns(baseId);
             for (const node of nodes) {
-                if (node.id) {
-                    const escapedBaseId = baseId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                    const patterns = [
-                        new RegExp(`^flowchart-${escapedBaseId}(?:-task-|:task:|-|$)`),
-                        new RegExp(`flowchart-${escapedBaseId}(?:-task-|:task:)`),
-                        new RegExp(`(?:^|-)${escapedBaseId}(?:-task-|:task:)`),
-                        new RegExp(`^${escapedBaseId}(?:-task-|:task:)`),
-                        new RegExp(`^flowchart-${escapedBaseId}(?:-exclusivegateway-|:exclusivegateway:|-|$)`),
-                        new RegExp(`flowchart-${escapedBaseId}(?:-exclusivegateway-|:exclusivegateway:)`),
-                        new RegExp(`(?:^|-)${escapedBaseId}(?:-exclusivegateway-|:exclusivegateway:)`),
-                        new RegExp(`^${escapedBaseId}(?:-exclusivegateway-|:exclusivegateway:)`),
-                        new RegExp(`^flowchart-${escapedBaseId}(?:-parallelgateway-|:parallelgateway:|-|$)`),
-                        new RegExp(`flowchart-${escapedBaseId}(?:-parallelgateway-|:parallelgateway:)`),
-                        new RegExp(`(?:^|-)${escapedBaseId}(?:-parallelgateway-|:parallelgateway:)`),
-                        new RegExp(`^${escapedBaseId}(?:-parallelgateway-|:parallelgateway:)`)
-                    ];
-                    
-                    for (const pattern of patterns) {
-                        if (pattern.test(node.id)) {
-                            return node;
-                        }
-                    }
+                if (node.id && baseIdPatterns.some(p => p.test(node.id))) {
+                    return node;
                 }
             }
         }
@@ -586,6 +547,31 @@ export class HighlightingService {
         }
         
         return null;
+    }
+
+    /**
+     * Build the array of Mermaid node-ID match patterns for a given identifier.
+     * Compiled once per findTaskInSVG call instead of per-node.
+     * @param {string} id - Raw task or gateway identifier
+     * @returns {RegExp[]}
+     */
+    static _buildMermaidPatterns(id) {
+        const esc = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const types = [
+            '-task-|:task:',
+            '-exclusivegateway-|:exclusivegateway:',
+            '-parallelgateway-|:parallelgateway:'
+        ];
+        const patterns = [];
+        for (const t of types) {
+            patterns.push(
+                new RegExp(`^flowchart-${esc}(?:${t}|-|$)`),
+                new RegExp(`flowchart-${esc}(?:${t})`),
+                new RegExp(`(?:^|-)${esc}(?:${t})`),
+                new RegExp(`^${esc}(?:${t})`)
+            );
+        }
+        return patterns;
     }
 
     /**

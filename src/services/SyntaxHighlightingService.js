@@ -11,6 +11,7 @@ export class SyntaxHighlightingService {
     constructor(eventBus = null) {
         this.initialized = false;
         this.mutationObserver = null;
+        this._pendingHighlightRAF = null;
         this.eventBus = eventBus || defaultEventBus;
     }
 
@@ -267,9 +268,14 @@ export class SyntaxHighlightingService {
             setTimeout(highlightMermaidBlocks, 100);
         }
         
-        // Watch for dynamically added Mermaid blocks
+        // Watch for dynamically added Mermaid blocks (coalesced to once per frame)
         this.mutationObserver = new MutationObserver(() => {
-            highlightMermaidBlocks();
+            if (!this._pendingHighlightRAF) {
+                this._pendingHighlightRAF = requestAnimationFrame(() => {
+                    this._pendingHighlightRAF = null;
+                    highlightMermaidBlocks();
+                });
+            }
         });
         this.mutationObserver.observe(document.body, { childList: true, subtree: true });
     }
@@ -418,6 +424,10 @@ export class SyntaxHighlightingService {
      * Destroy the service and clean up resources
      */
     destroy() {
+        if (this._pendingHighlightRAF) {
+            cancelAnimationFrame(this._pendingHighlightRAF);
+            this._pendingHighlightRAF = null;
+        }
         if (this.mutationObserver) {
             this.mutationObserver.disconnect();
             this.mutationObserver = null;

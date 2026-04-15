@@ -105,15 +105,22 @@ export class StepViewer {
             this.highlightCoordinator.onStepChanged();
         }
 
-        // Keep process analysis section hidden until all DOM elements are ready
         const loadSection = document.querySelector('.load-single-instance-section');
         if (loadSection) {
             loadSection.classList.add('hidden');
         }
-        // DO NOT show processAnalysis yet - will be shown after all setup is complete
 
-        // Update step header (can be done while hidden)
+        // Update step header before showing (lightweight, no layout dependency)
         this.updateStepHeader(step, navInfo);
+
+        // Remove display:none so the container participates in layout (WfAdaptor
+        // needs measurable dimensions), but keep it invisible to avoid flashing
+        // partially constructed DOM.
+        const processAnalysis = this.domRegistry.getElementSafe('processAnalysis');
+        this.domRegistry.removeClass('processAnalysis', 'hidden');
+        if (processAnalysis) {
+            processAnalysis.style.visibility = 'hidden';
+        }
 
         // Set current step mapping for highlighting
         if (this.highlightCoordinator && step.hasTaskMapping()) {
@@ -149,14 +156,10 @@ export class StepViewer {
             this.navigator.updateMetadataDisplay(step);
         }
 
-        // Wait for DOM elements to be ready before showing
-        // Single requestAnimationFrame is sufficient (~16ms vs ~48-64ms with triple)
-        await new Promise(resolve => {
-            requestAnimationFrame(resolve);
-        });
-
-        // Now that all DOM elements are ready and formatted correctly, show the step viewer
-        this.domRegistry.removeClass('processAnalysis', 'hidden');
+        // All content is rendered — reveal the container
+        if (processAnalysis) {
+            processAnalysis.style.visibility = '';
+        }
     }
 
     /**
