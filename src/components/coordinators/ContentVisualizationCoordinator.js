@@ -567,29 +567,18 @@ export class ContentVisualizationCoordinator {
             return;
         }
 
-        // Get the section element
         const sectionElement = this.domRegistry?.getElementSafe(sectionId) || document.getElementById(sectionId);
         if (!sectionElement) {
             return;
         }
 
-        // Find the section header
-        const sectionHeader = sectionElement.querySelector('h3');
-        if (!sectionHeader) {
-            return;
-        }
-
-        // Get or create action bar row
-        let actionBarRow = sectionElement.querySelector('.action-bar-row');
-        if (!actionBarRow) {
-            actionBarRow = document.createElement('div');
-            actionBarRow.className = 'action-bar-row';
-            sectionHeader.insertAdjacentElement('afterend', actionBarRow);
-        }
-
-        // Check if we already have an action bar for this section
+        // Create the ActionBar instance if it doesn't exist yet, but do NOT
+        // attach it to the DOM here. Attachment is handled exclusively by
+        // restoreVisualContent() when the visual/graph view becomes active.
+        // This prevents the graph action bar from contaminating the action-bar-row
+        // owned by raw/cleaned/trace renderers during background re-renders
+        // (e.g. on dark-mode toggle).
         let actionBar = this.graphActionBars.get(sectionId);
-        
         if (!actionBar) {
             actionBar = new ActionBar(this.domRegistry, null, sectionId, {
                 showSearch: false,
@@ -598,24 +587,10 @@ export class ContentVisualizationCoordinator {
                 showExportSVG: true
             });
             this.graphActionBars.set(sectionId, actionBar);
-            actionBar.attachToContainer(actionBarRow);
-        } else if (!actionBar.isAttachedTo(actionBarRow)) {
-            actionBar.removeFromDOM();
-            // If another renderer already placed an action-bar-right in the row,
-            // merge our export-SVG container into it instead of appending a second one.
-            const existingRight = actionBarRow.querySelector('.action-bar-right');
-            if (existingRight && actionBar.exportSVGButtonContainer) {
-                existingRight.appendChild(actionBar.exportSVGButtonContainer);
-                actionBar.rightElement = existingRight;
-            } else {
-                actionBar.appendToContainer(actionBarRow);
-            }
         }
 
-        // Update action bar with current graph container and metadata
         actionBar.setGraphContainer(graphContainer);
 
-        // Get instance info for filename
         try {
             const instanceService = serviceFactory.get('InstanceService');
             const currentInstance = instanceService.getCurrentInstance();
@@ -626,7 +601,49 @@ export class ContentVisualizationCoordinator {
             console.warn('ContentVisualizationCoordinator: Could not get instance info for export filename', error);
         }
 
-        // Show action bar row and action bar
+        // Only attach to the DOM if the visual/graph view is currently active.
+        // If a raw/cleaned/traces/analysis container is visible, the graph was
+        // re-rendered in the background (e.g. dark-mode toggle) and we must NOT
+        // touch the action-bar-row owned by the active content renderer.
+        const contentBox = sectionElement.querySelector('.content-box');
+        const nonVisualVisible = contentBox?.querySelector(
+            '[data-content-type="raw"]:not([style*="display: none"]):not([style*="display:none"]),' +
+            '[data-content-type="traces"]:not([style*="display: none"]):not([style*="display:none"])'
+        );
+        const analysisVisible = contentBox?.querySelector('.analysis-content-wrapper:not(.analysis-container-hidden)');
+        if (!nonVisualVisible && !analysisVisible) {
+            this._attachGraphActionBar(sectionId, sectionElement, actionBar);
+        }
+    }
+
+    /**
+     * Attach graph action bar to the section's action-bar-row.
+     * Clears any stale content from other renderers first.
+     * @private
+     */
+    _attachGraphActionBar(sectionId, sectionElement, actionBar) {
+        const sectionHeader = sectionElement.querySelector('h3');
+        if (!sectionHeader) { return; }
+
+        let actionBarRow = sectionElement.querySelector('.action-bar-row');
+        if (!actionBarRow) {
+            actionBarRow = document.createElement('div');
+            actionBarRow.className = 'action-bar-row';
+            sectionHeader.insertAdjacentElement('afterend', actionBarRow);
+        } else {
+            actionBarRow.innerHTML = '';
+        }
+
+        // attachToContainer recreates the internal DOM elements from scratch,
+        // so even if a previous innerHTML='' destroyed the old references
+        // the action bar will have fresh, attached elements.
+        actionBar.attachToContainer(actionBarRow, 'append');
+
+        // Re-apply graph container + metadata since createActionBar built new elements
+        if (actionBar.graphContainer) {
+            actionBar.updateExportSVGButton();
+        }
+
         actionBarRow.style.display = 'flex';
         actionBar.show();
     }
@@ -718,30 +735,7 @@ export class ContentVisualizationCoordinator {
         // Restore graph action bar if it exists for this section
         const actionBar = this.graphActionBars.get(sectionId);
         if (actionBar) {
-            // Find the section header
-            const sectionHeader = sectionElement.querySelector('h3');
-            if (sectionHeader) {
-                let actionBarRow = sectionElement.querySelector('.action-bar-row');
-                if (!actionBarRow) {
-                    actionBarRow = document.createElement('div');
-                    actionBarRow.className = 'action-bar-row';
-                    sectionHeader.insertAdjacentElement('afterend', actionBarRow);
-                }
-                
-                if (!actionBar.isAttachedTo(actionBarRow)) {
-                    actionBar.removeFromDOM();
-                    const existingRight = actionBarRow.querySelector('.action-bar-right');
-                    if (existingRight && actionBar.exportSVGButtonContainer) {
-                        existingRight.appendChild(actionBar.exportSVGButtonContainer);
-                        actionBar.rightElement = existingRight;
-                    } else {
-                        actionBar.appendToContainer(actionBarRow);
-                    }
-                }
-                
-                actionBarRow.style.display = 'flex';
-                actionBar.show();
-            }
+            this._attachGraphActionBar(sectionId, sectionElement, actionBar);
         }
     }
 
