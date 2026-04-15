@@ -236,12 +236,12 @@ export class RawContentRenderer {
     /**
      * Apply syntax highlighting.
      */
-    applySyntaxHighlighting(sectionId, rawContainer) {
+    async applySyntaxHighlighting(sectionId, rawContainer) {
         if (sectionId === 'user-input') { return; }
 
         try {
             const syntaxService = serviceFactory.get('SyntaxHighlightingService');
-            syntaxService.highlightCodeBlocks(rawContainer);
+            await syntaxService.highlightCodeBlocks(rawContainer);
         } catch (_) {
             try {
                 const sh = configManager.get('syntaxHighlighting', { enabled: true, highlightOnRender: true });

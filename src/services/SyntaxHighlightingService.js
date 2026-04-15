@@ -6,20 +6,64 @@
 
 import { configManager } from '../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../core/EventBus.js';
+import { LibraryLoader } from '../utils/system/LibraryLoader.js';
 
 export class SyntaxHighlightingService {
     constructor(eventBus = null) {
         this.initialized = false;
+        this._prismLoaded = false;
+        this._prismLoadPromise = null;
         this.mutationObserver = null;
         this._pendingHighlightRAF = null;
         this.eventBus = eventBus || defaultEventBus;
     }
 
     /**
+     * Load Prism.js core, autoloader, and theme CSS on demand.
+     * Safe to call multiple times — subsequent calls return the cached promise.
+     * @returns {Promise<void>}
+     */
+    async _loadPrism() {
+        if (this._prismLoaded) return;
+        if (this._prismLoadPromise) return this._prismLoadPromise;
+
+        this._prismLoadPromise = (async () => {
+            const sh = configManager.get('syntaxHighlighting', {});
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const themeUrl = isDark
+                ? 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css'
+                : (sh.themeUrl || 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css');
+
+            // Create the theme <link> that the rest of the app references by id
+            let themeLink = document.getElementById('prism-theme');
+            if (!themeLink) {
+                themeLink = document.createElement('link');
+                themeLink.id = 'prism-theme';
+                themeLink.rel = 'stylesheet';
+                themeLink.href = themeUrl;
+                document.head.appendChild(themeLink);
+            }
+
+            await LibraryLoader.loadScript(
+                'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js',
+                'prism-core'
+            );
+            await LibraryLoader.loadScript(
+                'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js',
+                'prism-autoloader'
+            );
+
+            this._prismLoaded = true;
+        })();
+
+        return this._prismLoadPromise;
+    }
+
+    /**
      * Initialize syntax highlighting service
      * Sets up Prism.js, applies theme, registers languages, and applies custom styling
      */
-    initialize() {
+    async initialize() {
         if (this.initialized) {
             return;
         }
@@ -30,6 +74,8 @@ export class SyntaxHighlightingService {
             if (!sh || !sh.enabled) {
                 return;
             }
+
+            await this._loadPrism();
 
             // Configure Prism autoloader
             this._configureAutoloader(sh);
@@ -286,10 +332,10 @@ export class SyntaxHighlightingService {
      * Excludes user input from syntax highlighting
      * @param {HTMLElement} container - Container element containing code blocks
      */
-    highlightCodeBlocks(container) {
+    async highlightCodeBlocks(container) {
         // Lazy initialization - initialize on first use if not already initialized
         if (!this.initialized) {
-            this.initialize();
+            await this.initialize();
         }
 
         if (!window.Prism || typeof window.Prism.highlightElement !== 'function') {

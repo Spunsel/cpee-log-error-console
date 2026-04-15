@@ -235,12 +235,12 @@ export class LogContentRenderer {
     /**
      * Apply syntax highlighting and mark preprocessing lines.
      */
-    applySyntaxHighlighting(sectionId, logContainer) {
+    async applySyntaxHighlighting(sectionId, logContainer) {
         if (sectionId === 'user-input') { return; }
 
         try {
             const syntaxService = serviceFactory.get('SyntaxHighlightingService');
-            syntaxService.highlightCodeBlocks(logContainer);
+            await syntaxService.highlightCodeBlocks(logContainer);
         } catch (_) {
             try {
                 const sh = configManager.get('syntaxHighlighting', { enabled: true, highlightOnRender: true });

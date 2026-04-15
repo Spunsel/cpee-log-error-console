@@ -12,15 +12,9 @@ import { serviceFactory } from './core/ServiceFactory.js';
 // Use StateManager to load persisted dark mode preference
 (function applyInitialDarkMode() {
     try {
-        // StateManager loads persisted state in constructor, so we can read it immediately
         const isDark = stateManager.getState('ui.darkMode') || false;
         if (isDark) {
             document.documentElement.setAttribute('data-theme', 'dark');
-            // Update Prism theme - use direct DOM access here since DOMRegistry may not be initialized yet
-            const prismThemeLink = document.getElementById('prism-theme');
-            if (prismThemeLink) {
-                prismThemeLink.href = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
-            }
         }
     } catch (error) {
         console.warn('Failed to apply initial dark mode:', error);
@@ -47,4 +41,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Initialize the application
     window.app = new CPEEDebugConsole();
+
+    // Preload Prism.js in a low-priority idle window so syntax highlighting
+    // is ready by the time the user first opens a raw/cleaned code view.
+    const preloadPrism = () => {
+        try {
+            const syntaxService = serviceFactory.get('SyntaxHighlightingService');
+            syntaxService.initialize();
+        } catch (_) { /* non-critical */ }
+    };
+    if (typeof requestIdleCallback === 'function') {
+        requestIdleCallback(preloadPrism);
+    } else {
+        setTimeout(preloadPrism, 200);
+    }
 });
