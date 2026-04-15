@@ -47,6 +47,45 @@ export class CPEEWfAdaptorRenderer {
     }
     
     /**
+     * Preload jQuery, WfAdaptor JS, base theme, and CSS in the background
+     * so the first graph render doesn't pay the network cost.
+     * Safe to call multiple times; no-ops if already loaded.
+     */
+    static async preloadDependencies() {
+        const cssPath = configManager.get('cpee.wfadaptor.cssPath');
+        const baseThemePath = configManager.get('cpee.wfadaptor.baseThemePath');
+        const wfadaptorPath = configManager.get('cpee.wfadaptor.wfadaptorPath');
+
+        // jQuery
+        await LibraryLoader.ensureLibrary(
+            'jQuery',
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
+            () => typeof $ !== 'undefined'
+        );
+        JQueryExtensions.initialize();
+
+        // WfAdaptor CSS (fire-and-forget, no onload needed)
+        if (!document.querySelector('link[href*="wfadaptor.css"]')) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = cssPath;
+            document.head.appendChild(link);
+        }
+
+        // Base theme + WfAdaptor JS in parallel
+        const scripts = [];
+        if (typeof WFAdaptorManifestationBase === 'undefined') {
+            scripts.push(LibraryLoader.loadScript(baseThemePath, 'wfadaptor-base'));
+        }
+        if (typeof WfAdaptor === 'undefined') {
+            scripts.push(LibraryLoader.loadScript(wfadaptorPath, 'wfadaptor'));
+        }
+        if (scripts.length > 0) {
+            await Promise.all(scripts);
+        }
+    }
+
+    /**
      * Initialize the CPEE WfAdaptor renderer
      * @param {string} containerId - ID of the container element
      */

@@ -7,6 +7,7 @@ import { CPEEDebugConsole } from './core/CPEEDebugConsole.js';
 import { ICONS } from './assets/icons.js';
 import { stateManager } from './core/StateManager.js';
 import { serviceFactory } from './core/ServiceFactory.js';
+import { CPEEWfAdaptorRenderer } from './components/renderers/CPEEWfAdaptorRenderer.js';
 
 // Apply dark mode immediately to prevent flash of wrong theme
 // Use StateManager to load persisted dark mode preference
@@ -42,17 +43,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initialize the application
     window.app = new CPEEDebugConsole();
 
-    // Preload Prism.js in a low-priority idle window so syntax highlighting
-    // is ready by the time the user first opens a raw/cleaned code view.
-    const preloadPrism = () => {
+    // Preload non-critical libraries in a low-priority idle window so they're
+    // already cached by the time the user first needs them.
+    const preloadLibraries = () => {
         try {
             const syntaxService = serviceFactory.get('SyntaxHighlightingService');
             syntaxService.initialize();
         } catch (_) { /* non-critical */ }
+
+        CPEEWfAdaptorRenderer.preloadDependencies().catch(() => { /* non-critical */ });
     };
     if (typeof requestIdleCallback === 'function') {
-        requestIdleCallback(preloadPrism);
+        requestIdleCallback(preloadLibraries);
     } else {
-        setTimeout(preloadPrism, 200);
+        setTimeout(preloadLibraries, 200);
     }
 });
