@@ -1493,3 +1493,30 @@ event:
     mimetype: application/json
     data: '{"CPEE-INSTANCE":"9426","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9426","CPEE-INSTANCE-UUID":"13ed52df-8ea9-42f6-a6a1-c5e714b4fbcc","CPEE-STATE":"running"}'
   time:timestamp: '2026-04-15T14:46:29.809126+02:00'
+---
+event:
+  concept:instance: 9423
+  id:id: ex-ante
+  cpee:instance: 9ba9dc52-f11d-4a99-99c7-a89255e662fe
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopping
+  time:timestamp: '2026-04-15T16:55:21.091361+02:00'
+---
+event:
+  concept:instance: 9423
+  id:id: ex-ante
+  cpee:instance: 9ba9dc52-f11d-4a99-99c7-a89255e662fe
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopped
+  time:timestamp: '2026-04-15T16:55:21.118953+02:00'
+---
+event:
+  concept:instance: 9423
+  id:id: ex-ante
+  cpee:instance: 9ba9dc52-f11d-4a99-99c7-a89255e662fe
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2026-04-15T16:55:21.682020+02:00'

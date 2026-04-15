@@ -6,7 +6,7 @@
 # with non-ASCII text is not corrupted on Windows (.NET Framework default encoding).
 
 # Process numbers to scan
-$processNumbers = @(9000..10000)
+$processNumbers = @(8000..11000)
 
 $questionnaireLink = "https://spunsel.github.io/cpee-log-error-console/"
 

@@ -16,9 +16,9 @@ import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const JSON_PATH = join(__dirname, 'questionnaire-answers.json');
+const JSON_PATH = join(__dirname, '..', 'questionnaire-answers.json');
 const OUT_PATH = join(__dirname, 'chart-error-heatmap.png');
-const THESIS_IMG = join(__dirname, '..', '..', '..', 'Thesis_Latex', 'img', 'questionnaire-analysis', 'chart-error-heatmap.png');
+const THESIS_IMG = join(__dirname, '..', '..', '..', '..', 'Thesis_Latex', 'img', 'questionnaire-analysis', 'chart-error-heatmap.png');
 
 const PROCS = [9779, 9784, 140971];
 const SCALE = 3;

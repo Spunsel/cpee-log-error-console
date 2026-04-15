@@ -17,9 +17,9 @@ import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const JSON_PATH = join(__dirname, 'questionnaire-answers.json');
+const JSON_PATH = join(__dirname, '..', 'questionnaire-answers.json');
 const OUT_PATH = join(__dirname, 'chart-demographics.png');
-const THESIS_IMG = join(__dirname, '..', '..', '..', 'Thesis_Latex', 'img', 'questionnaire-analysis', 'chart-demographics.png');
+const THESIS_IMG = join(__dirname, '..', '..', '..', '..', 'Thesis_Latex', 'img', 'questionnaire-analysis', 'chart-demographics.png');
 
 const QUESTIONS = [
   { key: 'What best describes your current role?', short: 'Current Role' },
