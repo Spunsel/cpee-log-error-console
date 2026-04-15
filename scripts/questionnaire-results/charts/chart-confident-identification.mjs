@@ -28,9 +28,9 @@ const FONT = "'Times New Roman', Times, serif";
 const SCALE = 3;
 
 const CAT_COLORS = {
-  Yes: '#A2AD00',
-  Unsure: '#0065BD',
-  No: '#E37222',
+  Yes: '#B5C272',
+  Unsure: '#72AADC',
+  No: '#D4AD82',
 };
 
 function loadAnswered(data) {
@@ -79,7 +79,7 @@ function buildSvg(logData, consoleData) {
   parts.push(`  .axis-label { font: 14px ${FONT}; fill: #333; }`);
   parts.push(`  .tick-label { font: 13px ${FONT}; fill: #333; }`);
   parts.push(`  .legend-text { font: 13px ${FONT}; fill: #333; }`);
-  parts.push(`  .bar-label { font: bold 14px ${FONT}; fill: white; }`);
+  parts.push(`  .bar-label { font: bold 14px ${FONT}; fill: #222; }`);
   parts.push(`</style>`);
   parts.push(`<rect width="${W}" height="${H}" fill="white"/>`);
 

@@ -31,8 +31,8 @@ const QUESTIONS = [
 ];
 
 const PALETTE = [
-  '#98C6EA', '#E8CBA8', '#D0D99A', '#DAD7CB',
-  '#B9D9F2', '#F2D0A9', '#C8CEA0', '#E5E3DA',
+  '#72AADC', '#D4AD82', '#B5C272', '#C4C0AE',
+  '#8BBCE0', '#DEBB90', '#A8B57E', '#D0CDC2',
 ];
 
 const FONT = "'Times New Roman', Times, serif";
@@ -98,8 +98,32 @@ function buildSvg(participants) {
       const color = PALETTE[j % PALETTE.length];
       parts.push(`<rect x="${cx}" y="${barY}" width="${segW}" height="${barH}" fill="${color}" rx="3"/>`);
       if (segW > 50) {
-        const txt = `${esc(label)} (${count})`;
-        parts.push(`<text x="${cx + segW / 2}" y="${barY + barH / 2 + 4}" text-anchor="middle" class="bar-text">${txt}</text>`);
+        const txt = `${label} (${count})`;
+        const charW = 6.2;
+        const availW = segW - 8;
+        if (txt.length * charW <= availW) {
+          parts.push(`<text x="${cx + segW / 2}" y="${barY + barH / 2 + 4}" text-anchor="middle" class="bar-text">${esc(txt)}</text>`);
+        } else {
+          const words = txt.split(' ');
+          let line1 = words[0];
+          let splitAt = 1;
+          for (let w = 1; w < words.length; w++) {
+            const candidate = line1 + ' ' + words[w];
+            if (candidate.length * charW <= availW) {
+              line1 = candidate;
+              splitAt = w + 1;
+            } else break;
+          }
+          const line2 = words.slice(splitAt).join(' ');
+          const midX = cx + segW / 2;
+          const midY = barY + barH / 2;
+          if (line2) {
+            parts.push(`<text x="${midX}" y="${midY - 2}" text-anchor="middle" class="bar-text">${esc(line1)}</text>`);
+            parts.push(`<text x="${midX}" y="${midY + 12}" text-anchor="middle" class="bar-text">${esc(line2)}</text>`);
+          } else {
+            parts.push(`<text x="${midX}" y="${midY + 4}" text-anchor="middle" class="bar-text">${esc(line1)}</text>`);
+          }
+        }
       }
       cx += segW;
     }

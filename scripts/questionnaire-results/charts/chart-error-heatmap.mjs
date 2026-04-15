@@ -162,7 +162,7 @@ function drawLegend(parts, items, ox, oy, heading) {
 
 function buildSvg(natureMatrix, causeMatrix) {
   const GAP = 60;
-  const ML = 30, MR = 30, MT = 52, MB = 12;
+  const ML = 30, MR = 30, MT = 60, MB = 12;
   const LEGEND_TOP = 20;
 
   const tmpParts = [];
