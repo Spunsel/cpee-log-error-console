@@ -112,9 +112,6 @@ export class InstanceLoaderViewer {
             this.isVisible = true;
         }
 
-        const tourBtn = document.getElementById('tour-btn-container');
-        if (tourBtn) tourBtn.style.display = '';
-        
         // Show advanced instance loading section
         const advancedInstanceLoading = document.querySelector('.advanced-instance-loading');
         if (advancedInstanceLoading) {
@@ -139,8 +136,6 @@ export class InstanceLoaderViewer {
             this.isVisible = false;
         }
 
-        const tourBtn = document.getElementById('tour-btn-container');
-        if (tourBtn) tourBtn.style.display = 'none';
     }
 
     /**

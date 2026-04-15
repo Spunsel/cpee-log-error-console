@@ -403,6 +403,8 @@ export class DemoTour {
 
     /* ── Public ──────────────────────────────────────────────────────────── */
 
+    static PENDING_KEY = 'cpee-tour-pending';
+
     mountButton(container) {
         if (!container) return;
         const btn = document.createElement('button');
@@ -414,6 +416,11 @@ export class DemoTour {
         btn.addEventListener('click', () => this._showConfirm());
         container.appendChild(btn);
         this._btn = btn;
+
+        if (sessionStorage.getItem(DemoTour.PENDING_KEY)) {
+            sessionStorage.removeItem(DemoTour.PENDING_KEY);
+            this._start();
+        }
     }
 
     end() {
@@ -454,7 +461,11 @@ export class DemoTour {
           </div>`;
         document.body.appendChild(bd);
         bd.querySelector('#_tc-cancel').onclick = () => bd.remove();
-        bd.querySelector('#_tc-start').onclick  = () => { bd.remove(); this._start(); };
+        bd.querySelector('#_tc-start').onclick  = () => {
+            bd.remove();
+            sessionStorage.setItem(DemoTour.PENDING_KEY, '1');
+            window.location.href = window.location.origin + window.location.pathname;
+        };
     }
 
     /* ── Lifecycle ───────────────────────────────────────────────────────── */
