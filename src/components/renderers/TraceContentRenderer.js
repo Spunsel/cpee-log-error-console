@@ -324,7 +324,10 @@ export class TraceContentRenderer {
     }
 
     /**
-     * Render traces into a container element (merged from TraceRenderer)
+     * Render traces into a container element.
+     * The first CHUNK_SIZE items are rendered immediately so the user sees content
+     * without delay; remaining items are appended in batches via requestAnimationFrame
+     * to keep the main thread responsive.
      * @param {Trace[]|Array} traces - Array of Trace objects or plain trace arrays
      * @param {HTMLElement} containerElement - Container to render into
      * @param {Object} options - Rendering options
@@ -339,7 +342,12 @@ export class TraceContentRenderer {
             highlightStartEnd = true
         } = options;
 
-        // Clear container
+        // Cancel any in-flight chunked render for this container
+        if (this._chunkedRenderRAF) {
+            cancelAnimationFrame(this._chunkedRenderRAF);
+            this._chunkedRenderRAF = null;
+        }
+
         containerElement.innerHTML = '';
 
         if (!traces || traces.length === 0) {
@@ -351,62 +359,75 @@ export class TraceContentRenderer {
             return;
         }
 
-        // Convert plain arrays to Trace objects if needed
         const traceObjects = traces.map((trace, index) => {
             if (trace instanceof Trace) {
                 return trace;
             }
-            // Assume it's a plain array of task objects
             if (Array.isArray(trace)) {
                 return new Trace(`trace-${index + 1}`, trace, 'sequential');
             }
-            // Assume it's a plain object with path property
             if (trace && trace.path) {
                 return Trace.fromObject(trace);
             }
             return null;
         }).filter(t => t !== null);
 
-        // Create trace list container
         const traceList = this.domRegistry.createElement('div', {
             className: 'trace-list'
         });
 
-        // Determine section pair for comparison results
-        // Note: sectionId is not directly available here, so we'll apply colors after rendering
-        // via updateTraceColorsForSectionPair when comparison results are available
-
-        // Find sectionId from container for trace highlighting
         const sectionElement = containerElement.closest('[id^="input-"], [id^="output-"]');
         const sectionId = sectionElement ? sectionElement.id : null;
 
-        // Render each trace
-        traceObjects.forEach((trace, index) => {
-            const traceItem = this.createTraceItem(trace, index + 1, {
-                showLabels,
-                expandable,
-                highlightStartEnd,
-                sectionId
-            });
-            traceList.appendChild(traceItem);
-        });
+        const CHUNK_SIZE = 50;
+        const itemOptions = { showLabels, expandable, highlightStartEnd, sectionId };
+        const sectionPair = sectionElement ? this.getSectionPair(sectionId) : null;
 
-        containerElement.appendChild(traceList);
-        
-        // Try to apply trace colors if comparison results are available
-        if (sectionElement) {
-            const sectionPair = this.getSectionPair(sectionId);
-            if (sectionPair) {
-                // Small delay to ensure DOM is ready
-                setTimeout(() => {
-                    this.updateTraceColorsForSectionPair(sectionPair);
-                }, 0);
+        // Render a chunk of traces into a DocumentFragment and append it
+        const renderChunk = (startIndex, endIndex) => {
+            const fragment = document.createDocumentFragment();
+            for (let i = startIndex; i < endIndex; i++) {
+                const traceItem = this.createTraceItem(traceObjects[i], i + 1, itemOptions);
+                fragment.appendChild(traceItem);
             }
+            traceList.appendChild(fragment);
+        };
+
+        // Apply comparison colors to newly-added trace items
+        const applyColors = () => {
+            if (sectionPair) {
+                this.updateTraceColorsForSectionPair(sectionPair);
+            }
+        };
+
+        // First chunk: render immediately so the viewport is populated
+        const firstEnd = Math.min(CHUNK_SIZE, traceObjects.length);
+        renderChunk(0, firstEnd);
+        containerElement.appendChild(traceList);
+        applyColors();
+
+        // Remaining chunks: yield to the browser between batches
+        if (firstEnd < traceObjects.length) {
+            let cursor = firstEnd;
+            const renderNextChunk = () => {
+                const end = Math.min(cursor + CHUNK_SIZE, traceObjects.length);
+                renderChunk(cursor, end);
+                applyColors();
+                cursor = end;
+                if (cursor < traceObjects.length) {
+                    this._chunkedRenderRAF = requestAnimationFrame(renderNextChunk);
+                } else {
+                    this._chunkedRenderRAF = null;
+                }
+            };
+            this._chunkedRenderRAF = requestAnimationFrame(renderNextChunk);
         }
     }
 
     /**
-     * Create a single trace item element (merged from TraceRenderer)
+     * Create a single trace item element.
+     * Only the header is rendered eagerly; the detail table is built lazily
+     * on first expand via renderTraceDetailTable().
      * @param {Trace} trace - Trace object
      * @param {number} traceNumber - Trace number (1-based)
      * @param {Object} options - Rendering options
@@ -435,12 +456,16 @@ export class TraceContentRenderer {
             textContent: `Trace ${traceNumber}`
         });
 
-        // Add reconciled class if trace is marked as reconciled
         if (trace.isReconciled) {
             traceNumberEl.classList.add('trace-number--reconciled');
         }
 
-        // Expand/collapse button (if expandable)
+        // Empty placeholder for details — content is rendered lazily on first expand
+        const traceDetails = this.domRegistry.createElement('div', {
+            className: 'trace-details'
+        });
+        let detailsRendered = false;
+
         if (expandable) {
             const expandBtn = this.domRegistry.createElement('button', {
                 className: 'trace-expand-btn',
@@ -453,6 +478,11 @@ export class TraceContentRenderer {
                 expandBtn.setAttribute('aria-expanded', !isExpanded);
                 expandBtn.innerHTML = isExpanded ? ICONS.EXPAND_TRACE : ICONS.COLLAPSE_TRACE;
                 traceDetails.classList.toggle('expanded', !isExpanded);
+
+                if (!isExpanded && !detailsRendered) {
+                    this.renderTraceDetailTable(traceDetails, trace, sectionId);
+                    detailsRendered = true;
+                }
             });
             traceHeader.appendChild(expandBtn);
         }
@@ -472,7 +502,7 @@ export class TraceContentRenderer {
         });
         traceHeader.appendChild(playBtn);
 
-        // Trace path preview (always visible) - show alt_ids sequence
+        // Trace path preview (always visible)
         const pathPreview = this.domRegistry.createElement('div', {
             className: 'trace-path-preview'
         });
@@ -488,101 +518,87 @@ export class TraceContentRenderer {
         traceHeader.appendChild(traceLengthEl);
 
         traceItem.appendChild(traceHeader);
+        traceItem.appendChild(traceDetails);
 
-        // Trace details (expandable) - show full trace as table
-        const traceDetails = this.domRegistry.createElement('div', {
-            className: 'trace-details'
-        });
+        return traceItem;
+    }
 
-        // Create table container
+    /**
+     * Lazily render the detail table for a trace (called on first expand).
+     * Uses event delegation: a single click listener on the tbody handles all row clicks.
+     * @param {HTMLElement} traceDetails - The .trace-details container to populate
+     * @param {Trace} trace - Trace object with path data
+     * @param {string|null} sectionId - Section identifier for highlight coordination
+     */
+    renderTraceDetailTable(traceDetails, trace, sectionId) {
         const tableContainer = this.domRegistry.createElement('div', {
             className: 'traces-table-container'
         });
 
-        // Create table
         const table = this.domRegistry.createElement('table', {
             className: 'traces-table'
         });
 
-        // Create table header
         const thead = this.domRegistry.createElement('thead');
         const headerRow = this.domRegistry.createElement('tr');
-        
-        const headers = ['ID', 'Alt ID', 'Task'];
-        headers.forEach(headerText => {
-            const th = this.domRegistry.createElement('th', {
-                textContent: headerText
-            });
+        for (const headerText of ['ID', 'Alt ID', 'Task']) {
+            const th = this.domRegistry.createElement('th', { textContent: headerText });
             headerRow.appendChild(th);
-        });
+        }
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
-        // Create table body
         const tbody = this.domRegistry.createElement('tbody');
-        
-        // Track occurrence count per alt_id within this trace
         const occurrenceCount = new Map();
-        
+
         trace.path.forEach((task, taskIndex) => {
             const altId = task.alt_id || task.id || '';
-            
-            // Calculate occurrence index for this alt_id (1-based)
             const currentOccurrence = (occurrenceCount.get(altId) || 0) + 1;
             occurrenceCount.set(altId, currentOccurrence);
-            
+
             const row = this.domRegistry.createElement('tr', {
                 className: 'trace-row-clickable',
                 title: 'Click to highlight this task across all graphs'
             });
-            
-            // Store task alt_id and occurrence index on row for matching highlights
             row.setAttribute('data-task-alt-id', altId);
             row.setAttribute('data-task-index', taskIndex);
             row.setAttribute('data-occurrence-index', currentOccurrence);
-            
-            // Add click handler to entire row for highlighting (delegated to coordinator)
-            row.addEventListener('click', () => {
-                this.playbackCoordinator.handleRowClick(sectionId, task, row, currentOccurrence);
-            });
-            
-            // ID column - show id if available, otherwise fall back to alt_id
-            const idCell = this.domRegistry.createElement('td', {
+
+            row.appendChild(this.domRegistry.createElement('td', {
                 className: 'traces-table-id',
                 textContent: task.id || task.alt_id || ''
-            });
-            row.appendChild(idCell);
-            
-            // Alt ID column
-            const altIdCell = this.domRegistry.createElement('td', {
+            }));
+            row.appendChild(this.domRegistry.createElement('td', {
                 className: 'traces-table-alt-id',
                 textContent: task.alt_id || ''
-            });
-            row.appendChild(altIdCell);
-            
-            // Label column
-            const labelCell = this.domRegistry.createElement('td', {
+            }));
+            row.appendChild(this.domRegistry.createElement('td', {
                 className: 'traces-table-label',
                 textContent: task.task || ''
-            });
-            row.appendChild(labelCell);
-            
+            }));
+
             tbody.appendChild(row);
         });
-        table.appendChild(tbody);
 
+        // Event delegation: single listener on tbody instead of per-row
+        tbody.addEventListener('click', (e) => {
+            const row = e.target.closest('tr.trace-row-clickable');
+            if (!row) { return; }
+            const taskIndex = parseInt(row.getAttribute('data-task-index'), 10);
+            const occurrence = parseInt(row.getAttribute('data-occurrence-index'), 10);
+            const task = trace.path[taskIndex];
+            if (task) {
+                this.playbackCoordinator.handleRowClick(sectionId, task, row, occurrence);
+            }
+        });
+
+        table.appendChild(tbody);
         tableContainer.appendChild(table);
         traceDetails.appendChild(tableContainer);
 
-        // Trace metadata (if available)
         if (trace.metadata && Object.keys(trace.metadata).length > 0) {
-            const metadataEl = this.createMetadataElement(trace.metadata);
-            traceDetails.appendChild(metadataEl);
+            traceDetails.appendChild(this.createMetadataElement(trace.metadata));
         }
-
-        traceItem.appendChild(traceDetails);
-
-        return traceItem;
     }
 
     /**
@@ -860,6 +876,11 @@ export class TraceContentRenderer {
      * Clear trace cache (called when navigating to a different step)
      */
     clearTraceCache() {
+        if (this._chunkedRenderRAF) {
+            cancelAnimationFrame(this._chunkedRenderRAF);
+            this._chunkedRenderRAF = null;
+        }
+
         this.traceCache.clear();
         
         // Clear trace displays
@@ -1265,6 +1286,10 @@ export class TraceContentRenderer {
      * Clean up resources
      */
     destroy() {
+        if (this._chunkedRenderRAF) {
+            cancelAnimationFrame(this._chunkedRenderRAF);
+            this._chunkedRenderRAF = null;
+        }
         this.clearTraceCache();
         this.traceActionBars.clear();
         this.traceFilters.clear();

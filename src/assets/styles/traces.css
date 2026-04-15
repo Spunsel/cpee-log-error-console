@@ -85,12 +85,16 @@
    gap: var(--spacing-sm);
 }
 
-/* Trace Item */
+/* Trace Item — content-visibility lets the browser skip layout/paint for
+   off-screen items; contain-intrinsic-size gives the scrollbar a stable
+   height estimate so it doesn't jump as items scroll into view. */
 .trace-item {
    background: var(--surface-color);
    border: 1px solid var(--border-color);
    border-radius: var(--border-radius);
    overflow: hidden;
+   content-visibility: auto;
+   contain-intrinsic-size: auto 42px;
 }
 
 .trace-item:hover {
