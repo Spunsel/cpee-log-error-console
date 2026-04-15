@@ -64,6 +64,11 @@ export class TracePlaybackCoordinator {
             playbackSpeed: 1000 // milliseconds between tasks
         };
 
+        // Running tally of how many times each alt_id has been played so far.
+        // Keyed by (alt_id || id), value is the 1-based count.
+        // Reset on every startAutoPlay / stopAutoPlay.
+        this._occurrenceCounts = new Map();
+
         // Highlight state
         this.highlightedTaskKey = null; // Format: "sectionId:alt_id"
         this.highlightedRows = new Set();
@@ -154,6 +159,8 @@ export class TracePlaybackCoordinator {
             traceElement: traceElement
         };
 
+        this._occurrenceCounts.clear();
+
         // Update button to show pause icon
         playBtn.innerHTML = ICONS.PAUSE_TRACE;
         playBtn.setAttribute('aria-label', 'Pause auto-play');
@@ -211,6 +218,8 @@ export class TracePlaybackCoordinator {
             playbackSpeed: this.autoPlayState.playbackSpeed // Preserve speed setting
         };
 
+        this._occurrenceCounts.clear();
+
         // Emit playback stopped event
         if (wasPlaying) {
             this.eventBus.emit('trace:playback:stopped', null, { silent: true });
@@ -229,16 +238,10 @@ export class TracePlaybackCoordinator {
 
         const task = trace.path[currentTaskIndex];
         
-        // Calculate occurrence index for this task within the trace
-        // (how many times this alt_id has appeared up to and including current index)
+        // Increment running occurrence count for this task's alt_id (O(1) per tick)
         const altId = task.alt_id || task.id || '';
-        let occurrenceIndex = 0;
-        for (let i = 0; i <= currentTaskIndex; i++) {
-            const t = trace.path[i];
-            if ((t.alt_id || t.id || '') === altId) {
-                occurrenceIndex++;
-            }
-        }
+        const occurrenceIndex = (this._occurrenceCounts.get(altId) || 0) + 1;
+        this._occurrenceCounts.set(altId, occurrenceIndex);
 
         // Clear previous highlights first
         this.clearAllHighlights();
