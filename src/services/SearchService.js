@@ -208,17 +208,38 @@ export class SearchService {
                 }
             }
 
-        // Process matches from last to first to preserve positions
+        // Process matches from last to first so earlier text-node positions
+        // stay valid.  After each wrap we only rebuild the portion of the
+        // index that was affected (from the first overlapping text node
+        // onward) instead of re-walking the entire subtree.
         for (let i = matchRanges.length - 1; i >= 0; i--) {
             const range = matchRanges[i];
-            // Use i as the match index (matchRanges[0] is match 0, matchRanges[1] is match 1, etc.)
+
+            // Find the first text-node entry that overlaps this match
+            let firstAffected = textNodes.length;
+            for (let j = 0; j < textNodes.length; j++) {
+                if (textNodes[j].end > range.start) {
+                    firstAffected = j;
+                    break;
+                }
+            }
+
             this.highlightRange(textNodes, range.start, range.end, i);
-            
-            // Rebuild text node index after each modification
-            textNodes.length = 0;
-            globalPos = 0;
-            const newWalker = document.createTreeWalker(codeElement, NodeFilter.SHOW_TEXT, null);
-            while ((node = newWalker.nextNode())) {
+
+            // Rebuild only from `firstAffected` onward.  The preceding
+            // entries still point at untouched text nodes with correct
+            // global positions.
+            const rebuildStart = firstAffected > 0 ? textNodes[firstAffected - 1].end : 0;
+            const anchor = firstAffected > 0 ? textNodes[firstAffected - 1].node : null;
+            textNodes.length = firstAffected;
+
+            // Walk text nodes starting after `anchor` (or from codeElement root)
+            const partialWalker = document.createTreeWalker(codeElement, NodeFilter.SHOW_TEXT, null);
+            if (anchor) {
+                partialWalker.currentNode = anchor;
+            }
+            globalPos = rebuildStart;
+            while ((node = partialWalker.nextNode())) {
                 if (node.nodeValue && node.nodeValue.length > 0) {
                     textNodes.push({
                         node: node,
