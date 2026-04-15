@@ -59,15 +59,15 @@
 
 .raw-code-block {
    margin: 0;
-   background: var(--surface-color);
+   background: transparent !important;
    font-family: var(--font-mono);
    font-size: var(--font-size-sm);
-   line-height: 1.5;
+   line-height: 1.5 !important;
    color: var(--text-primary);
    padding: var(--spacing-xs);
    overflow: visible;
-   white-space: pre;
-   word-wrap: normal;
+   white-space: pre !important;
+   word-wrap: normal !important;
    width: max-content;
    min-width: 100%;
 }
@@ -80,11 +80,12 @@
 }
 
 .raw-code-block code {
-   background: transparent;
+   background: transparent !important;
    border: none;
    padding: 0;
    color: inherit;
    font-size: inherit;
+   line-height: inherit !important;
 }
 
 /* Line numbers for syntax-highlighted code */
@@ -100,22 +101,21 @@
    display: flex;
    flex-direction: column;
    flex-shrink: 0;
-   padding: 9px 12px var(--spacing-xs) var(--spacing-xs);
+   padding: var(--spacing-xs) 12px var(--spacing-xs) var(--spacing-xs);
    background: transparent;
    border-right: 1px solid var(--border-color);
    text-align: right;
    user-select: none;
    font-family: var(--font-mono);
-   font-size: var(--font-size-xs);
-   line-height: 1.625;
+   font-size: inherit;
+   line-height: 1.5;
    color: var(--text-secondary);
 }
 
 .raw-code-line-number {
-   display: flex;
-   align-items: center;
-   justify-content: flex-end;
-   height: 1;
+   display: block;
+   text-align: right;
+   line-height: inherit;
    color: inherit;
 }
 
@@ -133,17 +133,17 @@
 }
 
 .raw-code-content code {
-   background: transparent;
+   background: transparent !important;
    border: none;
    padding: 0;
    margin: 0;
    color: inherit;
    font-size: inherit;
    font-family: inherit;
-   white-space: pre;
-   word-wrap: normal;
+   white-space: pre !important;
+   word-wrap: normal !important;
    display: block;
-   line-height: 1.5;
+   line-height: 1.5 !important;
 }
 
 .raw-content-container,

@@ -537,7 +537,7 @@ export class ConfigManager {
                     style: 'normal'
                 }
             },
-            codeBlockBackground: 'var(--surface-color)',
+            codeBlockBackground: 'transparent',
             colors: {
                 tag: '#374151',
                 attrName: '#2563eb',

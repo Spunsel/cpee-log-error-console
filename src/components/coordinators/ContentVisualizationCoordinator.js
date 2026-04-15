@@ -591,8 +591,6 @@ export class ContentVisualizationCoordinator {
         let actionBar = this.graphActionBars.get(sectionId);
         
         if (!actionBar) {
-            // Create new action bar with graph-specific options
-            // No search, no copy, no download - only export SVG
             actionBar = new ActionBar(this.domRegistry, null, sectionId, {
                 showSearch: false,
                 showCopy: false,
@@ -601,10 +599,15 @@ export class ContentVisualizationCoordinator {
             });
             this.graphActionBars.set(sectionId, actionBar);
             actionBar.attachToContainer(actionBarRow);
-        } else {
-            // Re-attach existing action bar if needed
-            if (!actionBar.isAttachedTo(actionBarRow)) {
-                actionBar.removeFromDOM();
+        } else if (!actionBar.isAttachedTo(actionBarRow)) {
+            actionBar.removeFromDOM();
+            // If another renderer already placed an action-bar-right in the row,
+            // merge our export-SVG container into it instead of appending a second one.
+            const existingRight = actionBarRow.querySelector('.action-bar-right');
+            if (existingRight && actionBar.exportSVGButtonContainer) {
+                existingRight.appendChild(actionBar.exportSVGButtonContainer);
+                actionBar.rightElement = existingRight;
+            } else {
                 actionBar.appendToContainer(actionBarRow);
             }
         }
@@ -718,25 +721,25 @@ export class ContentVisualizationCoordinator {
             // Find the section header
             const sectionHeader = sectionElement.querySelector('h3');
             if (sectionHeader) {
-                // Get or create action bar row
                 let actionBarRow = sectionElement.querySelector('.action-bar-row');
                 if (!actionBarRow) {
                     actionBarRow = document.createElement('div');
                     actionBarRow.className = 'action-bar-row';
                     sectionHeader.insertAdjacentElement('afterend', actionBarRow);
-                } else {
-                    // Clear the action bar row (removes elements from other renderers)
-                    actionBarRow.innerHTML = '';
                 }
                 
-                // Attach graph action bar elements to the row
-                actionBar.removeFromDOM();
-                actionBar.appendToContainer(actionBarRow);
+                if (!actionBar.isAttachedTo(actionBarRow)) {
+                    actionBar.removeFromDOM();
+                    const existingRight = actionBarRow.querySelector('.action-bar-right');
+                    if (existingRight && actionBar.exportSVGButtonContainer) {
+                        existingRight.appendChild(actionBar.exportSVGButtonContainer);
+                        actionBar.rightElement = existingRight;
+                    } else {
+                        actionBar.appendToContainer(actionBarRow);
+                    }
+                }
                 
-                // Ensure action bar row is visible
                 actionBarRow.style.display = 'flex';
-                
-                // Show the action bar
                 actionBar.show();
             }
         }
