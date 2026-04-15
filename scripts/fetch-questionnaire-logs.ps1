@@ -6,12 +6,26 @@
 # with non-ASCII text is not corrupted on Windows (.NET Framework default encoding).
 
 # Process numbers to scan
-$processNumbers = @(8654..9000)
+$processNumbers = @(8654..10000)
 
 $questionnaireLink = "https://spunsel.github.io/cpee-log-error-console/"
 
 # Skip logs whose first event date is strictly before this day (DD.MM.YYYY: 13.04.2026)
-$minimumLogDate = [DateTime]::new(2026, 4, 13)
+$minimumLogDate = [DateTime]::new(2026, 4, 14)
+
+# Only keep logs where at least one `qid` dataelement matches (same ids as extract-questionnaire-results.mjs)
+$allowedQids = @(
+    "29a51f789bb263326327",
+    "29a51f789bb263326337",
+    "29a51f789bb263326329",
+    "29a51f789bb263326330",
+    "29a51f789bb263326331",
+    "29a51f789bb263326332",
+    "29a51f789bb263326333",
+    "29a51f789bb263326334",
+    "29a51f789bb263326335",
+    "29a51f789bb263326336"
+)
 
 # Initialize SSL bypass
 Write-Host "Initializing..." -ForegroundColor Cyan
@@ -30,8 +44,8 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
 
-# Create directories
-$outputDir = "questionnaire-logs"
+# Create directories (resolve to absolute path so .NET WriteAllText can find it)
+$outputDir = Join-Path $PSScriptRoot "questionnaire-logs"
 
 if (-not (Test-Path $outputDir)) {
     New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
@@ -122,6 +136,7 @@ foreach ($kvp in $uuidMapping.GetEnumerator()) {
 $logCompleted = 0
 $savedCount = 0
 $skippedOldCount = 0
+$skippedQidCount = 0
 foreach ($job in $logJobs) {
     $result = $job.PowerShell.EndInvoke($job.Handle)
     $job.PowerShell.Dispose()
@@ -146,22 +161,42 @@ foreach ($job in $logJobs) {
         }
 
         if (-not $excludeByDate) {
-            if ($timestampMatch.Success) {
-                $yearS  = $timestampMatch.Groups[1].Value
-                $monthS = $timestampMatch.Groups[2].Value
-                $dayS   = $timestampMatch.Groups[3].Value
-                $hour   = $timestampMatch.Groups[4].Value
-                $min    = $timestampMatch.Groups[5].Value
-                $fileName = "date_${yearS}_${monthS}_${dayS}_time_${hour}_${min}.xes.yaml"
-            } else {
-                # Fallback: use UUID if no timestamp found
-                $fileName = "$($result.UUID).xes.yaml"
+            # Any `name: qid` / `value:` in the log (CRLF-safe); accept if at least one value is allow-listed
+            $qidPattern = 'name:\s*qid\s*\r?\n\s*value:\s*(\S+)'
+            $qidMatches = [regex]::Matches($result.Content, $qidPattern)
+            $allQids = @()
+            foreach ($m in $qidMatches) {
+                $allQids += $m.Groups[1].Value
             }
+            $logQid = if ($allQids.Count -gt 0) { $allQids[$allQids.Count - 1] } else { $null }
+            $qidAllowed = $false
+            foreach ($q in $allQids) {
+                if ($q -in $allowedQids) {
+                    $qidAllowed = $true
+                    break
+                }
+            }
+            if ($allowedQids.Count -gt 0 -and -not $qidAllowed) {
+                $skippedQidCount++
+                $shown = if ($allQids.Count -gt 0) { ($allQids -join ', ') } else { '(none)' }
+                Write-Host "`n  Skipped (no allow-listed qid among: $shown): instance $($result.ProcessNumber)" -ForegroundColor DarkYellow
+            } else {
+                if ($timestampMatch.Success) {
+                    $yearS  = $timestampMatch.Groups[1].Value
+                    $monthS = $timestampMatch.Groups[2].Value
+                    $dayS   = $timestampMatch.Groups[3].Value
+                    $hour   = $timestampMatch.Groups[4].Value
+                    $min    = $timestampMatch.Groups[5].Value
+                    $fileName = "date_${yearS}_${monthS}_${dayS}_time_${hour}_${min}.xes.yaml"
+                } else {
+                    $fileName = "$($result.UUID).xes.yaml"
+                }
 
-            $filePath = Join-Path $outputDir $fileName
-            [System.IO.File]::WriteAllText($filePath, $result.Content, $utf8NoBom)
-            $savedCount++
-            Write-Host "`n  Saved: $fileName (instance $($result.ProcessNumber))" -ForegroundColor Green
+                $filePath = Join-Path $outputDir $fileName
+                [System.IO.File]::WriteAllText($filePath, $result.Content, $utf8NoBom)
+                $savedCount++
+                Write-Host "`n  Saved: $fileName (instance $($result.ProcessNumber), qid $logQid)" -ForegroundColor Green
+            }
         } else {
             $skippedOldCount++
             Write-Host "`n  Skipped (before $($minimumLogDate.ToString('yyyy-MM-dd'))): instance $($result.ProcessNumber)" -ForegroundColor DarkYellow
@@ -176,4 +211,4 @@ foreach ($job in $logJobs) {
 $logRunspacePool.Close()
 $logRunspacePool.Dispose()
 
-Write-Host "`n`nDone! Saved $savedCount questionnaire log(s) to $outputDir (skipped $skippedOldCount older than $($minimumLogDate.ToString('yyyy-MM-dd')))" -ForegroundColor Green
+Write-Host "`n`nDone! Saved $savedCount questionnaire log(s) to $outputDir (date-skipped: $skippedOldCount, qid-skipped: $skippedQidCount, min date $($minimumLogDate.ToString('yyyy-MM-dd')))" -ForegroundColor Green
