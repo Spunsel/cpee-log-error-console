@@ -73,7 +73,7 @@ class TopologyIterators {
         if (incomingNodeIds.length !== 1 || outgoingNodeIds.length !== 1) { return false; }
         if (incomingNodeIds[0] !== outgoingNodeIds[0]) { return false; }
         
-        const connectedNode = graph.nodes.find(n => n.id === incomingNodeIds[0]);
+        const connectedNode = graph.nodeMap.get(incomingNodeIds[0]);
         return connectedNode && connectedNode.type === 'exclusivegateway';
     }
 }
@@ -102,7 +102,7 @@ class TraceSets {
             return [[...currentFT]];
         }
         
-        const node = graph.nodes.find(n => n.id === currentNodeId);
+        const node = graph.nodeMap.get(currentNodeId);
         if (!node) { return []; }
         
         const isTaskType = node.type === 'task' || node.type.endsWith('task') || node.type === 'subprocess';
@@ -548,7 +548,9 @@ export class MermaidTraceCalculator {
         const graph = {
             nodes: [],
             edges: [],
-            adjacencyList: new Map()
+            adjacencyList: new Map(),
+            nodeMap: new Map(),
+            fullIdMap: new Map()
         };
         
         const lines = mermaidString.split(/\r?\n/).map(line => line.trim()).filter(line => line.length > 0);
@@ -613,7 +615,7 @@ export class MermaidTraceCalculator {
      * Ensure a node exists in the graph, parsing its id:type:(label) format.
      */
     static ensureNodeExists(graph, nodeId) {
-        const existingNode = graph.nodes.find(n => n.fullId === nodeId);
+        const existingNode = graph.fullIdMap.get(nodeId);
         if (existingNode) { return existingNode.id; }
         
         const nodeMatchWithLabel = nodeId.match(/^([^:]+):([^:]+):(.+)$/);
@@ -647,16 +649,21 @@ export class MermaidTraceCalculator {
             nodeLabel = nodeId;
         }
         
-        const existingShortIdNode = graph.nodes.find(n => n.id === shortId);
+        const existingShortIdNode = graph.nodeMap.get(shortId);
         if (existingShortIdNode) {
             if (existingShortIdNode.fullId !== nodeId) {
+                graph.fullIdMap.delete(existingShortIdNode.fullId);
                 existingShortIdNode.fullId = nodeId;
+                graph.fullIdMap.set(nodeId, existingShortIdNode);
                 if (!existingShortIdNode.label && nodeLabel) { existingShortIdNode.label = nodeLabel; }
             }
             return shortId;
         }
         
-        graph.nodes.push({ id: shortId, type: nodeType, label: nodeLabel, fullId: nodeId });
+        const newNode = { id: shortId, type: nodeType, label: nodeLabel, fullId: nodeId };
+        graph.nodes.push(newNode);
+        graph.nodeMap.set(shortId, newNode);
+        graph.fullIdMap.set(nodeId, newNode);
         return shortId;
     }
 

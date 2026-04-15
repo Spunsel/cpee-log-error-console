@@ -266,13 +266,22 @@ export class CPEETraceWalker {
             return this.walkInclusiveChoose(alternatives, sequence, pos, taskMap, matchedPath);
         }
 
+        let noProgressResult = -1;
+
         for (const alt of alternatives) {
             const saved = matchedPath.length;
             const result = this.walkContainer(alt, sequence, pos, taskMap, matchedPath);
-            if (result !== -1) { return result; }
+            if (result !== -1) {
+                if (result > pos || pos >= sequence.length) {
+                    return result;
+                }
+                if (noProgressResult === -1) {
+                    noProgressResult = result;
+                }
+            }
             matchedPath.length = saved;
         }
-        return -1;
+        return noProgressResult;
     }
 
     /**
