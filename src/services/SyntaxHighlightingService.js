@@ -161,7 +161,7 @@ export class SyntaxHighlightingService {
         
         // Typography
         if (typo.fontFace?.enabled && typo.fontFace?.src && typo.fontFace?.name) {
-            css += `@font-face{font-family:"${typo.fontFace.name}";src:url("${typo.fontFace.src}") format("truetype");font-weight:${typo.fontFace.weight||'400'};font-style:${typo.fontFace.style||'normal'};font-display:swap;}`;
+            css += `@font-face{font-family:"${typo.fontFace.name}";src:url("${typo.fontFace.src}") format("truetype");font-weight:${typo.fontFace.weight||'400'};font-style:${typo.fontFace.style||'normal'};font-display:block;}`;
         }
         const fontFamily = typo.fontFamily || 'Adwaita Mono Regular';
         const fontSize = typo.fontSize || '13px';
