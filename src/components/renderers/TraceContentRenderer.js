@@ -41,6 +41,9 @@ export class TraceContentRenderer {
         // Trace filters per section
         this.traceFilters = new Map();
         
+        // Direct references to trace item DOM elements per section (avoids querySelectorAll)
+        this.traceItemRefs = new Map();
+        
         // Store comparison results per section pair for trace coloring
         this.comparisonResults = {
             input: null,
@@ -383,11 +386,18 @@ export class TraceContentRenderer {
         const itemOptions = { showLabels, expandable, highlightStartEnd, sectionId };
         const sectionPair = sectionElement ? this.getSectionPair(sectionId) : null;
 
+        // Initialize direct DOM references for this section (avoids querySelectorAll in updates)
+        const refs = [];
+        if (sectionId) {
+            this.traceItemRefs.set(sectionId, refs);
+        }
+
         // Render a chunk of traces into a DocumentFragment and append it
         const renderChunk = (startIndex, endIndex) => {
             const fragment = document.createDocumentFragment();
             for (let i = startIndex; i < endIndex; i++) {
                 const traceItem = this.createTraceItem(traceObjects[i], i + 1, itemOptions);
+                refs.push({ item: traceItem, numberEl: traceItem.querySelector('.trace-number') });
                 fragment.appendChild(traceItem);
             }
             traceList.appendChild(fragment);
@@ -734,8 +744,8 @@ export class TraceContentRenderer {
             return;
         }
 
-        // Format traces for copying
-        const contentToCopy = this.formatTracesForCopy(traces);
+        // Defer formatting to copy-time (avoids expensive serialization at render-time)
+        const contentToCopy = () => this.formatTracesForCopy(traces);
 
         // Get or create action bar (copy-only, no search)
         let actionBar = this.traceActionBars.get(sectionId);
@@ -882,6 +892,7 @@ export class TraceContentRenderer {
         }
 
         this.traceCache.clear();
+        this.traceItemRefs.clear();
         
         // Clear trace displays
         this.traceDisplays.forEach(display => {
@@ -992,37 +1003,33 @@ export class TraceContentRenderer {
         const sectionIds = this.getSectionIdsForPair(sectionPair);
 
         for (const sectionId of sectionIds) {
-            const container = document.getElementById(sectionId);
-            if (!container) { continue; }
-
-            const tracesContainer = container.querySelector('[data-content-type="traces"]');
-            if (!tracesContainer) { continue; }
+            const refs = this.traceItemRefs.get(sectionId);
+            if (!refs || refs.length === 0) { continue; }
 
             const cacheKey = this.findCacheKey(sectionId);
             const cachedTraces = cacheKey ? this.traceCache.get(cacheKey) : null;
 
-            const traceItems = tracesContainer.querySelectorAll('.trace-item');
-            traceItems.forEach((traceItem, index) => {
-                const traceNumberEl = traceItem.querySelector('.trace-number');
-                if (!traceNumberEl) { return; }
+            for (let index = 0; index < refs.length; index++) {
+                const { numberEl } = refs[index];
+                if (!numberEl) { continue; }
 
                 const trace = cachedTraces?.[index];
                 const status = this.getTraceStatus(sectionId, index, trace);
 
-                traceNumberEl.classList.remove(
+                numberEl.classList.remove(
                     'trace-number--matching',
                     'trace-number--problematic',
                     'trace-number--reconciled'
                 );
 
                 if (status === 'RECONCILED') {
-                    traceNumberEl.classList.add('trace-number--reconciled');
+                    numberEl.classList.add('trace-number--reconciled');
                 } else if (status === 'MATCHING') {
-                    traceNumberEl.classList.add('trace-number--matching');
+                    numberEl.classList.add('trace-number--matching');
                 } else if (status === 'UNIQUE') {
-                    traceNumberEl.classList.add('trace-number--problematic');
+                    numberEl.classList.add('trace-number--problematic');
                 }
-            });
+            }
         }
     }
 
@@ -1032,30 +1039,9 @@ export class TraceContentRenderer {
      * @param {Object} filters - Filter object with altId, id, taskLabel, status
      */
     applyTraceFilters(sectionId, filters) {
-        const sectionElement = document.getElementById(sectionId);
-        if (!sectionElement) {
-            return;
-        }
+        const refs = this.traceItemRefs.get(sectionId);
+        if (!refs || refs.length === 0) { return; }
         
-        // Find traces container (data-content-type="traces")
-        const tracesContainer = sectionElement.querySelector('[data-content-type="traces"]');
-        if (!tracesContainer) {
-            return;
-        }
-        
-        // Find trace items - they are in a trace-list container
-        const traceList = tracesContainer.querySelector('.trace-list');
-        if (!traceList) {
-            return;
-        }
-        
-        const traceItems = traceList.querySelectorAll('.trace-item');
-        
-        if (traceItems.length === 0) {
-            return;
-        }
-        
-        // Check if any filters are non-empty (after trimming)
         const altIdFilter = filters.altId?.trim() || '';
         const idFilter = filters.id?.trim() || '';
         const taskLabelFilter = filters.taskLabel?.trim() || '';
@@ -1065,40 +1051,24 @@ export class TraceContentRenderer {
         const cacheKey = this.findCacheKey(sectionId);
         const traces = cacheKey ? this.traceCache.get(cacheKey) : null;
         
-        if (!traces || traces.length === 0) {
-            // If no traces in cache, show all items
-            traceItems.forEach(item => {
+        if (!traces || traces.length === 0 || !hasFilters) {
+            for (const { item } of refs) {
                 item.style.display = '';
-            });
+            }
             return;
         }
         
-        if (!hasFilters) {
-            // No filters - show all traces
-            traceItems.forEach(item => {
-                item.style.display = '';
-            });
-            return;
-        }
-        
-        traceItems.forEach((item, index) => {
+        for (let index = 0; index < refs.length; index++) {
+            const { item } = refs[index];
             if (index >= traces.length) {
-                // Items without corresponding trace - hide them
                 item.style.display = 'none';
-                return;
+                continue;
             }
             
             const trace = traces[index];
             const matches = this.traceMatchesFilters(trace, filters, sectionId, index);
-            
-            if (matches) {
-                // Show matching traces
-                item.style.display = '';
-            } else {
-                // Hide non-matching traces
-                item.style.display = 'none';
-            }
-        });
+            item.style.display = matches ? '' : 'none';
+        }
     }
 
     /**
@@ -1293,6 +1263,7 @@ export class TraceContentRenderer {
         this.clearTraceCache();
         this.traceActionBars.clear();
         this.traceFilters.clear();
+        this.traceItemRefs.clear();
     }
 }
 

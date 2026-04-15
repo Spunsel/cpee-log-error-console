@@ -84,23 +84,24 @@ export class CopyButton {
         this.isCopying = true;
         
         try {
-            // Try modern Clipboard API first
+            const content = typeof this.content === 'function' ? this.content() : this.content;
+            if (!content) { return false; }
+            
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                await navigator.clipboard.writeText(this.content);
+                await navigator.clipboard.writeText(content);
                 this.showSuccess();
                 
                 if (this.options.onCopySuccess) {
-                    this.options.onCopySuccess(this.content);
+                    this.options.onCopySuccess(content);
                 }
                 
                 return true;
             } else {
-                // Fallback for older browsers
-                this.copyFallback();
+                this.copyFallback(content);
                 this.showSuccess();
                 
                 if (this.options.onCopySuccess) {
-                    this.options.onCopySuccess(this.content);
+                    this.options.onCopySuccess(content);
                 }
                 
                 return true;
@@ -123,9 +124,9 @@ export class CopyButton {
      * Fallback copy method for older browsers
      * Uses textarea trick
      */
-    copyFallback() {
+    copyFallback(content = null) {
         const textarea = document.createElement('textarea');
-        textarea.value = this.content;
+        textarea.value = content || (typeof this.content === 'function' ? this.content() : this.content);
         textarea.style.position = 'fixed';
         textarea.style.opacity = '0';
         
