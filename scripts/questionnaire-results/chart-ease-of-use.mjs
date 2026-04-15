@@ -1,13 +1,11 @@
 /**
  * Chart 1 — Perceived Ease of Use: Raw Log File vs CPEE LLM Debug Console
  *
- * Reads questionnaire-answers.json, draws a grouped dot-plot with mean bars
- * for each scenario (9779, 9784, 140971). Individual participant ratings are
- * shown as dots; the mean per approach is a horizontal bar.
+ * Grouped dot-plot with mean bars per scenario (9779, 9784, 140971).
  *
- * Style: matches TUM thesis errorTrends (Times New Roman, TUM palette).
+ * Style: TUM palette, Times New Roman. All text scaled 50% larger than base.
  *
- * Output: chart-ease-of-use.png (+ copy to Thesis_Latex/img/questionnaire-analysis/)
+ * Output: chart-ease-of-use.png
  *
  * Run:  node scripts/questionnaire-results/chart-ease-of-use.mjs
  */
@@ -62,10 +60,10 @@ function collectRatings(participants) {
   return result;
 }
 
-function buildSvg(ratings, n) {
-  const W = 800;
+function buildSvg(ratings) {
+  const W = 860;
   const H = 440;
-  const ML = 120, MR = 40, MT = 70, MB = 110;
+  const ML = 150, MR = 40, MT = 55, MB = 90;
   const plotW = W - ML - MR;
   const plotH = H - MT - MB;
 
@@ -79,22 +77,20 @@ function buildSvg(ratings, n) {
   const parts = [];
   parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W * SCALE}" height="${H * SCALE}">`);
   parts.push(`<style>`);
-  parts.push(`  .title { font: bold 20px ${FONT}; }`);
-  parts.push(`  .subtitle { font: 14px ${FONT}; fill: #555; }`);
-  parts.push(`  .axis-label { font: 14px ${FONT}; fill: #333; }`);
-  parts.push(`  .tick-label { font: 13px ${FONT}; fill: #333; }`);
-  parts.push(`  .legend-text { font: 13px ${FONT}; fill: #333; }`);
-  parts.push(`  .mean-label { font: bold 11px ${FONT}; }`);
+  parts.push(`  .title { font: bold 30px ${FONT}; }`);
+  parts.push(`  .axis-label { font: 21px ${FONT}; fill: #333; }`);
+  parts.push(`  .tick-label { font: 19px ${FONT}; fill: #333; }`);
+  parts.push(`  .legend-text { font: 19px ${FONT}; fill: #333; }`);
+  parts.push(`  .mean-label { font: bold 16px ${FONT}; }`);
   parts.push(`</style>`);
   parts.push(`<rect width="${W}" height="${H}" fill="white"/>`);
 
-  parts.push(`<text x="${W / 2}" y="28" text-anchor="middle" class="title">Perceived Ease of Use</text>`);
-  parts.push(`<text x="${W / 2}" y="48" text-anchor="middle" class="subtitle">(n\u2009=\u2009${n} participants with completed scenario answers)</text>`);
+  parts.push(`<text x="${W / 2}" y="34" text-anchor="middle" class="title">Perceived Ease of Use</text>`);
 
   for (let v = LIKERT_MIN; v <= LIKERT_MAX; v++) {
     const y = yScale(v);
     parts.push(`<line x1="${ML}" y1="${y}" x2="${ML + plotW}" y2="${y}" stroke="#e0e0e0" stroke-width="1.5"/>`);
-    parts.push(`<text x="${ML - 10}" y="${y + 5}" text-anchor="end" class="tick-label">${LIKERT_LABELS[String(v)]}</text>`);
+    parts.push(`<text x="${ML - 12}" y="${y + 7}" text-anchor="end" class="tick-label">${LIKERT_LABELS[String(v)]}</text>`);
   }
 
   const zeroY = yScale(0);
@@ -114,7 +110,7 @@ function buildSvg(ratings, n) {
       const barH = Math.abs(my - zeroY);
       parts.push(`<rect x="${logX - barW / 2}" y="${barTop}" width="${barW}" height="${barH}" fill="${COLOR_LOG}" opacity="0.35" rx="2"/>`);
       parts.push(`<line x1="${logX - barW / 2}" y1="${my}" x2="${logX + barW / 2}" y2="${my}" stroke="${COLOR_LOG}" stroke-width="2.5"/>`);
-      parts.push(`<text x="${logX}" y="${my + (r.logMean >= 0 ? -8 : 18)}" text-anchor="middle" class="mean-label" fill="${COLOR_LOG}">${r.logMean.toFixed(1)}</text>`);
+      parts.push(`<text x="${logX}" y="${my + (r.logMean >= 0 ? -10 : 22)}" text-anchor="middle" class="mean-label" fill="${COLOR_LOG}">${r.logMean.toFixed(1)}</text>`);
     }
     if (r.consoleMean !== null) {
       const my = yScale(r.consoleMean);
@@ -122,30 +118,30 @@ function buildSvg(ratings, n) {
       const barH = Math.abs(my - zeroY);
       parts.push(`<rect x="${consoleX - barW / 2}" y="${barTop}" width="${barW}" height="${barH}" fill="${COLOR_CONSOLE}" opacity="0.35" rx="2"/>`);
       parts.push(`<line x1="${consoleX - barW / 2}" y1="${my}" x2="${consoleX + barW / 2}" y2="${my}" stroke="${COLOR_CONSOLE}" stroke-width="2.5"/>`);
-      parts.push(`<text x="${consoleX}" y="${my + (r.consoleMean >= 0 ? -8 : 18)}" text-anchor="middle" class="mean-label" fill="${COLOR_CONSOLE}">${r.consoleMean.toFixed(1)}</text>`);
+      parts.push(`<text x="${consoleX}" y="${my + (r.consoleMean >= 0 ? -10 : 22)}" text-anchor="middle" class="mean-label" fill="${COLOR_CONSOLE}">${r.consoleMean.toFixed(1)}</text>`);
     }
 
     const jitter = (idx, total) => (total <= 1 ? 0 : ((idx / (total - 1)) - 0.5) * barW * 0.6);
     for (let j = 0; j < r.logVals.length; j++) {
       const y = yScale(r.logVals[j]);
-      parts.push(`<circle cx="${logX + jitter(j, r.logVals.length)}" cy="${y}" r="5" fill="${COLOR_LOG}" opacity="0.75"/>`);
+      parts.push(`<circle cx="${logX + jitter(j, r.logVals.length)}" cy="${y}" r="7" fill="${COLOR_LOG}" opacity="0.75"/>`);
     }
     for (let j = 0; j < r.consoleVals.length; j++) {
       const y = yScale(r.consoleVals[j]);
-      parts.push(`<circle cx="${consoleX + jitter(j, r.consoleVals.length)}" cy="${y}" r="5" fill="${COLOR_CONSOLE}" opacity="0.75"/>`);
+      parts.push(`<circle cx="${consoleX + jitter(j, r.consoleVals.length)}" cy="${y}" r="7" fill="${COLOR_CONSOLE}" opacity="0.75"/>`);
     }
 
-    parts.push(`<text x="${cx}" y="${H - MB + 30}" text-anchor="middle" class="axis-label">Scenario ${r.proc}</text>`);
+    parts.push(`<text x="${cx}" y="${H - MB + 35}" text-anchor="middle" class="axis-label">Scenario ${r.proc}</text>`);
   }
 
   parts.push(`<text x="${ML / 2}" y="${MT + plotH / 2}" text-anchor="middle" class="axis-label" transform="rotate(-90, ${ML / 2}, ${MT + plotH / 2})">Rating</text>`);
 
-  const legY = H - 28;
-  const legX = W / 2 - 180;
-  parts.push(`<line x1="${legX}" y1="${legY}" x2="${legX + 30}" y2="${legY}" stroke="${COLOR_LOG}" stroke-width="5"/>`);
-  parts.push(`<text x="${legX + 38}" y="${legY + 5}" class="legend-text">Raw Log File (mean)</text>`);
-  parts.push(`<line x1="${legX + 215}" y1="${legY}" x2="${legX + 245}" y2="${legY}" stroke="${COLOR_CONSOLE}" stroke-width="5"/>`);
-  parts.push(`<text x="${legX + 253}" y="${legY + 5}" class="legend-text">Debug Console (mean)</text>`);
+  const legY = H - 18;
+  const legX = W / 2 - 250;
+  parts.push(`<line x1="${legX}" y1="${legY}" x2="${legX + 40}" y2="${legY}" stroke="${COLOR_LOG}" stroke-width="6"/>`);
+  parts.push(`<text x="${legX + 50}" y="${legY + 6}" class="legend-text">Raw Log File (mean)</text>`);
+  parts.push(`<line x1="${legX + 290}" y1="${legY}" x2="${legX + 330}" y2="${legY}" stroke="${COLOR_CONSOLE}" stroke-width="6"/>`);
+  parts.push(`<text x="${legX + 340}" y="${legY + 6}" class="legend-text">Debug Console (mean)</text>`);
 
   parts.push('</svg>');
   return parts.join('\n');
@@ -159,7 +155,7 @@ async function main() {
     process.exit(1);
   }
   const ratings = collectRatings(answered);
-  const svg = buildSvg(ratings, answered.length);
+  const svg = buildSvg(ratings);
   const buf = Buffer.from(svg);
   await sharp(buf).png().toFile(OUT_PATH);
   await sharp(buf).png().toFile(THESIS_IMG);

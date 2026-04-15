@@ -1,13 +1,13 @@
 /**
- * Chart 2 — Confident Error Identification: Raw Log vs Debug Console
+ * Chart 2 — Error Identification Confidence: Raw Log vs Debug Console
  *
  * Grouped stacked bar chart showing Yes / Unsure / No distribution for
  * "Were you able to confidently identify the error?" across scenarios,
  * comparing log-only vs console.
  *
- * Style: matches TUM thesis errorTrends (Times New Roman, TUM palette).
+ * Colors: Yes = TUM Gruen shade, No = muted red, Unsure = TUM Orange shade.
  *
- * Output: chart-confident-identification.png (+ copy to Thesis_Latex/img/questionnaire-analysis/)
+ * Output: chart-confident-identification.png
  *
  * Run:  node scripts/questionnaire-results/chart-confident-identification.mjs
  */
@@ -29,8 +29,8 @@ const SCALE = 3;
 
 const CAT_COLORS = {
   Yes: '#A2AD00',
-  Unsure: '#E37222',
-  No: '#005293',
+  Unsure: '#0065BD',
+  No: '#E37222',
 };
 
 function loadAnswered(data) {
@@ -58,10 +58,10 @@ function countCategories(participants, keyTemplate) {
   return { counts, total };
 }
 
-function buildSvg(logData, consoleData, n) {
+function buildSvg(logData, consoleData) {
   const W = 580;
-  const H = 400;
-  const ML = 70, MR = 40, MT = 70, MB = 100;
+  const H = 370;
+  const ML = 70, MR = 40, MT = 50, MB = 100;
   const plotW = W - ML - MR;
   const plotH = H - MT - MB;
 
@@ -76,7 +76,6 @@ function buildSvg(logData, consoleData, n) {
   parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W * SCALE}" height="${H * SCALE}">`);
   parts.push(`<style>`);
   parts.push(`  .title { font: bold 20px ${FONT}; }`);
-  parts.push(`  .subtitle { font: 14px ${FONT}; fill: #555; }`);
   parts.push(`  .axis-label { font: 14px ${FONT}; fill: #333; }`);
   parts.push(`  .tick-label { font: 13px ${FONT}; fill: #333; }`);
   parts.push(`  .legend-text { font: 13px ${FONT}; fill: #333; }`);
@@ -84,8 +83,7 @@ function buildSvg(logData, consoleData, n) {
   parts.push(`</style>`);
   parts.push(`<rect width="${W}" height="${H}" fill="white"/>`);
 
-  parts.push(`<text x="${W / 2}" y="28" text-anchor="middle" class="title">Error Identification Confidence</text>`);
-  parts.push(`<text x="${W / 2}" y="48" text-anchor="middle" class="subtitle">(aggregated across all three scenarios, n\u2009=\u2009${n})</text>`);
+  parts.push(`<text x="${W / 2}" y="30" text-anchor="middle" class="title">Error Identification Confidence</text>`);
 
   const gridStep = Math.max(1, Math.ceil(maxVal / 5));
   for (let v = 0; v <= maxVal; v += gridStep) {
@@ -119,11 +117,11 @@ function buildSvg(logData, consoleData, n) {
   parts.push(`<text x="${ML / 2}" y="${MT + plotH / 2}" text-anchor="middle" class="axis-label" transform="rotate(-90, ${ML / 2}, ${MT + plotH / 2})">Responses</text>`);
 
   const legY = H - 28;
-  let lx = W / 2 - 140;
+  let lx = W / 2 - 155;
   for (const cat of CATEGORIES) {
-    parts.push(`<line x1="${lx}" y1="${legY}" x2="${lx + 30}" y2="${legY}" stroke="${CAT_COLORS[cat]}" stroke-width="5"/>`);
-    parts.push(`<text x="${lx + 38}" y="${legY + 5}" class="legend-text">${cat}</text>`);
-    lx += 100;
+    parts.push(`<rect x="${lx}" y="${legY - 7}" width="16" height="16" fill="${CAT_COLORS[cat]}" rx="3"/>`);
+    parts.push(`<text x="${lx + 22}" y="${legY + 5}" class="legend-text">${cat}</text>`);
+    lx += 110;
   }
 
   parts.push('</svg>');
@@ -139,7 +137,7 @@ async function main() {
   }
   const logData = countCategories(answered, 'log-{p} Where you able to confidentally identify the error?');
   const consoleData = countCategories(answered, 'console-{p} Where you able to confidentally identify the error?');
-  const svg = buildSvg(logData, consoleData, answered.length);
+  const svg = buildSvg(logData, consoleData);
   const buf = Buffer.from(svg);
   await sharp(buf).png().toFile(OUT_PATH);
   await sharp(buf).png().toFile(THESIS_IMG);
