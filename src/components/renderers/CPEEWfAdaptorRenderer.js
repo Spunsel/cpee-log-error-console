@@ -16,6 +16,8 @@ import { CPEEWarningHandler } from '../../utils/content/CPEEWarningHandler.js';
 
 export class CPEEWfAdaptorRenderer {
     
+    static _wfAdaptorCache = new Map();
+    
     constructor(eventBus = null, stateManager = null, domRegistry = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
         this.adaptor = null;
@@ -166,62 +168,14 @@ export class CPEEWfAdaptorRenderer {
             
             if (renderGen !== this._renderGeneration) { return; }
             
-            const self = this;
             const themePath = configManager.get('cpee.wfadaptor.themePath');
+            const cached = CPEEWfAdaptorRenderer._wfAdaptorCache.get(themePath);
             
-            this.adaptor = new window.WfAdaptor(themePath, (graphrealization) => {
-                if (renderGen !== self._renderGeneration) { return; }
-                
-                try {
-                    const svgElementId = `graphcanvas-${self.container.id}`;
-                    const svgElement = document.getElementById(svgElementId);
-                    
-                    if (!svgElement) {
-                        throw new Error(`CPEEWfAdaptorRenderer: SVG container with ID '${svgElementId}' not found`);
-                    }
-                    
-                    self.currentSvgElement = svgElement;
-                    
-                    const jquerySvgContainer = window.$(svgElement);
-                    if (jquerySvgContainer.length === 0) {
-                        throw new Error(`CPEEWfAdaptorRenderer: jQuery could not wrap SVG element with ID '${svgElementId}'`);
-                    }
-                    
-                    const illustratorElements = graphrealization.illustrator.elements;
-                    const manifestation = window.manifestation || null;
-                    const success = self.svgProcessor.transferAndValidateElements(
-                        illustratorElements, manifestation, self.svgProcessor.getCache()
-                    );
-                    
-                    if (!success) {
-                        throw new Error('CPEEWfAdaptorRenderer: Failed to process SVG elements');
-                    }
-                    
-                    self.svgProcessor.validateClassAttributes(illustratorElements);
-                    graphrealization.set_svg_container(jquerySvgContainer);
-                    
-                    const labelContainer = window.$(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
-                    window.$(`#modelling-${self.container.id}`).append(labelContainer);
-                    graphrealization.illustrator.svg.label_container = labelContainer;
-            
-                    self.setGraphDescription(graphrealization, cleanedXML);
-                    self.namespaceSVGIds(svgElement);
-                    
-                    self.isRendered = true;
-                    self.adjustSVGHeight();
-                    SVGScaleUtility.applyScale(svgElement, self.currentScale, 'cpee');
-                    
-                    if (self.postRenderCallback) {
-                        self.postRenderCallback(self.container.id, svgElement);
-                    }
-                    
-                } catch (error) {
-                    console.error('Graph rendering error:', error.message);
-                    self.showStatus(`Failed to render graph: ${error.message}`, 'error');
-                    self.isRendered = false;
-                    self.setupContainer();
-                }
-            });
+            if (cached) {
+                this._renderWithCachedAdaptor(cached, cleanedXML, renderGen);
+            } else {
+                this._renderWithNewAdaptor(themePath, cleanedXML, renderGen);
+            }
             
         } catch (error) {
             console.error('CPEE graph error:', error.message);
@@ -229,6 +183,138 @@ export class CPEEWfAdaptorRenderer {
             this.isRendered = false;
             this.setupContainer();
         }
+    }
+    
+    /**
+     * Render using a cached WfAdaptor graphrealization (skip theme loading)
+     * @param {Object} cached - Cached entry { graphrealization, adaptor }
+     * @param {string} cleanedXML - Pre-processed CPEE XML
+     * @param {number} renderGen - Render generation for stale check
+     */
+    _renderWithCachedAdaptor(cached, cleanedXML, renderGen) {
+        if (renderGen !== this._renderGeneration) { return; }
+        
+        try {
+            const { graphrealization } = cached;
+            this.adaptor = cached.adaptor;
+            
+            const svgElementId = `graphcanvas-${this.container.id}`;
+            const svgElement = document.getElementById(svgElementId);
+            
+            if (!svgElement) {
+                throw new Error(`CPEEWfAdaptorRenderer: SVG container with ID '${svgElementId}' not found`);
+            }
+            
+            this.currentSvgElement = svgElement;
+            
+            const jquerySvgContainer = window.$(svgElement);
+            if (jquerySvgContainer.length === 0) {
+                throw new Error(`CPEEWfAdaptorRenderer: jQuery could not wrap SVG element with ID '${svgElementId}'`);
+            }
+            
+            const illustratorElements = graphrealization.illustrator.elements;
+            const success = this.svgProcessor.transferAndValidateElements(
+                illustratorElements, null, this.svgProcessor.getCache()
+            );
+            
+            if (!success) {
+                throw new Error('CPEEWfAdaptorRenderer: Failed to process SVG elements');
+            }
+            
+            this.svgProcessor.validateClassAttributes(illustratorElements);
+            graphrealization.set_svg_container(jquerySvgContainer);
+            
+            const labelContainer = window.$(`<div id="graph-labels-${this.container.id}" style="display: none;"></div>`);
+            window.$(`#modelling-${this.container.id}`).append(labelContainer);
+            graphrealization.illustrator.svg.label_container = labelContainer;
+            
+            this.setGraphDescription(graphrealization, cleanedXML);
+            this.namespaceSVGIds(svgElement);
+            
+            this.isRendered = true;
+            this.adjustSVGHeight();
+            SVGScaleUtility.applyScale(svgElement, this.currentScale, 'cpee');
+            
+            if (this.postRenderCallback) {
+                this.postRenderCallback(this.container.id, svgElement);
+            }
+            
+        } catch (error) {
+            console.error('Graph rendering error (cached):', error.message);
+            this.showStatus(`Failed to render graph: ${error.message}`, 'error');
+            this.isRendered = false;
+            this.setupContainer();
+        }
+    }
+    
+    /**
+     * Render by creating a new WfAdaptor instance (first render for this theme)
+     * Caches the result for subsequent renders with the same theme.
+     * @param {string} themePath - Theme URL/path
+     * @param {string} cleanedXML - Pre-processed CPEE XML
+     * @param {number} renderGen - Render generation for stale check
+     */
+    _renderWithNewAdaptor(themePath, cleanedXML, renderGen) {
+        const self = this;
+        
+        this.adaptor = new window.WfAdaptor(themePath, (graphrealization) => {
+            if (renderGen !== self._renderGeneration) { return; }
+            
+            try {
+                CPEEWfAdaptorRenderer._wfAdaptorCache.set(themePath, {
+                    graphrealization: graphrealization,
+                    adaptor: self.adaptor
+                });
+                
+                const svgElementId = `graphcanvas-${self.container.id}`;
+                const svgElement = document.getElementById(svgElementId);
+                
+                if (!svgElement) {
+                    throw new Error(`CPEEWfAdaptorRenderer: SVG container with ID '${svgElementId}' not found`);
+                }
+                
+                self.currentSvgElement = svgElement;
+                
+                const jquerySvgContainer = window.$(svgElement);
+                if (jquerySvgContainer.length === 0) {
+                    throw new Error(`CPEEWfAdaptorRenderer: jQuery could not wrap SVG element with ID '${svgElementId}'`);
+                }
+                
+                const illustratorElements = graphrealization.illustrator.elements;
+                const manifestation = window.manifestation || null;
+                const success = self.svgProcessor.transferAndValidateElements(
+                    illustratorElements, manifestation, self.svgProcessor.getCache()
+                );
+                
+                if (!success) {
+                    throw new Error('CPEEWfAdaptorRenderer: Failed to process SVG elements');
+                }
+                
+                self.svgProcessor.validateClassAttributes(illustratorElements);
+                graphrealization.set_svg_container(jquerySvgContainer);
+                
+                const labelContainer = window.$(`<div id="graph-labels-${self.container.id}" style="display: none;"></div>`);
+                window.$(`#modelling-${self.container.id}`).append(labelContainer);
+                graphrealization.illustrator.svg.label_container = labelContainer;
+                
+                self.setGraphDescription(graphrealization, cleanedXML);
+                self.namespaceSVGIds(svgElement);
+                
+                self.isRendered = true;
+                self.adjustSVGHeight();
+                SVGScaleUtility.applyScale(svgElement, self.currentScale, 'cpee');
+                
+                if (self.postRenderCallback) {
+                    self.postRenderCallback(self.container.id, svgElement);
+                }
+                
+            } catch (error) {
+                console.error('Graph rendering error:', error.message);
+                self.showStatus(`Failed to render graph: ${error.message}`, 'error');
+                self.isRendered = false;
+                self.setupContainer();
+            }
+        });
     }
     
     /**
@@ -545,5 +631,15 @@ export class CPEEWfAdaptorRenderer {
             case 'error': this.statusManager.showError(message); break;
             default: this.statusManager.showInfo(message);
         }
+    }
+    
+    /**
+     * Invalidate the shared WfAdaptor cache.
+     * Must be called when the theme changes so the next render creates a fresh
+     * WfAdaptor with the new theme.  Dark-mode toggles that only affect CSS
+     * variables (not the theme path) do NOT need to invalidate this cache.
+     */
+    static invalidateCache() {
+        CPEEWfAdaptorRenderer._wfAdaptorCache.clear();
     }
 }

@@ -87,6 +87,8 @@ export class ContentVisualizationCoordinator {
      */
     setupThemeListener() {
         this.eventBus.on('themeSelector:themeChanged', async () => {
+            CPEEWfAdaptorRenderer.invalidateCache();
+            
             // Re-render input CPEE graph if we have stored XML
             if (this.currentInputCpeeXml) {
                 await this.updateInputCpeeSection(this.currentInputCpeeXml);
