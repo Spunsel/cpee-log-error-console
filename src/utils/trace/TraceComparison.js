@@ -15,6 +15,9 @@
  * else id; Mermaid: alt_id) with dual-field matching.  This keeps all existing
  * call-sites working while new callers benefit from the simpler path.
  *
+ * Performance: When sectionPair is provided, trace matching uses hash-based
+ * lookup (O(n+m)) instead of pairwise comparison (O(n·m)).
+ *
  * @module TraceComparison
  */
 
@@ -71,6 +74,21 @@ function extractMermaidSequence(mermaidTrace) {
 }
 
 /**
+ * Compute a hash string from a flat identifier sequence.
+ * Returns null if any element is null (unhashable — can never match).
+ *
+ * @param {Array<string|null>} seq
+ * @returns {string|null}
+ * @private
+ */
+function hashSequence(seq) {
+    for (let i = 0; i < seq.length; i++) {
+        if (seq[i] === null) { return null; }
+    }
+    return seq.length + '\x01' + seq.join('\x00');
+}
+
+/**
  * Legacy dual-field matcher: Mermaid alt_id may equal CPEE alt_id OR CPEE id.
  * Used only when no sectionPair is provided (backward-compatible path).
  *
@@ -109,21 +127,6 @@ function compareMermaidWithCPEE(mermaidSeq, cpeeTrace) {
 }
 
 /**
- * Simple sequence equality: two flat string arrays match iff they have the same
- * length and every element is equal and non-null.
- *
- * @private
- */
-function sequencesEqual(seqA, seqB) {
-    if (seqA.length !== seqB.length) { return false; }
-    for (let i = 0; i < seqA.length; i++) {
-        if (seqA[i] === null || seqB[i] === null) { return false; }
-        if (seqA[i] !== seqB[i]) { return false; }
-    }
-    return true;
-}
-
-/**
  * Compare traces between CPEE and Mermaid formats.
  *
  * @param {Array<Trace>} cpeeTraces
@@ -148,43 +151,86 @@ export function compareTraces(cpeeTraces, mermaidTraces, options = {}) {
     const details = [];
     const matchedMermaidIndices = new Set();
 
-    for (let i = 0; i < cpee.length; i++) {
-        const cpeeTrace = cpee[i];
-        const cpeeSeq = extractCPEESequence(cpeeTrace, sectionPair);
+    // Pre-extract mermaid sequences (needed by both paths)
+    const mermaidSeqs = mermaid.map(t => extractMermaidSequence(t));
 
-        let matchedMermaidIndex = -1;
-        let matchedMermaidSeq = null;
-
+    if (sectionPair) {
+        // --- Hash-based O(n+m) matching ---
+        // Build hash → [index] map for mermaid traces
+        const mermaidHashMap = new Map();
         for (let j = 0; j < mermaid.length; j++) {
-            if (matchedMermaidIndices.has(j)) { continue; }
-
-            const mermaidTrace = mermaid[j];
-            const mermaidSeq = extractMermaidSequence(mermaidTrace);
-
-            const isMatch = sectionPair
-                ? sequencesEqual(cpeeSeq, mermaidSeq)
-                : compareMermaidWithCPEE(mermaidSeq, cpeeTrace);
-
-            if (isMatch) {
-                matchedMermaidIndex = j;
-                matchedMermaidSeq = mermaidSeq;
-                matchedMermaidIndices.add(j);
-                break;
+            const h = hashSequence(mermaidSeqs[j]);
+            if (h !== null) {
+                if (!mermaidHashMap.has(h)) { mermaidHashMap.set(h, []); }
+                mermaidHashMap.get(h).push(j);
             }
         }
 
-        const sequencesMatch = matchedMermaidIndex !== -1;
+        for (let i = 0; i < cpee.length; i++) {
+            const cpeeSeq = extractCPEESequence(cpee[i], sectionPair);
+            const h = hashSequence(cpeeSeq);
 
-        details.push({
-            traceIndex: i,
-            cpeeSequence: cpeeSeq,
-            mermaidSequence: matchedMermaidSeq || (mermaid.length > 0 ? extractMermaidSequence(mermaid[0]) : []),
-            mermaidTraceIndex: matchedMermaidIndex,
-            match: sequencesMatch
-        });
+            let matchedMermaidIndex = -1;
+            let matchedMermaidSeq = null;
 
-        if (sequencesMatch) { matchCount++; }
-        else { discrepancies.push(i); }
+            if (h !== null) {
+                const candidates = mermaidHashMap.get(h);
+                if (candidates) {
+                    for (const j of candidates) {
+                        if (!matchedMermaidIndices.has(j)) {
+                            matchedMermaidIndex = j;
+                            matchedMermaidSeq = mermaidSeqs[j];
+                            matchedMermaidIndices.add(j);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            const sequencesMatch = matchedMermaidIndex !== -1;
+            details.push({
+                traceIndex: i,
+                cpeeSequence: cpeeSeq,
+                mermaidSequence: matchedMermaidSeq || (mermaidSeqs.length > 0 ? mermaidSeqs[0] : []),
+                mermaidTraceIndex: matchedMermaidIndex,
+                match: sequencesMatch
+            });
+
+            if (sequencesMatch) { matchCount++; }
+            else { discrepancies.push(i); }
+        }
+    } else {
+        // --- Legacy O(n·m) dual-field matching ---
+        for (let i = 0; i < cpee.length; i++) {
+            const cpeeTrace = cpee[i];
+            const cpeeSeq = extractCPEESequence(cpeeTrace, null);
+
+            let matchedMermaidIndex = -1;
+            let matchedMermaidSeq = null;
+
+            for (let j = 0; j < mermaid.length; j++) {
+                if (matchedMermaidIndices.has(j)) { continue; }
+
+                if (compareMermaidWithCPEE(mermaidSeqs[j], cpeeTrace)) {
+                    matchedMermaidIndex = j;
+                    matchedMermaidSeq = mermaidSeqs[j];
+                    matchedMermaidIndices.add(j);
+                    break;
+                }
+            }
+
+            const sequencesMatch = matchedMermaidIndex !== -1;
+            details.push({
+                traceIndex: i,
+                cpeeSequence: cpeeSeq,
+                mermaidSequence: matchedMermaidSeq || (mermaidSeqs.length > 0 ? mermaidSeqs[0] : []),
+                mermaidTraceIndex: matchedMermaidIndex,
+                match: sequencesMatch
+            });
+
+            if (sequencesMatch) { matchCount++; }
+            else { discrepancies.push(i); }
+        }
     }
 
     const uniqueCPEETraces = [];
@@ -200,7 +246,7 @@ export function compareTraces(cpeeTraces, mermaidTraces, options = {}) {
         if (!matchedMermaidIndices.has(j)) {
             uniqueMermaidTraces.push({
                 traceIndex: j,
-                sequence: extractMermaidSequence(mermaid[j])
+                sequence: mermaidSeqs[j]
             });
         }
     }

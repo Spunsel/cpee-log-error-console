@@ -580,7 +580,7 @@ export class CPEETraceCalculator {
     }
 
     /**
-     * Filter duplicate traces by comparing serialized task sequences.
+     * Filter duplicate traces using a fast delimiter-join hash.
      */
     static filterDuplicateTraces(traces) {
         const seen = new Set();
@@ -589,7 +589,7 @@ export class CPEETraceCalculator {
         for (const trace of traces) {
             if (!trace || trace.length === 0) { continue; }
             
-            const key = JSON.stringify(trace.map(t => ({ id: t.id, alt_id: t.alt_id, task: t.task })));
+            const key = trace.map(t => `${t.id}\x01${t.alt_id}\x01${t.task}`).join('\x00');
             if (!seen.has(key)) {
                 seen.add(key);
                 result.push(trace);
