@@ -111,7 +111,8 @@ export function getStats() {
     let totalDuration = 0;
     let sessionCount = 0;
 
-    const sessionDurations = new Map();
+    const sessionDurations = new Map();       // from session:end events
+    const sessionTimestamps = new Map();      // fallback: track first/last ts per session
 
     // Derived metric accumulators
     const stepDurations = [];
@@ -133,12 +134,11 @@ export function getStats() {
     const hourlyActivity = new Array(24).fill(0);
     const instanceLoads = {};
     const sessionDurationValues = [];
-    let verifySound = 0, verifyUnsound = 0, verifyBounded = 0, verifyUnbounded = 0;
+    const verificationCounts = { sound: 0, unsound: 0, bounded: 0, unbounded: 0 };
     let compMatch = 0, compMismatch = 0;
     const viewportWidths = [];
     const referrers = {};
     const urlParams = {};
-    const sessionFirstDay = new Map();
 
     for (const batch of batches) {
         if (batch.fingerprint) { fingerprints.add(batch.fingerprint); }
@@ -155,6 +155,17 @@ export function getStats() {
 
             const day = evt.timestamp?.slice(0, 10) || 'unknown';
             dailyCounts[day] = (dailyCounts[day] || 0) + 1;
+
+            // Track first/last timestamp per session for fallback duration
+            if (batch.sessionId && evt.timestamp) {
+                if (!sessionTimestamps.has(batch.sessionId)) {
+                    sessionTimestamps.set(batch.sessionId, { first: evt.timestamp, last: evt.timestamp });
+                } else {
+                    const st = sessionTimestamps.get(batch.sessionId);
+                    if (evt.timestamp < st.first) { st.first = evt.timestamp; }
+                    if (evt.timestamp > st.last) { st.last = evt.timestamp; }
+                }
+            }
 
             // Hourly activity
             if (evt.timestamp) {
@@ -183,16 +194,10 @@ export function getStats() {
                         urlParams[k][v] = (urlParams[k][v] || 0) + 1;
                     }
                 }
-                // Track session per day (one entry per session)
-                if (day !== 'unknown' && batch.sessionId && !sessionFirstDay.has(batch.sessionId)) {
-                    sessionFirstDay.set(batch.sessionId, day);
-                    sessionsPerDay[day] = (sessionsPerDay[day] || 0) + 1;
-                }
             }
 
             if (evt.event === 'session:end' && evt.data?.duration) {
                 sessionDurations.set(batch.sessionId, evt.data.duration);
-                sessionDurationValues.push(evt.data.duration);
             }
 
             // Instance loads
@@ -200,12 +205,9 @@ export function getStats() {
                 instanceLoads[evt.data.uuid] = (instanceLoads[evt.data.uuid] || 0) + 1;
             }
 
-            // Verification stats
+            // Verification stats (structured client payloads + legacy JSON / string forms)
             if (evt.event === 'verification:complete' && evt.data) {
-                if (evt.data.sound === true) { verifySound++; }
-                if (evt.data.sound === false) { verifyUnsound++; }
-                if (evt.data.bounded === true) { verifyBounded++; }
-                if (evt.data.bounded === false) { verifyUnbounded++; }
+                applyVerificationRow(evt.data, verificationCounts);
             }
 
             // Comparison stats
@@ -231,9 +233,53 @@ export function getStats() {
         }
     }
 
-    for (const dur of sessionDurations.values()) {
+    // Older deployed clients omit metric:* — infer performance from raw event ordering
+    if (stepDurations.length === 0 || instanceLoadTimes.length === 0 || timeToFirstInteractions.length === 0) {
+        const inferred = inferLegacyPerformanceMetrics(batches);
+        if (stepDurations.length === 0 && inferred.stepDurations.length > 0) {
+            stepDurations.push(...inferred.stepDurations);
+        }
+        if (instanceLoadTimes.length === 0 && inferred.instanceLoadTimes.length > 0) {
+            instanceLoadTimes.push(...inferred.instanceLoadTimes);
+        }
+        if (timeToFirstInteractions.length === 0 && inferred.timeToFirstInteractions.length > 0) {
+            timeToFirstInteractions.push(...inferred.timeToFirstInteractions);
+        }
+    }
+
+    if (featureUsageSessions === 0) {
+        const inferredFu = inferLegacyFeatureUsage(batches);
+        if (inferredFu.sessionsWithData > 0) {
+            featureUsageSessions = inferredFu.sessionsWithData;
+            for (const k of Object.keys(featureUsageTotals)) {
+                featureUsageTotals[k] = inferredFu.totals[k] || 0;
+            }
+        }
+    }
+
+    // Sessions per day: count each session once based on its first event timestamp
+    for (const [_sid, st] of sessionTimestamps) {
+        const d = st.first?.slice(0, 10);
+        if (d && d !== 'unknown') {
+            sessionsPerDay[d] = (sessionsPerDay[d] || 0) + 1;
+        }
+    }
+
+    // Compute session durations: prefer session:end data, fall back to timestamp range
+    const finalSessionDurations = new Map();
+    for (const sid of sessions) {
+        if (sessionDurations.has(sid)) {
+            finalSessionDurations.set(sid, sessionDurations.get(sid));
+        } else if (sessionTimestamps.has(sid)) {
+            const st = sessionTimestamps.get(sid);
+            const dur = new Date(st.last) - new Date(st.first);
+            if (dur > 0) { finalSessionDurations.set(sid, dur); }
+        }
+    }
+    for (const dur of finalSessionDurations.values()) {
         totalDuration += dur;
         sessionCount++;
+        sessionDurationValues.push(dur);
     }
 
     const jsonlSize = fs.existsSync(JSONL_PATH)
@@ -296,11 +342,11 @@ export function getStats() {
         urlParams,
 
         verification: {
-            sound: verifySound,
-            unsound: verifyUnsound,
-            bounded: verifyBounded,
-            unbounded: verifyUnbounded,
-            total: verifySound + verifyUnsound
+            sound: verificationCounts.sound,
+            unsound: verificationCounts.unsound,
+            bounded: verificationCounts.bounded,
+            unbounded: verificationCounts.unbounded,
+            total: verificationCounts.sound + verificationCounts.unsound
         },
         comparison: {
             match: compMatch,
@@ -337,6 +383,209 @@ export function getStats() {
             )
         }
     };
+}
+
+/**
+ * Pull sound/bounded booleans from telemetry payloads produced by different client versions.
+ */
+function applyVerificationRow(data, out) {
+    const { sound, bounded } = extractSoundBounded(data);
+    if (sound === true) { out.sound++; }
+    if (sound === false) { out.unsound++; }
+    if (bounded === true) { out.bounded++; }
+    if (bounded === false) { out.unbounded++; }
+}
+
+function extractSoundBounded(data) {
+    if (!data || typeof data !== 'object') { return { sound: null, bounded: null }; }
+    if (typeof data.sound === 'boolean' || typeof data.bounded === 'boolean') {
+        return {
+            sound: typeof data.sound === 'boolean' ? data.sound : null,
+            bounded: typeof data.bounded === 'boolean' ? data.bounded : null
+        };
+    }
+    const vr = data.verificationResult;
+    if (vr && typeof vr === 'object') {
+        return {
+            sound: typeof vr.sound === 'boolean' ? vr.sound : null,
+            bounded: typeof vr.bounded === 'boolean' ? vr.bounded : null
+        };
+    }
+    if (typeof vr === 'string') {
+        const s = vr.trim();
+        if (s.length === 0 || s.startsWith('[truncated')) {
+            return { sound: null, bounded: null };
+        }
+        try {
+            const parsed = JSON.parse(s);
+            const r = parsed?.verificationResult ?? parsed;
+            if (r && typeof r === 'object') {
+                return {
+                    sound: typeof r.sound === 'boolean' ? r.sound : null,
+                    bounded: typeof r.bounded === 'boolean' ? r.bounded : null
+                };
+            }
+        } catch { /* fall through to regex */ }
+        const soundM = s.match(/"sound"\s*:\s*(true|false)/i);
+        const boundedM = s.match(/"bounded"\s*:\s*(true|false)/i);
+        return {
+            sound: soundM ? soundM[1].toLowerCase() === 'true' : null,
+            bounded: boundedM ? boundedM[1].toLowerCase() === 'true' : null
+        };
+    }
+    return { sound: null, bounded: null };
+}
+
+function collectOrderedEventItems(batches) {
+    const items = [];
+    for (const batch of batches) {
+        const sid = batch.sessionId || '';
+        for (const evt of (batch.events || [])) {
+            items.push({ sid, evt });
+        }
+    }
+    items.sort((a, b) => {
+        const ta = a.evt.timestamp || '';
+        const tb = b.evt.timestamp || '';
+        return ta.localeCompare(tb);
+    });
+    return items;
+}
+
+/**
+ * Reconstruct performance metrics when the client never emitted metric:* events.
+ */
+function inferLegacyPerformanceMetrics(batches) {
+    const stepDurations = [];
+    const instanceLoadTimes = [];
+    const timeToFirstInteractions = [];
+
+    const items = collectOrderedEventItems(batches);
+    const sessionStartTs = new Map();
+    for (const { sid, evt } of items) {
+        if (sid && evt.event === 'session:start' && evt.timestamp) {
+            sessionStartTs.set(sid, evt.timestamp);
+        }
+    }
+
+    const perSession = new Map();
+    function st(sid) {
+        if (!perSession.has(sid)) {
+            perSession.set(sid, {
+                ttfiDone: false,
+                lastStepTs: null,
+                pendingLoads: new Map()
+            });
+        }
+        return perSession.get(sid);
+    }
+
+    for (const { sid, evt } of items) {
+        if (!sid) { continue; }
+        const s = st(sid);
+        const name = evt.event || '';
+        const ts = evt.timestamp ? new Date(evt.timestamp).getTime() : NaN;
+        const validTs = Number.isFinite(ts);
+
+        if (!s.ttfiDone && name && !name.startsWith('session:')) {
+            let delay = null;
+            if (typeof evt.elapsedMs === 'number' && evt.elapsedMs >= 0) {
+                delay = evt.elapsedMs;
+            } else if (validTs) {
+                const startIso = sessionStartTs.get(sid);
+                if (startIso) {
+                    const t0 = new Date(startIso).getTime();
+                    if (Number.isFinite(t0)) { delay = ts - t0; }
+                }
+            }
+            if (delay !== null && delay >= 0) {
+                timeToFirstInteractions.push(delay);
+                s.ttfiDone = true;
+            }
+        }
+
+        if (name === 'instanceLoader:loadInstance' && evt.data?.uuid && validTs) {
+            s.pendingLoads.set(evt.data.uuid, ts);
+        }
+        if (name === 'instance:loaded' && evt.data?.uuid && validTs) {
+            const t0 = s.pendingLoads.get(evt.data.uuid);
+            if (t0 !== undefined) {
+                s.pendingLoads.delete(evt.data.uuid);
+                const d = ts - t0;
+                if (d >= 0) { instanceLoadTimes.push(d); }
+            }
+        }
+        if (name === 'instance:loadFailed' && evt.data?.uuid) {
+            s.pendingLoads.delete(evt.data.uuid);
+        }
+
+        if (name === 'step:displayed' && validTs) {
+            if (s.lastStepTs !== null) {
+                const d = ts - s.lastStepTs;
+                if (d > 0) { stepDurations.push(d); }
+            }
+            s.lastStepTs = ts;
+        } else if (name === 'sidebar:instanceSelected' && validTs) {
+            if (s.lastStepTs !== null) {
+                const d = ts - s.lastStepTs;
+                if (d > 0) { stepDurations.push(d); }
+                s.lastStepTs = null;
+            }
+        }
+    }
+
+    return { stepDurations, instanceLoadTimes, timeToFirstInteractions };
+}
+
+function inferLegacyFeatureUsage(batches) {
+    const keys = [
+        'usedTracePlayback',
+        'usedReconciliation',
+        'usedDarkMode',
+        'usedViewModeToggle',
+        'usedKeyboardNav',
+        'usedScaleChange',
+        'usedStepDropdown'
+    ];
+    const perSid = new Map();
+    function flags(sid) {
+        if (!sid) { return null; }
+        if (!perSid.has(sid)) {
+            const o = {};
+            for (const k of keys) { o[k] = false; }
+            perSid.set(sid, o);
+        }
+        return perSid.get(sid);
+    }
+
+    for (const batch of batches) {
+        const sid = batch.sessionId;
+        for (const evt of (batch.events || [])) {
+            const f = flags(sid);
+            if (!f) { continue; }
+            const n = evt.event || '';
+            if (n.startsWith('trace:playback:')) { f.usedTracePlayback = true; }
+            if (n.startsWith('traceReconciliation:')) { f.usedReconciliation = true; }
+            if (n === 'darkMode:toggled') { f.usedDarkMode = true; }
+            if (n === 'viewModeToggle:modeChanged') { f.usedViewModeToggle = true; }
+            if (n === 'keyboard:arrowLeft' || n === 'keyboard:arrowRight') { f.usedKeyboardNav = true; }
+            if (n === 'scaleDisplay:scaleChanged') { f.usedScaleChange = true; }
+            if (n === 'stepDropdown:stepSelected') { f.usedStepDropdown = true; }
+        }
+    }
+
+    const totals = {};
+    for (const k of keys) { totals[k] = 0; }
+    let sessionsWithData = 0;
+    for (const f of perSid.values()) {
+        const any = keys.some((k) => f[k]);
+        if (!any) { continue; }
+        sessionsWithData++;
+        for (const k of keys) {
+            if (f[k]) { totals[k]++; }
+        }
+    }
+    return { sessionsWithData, totals };
 }
 
 function parseBrowser(ua) {

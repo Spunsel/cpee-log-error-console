@@ -923,10 +923,10 @@ function renderStream() {
             <div class="card-header">
                 <span class="card-title">Live Event Stream (${_events.length.toLocaleString()} total)</span>
                 <div style="display:flex;gap:8px;align-items:center">
-                    <select id="streamCatFilter" class="search-input" style="width:140px" onchange="filterStream()">
+                    <select id="streamCatFilter" class="search-input" style="width:140px">
                         <option value="">All categories</option>
                     </select>
-                    <input type="text" class="search-input" placeholder="Search events..." id="streamSearch" oninput="filterStream()">
+                    <input type="text" class="search-input" placeholder="Search events..." id="streamSearch">
                 </div>
             </div>
             <div class="table-scroll" style="max-height:600px" id="eventStreamTable"></div>
@@ -937,6 +937,8 @@ function renderStream() {
     const select = document.getElementById('streamCatFilter');
     cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; select.appendChild(o); });
     buildEventStream(_events);
+    select.addEventListener('change', filterStream);
+    document.getElementById('streamSearch').addEventListener('input', filterStream);
 }
 
 function buildEventStream(events) {
@@ -946,7 +948,9 @@ function buildEventStream(events) {
         analysis:'badge-cyan', error:'badge-red', view_mode:'badge-purple', metric:'badge-green' };
     const rows = recent.map(e => {
         const badge = catColors[e.category] || 'badge-primary';
-        return `<tr data-cat="${e.category||'other'}" data-searchable="${(e.event||'')+(e.category||'')}">
+        const cat = e.category || 'other';
+        const searchBlob = [e.event, cat, e.sessionId, summarizeData(e.data)].filter(Boolean).join(' ').toLowerCase();
+        return `<tr data-cat="${esc(cat)}" data-searchable="${esc(searchBlob)}">
             <td class="event-time">${fmtTime(e.timestamp)}</td>
             <td class="event-name">${esc(e.event)}</td>
             <td><span class="badge ${badge}">${e.category||'other'}</span></td>
