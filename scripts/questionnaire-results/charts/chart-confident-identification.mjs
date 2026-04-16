@@ -60,8 +60,8 @@ function countCategories(participants, keyTemplate) {
 
 function buildSvg(logData, consoleData) {
   const W = 580;
-  const H = 370;
-  const ML = 70, MR = 40, MT = 50, MB = 100;
+  const H = 300;
+  const ML = 70, MR = 120, MT = 50, MB = 50;
   const plotW = W - ML - MR;
   const plotH = H - MT - MB;
 
@@ -116,12 +116,13 @@ function buildSvg(logData, consoleData) {
   parts.push(`<text x="${centerConsole}" y="${H - MB + 22}" text-anchor="middle" class="axis-label">Debug Console</text>`);
   parts.push(`<text x="${ML / 2}" y="${MT + plotH / 2}" text-anchor="middle" class="axis-label" transform="rotate(-90, ${ML / 2}, ${MT + plotH / 2})">Responses</text>`);
 
-  const legY = H - 28;
-  let lx = W / 2 - 155;
-  for (const cat of CATEGORIES) {
-    parts.push(`<rect x="${lx}" y="${legY - 7}" width="16" height="16" fill="${CAT_COLORS[cat]}" rx="3"/>`);
-    parts.push(`<text x="${lx + 22}" y="${legY + 5}" class="legend-text">${cat}</text>`);
-    lx += 110;
+  const legX = ML + plotW + 18;
+  const legStartY = MT + plotH / 2 - (CATEGORIES.length * 26) / 2;
+  for (let ci = 0; ci < CATEGORIES.length; ci++) {
+    const cat = CATEGORIES[ci];
+    const ly = legStartY + ci * 26;
+    parts.push(`<rect x="${legX}" y="${ly}" width="14" height="14" fill="${CAT_COLORS[cat]}" rx="3"/>`);
+    parts.push(`<text x="${legX + 20}" y="${ly + 12}" class="legend-text">${cat}</text>`);
   }
 
   parts.push('</svg>');

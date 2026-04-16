@@ -30,10 +30,38 @@ const QUESTIONS = [
   { key: 'How experienced are you with debugging or reading structured logs (e.g. JSON, YAML, XML)?', short: 'Log/Debug Experience' },
 ];
 
-const PALETTE = [
-  '#72AADC', '#D4AD82', '#B5C272', '#C4C0AE',
-  '#8BBCE0', '#DEBB90', '#A8B57E', '#D0CDC2',
-];
+const BLUE = '#72AADC';
+const ORANGE = '#D4AD82';
+const GREEN = '#B5C272';
+
+const ANSWER_ORDER = {
+  'What best describes your current role?': [
+    { value: 'Bachelors student', color: BLUE },
+    { value: 'PhD student', color: GREEN },
+  ],
+  'How familair are you with the CPEE process engine?': [
+    { value: 'familiar', color: BLUE },
+    { value: 'very familiar', color: GREEN },
+  ],
+  'How familair are you with Mermaid Diagram Syntax?': [
+    { value: 'familiar', color: ORANGE },
+    { value: 'somewhat familiar', color: BLUE },
+    { value: 'very familiar', color: GREEN },
+  ],
+  'How familiar are you with process modelling (e.g. BPMN, Petri nets)?': [
+    { value: 'familiar', color: BLUE },
+    { value: 'very familiar', color: GREEN },
+  ],
+  'How often do you use LLM based tools (e.g. ChatGPT, Copilot)?': [
+    { value: 'occasionally', color: ORANGE },
+    { value: 'regularly', color: BLUE },
+    { value: 'daily', color: GREEN },
+  ],
+  'How experienced are you with debugging or reading structured logs (e.g. JSON, YAML, XML)?': [
+    { value: 'practical experience', color: BLUE },
+    { value: 'extensive experience', color: GREEN },
+  ],
+};
 
 const FONT = "'Times New Roman', Times, serif";
 const SCALE = 3;
@@ -69,7 +97,10 @@ function buildSvg(participants) {
       if (v === '') continue;
       freq[v] = (freq[v] || 0) + 1;
     }
-    const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+    const order = ANSWER_ORDER[q.key] || [];
+    const sorted = order
+      .filter((a) => freq[a.value])
+      .map((a) => [a.value, freq[a.value], a.color]);
     return { short: q.short, sorted, total: sorted.reduce((s, e) => s + e[1], 0) };
   });
 
@@ -105,9 +136,8 @@ function buildSvg(participants) {
 
     let cx = ML + LABEL_W;
     for (let j = 0; j < qd.sorted.length; j++) {
-      const [label, count] = qd.sorted[j];
+      const [label, count, color] = qd.sorted[j];
       const segW = (count / maxCount) * BAR_AREA_W;
-      const color = PALETTE[j % PALETTE.length];
       parts.push(`<rect x="${cx}" y="${barY}" width="${segW}" height="${barH}" fill="${color}" rx="3"/>`);
       if (segW > 50) {
         const txt = `${label} (${count})`;
