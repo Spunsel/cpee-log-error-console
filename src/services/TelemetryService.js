@@ -5,6 +5,9 @@
  * 
  * Subscribes to EventBus events across the application and logs them with timestamps,
  * session context, and environment fingerprinting for recurring user identification.
+ *
+ * Derived metrics (time-on-step, feature discovery, instance load perf, etc.) are
+ * computed client-side so the backend receives pre-aggregated, analysis-ready data.
  */
 
 import { eventBus as defaultEventBus } from '../core/EventBus.js';
@@ -22,6 +25,20 @@ export class TelemetryService {
         this.unsubscribers = [];
         this.pageLoadTime = null;
         this._initialized = false;
+
+        // Derived-metric tracking state
+        this._lastStepView = null;           // { uuid, stepIndex, timestamp }
+        this._firstInteractionRecorded = false;
+        this._pendingInstanceLoads = new Map(); // uuid -> timestamp
+        this._featureFlags = {
+            usedTracePlayback: false,
+            usedReconciliation: false,
+            usedDarkMode: false,
+            usedViewModeToggle: false,
+            usedKeyboardNav: false,
+            usedScaleChange: false,
+            usedStepDropdown: false
+        };
     }
 
     /**
@@ -41,11 +58,14 @@ export class TelemetryService {
         this.fingerprint = this._generateFingerprint();
         this.pageLoadTime = this._getPageLoadTime();
 
+        const urlParams = this._parseUrlParams();
+
         this._trackEvent('session:start', {
             environment: this.environment,
             fingerprint: this.fingerprint,
-            pageLoadTime: this.pageLoadTime
-        });
+            pageLoadTime: this.pageLoadTime,
+            urlParams
+        }, 'session');
 
         this._subscribeToEvents();
         this._setupLifecycleListeners();
@@ -74,6 +94,7 @@ export class TelemetryService {
             'trace:playback:stopped': 'trace',
             'trace:playback:progress': 'trace',
             'trace:playback:speedChanged': 'trace',
+            'traceContentRenderer:requestReRender': 'trace',
 
             // Comparison & Reconciliation
             'traceComparison:compared': 'comparison',
@@ -83,6 +104,8 @@ export class TelemetryService {
             'traceReconciliation:tracesAdded': 'reconciliation',
             'traceReconciliation:complete': 'reconciliation',
             'traceReconciliation:rerunAnalysis': 'reconciliation',
+            'traceReconciliation:tryRunInMermaid': 'reconciliation',
+            'traceReconciliation:tryRunInCPEE': 'reconciliation',
 
             // Highlighting
             'trace:highlight:task': 'highlight',
@@ -112,10 +135,74 @@ export class TelemetryService {
 
         for (const [eventName, category] of Object.entries(eventMap)) {
             const unsub = this.eventBus.on(eventName, (data) => {
-                this._trackEvent(eventName, this._sanitizeEventData(data), category);
+                this._recordDerivedMetrics(eventName, data);
+                this._trackEvent(eventName, this._sanitizeEventData(eventName, data), category);
             });
             this.unsubscribers.push(unsub);
         }
+    }
+
+    // -- Derived metrics ------------------------------------------------------
+
+    _recordDerivedMetrics(eventName, data) {
+        const now = Date.now();
+
+        // Time-to-first-interaction
+        if (!this._firstInteractionRecorded && !eventName.startsWith('session:')) {
+            this._firstInteractionRecorded = true;
+            this._trackEvent('metric:timeToFirstInteraction', {
+                firstEvent: eventName,
+                delayMs: now - this.sessionStart
+            }, 'metric');
+        }
+
+        // Time-on-step: emit duration of previous step view when a new step is displayed
+        if (eventName === 'step:displayed' || eventName === 'sidebar:instanceSelected') {
+            if (this._lastStepView) {
+                this._trackEvent('metric:timeOnStep', {
+                    uuid: this._lastStepView.uuid,
+                    stepIndex: this._lastStepView.stepIndex,
+                    durationMs: now - this._lastStepView.timestamp
+                }, 'metric');
+            }
+            if (eventName === 'step:displayed') {
+                this._lastStepView = {
+                    uuid: data?.uuid || null,
+                    stepIndex: data?.stepIndex ?? null,
+                    timestamp: now
+                };
+            } else {
+                this._lastStepView = null;
+            }
+        }
+
+        // Instance load performance
+        if (eventName === 'instanceLoader:loadInstance' && data?.uuid) {
+            this._pendingInstanceLoads.set(data.uuid, now);
+        }
+        if (eventName === 'instance:loaded' && data?.uuid) {
+            const startTs = this._pendingInstanceLoads.get(data.uuid);
+            if (startTs) {
+                this._pendingInstanceLoads.delete(data.uuid);
+                this._trackEvent('metric:instanceLoadTime', {
+                    uuid: data.uuid,
+                    loadMs: now - startTs,
+                    steps: data.steps || null
+                }, 'metric');
+            }
+        }
+        if (eventName === 'instance:loadFailed' && data?.uuid) {
+            this._pendingInstanceLoads.delete(data.uuid);
+        }
+
+        // Feature usage flags
+        if (eventName.startsWith('trace:playback:')) { this._featureFlags.usedTracePlayback = true; }
+        if (eventName.startsWith('traceReconciliation:')) { this._featureFlags.usedReconciliation = true; }
+        if (eventName === 'darkMode:toggled') { this._featureFlags.usedDarkMode = true; }
+        if (eventName === 'viewModeToggle:modeChanged') { this._featureFlags.usedViewModeToggle = true; }
+        if (eventName === 'keyboard:arrowLeft' || eventName === 'keyboard:arrowRight') { this._featureFlags.usedKeyboardNav = true; }
+        if (eventName === 'scaleDisplay:scaleChanged') { this._featureFlags.usedScaleChange = true; }
+        if (eventName === 'stepDropdown:stepSelected') { this._featureFlags.usedStepDropdown = true; }
     }
 
     // -- Lifecycle listeners --------------------------------------------------
@@ -130,6 +217,18 @@ export class TelemetryService {
         document.addEventListener('visibilitychange', this._onVisibilityChange);
 
         this._onBeforeUnload = () => {
+            // Emit final time-on-step for current view
+            if (this._lastStepView) {
+                this._trackEvent('metric:timeOnStep', {
+                    uuid: this._lastStepView.uuid,
+                    stepIndex: this._lastStepView.stepIndex,
+                    durationMs: Date.now() - this._lastStepView.timestamp
+                }, 'metric');
+                this._lastStepView = null;
+            }
+
+            this._trackEvent('metric:featureUsage', { ...this._featureFlags }, 'metric');
+
             this._trackEvent('session:end', {
                 duration: Date.now() - this.sessionStart
             }, 'session');
@@ -146,19 +245,90 @@ export class TelemetryService {
             category,
             data,
             timestamp: new Date().toISOString(),
-            sessionId: this.sessionId,
-            fingerprint: this.fingerprint,
             elapsedMs: Date.now() - this.sessionStart
         });
     }
 
     /**
-     * Strip large or circular data from event payloads to keep telemetry lean.
+     * Extract meaningful summaries from known analysis payloads instead of
+     * blindly truncating them. Unknown/generic objects still go through the
+     * default size-guard logic.
      */
-    _sanitizeEventData(data) {
+    _sanitizeEventData(eventName, data) {
         if (data === null || data === undefined) { return null; }
         if (typeof data !== 'object') { return data; }
 
+        // Extract compact summaries for known heavy payloads
+        if (eventName === 'verification:complete') {
+            return this._extractVerificationSummary(data);
+        }
+        if (eventName === 'reachability:analyzed') {
+            return this._extractReachabilitySummary(data);
+        }
+        if (eventName.startsWith('traceComparison:')) {
+            return this._extractComparisonSummary(data);
+        }
+
+        return this._sanitizeGeneric(data);
+    }
+
+    _extractVerificationSummary(data) {
+        const r = data.verificationResult || {};
+        return {
+            sectionId: data.sectionId,
+            stepNumber: data.stepNumber,
+            afterReconciliation: data.afterReconciliation || false,
+            sound: r.sound ?? null,
+            bounded: r.bounded ?? null,
+            traceCount: r.traceCount ?? null,
+            taskCount: r.taskCount ?? null,
+            format: r.format ?? null,
+            deadTaskCount: r.soundness?.deadTasks?.length ?? 0,
+            unboundedPlaceCount: r.boundedness?.unboundedPlaces?.length ?? 0
+        };
+    }
+
+    _extractReachabilitySummary(data) {
+        const r = data.reachabilityResult || {};
+        const fwd = r.forwardReachability || {};
+        const bwd = r.backwardReachability || {};
+        const nc = r.nodeClassification || {};
+        return {
+            sectionId: data.sectionId,
+            stepNumber: data.stepNumber,
+            afterReconciliation: data.afterReconciliation || false,
+            totalNodes: r.totalNodes ?? nc.usefulCount + nc.deadEndCount + nc.unreachableCount ?? null,
+            forwardReachable: fwd.count ?? null,
+            forwardUnreachable: (fwd.unreachableNodes || []).length,
+            forwardCoverage: fwd.coverage ?? null,
+            backwardReachable: bwd.count ?? null,
+            backwardUnreachable: (bwd.unreachableNodes || []).length,
+            backwardCoverage: bwd.coverage ?? null,
+            usefulCount: nc.usefulCount ?? null,
+            deadEndCount: nc.deadEndCount ?? null,
+            unreachableCount: nc.unreachableCount ?? null
+        };
+    }
+
+    _extractComparisonSummary(data) {
+        const cr = data.comparisonResult || {};
+        return {
+            sectionPair: data.sectionPair,
+            stepNumber: data.stepNumber,
+            reconciliationDirection: data.reconciliationDirection || null,
+            matchCount: cr.matchCount ?? null,
+            totalCount: cr.totalCount ?? null,
+            cpeeCount: cr.cpeeCount ?? null,
+            mermaidCount: cr.mermaidCount ?? null,
+            isMatch: cr.isMatch ?? null,
+            traceCountMatch: cr.traceCountMatch ?? null,
+            problematicCount: cr.problematicCount ?? null,
+            uniqueCPEECount: (cr.uniqueCPEETraces || []).length,
+            uniqueMermaidCount: (cr.uniqueMermaidTraces || []).length
+        };
+    }
+
+    _sanitizeGeneric(data) {
         const sanitized = {};
         for (const [key, value] of Object.entries(data)) {
             if (key === 'traces' || key === 'errorObject' || key === 'step') {
@@ -182,6 +352,21 @@ export class TelemetryService {
             }
         }
         return sanitized;
+    }
+
+    // -- URL parameter capture ------------------------------------------------
+
+    _parseUrlParams() {
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const result = {};
+            for (const [key, value] of params.entries()) {
+                result[key] = value;
+            }
+            return Object.keys(result).length > 0 ? result : null;
+        } catch {
+            return null;
+        }
     }
 
     // -- Flushing -------------------------------------------------------------
