@@ -161,6 +161,8 @@ export class MermaidTraceWalker {
     /**
      * Recursive walk through the graph. At each node we either consume a
      * sequence entry (task nodes) or pass through (gateways, events).
+     * Parallel gateways with multiple outgoing edges are handled with AND
+     * semantics: every branch must complete before proceeding past the join.
      *
      * @returns {boolean} true when we consumed the full sequence and reached
      *   an end node or escalate node.
@@ -197,9 +199,136 @@ export class MermaidTraceWalker {
             return false;
         }
 
+        if (node.type === 'parallelgateway' && nexts.length > 1) {
+            return this.walkAndSplit(graph, nodeId, nexts, sequence, pos, endNodes, escalateNodes, matchedPath, depth);
+        }
+
         for (const next of nexts) {
             const ok = this.walk(graph, next, sequence, pos, endNodes, escalateNodes, matchedPath, depth + 1);
             if (ok) { return true; }
+        }
+        return false;
+    }
+
+    // ── AND-gateway helpers ───────────────────────────────────────────────
+
+    /**
+     * Handle a parallel gateway split: find the matching join, then walk all
+     * branches simultaneously, distributing trace entries across them.
+     */
+    static walkAndSplit(graph, splitId, branchStarts, sequence, pos, endNodes, escalateNodes, matchedPath, depth) {
+        const joinId = this.findJoinGateway(graph, splitId, branchStarts);
+
+        const branchNodes = branchStarts.slice();
+        const maxSteps = (sequence.length + 1) * branchNodes.length * graph.nodes.length;
+
+        const ok = this.advanceBranches(
+            graph, branchNodes, splitId, joinId, sequence, pos,
+            endNodes, escalateNodes, matchedPath, depth + 1, 0, maxSteps
+        );
+        return ok;
+    }
+
+    /**
+     * Interleaved branch walker. Each branch independently advances through
+     * its sub-graph; task nodes consume the next trace entry, non-task nodes
+     * are passed through.  A branch is "done" when it reaches the join (or an
+     * end/escalate node when no join exists).  Branches that loop back to the
+     * split gateway are dead-ends.  Returns true only when ALL branches are
+     * done and the remainder of the trace is valid from the join onward.
+     */
+    static advanceBranches(graph, branchNodes, splitId, joinId, sequence, pos, endNodes, escalateNodes, matchedPath, depth, steps, maxSteps) {
+        if (steps > maxSteps) { return false; }
+
+        const allDone = branchNodes.every(nodeId => {
+            if (joinId) { return nodeId === joinId; }
+            return endNodes.has(nodeId) || escalateNodes.has(nodeId);
+        });
+
+        if (allDone) {
+            if (joinId) {
+                return this.walk(graph, joinId, sequence, pos, endNodes, escalateNodes, matchedPath, depth + 1);
+            }
+            return pos >= sequence.length;
+        }
+
+        for (let i = 0; i < branchNodes.length; i++) {
+            const nodeId = branchNodes[i];
+
+            if (joinId && nodeId === joinId) { continue; }
+            if (!joinId && (endNodes.has(nodeId) || escalateNodes.has(nodeId))) { continue; }
+            if (nodeId === splitId) { continue; }
+
+            const node = graph.nodes.find(n => n.id === nodeId);
+            if (!node) { continue; }
+
+            const nexts = graph.adjacencyList.get(nodeId) || [];
+
+            if (this.isTask(node)) {
+                if (pos >= sequence.length || !this.taskMatches(node, sequence[pos])) { continue; }
+
+                const task = { id: null, alt_id: node.id, task: node.label || node.id };
+                matchedPath.push(task);
+
+                for (const next of nexts) {
+                    const saved = branchNodes[i];
+                    branchNodes[i] = next;
+                    if (this.advanceBranches(graph, branchNodes, splitId, joinId, sequence, pos + 1, endNodes, escalateNodes, matchedPath, depth, steps + 1, maxSteps)) {
+                        return true;
+                    }
+                    branchNodes[i] = saved;
+                }
+
+                matchedPath.pop();
+            } else {
+                for (const next of nexts) {
+                    const saved = branchNodes[i];
+                    branchNodes[i] = next;
+                    if (this.advanceBranches(graph, branchNodes, splitId, joinId, sequence, pos, endNodes, escalateNodes, matchedPath, depth, steps + 1, maxSteps)) {
+                        return true;
+                    }
+                    branchNodes[i] = saved;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Find a join gateway for a split: the first parallel/inclusive gateway
+     * reachable from every branch start (excluding the split itself).
+     */
+    static findJoinGateway(graph, splitId, branchStarts) {
+        let fallback = null;
+
+        for (const node of graph.nodes) {
+            if (node.id === splitId) { continue; }
+            const { type } = node;
+            if (type !== 'parallelgateway' && type !== 'inclusivegateway' && type !== 'exclusivegateway') { continue; }
+
+            if (!branchStarts.every(start => this.pathExistsTo(graph, start, node.id, splitId))) { continue; }
+
+            if (type !== 'exclusivegateway') { return node.id; }
+            if (!fallback) { fallback = node.id; }
+        }
+        return fallback;
+    }
+
+    /**
+     * DFS reachability check that avoids re-entering the split gateway.
+     */
+    static pathExistsTo(graph, source, target, forbiddenId, maxDepth = 50, visited = new Set()) {
+        if (source === target) { return true; }
+        if (maxDepth <= 0 || visited.has(source)) { return false; }
+
+        visited.add(source);
+        const nexts = graph.adjacencyList.get(source) || [];
+        for (const next of nexts) {
+            if (next === forbiddenId) { continue; }
+            if (this.pathExistsTo(graph, next, target, forbiddenId, maxDepth - 1, visited)) {
+                return true;
+            }
         }
         return false;
     }
