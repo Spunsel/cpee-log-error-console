@@ -53,16 +53,6 @@ export class CPEEDebugConsole {
         
         this.setupEventBusListeners();
         
-        // Initialize telemetry (non-blocking, silently fails if backend is unavailable)
-        try {
-            const telemetryService = this.serviceFactory.get('TelemetryService');
-            if (telemetryService && typeof telemetryService.initialize === 'function') {
-                telemetryService.initialize();
-            }
-        } catch {
-            // Telemetry is optional — never block app startup
-        }
-        
         // Initialize application
         this.init();
     }
