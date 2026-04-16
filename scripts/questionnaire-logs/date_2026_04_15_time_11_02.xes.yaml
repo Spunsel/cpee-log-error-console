@@ -804,3 +804,1037 @@ event:
       select_4: no experience; heard of it; basic experience; practical experience;
         extensive experience
   time:timestamp: '2026-04-15T11:02:15.017128+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Experience
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a13
+  cpee:activity: a13
+  cpee:activity_uuid: c9cd388400a4dfb98b4b46000db80a8e
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: application/json
+    data: '{"select_0":"PhD student","select_1":"familiar","select_2":"familiar","select_2_2":"familiar","select_3":"occasionally","select_4":"practical
+      experience"}'
+  time:timestamp: '2026-04-16T10:44:03.777287+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Experience
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a13
+  cpee:activity: a13
+  cpee:activity_uuid: c9cd388400a4dfb98b4b46000db80a8e
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: res
+    value:
+    - select_0: PhD student
+      select_1: familiar
+      select_2: familiar
+      select_2_2: familiar
+      select_3: occasionally
+      select_4: practical experience
+  time:timestamp: '2026-04-16T10:44:03.788889+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Experience
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a13
+  cpee:activity: a13
+  cpee:activity_uuid: c9cd388400a4dfb98b4b46000db80a8e
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-04-16T10:44:03.789049+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Log Left
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a14
+  cpee:activity: a14
+  cpee:activity_uuid: '0826eb85909f1df72213af1c08a8af97'
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: type
+    value: set
+  - name: lx
+    value: '0'
+  - name: ly
+    value: '1'
+  - name: x_amount
+    value: '2'
+  - name: y_amount
+    value: '9'
+  - name: button
+    value:
+  - name: style
+    value:
+  - name: urls
+    value:
+    - lang: de-at
+      url: https://spunsel.github.io/cpee-log-error-console/scripts/questionnaire-assets/example_instance_log_viewer.html
+  - name: default
+    value:
+  time:timestamp: '2026-04-16T10:44:03.834975+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Log Left
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a14
+  cpee:activity: a14
+  cpee:activity_uuid: '0826eb85909f1df72213af1c08a8af97'
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  time:timestamp: '2026-04-16T10:44:03.849370+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Log Left
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a14
+  cpee:activity: a14
+  cpee:activity_uuid: '0826eb85909f1df72213af1c08a8af97'
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-04-16T10:44:03.865616+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Log Right
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a16
+  cpee:activity: a16
+  cpee:activity_uuid: 3044f48c868758311bd027023ac9383b
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: type
+    value: wait
+  - name: lx
+    value: '2'
+  - name: ly
+    value: '1'
+  - name: x_amount
+    value: '3'
+  - name: y_amount
+    value: '9'
+  - name: button
+    value:
+  - name: style
+    value:
+  - name: urls
+    value:
+    - lang: de-at
+      url: https://spunsel.github.io/cpee-log-error-console/scripts/questionnaire-assets/intro_cpee_llm_crude.html
+  - name: default
+    value:
+  time:timestamp: '2026-04-16T10:44:03.898201+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Log Right
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a16
+  cpee:activity: a16
+  cpee:activity_uuid: 3044f48c868758311bd027023ac9383b
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: application/json
+    data: "{}"
+  time:timestamp: '2026-04-16T10:48:06.731129+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Log Right
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a16
+  cpee:activity: a16
+  cpee:activity_uuid: 3044f48c868758311bd027023ac9383b
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-04-16T10:48:06.732133+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Console Left
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a17
+  cpee:activity: a17
+  cpee:activity_uuid: 4e14aaf72498f2e67b76faa25876debe
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: type
+    value: set
+  - name: lx
+    value: '0'
+  - name: ly
+    value: '1'
+  - name: x_amount
+    value: '3'
+  - name: y_amount
+    value: '9'
+  - name: button
+    value:
+  - name: style
+    value:
+  - name: urls
+    value:
+    - lang: de-at
+      url: https://spunsel.github.io/cpee-log-error-console/
+  - name: default
+    value:
+  time:timestamp: '2026-04-16T10:48:06.777382+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Console Left
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a17
+  cpee:activity: a17
+  cpee:activity_uuid: 4e14aaf72498f2e67b76faa25876debe
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  time:timestamp: '2026-04-16T10:48:06.790543+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Console Left
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a17
+  cpee:activity: a17
+  cpee:activity_uuid: 4e14aaf72498f2e67b76faa25876debe
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-04-16T10:48:06.806004+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Console Right
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a18
+  cpee:activity: a18
+  cpee:activity_uuid: df342e496d9b823901a04129ce1f7b17
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: type
+    value: wait
+  - name: lx
+    value: '3'
+  - name: ly
+    value: '1'
+  - name: x_amount
+    value: '2'
+  - name: y_amount
+    value: '9'
+  - name: button
+    value:
+  - name: style
+    value:
+  - name: urls
+    value:
+    - lang: de-at
+      url: https://spunsel.github.io/cpee-log-error-console/scripts/questionnaire-assets/intro_debugging_console.html
+  - name: default
+    value:
+  time:timestamp: '2026-04-16T10:48:06.838364+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Console Right
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a18
+  cpee:activity: a18
+  cpee:activity_uuid: df342e496d9b823901a04129ce1f7b17
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: result
+    mimetype: application/json
+    data: "{}"
+  time:timestamp: '2026-04-16T11:03:43.658299+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Intro Console Right
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a18
+  cpee:activity: a18
+  cpee:activity_uuid: df342e496d9b823901a04129ce1f7b17
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-04-16T11:03:43.660300+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Simple
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: a36e6578da8854f8076316f27e2f85fd
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: behavior
+    value: wait_running
+  - name: url
+    value: https://cpee.org/hub/server/Theses.dir/Christian%20Horne.dir/QuestSub.xml
+  - name: init
+    value:
+      qid: 29a51f789bb263326331
+      d:
+        console: https://spunsel.github.io/cpee-log-error-console/
+        log: https://cpee.org/logs/bc94e28f-dbe5-4a7a-915a-cb53ba8b49c2.xes.yaml
+        procnum: 9779
+        time: 20
+        step: 1
+        change_uuid: af69f2eb53813b4d82d72979e54284c5c87681db
+  - name: endpoints
+    value:
+  - name: attributes
+    value:
+  - name: customization
+    value:
+  time:timestamp: '2026-04-16T11:03:43.721609+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Simple
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: a36e6578da8854f8076316f27e2f85fd
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: instance
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9457","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9457","CPEE-INSTANCE-UUID":"5b53e38d-a258-4dd5-8cab-f687313b0176","CPEE-BEHAVIOR":"wait_running"}'
+  time:timestamp: '2026-04-16T11:03:43.806511+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Simple
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: a36e6578da8854f8076316f27e2f85fd
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: task/instantiation
+  data:
+    CPEE-INSTANCE: '9457'
+    CPEE-INSTANCE-URL: https://cpee.org/flow/engine/9457
+    CPEE-INSTANCE-UUID: 5b53e38d-a258-4dd5-8cab-f687313b0176
+    CPEE-BEHAVIOR: wait_running
+  time:timestamp: '2026-04-16T11:03:43.806718+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Simple
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: a36e6578da8854f8076316f27e2f85fd
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: dataelements
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9457","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9457","CPEE-INSTANCE-UUID":"5b53e38d-a258-4dd5-8cab-f687313b0176","CPEE-STATE":"ready"}'
+  time:timestamp: '2026-04-16T11:03:44.068955+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Simple
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: a36e6578da8854f8076316f27e2f85fd
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: dataelements
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9457","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9457","CPEE-INSTANCE-UUID":"5b53e38d-a258-4dd5-8cab-f687313b0176","CPEE-STATE":"running"}'
+  time:timestamp: '2026-04-16T11:03:45.180799+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Simple
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: a36e6578da8854f8076316f27e2f85fd
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: dataelements
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9457","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9457","CPEE-INSTANCE-UUID":"5b53e38d-a258-4dd5-8cab-f687313b0176","CPEE-STATE":"finished","qid":"29a51f789bb263326331","res":[{"buttons_0":{"Input
+      CPEE":false,"Input Mermaid":false,"Output Mermaid":false,"Output CPEE":false,"Unsure":true}},{"buttons_1":{"Syntax
+      Error":false,"Conversion Error":false,"Structural Error":false,"Unsure":true}},{"buttons_2":{"CPEE-to-Mermaid
+      conversion":false,"LLM-generated output":false,"Mermaid-to-CPEE conversion":false,"Unsure":true}},{"select_4":"No"},{"buttons_0":{"Input
+      CPEE":false,"Input Mermaid":true,"Output Mermaid":false,"Output CPEE":false,"Unsure":false}},{"buttons_1":{"Syntax
+      Error":true,"Conversion Error":true,"Structural Error":false,"Unsure":false}},{"buttons_2":{"CPEE-to-Mermaid
+      conversion":true,"LLM-generated output":false,"Mermaid-to-CPEE conversion":false,"Unsure":false}},{"select_4":"Yes"},{"scale_0":"-2","scale_1":"2","feedback_0":""}],"d":{"console":"https://spunsel.github.io/cpee-log-error-console/","log":"https://cpee.org/logs/bc94e28f-dbe5-4a7a-915a-cb53ba8b49c2.xes.yaml","procnum":9779,"time":20,"step":1,"change_uuid":"af69f2eb53813b4d82d72979e54284c5c87681db"}}'
+  time:timestamp: '2026-04-16T11:10:39.206588+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Simple
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: a36e6578da8854f8076316f27e2f85fd
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: res
+    value:
+    - select_0: PhD student
+      select_1: familiar
+      select_2: familiar
+      select_2_2: familiar
+      select_3: occasionally
+      select_4: practical experience
+    - - buttons_0:
+          Input CPEE: false
+          Input Mermaid: false
+          Output Mermaid: false
+          Output CPEE: false
+          Unsure: true
+      - buttons_1:
+          Syntax Error: false
+          Conversion Error: false
+          Structural Error: false
+          Unsure: true
+      - buttons_2:
+          CPEE-to-Mermaid conversion: false
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: false
+          Unsure: true
+      - select_4: 'No'
+      - buttons_0:
+          Input CPEE: false
+          Input Mermaid: true
+          Output Mermaid: false
+          Output CPEE: false
+          Unsure: false
+      - buttons_1:
+          Syntax Error: true
+          Conversion Error: true
+          Structural Error: false
+          Unsure: false
+      - buttons_2:
+          CPEE-to-Mermaid conversion: true
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: false
+          Unsure: false
+      - select_4: 'Yes'
+      - scale_0: "-2"
+        scale_1: '2'
+        feedback_0: ''
+  time:timestamp: '2026-04-16T11:10:39.217437+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Simple
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a2
+  cpee:activity: a2
+  cpee:activity_uuid: a36e6578da8854f8076316f27e2f85fd
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-04-16T11:10:39.217610+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Medium
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a5
+  cpee:activity: a5
+  cpee:activity_uuid: bac5692ec4547fb09c436d4e84251ca2
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: behavior
+    value: wait_running
+  - name: url
+    value: https://cpee.org/hub/server/Theses.dir/Christian%20Horne.dir/QuestSub.xml
+  - name: init
+    value:
+      qid: 29a51f789bb263326331
+      d:
+        console: https://spunsel.github.io/cpee-log-error-console/
+        log: https://cpee.org/logs/4027b319-0666-4cd5-8d80-93e5df437f22.xes.yaml
+        procnum: 9784
+        time: 25
+        step: 4
+        change_uuid: 3fb1bfb177cad28437015d0ba6dc7663afe468bc
+  - name: endpoints
+    value:
+  - name: attributes
+    value:
+  - name: customization
+    value:
+  time:timestamp: '2026-04-16T11:10:39.266980+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Medium
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a5
+  cpee:activity: a5
+  cpee:activity_uuid: bac5692ec4547fb09c436d4e84251ca2
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: task/instantiation
+  data:
+    CPEE-INSTANCE: '9458'
+    CPEE-INSTANCE-URL: https://cpee.org/flow/engine/9458
+    CPEE-INSTANCE-UUID: 993bccf0-3a9e-4b05-9fac-030861b5dbbb
+    CPEE-BEHAVIOR: wait_running
+  time:timestamp: '2026-04-16T11:10:39.459787+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Medium
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a5
+  cpee:activity: a5
+  cpee:activity_uuid: bac5692ec4547fb09c436d4e84251ca2
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: instance
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9458","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9458","CPEE-INSTANCE-UUID":"993bccf0-3a9e-4b05-9fac-030861b5dbbb","CPEE-BEHAVIOR":"wait_running"}'
+  time:timestamp: '2026-04-16T11:10:39.353636+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Medium
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a5
+  cpee:activity: a5
+  cpee:activity_uuid: bac5692ec4547fb09c436d4e84251ca2
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: dataelements
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9458","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9458","CPEE-INSTANCE-UUID":"993bccf0-3a9e-4b05-9fac-030861b5dbbb","CPEE-STATE":"ready"}'
+  time:timestamp: '2026-04-16T11:10:39.621607+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Medium
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a5
+  cpee:activity: a5
+  cpee:activity_uuid: bac5692ec4547fb09c436d4e84251ca2
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: dataelements
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9458","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9458","CPEE-INSTANCE-UUID":"993bccf0-3a9e-4b05-9fac-030861b5dbbb","CPEE-STATE":"running"}'
+  time:timestamp: '2026-04-16T11:10:40.697780+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Medium
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a5
+  cpee:activity: a5
+  cpee:activity_uuid: bac5692ec4547fb09c436d4e84251ca2
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: dataelements
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9458","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9458","CPEE-INSTANCE-UUID":"993bccf0-3a9e-4b05-9fac-030861b5dbbb","CPEE-STATE":"finished","qid":"29a51f789bb263326331","res":[{"buttons_0":{"Input
+      CPEE":false,"Input Mermaid":false,"Output Mermaid":false,"Output CPEE":false,"Unsure":true}},{"buttons_1":{"Syntax
+      Error":false,"Conversion Error":false,"Structural Error":false,"Unsure":true}},{"buttons_2":{"CPEE-to-Mermaid
+      conversion":false,"LLM-generated output":false,"Mermaid-to-CPEE conversion":false,"Unsure":true}},{"select_4":"No"},{"buttons_0":{"Input
+      CPEE":false,"Input Mermaid":false,"Output Mermaid":true,"Output CPEE":false,"Unsure":false}},{"buttons_1":{"Syntax
+      Error":false,"Conversion Error":true,"Structural Error":false,"Unsure":false}},{"buttons_2":{"CPEE-to-Mermaid
+      conversion":false,"LLM-generated output":true,"Mermaid-to-CPEE conversion":false,"Unsure":false}},{"select_4":"Yes"},{"scale_0":"-2","scale_1":"2","feedback_0":""}],"d":{"console":"https://spunsel.github.io/cpee-log-error-console/","log":"https://cpee.org/logs/4027b319-0666-4cd5-8d80-93e5df437f22.xes.yaml","procnum":9784,"time":25,"step":4,"change_uuid":"3fb1bfb177cad28437015d0ba6dc7663afe468bc"}}'
+  time:timestamp: '2026-04-16T11:16:16.365853+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Medium
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a5
+  cpee:activity: a5
+  cpee:activity_uuid: bac5692ec4547fb09c436d4e84251ca2
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: res
+    value:
+    - select_0: PhD student
+      select_1: familiar
+      select_2: familiar
+      select_2_2: familiar
+      select_3: occasionally
+      select_4: practical experience
+    - - buttons_0:
+          Input CPEE: false
+          Input Mermaid: false
+          Output Mermaid: false
+          Output CPEE: false
+          Unsure: true
+      - buttons_1:
+          Syntax Error: false
+          Conversion Error: false
+          Structural Error: false
+          Unsure: true
+      - buttons_2:
+          CPEE-to-Mermaid conversion: false
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: false
+          Unsure: true
+      - select_4: 'No'
+      - buttons_0:
+          Input CPEE: false
+          Input Mermaid: true
+          Output Mermaid: false
+          Output CPEE: false
+          Unsure: false
+      - buttons_1:
+          Syntax Error: true
+          Conversion Error: true
+          Structural Error: false
+          Unsure: false
+      - buttons_2:
+          CPEE-to-Mermaid conversion: true
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: false
+          Unsure: false
+      - select_4: 'Yes'
+      - scale_0: "-2"
+        scale_1: '2'
+        feedback_0: ''
+    - - buttons_0:
+          Input CPEE: false
+          Input Mermaid: false
+          Output Mermaid: false
+          Output CPEE: false
+          Unsure: true
+      - buttons_1:
+          Syntax Error: false
+          Conversion Error: false
+          Structural Error: false
+          Unsure: true
+      - buttons_2:
+          CPEE-to-Mermaid conversion: false
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: false
+          Unsure: true
+      - select_4: 'No'
+      - buttons_0:
+          Input CPEE: false
+          Input Mermaid: false
+          Output Mermaid: true
+          Output CPEE: false
+          Unsure: false
+      - buttons_1:
+          Syntax Error: false
+          Conversion Error: true
+          Structural Error: false
+          Unsure: false
+      - buttons_2:
+          CPEE-to-Mermaid conversion: false
+          LLM-generated output: true
+          Mermaid-to-CPEE conversion: false
+          Unsure: false
+      - select_4: 'Yes'
+      - scale_0: "-2"
+        scale_1: '2'
+        feedback_0: ''
+  time:timestamp: '2026-04-16T11:16:16.375903+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Medium
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a5
+  cpee:activity: a5
+  cpee:activity_uuid: bac5692ec4547fb09c436d4e84251ca2
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-04-16T11:16:16.376215+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Complex
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 7aa6a339040d109c57360cce076867e5
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: behavior
+    value: wait_running
+  - name: url
+    value: https://cpee.org/hub/server/Theses.dir/Christian%20Horne.dir/QuestSub.xml
+  - name: init
+    value:
+      qid: 29a51f789bb263326331
+      d:
+        console: https://spunsel.github.io/cpee-log-error-console/
+        log: https://cpee.org/logs/5f000e54-bfa9-495e-ad8c-598456b6d9dc.xes.yaml
+        procnum: 140971
+        time: 30
+        step: 1
+        change_uuid: 5ca0c37922499f6af0dc2ee7d584a9bf4ca15846
+  - name: endpoints
+    value:
+  - name: attributes
+    value:
+  - name: customization
+    value:
+  time:timestamp: '2026-04-16T11:16:16.426725+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Complex
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 7aa6a339040d109c57360cce076867e5
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: instance
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9459","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9459","CPEE-INSTANCE-UUID":"adc2c7fc-b36f-42dc-983d-3c723de178f6","CPEE-BEHAVIOR":"wait_running"}'
+  time:timestamp: '2026-04-16T11:16:16.511251+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Complex
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 7aa6a339040d109c57360cce076867e5
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: task/instantiation
+  data:
+    CPEE-INSTANCE: '9459'
+    CPEE-INSTANCE-URL: https://cpee.org/flow/engine/9459
+    CPEE-INSTANCE-UUID: adc2c7fc-b36f-42dc-983d-3c723de178f6
+    CPEE-BEHAVIOR: wait_running
+  time:timestamp: '2026-04-16T11:16:16.626435+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Complex
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 7aa6a339040d109c57360cce076867e5
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: dataelements
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9459","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9459","CPEE-INSTANCE-UUID":"adc2c7fc-b36f-42dc-983d-3c723de178f6","CPEE-STATE":"ready"}'
+  time:timestamp: '2026-04-16T11:16:16.774903+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Complex
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 7aa6a339040d109c57360cce076867e5
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: dataelements
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9459","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9459","CPEE-INSTANCE-UUID":"adc2c7fc-b36f-42dc-983d-3c723de178f6","CPEE-STATE":"running"}'
+  time:timestamp: '2026-04-16T11:16:17.901767+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Complex
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 7aa6a339040d109c57360cce076867e5
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  data:
+  - name: dataelements
+    mimetype: application/json
+    data: '{"CPEE-INSTANCE":"9459","CPEE-INSTANCE-URL":"https://cpee.org/flow/engine/9459","CPEE-INSTANCE-UUID":"adc2c7fc-b36f-42dc-983d-3c723de178f6","CPEE-STATE":"finished","qid":"29a51f789bb263326331","res":[{"buttons_0":{"Input
+      CPEE":false,"Input Mermaid":false,"Output Mermaid":false,"Output CPEE":false,"Unsure":true}},{"buttons_1":{"Syntax
+      Error":false,"Conversion Error":false,"Structural Error":false,"Unsure":true}},{"buttons_2":{"CPEE-to-Mermaid
+      conversion":false,"LLM-generated output":false,"Mermaid-to-CPEE conversion":false,"Unsure":true}},{"select_4":"Unsure"},{"buttons_0":{"Input
+      CPEE":false,"Input Mermaid":false,"Output Mermaid":false,"Output CPEE":true,"Unsure":false}},{"buttons_1":{"Syntax
+      Error":false,"Conversion Error":false,"Structural Error":false,"Unsure":true}},{"buttons_2":{"CPEE-to-Mermaid
+      conversion":false,"LLM-generated output":false,"Mermaid-to-CPEE conversion":true,"Unsure":false}},{"select_4":"Yes"},{"scale_0":"-2","scale_1":"1","feedback_0":""}],"d":{"console":"https://spunsel.github.io/cpee-log-error-console/","log":"https://cpee.org/logs/5f000e54-bfa9-495e-ad8c-598456b6d9dc.xes.yaml","procnum":140971,"time":30,"step":1,"change_uuid":"5ca0c37922499f6af0dc2ee7d584a9bf4ca15846"}}'
+  time:timestamp: '2026-04-16T11:21:53.542529+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Complex
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 7aa6a339040d109c57360cce076867e5
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-04-16T11:21:53.551821+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Complex
+  concept:endpoint: https-post://cpee.org/flow/start/url/
+  id:id: a7
+  cpee:activity: a7
+  cpee:activity_uuid: 7aa6a339040d109c57360cce076867e5
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: res
+    value:
+    - select_0: PhD student
+      select_1: familiar
+      select_2: familiar
+      select_2_2: familiar
+      select_3: occasionally
+      select_4: practical experience
+    - - buttons_0:
+          Input CPEE: false
+          Input Mermaid: false
+          Output Mermaid: false
+          Output CPEE: false
+          Unsure: true
+      - buttons_1:
+          Syntax Error: false
+          Conversion Error: false
+          Structural Error: false
+          Unsure: true
+      - buttons_2:
+          CPEE-to-Mermaid conversion: false
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: false
+          Unsure: true
+      - select_4: 'No'
+      - buttons_0:
+          Input CPEE: false
+          Input Mermaid: true
+          Output Mermaid: false
+          Output CPEE: false
+          Unsure: false
+      - buttons_1:
+          Syntax Error: true
+          Conversion Error: true
+          Structural Error: false
+          Unsure: false
+      - buttons_2:
+          CPEE-to-Mermaid conversion: true
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: false
+          Unsure: false
+      - select_4: 'Yes'
+      - scale_0: "-2"
+        scale_1: '2'
+        feedback_0: ''
+    - - buttons_0:
+          Input CPEE: false
+          Input Mermaid: false
+          Output Mermaid: false
+          Output CPEE: false
+          Unsure: true
+      - buttons_1:
+          Syntax Error: false
+          Conversion Error: false
+          Structural Error: false
+          Unsure: true
+      - buttons_2:
+          CPEE-to-Mermaid conversion: false
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: false
+          Unsure: true
+      - select_4: 'No'
+      - buttons_0:
+          Input CPEE: false
+          Input Mermaid: false
+          Output Mermaid: true
+          Output CPEE: false
+          Unsure: false
+      - buttons_1:
+          Syntax Error: false
+          Conversion Error: true
+          Structural Error: false
+          Unsure: false
+      - buttons_2:
+          CPEE-to-Mermaid conversion: false
+          LLM-generated output: true
+          Mermaid-to-CPEE conversion: false
+          Unsure: false
+      - select_4: 'Yes'
+      - scale_0: "-2"
+        scale_1: '2'
+        feedback_0: ''
+    - - buttons_0:
+          Input CPEE: false
+          Input Mermaid: false
+          Output Mermaid: false
+          Output CPEE: false
+          Unsure: true
+      - buttons_1:
+          Syntax Error: false
+          Conversion Error: false
+          Structural Error: false
+          Unsure: true
+      - buttons_2:
+          CPEE-to-Mermaid conversion: false
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: false
+          Unsure: true
+      - select_4: Unsure
+      - buttons_0:
+          Input CPEE: false
+          Input Mermaid: false
+          Output Mermaid: false
+          Output CPEE: true
+          Unsure: false
+      - buttons_1:
+          Syntax Error: false
+          Conversion Error: false
+          Structural Error: false
+          Unsure: true
+      - buttons_2:
+          CPEE-to-Mermaid conversion: false
+          LLM-generated output: false
+          Mermaid-to-CPEE conversion: true
+          Unsure: false
+      - select_4: 'Yes'
+      - scale_0: "-2"
+        scale_1: '1'
+        feedback_0: ''
+  time:timestamp: '2026-04-16T11:21:53.551660+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Final
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: a46de689c98f579f9a9b138ebcc1a67f
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: start
+  cpee:lifecycle:transition: activity/calling
+  data:
+  - name: type
+    value: set
+  - name: lx
+    value: '0'
+  - name: ly
+    value: '1'
+  - name: x_amount
+    value: '5'
+  - name: y_amount
+    value: '9'
+  - name: button
+    value:
+  - name: style
+    value: https://cpee.org/quests/dataflow/final.css
+  - name: urls
+    value:
+    - lang: de-at
+      url: https://cpee.org/quests/dataflow/text.html
+  - name: default
+    value:
+      text: "**Thank you** for participating."
+  time:timestamp: '2026-04-16T11:21:53.593501+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Final
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: a46de689c98f579f9a9b138ebcc1a67f
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: activity/receiving
+  time:timestamp: '2026-04-16T11:21:53.607751+02:00'
+---
+event:
+  concept:instance: 9399
+  concept:name: Final
+  concept:endpoint: https-put://cpee.org/out/frames/29a51f789bb263326331/
+  id:id: a9
+  cpee:activity: a9
+  cpee:activity_uuid: a46de689c98f579f9a9b138ebcc1a67f
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: complete
+  cpee:lifecycle:transition: activity/done
+  time:timestamp: '2026-04-16T11:21:53.626761+02:00'
+---
+event:
+  concept:instance: 9399
+  id:id: ex-ante
+  cpee:instance: cd7d566a-124f-456c-8bd5-2802dc0ac48d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: finished
+  time:timestamp: '2026-04-16T11:21:53.642374+02:00'

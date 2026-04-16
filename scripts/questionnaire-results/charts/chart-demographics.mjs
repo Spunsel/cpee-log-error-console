@@ -38,10 +38,22 @@ const PALETTE = [
 const FONT = "'Times New Roman', Times, serif";
 const SCALE = 3;
 
+const PROCS = [9779, 9784, 140971];
+const SCENARIO_KEYS = PROCS.flatMap((p) => [
+  `log-${p} At witch pipeline stage does the error FIRST appear?`,
+  `log-${p} What is the nature of the error?`,
+  `console-${p} What is the nature of the error?`,
+  `console-${p} Where you able to confidentally identify the error?`,
+  `console-${p} How easy was using the raw log file? (++,+,0,-,--)`,
+  `console-${p} How easy was using the CPEE LLM Debug Console? (++,+,0,-,--)`,
+]);
+
 function loadAnswered(data) {
-  return data.questionnaires.filter((q) =>
-    QUESTIONS.some((qn) => q.answers[qn.key] !== ''),
-  );
+  return data.questionnaires.filter((q) => {
+    const hasDemographic = QUESTIONS.some((qn) => q.answers[qn.key] !== '');
+    const hasScenario = SCENARIO_KEYS.some((k) => q.answers[k] !== '');
+    return hasDemographic && hasScenario;
+  });
 }
 
 function esc(s) {
