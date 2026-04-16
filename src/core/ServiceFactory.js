@@ -21,7 +21,8 @@ export class ServiceFactory {
             'NodeMappingService',
             'TraceCalculationService',
             'EmailService',
-            'ContentProcessingService'
+            'ContentProcessingService',
+            'TelemetryService'
         ]);
         // Service registry: maps service names to factory functions
         // Factory functions use lazy loading (dynamic imports) to load service classes only when needed
@@ -109,7 +110,8 @@ export class ServiceFactory {
             'LogFetchService',
             'EventProcessingService',
             'EmailService',
-            'ContentProcessingService'
+            'ContentProcessingService',
+            'TelemetryService'
         ];
         
         // Phase 2: Services that depend only on extractors/calculators (no other services)
@@ -306,6 +308,14 @@ export class ServiceFactory {
             }
             const { ContentProcessingService } = await this.importPromises.get('ContentProcessingService');
             return new ContentProcessingService();
+        });
+
+        this.serviceRegistry.set('TelemetryService', async () => {
+            if (!this.importPromises.has('TelemetryService')) {
+                this.importPromises.set('TelemetryService', import('../services/TelemetryService.js'));
+            }
+            const { getTelemetryService } = await this.importPromises.get('TelemetryService');
+            return getTelemetryService();
         });
 
         // Services with dependencies that need other services

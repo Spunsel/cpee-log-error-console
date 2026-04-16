@@ -23,6 +23,7 @@
     "validate": "npm run lint && npm run format:check && npm run test",
     "clean": "rimraf dist coverage",
     "serve": "python -m http.server 8000",
+    "telemetry": "node server/index.js",
     "docs": "jsdoc -c jsdoc.conf.json",
     "arch": "madge --json src/ > docs/dependencies.json",
     "arch:graph": "node scripts/generate-graph.js",

@@ -27,7 +27,8 @@ export class ConfigManager {
             styling: this.loadStylingConfig(),
             syntaxHighlighting: this.loadSyntaxHighlightingConfig(),
             email: this.loadEmailConfig(),
-            recentAdditions: this.loadRecentAdditionsConfig()
+            recentAdditions: this.loadRecentAdditionsConfig(),
+            telemetry: this.loadTelemetryConfig()
         };
     }
 
@@ -905,6 +906,21 @@ export class ConfigManager {
                     description: 'On Task/Gateway hover: show alt_id, id, (confidence of match)'
                 }
             ]
+        };
+    }
+
+    /**
+     * Load telemetry configuration
+     * @returns {Object} Telemetry configuration
+     */
+    loadTelemetryConfig() {
+        return {
+            enabled: true,
+            // Set this to the public URL of your telemetry server.
+            // When running locally with a tunnel (e.g. ngrok), use the tunnel URL.
+            // Example: 'https://your-tunnel-id.ngrok-free.app/api/telemetry'
+            endpoint: 'https://manly-commute-segment.ngrok-free.dev/api/telemetry',
+            batchIntervalMs: 10000
         };
     }
 

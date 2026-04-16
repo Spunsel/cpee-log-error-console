@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPEE Debug Console — Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg: #f8fafc; --surface: #ffffff; --border: #e2e8f0;
+            --text: #1e293b; --text2: #64748b; --primary: #2563eb;
+            --green: #16a34a; --red: #dc2626; --blue: #2563eb; --orange: #ea580c;
+            --radius: 8px; --shadow: 0 1px 3px rgba(0,0,0,.1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+        .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+        .header h1 { font-size: 20px; font-weight: 600; }
+        .header .meta { font-size: 13px; color: var(--text2); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+        .card h2 { font-size: 14px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px; }
+        .stat-value { font-size: 32px; font-weight: 700; color: var(--text); }
+        .stat-label { font-size: 13px; color: var(--text2); margin-top: 4px; }
+        .chart-card { grid-column: span 2; }
+        .chart-card canvas { max-height: 300px; }
+        .wide-card { grid-column: 1 / -1; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+        th { font-weight: 600; color: var(--text2); background: var(--bg); position: sticky; top: 0; }
+        .table-scroll { max-height: 400px; overflow-y: auto; }
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .badge-green { background: #dcfce7; color: var(--green); }
+        .badge-blue { background: #dbeafe; color: var(--blue); }
+        .badge-red { background: #fee2e2; color: var(--red); }
+        .badge-orange { background: #fff7ed; color: var(--orange); }
+        .refresh-btn { background: var(--primary); color: #fff; border: none; padding: 8px 16px; border-radius: var(--radius); cursor: pointer; font-size: 13px; font-weight: 500; }
+        .refresh-btn:hover { opacity: .9; }
+        .loading { text-align: center; padding: 40px; color: var(--text2); font-size: 14px; }
+        .error { color: var(--red); padding: 20px; text-align: center; }
+        .event-stream { font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace; font-size: 12px; }
+        .event-stream tr:hover { background: #f1f5f9; }
+        .event-time { color: var(--text2); white-space: nowrap; }
+        .event-name { font-weight: 500; }
+        .event-cat { color: var(--text2); }
+        @media (max-width: 768px) { .chart-card { grid-column: span 1; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>CPEE Debug Console Analytics</h1>
+            <div class="meta" id="lastUpdated"></div>
+        </div>
+        <button class="refresh-btn" onclick="loadData()">Refresh</button>
+    </div>
+    <div class="container">
+        <div id="content" class="loading">Loading analytics data...</div>
+    </div>
+
+    <script>
+    const TOKEN = new URLSearchParams(window.location.search).get('token') || '';
+    const API_HEADERS = TOKEN ? { 'X-Analytics-Token': TOKEN } : {};
+
+    async function api(path) {
+        const res = await fetch(path, { headers: API_HEADERS });
+        if (!res.ok) { throw new Error(`API ${path}: ${res.status}`); }
+        return res.json();
+    }
+
+    async function loadData() {
+        const el = document.getElementById('content');
+        el.innerHTML = '<div class="loading">Loading...</div>';
+        try {
+            const [stats, sessions, events] = await Promise.all([
+                api('/api/telemetry/stats'),
+                api('/api/telemetry/sessions'),
+                api('/api/telemetry/events')
+            ]);
+            render(stats, sessions, events);
+            document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleString();
+        } catch (err) {
+            el.innerHTML = `<div class="error">Failed to load data: ${err.message}</div>`;
+        }
+    }
+
+    function render(stats, sessions, events) {
+        const el = document.getElementById('content');
+
+        const avgDurSec = Math.round((stats.avgSessionDurationMs || 0) / 1000);
+        const avgDurStr = avgDurSec >= 60 ? `${Math.floor(avgDurSec/60)}m ${avgDurSec%60}s` : `${avgDurSec}s`;
+
+        const returningUsers = countReturning(sessions);
+        const newUsers = stats.uniqueUsers - returningUsers;
+
+        el.innerHTML = `
+            <!-- KPI Cards -->
+            <div class="grid">
+                <div class="card">
+                    <h2>Unique Users</h2>
+                    <div class="stat-value">${stats.uniqueUsers}</div>
+                    <div class="stat-label">${newUsers} new · ${returningUsers} returning</div>
+                </div>
+                <div class="card">
+                    <h2>Total Sessions</h2>
+                    <div class="stat-value">${stats.totalSessions}</div>
+                    <div class="stat-label">${sessions.length > 0 ? (stats.totalEvents / sessions.length).toFixed(1) : 0} events/session avg</div>
+                </div>
+                <div class="card">
+                    <h2>Total Events</h2>
+                    <div class="stat-value">${stats.totalEvents.toLocaleString()}</div>
+                    <div class="stat-label">${Object.keys(stats.eventCounts).length} distinct event types</div>
+                </div>
+                <div class="card">
+                    <h2>Avg Session Duration</h2>
+                    <div class="stat-value">${avgDurStr}</div>
+                    <div class="stat-label">From ${Object.keys(stats.dailyCounts).length} day(s) of data</div>
+                </div>
+            </div>
+
+            <!-- Charts Row 1 -->
+            <div class="grid">
+                <div class="card chart-card">
+                    <h2>Events Over Time</h2>
+                    <canvas id="chartDaily"></canvas>
+                </div>
+                <div class="card">
+                    <h2>Browser Breakdown</h2>
+                    <canvas id="chartBrowser"></canvas>
+                </div>
+            </div>
+
+            <!-- Charts Row 2 -->
+            <div class="grid">
+                <div class="card chart-card">
+                    <h2>Event Categories</h2>
+                    <canvas id="chartCategories"></canvas>
+                </div>
+                <div class="card">
+                    <h2>Operating Systems</h2>
+                    <canvas id="chartOS"></canvas>
+                </div>
+            </div>
+
+            <!-- Feature Usage Table -->
+            <div class="grid">
+                <div class="card wide-card">
+                    <h2>Feature Usage (Top Events)</h2>
+                    <div class="table-scroll" id="featureTable"></div>
+                </div>
+            </div>
+
+            <!-- Sessions Table -->
+            <div class="grid">
+                <div class="card wide-card">
+                    <h2>Sessions</h2>
+                    <div class="table-scroll" id="sessionsTable"></div>
+                </div>
+            </div>
+
+            <!-- Event Stream -->
+            <div class="grid">
+                <div class="card wide-card">
+                    <h2>Recent Events (Last 200)</h2>
+                    <div class="table-scroll" id="eventStream"></div>
+                </div>
+            </div>
+        `;
+
+        buildDailyChart(stats.dailyCounts);
+        buildBrowserChart(stats.browsers);
+        buildCategoryChart(stats.categoryCounts);
+        buildOSChart(stats.oses);
+        buildFeatureTable(stats.eventCounts);
+        buildSessionsTable(sessions);
+        buildEventStream(events);
+    }
+
+    // ── Charts ──────────────────────────────────────────────────────────────
+
+    const CHART_COLORS = ['#2563eb','#16a34a','#ea580c','#dc2626','#8b5cf6','#0891b2','#d97706','#be185d'];
+
+    function buildDailyChart(dailyCounts) {
+        const labels = Object.keys(dailyCounts).sort();
+        const data = labels.map(d => dailyCounts[d]);
+        new Chart(document.getElementById('chartDaily'), {
+            type: 'line',
+            data: { labels, datasets: [{ label: 'Events', data, borderColor: CHART_COLORS[0], backgroundColor: CHART_COLORS[0]+'22', fill: true, tension: .3 }] },
+            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+        });
+    }
+
+    function buildBrowserChart(browsers) {
+        const labels = Object.keys(browsers);
+        const data = Object.values(browsers);
+        new Chart(document.getElementById('chartBrowser'), {
+            type: 'doughnut',
+            data: { labels, datasets: [{ data, backgroundColor: CHART_COLORS.slice(0, labels.length) }] },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+    }
+
+    function buildCategoryChart(categoryCounts) {
+        const sorted = Object.entries(categoryCounts).sort((a,b) => b[1]-a[1]);
+        const labels = sorted.map(e => e[0]);
+        const data = sorted.map(e => e[1]);
+        new Chart(document.getElementById('chartCategories'), {
+            type: 'bar',
+            data: { labels, datasets: [{ label: 'Events', data, backgroundColor: CHART_COLORS[0] }] },
+            options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } }, indexAxis: 'y' }
+        });
+    }
+
+    function buildOSChart(oses) {
+        const labels = Object.keys(oses);
+        const data = Object.values(oses);
+        new Chart(document.getElementById('chartOS'), {
+            type: 'doughnut',
+            data: { labels, datasets: [{ data, backgroundColor: CHART_COLORS.slice(0, labels.length) }] },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+    }
+
+    // ── Tables ───────────────────────────────────────────────────────────────
+
+    function buildFeatureTable(eventCounts) {
+        const sorted = Object.entries(eventCounts).sort((a,b) => b[1]-a[1]);
+        const rows = sorted.map(([name, count]) => {
+            const cat = categorize(name);
+            return `<tr><td class="event-name">${esc(name)}</td><td><span class="badge badge-blue">${cat}</span></td><td>${count.toLocaleString()}</td></tr>`;
+        }).join('');
+        document.getElementById('featureTable').innerHTML = `<table><thead><tr><th>Event</th><th>Category</th><th>Count</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+
+    function buildSessionsTable(sessions) {
+        const sorted = [...sessions].sort((a,b) => (b.firstSeen||'').localeCompare(a.firstSeen||''));
+        const rows = sorted.map(s => {
+            const dur = s.durationMs >= 60000
+                ? `${Math.floor(s.durationMs/60000)}m ${Math.round((s.durationMs%60000)/1000)}s`
+                : `${Math.round(s.durationMs/1000)}s`;
+            const browser = s.environment ? parseBrowserUA(s.environment.userAgent||'') : '—';
+            const os = s.environment ? parseOSUA(s.environment.userAgent||'') : '—';
+            const viewport = s.environment ? `${s.environment.viewportWidth}×${s.environment.viewportHeight}` : '—';
+            return `<tr>
+                <td class="event-time">${formatTime(s.firstSeen)}</td>
+                <td title="${esc(s.fingerprint)}">${esc((s.fingerprint||'').slice(0,12))}</td>
+                <td>${dur}</td>
+                <td>${s.eventCount}</td>
+                <td><span class="badge badge-green">${browser}</span></td>
+                <td>${os}</td>
+                <td>${viewport}</td>
+            </tr>`;
+        }).join('');
+        document.getElementById('sessionsTable').innerHTML = `<table><thead><tr><th>Started</th><th>User</th><th>Duration</th><th>Events</th><th>Browser</th><th>OS</th><th>Viewport</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+
+    function buildEventStream(events) {
+        const recent = events.slice(-200).reverse();
+        const rows = recent.map(e => {
+            return `<tr>
+                <td class="event-time">${formatTime(e.timestamp)}</td>
+                <td class="event-name">${esc(e.event)}</td>
+                <td class="event-cat"><span class="badge badge-blue">${e.category||'—'}</span></td>
+                <td title="${esc(e.sessionId||'')}">${esc((e.sessionId||'').slice(0,8))}</td>
+                <td>${esc(summarizeData(e.data))}</td>
+            </tr>`;
+        }).join('');
+        document.getElementById('eventStream').innerHTML = `<table class="event-stream"><thead><tr><th>Time</th><th>Event</th><th>Category</th><th>Session</th><th>Data</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+
+    // ── Helpers ──────────────────────────────────────────────────────────────
+
+    function countReturning(sessions) {
+        const fpSessions = {};
+        for (const s of sessions) {
+            if (!s.fingerprint) continue;
+            fpSessions[s.fingerprint] = (fpSessions[s.fingerprint]||0) + 1;
+        }
+        return Object.values(fpSessions).filter(c => c > 1).length;
+    }
+
+    function categorize(name) {
+        if (name.startsWith('session:')) return 'session';
+        if (name.startsWith('trace')) return 'trace';
+        if (name.includes('instance') || name.includes('Instance')) return 'instance';
+        if (name.includes('step') || name.includes('Step') || name.includes('sidebar') || name.includes('header') || name.includes('keyboard')) return 'navigation';
+        if (name.includes('Comparison') || name.includes('comparison')) return 'comparison';
+        if (name.includes('Reconciliation') || name.includes('reconciliation')) return 'reconciliation';
+        if (name.includes('highlight') || name.includes('Highlight')) return 'highlight';
+        if (name.includes('view') || name.includes('View') || name.includes('dark') || name.includes('theme') || name.includes('scale')) return 'ui';
+        if (name.includes('verification') || name.includes('reachability')) return 'analysis';
+        return 'other';
+    }
+
+    function formatTime(ts) {
+        if (!ts) return '—';
+        const d = new Date(ts);
+        return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+    }
+
+    function summarizeData(data) {
+        if (!data) return '—';
+        if (typeof data === 'string') return data.slice(0, 80);
+        const keys = Object.keys(data);
+        if (keys.length === 0) return '—';
+        const parts = keys.slice(0, 3).map(k => {
+            const v = data[k];
+            const vs = typeof v === 'object' ? JSON.stringify(v).slice(0,30) : String(v).slice(0,30);
+            return `${k}: ${vs}`;
+        });
+        if (keys.length > 3) parts.push(`+${keys.length-3} more`);
+        return parts.join(', ');
+    }
+
+    function parseBrowserUA(ua) {
+        if (ua.includes('Firefox/')) return 'Firefox';
+        if (ua.includes('Edg/')) return 'Edge';
+        if (ua.includes('Chrome/')) return 'Chrome';
+        if (ua.includes('Safari/')) return 'Safari';
+        return 'Other';
+    }
+
+    function parseOSUA(ua) {
+        if (ua.includes('Windows')) return 'Windows';
+        if (ua.includes('Mac OS')) return 'macOS';
+        if (ua.includes('Linux')) return 'Linux';
+        if (ua.includes('Android')) return 'Android';
+        if (ua.includes('iPhone') || ua.includes('iPad')) return 'iOS';
+        return 'Other';
+    }
+
+    function esc(str) {
+        const div = document.createElement('div');
+        div.textContent = str || '';
+        return div.innerHTML;
+    }
+
+    // Initial load
+    loadData();
+    </script>
+</body>
+</html>
