@@ -39,13 +39,19 @@
     cursor: pointer;
     /* Width adapts to content */
     width: auto;
-    min-width: 100px;
-    max-width: 220px;
+    min-width: 147px;
+    max-width: 322px;
 }
 
 .code-minimap.visible {
     opacity: 1;
     visibility: visible;
+}
+
+/* Skip the fade-in when the minimap appears as a side-effect of a view switch.
+   Applied for one paint tick then removed, so manual toggle still fades. */
+.code-minimap.no-transition {
+    transition: none !important;
 }
 
 /* ========================================
@@ -69,7 +75,11 @@
 
 .minimap-code {
     margin: 0;
+    /* Zero out top padding/margin so the first line sits flush with the minimap
+       container top (Prism's language-* classes can add browser-default margins). */
+    margin-top: 0 !important;
     padding: 4px;
+    padding-top: 0 !important;
     background: transparent;
     overflow: visible;
     white-space: pre;
@@ -80,8 +90,8 @@
 /* Ultra-small code rendering */
 .minimap-code-content {
     font-family: var(--font-mono);
-    font-size: 2.5px !important;
-    line-height: 3.7px !important;
+    font-size: 3.64px !important;
+    line-height: 5.41px !important;
     letter-spacing: 0;
     transform-origin: top left;
     display: block;
@@ -108,8 +118,11 @@
     opacity: 0.2;
     border-radius: 2px;
     cursor: grab;
-    transition: opacity 0.15s ease, top 0.05s ease-out, height 0.05s ease-out;
+    transition: opacity 0.15s ease;
     z-index: 2;
+    /* Promote to its own compositor layer so translateY moves happen off the
+       main thread without triggering layout recalculations. */
+    will-change: transform;
 }
 
 .minimap-viewport:hover {
@@ -207,7 +220,7 @@
 /* Note: With flexible minimap width, we use a general padding */
 [data-content-type="raw"].has-minimap,
 [data-content-type="raw"].has-minimap-mermaid {
-    padding-right: 230px; /* Space for minimap (max-width 220px + some buffer) */
+    padding-right: 335px; /* Space for minimap (max-width 322px + some buffer) */
 }
 
 /* Ensure parent has relative positioning for absolute minimap */

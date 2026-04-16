@@ -100,7 +100,7 @@ export class RawContentRenderer {
     /**
      * Display cleaned content for a section.
      */
-    display(sectionId, container, step) {
+    async display(sectionId, container, step) {
         if (!step || !container) { return; }
 
         let rawContent = null;
@@ -161,7 +161,9 @@ export class RawContentRenderer {
             rawContainer.innerHTML = '';
             rawContainer.appendChild(renderer());
 
-            this.applySyntaxHighlighting(sectionId, rawContainer);
+            // Await highlighting so that .preprocessing-line-number elements are
+            // in the DOM before setupMinimap reads them for the marker positions.
+            await this.applySyntaxHighlighting(sectionId, rawContainer);
             this.setupMinimap(sectionId, container, rawContainer);
             this.updateCopyDownloadContent(sectionId, rawContainer, rawContent);
 
@@ -262,10 +264,10 @@ export class RawContentRenderer {
         if (!actionBar) { return; }
 
         const contentBox = container.closest('.content-box') || container;
-        requestAnimationFrame(() => {
-            actionBar.setMinimapCodeContainer(rawContainer, contentBox);
-            actionBar.refreshMinimap();
-        });
+        // Attach synchronously so the minimap appears at the same time as the
+        // content when switching views (no rAF lag, no CSS fade-in lag).
+        actionBar.setMinimapCodeContainer(rawContainer, contentBox);
+        actionBar.refreshMinimap();
     }
 
     /**

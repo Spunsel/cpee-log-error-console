@@ -93,7 +93,7 @@ export class LogContentRenderer {
      * @param {HTMLElement} container - Content container
      * @param {Object} step - Current step object
      */
-    display(sectionId, container, step) {
+    async display(sectionId, container, step) {
         if (!step || !container) { return; }
 
         let rawContent = null;
@@ -160,7 +160,9 @@ export class LogContentRenderer {
             logContainer.innerHTML = '';
             logContainer.appendChild(renderer());
 
-            this.applySyntaxHighlighting(sectionId, logContainer);
+            // Await highlighting so that .preprocessing-line-number elements are
+            // in the DOM before setupMinimap reads them for the marker positions.
+            await this.applySyntaxHighlighting(sectionId, logContainer);
             this.setupMinimap(sectionId, container, logContainer);
             this.updateCopyDownloadContent(sectionId, logContainer, rawContent);
 
@@ -263,10 +265,10 @@ export class LogContentRenderer {
         if (!actionBar) { return; }
 
         const contentBox = container.closest('.content-box') || container;
-        requestAnimationFrame(() => {
-            actionBar.setMinimapCodeContainer(logContainer, contentBox);
-            actionBar.refreshMinimap();
-        });
+        // Attach synchronously so the minimap appears at the same time as the
+        // content when switching views (no rAF lag, no CSS fade-in lag).
+        actionBar.setMinimapCodeContainer(logContainer, contentBox);
+        actionBar.refreshMinimap();
     }
 
     /**

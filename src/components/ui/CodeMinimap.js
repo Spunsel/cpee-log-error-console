@@ -56,6 +56,11 @@ export class CodeMinimap {
         // Flag to prevent scroll loops
         this._isScrollingFromMinimap = false;
         this._isScrollingFromCode = false;
+
+        // Cached layout metrics — invalidated by updateContent() and attach()
+        // Avoids getBoundingClientRect / getComputedStyle on every scroll event
+        this._cachedMetrics = null;
+        this._lastContentHTML = null;
     }
 
     /**
@@ -184,7 +189,10 @@ export class CodeMinimap {
         }
         
         this.codeContainer = codeContainer;
-        
+
+        // Invalidate cached metrics — offset may change in a new parent
+        this._cachedMetrics = null;
+
         // Create element if not exists
         if (!this.element) {
             this.createElement();
@@ -230,9 +238,11 @@ export class CodeMinimap {
             }
         }
         
-        // Apply stored visibility preference (default: visible)
+        // Apply stored visibility preference (default: visible).
+        // Pass instant=true so the minimap appears synchronously with the content
+        // when switching views, with no CSS fade-in lag.
         if (this.isVisible) {
-            this.show();
+            this.show(false, true);
         } else {
             this.hide();
         }
@@ -261,12 +271,27 @@ export class CodeMinimap {
     }
 
     /**
-     * Show the minimap
+     * Show the minimap.
      * @param {boolean} savePreference - Whether to save this preference (default: false)
+     * @param {boolean} instant - Skip the CSS fade-in transition (default: false).
+     *   Pass true when showing as a side-effect of a view switch so the minimap
+     *   appears at the same time as the content, with no visible lag.
      */
-    show(savePreference = false) {
+    show(savePreference = false, instant = false) {
         if (this.element) {
-            this.element.classList.add('visible');
+            if (instant) {
+                // Suppress the opacity/visibility transition for this one paint,
+                // then re-enable it so manual toggle still fades smoothly.
+                this.element.classList.add('no-transition');
+                this.element.classList.add('visible');
+                // One rAF is enough for the browser to paint the visible state
+                // before re-enabling transitions; the class removal is invisible.
+                requestAnimationFrame(() => {
+                    if (this.element) this.element.classList.remove('no-transition');
+                });
+            } else {
+                this.element.classList.add('visible');
+            }
             this.isVisible = true;
             this.updateViewport();
         }
@@ -307,23 +332,31 @@ export class CodeMinimap {
     }
 
     /**
-     * Update minimap content from code container
+     * Update minimap content from code container.
+     * Skips the expensive innerHTML clone when the source hasn't changed.
      */
     updateContent() {
         if (!this.codeContainer || !this.codeElement) {
             return;
         }
-        
-        // Find the code element in the container
+
         const sourceCode = this.codeContainer.querySelector('code');
         if (!sourceCode) {
             return;
         }
-        
+
+        const newHTML = sourceCode.innerHTML;
+
+        // Skip full re-render when content is identical
+        if (newHTML === this._lastContentHTML) {
+            return;
+        }
+        this._lastContentHTML = newHTML;
+
         // Clone the highlighted HTML content
-        this.codeElement.innerHTML = sourceCode.innerHTML;
+        this.codeElement.innerHTML = newHTML;
         this.codeElement.className = sourceCode.className + ' minimap-code-content';
-        
+
         // Count lines
         const text = sourceCode.textContent || '';
         const lines = text.split('\n');
@@ -331,76 +364,92 @@ export class CodeMinimap {
         if (this.totalLines > 0 && lines[this.totalLines - 1] === '') {
             this.totalLines--;
         }
-        
-        // Get preprocessing lines from data attribute
+
+        // Invalidate cached layout metrics — content height / offsets may have changed
+        this._cachedMetrics = null;
+
         this._updatePreprocessingMarkers();
-        
-        // Update search markers
         this._updateSearchMarkers();
     }
 
     /**
-     * Update preprocessing line markers
-     * Uses the minimap's own line height to position markers directly
+     * Return cached layout metrics, computing them on first call after invalidation.
+     *
+     * Separates stable values (lineHeight, paddingTop, marginTop, codeBaseOffset)
+     * from the scroll-dependent part. codeBaseOffset is the offset of the code
+     * element from the top of the minimap container *before* any scroll, i.e.:
+     *   minimapContent.offsetTop + minimapCode.offsetTop
+     *
+     * At call sites, the actual visual codeOffsetTop is:
+     *   metrics.codeBaseOffset - this.minimapContent.scrollTop
+     *
+     * This avoids getBoundingClientRect() (which forces a full layout reflow)
+     * during every scroll event while still being accurate.
+     *
+     * @returns {{ lineHeight: number, paddingTop: number, marginTop: number, codeBaseOffset: number }|null}
+     * @private
+     */
+    _getMetrics() {
+        if (this._cachedMetrics) {
+            return this._cachedMetrics;
+        }
+
+        const minimapCodeElement = this.codeElement;
+        if (!minimapCodeElement || !this.element || !this.minimapContent || !this.minimapCode) {
+            return null;
+        }
+
+        const codeStyle = window.getComputedStyle(minimapCodeElement);
+        const rawLineHeight = parseFloat(codeStyle.lineHeight);
+        const lineHeight = !isNaN(rawLineHeight) ? rawLineHeight : 3.5;
+
+        const preStyle = window.getComputedStyle(this.minimapCode);
+        const paddingTop = parseFloat(preStyle.paddingTop) || 0;
+        const marginTop  = parseFloat(preStyle.marginTop)  || 0;
+
+        // Stable part of the code-element offset (does not change with scroll)
+        const codeBaseOffset = this.minimapContent.offsetTop + this.minimapCode.offsetTop;
+
+        this._cachedMetrics = { lineHeight, paddingTop, marginTop, codeBaseOffset };
+        return this._cachedMetrics;
+    }
+
+    /**
+     * Update preprocessing line markers using cached metrics.
      * @private
      */
     _updatePreprocessingMarkers() {
         if (!this.showPreprocessing || !this.markersContainer || !this.codeContainer) {
             return;
         }
-        
-        // Clear existing preprocessing markers
-        const existingMarkers = this.markersContainer.querySelectorAll('.minimap-marker-preprocessing');
-        existingMarkers.forEach(m => m.remove());
-        
-        // Get preprocessing line numbers from source code
+
+        this.markersContainer.querySelectorAll('.minimap-marker-preprocessing').forEach(m => m.remove());
+
         const preprocessingLineElements = this.codeContainer.querySelectorAll('.preprocessing-line-number');
         if (preprocessingLineElements.length === 0) {
             return;
         }
-        
-        // Collect all preprocessing line numbers
-        const preprocessingLines = [];
+
+        const lines = [];
         preprocessingLineElements.forEach(el => {
-            const lineNum = parseInt(el.getAttribute('data-line'), 10);
-            if (!isNaN(lineNum) && lineNum >= 1) {
-                preprocessingLines.push(lineNum);
-            }
+            const n = parseInt(el.getAttribute('data-line'), 10);
+            if (!isNaN(n) && n >= 1) lines.push(n);
         });
-        
-        if (preprocessingLines.length === 0) {
-            return;
-        }
-        
-        // Get the minimap code element
-        const minimapCodeElement = this.codeElement;
-        if (!minimapCodeElement) {
-            return;
-        }
-        
-        // Get the minimap's computed line height directly from CSS
-        const computedStyle = window.getComputedStyle(minimapCodeElement);
-        const minimapLineHeight = parseFloat(computedStyle.lineHeight);
-        
-        // Fallback if line-height is not a number (e.g., "normal")
-        const lineHeight = !isNaN(minimapLineHeight) ? minimapLineHeight : 3.5;
-        
-        // Get padding and margin from minimap-code (parent pre element)
-        const minimapCodeStyle = this.minimapCode ? window.getComputedStyle(this.minimapCode) : null;
-        const minimapCodePadding = minimapCodeStyle ? parseFloat(minimapCodeStyle.paddingTop) || 0 : 4;
-        const minimapCodeMargin = minimapCodeStyle ? parseFloat(minimapCodeStyle.marginTop) || 0 : 7;
-        
-        // Create markers at the minimap's line positions
-        preprocessingLines.forEach(lineNum => {
-            // Calculate position in minimap: padding + (lineNumber - 1) * lineHeight + margin offset
-            const markerTop = minimapCodePadding + (lineNum - 1) * lineHeight + minimapCodeMargin;
-            
+        if (lines.length === 0) return;
+
+        const m = this._getMetrics();
+        if (!m) return;
+
+        const frag = document.createDocumentFragment();
+        lines.forEach(lineNum => {
+            const markerTop = m.paddingTop + (lineNum - 1) * m.lineHeight + m.marginTop;
             const marker = document.createElement('div');
             marker.className = 'minimap-marker minimap-marker-preprocessing';
             marker.style.top = `${markerTop}px`;
-            marker.style.height = `${Math.max(lineHeight, 2)}px`;
-            this.markersContainer.appendChild(marker);
+            marker.style.height = `${Math.max(m.lineHeight, 2)}px`;
+            frag.appendChild(marker);
         });
+        this.markersContainer.appendChild(frag);
     }
 
     /**
@@ -413,208 +462,115 @@ export class CodeMinimap {
     }
 
     /**
-     * Update search markers in minimap
-     * Gets line numbers from search matches and positions markers accordingly
+     * Update search markers using a single TreeWalker pass for all matches.
+     * Replaces the previous O(n·m) approach (one walker per match) with O(n+m).
      * @private
      */
     _updateSearchMarkers() {
         if (!this.markersContainer || !this.codeContainer) {
             return;
         }
-        
-        // Clear existing search markers
-        const existingMarkers = this.markersContainer.querySelectorAll('.minimap-marker-search');
-        existingMarkers.forEach(m => m.remove());
-        
-        // Find search match elements in the code container (class is .search-match)
+
+        this.markersContainer.querySelectorAll('.minimap-marker-search').forEach(m => m.remove());
+
         const searchMatches = this.codeContainer.querySelectorAll('.search-match');
-        if (searchMatches.length === 0) {
-            return;
-        }
-        
-        // Get the source code element
+        if (searchMatches.length === 0) return;
+
         const sourceCodeElement = this.codeContainer.querySelector('code');
-        if (!sourceCodeElement) {
-            return;
+        if (!sourceCodeElement) return;
+
+        const m = this._getMetrics();
+        if (!m) return;
+
+        // Single TreeWalker pass: accumulate line numbers for all match elements at once
+        const matchSet = new Set(searchMatches);
+        const lineNumbers = new Map(); // element → line number
+        let lineNum = 1;
+
+        const walker = document.createTreeWalker(
+            sourceCodeElement,
+            NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+            null
+        );
+
+        let node;
+        while ((node = walker.nextNode())) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                if (matchSet.has(node)) {
+                    lineNumbers.set(node, lineNum);
+                }
+            } else if (node.nodeType === Node.TEXT_NODE) {
+                const nl = (node.textContent.match(/\n/g) || []).length;
+                lineNum += nl;
+            }
         }
-        
-        // Get the minimap code element
-        const minimapCodeElement = this.codeElement;
-        if (!minimapCodeElement) {
-            return;
-        }
-        
-        // Get the minimap's computed line height directly from CSS
-        const computedStyle = window.getComputedStyle(minimapCodeElement);
-        const minimapLineHeight = parseFloat(computedStyle.lineHeight);
-        const lineHeight = !isNaN(minimapLineHeight) ? minimapLineHeight : 3.5;
-        
-        // Get padding and margin from minimap-code (parent pre element)
-        const minimapCodeStyle = this.minimapCode ? window.getComputedStyle(this.minimapCode) : null;
-        const minimapCodePadding = minimapCodeStyle ? parseFloat(minimapCodeStyle.paddingTop) || 0 : 4;
-        const minimapCodeMargin = minimapCodeStyle ? parseFloat(minimapCodeStyle.marginTop) || 0 : 7;
-        
-        // Track unique lines to avoid duplicate markers
+
         const markedLines = new Set();
-        
-        // For each search match, count newlines before it to get line number
-        searchMatches.forEach(matchElement => {
-            // Get line number by counting newlines in text before this element
-            const lineNum = this._getLineNumberByCountingNewlines(sourceCodeElement, matchElement);
-            
-            if (lineNum < 1) {
-                return;
-            }
-            
-            // Skip if we already marked this line
-            if (markedLines.has(lineNum)) {
-                return;
-            }
-            markedLines.add(lineNum);
-            
-            // Calculate position in minimap using minimap's line height + margin offset
-            const markerTop = minimapCodePadding + (lineNum - 1) * lineHeight + minimapCodeMargin;
-            
+        const frag = document.createDocumentFragment();
+
+        searchMatches.forEach(matchEl => {
+            const ln = lineNumbers.get(matchEl);
+            if (!ln || markedLines.has(ln)) return;
+            markedLines.add(ln);
+
+            const markerTop = m.paddingTop + (ln - 1) * m.lineHeight + m.marginTop;
             const marker = document.createElement('div');
             marker.className = 'minimap-marker minimap-marker-search';
             marker.style.top = `${markerTop}px`;
-            marker.style.height = `${Math.max(lineHeight, 2)}px`;
-            this.markersContainer.appendChild(marker);
+            marker.style.height = `${Math.max(m.lineHeight, 2)}px`;
+            frag.appendChild(marker);
         });
-    }
-    
-    /**
-     * Get the line number for an element by counting newlines in text before it
-     * @param {HTMLElement} codeElement - The code container
-     * @param {HTMLElement} targetElement - The element to find
-     * @returns {number} Line number (1-indexed) or 0 if error
-     * @private
-     */
-    _getLineNumberByCountingNewlines(codeElement, targetElement) {
-        try {
-            // Get all text before this element by walking text nodes
-            let textBefore = '';
-            
-            const walker = document.createTreeWalker(
-                codeElement,
-                NodeFilter.SHOW_TEXT,
-                null
-            );
-            
-            let textNode;
-            while ((textNode = walker.nextNode())) {
-                // Check if target element comes after this text node
-                const position = textNode.compareDocumentPosition(targetElement);
-                
-                if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
-                    // Text node is before target - include its content
-                    textBefore += textNode.textContent;
-                } else {
-                    // We've reached or passed the target
-                    break;
-                }
-            }
-            
-            // Count newlines to get line number (1-indexed)
-            const newlineCount = (textBefore.match(/\n/g) || []).length;
-            return newlineCount + 1;
-        } catch (e) {
-            console.warn('CodeMinimap: Error counting newlines', e);
-            return 0;
-        }
+
+        this.markersContainer.appendChild(frag);
     }
 
     /**
-     * Create line markers in the minimap
-     * @param {Array<number>} lineNumbers - Array of line numbers to mark
-     * @param {string} type - Marker type ('preprocessing' or 'search')
-     * @private
-     */
-    _createLineMarkers(lineNumbers, type) {
-        if (!this.markersContainer || !this.totalLines || lineNumbers.length === 0) {
-            return;
-        }
-        
-        // Get the code element to calculate positions relative to actual code content
-        const minimapCodeElement = this.codeElement || this.minimapCode?.querySelector('code');
-        if (!minimapCodeElement) {
-            return;
-        }
-        
-        // Get the offset from the top of the minimap to where the code content starts
-        const minimapRect = this.element.getBoundingClientRect();
-        const codeRect = minimapCodeElement.getBoundingClientRect();
-        const codeOffsetTop = codeRect.top - minimapRect.top;
-        const codeContentHeight = minimapCodeElement.offsetHeight;
-        
-        // Calculate line height based on actual code content height
-        const lineHeight = codeContentHeight / Math.max(this.totalLines, 1);
-        
-        lineNumbers.forEach(lineNum => {
-            const marker = document.createElement('div');
-            marker.className = `minimap-marker minimap-marker-${type}`;
-            // Position relative to where the code content actually starts
-            marker.style.top = `${codeOffsetTop + (lineNum - 1) * lineHeight}px`;
-            marker.style.height = `${Math.max(lineHeight, 2)}px`;
-            this.markersContainer.appendChild(marker);
-        });
-    }
-
-    /**
-     * Update viewport indicator position and size
+     * Update viewport indicator position and size.
+     * Uses cached codeBaseOffset (stable) minus live minimapContent.scrollTop to avoid
+     * getBoundingClientRect on every scroll event while keeping the indicator accurate.
      */
     updateViewport() {
         if (!this.codeContainer || !this.viewportIndicator || !this.element || !this.minimapCode) {
             return;
         }
-        
+
         const containerHeight = this.codeContainer.clientHeight;
-        const scrollHeight = this.codeContainer.scrollHeight;
-        const scrollTop = this.codeContainer.scrollTop;
-        
+        const scrollHeight    = this.codeContainer.scrollHeight;
+        const scrollTop       = this.codeContainer.scrollTop;
+
         if (scrollHeight <= containerHeight) {
-            // Content fits, hide viewport indicator
             this.viewportIndicator.style.display = 'none';
             return;
         }
-        
+
         this.viewportIndicator.style.display = 'block';
-        
-        // Get the code element and its actual position relative to the minimap container
+
         const minimapCodeElement = this.codeElement || this.minimapCode.querySelector('code');
-        if (!minimapCodeElement) {
-            return;
-        }
-        
-        // Get the actual rendered height of the code content
+        if (!minimapCodeElement) return;
+
         const codeContentHeight = minimapCodeElement.offsetHeight;
-        
-        // Get the offset from the top of the minimap container to where the code content starts
-        const minimapRect = this.element.getBoundingClientRect();
-        const codeRect = minimapCodeElement.getBoundingClientRect();
-        const codeOffsetTop = codeRect.top - minimapRect.top;
-        
-        // If code content is too small, skip
-        if (codeContentHeight <= 0) {
-            return;
-        }
-        
-        // Calculate the ratio of visible content to total content
-        const visibleRatio = containerHeight / scrollHeight;
-        
-        // Viewport height proportional to visible content, but constrained to code height
-        const viewportHeight = Math.max(codeContentHeight * visibleRatio, 20); // Minimum 20px
-        
-        // Calculate scroll progress (0 = top, 1 = bottom)
-        const maxScrollTop = scrollHeight - containerHeight;
+        if (codeContentHeight <= 0) return;
+
+        // codeBaseOffset is the stable (non-scroll-dependent) distance from the
+        // top of the minimap container to the top of the code element.
+        // We subtract minimapContent.scrollTop to get the current *visual* offset,
+        // because the viewport indicator is positioned relative to the outer container.
+        const metrics = this._getMetrics();
+        const codeBaseOffset = metrics ? metrics.codeBaseOffset : 0;
+        const minimapScrollTop = this.minimapContent ? this.minimapContent.scrollTop : 0;
+        const codeOffsetTop = codeBaseOffset - minimapScrollTop;
+
+        const visibleRatio   = containerHeight / scrollHeight;
+        const viewportHeight = Math.max(codeContentHeight * visibleRatio, 20);
+        const maxScrollTop   = scrollHeight - containerHeight;
         const scrollProgress = maxScrollTop > 0 ? scrollTop / maxScrollTop : 0;
-        
-        // Calculate viewport position within the code content bounds
         const maxViewportTop = codeContentHeight - viewportHeight;
-        const viewportTop = codeOffsetTop + (scrollProgress * Math.max(maxViewportTop, 0));
-        
-        this.viewportIndicator.style.height = `${viewportHeight}px`;
-        this.viewportIndicator.style.top = `${viewportTop}px`;
+        const viewportTop    = codeOffsetTop + (scrollProgress * Math.max(maxViewportTop, 0));
+
+        this.viewportIndicator.style.height    = `${viewportHeight}px`;
+        // translateY instead of `top` keeps the move on the compositor thread
+        // (no layout reflow) and pairs with will-change: transform in the CSS.
+        this.viewportIndicator.style.transform = `translateY(${viewportTop}px)`;
     }
 
     /**
@@ -626,16 +582,14 @@ export class CodeMinimap {
         if (this._isScrollingFromMinimap) {
             return;
         }
-        
+
         if (!this.isDragging) {
-            // Use requestAnimationFrame for smoother updates
-            if (this._scrollRAF) {
-                cancelAnimationFrame(this._scrollRAF);
-            }
-            this._scrollRAF = requestAnimationFrame(() => {
-                this.updateViewport();
-                this._syncMinimapScroll();
-            });
+            // Sync the minimap content scroll FIRST so that minimapContent.scrollTop
+            // is already up-to-date when updateViewport() reads it to compute codeOffsetTop.
+            // Both calls are cheap (no getBoundingClientRect), so no RAF batching needed —
+            // doing it synchronously eliminates the one-frame visual lag.
+            this._syncMinimapScroll();
+            this.updateViewport();
         }
     }
 
