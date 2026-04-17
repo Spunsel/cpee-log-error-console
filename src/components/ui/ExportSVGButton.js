@@ -1,571 +1,93 @@
 /**
  * ExportSVGButton Component
- * Provides SVG export/download functionality for graph visualizations
- * Extracts SVG from container and triggers download
+ * Provides SVG export/download functionality for graph visualizations.
+ *
+ * Strategy: call getComputedStyle() on every element of the LIVE SVG before
+ * cloning it.  This freezes the exact visual state the browser is currently
+ * rendering — CSS variables are already resolved, inheritance is flattened,
+ * and theme-specific colours are captured automatically.  No hand-crafted CSS
+ * is embedded, so there is no risk of overriding inline attributes set by the
+ * renderer (e.g. the namespaced marker-end URLs written by namespaceSVGIds).
  */
 
 import { ICONS } from '../../assets/icons.js';
 
+// SVG presentation properties worth freezing.
+// display/visibility are included so hidden elements stay hidden in the export.
+const FREEZE_PROPS = [
+    'fill', 'fill-opacity', 'fill-rule',
+    'stroke', 'stroke-width', 'stroke-opacity',
+    'stroke-dasharray', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit',
+    'marker-end', 'marker-start', 'marker-mid',
+    'opacity', 'display', 'visibility',
+    'font-family', 'font-size', 'font-weight', 'font-style', 'font-variant',
+    'text-anchor', 'dominant-baseline', 'alignment-baseline',
+    'paint-order',
+];
+
 export class ExportSVGButton {
     constructor(domRegistry = null, options = {}) {
         this.domRegistry = domRegistry;
-        
-        // Configuration
+
         this.options = {
             showIcon: options.showIcon !== false,
             showText: options.showText !== false,
-            successDuration: options.successDuration || 500,
+            successDuration: options.successDuration || 1000,
             onExportSuccess: options.onExportSuccess || null,
             onExportError: options.onExportError || null,
             ...options
         };
-        
+
         this.element = null;
         this.originalContent = null;
         this.isExporting = false;
         this.graphContainer = null;
         this.filename = null;
+
+        // Stable reference so removeEventListener actually works in destroy()
+        this._onClick = () => this.exportSVG();
     }
 
-    /**
-     * Create an export SVG button
-     * @param {HTMLElement} graphContainer - Container element containing the SVG
-     * @param {string} filename - Filename for download (without extension)
-     * @param {string} buttonText - Button label
-     * @returns {HTMLElement} Button element
-     */
+    // ─────────────────────────────────────────────────────────────────────────
+    // Public API
+    // ─────────────────────────────────────────────────────────────────────────
+
     createButton(graphContainer, filename, buttonText = 'Export SVG') {
         this.graphContainer = graphContainer;
         this.filename = filename;
-        
-        const createElement = this.domRegistry 
-            ? this.domRegistry.createElement.bind(this.domRegistry)
-            : (tag, props) => {
-                const el = document.createElement(tag);
-                if (props.className) el.className = props.className;
-                if (props.type) el.type = props.type;
-                if (props.title) el.title = props.title;
-                return el;
-            };
-        
-        const button = createElement('button', {
-            className: 'export-svg-btn',
-            type: 'button',
-            title: 'Export SVG'
-        });
-
-        // Store original content
         this.originalContent = buttonText;
-        
-        // Create button content
-        const buttonContainer = createElement('span', {
-            className: 'export-svg-btn-content'
-        });
+
+        const button = document.createElement('button');
+        button.className = 'export-svg-btn';
+        button.type = 'button';
+        button.title = 'Export SVG';
+
+        const content = document.createElement('span');
+        content.className = 'export-svg-btn-content';
 
         if (this.options.showIcon) {
-            // Create a wrapper span for the icon
-            const iconWrapper = createElement('span', {
-                className: 'export-svg-icon-wrapper'
-            });
+            const iconWrapper = document.createElement('span');
+            iconWrapper.className = 'export-svg-icon-wrapper';
             iconWrapper.innerHTML = ICONS.DOWNLOAD;
-            buttonContainer.appendChild(iconWrapper);
+            content.appendChild(iconWrapper);
         }
 
         if (this.options.showText) {
-            const text = createElement('span', {
-                className: 'export-svg-text'
-            });
+            const text = document.createElement('span');
+            text.className = 'export-svg-text';
             text.textContent = buttonText;
-            buttonContainer.appendChild(text);
+            content.appendChild(text);
         }
 
-        button.appendChild(buttonContainer);
-        button.addEventListener('click', () => this.exportSVG());
-
+        button.appendChild(content);
+        button.addEventListener('click', this._onClick);
         this.element = button;
         return button;
     }
 
-    /**
-     * Export SVG from container and trigger download
-     * @returns {boolean} Success status
-     */
-    exportSVG() {
-        if (this.isExporting || !this.graphContainer) {
-            return false;
-        }
+    setGraphContainer(container) { this.graphContainer = container; }
+    setFilename(filename)        { this.filename = filename; }
 
-        this.isExporting = true;
-        
-        try {
-            // Find the actual graph SVG element in the container
-            // Must exclude small icon SVGs (buttons, indicators) and find the real graph
-            const svgElement = this.findGraphSVG();
-            if (!svgElement) {
-                throw new Error('No graph SVG element found in container');
-            }
-            
-            // Clone the SVG
-            const svgClone = svgElement.cloneNode(true);
-            
-            // Only add namespace if not present (required for standalone SVG)
-            if (!svgClone.getAttribute('xmlns')) {
-                svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-            }
-            if (!svgClone.getAttribute('xmlns:xlink')) {
-                svgClone.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
-            }
-            
-            // Check if this is a CPEE graph (has CPEE-specific classes)
-            const isCPEEGraph = svgClone.querySelector('.colorstyle, .stand, .execstyle') !== null;
-            // Check if this is a Mermaid graph (has Mermaid-specific classes)
-            const isMermaidGraph = svgClone.querySelector('.node, .edgePath, .flowchart-link, .nodeLabel') !== null;
-            
-            if (isCPEEGraph) {
-                // Clean up CPEE-specific elements not needed in export
-                this.cleanupCPEEElements(svgClone);
-                // Embed CPEE styles for standalone viewing
-                this.embedCPEEStyles(svgClone);
-            } else if (isMermaidGraph) {
-                // Embed Mermaid styles for standalone viewing with Adwaita font
-                this.embedMermaidStyles(svgClone);
-            }
-            
-            // Serialize SVG to string
-            const serializer = new XMLSerializer();
-            let svgString = serializer.serializeToString(svgClone);
-            
-            // Add XML declaration
-            svgString = '<?xml version="1.0" encoding="UTF-8"?>\n' + svgString;
-            
-            // Create blob and download
-            const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `${this.filename}.svg`;
-            link.style.display = 'none';
-            
-            document.body.appendChild(link);
-            link.click();
-            
-            // Cleanup
-            setTimeout(() => {
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-            }, 100);
-            
-            this.showSuccess();
-            
-            if (this.options.onExportSuccess) {
-                this.options.onExportSuccess(this.filename, svgString);
-            }
-            
-            return true;
-        } catch (error) {
-            console.error('SVG export failed:', error);
-            this.showError(error.message);
-            
-            if (this.options.onExportError) {
-                this.options.onExportError(error);
-            }
-            
-            return false;
-        } finally {
-            this.isExporting = false;
-        }
-    }
-
-    /**
-     * Remove CPEE elements that shouldn't be in the export
-     * - .tile rectangles (blue highlight backgrounds)
-     * - .super text elements (execution status counters like ▶0,0)
-     * - .duration text (timing info)
-     * @param {SVGElement} svgClone - Cloned SVG element
-     */
-    cleanupCPEEElements(svgClone) {
-        // Remove tile rectangles (blue background highlights)
-        const tiles = svgClone.querySelectorAll('rect.tile, .tile');
-        tiles.forEach(el => el.remove());
-        
-        // Remove super text elements (▶0,0 execution counters)
-        const superTexts = svgClone.querySelectorAll('text.super');
-        superTexts.forEach(el => el.remove());
-        
-        // Remove duration text
-        const durationTexts = svgClone.querySelectorAll('text.duration');
-        durationTexts.forEach(el => el.remove());
-        
-        // Remove hoverstyle/markstyle groups (already hidden by CSS but remove from DOM)
-        const hoverMarks = svgClone.querySelectorAll('.hoverstyle, .markstyle');
-        hoverMarks.forEach(el => el.remove());
-    }
-
-    /**
-     * Embed CPEE styles into SVG for standalone viewing
-     * These styles match the rendering styles from graphs.css and wfadaptor
-     * @param {SVGElement} svgClone - Cloned SVG element
-     */
-    embedCPEEStyles(svgClone) {
-        // Get computed colors from CSS variables for proper theming
-        const computedStyle = getComputedStyle(document.documentElement);
-        const surfaceColor = computedStyle.getPropertyValue('--surface-color').trim() || '#ffffff';
-        const textColor = computedStyle.getPropertyValue('--text-primary').trim() || '#000000';
-        // Use Adwaita Sans as primary font for exported SVG
-        const fontSans = "'Adwaita Sans', 'Segoe UI', system-ui, sans-serif";
-        
-        // Essential CPEE styles for standalone SVG rendering
-        // Matches the styling from graphs.css used during rendering
-        // Note: .tile, .super, .duration, .hoverstyle, .markstyle are removed by cleanupCPEEElements
-        const cpeeStyles = `
-            /* CPEE WfAdaptor styles for standalone SVG - matching graphs.css */
-            
-            /* Base SVG styling */
-            svg {
-                font-family: ${fontSans};
-                background-color: ${surfaceColor};
-            }
-            
-            /* Text styling - same font as rendered */
-            text, tspan {
-                font-family: ${fontSans};
-                fill: ${textColor};
-            }
-            
-            text.label {
-                font-family: ${fontSans};
-                font-size: 11px;
-                fill: ${textColor};
-            }
-            
-            text.label.standalone {
-                font-size: 11px;
-                stroke: ${surfaceColor};
-                fill: ${textColor};
-            }
-            
-            /* CPEE element classes */
-            .colorstyle {
-                fill: ${surfaceColor};
-                stroke: ${textColor};
-                stroke-width: 1px;
-            }
-            
-            .stand {
-                fill: none;
-                stroke: ${textColor};
-                stroke-width: 1px;
-            }
-            
-            .standfat {
-                fill: none;
-                stroke: ${textColor};
-                stroke-width: 3px;
-            }
-            
-            .standline {
-                stroke: ${textColor};
-                stroke-width: 1px;
-            }
-            
-            .standwithout {
-                fill: ${surfaceColor};
-                stroke: ${surfaceColor};
-            }
-            
-            .execstyle { }
-            
-            .edge {
-                fill: none;
-                stroke: ${textColor};
-                stroke-width: 1px;
-                marker-end: url(#arrow);
-            }
-            
-            .white {
-                fill: ${surfaceColor};
-                stroke: none;
-            }
-            
-            .normal {
-                fill: ${textColor};
-            }
-            
-            .activities title {
-                display: none;
-            }
-            
-            /* Shapes */
-            path {
-                stroke: ${textColor};
-                fill: none;
-            }
-            
-            path.edge {
-                fill: none;
-                stroke: ${textColor};
-                stroke-width: 1px;
-            }
-            
-            rect {
-                fill: ${surfaceColor};
-                stroke: ${textColor};
-            }
-            
-            rect.colorstyle {
-                fill: ${surfaceColor};
-                stroke: ${textColor};
-            }
-            
-            circle {
-                fill: ${surfaceColor};
-                stroke: ${textColor};
-            }
-            
-            circle.colorstyle {
-                fill: ${surfaceColor};
-                stroke: ${textColor};
-            }
-            
-            ellipse {
-                fill: ${surfaceColor};
-                stroke: ${textColor};
-            }
-            
-            polygon {
-                fill: ${surfaceColor};
-                stroke: ${textColor};
-            }
-            
-            polyline, line {
-                stroke: ${textColor};
-                fill: none;
-            }
-            
-            /* Markers/arrows */
-            marker * {
-                fill: ${textColor};
-                stroke: ${textColor};
-            }
-            
-            /* Groups */
-            g {
-                fill: none;
-            }
-        `;
-        
-        // Find or create defs element
-        let defs = svgClone.querySelector('defs');
-        if (!defs) {
-            defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-            svgClone.insertBefore(defs, svgClone.firstChild);
-        }
-        
-        // Create and add style element
-        const styleElement = document.createElementNS('http://www.w3.org/2000/svg', 'style');
-        styleElement.setAttribute('type', 'text/css');
-        styleElement.textContent = cpeeStyles;
-        defs.appendChild(styleElement);
-    }
-
-    /**
-     * Embed Mermaid styles into SVG for standalone viewing
-     * Sets Adwaita font for all text elements
-     * @param {SVGElement} svgClone - Cloned SVG element
-     */
-    embedMermaidStyles(svgClone) {
-        // Mermaid styles with Adwaita font
-        const mermaidStyles = `
-            /* Mermaid styles for standalone SVG with Adwaita font */
-            text, tspan, .nodeLabel, .edgeLabel, .label {
-                font-family: 'Adwaita', 'Adwaita Sans', 'Segoe UI', sans-serif !important;
-            }
-            .node text, .node tspan {
-                font-family: 'Adwaita', 'Adwaita Sans', 'Segoe UI', sans-serif !important;
-            }
-            .edgeLabel text, .edgeLabel tspan {
-                font-family: 'Adwaita', 'Adwaita Sans', 'Segoe UI', sans-serif !important;
-            }
-            foreignObject div, foreignObject span {
-                font-family: 'Adwaita', 'Adwaita Sans', 'Segoe UI', sans-serif !important;
-            }
-        `;
-        
-        // Find or create defs element
-        let defs = svgClone.querySelector('defs');
-        if (!defs) {
-            defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-            svgClone.insertBefore(defs, svgClone.firstChild);
-        }
-        
-        // Create and add style element
-        const styleElement = document.createElementNS('http://www.w3.org/2000/svg', 'style');
-        styleElement.setAttribute('type', 'text/css');
-        styleElement.textContent = mermaidStyles;
-        defs.appendChild(styleElement);
-    }
-
-    /**
-     * Find the actual graph SVG element in the container
-     * Excludes small icon SVGs (buttons, indicators) and finds the real graph
-     * @returns {SVGElement|null} The graph SVG element or null if not found
-     */
-    findGraphSVG() {
-        if (!this.graphContainer) {
-            return null;
-        }
-
-        // Strategy 1: Find SVG with Mermaid-specific classes
-        const mermaidSvg = this.graphContainer.querySelector('svg:has(.node), svg:has(.edgePath), svg:has(.flowchart-link)');
-        if (mermaidSvg) {
-            return mermaidSvg;
-        }
-
-        // Strategy 2: Find SVG with CPEE-specific classes
-        const cpeeSvg = this.graphContainer.querySelector('svg:has(.colorstyle), svg:has(.stand), svg:has(.execstyle)');
-        if (cpeeSvg) {
-            return cpeeSvg;
-        }
-
-        // Strategy 3: Find the largest SVG (actual graphs are much larger than icons)
-        const allSvgs = this.graphContainer.querySelectorAll('svg');
-        let largestSvg = null;
-        let largestArea = 0;
-
-        for (const svg of allSvgs) {
-            // Get dimensions from various sources
-            const width = svg.width?.baseVal?.value || 
-                         parseFloat(svg.getAttribute('width')) || 
-                         svg.viewBox?.baseVal?.width ||
-                         svg.getBoundingClientRect().width || 0;
-            const height = svg.height?.baseVal?.value || 
-                          parseFloat(svg.getAttribute('height')) || 
-                          svg.viewBox?.baseVal?.height ||
-                          svg.getBoundingClientRect().height || 0;
-            
-            const area = width * height;
-            
-            // Skip small icons (typically 16x16, 20x20, 24x24)
-            // Graph SVGs are typically much larger (100+ width)
-            if (width > 50 && height > 50 && area > largestArea) {
-                largestArea = area;
-                largestSvg = svg;
-            }
-        }
-
-        if (largestSvg) {
-            return largestSvg;
-        }
-
-        // Fallback: return the first SVG (original behavior)
-        return this.graphContainer.querySelector('svg');
-    }
-
-    /**
-     * Show success feedback
-     */
-    showSuccess() {
-        if (!this.element) { 
-            return;
-        }
-
-        this.element.classList.add('export-svg-success');
-        
-        // Update button text
-        if (this.options.showText) {
-            const textSpan = this.element.querySelector('.export-svg-text');
-            if (textSpan) {
-                textSpan.textContent = 'Exported';
-            }
-        }
-
-        // Update icon to checkmark
-        if (this.options.showIcon) {
-            const iconWrapper = this.element.querySelector('.export-svg-icon-wrapper');
-            if (iconWrapper) {
-                iconWrapper.innerHTML = ICONS.CHECK;
-            }
-        }
-
-        // Reset after duration
-        setTimeout(() => {
-            if (this.element) {
-                this.element.classList.remove('export-svg-success');
-                
-                if (this.options.showText) {
-                    const textSpan = this.element.querySelector('.export-svg-text');
-                    if (textSpan) {
-                        textSpan.textContent = this.originalContent;
-                    }
-                }
-
-                if (this.options.showIcon) {
-                    const iconWrapper = this.element.querySelector('.export-svg-icon-wrapper');
-                    if (iconWrapper) {
-                        iconWrapper.innerHTML = ICONS.DOWNLOAD;
-                    }
-                }
-            }
-        }, this.options.successDuration);
-    }
-
-    /**
-     * Show error feedback
-     * @param {string} message - Error message
-     */
-    showError(message = 'Export failed') {
-        if (!this.element) {
-             return;
-        }
-
-        console.error('SVG export error:', message);
-        this.element.classList.add('export-svg-error');
-
-        if (this.options.showText) {
-            const textSpan = this.element.querySelector('.export-svg-text');
-            if (textSpan) {
-                textSpan.textContent = '✗ Failed';
-                textSpan.title = message;
-            }
-        }
-
-        // Reset after duration
-        setTimeout(() => {
-            if (this.element) {
-                this.element.classList.remove('export-svg-error');
-                
-                if (this.options.showText) {
-                    const textSpan = this.element.querySelector('.export-svg-text');
-                    if (textSpan) {
-                        textSpan.textContent = this.originalContent;
-                    }
-                }
-            }
-        }, this.options.successDuration);
-    }
-
-    /**
-     * Update the graph container reference
-     * @param {HTMLElement} container - New graph container
-     */
-    setGraphContainer(container) {
-        this.graphContainer = container;
-    }
-
-    /**
-     * Set new filename
-     * @param {string} filename - New filename (without extension)
-     */
-    setFilename(filename) {
-        this.filename = filename;
-        // Title stays as "Export SVG" regardless of filename
-    }
-
-    /**
-     * Enable/disable button
-     * @param {boolean} enabled - Enable state
-     */
     setEnabled(enabled) {
         if (this.element) {
             this.element.disabled = !enabled;
@@ -573,38 +95,341 @@ export class ExportSVGButton {
         }
     }
 
-    /**
-     * Destroy button and cleanup
-     */
     destroy() {
         if (this.element) {
-            this.element.removeEventListener('click', () => this.exportSVG());
+            this.element.removeEventListener('click', this._onClick);
             this.element = null;
         }
         this.graphContainer = null;
         this.filename = null;
-        this.originalContent = null;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Core export
+    // ─────────────────────────────────────────────────────────────────────────
+
+    exportSVG() {
+        if (this.isExporting || !this.graphContainer) return false;
+        this.isExporting = true;
+
+        try {
+            const liveSvg = this.findGraphSVG();
+            if (!liveSvg) throw new Error('No graph SVG found in container');
+
+            const isCPEE   = this._isCPEESvg(liveSvg);
+            const isMermaid = !isCPEE && this._isMermaidSvg(liveSvg);
+
+            // ── 1. Read dimensions from the live element (before any mutation) ──
+            const dims = this._getExportDimensions(liveSvg);
+
+            // ── 2. Freeze computed styles from the live element tree ─────────
+            //    We do this BEFORE cloning so getComputedStyle() has a real layout
+            //    context.  The result is an array parallel to querySelectorAll('*').
+            const frozenStyles = this._collectComputedStyles(liveSvg);
+
+            // ── 3. Deep clone ────────────────────────────────────────────────
+            const clone = liveSvg.cloneNode(true);
+
+            // ── 4. Apply frozen styles onto clone ────────────────────────────
+            this._applyFrozenStyles(clone, frozenStyles);
+
+            // ── 5. Set mandatory SVG root attributes ─────────────────────────
+            clone.setAttribute('xmlns',        'http://www.w3.org/2000/svg');
+            clone.setAttribute('xmlns:xlink',  'http://www.w3.org/1999/xlink');
+            clone.setAttribute('width',        String(dims.width));
+            clone.setAttribute('height',       String(dims.height));
+            clone.setAttribute('viewBox',      dims.viewBox);
+            // Remove inline width/height that might conflict with the attributes
+            clone.style.removeProperty('width');
+            clone.style.removeProperty('height');
+
+            // ── 6. Remove runtime-only elements ─────────────────────────────
+            if (isCPEE)    this._cleanupCPEEElements(clone);
+
+            // ── 7. Background rectangle (behind all content) ─────────────────
+            this._ensureBackground(clone, dims);
+
+            // ── 8. Minimal font hint (browser fonts not embedded in SVG) ─────
+            this._embedFontHint(clone, isCPEE || isMermaid);
+
+            // ── 9. Serialize ─────────────────────────────────────────────────
+            const serializer = new XMLSerializer();
+            const svgString  = '<?xml version="1.0" encoding="UTF-8"?>\n'
+                             + serializer.serializeToString(clone);
+
+            // ── 10. Trigger download ──────────────────────────────────────────
+            const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+            const url  = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href     = url;
+            link.download = `${this.filename}.svg`;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(url); }, 200);
+
+            this._showSuccess();
+            if (this.options.onExportSuccess) this.options.onExportSuccess(this.filename, svgString);
+            return true;
+
+        } catch (err) {
+            console.error('[ExportSVGButton] Export failed:', err);
+            this._showError(err.message);
+            if (this.options.onExportError) this.options.onExportError(err);
+            return false;
+        } finally {
+            this.isExporting = false;
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Computed-style capture & application
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Walk the live SVG tree and collect the computed value of every property
+     * in FREEZE_PROPS for each element.  Returns a parallel array.
+     *
+     * Must be called on the LIVE element (in the document) so that
+     * getComputedStyle() has a valid layout context.
+     */
+    _collectComputedStyles(liveSvg) {
+        const elements = [liveSvg, ...liveSvg.querySelectorAll('*')];
+        return elements.map(el => {
+            if (!(el instanceof Element)) return null;
+            const cs = window.getComputedStyle(el);
+            const props = {};
+            for (const prop of FREEZE_PROPS) {
+                const val = cs.getPropertyValue(prop);
+                if (val !== null && val !== '') {
+                    props[prop] = this._normalizeStyleValue(prop, val);
+                }
+            }
+            return props;
+        });
     }
 
     /**
-     * Generate filename based on section metadata
-     * @param {number} instanceNumber - CPEE instance/process number
-     * @param {number} stepNumber - Step number
-     * @param {string} sectionId - Section identifier (e.g., 'input-cpee', 'output-intermediate')
-     * @returns {string} Generated filename (without extension)
+     * Apply the parallel frozen-style array onto the cloned SVG tree.
+     */
+    _applyFrozenStyles(clonedSvg, frozenStyles) {
+        const elements = [clonedSvg, ...clonedSvg.querySelectorAll('*')];
+        for (let i = 0; i < Math.min(elements.length, frozenStyles.length); i++) {
+            const frozen = frozenStyles[i];
+            const el     = elements[i];
+            if (!frozen || !(el instanceof Element)) continue;
+
+            const decls = Object.entries(frozen)
+                .map(([p, v]) => `${p}:${v}`)
+                .join(';');
+
+            if (decls) el.setAttribute('style', decls);
+        }
+    }
+
+    /**
+     * Normalise a raw computed style value for use in a standalone SVG.
+     *
+     * The main transformation needed: browsers return absolute URLs for
+     * url() references, e.g.
+     *   url("https://localhost/app/#input-cpee-1234-arrow")
+     * We strip the origin+path so only the fragment remains:
+     *   url(#input-cpee-1234-arrow)
+     */
+    _normalizeStyleValue(prop, value) {
+        if (value.includes('url(')) {
+            // Match url("https://...#fragment") or url(https://...#fragment)
+            return value.replace(
+                /url\(\s*["']?[^"')]*#([^"')]+)["']?\s*\)/g,
+                'url(#$1)'
+            );
+        }
+        return value;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // SVG location
+    // ─────────────────────────────────────────────────────────────────────────
+
+    findGraphSVG() {
+        if (!this.graphContainer) return null;
+
+        // CPEE graphs: CPEEWfAdaptorRenderer always assigns id="graphcanvas-<id>"
+        const cpeeSvg = this.graphContainer.querySelector('svg[id^="graphcanvas-"]');
+        if (cpeeSvg) return cpeeSvg;
+
+        // Mermaid graphs: rendered with data-processed or inside .mermaid
+        const mermaidSvg = this.graphContainer.querySelector('svg[data-processed]')
+                        || this.graphContainer.querySelector('.mermaid svg')
+                        || this.graphContainer.querySelector('svg.mermaid');
+        if (mermaidSvg) return mermaidSvg;
+
+        // Generic fallback: largest rendered SVG, excluding tiny icons
+        let best = null, bestArea = 0;
+        for (const svg of this.graphContainer.querySelectorAll('svg')) {
+            const r = svg.getBoundingClientRect();
+            const a = r.width * r.height;
+            if (r.width > 50 && r.height > 50 && a > bestArea) { bestArea = a; best = svg; }
+        }
+        return best || this.graphContainer.querySelector('svg');
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Dimensions
+    // ─────────────────────────────────────────────────────────────────────────
+
+    _getExportDimensions(svgElement) {
+        // 1. Explicit viewBox already set on the element
+        const vb = svgElement.getAttribute('viewBox');
+        if (vb) {
+            const parts = vb.trim().split(/[\s,]+/).map(Number);
+            if (parts.length === 4 && parts.every(n => !isNaN(n)) && parts[2] > 0 && parts[3] > 0) {
+                return { width: parts[2], height: parts[3], viewBox: vb };
+            }
+        }
+
+        // 2. getBBox() gives the tight bounding box of the drawn content
+        try {
+            const bbox = svgElement.getBBox();
+            if (bbox && bbox.width > 0 && bbox.height > 0) {
+                const pad = 12;
+                const x = bbox.x - pad, y = bbox.y - pad;
+                const w = bbox.width + pad * 2, h = bbox.height + pad * 2;
+                return { width: w, height: h, viewBox: `${x} ${y} ${w} ${h}` };
+            }
+        } catch (_) { /* not in layout */ }
+
+        // 3. Rendered bounding rect
+        const r = svgElement.getBoundingClientRect();
+        if (r.width > 0 && r.height > 0) {
+            return { width: r.width, height: r.height, viewBox: `0 0 ${r.width} ${r.height}` };
+        }
+
+        // 4. Fallback
+        const w = parseFloat(svgElement.getAttribute('width'))  || 800;
+        const h = parseFloat(svgElement.getAttribute('height')) || 600;
+        return { width: w, height: h, viewBox: `0 0 ${w} ${h}` };
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Detection
+    // ─────────────────────────────────────────────────────────────────────────
+
+    _isCPEESvg(svg) {
+        return (svg.id && svg.id.startsWith('graphcanvas-'))
+            || svg.querySelector('.colorstyle, .stand, .execstyle') !== null;
+    }
+
+    _isMermaidSvg(svg) {
+        return svg.hasAttribute('data-processed')
+            || svg.classList.contains('mermaid')
+            || svg.querySelector('.node, .edgePath, .flowchart-link') !== null;
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Post-clone processing
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Add a filled background rectangle as the very first child of the SVG,
+     * sized to match the viewBox.  Uses the current --surface-color token.
+     */
+    _ensureBackground(clonedSvg, dims) {
+        const bg = getComputedStyle(document.documentElement)
+            .getPropertyValue('--surface-color').trim() || '#ffffff';
+
+        const [x, y, w, h] = dims.viewBox.trim().split(/[\s,]+/).map(Number);
+
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x',      x);
+        rect.setAttribute('y',      y);
+        rect.setAttribute('width',  w);
+        rect.setAttribute('height', h);
+        rect.setAttribute('fill',   bg);
+        rect.setAttribute('style',  `fill:${bg};stroke:none;`);
+
+        clonedSvg.insertBefore(rect, clonedSvg.firstChild);
+    }
+
+    /**
+     * Remove runtime-only CPEE elements that have no meaning in a static export.
+     */
+    _cleanupCPEEElements(svgClone) {
+        for (const sel of [
+            'rect.tile', '.tile',
+            'text.super', 'text.duration',
+            '.hoverstyle', '.markstyle'
+        ]) {
+            svgClone.querySelectorAll(sel).forEach(el => el.remove());
+        }
+    }
+
+    /**
+     * Embed a minimal <style> block that declares the font stack used in the
+     * app.  This cannot be captured by getComputedStyle (font files are not
+     * embedded), but it ensures the correct font *name* is in the file so
+     * viewers that have the font installed will use it.
+     */
+    _embedFontHint(clonedSvg, hasText) {
+        if (!hasText) return;
+        const font = "'Adwaita Sans', 'Segoe UI', system-ui, sans-serif";
+
+        let defs = clonedSvg.querySelector('defs');
+        if (!defs) {
+            defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+            clonedSvg.insertBefore(defs, clonedSvg.firstChild);
+        }
+        const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+        style.setAttribute('type', 'text/css');
+        style.textContent = `text, tspan { font-family: ${font}; }`;
+        defs.insertBefore(style, defs.firstChild);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // UI feedback
+    // ─────────────────────────────────────────────────────────────────────────
+
+    _showSuccess() {
+        if (!this.element) return;
+        this.element.classList.add('export-svg-success');
+        const icon = this.element.querySelector('.export-svg-icon-wrapper');
+        const text = this.element.querySelector('.export-svg-text');
+        if (icon) icon.innerHTML = ICONS.CHECK;
+        if (text) text.textContent = 'Exported';
+
+        setTimeout(() => {
+            if (!this.element) return;
+            this.element.classList.remove('export-svg-success');
+            if (icon) icon.innerHTML = ICONS.DOWNLOAD;
+            if (text) text.textContent = this.originalContent;
+        }, this.options.successDuration);
+    }
+
+    _showError(message = 'Export failed') {
+        if (!this.element) return;
+        console.error('[ExportSVGButton]', message);
+        this.element.classList.add('export-svg-error');
+        const text = this.element.querySelector('.export-svg-text');
+        if (text) { text.textContent = '✗ Failed'; text.title = message; }
+
+        setTimeout(() => {
+            if (!this.element) return;
+            this.element.classList.remove('export-svg-error');
+            if (text) { text.textContent = this.originalContent; text.title = ''; }
+        }, this.options.successDuration);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Static helpers
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Generate a download filename (without extension).
+     * Format: <processNumber>_Step<stepNumber>_<Cpee|Mermaid>_<I|O>
      */
     static generateFilename(instanceNumber, stepNumber, sectionId) {
-        // Determine input/output (I/O)
-        const isOutput = sectionId.startsWith('output');
-        const ioPrefix = isOutput ? 'O' : 'I';
-        
-        // Determine graph type based on section type
-        const isCpee = sectionId.includes('cpee');
-        const graphType = isCpee ? 'Cpee' : 'Mermaid';
-        
-        // Format: <process number>_Step<step number>_<Mermaid|Cpee>_<I/O>
-        // Note: .svg will be appended by the export function
-        return `${instanceNumber}_Step${stepNumber}_${graphType}_${ioPrefix}`;
+        const io   = sectionId.startsWith('output') ? 'O' : 'I';
+        const type = sectionId.includes('cpee') ? 'Cpee' : 'Mermaid';
+        return `${instanceNumber}_Step${stepNumber}_${type}_${io}`;
     }
 }
-
