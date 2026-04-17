@@ -287,7 +287,7 @@ export class ViewModeToggle {
         // Check reachability issues (dead-end or unreachable nodes)
         if (reachabilityResult && !reachabilityResult.error && reachabilityResult.success !== false) {
             const nodeClass = reachabilityResult.nodeClassification || {};
-            const totalNodes = (nodeClass.usefulCount || 0) + (nodeClass.deadEndCount || 0) + (nodeClass.unreachableCount || 0);
+            const totalNodes = (nodeClass.viableCount || 0) + (nodeClass.deadEndCount || 0) + (nodeClass.unreachableCount || 0);
             
             // Only check if there are actual nodes to analyze
             if (totalNodes > 0) {

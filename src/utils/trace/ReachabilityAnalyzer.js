@@ -11,7 +11,7 @@
  * execution paths are actually exercised.
  * 
  * Task classification:
- * - Useful: forward reachable AND backward reachable
+ * - Viable: forward reachable AND backward reachable
  * - Dead-end: forward reachable but NOT backward reachable
  * - Unreachable: NOT forward reachable (regardless of backward)
  */
@@ -87,7 +87,7 @@ function analyzeGraphReachability(graphContent, MermaidTraceCalculator) {
     const forwardUnreachableTasks = [];
     const backwardReachableTasks = [];
     const backwardUnreachableTasks = [];
-    const usefulTasks = [];
+    const viableTasks = [];
     const deadEndTasks = [];
     const unreachableTasks = [];
 
@@ -108,7 +108,7 @@ function analyzeGraphReachability(graphContent, MermaidTraceCalculator) {
         }
 
         if (fwd && bwd) {
-            usefulTasks.push(node.id);
+            viableTasks.push(node.id);
         } else if (fwd && !bwd) {
             deadEndTasks.push(node.id);
         } else {
@@ -124,7 +124,7 @@ function analyzeGraphReachability(graphContent, MermaidTraceCalculator) {
         forwardUnreachableTasks,
         backwardReachableTasks,
         backwardUnreachableTasks,
-        usefulTasks,
+        viableTasks,
         deadEndTasks,
         unreachableTasks
     };
@@ -177,7 +177,7 @@ export function analyzeReachabilityFromTraces(traces, allTasks, options = {}) {
  */
 function buildResult(gr, traces, format, startTime) {
     const totalTasks = gr.taskNodes.length;
-    const usefulCount = gr.usefulTasks.length;
+    const viableCount = gr.viableTasks.length;
     const deadEndCount = gr.deadEndTasks.length;
     const unreachableCount = gr.unreachableTasks.length;
 
@@ -239,23 +239,23 @@ function buildResult(gr, traces, format, startTime) {
             deadEndNodes: gr.deadEndTasks,
             unreachableNodes: gr.unreachableTasks,
             statistics: {
-                reachabilityCoverage: totalTasks > 0 ? usefulCount / totalTasks : 1
+                reachabilityCoverage: totalTasks > 0 ? viableCount / totalTasks : 1
             }
         },
 
         nodeClassification: {
-            usefulNodes: gr.usefulTasks,
+            viableNodes: gr.viableTasks,
             deadEndNodes: gr.deadEndTasks,
             unreachableNodes: gr.unreachableTasks,
-            usefulCount,
+            viableCount,
             deadEndCount,
             unreachableCount,
             statistics: {
                 totalNodes: totalTasks,
-                usefulCount,
+                viableCount,
                 deadEndCount,
                 unreachableCount,
-                usefulCoverage: totalTasks > 0 ? usefulCount / totalTasks : 1,
+                viableCoverage: totalTasks > 0 ? viableCount / totalTasks : 1,
                 deadEndCoverage: totalTasks > 0 ? deadEndCount / totalTasks : 0,
                 unreachableCoverage: totalTasks > 0 ? unreachableCount / totalTasks : 0
             }
@@ -271,7 +271,7 @@ function buildResult(gr, traces, format, startTime) {
         },
 
         taskDetails: {
-            inTraces: gr.usefulTasks.map(id => ({ id })),
+            inTraces: gr.viableTasks.map(id => ({ id })),
             notInTraces: [...gr.deadEndTasks, ...gr.unreachableTasks].map(id => ({ id }))
         }
     };
@@ -279,7 +279,7 @@ function buildResult(gr, traces, format, startTime) {
 
 /**
  * Fallback: purely trace-based reachability (for CPEE or when graph parsing fails).
- * If a task appears in any trace it is considered useful. Otherwise unreachable.
+ * If a task appears in any trace it is considered viable. Otherwise unreachable.
  */
 function traceBasedAnalysis(traces, allTasks, format, startTime) {
     const tasksInTraces = new Set();
@@ -319,14 +319,14 @@ function traceBasedAnalysis(traces, allTasks, format, startTime) {
         }
     }
 
-    const usefulTaskIds = [...tasksInTraces];
+    const viableTaskIds = [...tasksInTraces];
     const unreachableTaskIds = [...allTaskIds].filter(id => !tasksInTraces.has(id));
 
     const totalTasks = allTaskIds.size;
-    const usefulCount = usefulTaskIds.length;
+    const viableCount = viableTaskIds.length;
     const deadEndCount = unreachableTaskIds.length;
 
-    const forwardCoverage = totalTasks > 0 ? (usefulCount / totalTasks) : 1;
+    const forwardCoverage = totalTasks > 0 ? (viableCount / totalTasks) : 1;
     const backwardCoverage = forwardCoverage;
 
     return {
@@ -341,12 +341,12 @@ function traceBasedAnalysis(traces, allTasks, format, startTime) {
         traceCount: traces?.length || 0,
 
         forwardReachability: {
-            reachableNodes: usefulTaskIds,
+            reachableNodes: viableTaskIds,
             unreachableNodes: unreachableTaskIds,
-            count: usefulCount,
+            count: viableCount,
             coverage: forwardCoverage,
             statistics: {
-                reachableCount: usefulCount,
+                reachableCount: viableCount,
                 unreachableCount: deadEndCount,
                 maxDepth: 0,
                 nodesInCycles: [],
@@ -356,12 +356,12 @@ function traceBasedAnalysis(traces, allTasks, format, startTime) {
         },
 
         backwardReachability: {
-            reachableNodes: usefulTaskIds,
+            reachableNodes: viableTaskIds,
             unreachableNodes: unreachableTaskIds,
-            count: usefulCount,
+            count: viableCount,
             coverage: backwardCoverage,
             statistics: {
-                reachableCount: usefulCount,
+                reachableCount: viableCount,
                 unreachableCount: deadEndCount,
                 maxDepth: 0,
                 nodesInCycles: [],
@@ -379,18 +379,18 @@ function traceBasedAnalysis(traces, allTasks, format, startTime) {
         },
 
         nodeClassification: {
-            usefulNodes: usefulTaskIds,
+            viableNodes: viableTaskIds,
             deadEndNodes: unreachableTaskIds,
             unreachableNodes: [],
-            usefulCount,
+            viableCount,
             deadEndCount,
             unreachableCount: 0,
             statistics: {
                 totalNodes: totalTasks,
-                usefulCount,
+                viableCount,
                 deadEndCount,
                 unreachableCount: 0,
-                usefulCoverage: forwardCoverage,
+                viableCoverage: forwardCoverage,
                 deadEndCoverage: totalTasks > 0 ? (deadEndCount / totalTasks) : 0,
                 unreachableCoverage: 0
             }
@@ -408,7 +408,7 @@ function traceBasedAnalysis(traces, allTasks, format, startTime) {
         },
 
         taskDetails: {
-            inTraces: usefulTaskIds.map(id => taskDetailsMap.get(id) || { id }),
+            inTraces: viableTaskIds.map(id => taskDetailsMap.get(id) || { id }),
             notInTraces: unreachableTaskIds.map(id => allTaskDetailsMap.get(id) || { id })
         }
     };

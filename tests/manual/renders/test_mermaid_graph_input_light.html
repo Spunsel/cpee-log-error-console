@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Input Renderer (Light)</title>
+    <style>
+        :root {
+            --primary-color: #3070b2;
+            --background-color: #edf2f7;
+            --surface-color: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-color: #cbd5e1;
+            --alert-danger-text: #9d4a4a;
+            --alert-danger-border: #d47a7a;
+            --alert-danger-bg: #fef5f5;
+            --alert-success-text: #065f46;
+            --alert-success-bg: #e8fcf2;
+            --alert-success-border: #6ee7b7;
+            --font-sans: "Adwaita Sans Regular", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            --font-mono: "Adwaita Mono Regular", "Cascadia Mono", Consolas, monospace;
+            --border-radius: 8px;
+            --shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.08), 0.5px 0.5px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--background-color);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+        }
+
+        .layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .panel {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            background: #f8fafc;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .panel-body {
+            padding: 14px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            border: 1px solid var(--primary-color);
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        button.secondary {
+            background: var(--surface-color);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .size-controls {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 8px;
+            padding-left: 8px;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .size-value {
+            min-width: 42px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 420px;
+            resize: vertical;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--surface-color);
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        #status {
+            display: none;
+            margin-bottom: 10px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        #status.success {
+            display: block;
+            color: var(--alert-success-text);
+            background: var(--alert-success-bg);
+            border: 1px solid var(--alert-success-border);
+        }
+
+        #status.error {
+            display: block;
+            color: var(--alert-danger-text);
+            background: var(--alert-danger-bg);
+            border: 1px solid var(--alert-danger-border);
+        }
+
+        #graph-container {
+            min-height: 520px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--surface-color);
+            overflow: auto;
+        }
+
+        .hint {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin: 0 0 8px;
+        }
+
+        .test-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .test-buttons button {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        #analysis-results {
+            margin-top: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #f8fafc;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        #analysis-results h4 {
+            margin: 0 0 8px;
+            font-size: 13px;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .analysis-card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #fff;
+            padding: 8px;
+        }
+
+        .analysis-card strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 12px;
+        }
+
+        .analysis-ok {
+            color: #065f46;
+        }
+
+        .analysis-bad {
+            color: #9d4a4a;
+        }
+
+        @media (max-width: 1100px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            textarea {
+                min-height: 260px;
+            }
+
+            #graph-container {
+                min-height: 380px;
+            }
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <section class="panel">
+            <div class="panel-header">Mermaid Syntax</div>
+            <div class="panel-body">
+                <div class="controls">
+                    <button id="render-btn" type="button">Render</button>
+                    <button id="clear-btn" class="secondary" type="button">Clear</button>
+                    <div class="size-controls">
+                        <button id="size-decrease-btn" class="secondary" type="button">A-</button>
+                        <span id="size-value" class="size-value">14px</span>
+                        <button id="size-increase-btn" class="secondary" type="button">A+</button>
+                    </div>
+                </div>
+                <div class="test-buttons">
+                    <button id="test-reachability-btn" class="secondary" type="button">Reachability Test</button>
+                    <button id="test-soundness-btn" class="secondary" type="button">Soundness Test</button>
+                    <button id="test-boundedness-btn" class="secondary" type="button">Boundedness Test</button>
+                </div>
+                <p class="hint">Tip: Press Ctrl+Enter to render.</p>
+                <textarea id="mermaid-input">flowchart TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Handle A]
+    B -->|No| D[Handle B]
+    C --> E[Finish]
+    D --> E</textarea>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">Rendered Graph (Light Console Style)</div>
+            <div class="panel-body">
+                <div id="status"></div>
+                <div id="graph-container"></div>
+                <div id="analysis-results">
+                    <h4>Analysis Results</h4>
+                    <div class="analysis-grid">
+                        <div class="analysis-card"><strong>Reachability</strong>Run a graph to analyze.</div>
+                        <div class="analysis-card"><strong>Soundness</strong>Run a graph to analyze.</div>
+                        <div class="analysis-card"><strong>Boundedness</strong>Run a graph to analyze.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script type="module">
+        import { MermaidRenderer } from "../../../src/components/renderers/MermaidRenderer.js";
+        import { configManager } from "../../../src/config/ConfigManager.js";
+        import { serviceFactory } from "../../../src/core/ServiceFactory.js";
+        import { MermaidTraceCalculator } from "../../../src/utils/trace/MermaidTraceCalculator.js";
+        import { analyzeReachabilityFromTraces } from "../../../src/utils/trace/ReachabilityAnalyzer.js";
+        import { verifySoundnessAndBoundedness } from "../../../src/utils/trace/SoundnessBoundednessVerifier.js";
+
+        const inputEl = document.getElementById("mermaid-input");
+        const renderBtn = document.getElementById("render-btn");
+        const clearBtn = document.getElementById("clear-btn");
+        const graphContainer = document.getElementById("graph-container");
+        const statusEl = document.getElementById("status");
+        const sizeDecreaseBtn = document.getElementById("size-decrease-btn");
+        const sizeIncreaseBtn = document.getElementById("size-increase-btn");
+        const sizeValueEl = document.getElementById("size-value");
+        const analysisResultsEl = document.getElementById("analysis-results");
+        const reachabilityTestBtn = document.getElementById("test-reachability-btn");
+        const soundnessTestBtn = document.getElementById("test-soundness-btn");
+        const boundednessTestBtn = document.getElementById("test-boundedness-btn");
+
+        let renderer = null;
+        const minFontSize = 10;
+        const maxFontSize = 26;
+        const fontSizeStep = 2;
+        let currentFontSize = configManager.get("mermaid.default.fontSize", 14);
+        const analysisTestCases = {
+            reachability: `flowchart LR
+    s:startevent:((Start)) --> a:task:(Receive Request)
+    a:task:(Receive Request) --> b:task:(Handle Request)
+    b:task:(Handle Request) --> e:endevent:((End))
+    a:task:(Receive Request) --> d:task:(Dead End Activity)
+    u:task:(Unreachable Activity)`,
+            soundness: `flowchart LR
+    s:startevent:((Start)) --> a:task:(Initial Review)
+    a:task:(Initial Review) --> g:exclusivegateway:{x}
+    g:exclusivegateway:{x} --> |Proceed| c:task:(Process Case)
+    c:task:(Process Case) --> e:endevent:((End))
+    dead:task:(Never Executed Task)`,
+            boundedness: `flowchart LR
+    s:startevent:((Start)) --> a:task:(Collect Data)
+    a:task:(Collect Data) --> g:exclusivegateway:{x}
+    g:exclusivegateway:{x} --> |Retry| a:task:(Collect Data)
+    g:exclusivegateway:{x} --> |Done| e:endevent:((End))`
+        };
+
+        function showStatus(message, type) {
+            statusEl.textContent = message;
+            statusEl.className = type;
+        }
+
+        function clearStatus() {
+            statusEl.textContent = "";
+            statusEl.className = "";
+        }
+
+        function updateSizeLabel() {
+            sizeValueEl.textContent = `${currentFontSize}px`;
+        }
+
+        function renderAnalysisSummary(code) {
+            try {
+                const traces = MermaidTraceCalculator.calculateAllTraces(code, { maxLoopIterations: 1, timeout: 3000 });
+                const allTasks = MermaidTraceCalculator.extractAllTasksFromGraph(code);
+                const reachability = analyzeReachabilityFromTraces(traces, allTasks, {
+                    format: "mermaid",
+                    graphContent: code,
+                    MermaidTraceCalculator
+                });
+                const verification = verifySoundnessAndBoundedness(traces, code, "mermaid", { maxLoopIterations: 1 });
+
+                const deadEnds = reachability?.nodeClassification?.deadEndCount ?? 0;
+                const unreachable = reachability?.nodeClassification?.unreachableCount ?? 0;
+                const allReachable = reachability?.success && deadEnds === 0 && unreachable === 0;
+                const reachabilityClass = allReachable ? "analysis-ok" : "analysis-bad";
+
+                const sound = verification?.soundness?.sound === true;
+                const soundnessClass = sound ? "analysis-ok" : "analysis-bad";
+                const bounded = verification?.boundedness?.bounded === true;
+                const boundednessClass = bounded ? "analysis-ok" : "analysis-bad";
+
+                analysisResultsEl.innerHTML = `
+                    <h4>Analysis Results</h4>
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <strong>Reachability</strong>
+                            <div class="${reachabilityClass}">${allReachable ? "PASS" : "FAIL"}</div>
+                            <div>Dead-end tasks: ${deadEnds}</div>
+                            <div>Unreachable tasks: ${unreachable}</div>
+                        </div>
+                        <div class="analysis-card">
+                            <strong>Soundness</strong>
+                            <div class="${soundnessClass}">${sound ? "PASS" : "FAIL"}</div>
+                            <div>Option to complete: ${verification?.soundness?.optionToComplete ? "yes" : "no"}</div>
+                            <div>Proper completion: ${verification?.soundness?.properCompletion ? "yes" : "no"}</div>
+                            <div>No dead transitions: ${verification?.soundness?.noDeadTransitions ? "yes" : "no"}</div>
+                        </div>
+                        <div class="analysis-card">
+                            <strong>Boundedness</strong>
+                            <div class="${boundednessClass}">${bounded ? "PASS" : "FAIL"}</div>
+                            <div>Bounded places: ${verification?.boundedness?.boundedPlaces ? "yes" : "no"}</div>
+                            <div>Bounded loops: ${verification?.boundedness?.boundedLoops ? "yes" : "no"}</div>
+                            <div>Bounded parallelism: ${verification?.boundedness?.boundedParallelism ? "yes" : "no"}</div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                analysisResultsEl.innerHTML = `
+                    <h4>Analysis Results</h4>
+                    <div class="analysis-card analysis-bad">
+                        Analysis failed: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        function setMermaidFontSize(newSize) {
+            currentFontSize = Math.max(minFontSize, Math.min(maxFontSize, newSize));
+            configManager.set("mermaid.default.fontSize", currentFontSize);
+            configManager.set("mermaid.themeVariables.fontSize", `${currentFontSize}px`);
+            updateSizeLabel();
+        }
+
+        async function renderCurrentInput() {
+            const code = inputEl.value.trim();
+            if (!renderer) {
+                showStatus("Renderer is not initialized yet.", "error");
+                return;
+            }
+            if (!code) {
+                showStatus("Please provide Mermaid syntax.", "error");
+                return;
+            }
+
+            clearStatus();
+            try {
+                await renderer.renderGraph(code);
+                renderAnalysisSummary(code);
+                showStatus("Graph rendered.", "success");
+            } catch (error) {
+                showStatus(`Render failed: ${error.message}`, "error");
+            }
+        }
+
+        renderBtn.addEventListener("click", renderCurrentInput);
+
+        clearBtn.addEventListener("click", () => {
+            inputEl.value = "";
+            graphContainer.innerHTML = "";
+            analysisResultsEl.innerHTML = `
+                <h4>Analysis Results</h4>
+                <div class="analysis-grid">
+                    <div class="analysis-card"><strong>Reachability</strong>Run a graph to analyze.</div>
+                    <div class="analysis-card"><strong>Soundness</strong>Run a graph to analyze.</div>
+                    <div class="analysis-card"><strong>Boundedness</strong>Run a graph to analyze.</div>
+                </div>
+            `;
+            clearStatus();
+        });
+
+        sizeDecreaseBtn.addEventListener("click", async () => {
+            setMermaidFontSize(currentFontSize - fontSizeStep);
+            if (inputEl.value.trim()) {
+                await renderCurrentInput();
+            }
+        });
+
+        sizeIncreaseBtn.addEventListener("click", async () => {
+            setMermaidFontSize(currentFontSize + fontSizeStep);
+            if (inputEl.value.trim()) {
+                await renderCurrentInput();
+            }
+        });
+
+        inputEl.addEventListener("keydown", (event) => {
+            if (event.ctrlKey && event.key === "Enter") {
+                event.preventDefault();
+                renderCurrentInput();
+            }
+        });
+
+        reachabilityTestBtn.addEventListener("click", async () => {
+            inputEl.value = analysisTestCases.reachability;
+            await renderCurrentInput();
+        });
+
+        soundnessTestBtn.addEventListener("click", async () => {
+            inputEl.value = analysisTestCases.soundness;
+            await renderCurrentInput();
+        });
+
+        boundednessTestBtn.addEventListener("click", async () => {
+            inputEl.value = analysisTestCases.boundedness;
+            await renderCurrentInput();
+        });
+
+        window.addEventListener("DOMContentLoaded", async () => {
+            try {
+                await serviceFactory.initialize();
+                setMermaidFontSize(currentFontSize);
+                renderer = new MermaidRenderer();
+                await renderer.initialize("graph-container");
+                await renderCurrentInput();
+            } catch (error) {
+                showStatus(`Initialization failed: ${error.message}`, "error");
+            }
+        });
+    </script>
+</body>
+</html>

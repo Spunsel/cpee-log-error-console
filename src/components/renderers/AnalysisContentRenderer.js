@@ -280,7 +280,7 @@ export class AnalysisContentRenderer {
         const nodeClass1 = result1.nodeClassification || {};
         const nodeClass2 = result2.nodeClassification || {};
         
-        return nodeClass1.usefulCount === nodeClass2.usefulCount &&
+        return nodeClass1.viableCount === nodeClass2.viableCount &&
                nodeClass1.deadEndCount === nodeClass2.deadEndCount &&
                nodeClass1.unreachableCount === nodeClass2.unreachableCount &&
                result1.timestamp === result2.timestamp;
@@ -621,9 +621,9 @@ export class AnalysisContentRenderer {
         });
         traceHeader.appendChild(expandBtn);
 
-        // Determine overall status: "Reachable" if all nodes are useful, "Issues Found" otherwise
+        // Determine overall status: "Reachable" if all nodes are viable, "Issues Found" otherwise
         const nodeClass = reachabilityResult.nodeClassification || {};
-        const totalNodes = nodeClass.usefulCount + nodeClass.deadEndCount + nodeClass.unreachableCount;
+        const totalNodes = nodeClass.viableCount + nodeClass.deadEndCount + nodeClass.unreachableCount;
         const allReachable = totalNodes > 0 && nodeClass.unreachableCount === 0 && nodeClass.deadEndCount === 0;
 
         // Create clickable status indicator
@@ -736,9 +736,9 @@ export class AnalysisContentRenderer {
         const classificationDetails = this.domRegistry.createElement('ul');
         classificationDetails.className = 'analysis-property-details';
 
-        const usefulItem = this.domRegistry.createElement('li');
-        usefulItem.innerHTML = `- ${nodeClass.usefulCount || 0} useful tasks (reachable from start AND can reach end)`;
-        classificationDetails.appendChild(usefulItem);
+        const viableItem = this.domRegistry.createElement('li');
+        viableItem.innerHTML = `- ${nodeClass.viableCount || 0} viable tasks (reachable from start AND can reach end)`;
+        classificationDetails.appendChild(viableItem);
 
         if (nodeClass.deadEndCount > 0) {
             const deadEndItem = this.domRegistry.createElement('li');

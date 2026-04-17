@@ -164,7 +164,7 @@ export class TraceCalculationService {
                         cpeeStep.setReachabilityResult(sectionId, reachabilityResult);
                         
                         if (reachabilityResult.success) {
-                            console.log(`[TraceCalculationService] Trace-based reachability analysis complete for ${sectionId}: useful=${reachabilityResult.nodeClassification?.usefulCount || 0}, deadEnd=${reachabilityResult.nodeClassification?.deadEndCount || 0}, traces analyzed=${reachabilityResult.traceCount || 0}`);
+                            console.log(`[TraceCalculationService] Trace-based reachability analysis complete for ${sectionId}: viable=${reachabilityResult.nodeClassification?.viableCount || 0}, deadEnd=${reachabilityResult.nodeClassification?.deadEndCount || 0}, traces analyzed=${reachabilityResult.traceCount || 0}`);
                         } else {
                             console.warn(`[TraceCalculationService] Trace-based reachability analysis failed for ${sectionId}: ${reachabilityResult.error || 'Unknown error'}`);
                         }
