@@ -65,18 +65,21 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
     // Only tasks (call, manipulate, script) are relevant - gateways are control structures
     let allTasks = [];
     let graphStructure = null;
+    let parallelBlocks = [];
     try {
         if (format === 'cpee') {
             const allNodes = CPEENodeExtractor.extract(graphContent);
             // Filter to only include tasks (call, manipulate, script), exclude gateways (choose, parallel, loop)
             allTasks = allNodes.filter(node => !CPEENodeExtractor.isGatewayType(node.type));
             graphStructure = extractCPEEGraphStructure(graphContent, allTasks);
+            parallelBlocks = extractCPEEParallelBlocks(graphContent);
         } else if (format === 'mermaid') {
             const allNodes = MermaidNodeExtractor.extract(graphContent);
             // Filter to only include tasks, exclude gateways and decisions
             allTasks = allNodes.filter(node => node.type === 'task');
             const connections = MermaidNodeExtractor.extractConnections(graphContent);
             graphStructure = buildGraphStructure(allTasks, connections);
+            parallelBlocks = extractMermaidParallelBlocks(graphContent);
         } else {
             return createErrorResult(`Unknown format: ${format}`);
         }
@@ -85,8 +88,8 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
         return createErrorResult(`Failed to extract tasks: ${error.message}`);
     }
 
-    // Perform soundness checks (with graph structure analysis)
-    const soundnessResult = checkSoundness(traceArray, allTasks, startNodeIds, endNodeIds, graphStructure);
+    // Perform soundness checks (with graph structure and parallel block analysis)
+    const soundnessResult = checkSoundness(traceArray, allTasks, startNodeIds, endNodeIds, graphStructure, parallelBlocks);
 
     // Perform boundedness checks (with graph structure analysis)
     const boundednessResult = checkBoundedness(traceArray, allTasks, maxLoopIterations, graphStructure);
@@ -107,17 +110,31 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
 }
 
 /**
- * Check soundness properties
- * Based on van der Aalst (1997): Option to Complete, Proper Completion, No Dead Transitions
- * Also checks: number of source nodes, sink nodes, connected components, strongly connected components
- * @param {Array<Trace>} traces - Array of Trace objects
- * @param {Array<NodeIdentifier>} allTasks - All tasks in the graph
- * @param {Array<string>} startNodeIds - Array of start node IDs
- * @param {Array<string>} endNodeIds - Array of end node IDs
- * @param {Object|null} graphStructure - Graph structure with nodes and edges
+ * Check soundness properties (Option D hybrid approach).
+ *
+ * Option to Complete  — every task extracted from the graph must appear in at least
+ *   one complete trace; tasks absent from all traces represent execution paths from
+ *   which the process can never reach the end node.
+ *
+ * Proper Completion   — for every parallel (AND) block in the graph, each trace that
+ *   enters the block (contains a task from any branch) must contain at least one task
+ *   from every branch.  A trace that skips a branch leaves residual work, which
+ *   contradicts the Petri-net proper-completion requirement.
+ *
+ * No Dead Transitions — every task must appear in at least one trace (unchanged).
+ *
+ * Reference: van der Aalst, W.M.P. (1997). Verification of Workflow Nets.
+ *
+ * @param {Array<Trace>}          traces         - Calculated execution traces
+ * @param {Array<NodeIdentifier>} allTasks       - All tasks extracted from the graph
+ * @param {Array<string>}         startNodeIds   - Start node IDs (currently unused)
+ * @param {Array<string>}         endNodeIds     - End node IDs (currently unused)
+ * @param {Object|null}           graphStructure - Node/edge graph for structural metrics
+ * @param {Array<{id:string, branches:Array<Set<string>>}>} parallelBlocks
+ *   - AND-parallel blocks with per-branch task-ID sets
  * @returns {Object} Soundness check result
  */
-function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructure = null) {
+function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructure = null, parallelBlocks = []) {
     const result = {
         sound: true,
         optionToComplete: true,
@@ -126,14 +143,13 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
         issues: [],
         deadTasks: [],
         incompleteTraces: [],
-        // New metrics
+        parallelCompletionViolations: [],
         sourceNodeCount: 0,
         sourceNodes: [],
         sinkNodeCount: 0,
         sinkNodes: [],
         connectedComponentCount: 0,
         stronglyConnectedComponentCount: 0,
-        // Trace statistics
         tracesReachingEnd: 0,
         tracesNotReachingEnd: 0,
         tracesEndingProperly: 0,
@@ -145,99 +161,115 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
     if (traces.length === 0) {
         result.sound = false;
         result.optionToComplete = false;
+        result.properCompletion = false;
+        result.noDeadTransitions = false;
         result.issues.push('No traces found - workflow may be unreachable');
         return result;
     }
 
-    // Collect all task IDs that appear in traces
+    // Build the union of task IDs that appear in any trace
     const tasksInTraces = new Set();
     traces.forEach(trace => {
-        if (trace && trace.path && Array.isArray(trace.path)) {
+        if (trace?.path && Array.isArray(trace.path)) {
             trace.path.forEach(task => {
-                if (task && task.id) {
-                    tasksInTraces.add(task.id);
-                }
-                if (task && task.alt_id) {
-                    tasksInTraces.add(task.alt_id);
-                }
+                if (task?.id) { tasksInTraces.add(task.id); }
+                if (task?.alt_id) { tasksInTraces.add(task.alt_id); }
             });
         }
     });
 
-    // Check 1: Option to Complete
-    // Count traces that reach end nodes vs those that don't
+    // --- Check 1: Option to Complete ---
+    // The trace calculator only appends a trace when it successfully reaches the end
+    // node, so every non-empty trace is a completing execution by construction.
+    // Detecting non-completing paths therefore requires checking whether any task
+    // defined in the graph is absent from all traces: if it is, there exists an
+    // execution path through that task from which the process cannot complete.
+    // (The dead-task set is computed in Check 3 and applied here afterwards.)
     traces.forEach((trace, index) => {
-        if (!trace || !trace.path || trace.path.length === 0) {
-            result.optionToComplete = false;
+        if (!trace?.path || trace.path.length === 0) {
             result.tracesNotReachingEnd++;
-            result.incompleteTraces.push({
-                traceIndex: index,
-                reason: 'Empty trace - no execution path'
-            });
+            result.incompleteTraces.push({ traceIndex: index, reason: 'Empty trace - no execution path' });
         } else {
-            // Check if trace ends at an end node (if endNodeIds provided)
-            if (endNodeIds.length > 0 && trace.path.length > 0) {
-                const lastTask = trace.path[trace.path.length - 1];
-                const lastTaskId = lastTask.alt_id || lastTask.id;
-                if (endNodeIds.includes(lastTaskId)) {
-                    result.tracesReachingEnd++;
-                } else {
-                    result.tracesNotReachingEnd++;
-                    result.optionToComplete = false;
-                }
-            } else {
-                // If no endNodeIds provided, assume trace completes if it has at least one task
-                result.tracesReachingEnd++;
-            }
+            result.tracesReachingEnd++;
         }
     });
 
     if (result.tracesNotReachingEnd > 0) {
+        result.optionToComplete = false;
         result.sound = false;
-        result.issues.push(`Some traces do not complete properly (${result.tracesNotReachingEnd} out of ${traces.length} traces)`);
+        result.issues.push(`${result.tracesNotReachingEnd} trace(s) terminate without executing any task`);
     }
 
-    // Check 2: Proper Completion
-    // Count traces that end properly vs those that don't
-    traces.forEach((trace, index) => {
-        if (trace && trace.path && trace.path.length > 0) {
-            // Check if trace is properly formed (has valid tasks)
-            const hasInvalidTasks = trace.path.some(task => !task || (!task.id && !task.alt_id));
-            if (hasInvalidTasks) {
-                result.properCompletion = false;
-                result.tracesNotEndingProperly++;
-                result.incompleteTraces.push({
-                    traceIndex: index,
-                    reason: 'Trace contains invalid tasks'
-                });
-            } else {
+    // --- Check 2: Proper Completion via AND-branch coverage ---
+    // For every parallel block, a trace that enters the block (contains a task from
+    // any branch) must also contain at least one task from every other branch.
+    // A missing branch means residual work is left behind at termination.
+    if (parallelBlocks.length > 0) {
+        traces.forEach((trace, traceIdx) => {
+            if (!trace?.path) { return; }
+
+            const traceIds = new Set();
+            trace.path.forEach(task => {
+                if (task?.id) { traceIds.add(task.id); }
+                if (task?.alt_id) { traceIds.add(task.alt_id); }
+            });
+
+            let traceProper = true;
+
+            parallelBlocks.forEach(block => {
+                const nonEmptyBranches = block.branches.filter(b => b.size > 0);
+                if (nonEmptyBranches.length < 2) { return; }
+
+                const allBlockIds = new Set();
+                nonEmptyBranches.forEach(b => b.forEach(id => allBlockIds.add(id)));
+
+                const entersBlock = [...allBlockIds].some(id => traceIds.has(id));
+                if (!entersBlock) { return; }
+
+                const uncoveredBranches = nonEmptyBranches
+                    .map((branch, idx) => ({ idx, covered: [...branch].some(id => traceIds.has(id)) }))
+                    .filter(b => !b.covered)
+                    .map(b => b.idx);
+
+                if (uncoveredBranches.length > 0) {
+                    traceProper = false;
+                    result.parallelCompletionViolations.push({ blockId: block.id, traceIndex: traceIdx, uncoveredBranches });
+                }
+            });
+
+            if (traceProper) {
                 result.tracesEndingProperly++;
+            } else {
+                result.tracesNotEndingProperly++;
             }
-        }
-    });
+        });
 
-    if (result.tracesNotEndingProperly > 0) {
-        result.sound = false;
-        result.issues.push(`Some traces do not have proper completion (${result.tracesNotEndingProperly} out of ${traces.length} traces)`);
+        if (result.parallelCompletionViolations.length > 0) {
+            result.properCompletion = false;
+            result.sound = false;
+            const uniqueBlocks = new Set(result.parallelCompletionViolations.map(v => v.blockId));
+            result.issues.push(
+                `Proper completion violated: ${result.parallelCompletionViolations.length} trace(s) skip at least one branch in ${uniqueBlocks.size} parallel block(s)`
+            );
+        } else {
+            result.tracesEndingProperly = traces.length;
+        }
+    } else {
+        // No parallel blocks: proper completion holds trivially for this graph
+        result.tracesEndingProperly = traces.length;
     }
 
-    // Check 3: No Dead Transitions
-    // All tasks should appear in at least one trace
+    // --- Check 3: No Dead Transitions ---
+    // Every task defined in the graph must appear in at least one trace.
     const allTaskIds = new Set();
     allTasks.forEach(task => {
-        if (task && task.id) {
-            allTaskIds.add(task.id);
-        }
-        if (task && task.alt_id) {
-            allTaskIds.add(task.alt_id);
-        }
+        if (task?.id) { allTaskIds.add(task.id); }
+        if (task?.alt_id) { allTaskIds.add(task.alt_id); }
     });
 
     const deadTasks = [];
     allTaskIds.forEach(taskId => {
-        if (!tasksInTraces.has(taskId)) {
-            deadTasks.push(taskId);
-        }
+        if (!tasksInTraces.has(taskId)) { deadTasks.push(taskId); }
     });
 
     if (deadTasks.length > 0) {
@@ -245,28 +277,31 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
         result.sound = false;
         result.deadTasks = deadTasks;
         result.tasksNotAppearingInTraces = deadTasks.length;
-        result.issues.push(`Found ${deadTasks.length} dead tasks that never appear in any trace`);
+        result.issues.push(`Found ${deadTasks.length} dead task(s) that never appear in any trace`);
+
+        // Dead tasks also violate option to complete: they belong to paths that can
+        // never reach the end node in any enumerated execution.
+        result.optionToComplete = false;
+        result.issues.push(
+            `Option to complete violated: ${deadTasks.length} task(s) never participate in any completing execution`
+        );
     }
-    
+
     result.tasksAppearingInTraces = allTaskIds.size - deadTasks.length;
 
-    // Analyze graph structure if available
+    // --- Graph structure metrics ---
     if (graphStructure) {
-        // Find source nodes (nodes with no incoming edges)
         const sourceNodes = findSourceNodes(graphStructure);
         result.sourceNodes = sourceNodes;
         result.sourceNodeCount = sourceNodes.length;
-        
-        // Find sink nodes (nodes with no outgoing edges)
+
         const sinkNodes = findSinkNodes(graphStructure);
         result.sinkNodes = sinkNodes;
         result.sinkNodeCount = sinkNodes.length;
-        
-        // Find connected components
+
         const connectedComponents = findConnectedComponents(graphStructure);
         result.connectedComponentCount = connectedComponents.length;
-        
-        // Find strongly connected components
+
         const stronglyConnectedComponents = findStronglyConnectedComponents(graphStructure);
         result.stronglyConnectedComponentCount = stronglyConnectedComponents.length;
     }
@@ -397,6 +432,121 @@ function buildGraphStructure(allTasks, connections) {
     }));
     
     return { nodes, edges };
+}
+
+/**
+ * Extract parallel block structure from CPEE XML for proper-completion checking.
+ * Parses every <parallel> element and collects the task IDs in each <parallel_branch>.
+ * Task IDs include both the XML id attribute and the CPEE annotation alt_id so they
+ * can be matched against trace path entries regardless of which identifier the trace
+ * calculator recorded.
+ * @param {string} xmlString - Preprocessed CPEE XML (cleaned version)
+ * @returns {Array<{id: string, branches: Array<Set<string>>}>}
+ */
+function extractCPEEParallelBlocks(xmlString) {
+    try {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+        if (xmlDoc.querySelector('parsererror')) { return []; }
+
+        const blocks = [];
+        xmlDoc.querySelectorAll('parallel').forEach((parallel, idx) => {
+            const branchNodes = Array.from(parallel.children).filter(
+                c => c.tagName.toLowerCase() === 'parallel_branch'
+            );
+            if (branchNodes.length < 2) { return; }
+
+            const branches = branchNodes.map(branch => {
+                const taskIds = new Set();
+                branch.querySelectorAll('call, manipulate, script').forEach(el => {
+                    const id = el.getAttribute('id');
+                    const altId =
+                        el.getAttribute('a:alt_id') ||
+                        el.getAttributeNS('http://cpee.org/ns/annotation/1.0', 'alt_id');
+                    if (id) { taskIds.add(id); }
+                    if (altId) { taskIds.add(altId); }
+                });
+                return taskIds;
+            });
+
+            blocks.push({ id: `parallel_${idx}`, branches });
+        });
+
+        return blocks;
+    } catch (error) {
+        console.error('[SoundnessBoundednessVerifier] Error extracting CPEE parallel blocks:', error);
+        return [];
+    }
+}
+
+/**
+ * Extract parallel block structure from Mermaid flowchart syntax for proper-completion
+ * checking.  Identifies parallelgateway split/join pairs from the preprocessed syntax,
+ * then collects the task IDs reachable in each branch (via BFS bounded by the join node).
+ * @param {string} mermaidSyntax - Preprocessed Mermaid flowchart code
+ * @returns {Array<{id: string, branches: Array<Set<string>>}>}
+ */
+function extractMermaidParallelBlocks(mermaidSyntax) {
+    try {
+        const connections = MermaidNodeExtractor.extractConnections(mermaidSyntax);
+        const outgoing = new Map();
+        connections.forEach(({ from, to }) => {
+            if (!outgoing.has(from)) { outgoing.set(from, new Set()); }
+            outgoing.get(from).add(to);
+        });
+
+        // Map from node ID to its type ('task' | 'gateway' | ...)
+        const nodeTypeMap = new Map(
+            MermaidNodeExtractor.extract(mermaidSyntax).map(n => [n.id, n.type])
+        );
+
+        // Detect parallel split gateways directly from syntax lines
+        const parallelSplitIds = new Set();
+        for (const line of mermaidSyntax.split('\n')) {
+            const match = line.match(/(\w+):parallelgateway:\{[^}]+\}/);
+            if (match && MermaidNodeExtractor.isStartGateway(match[1])) {
+                parallelSplitIds.add(match[1]);
+            }
+        }
+
+        const blocks = [];
+
+        parallelSplitIds.forEach(splitId => {
+            const joinId = MermaidNodeExtractor.getPairedGatewayId(splitId);
+            if (!joinId) { return; }
+
+            const branchStarters = Array.from(outgoing.get(splitId) || []);
+            if (branchStarters.length < 2) { return; }
+
+            // BFS from each branch entry point, stopping at the join gateway,
+            // to collect the tasks belonging to that branch
+            const branches = branchStarters.map(startNode => {
+                const taskIds = new Set();
+                const visited = new Set([splitId]);
+                const queue = [startNode];
+
+                while (queue.length > 0) {
+                    const nodeId = queue.shift();
+                    if (visited.has(nodeId) || nodeId === joinId) { continue; }
+                    visited.add(nodeId);
+
+                    if (nodeTypeMap.get(nodeId) === 'task') { taskIds.add(nodeId); }
+
+                    (outgoing.get(nodeId) || new Set()).forEach(next => {
+                        if (!visited.has(next)) { queue.push(next); }
+                    });
+                }
+                return taskIds;
+            });
+
+            blocks.push({ id: splitId, branches });
+        });
+
+        return blocks;
+    } catch (error) {
+        console.error('[SoundnessBoundednessVerifier] Error extracting Mermaid parallel blocks:', error);
+        return [];
+    }
 }
 
 /**
@@ -586,7 +736,7 @@ function createErrorResult(errorMessage) {
  * @param {Object} options - Verification options
  * @returns {Object} Verification result
  */
-function verifyCPEESoundnessAndBoundedness(traces, cpeeXml, options = {}) {
+function _verifyCPEESoundnessAndBoundedness(traces, cpeeXml, options = {}) {
     return verifySoundnessAndBoundedness(traces, cpeeXml, 'cpee', options);
 }
 
@@ -597,7 +747,7 @@ function verifyCPEESoundnessAndBoundedness(traces, cpeeXml, options = {}) {
  * @param {Object} options - Verification options
  * @returns {Object} Verification result
  */
-function verifyMermaidSoundnessAndBoundedness(traces, mermaidSyntax, options = {}) {
+function _verifyMermaidSoundnessAndBoundedness(traces, mermaidSyntax, options = {}) {
     return verifySoundnessAndBoundedness(traces, mermaidSyntax, 'mermaid', options);
 }
 

@@ -104,7 +104,7 @@ export class DarkModeToggle {
      * @param {boolean} isDark - Whether dark mode is enabled
      */
     updatePrismTheme(isDark) {
-        const prismThemeLink = this.domRegistry?.getElementSafe('prismTheme') || document.getElementById('prism-theme');
+        const prismThemeLink = this.domRegistry?.getElementSafe('prism-theme') || document.getElementById('prism-theme');
         if (prismThemeLink) {
             if (isDark) {
                 prismThemeLink.href = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';

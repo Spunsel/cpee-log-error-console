@@ -297,7 +297,7 @@ export class CPEEDebugConsole {
             }
             
             // Emit success event
-            this.eventBus.emit('instance:loaded', { uuid, steps: steps.length });
+            this.eventBus.emit('instance:loaded', { uuid, steps: steps.length }, { silent: true });
             
         } catch (error) {
             // Update state manager
@@ -351,7 +351,7 @@ export class CPEEDebugConsole {
             URLManager.updateURL(uuid, stepIndex + 1);
             
             // Emit step displayed event
-            this.eventBus.emit('step:displayed', { uuid, stepIndex, step });
+            this.eventBus.emit('step:displayed', { uuid, stepIndex, step }, { silent: true });
         } else {
             this.stepViewer.showError('Failed to load step data');
             this.eventBus.emit('step:displayFailed', { uuid, stepIndex, error: 'Failed to load step data' });

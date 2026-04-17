@@ -379,9 +379,6 @@ export class ConfigManager {
                 appTitle: 'app-title',
                 headerContent: 'header-content',
                 
-                // Prism theme (static element in HTML)
-                prismTheme: 'prism-theme',
-                
                 // Section IDs (for dynamic access)
                 inputCpee: 'input-cpee',
                 inputIntermediate: 'input-intermediate',
@@ -396,6 +393,7 @@ export class ConfigManager {
                 // Note: The following elements are dynamically created and registered by their components:
                 // - themeDropdownTrigger, themeDropdownMenu, themeDropdownContainer (registered by ThemeSelector.initialize())
                 // - darkModeToggleBtn, darkModeToggle (registered by DarkModeToggle.initialize())
+                // - prism-theme (created lazily by SyntaxHighlightingService)
             },
             classes: {
                 hidden: 'hidden',

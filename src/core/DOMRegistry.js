@@ -11,6 +11,8 @@ export class DOMRegistry {
         this.elements = new Map();
         this.elementCache = new Map();
         this.warningsEnabled = true;
+        // Elements created lazily after initial app bootstrap should not be treated as missing.
+        this.optionalDynamicElements = new Set(['prismTheme', 'prism-theme']);
     }
 
     /**
@@ -30,10 +32,20 @@ export class DOMRegistry {
         if (this.warningsEnabled) {
             // Validate element exists at registration time
             const element = document.getElementById(elementId);
-            if (!element) {
+            if (!element && !this.isOptionalDynamicElement(key, elementId)) {
                 console.warn(`DOMRegistry: Element with ID '${elementId}' not found during registration of key '${key}'`);
             }
         }
+    }
+
+    /**
+     * Check whether a key/elementId pair is known to be created lazily.
+     * @param {string} key
+     * @param {string} elementId
+     * @returns {boolean}
+     */
+    isOptionalDynamicElement(key, elementId) {
+        return this.optionalDynamicElements.has(key) || this.optionalDynamicElements.has(elementId);
     }
 
     /**
@@ -158,6 +170,7 @@ export class DOMRegistry {
         const results = {
             valid: [],
             missing: [],
+            optionalMissing: [],
             total: this.elements.size
         };
 
@@ -167,6 +180,8 @@ export class DOMRegistry {
             
             if (element) {
                 results.valid.push(entry);
+            } else if (this.isOptionalDynamicElement(key, elementId)) {
+                results.optionalMissing.push(entry);
             } else {
                 results.missing.push(entry);
             }
