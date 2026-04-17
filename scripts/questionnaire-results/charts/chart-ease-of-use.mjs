@@ -77,15 +77,13 @@ function buildSvg(ratings) {
   const parts = [];
   parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W * SCALE}" height="${H * SCALE}">`);
   parts.push(`<style>`);
-  parts.push(`  .title { font: bold 23px ${FONT}; }`);
-  parts.push(`  .axis-label { font: 16px ${FONT}; fill: #333; }`);
-  parts.push(`  .tick-label { font: 14px ${FONT}; fill: #333; }`);
-  parts.push(`  .legend-text { font: 14px ${FONT}; fill: #333; }`);
-  parts.push(`  .mean-label { font: bold 12px ${FONT}; }`);
+  parts.push(`  .title { font: bold 23px ${FONT}; fill: #000; }`);
+  parts.push(`  .axis-label { font: 16px ${FONT}; fill: #000; }`);
+  parts.push(`  .tick-label { font: 14px ${FONT}; fill: #000; }`);
+  parts.push(`  .legend-text { font: 14px ${FONT}; fill: #000; }`);
+  parts.push(`  .mean-label { font: bold 12px ${FONT}; fill: #000; }`);
   parts.push(`</style>`);
   parts.push(`<rect width="${W}" height="${H}" fill="white"/>`);
-
-  parts.push(`<text x="${W / 2}" y="34" text-anchor="middle" class="title">Perceived Ease of Use</text>`);
 
   for (let v = LIKERT_MIN; v <= LIKERT_MAX; v++) {
     const y = yScale(v);
@@ -110,7 +108,11 @@ function buildSvg(ratings) {
       const barH = Math.abs(my - zeroY);
       parts.push(`<rect x="${logX - barW / 2}" y="${barTop}" width="${barW}" height="${barH}" fill="${COLOR_LOG}" opacity="0.35" rx="2"/>`);
       parts.push(`<line x1="${logX - barW / 2}" y1="${my}" x2="${logX + barW / 2}" y2="${my}" stroke="${COLOR_LOG}" stroke-width="2.5"/>`);
-      parts.push(`<text x="${logX}" y="${my + (r.logMean >= 0 ? -10 : 22)}" text-anchor="middle" class="mean-label" fill="${COLOR_LOG}">${r.logMean.toFixed(1)}</text>`);
+      const logMeanLabelOffset =
+        (r.logMean >= 0 ? -10 : 22)
+        + (r.proc === 9784 ? 10 : 0)
+        + (r.proc === 9779 ? -6 : 0);
+      parts.push(`<text x="${logX}" y="${my + logMeanLabelOffset}" text-anchor="middle" class="mean-label">${r.logMean.toFixed(1)}</text>`);
     }
     if (r.consoleMean !== null) {
       const my = yScale(r.consoleMean);
@@ -118,17 +120,17 @@ function buildSvg(ratings) {
       const barH = Math.abs(my - zeroY);
       parts.push(`<rect x="${consoleX - barW / 2}" y="${barTop}" width="${barW}" height="${barH}" fill="${COLOR_CONSOLE}" opacity="0.35" rx="2"/>`);
       parts.push(`<line x1="${consoleX - barW / 2}" y1="${my}" x2="${consoleX + barW / 2}" y2="${my}" stroke="${COLOR_CONSOLE}" stroke-width="2.5"/>`);
-      parts.push(`<text x="${consoleX}" y="${my + (r.consoleMean >= 0 ? -10 : 22)}" text-anchor="middle" class="mean-label" fill="${COLOR_CONSOLE}">${r.consoleMean.toFixed(1)}</text>`);
+      parts.push(`<text x="${consoleX}" y="${my + (r.consoleMean >= 0 ? -10 : 22)}" text-anchor="middle" class="mean-label">${r.consoleMean.toFixed(1)}</text>`);
     }
 
     const jitter = (idx, total) => (total <= 1 ? 0 : ((idx / (total - 1)) - 0.5) * barW * 0.6);
     for (let j = 0; j < r.logVals.length; j++) {
       const y = yScale(r.logVals[j]);
-      parts.push(`<circle cx="${logX + jitter(j, r.logVals.length)}" cy="${y}" r="5" fill="${COLOR_LOG}"/>`);
+      parts.push(`<circle cx="${logX + jitter(j, r.logVals.length)}" cy="${y}" r="4" fill="${COLOR_LOG}"/>`);
     }
     for (let j = 0; j < r.consoleVals.length; j++) {
       const y = yScale(r.consoleVals[j]);
-      parts.push(`<circle cx="${consoleX + jitter(j, r.consoleVals.length)}" cy="${y}" r="5" fill="${COLOR_CONSOLE}"/>`);
+      parts.push(`<circle cx="${consoleX + jitter(j, r.consoleVals.length)}" cy="${y}" r="4" fill="${COLOR_CONSOLE}"/>`);
     }
 
     parts.push(`<text x="${cx}" y="${H - MB + 35}" text-anchor="middle" class="axis-label">Scenario ${r.proc}</text>`);

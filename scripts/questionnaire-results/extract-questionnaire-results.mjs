@@ -20,10 +20,11 @@ const OUT_DIR = __dirname;
 const PROC_ORDER = [9779, 9784, 140971];
 
 /**
- * Linear index into `res` nested array (YAML order): log block 0–3, then a second `buttons_0`
- * (pipeline again in UI), then console nature/cause/identify at 5–7, then scale_0, scale_1, feedback_0.
+ * Linear index into `res` nested array (YAML order): log block 0–3,
+ * then console block 4–7 (pipeline, nature, cause, identify),
+ * then scale_0, scale_1, feedback_0.
  */
-const SCENARIO_VALUE_SLOTS = [0, 1, 2, 3, 5, 6, 7, 8, 9, 10];
+const SCENARIO_VALUE_SLOTS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function scenarioColumnHeaders(proc) {
   const p = String(proc);
@@ -32,6 +33,7 @@ function scenarioColumnHeaders(proc) {
     `log-${p} What is the nature of the error?`,
     `log-${p} What is the most likely cause for the error?`,
     `log-${p} Where you able to confidentally identify the error?`,
+    `console-${p} At witch pipeline stage does the error FIRST appear?`,
     `console-${p} What is the nature of the error?`,
     `console-${p} What is the most likely cause for the error?`,
     `console-${p} Where you able to confidentally identify the error?`,

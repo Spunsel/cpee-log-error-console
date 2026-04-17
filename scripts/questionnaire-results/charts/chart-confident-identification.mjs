@@ -60,8 +60,8 @@ function countCategories(participants, keyTemplate) {
 
 function buildSvg(logData, consoleData) {
   const W = 580;
-  const H = 300;
-  const ML = 70, MR = 120, MT = 50, MB = 50;
+  const H = 265;
+  const ML = 70, MR = 120, MT = 15, MB = 50;
   const plotW = W - ML - MR;
   const plotH = H - MT - MB;
 
@@ -75,15 +75,13 @@ function buildSvg(logData, consoleData) {
   const parts = [];
   parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W * SCALE}" height="${H * SCALE}">`);
   parts.push(`<style>`);
-  parts.push(`  .title { font: bold 20px ${FONT}; }`);
-  parts.push(`  .axis-label { font: 14px ${FONT}; fill: #333; }`);
-  parts.push(`  .tick-label { font: 13px ${FONT}; fill: #333; }`);
-  parts.push(`  .legend-text { font: 13px ${FONT}; fill: #333; }`);
-  parts.push(`  .bar-label { font: bold 14px ${FONT}; fill: #222; }`);
+  parts.push(`  .title { font: bold 20px ${FONT}; fill: #000; }`);
+  parts.push(`  .axis-label { font: 14px ${FONT}; fill: #000; }`);
+  parts.push(`  .tick-label { font: 13px ${FONT}; fill: #000; }`);
+  parts.push(`  .legend-text { font: 13px ${FONT}; fill: #000; }`);
+  parts.push(`  .bar-label { font: bold 14px ${FONT}; fill: #000; }`);
   parts.push(`</style>`);
   parts.push(`<rect width="${W}" height="${H}" fill="white"/>`);
-
-  parts.push(`<text x="${W / 2}" y="30" text-anchor="middle" class="title">Error Identification Confidence</text>`);
 
   const gridStep = Math.max(1, Math.ceil(maxVal / 5));
   for (let v = 0; v <= maxVal; v += gridStep) {

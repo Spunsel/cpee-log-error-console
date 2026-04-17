@@ -107,7 +107,7 @@ function buildSvg(participants) {
   const LABEL_W = 160;
   const ROW_H = 50;
   const BAR_AREA_W = 480;
-  const ML = 15, MR = 25, MT = 55, MB = 30;
+  const ML = 15, MR = 25, MT = 15, MB = 30;
   const W = ML + LABEL_W + BAR_AREA_W + MR;
   const H = MT + ROW_H * questionData.length + MB;
   const maxCount = n;
@@ -115,12 +115,11 @@ function buildSvg(participants) {
   const parts = [];
   parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W * SCALE}" height="${H * SCALE}">`);
   parts.push(`<style>`);
-  parts.push(`  .title { font: bold 20px ${FONT}; }`);
-  parts.push(`  .row-label { font: 14px ${FONT}; fill: #333; }`);
-  parts.push(`  .bar-text { font: bold 11px ${FONT}; fill: #222; }`);
+  parts.push(`  .title { font: bold 20px ${FONT}; fill: #000; }`);
+  parts.push(`  .row-label { font: 14px ${FONT}; fill: #000; }`);
+  parts.push(`  .bar-text { font: bold 11px ${FONT}; fill: #000; }`);
   parts.push(`</style>`);
   parts.push(`<rect width="${W}" height="${H}" fill="white"/>`);
-  parts.push(`<text x="${W / 2}" y="30" text-anchor="middle" class="title">Participant Background (n\u2009=\u2009${n})</text>`);
 
   for (let i = 0; i < questionData.length; i++) {
     const qd = questionData[i];
