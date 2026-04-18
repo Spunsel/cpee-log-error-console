@@ -204,30 +204,54 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
     // For every parallel block, a trace that enters the block (contains a task from
     // any branch) must also contain at least one task from every other branch.
     // A missing branch means residual work is left behind at termination.
+    //
+    // Two semantic carve-outs:
+    //  (a) Traces terminated by a CPEE <escape/> control element are treated as
+    //      properly completed - escape behaves like an explicit end event, so any
+    //      branch never reached before the escape fired is not "residual".
+    //  (b) Branch task identifiers are kept as {id, alt_id} pairs (not flattened
+    //      into a single id-set) and matched attribute-wise. This prevents false
+    //      positives when one task's `id` collides with another task's `alt_id`,
+    //      which is common in CPEE graphs where alt_id is an editor annotation
+    //      that may reuse strings used as auto-generated ids elsewhere.
     if (parallelBlocks.length > 0) {
         traces.forEach((trace, traceIdx) => {
             if (!trace?.path) { return; }
 
-            const traceIds = new Set();
-            trace.path.forEach(task => {
-                if (task?.id) { traceIds.add(task.id); }
-                if (task?.alt_id) { traceIds.add(task.alt_id); }
-            });
+            // Carve-out (a): escape-terminated traces are proper by construction.
+            if (trace.terminatedByEscape === true ||
+                trace.path?._terminatedByEscape === true) {
+                result.tracesEndingProperly++;
+                return;
+            }
+
+            const traceTasks = trace.path.filter(t => t && (t.id || t.alt_id));
+
+            const taskMatchesBranchTask = (traceTask, branchTask) => {
+                if (branchTask.id && traceTask.id && branchTask.id === traceTask.id) {
+                    return true;
+                }
+                if (branchTask.alt_id && traceTask.alt_id && branchTask.alt_id === traceTask.alt_id) {
+                    return true;
+                }
+                return false;
+            };
+
+            const branchCoveredByTrace = (branchTaskList) =>
+                branchTaskList.some(bt => traceTasks.some(tt => taskMatchesBranchTask(tt, bt)));
 
             let traceProper = true;
 
             parallelBlocks.forEach(block => {
-                const nonEmptyBranches = block.branches.filter(b => b.size > 0);
+                const nonEmptyBranches = block.branches.filter(b => b.length > 0);
                 if (nonEmptyBranches.length < 2) { return; }
 
-                const allBlockIds = new Set();
-                nonEmptyBranches.forEach(b => b.forEach(id => allBlockIds.add(id)));
-
-                const entersBlock = [...allBlockIds].some(id => traceIds.has(id));
+                const branchCoverage = nonEmptyBranches.map(branchCoveredByTrace);
+                const entersBlock = branchCoverage.some(Boolean);
                 if (!entersBlock) { return; }
 
-                const uncoveredBranches = nonEmptyBranches
-                    .map((branch, idx) => ({ idx, covered: [...branch].some(id => traceIds.has(id)) }))
+                const uncoveredBranches = branchCoverage
+                    .map((covered, idx) => ({ idx, covered }))
                     .filter(b => !b.covered)
                     .map(b => b.idx);
 
@@ -251,8 +275,6 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
             result.issues.push(
                 `Proper completion violated: ${result.parallelCompletionViolations.length} trace(s) skip at least one branch in ${uniqueBlocks.size} parallel block(s)`
             );
-        } else {
-            result.tracesEndingProperly = traces.length;
         }
     } else {
         // No parallel blocks: proper completion holds trivially for this graph
@@ -436,12 +458,14 @@ function buildGraphStructure(allTasks, connections) {
 
 /**
  * Extract parallel block structure from CPEE XML for proper-completion checking.
- * Parses every <parallel> element and collects the task IDs in each <parallel_branch>.
- * Task IDs include both the XML id attribute and the CPEE annotation alt_id so they
- * can be matched against trace path entries regardless of which identifier the trace
- * calculator recorded.
+ * Parses every <parallel> element and collects the task identifiers in each
+ * <parallel_branch>. Each branch is represented as an array of {id, alt_id}
+ * pairs so that the proper-completion check can match attribute-wise against
+ * trace tasks (which also carry both fields). This avoids false matches when
+ * one task's auto-generated `id` happens to equal another task's editor-supplied
+ * `alt_id`.
  * @param {string} xmlString - Preprocessed CPEE XML (cleaned version)
- * @returns {Array<{id: string, branches: Array<Set<string>>}>}
+ * @returns {Array<{id: string, branches: Array<Array<{id: string|null, alt_id: string|null}>>}>}
  */
 function extractCPEEParallelBlocks(xmlString) {
     try {
@@ -457,16 +481,18 @@ function extractCPEEParallelBlocks(xmlString) {
             if (branchNodes.length < 2) { return; }
 
             const branches = branchNodes.map(branch => {
-                const taskIds = new Set();
+                const tasks = [];
                 branch.querySelectorAll('call, manipulate, script').forEach(el => {
-                    const id = el.getAttribute('id');
+                    const id = el.getAttribute('id') || null;
                     const altId =
                         el.getAttribute('a:alt_id') ||
-                        el.getAttributeNS('http://cpee.org/ns/annotation/1.0', 'alt_id');
-                    if (id) { taskIds.add(id); }
-                    if (altId) { taskIds.add(altId); }
+                        el.getAttributeNS('http://cpee.org/ns/annotation/1.0', 'alt_id') ||
+                        null;
+                    if (id || altId) {
+                        tasks.push({ id, alt_id: altId });
+                    }
                 });
-                return taskIds;
+                return tasks;
             });
 
             blocks.push({ id: `parallel_${idx}`, branches });
@@ -519,9 +545,11 @@ function extractMermaidParallelBlocks(mermaidSyntax) {
             if (branchStarters.length < 2) { return; }
 
             // BFS from each branch entry point, stopping at the join gateway,
-            // to collect the tasks belonging to that branch
+            // to collect the tasks belonging to that branch.
+            // Returns an array of {id, alt_id} pairs (alt_id is null for Mermaid)
+            // to match the shape used by extractCPEEParallelBlocks.
             const branches = branchStarters.map(startNode => {
-                const taskIds = new Set();
+                const tasks = [];
                 const visited = new Set([splitId]);
                 const queue = [startNode];
 
@@ -530,13 +558,15 @@ function extractMermaidParallelBlocks(mermaidSyntax) {
                     if (visited.has(nodeId) || nodeId === joinId) { continue; }
                     visited.add(nodeId);
 
-                    if (nodeTypeMap.get(nodeId) === 'task') { taskIds.add(nodeId); }
+                    if (nodeTypeMap.get(nodeId) === 'task') {
+                        tasks.push({ id: nodeId, alt_id: null });
+                    }
 
                     (outgoing.get(nodeId) || new Set()).forEach(next => {
                         if (!visited.has(next)) { queue.push(next); }
                     });
                 }
-                return taskIds;
+                return tasks;
             });
 
             blocks.push({ id: splitId, branches });

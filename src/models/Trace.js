@@ -26,6 +26,12 @@ export class Trace {
         
         // Source graph type ('cpee' or 'mermaid') for reconciled traces
         this.sourceGraphType = null;
+
+        // True when this trace was terminated early by a CPEE <escape/> control element.
+        // Escape acts like an explicit end event, so such traces are considered properly
+        // completed (no residual work) regardless of any parallel/AND branches that were
+        // not entered before the escape fired.
+        this.terminatedByEscape = Array.isArray(path) && path._terminatedByEscape === true;
     }
 
     /**
@@ -49,7 +55,8 @@ export class Trace {
             metadata: this.metadata,
             isReconciled: this.isReconciled,
             sourceTraceIndex: this.sourceTraceIndex,
-            sourceGraphType: this.sourceGraphType
+            sourceGraphType: this.sourceGraphType,
+            terminatedByEscape: this.terminatedByEscape
         };
     }
 
@@ -68,6 +75,9 @@ export class Trace {
         trace.isReconciled = obj.isReconciled || false;
         trace.sourceTraceIndex = obj.sourceTraceIndex !== undefined ? obj.sourceTraceIndex : null;
         trace.sourceGraphType = obj.sourceGraphType || null;
+        if (obj.terminatedByEscape === true) {
+            trace.terminatedByEscape = true;
+        }
         return trace;
     }
 
