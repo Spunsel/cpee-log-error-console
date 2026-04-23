@@ -9,7 +9,6 @@ A web-based debugging console for the LLM-driven workflow modification pipeline 
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Architecture](#architecture)
-- [Development](#development)
 - [Technologies](#technologies)
 - [License](#license)
 
@@ -70,15 +69,14 @@ Each content section supports switching between views:
 
 ### Property Verification
 
-- **Soundness** verification (proper completion)
+- **Soundness** verification (option to complete, proper completion, no dead transitions)
 - **Boundedness** verification (no unbounded paths)
-- **Reachability** analysis (all nodes reachable from start)
-- **Strongly Connected Component (SCC)** detection
+- **Reachability** analysis (all nodes reachable from start and from end)
 
 ### Search and Navigation
 
-- Full-text **search** across all content sections
-- **Code minimap** for navigating large content blocks
+- Full-text **search** across all code sections
+- **Code minimap** for navigating large code blocks
 - **Section expand/collapse** for managing screen space
 
 ### Additional Features
@@ -87,16 +85,13 @@ Each content section supports switching between views:
 - **Syntax highlighting** via Prism.js with theme support
 - **Copy to clipboard** for any content section
 - **Download** raw content sections
-- **Bug reporting** modal with email integration
 - **Interactive demo tour** for new users
-- **Recent changes** feed from GitHub issues
 
 ## Getting Started
 
 ### Prerequisites
 
 - [Python 3](https://www.python.org) (for serving the application)
-- [Node.js](https://nodejs.org) >= 18.0.0 (optional, for development tooling: tests, linting, Vite dev server)
 
 ### Quick Start
 
@@ -108,26 +103,20 @@ python3 -m http.server 8000
 
 The console opens at **http://localhost:8000**.
 
-### Development Setup (Optional)
-
-For hot reload, linting, and testing:
-
-```bash
-npm install
-npm run dev
-```
-
 ### Fallback Data (Optional)
 
-To enable offline access with locally cached data:
+The app can resolve **process numbers → UUIDs** and load **`.xes.yaml` logs** from local files when the CPEE API is slow or unavailable. That data lives under **`fallback/`**:
 
-```bash
-# Generate local UUID mappings
-./scripts/fetch-uuids.ps1
+- `fallback/uuid-mapping.json` — JSON map of process number (string key) to UUID
+- `fallback/logs/` — one log file per cached instance, basename = UUID plus `.xes.yaml` (some mappings use a `_v2` suffix on the UUID; these suffixes are added to currently non-archived instances)
 
-# Download log files into fallback/logs/
-./scripts/fetch-logs.ps1
+To refresh or build this cache from the flow engine, run the bundled PowerShell script from the **repository root**. It merges new mappings with any existing `uuid-mapping.json`, downloads logs, and copies them into `fallback/logs/`:
+
+```powershell
+powershell -File scripts/fetch-and-update.ps1
 ```
+
+Edit the `$processNumbers` array at the top of `scripts/fetch-and-update.ps1` if you only need a subset of instances.
 
 ## Usage
 
@@ -207,42 +196,6 @@ The application follows a layered architecture:
 - **Services** contain business logic with no DOM dependencies.
 - **Components** handle rendering, UI interaction, and coordination.
 - **Utils** provide stateless helper functions.
-
-## Development
-
-The development tooling requires Node.js and npm (`npm install` to set up).
-
-### Commands
-
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Vite dev server with hot reload |
-| `npm run build` | Production build |
-| `npm run preview` | Preview production build |
-| `npm test` | Run all tests |
-| `npm run test:watch` | Run tests in watch mode |
-| `npm run test:coverage` | Run tests with coverage |
-| `npm run lint` | Lint source code |
-| `npm run lint:fix` | Auto-fix lint issues |
-| `npm run format` | Format code with Prettier |
-| `npm run format:check` | Check formatting |
-| `npm run validate` | Lint + format check + test |
-| `npm run docs` | Generate JSDoc documentation |
-
-### Testing
-
-Tests use the Node.js built-in test runner with jsdom for DOM simulation:
-
-```bash
-# All tests
-npm test
-
-# Unit tests only
-npm run test:unit
-
-# Single file
-npm run test:file -- tests/unit/trace/TraceComparison.test.js
-```
 
 ## Technologies
 
