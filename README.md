@@ -208,10 +208,6 @@ The application follows a layered architecture:
 | Testing | Node.js test runner, [jsdom](https://github.com/jsdom/jsdom), [@testing-library](https://testing-library.com) |
 | Linting | ESLint, Prettier |
 
-## License
-
-MIT
-
 ## Author
 
 Christian Horne &lt;christian.horne@tum.de&gt;
