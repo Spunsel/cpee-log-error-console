@@ -398,25 +398,30 @@ export class AnalysisContentRenderer {
         // Option to Complete
         const tracesReachingEnd = soundnessResult.tracesReachingEnd || 0;
         const tracesNotReachingEnd = soundnessResult.tracesNotReachingEnd || 0;
-        
+        const otcViolators = Array.isArray(soundnessResult.optionToCompleteViolators)
+            ? soundnessResult.optionToCompleteViolators
+            : [];
+        const otcViolatorsCount = soundnessResult.optionToCompleteViolatorsCount || otcViolators.length;
+        const deadTaskClassification = soundnessResult.deadTaskClassification || 'collapsed';
+
         const optionToCompleteItem = this.domRegistry.createElement('li');
         optionToCompleteItem.className = 'analysis-property-item';
         optionToCompleteItem.innerHTML = `<strong>Option to Complete</strong>`;
-        
+
         const optionToCompleteDetails = this.domRegistry.createElement('ul');
         optionToCompleteDetails.className = 'analysis-property-details';
-        
+
         const reachingEndItem = this.domRegistry.createElement('li');
         reachingEndItem.innerHTML = `- ${tracesReachingEnd} traces that reach the end node(s)`;
         optionToCompleteDetails.appendChild(reachingEndItem);
-        
+
         const notReachingEndItem = this.domRegistry.createElement('li');
         if (tracesNotReachingEnd > 0) {
             notReachingEndItem.className = 'reachability-dead-end';
         }
         notReachingEndItem.innerHTML = `- ${tracesNotReachingEnd} traces that don't reach the end node(s)`;
         optionToCompleteDetails.appendChild(notReachingEndItem);
-        
+
         if (tracesNotReachingEnd > 0 && soundnessResult.incompleteTraces) {
             const tracesInfo = soundnessResult.incompleteTraces
                 .filter(t => t.reason.includes('Empty trace') || t.reason.includes('not complete'))
@@ -429,7 +434,23 @@ export class AnalysisContentRenderer {
                 optionToCompleteDetails.appendChild(detailsItem);
             }
         }
-        
+
+        // When graph-based reachability is available we can surface dead-end tasks
+        // (forward-reachable but cannot reach an end node) as a distinct OTC signal.
+        if (deadTaskClassification === 'graph-based' && otcViolatorsCount > 0) {
+            const deadEndCountItem = this.domRegistry.createElement('li');
+            deadEndCountItem.className = 'reachability-dead-end';
+            deadEndCountItem.innerHTML = `- ${otcViolatorsCount} dead-end task(s) reachable from start but cannot reach an end node`;
+            optionToCompleteDetails.appendChild(deadEndCountItem);
+
+            if (otcViolators.length > 0) {
+                const deadEndListItem = this.domRegistry.createElement('li');
+                deadEndListItem.className = 'analysis-property-detail-item';
+                deadEndListItem.innerHTML = `<strong>Dead-end Tasks:</strong> ${otcViolators.join(', ')}`;
+                optionToCompleteDetails.appendChild(deadEndListItem);
+            }
+        }
+
         optionToCompleteItem.appendChild(optionToCompleteDetails);
         soundnessList.appendChild(optionToCompleteItem);
         
@@ -472,34 +493,51 @@ export class AnalysisContentRenderer {
         soundnessList.appendChild(properCompletionItem);
         
         // Dead Transitions
+        // When graph-based reachability is available, narrow this section to TRUE dead
+        // transitions (forward-unreachable tasks); dead-end tasks are surfaced under
+        // Option to Complete instead.  Without graph-based reachability the trace-based
+        // collapse still applies and the full dead-task list is shown here.
         const tasksAppearing = soundnessResult.tasksAppearingInTraces || 0;
         const tasksNotAppearing = soundnessResult.tasksNotAppearingInTraces || 0;
-        
+        const trueDeadTransitions = Array.isArray(soundnessResult.trueDeadTransitions)
+            ? soundnessResult.trueDeadTransitions
+            : [];
+        const trueDeadCount = soundnessResult.trueDeadTransitionsCount || trueDeadTransitions.length;
+
         const deadTransitionsItem = this.domRegistry.createElement('li');
         deadTransitionsItem.className = 'analysis-property-item';
         deadTransitionsItem.innerHTML = `<strong>Dead Transitions</strong>`;
-        
+
         const deadTransitionsDetails = this.domRegistry.createElement('ul');
         deadTransitionsDetails.className = 'analysis-property-details';
-        
+
         const appearingItem = this.domRegistry.createElement('li');
         appearingItem.innerHTML = `- ${tasksAppearing} tasks that appear in at least one trace`;
         deadTransitionsDetails.appendChild(appearingItem);
-        
+
+        const isGraphBased = deadTaskClassification === 'graph-based';
         const notAppearingItem = this.domRegistry.createElement('li');
-        if (tasksNotAppearing > 0) {
+        if (isGraphBased ? trueDeadCount > 0 : tasksNotAppearing > 0) {
             notAppearingItem.className = 'reachability-dead-end';
         }
-        notAppearingItem.innerHTML = `- ${tasksNotAppearing} tasks that don't appear in at least one trace`;
+        if (isGraphBased) {
+            notAppearingItem.innerHTML = `- ${trueDeadCount} task(s) not reachable from any start node`;
+        } else {
+            notAppearingItem.innerHTML = `- ${tasksNotAppearing} tasks that don't appear in at least one trace`;
+        }
         deadTransitionsDetails.appendChild(notAppearingItem);
-        
-        if (tasksNotAppearing > 0 && soundnessResult.deadTasks && soundnessResult.deadTasks.length > 0) {
+
+        const tasksToList = isGraphBased
+            ? trueDeadTransitions
+            : (Array.isArray(soundnessResult.deadTasks) ? soundnessResult.deadTasks : []);
+        if (tasksToList.length > 0) {
             const detailsItem = this.domRegistry.createElement('li');
             detailsItem.className = 'analysis-property-detail-item';
-            detailsItem.innerHTML = `<strong>Dead Tasks:</strong> ${soundnessResult.deadTasks.join(', ')}`;
+            const label = isGraphBased ? 'Unreachable Tasks' : 'Dead Tasks';
+            detailsItem.innerHTML = `<strong>${label}:</strong> ${tasksToList.join(', ')}`;
             deadTransitionsDetails.appendChild(detailsItem);
         }
-        
+
         deadTransitionsItem.appendChild(deadTransitionsDetails);
         soundnessList.appendChild(deadTransitionsItem);
         

@@ -19,7 +19,17 @@
  * 1. Option to Complete: All traces should reach end nodes (proper termination)
  * 2. Proper Completion: Traces end at end nodes without residual tasks
  * 3. No Dead Transitions: All tasks appear in at least one trace
- * 
+ *
+ * Trace-based view alone collapses (1) and (3) onto the same observation
+ * (`task ∉ ⋃ tasks(traces)`): a forward-unreachable task and a
+ * forward-reachable-but-non-completing task both fail to appear in any
+ * completing trace.  When an external graph-based reachability classification
+ * is supplied via `options.reachability`, the verifier separates them:
+ *   - tasks classified `unreachable` (not forward-reachable)  → No Dead Transitions
+ *   - tasks classified `dead-end`    (fwd ✓ but not bwd ✓)    → Option to Complete
+ * Without graph-based reachability (e.g. CPEE fallback) the verifier keeps the
+ * conservative collapsed semantics and flags both properties on any dead task.
+ *
  * Boundedness Properties (formal definition from van der Aalst):
  * A Petri net (PN, M) is bounded if, for every reachable state and every place p,
  * the number of tokens in p is bounded.
@@ -45,13 +55,19 @@ import { MermaidNodeExtractor } from '../extraction/MermaidNodeExtractor.js';
  * @param {number} options.maxLoopIterations - Maximum loop iterations (default: 1)
  * @param {Array<string>} options.startNodeIds - Array of start node IDs (optional)
  * @param {Array<string>} options.endNodeIds - Array of end node IDs (optional)
+ * @param {Object} [options.reachability] - Optional reachability analysis result
+ *   (from `analyzeReachabilityFromTraces`). When `analysisMethod === 'graph-based'`,
+ *   it is used to split dead tasks into true dead transitions (forward-unreachable)
+ *   vs. dead-end tasks (forward-reachable but not backward-reachable), which lets
+ *   the verifier flag `noDeadTransitions` and `optionToComplete` independently.
  * @returns {Object} Verification result with soundness and boundedness properties
  */
 export function verifySoundnessAndBoundedness(traces, graphContent, format, options = {}) {
     const {
         maxLoopIterations = 1,
         startNodeIds = [],
-        endNodeIds = []
+        endNodeIds = [],
+        reachability = null
     } = options;
 
     // Handle null/undefined inputs
@@ -88,8 +104,9 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
         return createErrorResult(`Failed to extract tasks: ${error.message}`);
     }
 
-    // Perform soundness checks (with graph structure and parallel block analysis)
-    const soundnessResult = checkSoundness(traceArray, allTasks, startNodeIds, endNodeIds, graphStructure, parallelBlocks);
+    // Perform soundness checks (with graph structure, parallel block analysis,
+    // and optional graph-based reachability classification for OTC/NoDeadTransitions split)
+    const soundnessResult = checkSoundness(traceArray, allTasks, startNodeIds, endNodeIds, graphStructure, parallelBlocks, reachability);
 
     // Perform boundedness checks (with graph structure analysis)
     const boundednessResult = checkBoundedness(traceArray, allTasks, maxLoopIterations, graphStructure);
@@ -112,16 +129,24 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
 /**
  * Check soundness properties (Option D hybrid approach).
  *
- * Option to Complete  — every task extracted from the graph must appear in at least
- *   one complete trace; tasks absent from all traces represent execution paths from
- *   which the process can never reach the end node.
+ * Option to Complete  — a forward-reachable task with no path to an end node lies
+ *   on an execution path from which the process can never complete.  When a
+ *   graph-based reachability classification is available, such tasks are
+ *   identified as `dead-end` (forward-reachable but not backward-reachable) and
+ *   flag `optionToComplete = false` independently of dead transitions.
  *
  * Proper Completion   — for every parallel (AND) block in the graph, each trace that
  *   enters the block (contains a task from any branch) must contain at least one task
  *   from every branch.  A trace that skips a branch leaves residual work, which
  *   contradicts the Petri-net proper-completion requirement.
  *
- * No Dead Transitions — every task must appear in at least one trace (unchanged).
+ * No Dead Transitions — every task must appear in at least one trace.  When a
+ *   graph-based reachability classification is available, this is refined to
+ *   tasks classified as `unreachable` (not forward-reachable from any start node).
+ *
+ * If no graph-based reachability is supplied (e.g. CPEE fallback), the verifier
+ * keeps the conservative collapsed semantics: any task absent from all traces
+ * flags both `noDeadTransitions` and `optionToComplete`.
  *
  * Reference: van der Aalst, W.M.P. (1997). Verification of Workflow Nets.
  *
@@ -132,9 +157,12 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
  * @param {Object|null}           graphStructure - Node/edge graph for structural metrics
  * @param {Array<{id:string, branches:Array<Set<string>>}>} parallelBlocks
  *   - AND-parallel blocks with per-branch task-ID sets
+ * @param {Object|null}           reachability   - Optional reachability analysis result
+ *   (from `analyzeReachabilityFromTraces`); enables OTC/NoDeadTransitions split when
+ *   `analysisMethod === 'graph-based'`.
  * @returns {Object} Soundness check result
  */
-function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructure = null, parallelBlocks = []) {
+function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructure = null, parallelBlocks = [], reachability = null) {
     const result = {
         sound: true,
         optionToComplete: true,
@@ -142,6 +170,9 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
         noDeadTransitions: true,
         issues: [],
         deadTasks: [],
+        trueDeadTransitions: [],
+        optionToCompleteViolators: [],
+        deadTaskClassification: 'collapsed',
         incompleteTraces: [],
         parallelCompletionViolations: [],
         sourceNodeCount: 0,
@@ -155,7 +186,9 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
         tracesEndingProperly: 0,
         tracesNotEndingProperly: 0,
         tasksAppearingInTraces: 0,
-        tasksNotAppearingInTraces: 0
+        tasksNotAppearingInTraces: 0,
+        trueDeadTransitionsCount: 0,
+        optionToCompleteViolatorsCount: 0
     };
 
     if (traces.length === 0) {
@@ -281,8 +314,15 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
         result.tracesEndingProperly = traces.length;
     }
 
-    // --- Check 3: No Dead Transitions ---
-    // Every task defined in the graph must appear in at least one trace.
+    // --- Check 3: No Dead Transitions / Option to Complete (refined) ---
+    // Every task defined in the graph must appear in at least one trace.  When a
+    // graph-based reachability classification is available, the missing tasks are
+    // partitioned into:
+    //   - `trueDeadTransitions`        — forward-unreachable tasks  → No Dead Transitions
+    //   - `optionToCompleteViolators`  — forward-reachable but not backward-reachable
+    //                                    tasks (dead-end / "trap")  → Option to Complete
+    // Without graph-based reachability the trace-based view cannot tell them apart, so
+    // the conservative collapsed semantics is preserved: any dead task flags both.
     const allTaskIds = new Set();
     allTasks.forEach(task => {
         if (task?.id) { allTaskIds.add(task.id); }
@@ -294,22 +334,79 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
         if (!tasksInTraces.has(taskId)) { deadTasks.push(taskId); }
     });
 
-    if (deadTasks.length > 0) {
+    result.deadTasks = deadTasks;
+    result.tasksNotAppearingInTraces = deadTasks.length;
+    result.tasksAppearingInTraces = allTaskIds.size - deadTasks.length;
+
+    const canSplitWithReachability =
+        !!reachability
+        && reachability.analysisMethod === 'graph-based'
+        && !!reachability.nodeClassification
+        && Array.isArray(reachability.nodeClassification.unreachableNodes)
+        && Array.isArray(reachability.nodeClassification.deadEndNodes);
+
+    if (deadTasks.length > 0 && canSplitWithReachability) {
+        const unreachableSet = new Set(reachability.nodeClassification.unreachableNodes);
+        const deadEndSet = new Set(reachability.nodeClassification.deadEndNodes);
+
+        const trueDead = [];
+        const otcViolators = [];
+
+        deadTasks.forEach(id => {
+            if (unreachableSet.has(id)) {
+                trueDead.push(id);
+            } else if (deadEndSet.has(id)) {
+                otcViolators.push(id);
+            } else {
+                // Task is missing from all traces but reachability classifies it as
+                // viable.  This should not normally happen; conservatively treat it as
+                // a dead transition so the issue is still surfaced.
+                trueDead.push(id);
+            }
+        });
+
+        result.trueDeadTransitions = trueDead;
+        result.optionToCompleteViolators = otcViolators;
+        result.trueDeadTransitionsCount = trueDead.length;
+        result.optionToCompleteViolatorsCount = otcViolators.length;
+        result.deadTaskClassification = 'graph-based';
+
+        if (trueDead.length > 0) {
+            result.noDeadTransitions = false;
+            result.sound = false;
+            result.issues.push(
+                `Found ${trueDead.length} dead transition(s) - task(s) not reachable from any start node`
+            );
+        }
+        if (otcViolators.length > 0) {
+            result.optionToComplete = false;
+            result.sound = false;
+            result.issues.push(
+                `Found ${otcViolators.length} dead-end task(s) - reachable from start but cannot reach an end node`
+            );
+        }
+    } else if (deadTasks.length > 0) {
+        // Collapsed semantics (trace-based view only).  We cannot distinguish
+        // forward-unreachable from dead-end tasks, so both properties are flagged.
+        result.trueDeadTransitions = [...deadTasks];
+        result.optionToCompleteViolators = [];
+        result.trueDeadTransitionsCount = deadTasks.length;
+        result.optionToCompleteViolatorsCount = 0;
+        result.deadTaskClassification = 'collapsed';
+
         result.noDeadTransitions = false;
         result.sound = false;
-        result.deadTasks = deadTasks;
-        result.tasksNotAppearingInTraces = deadTasks.length;
         result.issues.push(`Found ${deadTasks.length} dead task(s) that never appear in any trace`);
 
-        // Dead tasks also violate option to complete: they belong to paths that can
-        // never reach the end node in any enumerated execution.
         result.optionToComplete = false;
         result.issues.push(
             `Option to complete violated: ${deadTasks.length} task(s) never participate in any completing execution`
         );
+    } else {
+        // No dead tasks: classification source still reflects whether reachability
+        // could have been used, which downstream UIs can surface if desired.
+        result.deadTaskClassification = canSplitWithReachability ? 'graph-based' : 'collapsed';
     }
-
-    result.tasksAppearingInTraces = allTaskIds.size - deadTasks.length;
 
     // --- Graph structure metrics ---
     if (graphStructure) {
@@ -746,7 +843,13 @@ function createErrorResult(errorMessage) {
             optionToComplete: false,
             properCompletion: false,
             noDeadTransitions: false,
-            issues: [errorMessage]
+            issues: [errorMessage],
+            deadTasks: [],
+            trueDeadTransitions: [],
+            optionToCompleteViolators: [],
+            trueDeadTransitionsCount: 0,
+            optionToCompleteViolatorsCount: 0,
+            deadTaskClassification: 'unknown'
         },
         boundedness: {
             bounded: false,

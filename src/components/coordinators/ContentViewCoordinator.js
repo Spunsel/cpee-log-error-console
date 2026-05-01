@@ -291,35 +291,12 @@ export class ContentViewCoordinator {
             return;
         }
 
-        // Re-run verification (soundness and boundedness)
+        // Re-run reachability analysis FIRST so its classification can refine the
+        // soundness verdict (split Option to Complete vs. No Dead Transitions).
+        let reachabilityResult = null;
         try {
             const format = isCPEE ? 'cpee' : 'mermaid';
-            const verificationResult = verifySoundnessAndBoundedness(
-                traces,
-                contentString,
-                format,
-                { maxLoopIterations: 1 }
-            );
-            
-            this.currentStep.setVerificationResult(sectionId, verificationResult);
-            
-            // Emit verification completion event
-            this.eventBus.emit('verification:complete', {
-                sectionId,
-                stepNumber: this.currentStep.stepNumber || 'unknown',
-                verificationResult,
-                afterReconciliation: true
-            });
-            
-            console.log(`[ContentViewCoordinator] Verification re-run complete for ${sectionId}: sound=${verificationResult.sound}, bounded=${verificationResult.bounded}`);
-        } catch (error) {
-            console.warn(`[ContentViewCoordinator] Verification re-run failed for ${sectionId}:`, error);
-        }
 
-        // Re-run reachability analysis (graph-based for Mermaid, trace-based fallback)
-        try {
-            const format = isCPEE ? 'cpee' : 'mermaid';
-            
             let allTasksFromGraph = [];
             let graphContent = null;
             try {
@@ -354,7 +331,7 @@ export class ContentViewCoordinator {
                 allTasksFromGraph = this.extractAllTasksFromTraces(traces);
             }
             
-            const reachabilityResult = analyzeReachabilityFromTraces(
+            reachabilityResult = analyzeReachabilityFromTraces(
                 traces,
                 allTasksFromGraph,
                 {
@@ -374,10 +351,38 @@ export class ContentViewCoordinator {
             });
             
             if (reachabilityResult.success) {
-                console.log(`[ContentViewCoordinator] Reachability re-run complete for ${sectionId}`);
+                console.log(`[ContentViewCoordinator] Reachability re-run complete for ${sectionId} (method=${reachabilityResult.analysisMethod})`);
             }
         } catch (error) {
             console.warn(`[ContentViewCoordinator] Reachability re-run failed for ${sectionId}:`, error);
+        }
+
+        // Re-run verification (soundness and boundedness), threading the reachability
+        // result through to enable the OTC/No-Dead-Transitions split when available.
+        try {
+            const format = isCPEE ? 'cpee' : 'mermaid';
+            const verificationResult = verifySoundnessAndBoundedness(
+                traces,
+                contentString,
+                format,
+                {
+                    maxLoopIterations: 1,
+                    reachability: reachabilityResult
+                }
+            );
+
+            this.currentStep.setVerificationResult(sectionId, verificationResult);
+
+            this.eventBus.emit('verification:complete', {
+                sectionId,
+                stepNumber: this.currentStep.stepNumber || 'unknown',
+                verificationResult,
+                afterReconciliation: true
+            });
+
+            console.log(`[ContentViewCoordinator] Verification re-run complete for ${sectionId}: sound=${verificationResult.sound}, bounded=${verificationResult.bounded}, deadTaskClassification=${verificationResult.soundness?.deadTaskClassification || 'n/a'}`);
+        } catch (error) {
+            console.warn(`[ContentViewCoordinator] Verification re-run failed for ${sectionId}:`, error);
         }
 
         // Update analysis button issue state after re-running analysis
@@ -717,36 +722,13 @@ export class ContentViewCoordinator {
                 
                 // Store traces in step
                 step.setTraces(section.id, traces);
-                
-                // Perform soundness and boundedness verification
+
+                // Perform reachability analysis FIRST so its classification can refine
+                // the soundness verdict (split Option to Complete vs. No Dead Transitions).
+                let reachabilityResult = null;
                 try {
                     const format = section.isCPEE ? 'cpee' : 'mermaid';
-                    const verificationResult = verifySoundnessAndBoundedness(
-                        traces,
-                        contentString,
-                        format,
-                        { maxLoopIterations: options.maxLoopIterations }
-                    );
-                    
-                    // Store verification result in step
-                    step.setVerificationResult(section.id, verificationResult);
-                    
-                    // Emit verification completion event
-                    this.eventBus.emit('verification:complete', {
-                        sectionId: section.id,
-                        stepNumber: step.stepNumber || 'unknown',
-                        verificationResult: verificationResult
-                    }, { silent: true });
-                } catch (verificationError) {
-                    console.error(`[ContentViewCoordinator] Verification failed for ${section.id}:`, verificationError);
-                    console.error(`[ContentViewCoordinator] Verification error stack:`, verificationError.stack);
-                    // Don't fail trace calculation if verification fails
-                }
-                
-                // Perform reachability analysis (graph-based for Mermaid, trace-based fallback)
-                try {
-                    const format = section.isCPEE ? 'cpee' : 'mermaid';
-                    
+
                     let allTasksFromGraph = [];
                     try {
                         if (section.isCPEE) {
@@ -758,12 +740,12 @@ export class ContentViewCoordinator {
                         console.warn(`[ContentViewCoordinator] Failed to extract all tasks from graph for ${section.id}, falling back to traces:`, extractError);
                         allTasksFromGraph = this.extractAllTasksFromTraces(traces);
                     }
-                    
+
                     if (allTasksFromGraph.length === 0) {
                         allTasksFromGraph = this.extractAllTasksFromTraces(traces);
                     }
-                    
-                    const reachabilityResult = analyzeReachabilityFromTraces(
+
+                    reachabilityResult = analyzeReachabilityFromTraces(
                         traces,
                         allTasksFromGraph,
                         {
@@ -772,9 +754,9 @@ export class ContentViewCoordinator {
                             MermaidTraceCalculator: !section.isCPEE ? MermaidTraceCalculator : undefined
                         }
                     );
-                    
+
                     step.setReachabilityResult(section.id, reachabilityResult);
-                    
+
                     this.eventBus.emit('reachability:analyzed', {
                         sectionId: section.id,
                         stepNumber: step.stepNumber || 'unknown',
@@ -783,6 +765,34 @@ export class ContentViewCoordinator {
                 } catch (reachabilityError) {
                     console.error(`[ContentViewCoordinator] Reachability analysis failed for ${section.id}:`, reachabilityError);
                     console.error(`[ContentViewCoordinator] Reachability error stack:`, reachabilityError.stack);
+                }
+
+                // Perform soundness and boundedness verification, threading the
+                // reachability result through to enable the OTC/No-Dead-Transitions
+                // split when graph-based reachability is available.
+                try {
+                    const format = section.isCPEE ? 'cpee' : 'mermaid';
+                    const verificationResult = verifySoundnessAndBoundedness(
+                        traces,
+                        contentString,
+                        format,
+                        {
+                            maxLoopIterations: options.maxLoopIterations,
+                            reachability: reachabilityResult
+                        }
+                    );
+
+                    step.setVerificationResult(section.id, verificationResult);
+
+                    this.eventBus.emit('verification:complete', {
+                        sectionId: section.id,
+                        stepNumber: step.stepNumber || 'unknown',
+                        verificationResult: verificationResult
+                    }, { silent: true });
+                } catch (verificationError) {
+                    console.error(`[ContentViewCoordinator] Verification failed for ${section.id}:`, verificationError);
+                    console.error(`[ContentViewCoordinator] Verification error stack:`, verificationError.stack);
+                    // Don't fail trace calculation if verification fails
                 }
                 
                 // Update analysis button issue state after both verification and reachability are complete

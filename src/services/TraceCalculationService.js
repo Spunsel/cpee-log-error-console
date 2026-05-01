@@ -75,57 +75,24 @@ export class TraceCalculationService {
                 cpeeStep.setTraces(sectionId, []);
             } else {
                 cpeeStep.setTraces(sectionId, traces);
-                
-                // Perform soundness and boundedness verification
-                try {
-                    const section = TraceCalculationService.SECTION_CONFIG[sectionId];
-                    if (section) {
-                        const rawContent = cpeeStep[section.rawGetter]();
-                        if (rawContent && !rawContent.isEmpty()) {
-                            const contentString = rawContent.getContent();
-                            if (contentString && contentString.trim() !== '') {
-                                const format = section.isCPEE ? 'cpee' : 'mermaid';
-                                const verificationResult = verifySoundnessAndBoundedness(
-                                    traces,
-                                    contentString,
-                                    format,
-                                    { maxLoopIterations: maxLoopIterations }
-                                );
-                                
-                                // Store verification result in step
-                                cpeeStep.setVerificationResult(sectionId, verificationResult);
-                                
-                                console.log(`[TraceCalculationService] Verification complete for ${sectionId}: sound=${verificationResult.sound}, bounded=${verificationResult.bounded}`);
-                                
-                                // Emit verification completion event 
-                                this.eventBus.emit('verification:complete', {
-                                    sectionId: sectionId,
-                                    stepNumber: cpeeStep.stepNumber || 'unknown',
-                                    verificationResult: verificationResult
-                                });
-                            }
-                        }
-                    }
-                } catch (verificationError) {
-                    console.warn(`[TraceCalculationService] Verification failed for ${sectionId}:`, verificationError);
-                    // Don't fail trace calculation if verification fails
-                }
-                
-                // Perform reachability analysis (graph-based for Mermaid, trace-based fallback)
+
+                // Perform reachability analysis FIRST so its classification can refine
+                // the soundness verdict (split Option to Complete vs. No Dead Transitions).
+                let reachabilityResult = null;
                 try {
                     console.log(`[TraceCalculationService] Starting reachability analysis for ${sectionId}...`);
                     const section = TraceCalculationService.SECTION_CONFIG[sectionId];
-                    
+
                     if (traces.length > 0) {
                         const format = section?.isCPEE ? 'cpee' : 'mermaid';
-                        
+
                         const CPEECalc = (typeof this.cpeeTraceCalculator?.extractAllTasksFromGraph === 'function')
                             ? this.cpeeTraceCalculator
                             : this.cpeeTraceCalculator?.constructor;
                         const MermaidCalc = (typeof this.mermaidTraceCalculator?.extractAllTasksFromGraph === 'function')
                             ? this.mermaidTraceCalculator
                             : this.mermaidTraceCalculator?.constructor;
-                        
+
                         let allTasksFromGraph = [];
                         let graphContent = null;
                         try {
@@ -145,12 +112,12 @@ export class TraceCalculationService {
                             console.warn(`[TraceCalculationService] Failed to extract all tasks from graph for ${sectionId}, falling back to traces:`, extractError);
                             allTasksFromGraph = this.extractAllTasksFromTraces(traces);
                         }
-                        
+
                         if (allTasksFromGraph.length === 0) {
                             allTasksFromGraph = this.extractAllTasksFromTraces(traces);
                         }
-                        
-                        const reachabilityResult = analyzeReachabilityFromTraces(
+
+                        reachabilityResult = analyzeReachabilityFromTraces(
                             traces,
                             allTasksFromGraph,
                             {
@@ -159,17 +126,15 @@ export class TraceCalculationService {
                                 MermaidTraceCalculator: !section.isCPEE ? MermaidCalc : undefined
                             }
                         );
-                        
-                        // Store reachability result in step
+
                         cpeeStep.setReachabilityResult(sectionId, reachabilityResult);
-                        
+
                         if (reachabilityResult.success) {
-                            console.log(`[TraceCalculationService] Trace-based reachability analysis complete for ${sectionId}: viable=${reachabilityResult.nodeClassification?.viableCount || 0}, deadEnd=${reachabilityResult.nodeClassification?.deadEndCount || 0}, traces analyzed=${reachabilityResult.traceCount || 0}`);
+                            console.log(`[TraceCalculationService] Reachability analysis complete for ${sectionId} (method=${reachabilityResult.analysisMethod}): viable=${reachabilityResult.nodeClassification?.viableCount || 0}, deadEnd=${reachabilityResult.nodeClassification?.deadEndCount || 0}, traces analyzed=${reachabilityResult.traceCount || 0}`);
                         } else {
-                            console.warn(`[TraceCalculationService] Trace-based reachability analysis failed for ${sectionId}: ${reachabilityResult.error || 'Unknown error'}`);
+                            console.warn(`[TraceCalculationService] Reachability analysis failed for ${sectionId}: ${reachabilityResult.error || 'Unknown error'}`);
                         }
-                        
-                        // Emit reachability analysis completion event 
+
                         if (this.eventBus) {
                             this.eventBus.emit('reachability:analyzed', {
                                 sectionId: sectionId,
@@ -182,9 +147,47 @@ export class TraceCalculationService {
                         console.log(`[TraceCalculationService] No traces available for ${sectionId}, skipping reachability analysis`);
                     }
                 } catch (reachabilityError) {
-                    console.error(`[TraceCalculationService] Trace-based reachability analysis failed for ${sectionId}:`, reachabilityError);
+                    console.error(`[TraceCalculationService] Reachability analysis failed for ${sectionId}:`, reachabilityError);
                     console.error(`[TraceCalculationService] Error stack:`, reachabilityError.stack);
                     // Don't fail trace calculation if reachability analysis fails
+                }
+
+                // Perform soundness and boundedness verification, threading the
+                // reachability result through so OTC and No Dead Transitions can be
+                // separated when graph-based reachability is available.
+                try {
+                    const section = TraceCalculationService.SECTION_CONFIG[sectionId];
+                    if (section) {
+                        const rawContent = cpeeStep[section.rawGetter]();
+                        if (rawContent && !rawContent.isEmpty()) {
+                            const contentString = rawContent.getContent();
+                            if (contentString && contentString.trim() !== '') {
+                                const format = section.isCPEE ? 'cpee' : 'mermaid';
+                                const verificationResult = verifySoundnessAndBoundedness(
+                                    traces,
+                                    contentString,
+                                    format,
+                                    {
+                                        maxLoopIterations: maxLoopIterations,
+                                        reachability: reachabilityResult
+                                    }
+                                );
+
+                                cpeeStep.setVerificationResult(sectionId, verificationResult);
+
+                                console.log(`[TraceCalculationService] Verification complete for ${sectionId}: sound=${verificationResult.sound}, bounded=${verificationResult.bounded}, deadTaskClassification=${verificationResult.soundness?.deadTaskClassification || 'n/a'}`);
+
+                                this.eventBus.emit('verification:complete', {
+                                    sectionId: sectionId,
+                                    stepNumber: cpeeStep.stepNumber || 'unknown',
+                                    verificationResult: verificationResult
+                                });
+                            }
+                        }
+                    }
+                } catch (verificationError) {
+                    console.warn(`[TraceCalculationService] Verification failed for ${sectionId}:`, verificationError);
+                    // Don't fail trace calculation if verification fails
                 }
             }
         });
