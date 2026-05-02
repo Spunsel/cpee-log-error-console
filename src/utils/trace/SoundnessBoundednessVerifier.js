@@ -135,10 +135,19 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
  *   identified as `dead-end` (forward-reachable but not backward-reachable) and
  *   flag `optionToComplete = false` independently of dead transitions.
  *
- * Proper Completion   — for every parallel (AND) block in the graph, each trace that
- *   enters the block (contains a task from any branch) must contain at least one task
- *   from every branch.  A trace that skips a branch leaves residual work, which
- *   contradicts the Petri-net proper-completion requirement.
+ * Proper Completion   — for every parallel (AND) block in the graph, each trace
+ *   that enters the block must contain at least one task from every branch
+ *   that is not structurally skippable.  Both entry detection and per-branch
+ *   coverage use only "block-exclusive" branch tasks (whose IDs do NOT also
+ *   appear outside any `<parallel>` element in the same graph); this prevents
+ *   false positives in CPEE graphs that reuse the same task ID inside a
+ *   parallel branch AND in a sibling non-parallel alternative.  Branches with
+ *   no exclusive tasks are skipped (lenient: coverage cannot be unambiguously
+ *   decided).  Branches whose structure admits a zero-task execution path
+ *   (e.g. a loop body that exits via a bare `<escape/>`, or an empty
+ *   alternative) are also skipped — such a branch may legitimately contribute
+ *   zero tasks while still completing per CPEE semantics, matching the traces
+ *   produced by `CPEETraceCalculator`.
  *
  * No Dead Transitions — every task must appear in at least one trace.  When a
  *   graph-based reachability classification is available, this is refined to
@@ -159,6 +168,9 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
  *   - AND-parallel blocks with per-branch task entries.  Each entry carries
  *     `{id, alt_id, exclusive}`; `exclusive` is true when the task ID does
  *     NOT also appear outside any `<parallel>` element in the same graph.
+ *     Each branch array also carries a non-enumerable-style `canSkip`
+ *     property: true when the branch structure admits at least one execution
+ *     path that produces zero tasks (e.g. a loop with a bare-escape body).
  * @param {Object|null}           reachability   - Optional reachability analysis result
  *   (from `analyzeReachabilityFromTraces`); enables OTC/NoDeadTransitions split when
  *   `analysisMethod === 'graph-based'`.
@@ -265,13 +277,21 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
             let traceProper = true;
 
             parallelBlocks.forEach(block => {
-                const nonEmptyBranches = block.branches.filter(b => b.length > 0);
-                if (nonEmptyBranches.length < 2) { return; }
+                // Keep all branches (including empty ones) so per-branch
+                // metadata like canSkip stays index-aligned.  We still require
+                // the block to have at least two real branches to be checked.
+                if (block.branches.filter(b => b.length > 0 || b.canSkip).length < 2) {
+                    return;
+                }
 
                 // Carve-out (c): keep only block-exclusive tasks per branch.
-                const exclusiveBranches = nonEmptyBranches.map(branch =>
-                    branch.filter(t => t.exclusive)
-                );
+                // Preserve the per-branch canSkip flag on the filtered array so
+                // the violation rule below can honour it.
+                const exclusiveBranches = block.branches.map(branch => {
+                    const filtered = branch.filter(t => t.exclusive);
+                    filtered.canSkip = branch.canSkip === true;
+                    return filtered;
+                });
 
                 const branchCoverage = exclusiveBranches.map(eb =>
                     eb.length > 0 && eb.some(bt => traceTasks.some(tt => taskMatchesBranchTask(tt, bt)))
@@ -281,12 +301,18 @@ function checkSoundness(traces, allTasks, startNodeIds, endNodeIds, graphStructu
                 const entersBlock = branchCoverage.some(Boolean);
                 if (!entersBlock) { return; }
 
-                // A branch is uncovered only if it HAS exclusive tasks AND none
-                // appear in the trace.  Branches with no exclusive tasks are
-                // ambiguous; skip them rather than risk a false positive.
+                // A branch is uncovered only if it
+                //   (i)  HAS exclusive tasks AND
+                //   (ii) none of those exclusive tasks appear in the trace AND
+                //   (iii) it cannot be legitimately skipped (no zero-task path).
+                // Branches with no exclusive tasks are ambiguous (can't decide),
+                // and branches with a zero-task path may legitimately contribute
+                // zero tasks per CPEE semantics (e.g. loop body that exits via
+                // an early <escape/>); both cases are skipped to avoid false
+                // positives.
                 const uncoveredBranches = exclusiveBranches
                     .map((eb, idx) => ({ idx, eb, covered: branchCoverage[idx] }))
-                    .filter(b => b.eb.length > 0 && !b.covered)
+                    .filter(b => b.eb.length > 0 && !b.covered && !b.eb.canSkip)
                     .map(b => b.idx);
 
                 if (uncoveredBranches.length > 0) {
@@ -610,6 +636,13 @@ function extractCPEEParallelBlocks(xmlString) {
                         tasks.push({ id, alt_id: altId, exclusive: isExclusive(id, altId) });
                     }
                 });
+                // Tag the branch with whether it has at least one execution path
+                // that produces zero tasks. Used by the proper-completion check
+                // to permit traces that legitimately skip this branch (e.g. a
+                // branch whose body is a loop containing a bare-escape path: the
+                // loop absorbs the escape and the branch completes with zero
+                // tasks, which is a valid execution per CPEE semantics).
+                tasks.canSkip = elementHasZeroTaskPath(branch);
                 return tasks;
             });
 
@@ -621,6 +654,120 @@ function extractCPEEParallelBlocks(xmlString) {
         console.error('[SoundnessBoundednessVerifier] Error extracting CPEE parallel blocks:', error);
         return [];
     }
+}
+
+/**
+ * Recursively determine whether a CPEE control-flow element has at least one
+ * execution path that produces zero tasks. Used by the proper-completion check
+ * to recognise "skippable" parallel branches: a branch that can legitimately
+ * execute zero tasks (e.g. an empty alternative, a bare `<escape/>`, or a
+ * loop whose body can be exited via `<escape/>` before any task) does NOT
+ * need to contribute a task to the trace for proper completion.
+ *
+ * Mirrors the relevant subset of CPEETraceCalculator semantics so we don't
+ * have to invoke the full trace calculator here.
+ *
+ * @param {Element} element - XML element to analyze
+ * @returns {boolean} true if at least one execution path produces zero tasks
+ */
+function elementHasZeroTaskPath(element) {
+    if (!element || !element.tagName) { return true; }
+    const tag = element.tagName.toLowerCase();
+
+    switch (tag) {
+        case 'call':
+        case 'manipulate':
+        case 'script':
+            return false;
+
+        case 'escape':
+            // Bare escape produces zero tasks (and as a side effect terminates
+            // the parent sequence; sequenceHasZeroTaskPath uses that fact).
+            return true;
+
+        case 'choose': {
+            const alternatives = Array.from(element.children).filter(c => {
+                const t = c.tagName.toLowerCase();
+                return t === 'alternative' || t === 'otherwise';
+            });
+            // No alternatives = nothing to execute = zero tasks.
+            // Otherwise, both exclusive and inclusive choose have a zero-task
+            // path iff at least one alternative does.
+            if (alternatives.length === 0) { return true; }
+            return alternatives.some(elementHasZeroTaskPath);
+        }
+
+        case 'alternative':
+        case 'otherwise':
+        case 'parallel_branch':
+        case 'description': {
+            const children = Array.from(element.children).filter(c => {
+                const t = c.tagName.toLowerCase();
+                return !t.startsWith('_') && t !== 'condition';
+            });
+            return sequenceHasZeroTaskPath(children);
+        }
+
+        case 'loop': {
+            const mode = (element.getAttribute('mode') || 'pre_test').toLowerCase();
+            const condition = (element.getAttribute('condition') || '').trim();
+            const body = Array.from(element.children).filter(
+                c => c.tagName.toLowerCase() !== 'condition'
+            );
+            // pre_test with non-"true" condition can run zero iterations,
+            // matching CPEETraceCalculator's `shouldSkipZeroIterations` logic.
+            if (mode === 'pre_test' && condition !== 'true') { return true; }
+            // Otherwise the loop runs at least one iteration; it has a zero-task
+            // path only if the body itself has one (the loop ABSORBS any
+            // body-level escape, so an escape-terminated zero-task body still
+            // yields a zero-task normal output for the loop).
+            return sequenceHasZeroTaskPath(body);
+        }
+
+        case 'parallel': {
+            const branches = Array.from(element.children).filter(
+                c => c.tagName.toLowerCase() === 'parallel_branch'
+            );
+            // A parallel completes with zero tasks only if every branch can.
+            return branches.every(elementHasZeroTaskPath);
+        }
+
+        default: {
+            // Unknown wrapper element: recurse over its children as a sequence.
+            const children = Array.from(element.children);
+            if (children.length === 0) { return true; }
+            return sequenceHasZeroTaskPath(children);
+        }
+    }
+}
+
+/**
+ * Determine whether a sequence of child elements has a zero-task execution path.
+ *
+ * Walks left-to-right.  As long as every child up to (and including) a bare
+ * `<escape/>` has a zero-task path, the sequence has a zero-task path: an
+ * `<escape/>` terminates the sequence so subsequent siblings never execute.
+ * If we reach a child without a zero-task path before any escape, the
+ * sequence cannot produce zero tasks.
+ *
+ * This approximation captures the cases CPEETraceCalculator actually generates
+ * (bare-escape inside a loop body, empty alternatives, choose with at least
+ * one zero-task alt) without having to materialise full traces.
+ *
+ * @param {Array<Element>} children
+ * @returns {boolean}
+ */
+function sequenceHasZeroTaskPath(children) {
+    if (!Array.isArray(children) || children.length === 0) { return true; }
+
+    for (const child of children) {
+        if (!elementHasZeroTaskPath(child)) { return false; }
+        if (child.tagName?.toLowerCase() === 'escape') {
+            // Sequence terminates here; downstream siblings don't execute.
+            return true;
+        }
+    }
+    return true;
 }
 
 /**
@@ -687,6 +834,11 @@ function extractMermaidParallelBlocks(mermaidSyntax) {
                         if (!visited.has(next)) { queue.push(next); }
                     });
                 }
+                // Mermaid currently has no escape-equivalent semantics surfaced
+                // in this extractor, so a Mermaid parallel branch is never
+                // structurally "skippable" by zero-task path analysis. Keep the
+                // strict default; CPEE handles `canSkip = true` cases.
+                tasks.canSkip = false;
                 return tasks;
             });
 
