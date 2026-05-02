@@ -171,7 +171,13 @@ class TraceSets {
             }
             
             default:
-                return this.forwardTrace(graph, nextNodeIds[0], targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, gatewayVisits);
+                // Non-gateway, non-task nodes (e.g. startevent, endevent, unknown):
+                // when multiple outgoing edges exist, treat them as XOR alternatives
+                // so all branches are explored. A startevent with multiple successors
+                // is semantically an implicit XOR split.
+                return nextNodeIds.flatMap(nextNodeId =>
+                    this.forwardTrace(graph, nextNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, gatewayVisits)
+                );
         }
     }
 
@@ -707,94 +713,6 @@ export class MermaidTraceCalculator {
             seen.add(id);
         }
         return 'sequential';
-    }
-
-    /**
-     * Validate if a trace sequence is a valid navigable path in the Mermaid graph.
-     * Uses permissive settings (higher loop iterations, longer timeout).
-     */
-    static validateTrace(mermaidString, traceSequence, options = {}) {
-        if (!traceSequence || traceSequence.length === 0) {
-            return { valid: false, matchedPath: null, reason: 'Empty trace sequence' };
-        }
-
-        try {
-            const allTraces = this.calculateAllTraces(mermaidString, {
-                maxLoopIterations: 4, timeout: 5000, ...options
-            });
-            
-            if (allTraces.length === 0) {
-                return { valid: false, matchedPath: null, reason: 'No traces could be calculated from Mermaid graph' };
-            }
-
-            for (const trace of allTraces) {
-                if (this.traceMatchesSequence(trace, traceSequence)) {
-                    return { valid: true, matchedPath: trace.path, reason: null };
-                }
-            }
-
-            return { valid: false, matchedPath: null, reason: 'Trace sequence does not match any valid path in Mermaid graph' };
-
-        } catch (error) {
-            console.error('[MermaidTraceCalculator] Error validating trace:', error);
-            return { valid: false, matchedPath: null, reason: `Validation error: ${error.message}` };
-        }
-    }
-
-    /**
-     * Check if a calculated trace matches a given sequence of identifiers.
-     */
-    static traceMatchesSequence(trace, sequence) {
-        if (!trace?.path || trace.path.length !== sequence.length) { return false; }
-
-        for (let i = 0; i < sequence.length; i++) {
-            const task = trace.path[i];
-            const seqIdStr = String(sequence[i]);
-            const taskAltId = task.alt_id !== null ? String(task.alt_id) : null;
-            const taskId = task.id !== null ? String(task.id) : null;
-
-            if (seqIdStr !== taskAltId && seqIdStr !== taskId) { return false; }
-        }
-        return true;
-    }
-
-    /**
-     * Validate multiple trace sequences against a Mermaid graph.
-     */
-    static validateMultipleTraces(mermaidString, traceSequences, options = {}) {
-        let allTraces;
-        try {
-            allTraces = this.calculateAllTraces(mermaidString, {
-                maxLoopIterations: 4, timeout: 5000, ...options
-            });
-        } catch (error) {
-            console.error('[MermaidTraceCalculator] Error calculating traces for validation:', error);
-            return {
-                validCount: 0,
-                invalidCount: traceSequences.length,
-                results: traceSequences.map(seq => ({
-                    sequence: seq, valid: false, matchedPath: null, reason: `Calculation error: ${error.message}`
-                }))
-            };
-        }
-
-        const results = [];
-        let validCount = 0;
-        let invalidCount = 0;
-
-        for (const sequence of traceSequences) {
-            const matchedTrace = allTraces.find(trace => this.traceMatchesSequence(trace, sequence));
-            
-            if (matchedTrace) {
-                validCount++;
-                results.push({ sequence, valid: true, matchedPath: matchedTrace.path, reason: null });
-            } else {
-                invalidCount++;
-                results.push({ sequence, valid: false, matchedPath: null, reason: 'Trace sequence does not match any valid path' });
-            }
-        }
-
-        return { validCount, invalidCount, results };
     }
 
     /**
