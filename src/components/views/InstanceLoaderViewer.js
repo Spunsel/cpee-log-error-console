@@ -10,6 +10,14 @@ import { serviceFactory } from '../../core/ServiceFactory.js';
 import { RecentAdditionsAndFixes } from '../ui/RecentAdditionsAndFixes.js';
 import { ICONS } from '../../assets/icons.js';
 
+/**
+ * Curated list of instances shown when the "Presentation Instances" filter is
+ * active.  Order in this array defines the display order in the list.
+ */
+const PRESENTATION_INSTANCES = [
+    '201528', '201465', '206098', '208738', '103562', '209147', '140971', '101461'
+];
+
 export class InstanceLoaderViewer {
     constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null, logFetchService = null, eventProcessingService = null) {
         this.instanceService = instanceService;
@@ -905,6 +913,20 @@ export class InstanceLoaderViewer {
         
         filterWrapper.appendChild(errorFilterGroup);
         
+        // Presentation Instances toggle button
+        const presentationGroup = document.createElement('div');
+        presentationGroup.className = 'search-input-group presentation-filter-group';
+        
+        const presentationBtn = document.createElement('button');
+        presentationBtn.type = 'button';
+        presentationBtn.className = 'presentation-instances-btn';
+        presentationBtn.textContent = 'Presentation Instances';
+        presentationBtn.title = 'Show only the curated presentation instances in defined order';
+        presentationBtn.setAttribute('aria-pressed', 'false');
+        presentationGroup.appendChild(presentationBtn);
+        
+        filterWrapper.appendChild(presentationGroup);
+        
         // Insert filter after the h5 label
         const h5Label = container.querySelector('h5');
         if (h5Label) {
@@ -917,19 +939,27 @@ export class InstanceLoaderViewer {
         const applyFilters = () => {
             const textValue = input.value.trim();
             const errorType = errorSelect.value;
+            const presentationMode = presentationBtn.classList.contains('active');
             clearBtn.style.display = textValue ? 'block' : 'none';
             errorClearBtn.style.display = errorType ? 'block' : 'none';
             errorSelect.classList.toggle('has-selection', !!errorType);
-            this.filterKnownInstances(textValue, errorType);
+            this.filterKnownInstances(textValue, errorType, presentationMode);
         };
         
         input.addEventListener('input', applyFilters);
         errorSelect.addEventListener('change', applyFilters);
         
+        presentationBtn.addEventListener('click', () => {
+            const isActive = !presentationBtn.classList.contains('active');
+            presentationBtn.classList.toggle('active', isActive);
+            presentationBtn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            applyFilters();
+        });
+        
         clearBtn.addEventListener('click', () => {
             input.value = '';
             clearBtn.style.display = 'none';
-            this.filterKnownInstances('', errorSelect.value);
+            applyFilters();
             input.focus();
         });
         
@@ -937,13 +967,14 @@ export class InstanceLoaderViewer {
             errorSelect.value = '';
             errorClearBtn.style.display = 'none';
             errorSelect.classList.remove('has-selection');
-            this.filterKnownInstances(input.value.trim(), '');
+            applyFilters();
             errorSelect.focus();
         });
         
         // Store references for later use
         this.knownInstancesFilterInput = input;
         this.knownInstancesErrorSelect = errorSelect;
+        this.knownInstancesPresentationBtn = presentationBtn;
     }
     
     /**
@@ -960,6 +991,7 @@ export class InstanceLoaderViewer {
         const errorSelect = filterWrapper.querySelector('.error-type-select');
         const clearBtn = filterWrapper.querySelector('.text-filter-group .search-clear-btn');
         const errorClearBtn = filterWrapper.querySelector('.error-filter-clear-btn');
+        const presentationBtn = filterWrapper.querySelector('.presentation-instances-btn');
 
         if (input) {
             input.value = '';
@@ -973,6 +1005,10 @@ export class InstanceLoaderViewer {
         }
         if (errorClearBtn) {
             errorClearBtn.style.display = 'none';
+        }
+        if (presentationBtn) {
+            presentationBtn.classList.remove('active');
+            presentationBtn.setAttribute('aria-pressed', 'false');
         }
     }
     
@@ -997,11 +1033,17 @@ export class InstanceLoaderViewer {
     }
     
     /**
-     * Filter known instances by partial match on instance number and/or error type
+     * Filter known instances by partial match on instance number and/or error type.
+     *
+     * When `presentationMode` is true, only the curated `PRESENTATION_INSTANCES`
+     * are shown and reordered to match that array's order via the CSS `order`
+     * property (the underlying flex container handles re-layout).
+     *
      * @param {string} filterValue - The filter string to match against instance numbers
      * @param {string} [errorType=''] - Error type key to filter by (e.g. 'warningCount')
+     * @param {boolean} [presentationMode=false] - Restrict to and reorder by curated presentation list
      */
-    filterKnownInstances(filterValue, errorType = '') {
+    filterKnownInstances(filterValue, errorType = '', presentationMode = false) {
         const instanceList = this.getElement('loadAllInstancesList');
         if (!instanceList) {
             return;
@@ -1010,8 +1052,24 @@ export class InstanceLoaderViewer {
         const errorData = this.errorCountsData || {};
         const instanceBoxes = instanceList.querySelectorAll('.instance-number-box');
         
+        const presentationOrder = new Map();
+        if (presentationMode) {
+            PRESENTATION_INSTANCES.forEach((id, idx) => presentationOrder.set(id, idx));
+        }
+        
         instanceBoxes.forEach((box) => {
             const instanceNumber = box.dataset.processNumber || box.textContent;
+            
+            // Check presentation filter and apply ordering via CSS `order`
+            let passesPresentation = true;
+            if (presentationMode) {
+                passesPresentation = presentationOrder.has(instanceNumber);
+                if (passesPresentation) {
+                    box.style.order = String(presentationOrder.get(instanceNumber));
+                }
+            } else {
+                box.style.order = '';
+            }
             
             // Check error type filter
             let passesErrorFilter = true;
@@ -1028,7 +1086,7 @@ export class InstanceLoaderViewer {
                 passesTextFilter = matchIndex !== -1;
             }
             
-            const visible = passesTextFilter && passesErrorFilter;
+            const visible = passesPresentation && passesTextFilter && passesErrorFilter;
             box.style.display = visible ? '' : 'none';
             
             // Update highlight markup
@@ -1053,14 +1111,31 @@ export class InstanceLoaderViewer {
         // When a filter is active, only load the visible (filtered) instances
         const errorSelect = this.knownInstancesErrorSelect;
         const textInput = this.knownInstancesFilterInput;
-        const hasActiveFilter = (errorSelect && errorSelect.value) || (textInput && textInput.value.trim());
+        const presentationBtn = this.knownInstancesPresentationBtn;
+        const hasActiveFilter =
+            (errorSelect && errorSelect.value) ||
+            (textInput && textInput.value.trim()) ||
+            (presentationBtn && presentationBtn.classList.contains('active'));
 
         let processNumbers;
         if (hasActiveFilter) {
             const instanceList = this.getElement('loadAllInstancesList');
+            // Sort visible boxes by their effective CSS `order` so presentation
+            // mode loads instances in the curated order (DOM order is preserved
+            // when no order is set).
             const visibleBoxes = instanceList
                 ? Array.from(instanceList.querySelectorAll('.instance-number-box'))
                       .filter(box => box.style.display !== 'none')
+                      .sort((a, b) => {
+                          const orderA = parseInt(a.style.order, 10);
+                          const orderB = parseInt(b.style.order, 10);
+                          const aHas = !Number.isNaN(orderA);
+                          const bHas = !Number.isNaN(orderB);
+                          if (aHas && bHas) { return orderA - orderB; }
+                          if (aHas) { return -1; }
+                          if (bHas) { return 1; }
+                          return 0;
+                      })
                 : [];
             processNumbers = visibleBoxes.map(box => box.dataset.processNumber || box.textContent.trim());
         } else {
