@@ -70,7 +70,10 @@ function analyzeGraphReachability(graphContent, MermaidTraceCalculator) {
 
     const startNodeIds = graph.nodes.filter(n => n.type === 'startevent').map(n => n.id);
     const endNodeIds = graph.nodes.filter(n => n.type === 'endevent').map(n => n.id);
-    if (startNodeIds.length === 0 || endNodeIds.length === 0) {
+    // Forward BFS only needs start nodes; backward BFS only needs end nodes.
+    // We can still produce useful forward (or backward) reachability when one
+    // side is missing — only bail out when neither is available.
+    if (startNodeIds.length === 0 && endNodeIds.length === 0) {
         return null;
     }
 
