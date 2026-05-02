@@ -15,7 +15,7 @@ import { ICONS } from '../../assets/icons.js';
  * active.  Order in this array defines the display order in the list.
  */
 const PRESENTATION_INSTANCES = [
-    '201528', '201465', '206098', '208738', '103562', '209147', '140971', '101461'
+    '201528', '201465', '206098', '208738', '103562', '209195', '140971', '101461'
 ];
 
 export class InstanceLoaderViewer {
