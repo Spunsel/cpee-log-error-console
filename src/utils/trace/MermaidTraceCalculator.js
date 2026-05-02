@@ -156,8 +156,19 @@ class TraceSets {
             case 'inclusivegateway':
                 return this.handleInclusiveGateway(graph, currentNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker);
             
-            case 'escalate':
-                return [[...currentFT]];
+            case 'escalate': {
+                // Escalate (BPMN escalation, derived from CPEE <escape/>) is a
+                // control-flow JUMP out of the enclosing loop, NOT termination.
+                // Follow its outgoing edges (in a correct CPEE→Mermaid translation
+                // these route past the loop's end gateway to the post-loop flow).
+                // Only fall back to "trace ends here" when no successor exists.
+                if (nextNodeIds.length === 0) {
+                    return [[...currentFT]];
+                }
+                return nextNodeIds.flatMap(nextNodeId =>
+                    this.forwardTrace(graph, nextNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, gatewayVisits)
+                );
+            }
             
             default:
                 return this.forwardTrace(graph, nextNodeIds[0], targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, gatewayVisits);

@@ -58,7 +58,17 @@ class TopologyIterators {
 class TraceSets {
     /**
      * Forward Trace (FT_i) - recursive XML tree traversal building execution traces.
-     * 
+     *
+     * Escape semantics:
+     *   <escape/> represents a control-flow jump out of the nearest enclosing loop.
+     *   When encountered, the current trace is marked with `_terminatedByEscape`,
+     *   which `combineSequentialForwardTrace` honours by skipping subsequent
+     *   siblings within the SAME block (so a path "B, escape, D" produces "[B]"
+     *   not "[B, D]").  Crucially, the enclosing `loopTrace`/`loopTracePermissive`
+     *   then ABSORB the flag, so siblings AFTER the loop continue to execute.
+     *   This is what makes "loop{...escape...} → H" correctly produce traces
+     *   ending at H instead of being silently truncated like a <terminate/>.
+     *
      * @param {Element} node - Starting XML node
      * @param {Array<Object>} currentFT - Current forward trace set
      * @param {number} maxLoopIterations - Maximum loop iterations
@@ -186,7 +196,13 @@ class TraceSets {
             }
             
             case 'escape': {
-                return [];
+                // Bare escape: mark the trace as escape-terminated and preserve
+                // it. Siblings within the same block are skipped (in
+                // combineSequentialForwardTrace), but the enclosing loop will
+                // absorb the flag so post-loop siblings still execute.
+                const terminated = [...currentFT];
+                terminated._terminatedByEscape = true;
+                return [terminated];
             }
             
             default: {
@@ -270,6 +286,11 @@ class TraceSets {
 
     /**
      * Loop Trace - semantic loop handling with condition awareness.
+     *
+     * The loop *absorbs* `_terminatedByEscape` from its body traces: per CPEE
+     * spec, escape jumps OUT of the loop, so siblings AFTER the loop must still
+     * execute.  The flag is therefore NOT propagated to the loop's output traces;
+     * `combineSequentialForwardTrace` will continue with post-loop siblings.
      */
     static loopTrace(loopNode, currentFT, maxLoopIterations, timeoutChecker) {
         timeoutChecker.check();
@@ -307,10 +328,8 @@ class TraceSets {
         
         if (maxIter >= 1) {
             for (const bodyTrace of bodyTraces) {
+                // Loop absorbs the escape flag — siblings after the loop must run.
                 const combinedTrace = [...currentFT, ...bodyTrace];
-                if (bodyTrace._terminatedByEscape) {
-                    combinedTrace._terminatedByEscape = true;
-                }
                 result.push(combinedTrace);
             }
         }
@@ -321,10 +340,8 @@ class TraceSets {
                 for (const bodyTrace2 of bodyTraces) {
                     if (bodyTrace1 === bodyTrace2) { continue; }
                     if (secondIterationIsForEscapeOnly && !bodyTrace2._terminatedByEscape) { continue; }
+                    // Loop absorbs the escape flag from the terminating iteration.
                     const combinedTrace = [...currentFT, ...bodyTrace1, ...bodyTrace2];
-                    if (bodyTrace2._terminatedByEscape) {
-                        combinedTrace._terminatedByEscape = true;
-                    }
                     result.push(combinedTrace);
                 }
             }
@@ -335,6 +352,9 @@ class TraceSets {
 
     /**
      * Permissive Loop Trace - always allows 0 iterations regardless of condition.
+     *
+     * Like `loopTrace`, this absorbs `_terminatedByEscape` from body traces so
+     * post-loop siblings continue executing.
      */
     static loopTracePermissive(loopNode, currentFT, maxLoopIterations, timeoutChecker) {
         timeoutChecker.check();
@@ -362,28 +382,26 @@ class TraceSets {
 
     /**
      * Generate all combinations of loop body traces for a given iteration count.
+     *
+     * The `_terminatedByEscape` flag is intentionally NOT propagated to the
+     * generated combined traces — the enclosing loop is the absorption point,
+     * so siblings after the loop must execute normally.
      */
     static generateIterationCombinations(bodyTraces, iterationCount, prefix, timeoutChecker) {
         if (iterationCount === 0) { return [[...prefix]]; }
         
         if (iterationCount === 1) {
-            return bodyTraces.map(bodyTrace => {
-                const combined = [...prefix, ...bodyTrace];
-                if (bodyTrace._terminatedByEscape) {
-                    combined._terminatedByEscape = true;
-                }
-                return combined;
-            });
+            return bodyTraces.map(bodyTrace => [...prefix, ...bodyTrace]);
         }
         
         const results = [];
         for (const firstBodyTrace of bodyTraces) {
             timeoutChecker.check();
             
+            // An escape body trace ends THIS iteration chain — no further
+            // iterations after it.  But the loop still absorbs the flag.
             if (firstBodyTrace._terminatedByEscape) {
-                const combined = [...prefix, ...firstBodyTrace];
-                combined._terminatedByEscape = true;
-                results.push(combined);
+                results.push([...prefix, ...firstBodyTrace]);
                 continue;
             }
             
@@ -397,7 +415,12 @@ class TraceSets {
 
     /**
      * Combine Sequential Forward Trace - processes children left-to-right,
-     * threading trace results through. Respects escape termination.
+     * threading trace results through.
+     *
+     * Respects in-loop escape termination: when a trace carries
+     * `_terminatedByEscape`, subsequent siblings within the SAME block are
+     * skipped.  The flag is later absorbed by the enclosing `loopTrace` /
+     * `loopTracePermissive`, so siblings AFTER the loop still execute.
      */
     static combineSequentialForwardTrace(children, initialFT, maxLoopIterations, timeoutChecker, permissive) {
         if (children.length === 0) { return [[...initialFT]]; }

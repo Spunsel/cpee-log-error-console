@@ -3,7 +3,15 @@
  * 
  * Walks a given trace sequence step-by-step through a CPEE XML tree to determine
  * if the trace represents a valid execution path. No iteration limits — the trace
- * itself is the bound. Escape elements terminate the walk.
+ * itself is the bound.
+ *
+ * CPEE control-flow semantics observed during walking:
+ *   - <escape/>: jumps OUT of the nearest enclosing loop. The walker treats it
+ *     as a no-op (consumes no sequence entries). The enclosing loop sees no
+ *     progress on that iteration and exits, after which sibling nodes following
+ *     the loop continue to be matched against the remaining sequence.
+ *   - <terminate/>: ends ALL execution. After encountering it the sequence MUST
+ *     already be fully consumed; otherwise the trace cannot match this path.
  */
 
 import { CPEEParser } from '../content/CPEEParser.js';
@@ -181,6 +189,7 @@ export class CPEETraceWalker {
             }
 
             case 'escape':
+            case 'terminate':
                 return true;
 
             default:
@@ -228,7 +237,15 @@ export class CPEETraceWalker {
                 return this.walkContainer(node, sequence, pos, taskMap, matchedPath);
 
             case 'escape':
+                // Escape jumps out of the nearest enclosing loop. The loop's
+                // walker (`walkLoop`) sees no positional progress and exits,
+                // so post-loop siblings continue normally.
                 return pos;
+
+            case 'terminate':
+                // Terminate ends ALL execution; the trace is only a match if
+                // we have already consumed every sequence entry.
+                return pos >= sequence.length ? pos : -1;
 
             default:
                 return this.walkContainer(node, sequence, pos, taskMap, matchedPath);
@@ -399,7 +416,7 @@ export class CPEETraceWalker {
             if (tag === 'call' || tag === 'manipulate' || tag === 'script') {
                 const task = this.extractTask(child);
                 if (task) { out.push(task); }
-            } else if (tag === 'escape') {
+            } else if (tag === 'escape' || tag === 'terminate') {
                 continue;
             } else {
                 const inner = Array.from(child.children || []).filter(c => {

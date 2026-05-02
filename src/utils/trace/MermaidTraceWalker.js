@@ -1,10 +1,16 @@
 /**
  * Mermaid Trace Walker
- * 
+ *
  * Walks a given trace sequence step-by-step through a Mermaid flowchart graph
  * to determine if the trace represents a valid execution path from start to end.
  * No iteration limits — the trace itself is the bound.
- * Escalate nodes terminate the walk (equivalent to CPEE escape).
+ *
+ * Escalate semantics: in the CPEE→Mermaid translation, BPMN escalate nodes
+ * represent a `<escape/>` jumping out of an enclosing loop.  They are NOT
+ * end events.  A correctly-translated graph gives the escalate node an outgoing
+ * edge that bypasses the loop (typically routed via the loop's end gateway).
+ * The walker therefore passes through escalate nodes following their outgoing
+ * edges, only treating them as terminal when no successor exists.
  */
 
 import { MermaidParser } from '../content/MermaidParser.js';
@@ -30,6 +36,9 @@ export class MermaidTraceWalker {
 
             const startNodes = graph.nodes.filter(n => n.type === 'startevent');
             const endNodes = new Set(graph.nodes.filter(n => n.type === 'endevent').map(n => n.id));
+            // Escalate nodes are no longer treated as terminal — they're
+            // pass-through control nodes that route out of the loop.  Kept here
+            // only as a fallback set for nodes with no outgoing edges.
             const escalateNodes = new Set(graph.nodes.filter(n => n.type === 'escalate').map(n => n.id));
 
             if (startNodes.length === 0 || endNodes.size === 0) {
@@ -173,15 +182,25 @@ export class MermaidTraceWalker {
         const node = graph.nodes.find(n => n.id === nodeId);
         if (!node) { return false; }
 
-        if (escalateNodes.has(nodeId)) {
-            return pos >= sequence.length;
-        }
-
         if (endNodes.has(nodeId)) {
             return pos >= sequence.length;
         }
 
         const nexts = graph.adjacencyList.get(nodeId) || [];
+
+        // Escalate is a control-flow jump (out of loop), NOT termination.
+        // Follow its outgoing edges; only treat as terminal when no successor.
+        if (escalateNodes.has(nodeId)) {
+            if (nexts.length === 0) {
+                return pos >= sequence.length;
+            }
+            for (const next of nexts) {
+                if (this.walk(graph, next, sequence, pos, endNodes, escalateNodes, matchedPath, depth + 1)) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         if (this.isTask(node)) {
             if (pos >= sequence.length) { return false; }
@@ -240,9 +259,16 @@ export class MermaidTraceWalker {
     static advanceBranches(graph, branchNodes, splitId, joinId, sequence, pos, endNodes, escalateNodes, matchedPath, depth, steps, maxSteps) {
         if (steps > maxSteps) { return false; }
 
+        // A branch counts as "done" when it reaches the join, an end node, or
+        // an escalate node WITH NO outgoing edges (true dead-end escalate).
+        // Escalates with outgoing edges keep advancing — they jump past the
+        // enclosing loop's join.
+        const isDeadEndEscalate = (nodeId) =>
+            escalateNodes.has(nodeId) && (graph.adjacencyList.get(nodeId) || []).length === 0;
+
         const allDone = branchNodes.every(nodeId => {
             if (joinId) { return nodeId === joinId; }
-            return endNodes.has(nodeId) || escalateNodes.has(nodeId);
+            return endNodes.has(nodeId) || isDeadEndEscalate(nodeId);
         });
 
         if (allDone) {
@@ -256,7 +282,7 @@ export class MermaidTraceWalker {
             const nodeId = branchNodes[i];
 
             if (joinId && nodeId === joinId) { continue; }
-            if (!joinId && (endNodes.has(nodeId) || escalateNodes.has(nodeId))) { continue; }
+            if (!joinId && (endNodes.has(nodeId) || isDeadEndEscalate(nodeId))) { continue; }
             if (nodeId === splitId) { continue; }
 
             const node = graph.nodes.find(n => n.id === nodeId);
