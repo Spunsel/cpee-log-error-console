@@ -1,0 +1,372 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9468
+    cpee:name: Plain Instance
+    cpee:instance: afd090d8-c798-454e-b206-a7e850a372d0
+---
+event:
+  concept:instance: 9468
+  id:id: ex-ante
+  cpee:instance: afd090d8-c798-454e-b206-a7e850a372d0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-16T13:49:58.277033+02:00'
+---
+event:
+  concept:instance: 9468
+  id:id: ex-ante
+  cpee:instance: afd090d8-c798-454e-b206-a7e850a372d0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a0" endpoint="" a:alt_id="0">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 3843d86f9caa2c11d229e95e81b490c3cca15558
+  time:timestamp: '2026-04-16T13:55:57.589229+02:00'
+---
+event:
+  concept:instance: 9468
+  id:id: ex-ante
+  cpee:instance: afd090d8-c798-454e-b206-a7e850a372d0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3843d86f9caa2c11d229e95e81b490c3cca15558
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-16T13:55:57.589421+02:00'
+---
+event:
+  concept:instance: 9468
+  id:id: ex-ante
+  cpee:instance: afd090d8-c798-454e-b206-a7e850a372d0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3843d86f9caa2c11d229e95e81b490c3cca15558
+  cpee:exposition: |-
+    # User Input:
+    Process Name: AI Project Matchmaking & Vector Sync Workflow
+
+    Participants: User, Supabase Database, Supabase Edge Functions, OpenAI API, Microsoft Power Automate
+
+    The process has two independent starting events based on the User's actions.
+
+    Scenario 1: Project Completion (Building AI Memory)
+
+    The User updates a project status to "completed" in the application.
+
+    The Supabase Database detects the update and triggers the Project Completion SQL function.
+
+    The Supabase Database sends a webhook containing the project data to the Vector Sync Edge Function.
+
+    The Vector Sync Edge Function extracts and cleans the project text, including the title, background, and objective.
+
+    The Vector Sync Edge Function requests a vector embedding for the text from the OpenAI API.
+
+    The OpenAI API generates and returns the mathematical vector array.
+
+    The Vector Sync Edge Function saves the returned vector into the "project_vector_db" table in the Supabase Database.
+
+    This scenario ends.
+
+    Scenario 2: Proposal Creation (AI Matchmaking)
+
+    The User updates a project status to "proposal" in the application.
+
+    The Supabase Database detects the update and triggers the Proposal Creation SQL function.
+
+    The Supabase Database sends a webhook containing the project data to the AI Matchmaker Edge Function.
+
+    The AI Matchmaker Edge Function extracts the project text and requests a temporary vector embedding from the OpenAI API.
+
+    The OpenAI API generates and returns the temporary vector.
+
+    The AI Matchmaker Edge Function queries the Supabase Database to execute a cosine similarity search using the temporary vector.
+
+    The Supabase Database calculates the similarity and returns a list of matching historical projects.
+
+    The AI Matchmaker Edge Function queries the Supabase Database to retrieve a list of past projects for the exact same client.
+
+    The Supabase Database returns the same-client project list.
+
+    The AI Matchmaker Edge Function filters the combined matching projects by applying business rules, such as the trainee project logic.
+
+    The AI Matchmaker Edge Function saves the final lists of similar projects and same-client projects into the "project_references" table in the Supabase Database.
+
+    The AI Matchmaker Edge Function sends an HTTP webhook containing the match IDs to Microsoft Power Automate.
+
+    Microsoft Power Automate receives the payload and executes the final email notification workflow.
+
+    This scenario ends.
+  time:timestamp: '2026-04-16T13:55:57.589520+02:00'
+---
+event:
+  concept:instance: 9468
+  id:id: ex-ante
+  cpee:instance: afd090d8-c798-454e-b206-a7e850a372d0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3843d86f9caa2c11d229e95e81b490c3cca15558
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-16T13:55:57.589627+02:00'
+---
+event:
+  concept:instance: 9468
+  id:id: ex-ante
+  cpee:instance: afd090d8-c798-454e-b206-a7e850a372d0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3843d86f9caa2c11d229e95e81b490c3cca15558
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-16T13:55:57.590050+02:00'
+---
+event:
+  concept:instance: 9468
+  id:id: ex-ante
+  cpee:instance: afd090d8-c798-454e-b206-a7e850a372d0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3843d86f9caa2c11d229e95e81b490c3cca15558
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent))
+      1:task:(User updates project status to "completed")
+      2:task:(Supabase Database detects update and triggers Project Completion SQL function)
+      3:task:(Supabase Database sends webhook to Vector Sync Edge Function)
+      4:task:(Vector Sync Edge Function extracts and cleans project text)
+      5:task:(Vector Sync Edge Function requests vector embedding from OpenAI API)
+      6:task:(OpenAI API generates and returns vector)
+      7:task:(Vector Sync Edge Function saves vector to project_vector_db)
+      8:endevent:(((endevent)))
+      9:startevent:((startevent))
+      10:task:(User updates project status to "proposal")
+      11:task:(Supabase Database detects update and triggers Proposal Creation SQL function)
+      12:task:(Supabase Database sends webhook to AI Matchmaker Edge Function)
+      13:task:(AI Matchmaker Edge Function extracts project text and requests temporary vector)
+      14:task:(OpenAI API generates and returns temporary vector)
+      15:task:(AI Matchmaker Edge Function queries Supabase Database for cosine similarity search)
+      16:task:(Supabase Database calculates similarity and returns matching projects)
+      17:task:(AI Matchmaker Edge Function queries Supabase Database for same-client projects)
+      18:task:(Supabase Database returns same-client project list)
+      19:task:(AI Matchmaker Edge Function filters matching projects by business rules)
+      20:task:(AI Matchmaker Edge Function saves project lists to project_references table)
+      21:task:(AI Matchmaker Edge Function sends webhook to Microsoft Power Automate)
+      22:task:(Microsoft Power Automate executes email notification workflow)
+      23:endevent:(((endevent)))
+
+      0 --> 1
+      1 --> 2
+      2 --> 3
+      3 --> 4
+      4 --> 5
+      5 --> 6
+      6 --> 7
+      7 --> 8
+      9 --> 10
+      10 --> 11
+      11 --> 12
+      12 --> 13
+      13 --> 14
+      14 --> 15
+      15 --> 16
+      16 --> 17
+      17 --> 18
+      18 --> 19
+      19 --> 20
+      20 --> 21
+      21 --> 22
+      22 --> 23
+    ```
+  time:timestamp: '2026-04-16T13:55:57.590127+02:00'
+---
+event:
+  concept:instance: 9468
+  id:id: ex-ante
+  cpee:instance: afd090d8-c798-454e-b206-a7e850a372d0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3843d86f9caa2c11d229e95e81b490c3cca15558
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a0" endpoint="" a:alt_id="0">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label/>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-16T13:55:57.590222+02:00'

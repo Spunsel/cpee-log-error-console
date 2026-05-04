@@ -1,0 +1,394 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9582
+    cpee:name: Plain Instance
+    cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-20T02:08:48.861838+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2026-04-20T02:09:15.884765+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-20T02:09:16.232486+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Reject Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Inform Storehouse and Engineering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Process Part List</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="13">
+                <alternative condition="Available" language="text/javascript">
+                  <call id="a19" endpoint="" a:alt_id="14">
+                    <parameters>
+                      <label>Reserve Part</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Not Available" language="text/javascript">
+                  <call id="a21" endpoint="" a:alt_id="15">
+                    <parameters>
+                      <label>Back-order Part</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Prepare for Assembling</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a29" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Assemble Bicycle</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Ship Bicycle</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 36b95d4aabfaafa89d9d2af90549dea9c5301d28
+  time:timestamp: '2026-04-20T02:09:30.766379+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 36b95d4aabfaafa89d9d2af90549dea9c5301d28
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-20T02:09:30.766650+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 36b95d4aabfaafa89d9d2af90549dea9c5301d28
+  cpee:exposition: |-
+    # User Input:
+    A small company manufactures customized bicycles .
+    Whenever the sales department receives an order , a new process instance is created .
+    A member of the sales department can then reject or accept the order for a customized bike .
+    In the former case , the process instance is finished .
+    In the latter case , the storehouse and the engineering department are informed .
+    The storehouse immediately processes the part list of the order and checks the required quantity of each part .
+    If the part is available in-house , it is reserved .
+    If it is not available , it is back-ordered .
+    This procedure is repeated for each item on the part list .
+    In the meantime , the engineering department prepares everything for the assembling of the ordered bicycle .
+    If the storehouse has successfully reserved or back-ordered every item of the part list and the preparation activity has finished , the engineering department assembles the bicycle .
+    Afterwards , the sales department ships the bicycle to the customer and finishes the process instance .
+  time:timestamp: '2026-04-20T02:09:30.766753+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 36b95d4aabfaafa89d9d2af90549dea9c5301d28
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-20T02:09:30.766836+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 36b95d4aabfaafa89d9d2af90549dea9c5301d28
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-20T02:09:30.766982+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 36b95d4aabfaafa89d9d2af90549dea9c5301d28
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((Start))
+    1:task:(Receive Order)
+    2:exclusivegateway:{x}
+    3:task:(Reject Order)
+    4:endevent:(((End)))
+    5:task:(Inform Storehouse and Engineering)
+    6:parallelgateway:{AND}
+    7:task:(Process Part List)
+    8:task:(Prepare for Assembling)
+    9:parallelgateway:{AND}
+    10:task:(Assemble Bicycle)
+    11:task:(Ship Bicycle)
+    12:endevent:(((End)))
+    13:exclusivegateway:{x}
+    14:task:(Reserve Part)
+    15:task:(Back-order Part)
+
+    0:startevent:((Start)) --> 1:task:(Receive Order)
+    1:task:(Receive Order) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Reject| 3:task:(Reject Order)
+    2:exclusivegateway:{x} --> |Accept| 5:task:(Inform Storehouse and Engineering)
+    3:task:(Reject Order) --> 4:endevent:(((End)))
+    5:task:(Inform Storehouse and Engineering) --> 6:parallelgateway:{AND}
+    6:parallelgateway:{AND} --> 7:task:(Process Part List)
+    6:parallelgateway:{AND} --> 8:task:(Prepare for Assembling)
+    7:task:(Process Part List) --> 13:exclusivegateway:{x}
+    13:exclusivegateway:{x} --> |Available| 14:task:(Reserve Part)
+    13:exclusivegateway:{x} --> |Not Available| 15:task:(Back-order Part)
+    14:task:(Reserve Part) --> 9:parallelgateway:{AND}
+    15:task:(Back-order Part) --> 9:parallelgateway:{AND}
+    8:task:(Prepare for Assembling) --> 9:parallelgateway:{AND}
+    9:parallelgateway:{AND} --> 10:task:(Assemble Bicycle)
+    10:task:(Assemble Bicycle) --> 11:task:(Ship Bicycle)
+    11:task:(Ship Bicycle) --> 12:endevent:(((End)))
+    ```
+  time:timestamp: '2026-04-20T02:09:30.767109+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 36b95d4aabfaafa89d9d2af90549dea9c5301d28
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Reject" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Reject Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Inform Storehouse and Engineering</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Process Part List</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="13">
+                <alternative condition="Available" language="text/javascript">
+                  <call id="a19" endpoint="" a:alt_id="14">
+                    <parameters>
+                      <label>Reserve Part</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Not Available" language="text/javascript">
+                  <call id="a21" endpoint="" a:alt_id="15">
+                    <parameters>
+                      <label>Back-order Part</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Prepare for Assembling</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a29" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Assemble Bicycle</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Ship Bicycle</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-20T02:09:30.767229+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: extended
+  time:timestamp: '2026-04-20T02:09:52.754204+02:00'
+---
+event:
+  concept:instance: 9582
+  id:id: ex-ante
+  cpee:instance: 22afe8fd-fba8-409a-85e0-502299fa9b6d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-20T02:09:52.994956+02:00'

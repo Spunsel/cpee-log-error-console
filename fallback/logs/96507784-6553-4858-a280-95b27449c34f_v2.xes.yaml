@@ -1,0 +1,234 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9492
+    cpee:name: Plain Instance
+    cpee:instance: 96507784-6553-4858-a280-95b27449c34f
+---
+event:
+  concept:instance: 9492
+  id:id: ex-ante
+  cpee:instance: 96507784-6553-4858-a280-95b27449c34f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-17T15:58:25.673519+02:00'
+---
+event:
+  concept:instance: 9492
+  id:id: ex-ante
+  cpee:instance: 96507784-6553-4858-a280-95b27449c34f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Customer Scans Menu and Signals Server</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Provide Delivery Address and Callback Number</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Server Notes Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Process Payment at Terminal</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Grab Receipt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Wait for Delivery</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 26a8586db5fc540a7a0a8e7d34fc41683c572e14
+  time:timestamp: '2026-04-17T15:58:32.883148+02:00'
+---
+event:
+  concept:instance: 9492
+  id:id: ex-ante
+  cpee:instance: 96507784-6553-4858-a280-95b27449c34f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26a8586db5fc540a7a0a8e7d34fc41683c572e14
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-17T15:58:32.883329+02:00'
+---
+event:
+  concept:instance: 9492
+  id:id: ex-ante
+  cpee:instance: 96507784-6553-4858-a280-95b27449c34f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26a8586db5fc540a7a0a8e7d34fc41683c572e14
+  cpee:exposition: |-
+    # User Input:
+    A customer sits at a booth, scanning a laminated menu before signaling the server. Instead of a table setting, they provide a delivery address and a callback number.
+
+    The server notes down the order—a large pepperoni with extra garlic—and processes the payment, including the tip, at the terminal. With the transaction complete, the customer skips the silverware, grabs a printed receipt, and heads out the door to wait for the pie to arrive at their own table at home.
+  time:timestamp: '2026-04-17T15:58:32.883750+02:00'
+---
+event:
+  concept:instance: 9492
+  id:id: ex-ante
+  cpee:instance: 96507784-6553-4858-a280-95b27449c34f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26a8586db5fc540a7a0a8e7d34fc41683c572e14
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-17T15:58:32.883945+02:00'
+---
+event:
+  concept:instance: 9492
+  id:id: ex-ante
+  cpee:instance: 96507784-6553-4858-a280-95b27449c34f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26a8586db5fc540a7a0a8e7d34fc41683c572e14
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-17T15:58:32.884032+02:00'
+---
+event:
+  concept:instance: 9492
+  id:id: ex-ante
+  cpee:instance: 96507784-6553-4858-a280-95b27449c34f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26a8586db5fc540a7a0a8e7d34fc41683c572e14
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Customer Scans Menu and Signals Server)
+      1:task:(Customer Scans Menu and Signals Server) --> 2:task:(Provide Delivery Address and Callback Number)
+      2:task:(Provide Delivery Address and Callback Number) --> 3:task:(Server Notes Order)
+      3:task:(Server Notes Order) --> 4:task:(Process Payment at Terminal)
+      4:task:(Process Payment at Terminal) --> 5:task:(Grab Receipt)
+      5:task:(Grab Receipt) --> 6:task:(Wait for Delivery)
+      6:task:(Wait for Delivery) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-17T15:58:32.884106+02:00'
+---
+event:
+  concept:instance: 9492
+  id:id: ex-ante
+  cpee:instance: 96507784-6553-4858-a280-95b27449c34f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 26a8586db5fc540a7a0a8e7d34fc41683c572e14
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Customer Scans Menu and Signals Server</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Provide Delivery Address and Callback Number</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Server Notes Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Process Payment at Terminal</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Grab Receipt</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Wait for Delivery</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-17T15:58:32.884186+02:00'

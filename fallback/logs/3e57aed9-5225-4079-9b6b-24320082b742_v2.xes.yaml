@@ -1,0 +1,454 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9551
+    cpee:name: Plain Instance
+    cpee:instance: 3e57aed9-5225-4079-9b6b-24320082b742
+---
+event:
+  concept:instance: 9551
+  id:id: ex-ante
+  cpee:instance: 3e57aed9-5225-4079-9b6b-24320082b742
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-20T00:02:20.542483+02:00'
+---
+event:
+  concept:instance: 9551
+  id:id: ex-ante
+  cpee:instance: 3e57aed9-5225-4079-9b6b-24320082b742
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Expense Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Automated Rule Check</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Meets Rules" language="text/javascript"/>
+        <alternative condition="Does Not Meet Rules" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Request Clarification</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Edit Expense Report</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Supervisor Review</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Approve">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Approve" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Treasurer Review</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="7">
+                <alternative condition="Reject" language="text/javascript">
+                  <call id="a9" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>Request Clarification</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="0">
+                    <alternative condition="">
+                      <call id="a27" endpoint="" a:alt_id="13">
+                        <parameters>
+                          <label>Edit Expense Report</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a7" endpoint="" a:alt_id="4">
+                        <parameters>
+                          <label>Supervisor Review</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Approve" language="text/javascript">
+                  <call id="a19" endpoint="" a:alt_id="8">
+                    <parameters>
+                      <label>Process Payment</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a23" endpoint="" a:alt_id="9">
+                    <parameters>
+                      <label>Payment Confirmation</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="Reject" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Request Clarification</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="0">
+                <alternative condition="">
+                  <call id="a27" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Edit Expense Report</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a7" endpoint="" a:alt_id="4">
+                    <parameters>
+                      <label>Supervisor Review</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 539bba03143075bd85a4a6747c08f993644ad1e5
+  time:timestamp: '2026-04-20T00:02:26.690319+02:00'
+---
+event:
+  concept:instance: 9551
+  id:id: ex-ante
+  cpee:instance: 3e57aed9-5225-4079-9b6b-24320082b742
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 539bba03143075bd85a4a6747c08f993644ad1e5
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-20T00:02:26.690573+02:00'
+---
+event:
+  concept:instance: 9551
+  id:id: ex-ante
+  cpee:instance: 3e57aed9-5225-4079-9b6b-24320082b742
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 539bba03143075bd85a4a6747c08f993644ad1e5
+  cpee:exposition: |-
+    # User Input:
+    An employee purchases a product or service he requires .
+    For instance , a sales person on a trip rents a car .
+    The employee submits an expense report with a list of items , along with the receipts for each item .
+    A supervisor reviews the expense report and approves or rejects the report .
+    Since the company has expense rules , there are circumstances where the supervisor can accept or reject the report upon first inspection .
+    These rules could be automated , to reduce the workload on the supervisor .
+    If the supervisor rejects the report , the employee , who submitted it , is given a chance to edit it , for example to correct errors or better describe an expense .
+    If the supervisor approves the report , it goes to the treasurer .
+    The treasurer checks that all the receipts have been submitted and match the items on the list .
+    If all is in order , the treasurer accepts the expenses for processing ( including , e.g . , payment or refund , and accounting ) .
+    If receipts are missing or do not match the report , he sends it back to the employee .
+    If a report returns to the employee for corrections , it must again go to a supervisor , even if the supervisor previously approved the report .
+    If the treasurer accepts the expenses for processing , the report moves to an automatic activity that links to a payment system .
+    The process waits for the payment confirmation .
+    After the payment is confirmed , the process ends .
+  time:timestamp: '2026-04-20T00:02:26.690959+02:00'
+---
+event:
+  concept:instance: 9551
+  id:id: ex-ante
+  cpee:instance: 3e57aed9-5225-4079-9b6b-24320082b742
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 539bba03143075bd85a4a6747c08f993644ad1e5
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-20T00:02:26.691157+02:00'
+---
+event:
+  concept:instance: 9551
+  id:id: ex-ante
+  cpee:instance: 3e57aed9-5225-4079-9b6b-24320082b742
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 539bba03143075bd85a4a6747c08f993644ad1e5
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-20T00:02:26.691384+02:00'
+---
+event:
+  concept:instance: 9551
+  id:id: ex-ante
+  cpee:instance: 3e57aed9-5225-4079-9b6b-24320082b742
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 539bba03143075bd85a4a6747c08f993644ad1e5
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Submit Expense Report)
+      1:task:(Submit Expense Report) --> 2:task:(Automated Rule Check)
+      2:task:(Automated Rule Check) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Meets Rules| 4:task:(Supervisor Review)
+      3:exclusivegateway:{x} --> |Does Not Meet Rules| 12:task:(Request Clarification)
+      4:task:(Supervisor Review) --> 5:exclusivegateway:{x}
+      5:exclusivegateway:{x} --> |Approve| 6:task:(Treasurer Review)
+      5:exclusivegateway:{x} --> |Reject| 12:task:(Request Clarification)
+      6:task:(Treasurer Review) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> |Approve| 8:task:(Process Payment)
+      7:exclusivegateway:{x} --> |Reject| 12:task:(Request Clarification)
+      8:task:(Process Payment) --> 9:task:(Payment Confirmation)
+      9:task:(Payment Confirmation) --> 10:endevent:(((endevent)))
+      12:task:(Request Clarification) --> 13:task:(Edit Expense Report)
+      13:task:(Edit Expense Report) --> 4:task:(Supervisor Review)
+    ```
+  time:timestamp: '2026-04-20T00:02:26.691722+02:00'
+---
+event:
+  concept:instance: 9551
+  id:id: ex-ante
+  cpee:instance: 3e57aed9-5225-4079-9b6b-24320082b742
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 539bba03143075bd85a4a6747c08f993644ad1e5
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Expense Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Automated Rule Check</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Meets Rules" language="text/javascript"/>
+        <alternative condition="Does Not Meet Rules" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Request Clarification</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Edit Expense Report</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <loop mode="pre_test" condition="true">
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Supervisor Review</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Approve">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Approve" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Treasurer Review</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="7">
+                <alternative condition="Reject" language="text/javascript">
+                  <call id="a9" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>Request Clarification</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="0">
+                    <alternative condition="">
+                      <call id="a27" endpoint="" a:alt_id="13">
+                        <parameters>
+                          <label>Edit Expense Report</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a7" endpoint="" a:alt_id="4">
+                        <parameters>
+                          <label>Supervisor Review</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Approve" language="text/javascript">
+                  <call id="a19" endpoint="" a:alt_id="8">
+                    <parameters>
+                      <label>Process Payment</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a23" endpoint="" a:alt_id="9">
+                    <parameters>
+                      <label>Payment Confirmation</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="Reject" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Request Clarification</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="0">
+                <alternative condition="">
+                  <call id="a27" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Edit Expense Report</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a7" endpoint="" a:alt_id="4">
+                    <parameters>
+                      <label>Supervisor Review</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-20T00:02:26.691858+02:00'

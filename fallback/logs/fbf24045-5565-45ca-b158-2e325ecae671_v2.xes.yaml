@@ -1,0 +1,675 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9547
+    cpee:name: Plain Instance
+    cpee:instance: fbf24045-5565-45ca-b158-2e325ecae671
+---
+event:
+  concept:instance: 9547
+  id:id: ex-ante
+  cpee:instance: fbf24045-5565-45ca-b158-2e325ecae671
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-19T23:59:56.045810+02:00'
+---
+event:
+  concept:instance: 9547
+  id:id: ex-ante
+  cpee:instance: fbf24045-5565-45ca-b158-2e325ecae671
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Notice by Telephone</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Inquire Patient Information</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Connect Doctor to Nursing Officer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Inquire Patient's State</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Record Information on Registration Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Hand in Form at Secretarial Office</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Store and Print Information</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Create Patient File if New</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Store Form and Print in File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Produce Registration Cards</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Add Patient to New Notices List</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Staff Meeting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Assign Patients to Team Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Record Assignments</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Determine if Medical File is Required</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Store Assignment in System</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Pass Registration Cards to Intakers</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="18">
+        <alternative condition="Medical file required" language="text/javascript">
+          <call id="a37" endpoint="" a:alt_id="19">
+            <parameters>
+              <label>Prepare and Send Letter to Doctor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a41" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Receive Copy of Medical File</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a43" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Inform Second Intaker and Add to File</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Medical file not required" language="text/javascript"/>
+      </choose>
+      <call id="a47" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>First Intaker Plans Meeting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>First Meeting with Patient</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Add Notes and Checklist to File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Second Intaker Plans Meeting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Record Observations</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Type Out Tapes and Add to File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Add Patient to List</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Provide List to Team-Leader</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Formulate Treatment Plan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 526f34758854452029a1af96f9a3ecff5609487a
+  time:timestamp: '2026-04-20T00:00:03.720290+02:00'
+---
+event:
+  concept:instance: 9547
+  id:id: ex-ante
+  cpee:instance: fbf24045-5565-45ca-b158-2e325ecae671
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 526f34758854452029a1af96f9a3ecff5609487a
+  cpee:exposition: |-
+    # User Input:
+    The intake workflow starts with a notice by telephone at the secretarial office of the mental health care institute .
+    This notice is done by the family doctor of somebody who is in need of mental treatment .
+    The secretarial worker inquires after the name and residence of the patient .
+    On the basis of this information , the doctor is put through to the nursing officer responsible for the part of the region that the patient lives in .
+    The nursing officer makes a full inquiry into the mental , health , and social state of the patient in question .
+    This information is recorded on a registration form .
+    At the end of the conversation , this form is handed in at the secretarial office of the institute .
+    Here , the information on the form is stored in the information system and subsequently printed .
+    For new patients , a patient file is created .
+    The registration form as well as the print from the information system are stored in the patient file .
+    Patient files are kept at the secretarial office and may not leave the building .
+    At the secretarial office , two registration cards are produced for respectively the future first and second intaker of the patient .
+    The registration card contains a set of basic patient data .
+    The new patient is added on the list of new notices .
+    Halfway the week , at Wednesday , a staff meeting of the entire medical team takes place .
+    The medical team consists of social-medical workers , physicians , and a psychiatrist .
+    At this meeting , the team-leader assigns all new patients on the list of new notices to members of the team .
+    Each patient will be assigned to a social-medical worker , who will act as the first intaker of the patient .
+    One of the physicians will act as the second intaker .
+    In assigning intakers , the teamleader takes into account their expertise , the region they are responsible for , earlier contacts they might have had with the patient , and their case load .
+    The assignments are recorded on an assignment list which is handed to the secretarial office .
+    For each new assignment , it is also determined whether the medical file of the patient is required .
+    This information is added to the assignment list .
+    The secretarial office stores the assignment of each patient of the assignment list in the information system .
+    It passes the produced registration cards to the first and second intaker of each newly assigned patient .
+    An intaker keeps this registration with him at times when visiting the patient and in his close proximity when he is at the office .
+    For each patient for which the medical file is required , the secretarial office prepares and sends a letter to the family doctor of the patient , requesting for a copy of the medical file .
+    As soon as this copy is received , the secretarial office will inform the second intaker and add the copy to the patient file .
+    The first intaker plans a meeting with the patient as soon as this is possible .
+    During the first meeting , the patient is examined using a standard checklist which is filled out .
+    Additional observations are registered in a personal notebook .
+    After a visit , the first intaker puts a copy of these notes in the file of a patient .
+    The standard checklist is also added to the patient's file .
+    The second intaker plans the first meeting only after the medical information of the physician if required has been received .
+    Physicians use dictaphones to record their observations made during meetings with patients .
+    The secretarial office types out these tapes , after which the information is added to the patient file .
+    As soon as the meetings of the first and second intaker with the patient have taken place , the secretarial office puts the patient on the list of patients that reach this status .
+    For the staff meeting on Wednesday , they provide the team-leader with a list of these patients .
+    For each of these patients , the first and second intaker together with the team-leader and the attending psychiatrist formulate a treatment plan .
+    This treatment plan formally ends the intake procedure .
+  time:timestamp: '2026-04-20T00:00:03.720697+02:00'
+---
+event:
+  concept:instance: 9547
+  id:id: ex-ante
+  cpee:instance: fbf24045-5565-45ca-b158-2e325ecae671
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 526f34758854452029a1af96f9a3ecff5609487a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-20T00:00:03.720840+02:00'
+---
+event:
+  concept:instance: 9547
+  id:id: ex-ante
+  cpee:instance: fbf24045-5565-45ca-b158-2e325ecae671
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 526f34758854452029a1af96f9a3ecff5609487a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-20T00:00:03.721242+02:00'
+---
+event:
+  concept:instance: 9547
+  id:id: ex-ante
+  cpee:instance: fbf24045-5565-45ca-b158-2e325ecae671
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 526f34758854452029a1af96f9a3ecff5609487a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Notice by Telephone)
+      1:task:(Receive Notice by Telephone) --> 2:task:(Inquire Patient Information)
+      2:task:(Inquire Patient Information) --> 3:task:(Connect Doctor to Nursing Officer)
+      3:task:(Connect Doctor to Nursing Officer) --> 4:task:(Inquire Patient's State)
+      4:task:(Inquire Patient's State) --> 5:task:(Record Information on Registration Form)
+      5:task:(Record Information on Registration Form) --> 6:task:(Hand in Form at Secretarial Office)
+      6:task:(Hand in Form at Secretarial Office) --> 7:task:(Store and Print Information)
+      7:task:(Store and Print Information) --> 8:task:(Create Patient File if New)
+      8:task:(Create Patient File if New) --> 9:task:(Store Form and Print in File)
+      9:task:(Store Form and Print in File) --> 10:task:(Produce Registration Cards)
+      10:task:(Produce Registration Cards) --> 11:task:(Add Patient to New Notices List)
+      11:task:(Add Patient to New Notices List) --> 12:task:(Staff Meeting)
+      12:task:(Staff Meeting) --> 13:task:(Assign Patients to Team Members)
+      13:task:(Assign Patients to Team Members) --> 14:task:(Record Assignments)
+      14:task:(Record Assignments) --> 15:task:(Determine if Medical File is Required)
+      15:task:(Determine if Medical File is Required) --> 16:task:(Store Assignment in System)
+      16:task:(Store Assignment in System) --> 17:task:(Pass Registration Cards to Intakers)
+      17:task:(Pass Registration Cards to Intakers) --> 18:exclusivegateway:{x}
+      18:exclusivegateway:{x} --> |Medical file required| 19:task:(Prepare and Send Letter to Doctor)
+      18:exclusivegateway:{x} --> |Medical file not required| 22:exclusivegateway:{x}
+      19:task:(Prepare and Send Letter to Doctor) --> 20:task:(Receive Copy of Medical File)
+      20:task:(Receive Copy of Medical File) --> 21:task:(Inform Second Intaker and Add to File)
+      21:task:(Inform Second Intaker and Add to File) --> 22:exclusivegateway:{x}
+      22:exclusivegateway:{x} --> 23:task:(First Intaker Plans Meeting)
+      23:task:(First Intaker Plans Meeting) --> 24:task:(First Meeting with Patient)
+      24:task:(First Meeting with Patient) --> 25:task:(Add Notes and Checklist to File)
+      25:task:(Add Notes and Checklist to File) --> 26:task:(Second Intaker Plans Meeting)
+      26:task:(Second Intaker Plans Meeting) --> 27:task:(Record Observations)
+      27:task:(Record Observations) --> 28:task:(Type Out Tapes and Add to File)
+      28:task:(Type Out Tapes and Add to File) --> 29:task:(Add Patient to List)
+      29:task:(Add Patient to List) --> 30:task:(Provide List to Team-Leader)
+      30:task:(Provide List to Team-Leader) --> 31:task:(Formulate Treatment Plan)
+      31:task:(Formulate Treatment Plan) --> 32:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-20T00:00:03.721383+02:00'
+---
+event:
+  concept:instance: 9547
+  id:id: ex-ante
+  cpee:instance: fbf24045-5565-45ca-b158-2e325ecae671
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 526f34758854452029a1af96f9a3ecff5609487a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Notice by Telephone</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Inquire Patient Information</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Connect Doctor to Nursing Officer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Inquire Patient's State</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Record Information on Registration Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Hand in Form at Secretarial Office</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Store and Print Information</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Create Patient File if New</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Store Form and Print in File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Produce Registration Cards</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Add Patient to New Notices List</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Staff Meeting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Assign Patients to Team Members</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="14">
+        <parameters>
+          <label>Record Assignments</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a29" endpoint="" a:alt_id="15">
+        <parameters>
+          <label>Determine if Medical File is Required</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a31" endpoint="" a:alt_id="16">
+        <parameters>
+          <label>Store Assignment in System</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a33" endpoint="" a:alt_id="17">
+        <parameters>
+          <label>Pass Registration Cards to Intakers</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="18">
+        <alternative condition="Medical file required" language="text/javascript">
+          <call id="a37" endpoint="" a:alt_id="19">
+            <parameters>
+              <label>Prepare and Send Letter to Doctor</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a41" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Receive Copy of Medical File</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a43" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Inform Second Intaker and Add to File</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Medical file not required" language="text/javascript"/>
+      </choose>
+      <call id="a47" endpoint="" a:alt_id="23">
+        <parameters>
+          <label>First Intaker Plans Meeting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a49" endpoint="" a:alt_id="24">
+        <parameters>
+          <label>First Meeting with Patient</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a51" endpoint="" a:alt_id="25">
+        <parameters>
+          <label>Add Notes and Checklist to File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a53" endpoint="" a:alt_id="26">
+        <parameters>
+          <label>Second Intaker Plans Meeting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a55" endpoint="" a:alt_id="27">
+        <parameters>
+          <label>Record Observations</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a57" endpoint="" a:alt_id="28">
+        <parameters>
+          <label>Type Out Tapes and Add to File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a59" endpoint="" a:alt_id="29">
+        <parameters>
+          <label>Add Patient to List</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a61" endpoint="" a:alt_id="30">
+        <parameters>
+          <label>Provide List to Team-Leader</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a63" endpoint="" a:alt_id="31">
+        <parameters>
+          <label>Formulate Treatment Plan</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-20T00:00:03.721548+02:00'
+---
+event:
+  concept:instance: 9547
+  id:id: ex-ante
+  cpee:instance: fbf24045-5565-45ca-b158-2e325ecae671
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 526f34758854452029a1af96f9a3ecff5609487a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-20T00:00:03.720567+02:00'

@@ -1,0 +1,351 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9570
+    cpee:name: Plain Instance
+    cpee:instance: fdde6367-74e8-4bbd-b319-f5a55b1a68f8
+---
+event:
+  concept:instance: 9570
+  id:id: ex-ante
+  cpee:instance: fdde6367-74e8-4bbd-b319-f5a55b1a68f8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-20T00:13:07.929243+02:00'
+---
+event:
+  concept:instance: 9570
+  id:id: ex-ante
+  cpee:instance: fdde6367-74e8-4bbd-b319-f5a55b1a68f8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Notify MPOO about equipment change intentions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Self Dismounting" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Announce self dismounting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Self Dismounting" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify about no self-dismounting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="5">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Perform final reading</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Dismount old equipment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Mount new device</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Read meter count from installed meter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Send final reading values to GO</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Inform GO about device changes, master data, and meter count at installation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Notify MSP about device changes, master data, meter count at dismounting, and meter count at installation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 2b5601bc67c39720f07e6ee65a5c500cb90b017d
+  time:timestamp: '2026-04-20T00:13:20.803458+02:00'
+---
+event:
+  concept:instance: 9570
+  id:id: ex-ante
+  cpee:instance: fdde6367-74e8-4bbd-b319-f5a55b1a68f8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2b5601bc67c39720f07e6ee65a5c500cb90b017d
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-20T00:13:20.803680+02:00'
+---
+event:
+  concept:instance: 9570
+  id:id: ex-ante
+  cpee:instance: fdde6367-74e8-4bbd-b319-f5a55b1a68f8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2b5601bc67c39720f07e6ee65a5c500cb90b017d
+  cpee:exposition: |-
+    # User Input:
+    The MPON notifies the MPOO about equipment change intentions .
+    The MPOO announces self dismounting to the MPON or the MPOO shall notify the MPON about no self-dismounting of the MPOO .
+    The MPON or the MPOO perform the final reading .
+    The MPON or the MPOO dismount the old equipment .
+    The MPON mounts the new device .
+    The MPON reads the meter count from the installed meter .
+    The MPON sents the values of the final reading to the GO .
+    The MPON tells the GO about the device changes , the master data and the meter count at installation .
+    The GO shall notify the MSP about the device changes , the master data , the meter count at dismounting , and the meter count at installation .
+  time:timestamp: '2026-04-20T00:13:20.803996+02:00'
+---
+event:
+  concept:instance: 9570
+  id:id: ex-ante
+  cpee:instance: fdde6367-74e8-4bbd-b319-f5a55b1a68f8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2b5601bc67c39720f07e6ee65a5c500cb90b017d
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-20T00:13:20.804073+02:00'
+---
+event:
+  concept:instance: 9570
+  id:id: ex-ante
+  cpee:instance: fdde6367-74e8-4bbd-b319-f5a55b1a68f8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2b5601bc67c39720f07e6ee65a5c500cb90b017d
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-20T00:13:20.804142+02:00'
+---
+event:
+  concept:instance: 9570
+  id:id: ex-ante
+  cpee:instance: fdde6367-74e8-4bbd-b319-f5a55b1a68f8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2b5601bc67c39720f07e6ee65a5c500cb90b017d
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((start))
+      1:task:(Notify MPOO about equipment change intentions)
+      2:exclusivegateway:{x}
+      3:task:(Announce self dismounting)
+      4:task:(Notify about no self-dismounting)
+      5:parallelgateway:{AND}
+      6:task:(Perform final reading)
+      7:task:(Dismount old equipment)
+      8:task:(Mount new device)
+      9:task:(Read meter count from installed meter)
+      10:task:(Send final reading values to GO)
+      11:task:(Inform GO about device changes, master data, and meter count at installation)
+      12:task:(Notify MSP about device changes, master data, meter count at dismounting, and meter count at installation)
+      13:endevent:(((end)))
+
+      0:startevent:((start)) --> 1:task:(Notify MPOO about equipment change intentions)
+      1:task:(Notify MPOO about equipment change intentions) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Self Dismounting|3:task:(Announce self dismounting)
+      2:exclusivegateway:{x} --> |No Self Dismounting|4:task:(Notify about no self-dismounting)
+      3:task:(Announce self dismounting) --> 5:parallelgateway:{AND}
+      4:task:(Notify about no self-dismounting) --> 5:parallelgateway:{AND}
+      5:parallelgateway:{AND} --> 6:task:(Perform final reading)
+      5:parallelgateway:{AND} --> 7:task:(Dismount old equipment)
+      6:task:(Perform final reading) --> 8:task:(Mount new device)
+      7:task:(Dismount old equipment) --> 8:task:(Mount new device)
+      8:task:(Mount new device) --> 9:task:(Read meter count from installed meter)
+      9:task:(Read meter count from installed meter) --> 10:task:(Send final reading values to GO)
+      10:task:(Send final reading values to GO) --> 11:task:(Inform GO about device changes, master data, and meter count at installation)
+      11:task:(Inform GO about device changes, master data, and meter count at installation) --> 12:task:(Notify MSP about device changes, master data, meter count at dismounting, and meter count at installation)
+      12:task:(Notify MSP about device changes, master data, meter count at dismounting, and meter count at installation) --> 13:endevent:(((end)))
+    ```
+  time:timestamp: '2026-04-20T00:13:20.804223+02:00'
+---
+event:
+  concept:instance: 9570
+  id:id: ex-ante
+  cpee:instance: fdde6367-74e8-4bbd-b319-f5a55b1a68f8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2b5601bc67c39720f07e6ee65a5c500cb90b017d
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Notify MPOO about equipment change intentions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Self Dismounting" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Announce self dismounting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Self Dismounting" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify about no self-dismounting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <parallel wait="-1" cancel="last" a:alt_id="5">
+        <parallel_branch>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Perform final reading</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Dismount old equipment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Mount new device</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Read meter count from installed meter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Send final reading values to GO</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Inform GO about device changes, master data, and meter count at installation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Notify MSP about device changes, master data, meter count at dismounting, and meter count at installation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-20T00:13:20.804323+02:00'

@@ -1,0 +1,224 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9567
+    cpee:name: Plain Instance
+    cpee:instance: 54c6db20-70b1-4e41-b981-f73d96b669a1
+---
+event:
+  concept:instance: 9567
+  id:id: ex-ante
+  cpee:instance: 54c6db20-70b1-4e41-b981-f73d96b669a1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-20T00:11:36.983296+02:00'
+---
+event:
+  concept:instance: 9567
+  id:id: ex-ante
+  cpee:instance: 54c6db20-70b1-4e41-b981-f73d96b669a1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>MPON Sends Dismissal to MPOO</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>MPOO Reviews Dismissal</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Opposes" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>MPOO Opposes Dismissal</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Confirms" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>MPOO Confirms Dismissal</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c2b24c9afb7c065287ad64fd49aa1c419b1967db
+  time:timestamp: '2026-04-20T00:11:48.573590+02:00'
+---
+event:
+  concept:instance: 9567
+  id:id: ex-ante
+  cpee:instance: 54c6db20-70b1-4e41-b981-f73d96b669a1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c2b24c9afb7c065287ad64fd49aa1c419b1967db
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-20T00:11:48.573817+02:00'
+---
+event:
+  concept:instance: 9567
+  id:id: ex-ante
+  cpee:instance: 54c6db20-70b1-4e41-b981-f73d96b669a1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c2b24c9afb7c065287ad64fd49aa1c419b1967db
+  cpee:exposition: |-
+    # User Input:
+    The MPON sents the dismissal to the MPOO .
+    The MPOO reviews the dismissal .
+    The MPOO opposes the dismissal of MPON or the MPOO confirmes the dismissal of the MPON .
+  time:timestamp: '2026-04-20T00:11:48.574602+02:00'
+---
+event:
+  concept:instance: 9567
+  id:id: ex-ante
+  cpee:instance: 54c6db20-70b1-4e41-b981-f73d96b669a1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c2b24c9afb7c065287ad64fd49aa1c419b1967db
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-20T00:11:48.574716+02:00'
+---
+event:
+  concept:instance: 9567
+  id:id: ex-ante
+  cpee:instance: 54c6db20-70b1-4e41-b981-f73d96b669a1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c2b24c9afb7c065287ad64fd49aa1c419b1967db
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-20T00:11:48.574820+02:00'
+---
+event:
+  concept:instance: 9567
+  id:id: ex-ante
+  cpee:instance: 54c6db20-70b1-4e41-b981-f73d96b669a1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c2b24c9afb7c065287ad64fd49aa1c419b1967db
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent))
+      1:task:(MPON Sends Dismissal to MPOO)
+      2:task:(MPOO Reviews Dismissal)
+      3:exclusivegateway:{x}
+      4:task:(MPOO Opposes Dismissal)
+      5:task:(MPOO Confirms Dismissal)
+      6:exclusivegateway:{x}
+      7:endevent:(((endevent)))
+
+      0:startevent:((startevent)) --> 1:task:(MPON Sends Dismissal to MPOO)
+      1:task:(MPON Sends Dismissal to MPOO) --> 2:task:(MPOO Reviews Dismissal)
+      2:task:(MPOO Reviews Dismissal) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Opposes|4:task:(MPOO Opposes Dismissal)
+      3:exclusivegateway:{x} --> |Confirms|5:task:(MPOO Confirms Dismissal)
+      4:task:(MPOO Opposes Dismissal) --> 6:exclusivegateway:{x}
+      5:task:(MPOO Confirms Dismissal) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-20T00:11:48.574958+02:00'
+---
+event:
+  concept:instance: 9567
+  id:id: ex-ante
+  cpee:instance: 54c6db20-70b1-4e41-b981-f73d96b669a1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c2b24c9afb7c065287ad64fd49aa1c419b1967db
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>MPON Sends Dismissal to MPOO</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>MPOO Reviews Dismissal</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Opposes" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>MPOO Opposes Dismissal</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Confirms" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>MPOO Confirms Dismissal</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-20T00:11:48.575089+02:00'

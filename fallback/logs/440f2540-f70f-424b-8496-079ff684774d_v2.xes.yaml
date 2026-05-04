@@ -1,0 +1,626 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9539
+    cpee:name: Plain Instance
+    cpee:instance: 440f2540-f70f-424b-8496-079ff684774d
+---
+event:
+  concept:instance: 9539
+  id:id: ex-ante
+  cpee:instance: 440f2540-f70f-424b-8496-079ff684774d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-19T23:54:31.358067+02:00'
+---
+event:
+  concept:instance: 9539
+  id:id: ex-ante
+  cpee:instance: 440f2540-f70f-424b-8496-079ff684774d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Switch-over Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Enter Customer Data into CRM</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Compare with Internal Database</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Errors Found" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Correct Errors</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Errors" language="text/javascript"/>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Create New Customer Object</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Prepare Contract Documents</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a17" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Automated Check of Contract Documents</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Negative Response" a:alt_id="9" language="text/javascript">
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Analyze and Resolve Issues</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Regenerate Contract Documents</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Automated Check of Contract Documents</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a23" endpoint="" a:alt_id="12">
+          <parameters>
+            <label>Send Confirmation to Customer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a29" endpoint="" a:alt_id="13">
+          <parameters>
+            <label>Send Request to Grid Operator</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a31" endpoint="" a:alt_id="14">
+          <parameters>
+            <label>Check Supplier Concurrence</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="15">
+          <alternative condition="Supplier Concurrence" language="text/javascript">
+            <call id="a35" endpoint="" a:alt_id="16">
+              <parameters>
+                <label>Inform Suppliers and Resolve Conflict</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a39" endpoint="" a:alt_id="17">
+              <parameters>
+                <label>Terminate Old Supplier Agreement</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="No Concurrence" language="text/javascript"/>
+        </choose>
+        <call id="a37" endpoint="" a:alt_id="18">
+          <parameters>
+            <label>Create CIS Contract</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a43" endpoint="" a:alt_id="19">
+          <parameters>
+            <label>Customer Checks Contract</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="20">
+          <alternative condition="Withdraw" language="text/javascript">
+            <call id="a47" endpoint="" a:alt_id="21">
+              <parameters>
+                <label>Withdraw from Contract</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Confirm" language="text/javascript">
+            <call id="a49" endpoint="" a:alt_id="22">
+              <parameters>
+                <label>Confirm Contract</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a53" endpoint="" a:alt_id="23">
+              <parameters>
+                <label>Transmit Power Meter Data</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a55" endpoint="" a:alt_id="24">
+              <parameters>
+                <label>Compute Final Billing</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a57" endpoint="" a:alt_id="25">
+              <parameters>
+                <label>Send Final Billing to Customer</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a59" endpoint="" a:alt_id="26">
+              <parameters>
+                <label>Import Meter Data</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: a2c24f76b82cd92399e810b315c1c4a1c60ea315
+  time:timestamp: '2026-04-19T23:54:47.113288+02:00'
+---
+event:
+  concept:instance: 9539
+  id:id: ex-ante
+  cpee:instance: 440f2540-f70f-424b-8496-079ff684774d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2c24f76b82cd92399e810b315c1c4a1c60ea315
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-19T23:54:47.113529+02:00'
+---
+event:
+  concept:instance: 9539
+  id:id: ex-ante
+  cpee:instance: 440f2540-f70f-424b-8496-079ff684774d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2c24f76b82cd92399e810b315c1c4a1c60ea315
+  cpee:exposition: |-
+    # User Input:
+    The process is initiated by a switch-over request .
+    In doing so , the customer transmits his data to the customer service department of the company .
+    Customer service is a shared service center between the departments Sales and Distribution .
+    The customer data is received by customer service and based on this data a customer data object is entered into the CRM system .
+    After customer data has been entered it should then be compared with the internal customer data base and checked for completeness and plausibility .
+    In case of any errors these should be corrected on the basis of a simple error list .
+    The comparison of data is done to prevent individual customer data being stored multiple times .
+    In case the customer does not exist in the customer data base , a new customer object is being created which will remain the data object of interest during the rest of the process flow .
+    This object consists of data elements such as the customer's name and address and the assigned power gauge .
+    The generated customer object is then used , in combination with other customer data to prepare the contract documents for the power supplier switch ( including data such as bank connection , information on the selected rate , requested date of switch-over ) .
+    In the following an automated check of the contract documents is carried out within the CIS ( customer information system ) in order to confirm their successful generation .
+    In case of a negative response , i.e . the contract documents are not ( or incorrectly ) generated , the causing issues are being analyzed and resolved .
+    Subsequently the contract documents are generated once again .
+    In case of a positive response a confirmation document is sent out to the customer stating that the switch-over to the new supplier can be executed .
+    A request to the grid operator is automatically sent out by the CIS .
+    It puts the question whether the customer may be supplied by the selected supplier in the future .
+    The switch-over request is checked by the grid operator for supplier concurrence , and the grid operator transmits a response comment .
+    In the case of supplier concurrence the grid operator would inform all involved suppliers and demand the resolution of the conflict .
+    The grid operator communicates with the old supplier and carries out the termination of the sales agreement between the customer and the old supplier ( i.e . the customer service ( of the new supplier ) does not have to interact with the old supplier regarding termination ) .
+    If there are not any objections by the grid operator ( i.e . no supplier concurrence ) , customer service creates a CIS contract .
+    The customer then has the chance to check the contract details and based on this check may decide to either withdraw from the switch contract or confirm it .
+    Depending on the customer's acceptance / rejection the process flow at customer service either ends ( in case of withdrawal ) or continues ( in case of a confirmation ) .
+    An additional constraint is that the customer can only withdraw from the offered contract within 7 days after the 7th day the contract will be regarded as accepted and the process continues .
+    The confirmation message by the customer is therefore not absolutely necessary ( as it will count as accepted after 7 days in any way ) but it can speed up the switch process .
+    On the switch-date , but no later than 10 days after power supply has begun , the grid operator transmits the power meter data to the customer service and the old supplier via messages containing a services consumption report .
+    At the same time , the grid operator computes the final billing based on the meter data and sends it to the old supplier .
+    Likewise the old supplier creates and sends the final billing to the customer .
+    For the customer as well as the grid operator the process ends then .
+    After receiving the meter data customer service imports the meter data to systems that require the information .
+    The process of winning a new customer ends here .
+  time:timestamp: '2026-04-19T23:54:47.113631+02:00'
+---
+event:
+  concept:instance: 9539
+  id:id: ex-ante
+  cpee:instance: 440f2540-f70f-424b-8496-079ff684774d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2c24f76b82cd92399e810b315c1c4a1c60ea315
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-19T23:54:47.113730+02:00'
+---
+event:
+  concept:instance: 9539
+  id:id: ex-ante
+  cpee:instance: 440f2540-f70f-424b-8496-079ff684774d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2c24f76b82cd92399e810b315c1c4a1c60ea315
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-19T23:54:47.113810+02:00'
+---
+event:
+  concept:instance: 9539
+  id:id: ex-ante
+  cpee:instance: 440f2540-f70f-424b-8496-079ff684774d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2c24f76b82cd92399e810b315c1c4a1c60ea315
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((Start))
+    1:task:(Receive Switch-over Request)
+    2:task:(Enter Customer Data into CRM)
+    3:task:(Compare with Internal Database)
+    4:exclusivegateway:{x}
+    5:task:(Correct Errors)
+    6:task:(Create New Customer Object)
+    7:task:(Prepare Contract Documents)
+    8:task:(Automated Check of Contract Documents)
+    9:exclusivegateway:{x}
+    10:task:(Analyze and Resolve Issues)
+    11:task:(Regenerate Contract Documents)
+    12:task:(Send Confirmation to Customer)
+    13:task:(Send Request to Grid Operator)
+    14:task:(Check Supplier Concurrence)
+    15:exclusivegateway:{x}
+    16:task:(Inform Suppliers and Resolve Conflict)
+    17:task:(Terminate Old Supplier Agreement)
+    18:task:(Create CIS Contract)
+    19:task:(Customer Checks Contract)
+    20:exclusivegateway:{x}
+    21:task:(Withdraw from Contract)
+    22:task:(Confirm Contract)
+    23:task:(Transmit Power Meter Data)
+    24:task:(Compute Final Billing)
+    25:task:(Send Final Billing to Customer)
+    26:task:(Import Meter Data)
+    27:endevent:(((End)))
+
+    0:startevent:((Start)) --> 1:task:(Receive Switch-over Request)
+    1:task:(Receive Switch-over Request) --> 2:task:(Enter Customer Data into CRM)
+    2:task:(Enter Customer Data into CRM) --> 3:task:(Compare with Internal Database)
+    3:task:(Compare with Internal Database) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Errors Found|5:task:(Correct Errors)
+    4:exclusivegateway:{x} --> |No Errors|6:task:(Create New Customer Object)
+    5:task:(Correct Errors) --> 6:task:(Create New Customer Object)
+    6:task:(Create New Customer Object) --> 7:task:(Prepare Contract Documents)
+    7:task:(Prepare Contract Documents) --> 8:task:(Automated Check of Contract Documents)
+    8:task:(Automated Check of Contract Documents) --> 9:exclusivegateway:{x}
+    9:exclusivegateway:{x} --> |Negative Response|10:task:(Analyze and Resolve Issues)
+    9:exclusivegateway:{x} --> |Positive Response|12:task:(Send Confirmation to Customer)
+    10:task:(Analyze and Resolve Issues) --> 11:task:(Regenerate Contract Documents)
+    11:task:(Regenerate Contract Documents) --> 8:task:(Automated Check of Contract Documents)
+    12:task:(Send Confirmation to Customer) --> 13:task:(Send Request to Grid Operator)
+    13:task:(Send Request to Grid Operator) --> 14:task:(Check Supplier Concurrence)
+    14:task:(Check Supplier Concurrence) --> 15:exclusivegateway:{x}
+    15:exclusivegateway:{x} --> |Supplier Concurrence|16:task:(Inform Suppliers and Resolve Conflict)
+    15:exclusivegateway:{x} --> |No Concurrence|18:task:(Create CIS Contract)
+    16:task:(Inform Suppliers and Resolve Conflict) --> 17:task:(Terminate Old Supplier Agreement)
+    17:task:(Terminate Old Supplier Agreement) --> 18:task:(Create CIS Contract)
+    18:task:(Create CIS Contract) --> 19:task:(Customer Checks Contract)
+    19:task:(Customer Checks Contract) --> 20:exclusivegateway:{x}
+    20:exclusivegateway:{x} --> |Withdraw|21:task:(Withdraw from Contract)
+    20:exclusivegateway:{x} --> |Confirm|22:task:(Confirm Contract)
+    21:task:(Withdraw from Contract) --> 27:endevent:(((End)))
+    22:task:(Confirm Contract) --> 23:task:(Transmit Power Meter Data)
+    23:task:(Transmit Power Meter Data) --> 24:task:(Compute Final Billing)
+    24:task:(Compute Final Billing) --> 25:task:(Send Final Billing to Customer)
+    25:task:(Send Final Billing to Customer) --> 26:task:(Import Meter Data)
+    26:task:(Import Meter Data) --> 27:endevent:(((End)))
+    ```
+  time:timestamp: '2026-04-19T23:54:47.113903+02:00'
+---
+event:
+  concept:instance: 9539
+  id:id: ex-ante
+  cpee:instance: 440f2540-f70f-424b-8496-079ff684774d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a2c24f76b82cd92399e810b315c1c4a1c60ea315
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Switch-over Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Enter Customer Data into CRM</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Compare with Internal Database</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Errors Found" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Correct Errors</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Errors" language="text/javascript"/>
+      </choose>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Create New Customer Object</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Prepare Contract Documents</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a17" endpoint="" a:alt_id="8">
+          <parameters>
+            <label>Automated Check of Contract Documents</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Negative Response" a:alt_id="9" language="text/javascript">
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Analyze and Resolve Issues</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Regenerate Contract Documents</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Automated Check of Contract Documents</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a23" endpoint="" a:alt_id="12">
+          <parameters>
+            <label>Send Confirmation to Customer</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a29" endpoint="" a:alt_id="13">
+          <parameters>
+            <label>Send Request to Grid Operator</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a31" endpoint="" a:alt_id="14">
+          <parameters>
+            <label>Check Supplier Concurrence</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="15">
+          <alternative condition="Supplier Concurrence" language="text/javascript">
+            <call id="a35" endpoint="" a:alt_id="16">
+              <parameters>
+                <label>Inform Suppliers and Resolve Conflict</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a39" endpoint="" a:alt_id="17">
+              <parameters>
+                <label>Terminate Old Supplier Agreement</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="No Concurrence" language="text/javascript"/>
+        </choose>
+        <call id="a37" endpoint="" a:alt_id="18">
+          <parameters>
+            <label>Create CIS Contract</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a43" endpoint="" a:alt_id="19">
+          <parameters>
+            <label>Customer Checks Contract</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="20">
+          <alternative condition="Withdraw" language="text/javascript">
+            <call id="a47" endpoint="" a:alt_id="21">
+              <parameters>
+                <label>Withdraw from Contract</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Confirm" language="text/javascript">
+            <call id="a49" endpoint="" a:alt_id="22">
+              <parameters>
+                <label>Confirm Contract</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a53" endpoint="" a:alt_id="23">
+              <parameters>
+                <label>Transmit Power Meter Data</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a55" endpoint="" a:alt_id="24">
+              <parameters>
+                <label>Compute Final Billing</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a57" endpoint="" a:alt_id="25">
+              <parameters>
+                <label>Send Final Billing to Customer</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a59" endpoint="" a:alt_id="26">
+              <parameters>
+                <label>Import Meter Data</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-19T23:54:47.114029+02:00'

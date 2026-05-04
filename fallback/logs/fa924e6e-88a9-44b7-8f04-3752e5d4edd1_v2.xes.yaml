@@ -1,0 +1,324 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9264
+    cpee:name: Plain Instance
+    cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-14T07:59:49.825147+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Urlaubsantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: f8d4de48768db48d3845d1389d3bce4fff8ca453
+  time:timestamp: '2026-04-14T08:00:01.532825+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8d4de48768db48d3845d1389d3bce4fff8ca453
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-14T08:00:01.533316+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8d4de48768db48d3845d1389d3bce4fff8ca453
+  cpee:exposition: |-
+    # User Input:
+    Erstelle einen Urlaubsantragprozess
+  time:timestamp: '2026-04-14T08:00:01.533716+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8d4de48768db48d3845d1389d3bce4fff8ca453
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-14T08:00:01.533952+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8d4de48768db48d3845d1389d3bce4fff8ca453
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-14T08:00:01.534197+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8d4de48768db48d3845d1389d3bce4fff8ca453
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Urlaubsantrag erstellen)
+      1:task:(Urlaubsantrag erstellen) --> 2:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-14T08:00:01.534446+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8d4de48768db48d3845d1389d3bce4fff8ca453
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Urlaubsantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-14T08:00:01.534573+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-04-14T08:00:13.167627+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-04-14T08:00:13.375248+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-14T08:00:13.613684+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-14T08:00:13.646824+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2026-04-14T08:00:18.160365+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-14T08:00:18.380250+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: f8af4ff358f3a4a5d5c96834e70aaccca6f71ada
+  time:timestamp: '2026-04-14T08:01:42.333840+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8af4ff358f3a4a5d5c96834e70aaccca6f71ada
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Urlaubsantrag erstellen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-14T08:01:42.334012+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8af4ff358f3a4a5d5c96834e70aaccca6f71ada
+  cpee:exposition: |-
+    # User Input:
+    Erstelle einen Bestellprozess
+  time:timestamp: '2026-04-14T08:01:42.334104+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8af4ff358f3a4a5d5c96834e70aaccca6f71ada
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash
+  time:timestamp: '2026-04-14T08:01:42.334187+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8af4ff358f3a4a5d5c96834e70aaccca6f71ada
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Urlaubsantrag erstellen)
+    a1:task:(Urlaubsantrag erstellen)-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-14T08:01:42.334289+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8af4ff358f3a4a5d5c96834e70aaccca6f71ada
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    0:startevent:((Order Start))-->1:task:(Create Order)
+    1:task:(Create Order)-->2:endevent:(((Order End)))
+  time:timestamp: '2026-04-14T08:01:42.334368+02:00'
+---
+event:
+  concept:instance: 9264
+  id:id: ex-ante
+  cpee:instance: fa924e6e-88a9-44b7-8f04-3752e5d4edd1
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f8af4ff358f3a4a5d5c96834e70aaccca6f71ada
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-14T08:01:42.334441+02:00'

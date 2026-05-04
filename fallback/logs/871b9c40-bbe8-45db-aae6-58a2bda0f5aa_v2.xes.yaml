@@ -1,0 +1,255 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9987
+    cpee:name: Plain Instance
+    cpee:instance: 871b9c40-bbe8-45db-aae6-58a2bda0f5aa
+---
+event:
+  concept:instance: 9987
+  id:id: ex-ante
+  cpee:instance: 871b9c40-bbe8-45db-aae6-58a2bda0f5aa
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-27T10:30:38.692683+02:00'
+---
+event:
+  concept:instance: 9987
+  id:id: ex-ante
+  cpee:instance: 871b9c40-bbe8-45db-aae6-58a2bda0f5aa
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare for Lecture</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Attend Lecture</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Review Lecture Notes</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="4" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Ask Questions about Lecture</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Review Lecture Notes</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Study for Exam</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Take Exam</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: a63e34282666131e38cfeba85ef524f1a85a5a92
+  time:timestamp: '2026-04-27T10:31:25.833368+02:00'
+---
+event:
+  concept:instance: 9987
+  id:id: ex-ante
+  cpee:instance: 871b9c40-bbe8-45db-aae6-58a2bda0f5aa
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a63e34282666131e38cfeba85ef524f1a85a5a92
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-27T10:31:25.833572+02:00'
+---
+event:
+  concept:instance: 9987
+  id:id: ex-ante
+  cpee:instance: 871b9c40-bbe8-45db-aae6-58a2bda0f5aa
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a63e34282666131e38cfeba85ef524f1a85a5a92
+  cpee:exposition: |-
+    # User Input:
+    create a process for attending a lecture and afterwards taking the exam, like the general workflow of a student including preparation and more
+  time:timestamp: '2026-04-27T10:31:25.833669+02:00'
+---
+event:
+  concept:instance: 9987
+  id:id: ex-ante
+  cpee:instance: 871b9c40-bbe8-45db-aae6-58a2bda0f5aa
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a63e34282666131e38cfeba85ef524f1a85a5a92
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-04-27T10:31:25.833746+02:00'
+---
+event:
+  concept:instance: 9987
+  id:id: ex-ante
+  cpee:instance: 871b9c40-bbe8-45db-aae6-58a2bda0f5aa
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a63e34282666131e38cfeba85ef524f1a85a5a92
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-27T10:31:25.833832+02:00'
+---
+event:
+  concept:instance: 9987
+  id:id: ex-ante
+  cpee:instance: 871b9c40-bbe8-45db-aae6-58a2bda0f5aa
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a63e34282666131e38cfeba85ef524f1a85a5a92
+  cpee:exposition: |-
+    %% Output Intermediate
+    0:startevent:((Start)) --> 1:task:(Prepare for Lecture)
+    1:task:(Prepare for Lecture) --> 2:task:(Attend Lecture)
+    2:task:(Attend Lecture) --> 3:task:(Review Lecture Notes)
+    3:task:(Review Lecture Notes) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> 5:task:(Study for Exam)
+    4:exclusivegateway:{x} --> 6:task:(Ask Questions about Lecture)
+    5:task:(Study for Exam) --> 7:task:(Take Exam)
+    6:task:(Ask Questions about Lecture) --> 3:task:(Review Lecture Notes)
+    7:task:(Take Exam) --> 8:endevent:(((End)))
+  time:timestamp: '2026-04-27T10:31:25.833945+02:00'
+---
+event:
+  concept:instance: 9987
+  id:id: ex-ante
+  cpee:instance: 871b9c40-bbe8-45db-aae6-58a2bda0f5aa
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a63e34282666131e38cfeba85ef524f1a85a5a92
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare for Lecture</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Attend Lecture</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Review Lecture Notes</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="4" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Ask Questions about Lecture</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Review Lecture Notes</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Study for Exam</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Take Exam</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-27T10:31:25.834029+02:00'

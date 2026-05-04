@@ -1,0 +1,266 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9499
+    cpee:name: Plain Instance
+    cpee:instance: 7b98799f-215b-4088-87d9-8f64244e4d32
+---
+event:
+  concept:instance: 9499
+  id:id: ex-ante
+  cpee:instance: 7b98799f-215b-4088-87d9-8f64244e4d32
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-17T16:39:21.716092+02:00'
+---
+event:
+  concept:instance: 9499
+  id:id: ex-ante
+  cpee:instance: 7b98799f-215b-4088-87d9-8f64244e4d32
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Claim is Valid" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verify Claim Details</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Details are Valid" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Process Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Notify Customer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Details are Not Valid" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Reject Claim</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Claim is Not Valid" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Reject Claim</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 53359649ce394c26b1a4fb1daaa5b1da7d23d6be
+  time:timestamp: '2026-04-17T16:39:59.496317+02:00'
+---
+event:
+  concept:instance: 9499
+  id:id: ex-ante
+  cpee:instance: 7b98799f-215b-4088-87d9-8f64244e4d32
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53359649ce394c26b1a4fb1daaa5b1da7d23d6be
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-17T16:39:59.496522+02:00'
+---
+event:
+  concept:instance: 9499
+  id:id: ex-ante
+  cpee:instance: 7b98799f-215b-4088-87d9-8f64244e4d32
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53359649ce394c26b1a4fb1daaa5b1da7d23d6be
+  cpee:exposition: |-
+    # User Input:
+    The process starts when a claim is submitted. Subsequently, a decision
+    is made based on whether the claim is valid. If the claim is valid, the
+    claim details are verified. Following verification, another decision is
+    made based on whether the details are valid. If the details are valid, a
+    payment is processed, and the customer is notified. If the details are
+    not valid, the claim is rejected. If the initial claim is not valid, the claim
+    is also rejected. After the customer is notified or the claim is rejected,
+    the process ends
+  time:timestamp: '2026-04-17T16:39:59.496972+02:00'
+---
+event:
+  concept:instance: 9499
+  id:id: ex-ante
+  cpee:instance: 7b98799f-215b-4088-87d9-8f64244e4d32
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53359649ce394c26b1a4fb1daaa5b1da7d23d6be
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-17T16:39:59.497170+02:00'
+---
+event:
+  concept:instance: 9499
+  id:id: ex-ante
+  cpee:instance: 7b98799f-215b-4088-87d9-8f64244e4d32
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53359649ce394c26b1a4fb1daaa5b1da7d23d6be
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-17T16:39:59.497261+02:00'
+---
+event:
+  concept:instance: 9499
+  id:id: ex-ante
+  cpee:instance: 7b98799f-215b-4088-87d9-8f64244e4d32
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53359649ce394c26b1a4fb1daaa5b1da7d23d6be
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Submit Claim)
+    1:task:(Submit Claim) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Claim is Valid| 3:task:(Verify Claim Details)
+    2:exclusivegateway:{x} --> |Claim is Not Valid| 8:task:(Reject Claim)
+    3:task:(Verify Claim Details) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Details are Valid| 5:task:(Process Payment)
+    4:exclusivegateway:{x} --> |Details are Not Valid| 8:task:(Reject Claim)
+    5:task:(Process Payment) --> 6:task:(Notify Customer)
+    6:task:(Notify Customer) --> 7:endevent:(((endevent)))
+    8:task:(Reject Claim) --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-17T16:39:59.497340+02:00'
+---
+event:
+  concept:instance: 9499
+  id:id: ex-ante
+  cpee:instance: 7b98799f-215b-4088-87d9-8f64244e4d32
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 53359649ce394c26b1a4fb1daaa5b1da7d23d6be
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Claim is Valid" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Verify Claim Details</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Details are Valid" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Process Payment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Notify Customer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Details are Not Valid" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Reject Claim</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Claim is Not Valid" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Reject Claim</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-17T16:39:59.497423+02:00'

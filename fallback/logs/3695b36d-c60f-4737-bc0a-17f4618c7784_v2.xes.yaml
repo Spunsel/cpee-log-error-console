@@ -1,0 +1,323 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9463
+    cpee:name: Plain Instance
+    cpee:instance: 3695b36d-c60f-4737-bc0a-17f4618c7784
+---
+event:
+  concept:instance: 9463
+  id:id: ex-ante
+  cpee:instance: 3695b36d-c60f-4737-bc0a-17f4618c7784
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-16T12:36:47.637682+02:00'
+---
+event:
+  concept:instance: 9463
+  id:id: ex-ante
+  cpee:instance: 3695b36d-c60f-4737-bc0a-17f4618c7784
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Bestellung aufnehmen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Zahlung abwickeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Zahlung erfolgreich" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Lagerbestand pr&#xFC;fen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Lagerbestand nicht ausreichend" a:alt_id="5" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Einkauf ausl&#xF6;sen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Lagerbestand auff&#xFC;llen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Lagerbestand pr&#xFC;fen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a13" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Versand vorbereiten</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a17" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Lagerbestand aktualisieren</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a19" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Versand durchf&#xFC;hren</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+        <alternative condition="Zahlung fehlgeschlagen" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Bestellung stornieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 98e4256e5525524c961421a373bd9af9230fe96a
+  time:timestamp: '2026-04-16T12:39:39.790113+02:00'
+---
+event:
+  concept:instance: 9463
+  id:id: ex-ante
+  cpee:instance: 3695b36d-c60f-4737-bc0a-17f4618c7784
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 98e4256e5525524c961421a373bd9af9230fe96a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-16T12:39:39.790687+02:00'
+---
+event:
+  concept:instance: 9463
+  id:id: ex-ante
+  cpee:instance: 3695b36d-c60f-4737-bc0a-17f4618c7784
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 98e4256e5525524c961421a373bd9af9230fe96a
+  cpee:exposition: |-
+    # User Input:
+    Bitte modelliere mir ein E-Commerce Verkaufsabwicklung, welche mindestens folgende Aspekte binhaltet: Zahlungsabwicklung, Versand, Lagerbestandsänderung, Einkauf
+  time:timestamp: '2026-04-16T12:39:39.790894+02:00'
+---
+event:
+  concept:instance: 9463
+  id:id: ex-ante
+  cpee:instance: 3695b36d-c60f-4737-bc0a-17f4618c7784
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 98e4256e5525524c961421a373bd9af9230fe96a
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-16T12:39:39.791012+02:00'
+---
+event:
+  concept:instance: 9463
+  id:id: ex-ante
+  cpee:instance: 3695b36d-c60f-4737-bc0a-17f4618c7784
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 98e4256e5525524c961421a373bd9af9230fe96a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-16T12:39:39.791114+02:00'
+---
+event:
+  concept:instance: 9463
+  id:id: ex-ante
+  cpee:instance: 3695b36d-c60f-4737-bc0a-17f4618c7784
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 98e4256e5525524c961421a373bd9af9230fe96a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Bestellung aufnehmen)
+      1:task:(Bestellung aufnehmen) --> 2:task:(Zahlung abwickeln)
+      2:task:(Zahlung abwickeln) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Zahlung erfolgreich| 4:task:(Lagerbestand prüfen)
+      3:exclusivegateway:{x} --> |Zahlung fehlgeschlagen| 10:task:(Bestellung stornieren)
+      4:task:(Lagerbestand prüfen) --> 5:exclusivegateway:{x}
+      5:exclusivegateway:{x} --> |Lagerbestand ausreichend| 6:task:(Versand vorbereiten)
+      5:exclusivegateway:{x} --> |Lagerbestand nicht ausreichend| 9:task:(Einkauf auslösen)
+      6:task:(Versand vorbereiten) --> 7:task:(Lagerbestand aktualisieren)
+      7:task:(Lagerbestand aktualisieren) --> 8:task:(Versand durchführen)
+      8:task:(Versand durchführen) --> 11:endevent:(((endevent)))
+      9:task:(Einkauf auslösen) --> 12:task:(Lagerbestand auffüllen)
+      12:task:(Lagerbestand auffüllen) --> 4:task:(Lagerbestand prüfen)
+      10:task:(Bestellung stornieren) --> 11:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-16T12:39:39.791202+02:00'
+---
+event:
+  concept:instance: 9463
+  id:id: ex-ante
+  cpee:instance: 3695b36d-c60f-4737-bc0a-17f4618c7784
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 98e4256e5525524c961421a373bd9af9230fe96a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Bestellung aufnehmen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Zahlung abwickeln</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Zahlung erfolgreich" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Lagerbestand pr&#xFC;fen</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Lagerbestand nicht ausreichend" a:alt_id="5" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Einkauf ausl&#xF6;sen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Lagerbestand auff&#xFC;llen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Lagerbestand pr&#xFC;fen</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a13" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Versand vorbereiten</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a17" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Lagerbestand aktualisieren</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a19" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Versand durchf&#xFC;hren</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+        <alternative condition="Zahlung fehlgeschlagen" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Bestellung stornieren</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-16T12:39:39.791299+02:00'

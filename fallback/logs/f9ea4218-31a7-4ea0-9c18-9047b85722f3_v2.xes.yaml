@@ -1,0 +1,774 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9708
+    cpee:name: Enter info here
+    cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-21T22:10:09.205989+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 96dedb10ac5c5f5161309dc6b8eca8f426e29215
+  time:timestamp: '2026-04-21T22:23:56.750627+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96dedb10ac5c5f5161309dc6b8eca8f426e29215
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-21T22:23:56.750790+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96dedb10ac5c5f5161309dc6b8eca8f426e29215
+  cpee:exposition: |+
+    # User Input:
+    criar cliente
+
+  time:timestamp: '2026-04-21T22:23:56.750902+02:00'
+...
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96dedb10ac5c5f5161309dc6b8eca8f426e29215
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-04-21T22:23:56.750984+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96dedb10ac5c5f5161309dc6b8eca8f426e29215
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-21T22:23:56.751067+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96dedb10ac5c5f5161309dc6b8eca8f426e29215
+  cpee:exposition: |-
+    %% Output Intermediate
+    Based on the provided process description "criar cliente" which translates to "create customer", here is a simple BPMN model in Mermaid.js format:
+
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Create customer)
+    1:task:(Create customer) --> 2:endevent:(((endevent)))
+    ```
+
+    This model represents a straightforward process where a customer is created, starting from the start event and ending with the end event.
+  time:timestamp: '2026-04-21T22:23:56.751144+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96dedb10ac5c5f5161309dc6b8eca8f426e29215
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-21T22:23:56.751258+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="t1">
+        <parameters>
+          <label>Cliente chega</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="t2">
+          <parameters>
+            <label>Atendente anota o pedido</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="t3">
+          <parameters>
+            <label>Atendente confirma disponibilidade</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Est&#xE1; dispon&#xED;vel? N&#xC3;O" a:alt_id="eg1" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="t2">
+            <parameters>
+              <label>Atendente anota o pedido</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="t3">
+            <parameters>
+              <label>Atendente confirma disponibilidade</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="t4">
+          <parameters>
+            <label>Atendente informa valor e tempo de entrega</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="t5">
+          <parameters>
+            <label>Atendente registra o pedido</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: 7daa2f1d66ec0a64409460950ca4096aae822408
+  time:timestamp: '2026-04-21T22:24:30.326447+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7daa2f1d66ec0a64409460950ca4096aae822408
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-21T22:24:30.326676+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7daa2f1d66ec0a64409460950ca4096aae822408
+  cpee:exposition: |-
+    # User Input:
+    Criar um diagrama BPMN para uma pizzaria com 4 piscinas: Venda, Produção, Entrega e Estoque.
+
+    Piscina 1: Venda
+    Início: Cliente chega (por balcão, telefone ou app).
+    Tarefa 1: Atendente anota o pedido.
+    Tarefa 2: Atendente confirma disponibilidade de sabores e ingredientes.
+    Decisão 1: Está disponível?
+    - Se NÃO: Informar indisponibilidade e sugerir alternativas. Voltar para "Atendente anota o pedido".
+    - Se SIM: Seguir para Tarefa 3.
+    Tarefa 3: Atendente informa valor e tempo de entrega.
+    Tarefa 4: Atendente registra o pedido.
+    Fim da piscina Venda. Enviar mensagem para a piscina Produção.
+
+    Piscina 2: Produção
+    Início: Cozinha recebe o pedido (mensagem vinda da Venda).
+    Tarefa 1: Cozinha prepara o pedido solicitado.
+    Tarefa 2: Cozinha embala o pedido.
+    Fim da piscina Produção. Enviar mensagem para a piscina Entrega.
+
+    Piscina 3: Entrega
+    Início: Gerente recebe pedido pronto (mensagem vinda da Produção).
+    Tarefa 1: Gerente atribui pedido a um entregador.
+    Tarefa 2: Entregador confirma saída para entrega.
+    Tarefa 3: Entregador realiza a rota até o cliente.
+    Tarefa 4: Cliente recebe o pedido.
+    Decisão 1: O pagamento já foi realizado?
+    - Se NÃO: Cliente paga no ato da entrega.
+    - Se SIM: Seguir para Tarefa 5.
+    Tarefa 5: Entregador confirma a conclusão da entrega.
+    Fim da piscina Entrega.
+
+    Piscina 4: Estoque (processo paralelo e contínuo)
+    Início: Funcionário verifica quantidade de ingredientes periodicamente.
+    Decisão 1: É necessário comprar mais?
+    - Se NÃO: Voltar para "Funcionário verifica quantidade".
+    - Se SIM: Seguir para Tarefa 1.
+    Tarefa 1: Funcionário solicita compra de ingredientes.
+    Tarefa 2: Se houver falta de um item, comunicar a piscina Venda imediatamente para suspender a venda do produto.
+    Voltar para "Funcionário verifica quantidade".
+  time:timestamp: '2026-04-21T22:24:30.326781+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7daa2f1d66ec0a64409460950ca4096aae822408
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-04-21T22:24:30.326897+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7daa2f1d66ec0a64409460950ca4096aae822408
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Create customer)
+    a1:task:(Create customer)-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-21T22:24:30.326981+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7daa2f1d66ec0a64409460950ca4096aae822408
+  cpee:exposition: |-
+    %% Output Intermediate
+    Here is the Mermaid.js code for the provided BPMN model:
+
+    ```mermaid
+    graph LR
+    se1:startevent:((startevent))-->t1:task:(Cliente chega)
+    t1:task:-->t2:task:(Atendente anota o pedido)
+    t2:task:-->t3:task:(Atendente confirma disponibilidade)
+    t3:task:-->eg1:exclusivegateway:{x}
+    eg1:exclusivegateway:{x}-->|Está disponível? NÃO|t2:task:
+    eg1:exclusivegateway:{x}-->|Está disponível? SIM|t4:task:(Atendente informa valor e tempo de entrega)
+    t4:task:-->t5:task:(Atendente registra o pedido)
+    t5:task:-->ee1:endevent:(((endevent)))
+
+    graph LR
+    se2:startevent:((startevent))-->t6:task:(Cozinha recebe o pedido)
+    t6:task:-->t7:task:(Cozinha prepara o pedido solicitado)
+    t7:task:-->t8:task:(Cozinha embala o pedido)
+    t8:task:-->ee2:endevent:(((endevent)))
+
+    graph LR
+    se3:startevent:((startevent))-->t9:task:(Gerente recebe pedido pronto)
+    t9:task:-->t10:task:(Gerente atribui pedido a um entregador)
+    t10:task:-->t11:task:(Entregador confirma saída para entrega)
+    t11:task:-->t12:task:(Entregador realiza a rota até o cliente)
+    t12:task:-->t13:task:(Cliente recebe o pedido)
+    t13:task:-->eg2:exclusivegateway:{x}
+    eg2:exclusivegateway:{x}-->|O pagamento já foi realizado? NÃO|t14:task:(Cliente paga no ato da entrega)
+    eg2:exclusivegateway:{x}-->|O pagamento já foi realizado? SIM|t15:task:(Entregador confirma a conclusão da entrega)
+    t15:task:-->ee3:endevent:(((endevent)))
+
+    graph LR
+    se4:startevent:((startevent))-->t16:task:(Funcionário verifica quantidade de ingredientes)
+    t16:task:-->eg3:exclusivegateway:{x}
+    eg3:exclusivegateway:{x}-->|É necessário comprar mais? NÃO|t16:task:
+    eg3:exclusivegateway:{x}-->|É necessário comprar mais? SIM|t17:task:(Funcionário solicita compra de ingredientes)
+    t17:task:-->t18:task:(Comunicar a piscina Venda)
+    t18:task:-->t16:task:
+    ```
+
+    Please note that this is a simplified version of the process. In a real-world scenario, you might want to use message events or signal events to model the communication between the pools (Venda, Produção, Entrega, Estoque). However, Mermaid.js does not support these BPMN elements.
+  time:timestamp: '2026-04-21T22:24:30.327076+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7daa2f1d66ec0a64409460950ca4096aae822408
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="t1">
+        <parameters>
+          <label>Cliente chega</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="t2">
+          <parameters>
+            <label>Atendente anota o pedido</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="t3">
+          <parameters>
+            <label>Atendente confirma disponibilidade</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Est&#xE1; dispon&#xED;vel? N&#xC3;O" a:alt_id="eg1" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="t2">
+            <parameters>
+              <label>Atendente anota o pedido</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="t3">
+            <parameters>
+              <label>Atendente confirma disponibilidade</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="t4">
+          <parameters>
+            <label>Atendente informa valor e tempo de entrega</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="t5">
+          <parameters>
+            <label>Atendente registra o pedido</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-21T22:24:30.327178+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Cliente chega</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw1e">
+          <alternative condition="">
+            <call id="a7" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Atendente anota o pedido</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a9" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Atendente confirma disponibilidade</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw2s">
+              <alternative condition="">
+                <call id="a13" endpoint="" a:alt_id="a11">
+                  <parameters>
+                    <label>Atendente informa valor e tempo de entrega</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a15" endpoint="" a:alt_id="a13">
+                  <parameters>
+                    <label>Atendente registra o pedido</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Est&#xE1; dispon&#xED;vel? N&#xC3;O" language="text/javascript">
+                <call id="a19" endpoint="" a:alt_id="a14">
+                  <parameters>
+                    <label>Crie cliente</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a21" endpoint="" a:alt_id="a15">
+                  <parameters>
+                    <label>Pe&#xE7;a outros dados</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: 4fab45498a7bc2cd526bf8d164cd671f6696c2b5
+  time:timestamp: '2026-04-21T22:25:42.375408+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fab45498a7bc2cd526bf8d164cd671f6696c2b5
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="t1">
+        <parameters>
+          <label>Cliente chega</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="t2">
+          <parameters>
+            <label>Atendente anota o pedido</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="t3">
+          <parameters>
+            <label>Atendente confirma disponibilidade</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Está disponível? NÃO" a:alt_id="eg1" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="t2">
+            <parameters>
+              <label>Atendente anota o pedido</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="t3">
+            <parameters>
+              <label>Atendente confirma disponibilidade</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="t4">
+          <parameters>
+            <label>Atendente informa valor e tempo de entrega</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a13" endpoint="" a:alt_id="t5">
+          <parameters>
+            <label>Atendente registra o pedido</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-21T22:25:42.375588+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fab45498a7bc2cd526bf8d164cd671f6696c2b5
+  cpee:exposition: |-
+    # User Input:
+    crie cliente caso exista volte erro caso n peca outros dados
+  time:timestamp: '2026-04-21T22:25:42.375700+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fab45498a7bc2cd526bf8d164cd671f6696c2b5
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-04-21T22:25:42.375787+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fab45498a7bc2cd526bf8d164cd671f6696c2b5
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Cliente chega)
+    a1:task:(Cliente chega)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Atendente anota o pedido)
+    a3:task:(Atendente anota o pedido)-->a5:task:(Atendente confirma disponibilidade)
+    a5:task:(Atendente confirma disponibilidade)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a11:task:(Atendente informa valor e tempo de entrega)
+    a11:task:(Atendente informa valor e tempo de entrega)-->a13:task:(Atendente registra o pedido)
+    a13:task:(Atendente registra o pedido)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Está disponível? NÃO"|a3:task:(Atendente anota o pedido)
+    a3:task:(Atendente anota o pedido)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-21T22:25:42.375880+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fab45498a7bc2cd526bf8d164cd671f6696c2b5
+  cpee:exposition: |-
+    %% Output Intermediate
+    Based on your provided changes, I understand that you want to add a new task "Crie cliente" and a new condition "Caso exista volte erro". Also, you want to add a new task "Peça outros dados" for the condition "Caso não". Here is the updated Mermaid.js code:
+
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Cliente chega)
+    a1:task:(Cliente chega)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Atendente anota o pedido)
+    a3:task:(Atendente anota o pedido)-->a5:task:(Atendente confirma disponibilidade)
+    a5:task:(Atendente confirma disponibilidade)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a11:task:(Atendente informa valor e tempo de entrega)
+    a11:task:(Atendente informa valor e tempo de entrega)-->a13:task:(Atendente registra o pedido)
+    a13:task:(Atendente registra o pedido)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Está disponível? NÃO"|a14:task:(Crie cliente)
+    a14:task:(Crie cliente)-->|"Caso exista volte erro"|a15:task:(Peça outros dados)
+    a15:task:(Peça outros dados)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    ```
+
+    Please note that I've added new tasks with ids "a14" and "a15". Also, I've added a new condition "Caso exista volte erro" for the task "Crie cliente".
+  time:timestamp: '2026-04-21T22:25:42.375976+02:00'
+---
+event:
+  concept:instance: 9708
+  id:id: ex-ante
+  cpee:instance: f9ea4218-31a7-4ea0-9c18-9047b85722f3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4fab45498a7bc2cd526bf8d164cd671f6696c2b5
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Cliente chega</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw1e">
+          <alternative condition="">
+            <call id="a7" endpoint="" a:alt_id="a3">
+              <parameters>
+                <label>Atendente anota o pedido</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a9" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Atendente confirma disponibilidade</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="gw2s">
+              <alternative condition="">
+                <call id="a13" endpoint="" a:alt_id="a11">
+                  <parameters>
+                    <label>Atendente informa valor e tempo de entrega</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a15" endpoint="" a:alt_id="a13">
+                  <parameters>
+                    <label>Atendente registra o pedido</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Est&#xE1; dispon&#xED;vel? N&#xC3;O" language="text/javascript">
+                <call id="a19" endpoint="" a:alt_id="a14">
+                  <parameters>
+                    <label>Crie cliente</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <call id="a21" endpoint="" a:alt_id="a15">
+                  <parameters>
+                    <label>Pe&#xE7;a outros dados</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-21T22:25:42.376069+02:00'

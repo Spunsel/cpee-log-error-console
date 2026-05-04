@@ -1,0 +1,298 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9556
+    cpee:name: Plain Instance
+    cpee:instance: 3a09a44f-b8b8-45a2-8207-70b4941e5b4a
+---
+event:
+  concept:instance: 9556
+  id:id: ex-ante
+  cpee:instance: 3a09a44f-b8b8-45a2-8207-70b4941e5b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-20T00:04:54.775176+02:00'
+---
+event:
+  concept:instance: 9556
+  id:id: ex-ante
+  cpee:instance: 3a09a44f-b8b8-45a2-8207-70b4941e5b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive New Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Determine Parts and Quantities</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Enter Data into PPS</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Transfer Data to ERP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Parts Missing" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Procure Missing Parts</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Parts Missing" language="text/javascript"/>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Schedule Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Implement Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Check Order Quality</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 1c1dcfb795e9138ffbdba6b4006c50a6fe82d7d1
+  time:timestamp: '2026-04-20T00:05:04.738156+02:00'
+---
+event:
+  concept:instance: 9556
+  id:id: ex-ante
+  cpee:instance: 3a09a44f-b8b8-45a2-8207-70b4941e5b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c1dcfb795e9138ffbdba6b4006c50a6fe82d7d1
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-20T00:05:04.738372+02:00'
+---
+event:
+  concept:instance: 9556
+  id:id: ex-ante
+  cpee:instance: 3a09a44f-b8b8-45a2-8207-70b4941e5b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c1dcfb795e9138ffbdba6b4006c50a6fe82d7d1
+  cpee:exposition: |-
+    # User Input:
+    Every time we get a new order from the sales department , first , one of my masters determines the necessary parts and quantities as well as the delivery date .
+    Once that information is present , it has to be entered into our production planning system ( PPS ) .
+    It optimizes our production processes and creates possibly uniform work packages so that the setup times are minimized .
+    Besides , it creates a list of parts to be procured .
+    Unfortunately it is not coupled correctly to our Enterprise Resource Planning system ( ERP ) , so the data must be transferred manually .
+    By the way , that is the second step .
+    Once all the data is present , we need to decide whether any parts are missing and must be procured or if this is not necessary .
+    Once production is scheduled to start , we receive a notice from the system and an employee takes care of the implementation .
+    Finally , the order will be checked again for its quality .
+  time:timestamp: '2026-04-20T00:05:04.738476+02:00'
+---
+event:
+  concept:instance: 9556
+  id:id: ex-ante
+  cpee:instance: 3a09a44f-b8b8-45a2-8207-70b4941e5b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c1dcfb795e9138ffbdba6b4006c50a6fe82d7d1
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-20T00:05:04.738559+02:00'
+---
+event:
+  concept:instance: 9556
+  id:id: ex-ante
+  cpee:instance: 3a09a44f-b8b8-45a2-8207-70b4941e5b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c1dcfb795e9138ffbdba6b4006c50a6fe82d7d1
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-20T00:05:04.738629+02:00'
+---
+event:
+  concept:instance: 9556
+  id:id: ex-ante
+  cpee:instance: 3a09a44f-b8b8-45a2-8207-70b4941e5b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c1dcfb795e9138ffbdba6b4006c50a6fe82d7d1
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Receive New Order)
+      2:task:(Determine Parts and Quantities)
+      3:task:(Enter Data into PPS)
+      4:task:(Transfer Data to ERP)
+      5:exclusivegateway:{x}
+      6:task:(Procure Missing Parts)
+      7:task:(Schedule Production)
+      8:task:(Implement Production)
+      9:task:(Check Order Quality)
+      10:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Receive New Order)
+      1:task:(Receive New Order) --> 2:task:(Determine Parts and Quantities)
+      2:task:(Determine Parts and Quantities) --> 3:task:(Enter Data into PPS)
+      3:task:(Enter Data into PPS) --> 4:task:(Transfer Data to ERP)
+      4:task:(Transfer Data to ERP) --> 5:exclusivegateway:{x}
+      5:exclusivegateway:{x} --> |Parts Missing|6:task:(Procure Missing Parts)
+      5:exclusivegateway:{x} --> |No Parts Missing|7:task:(Schedule Production)
+      6:task:(Procure Missing Parts) --> 7:task:(Schedule Production)
+      7:task:(Schedule Production) --> 8:task:(Implement Production)
+      8:task:(Implement Production) --> 9:task:(Check Order Quality)
+      9:task:(Check Order Quality) --> 10:endevent:(((End)))
+    ```
+  time:timestamp: '2026-04-20T00:05:04.738791+02:00'
+---
+event:
+  concept:instance: 9556
+  id:id: ex-ante
+  cpee:instance: 3a09a44f-b8b8-45a2-8207-70b4941e5b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1c1dcfb795e9138ffbdba6b4006c50a6fe82d7d1
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive New Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Determine Parts and Quantities</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Enter Data into PPS</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Transfer Data to ERP</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Parts Missing" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Procure Missing Parts</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Parts Missing" language="text/javascript"/>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Schedule Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Implement Production</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Check Order Quality</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-20T00:05:04.738921+02:00'

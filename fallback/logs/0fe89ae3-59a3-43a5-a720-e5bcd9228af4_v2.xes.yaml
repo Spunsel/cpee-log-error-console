@@ -1,0 +1,751 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9536
+    cpee:name: Plain Instance
+    cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-19T23:52:20.802924+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Room Service Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Order to Kitchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="3">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Prepare Food</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Fetch Wine and Prepare Beverages</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Prepare Cart and Gather Silverware</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Deliver Order to Guest's Room</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Debit Guest's Account</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="10">
+        <alternative condition="Another Order" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Prepare Next Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No More Orders" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 9beb7781aeac2bffe583077588ed4b1c8e41093e
+  time:timestamp: '2026-04-19T23:52:35.576457+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9beb7781aeac2bffe583077588ed4b1c8e41093e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-19T23:52:35.576645+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9beb7781aeac2bffe583077588ed4b1c8e41093e
+  cpee:exposition: |-
+    # User Input:
+    The Evanstonian is an upscale independent hotel .
+    When a guest calls room service at The Evanstonian , the room-service manager takes down the order .
+    She then submits an order ticket to the kitchen to begin preparing the food .
+    She also gives an order to the sommelier ( i.e . , the wine waiter ) to fetch wine from the cellar and to prepare any other alcoholic beverages .
+    Eighty percent of room-service orders include wine or some other alcoholic beverage .
+    Finally , she assigns the order to the waiter .
+    While the kitchen and the sommelier are doing their tasks , the waiter readies a cart ( i.e . , puts a tablecloth on the cart and gathers silverware ) .
+    The waiter is also responsible for nonalcoholic drinks .
+    Once the food , wine , and cart are ready , the waiter delivers it to the guest ' s room .
+    After returning to the room-service station , the waiter debits the guest ' s account .
+    The waiter may wait to do the billing if he has another order to prepare or deliver .
+  time:timestamp: '2026-04-19T23:52:35.577133+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9beb7781aeac2bffe583077588ed4b1c8e41093e
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-19T23:52:35.577301+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9beb7781aeac2bffe583077588ed4b1c8e41093e
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-19T23:52:35.577384+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9beb7781aeac2bffe583077588ed4b1c8e41093e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent))
+      1:task:(Receive Room Service Order)
+      2:task:(Submit Order to Kitchen)
+      3:parallelgateway:{AND}
+      4:task:(Prepare Food)
+      5:task:(Fetch Wine and Prepare Beverages)
+      6:task:(Prepare Cart and Gather Silverware)
+      7:parallelgateway:{AND}
+      8:task:(Deliver Order to Guest's Room)
+      9:task:(Debit Guest's Account)
+      10:exclusivegateway:{x}
+      11:task:(Prepare Next Order)
+      12:endevent:(((endevent)))
+
+      0:startevent:((startevent)) --> 1:task:(Receive Room Service Order)
+      1:task:(Receive Room Service Order) --> 2:task:(Submit Order to Kitchen)
+      2:task:(Submit Order to Kitchen) --> 3:parallelgateway:{AND}
+      3:parallelgateway:{AND} --> 4:task:(Prepare Food)
+      3:parallelgateway:{AND} --> |80%|5:task:(Fetch Wine and Prepare Beverages)
+      3:parallelgateway:{AND} --> 6:task:(Prepare Cart and Gather Silverware)
+      4:task:(Prepare Food) --> 7:parallelgateway:{AND}
+      5:task:(Fetch Wine and Prepare Beverages) --> 7:parallelgateway:{AND}
+      6:task:(Prepare Cart and Gather Silverware) --> 7:parallelgateway:{AND}
+      7:parallelgateway:{AND} --> 8:task:(Deliver Order to Guest's Room)
+      8:task:(Deliver Order to Guest's Room) --> 9:task:(Debit Guest's Account)
+      9:task:(Debit Guest's Account) --> 10:exclusivegateway:{x}
+      10:exclusivegateway:{x} --> |Another Order|11:task:(Prepare Next Order)
+      10:exclusivegateway:{x} --> |No More Orders|12:endevent:(((endevent)))
+      11:task:(Prepare Next Order) --> 12:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-19T23:52:35.577463+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9beb7781aeac2bffe583077588ed4b1c8e41093e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Room Service Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Order to Kitchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="3">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Prepare Food</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Fetch Wine and Prepare Beverages</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Prepare Cart and Gather Silverware</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Deliver Order to Guest's Room</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Debit Guest's Account</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="10">
+        <alternative condition="Another Order" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Prepare Next Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No More Orders" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-19T23:52:35.577622+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Select Underwriters</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Provide Procedural and Financial Advice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Buy the Issue</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Resell to Public</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Prepare Registration Statement for SEC</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Check Compliance with Blue-Sky Laws</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Firm Up Issue Price</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Arrange Road Show</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Receive SEC Clearance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Fix Issue Price</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="11">
+        <alternative condition="No Reason Found" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Enter Firm Commitment to Buy Stock</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Offer to Public</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reason Found" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Re-evaluate Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c401d827de3d03998d722b10a898d796cf5a997a
+  time:timestamp: '2026-04-19T23:53:08.197696+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c401d827de3d03998d722b10a898d796cf5a997a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Room Service Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Order to Kitchen</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="3">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Prepare Food</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Fetch Wine and Prepare Beverages</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Prepare Cart and Gather Silverware</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Deliver Order to Guest's Room</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a21" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Debit Guest's Account</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="10">
+        <alternative condition="Another Order" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Prepare Next Order</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No More Orders" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-19T23:53:08.198019+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c401d827de3d03998d722b10a898d796cf5a997a
+  cpee:exposition: |-
+    # User Input:
+    Whenever a company makes the decision to go public , its first task is to select the underwriters .
+    Underwriters act as financial midwives to a new issue .
+    Usually they play a triple role : First they provide the company with procedural and financial advice , then they buy the issue , and finally they resell it to the public .
+    Established underwriters are careful of their reputation and will not handle a new issue unless they believe the facts have been presented fairly .
+    Thus , in addition to handling the sale of a company ' s issue , the underwriters in effect give their seal of approval to it .
+    They prepare a registration statement for the approval of the Securities and Exchange Commission ( SEC ) .
+    In addition to registering the issue with the SEC , they need to check that the issue complies with the so-called blue-sky laws of each state that regulate sales of securities within the state .
+    While the registration statement is awaiting approval , underwriters begin to firm up the issue price .
+    They arrange a road show to talk to potential investors .
+    Immediately after they receive clearance from the SEC , underwriters fix the issue price .
+    After that they enter into a firm commitment to buy the stock and then offer it to the public , when they haven ' t still found any reason not to do it .
+  time:timestamp: '2026-04-19T23:53:08.199162+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c401d827de3d03998d722b10a898d796cf5a997a
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-19T23:53:08.199289+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c401d827de3d03998d722b10a898d796cf5a997a
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Room Service Order)
+    a1:task:(Receive Room Service Order)-->a3:task:(Submit Order to Kitchen)
+    a3:task:(Submit Order to Kitchen)-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a7:task:(Prepare Food)
+    a7:task:(Prepare Food)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a9:task:(Fetch Wine and Prepare Beverages)
+    a9:task:(Fetch Wine and Prepare Beverages)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a11:task:(Prepare Cart and Gather Silverware)
+    a11:task:(Prepare Cart and Gather Silverware)-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->a19:task:(Deliver Order to Guest's Room)
+    a19:task:(Deliver Order to Guest's Room)-->a21:task:(Debit Guest's Account)
+    a21:task:(Debit Guest's Account)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Another Order"|a25:task:(Prepare Next Order)
+    a25:task:(Prepare Next Order)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"No More Orders"|gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-19T23:53:08.199383+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c401d827de3d03998d722b10a898d796cf5a997a
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent))
+    0:startevent:((startevent)) --> 1:task:(Select Underwriters)
+    1:task:(Select Underwriters) --> 2:task:(Provide Procedural and Financial Advice)
+    2:task:(Provide Procedural and Financial Advice) --> 3:task:(Buy the Issue)
+    3:task:(Buy the Issue) --> 4:task:(Resell to Public)
+    4:task:(Resell to Public) --> 5:task:(Prepare Registration Statement for SEC)
+    5:task:(Prepare Registration Statement for SEC) --> 6:task:(Check Compliance with Blue-Sky Laws)
+    6:task:(Check Compliance with Blue-Sky Laws) --> 7:task:(Firm Up Issue Price)
+    7:task:(Firm Up Issue Price) --> 8:task:(Arrange Road Show)
+    8:task:(Arrange Road Show) --> 9:task:(Receive SEC Clearance)
+    9:task:(Receive SEC Clearance) --> 10:task:(Fix Issue Price)
+    10:task:(Fix Issue Price) --> 11:exclusivegateway:{x}
+    11:exclusivegateway:{x} --> |"No Reason Found"| 12:task:(Enter Firm Commitment to Buy Stock)
+    11:exclusivegateway:{x} --> |"Reason Found"| 13:task:(Re-evaluate Decision)
+    12:task:(Enter Firm Commitment to Buy Stock) --> 14:task:(Offer to Public)
+    14:task:(Offer to Public) --> 15:endevent:(((endevent)))
+    13:task:(Re-evaluate Decision) --> 15:endevent:(((endevent)))
+  time:timestamp: '2026-04-19T23:53:08.199481+02:00'
+---
+event:
+  concept:instance: 9536
+  id:id: ex-ante
+  cpee:instance: 0fe89ae3-59a3-43a5-a720-e5bcd9228af4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c401d827de3d03998d722b10a898d796cf5a997a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Select Underwriters</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Provide Procedural and Financial Advice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Buy the Issue</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Resell to Public</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Prepare Registration Statement for SEC</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Check Compliance with Blue-Sky Laws</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Firm Up Issue Price</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Arrange Road Show</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a17" endpoint="" a:alt_id="9">
+        <parameters>
+          <label>Receive SEC Clearance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Fix Issue Price</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="11">
+        <alternative condition="No Reason Found" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Enter Firm Commitment to Buy Stock</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Offer to Public</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Reason Found" language="text/javascript">
+          <call id="a25" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Re-evaluate Decision</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-19T23:53:08.199567+02:00'

@@ -1,0 +1,288 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9542
+    cpee:name: Plain Instance
+    cpee:instance: 73f882fd-bf63-4ca5-89d4-c0af9c12de9c
+---
+event:
+  concept:instance: 9542
+  id:id: ex-ante
+  cpee:instance: 73f882fd-bf63-4ca5-89d4-c0af9c12de9c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-19T23:56:21.287254+02:00'
+---
+event:
+  concept:instance: 9542
+  id:id: ex-ante
+  cpee:instance: 73f882fd-bf63-4ca5-89d4-c0af9c12de9c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f038767d2dbbfacd497613697dfa7a77f39b9068
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-19T23:56:31.988518+02:00'
+---
+event:
+  concept:instance: 9542
+  id:id: ex-ante
+  cpee:instance: 73f882fd-bf63-4ca5-89d4-c0af9c12de9c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f038767d2dbbfacd497613697dfa7a77f39b9068
+  cpee:exposition: |-
+    # User Input:
+    After a claim is registered , it is examined by a claims officer .
+    The claims officer then writes a settlement recommendation .
+    This recommendation is then checked by a senior claims officer who may mark the claim as OK or Not OK .
+    If the claim is marked as Not OK , it is sent back to the claims officer and the recommendation is repeated .
+    If the claim is OK , the claim handling process proceeds .
+  time:timestamp: '2026-04-19T23:56:31.988839+02:00'
+---
+event:
+  concept:instance: 9542
+  id:id: ex-ante
+  cpee:instance: 73f882fd-bf63-4ca5-89d4-c0af9c12de9c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Register Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Examine Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Write Settlement Recommendation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Check Recommendation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Not OK" a:alt_id="5" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Mark Claim as Not OK</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Write Settlement Recommendation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Check Recommendation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Mark Claim as OK</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: f038767d2dbbfacd497613697dfa7a77f39b9068
+  time:timestamp: '2026-04-19T23:56:31.988324+02:00'
+---
+event:
+  concept:instance: 9542
+  id:id: ex-ante
+  cpee:instance: 73f882fd-bf63-4ca5-89d4-c0af9c12de9c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f038767d2dbbfacd497613697dfa7a77f39b9068
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-19T23:56:31.989117+02:00'
+---
+event:
+  concept:instance: 9542
+  id:id: ex-ante
+  cpee:instance: 73f882fd-bf63-4ca5-89d4-c0af9c12de9c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f038767d2dbbfacd497613697dfa7a77f39b9068
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Register Claim)
+      2:task:(Examine Claim)
+      3:task:(Write Settlement Recommendation)
+      4:task:(Check Recommendation)
+      5:exclusivegateway:{x}
+      6:task:(Mark Claim as OK)
+      7:task:(Mark Claim as Not OK)
+      8:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Register Claim)
+      1:task:(Register Claim) --> 2:task:(Examine Claim)
+      2:task:(Examine Claim) --> 3:task:(Write Settlement Recommendation)
+      3:task:(Write Settlement Recommendation) --> 4:task:(Check Recommendation)
+      4:task:(Check Recommendation) --> 5:exclusivegateway:{x}
+      5:exclusivegateway:{x} --> |OK| 6:task:(Mark Claim as OK)
+      5:exclusivegateway:{x} --> |Not OK| 7:task:(Mark Claim as Not OK)
+      6:task:(Mark Claim as OK) --> 8:endevent:(((End)))
+      7:task:(Mark Claim as Not OK) --> 3:task:(Write Settlement Recommendation)
+    ```
+  time:timestamp: '2026-04-19T23:56:31.989234+02:00'
+---
+event:
+  concept:instance: 9542
+  id:id: ex-ante
+  cpee:instance: 73f882fd-bf63-4ca5-89d4-c0af9c12de9c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f038767d2dbbfacd497613697dfa7a77f39b9068
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Register Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Examine Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Write Settlement Recommendation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Check Recommendation</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Not OK" a:alt_id="5" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Mark Claim as Not OK</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Write Settlement Recommendation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Check Recommendation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a11" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Mark Claim as OK</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-19T23:56:31.989323+02:00'
+---
+event:
+  concept:instance: 9542
+  id:id: ex-ante
+  cpee:instance: 73f882fd-bf63-4ca5-89d4-c0af9c12de9c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f038767d2dbbfacd497613697dfa7a77f39b9068
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-19T23:56:31.988988+02:00'

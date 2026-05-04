@@ -1,0 +1,316 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9546
+    cpee:name: Plain Instance
+    cpee:instance: 2547bcbc-d813-4581-985d-c8be948b0b4a
+---
+event:
+  concept:instance: 9546
+  id:id: ex-ante
+  cpee:instance: 2547bcbc-d813-4581-985d-c8be948b0b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-19T23:59:29.132402+02:00'
+---
+event:
+  concept:instance: 9546
+  id:id: ex-ante
+  cpee:instance: 2547bcbc-d813-4581-985d-c8be948b0b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Check Documents</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Register Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Check Insurance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Perform Assessment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Positive Assessment" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Authorize Repairs</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Schedule Payment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Negative Assessment" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Reject Claim</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Send Letter to Customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 9adf0539a06bf862f50d3107652a85859e1ac859
+  time:timestamp: '2026-04-19T23:59:41.218015+02:00'
+---
+event:
+  concept:instance: 9546
+  id:id: ex-ante
+  cpee:instance: 2547bcbc-d813-4581-985d-c8be948b0b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9adf0539a06bf862f50d3107652a85859e1ac859
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-19T23:59:41.218275+02:00'
+---
+event:
+  concept:instance: 9546
+  id:id: ex-ante
+  cpee:instance: 2547bcbc-d813-4581-985d-c8be948b0b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9adf0539a06bf862f50d3107652a85859e1ac859
+  cpee:exposition: |-
+    # User Input:
+    The process starts when a customer submits a claim by sending in relevant documentation .
+    The Notification department at the car insurer checks the documents upon completeness and registers the claim .
+    Then , the Handling department picks up the claim and checks the insurance .
+    Then , an assessment is performed .
+    If the assessment is positive , a garage is phoned to authorise the repairs and the payment is scheduled ( in this order ) .
+    Otherwise , the claim is rejected .
+    In any case ( whether the outcome is positive or negative ) , a letter is sent to the customer and the process is considered to be complete .
+  time:timestamp: '2026-04-19T23:59:41.218831+02:00'
+---
+event:
+  concept:instance: 9546
+  id:id: ex-ante
+  cpee:instance: 2547bcbc-d813-4581-985d-c8be948b0b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9adf0539a06bf862f50d3107652a85859e1ac859
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-19T23:59:41.219007+02:00'
+---
+event:
+  concept:instance: 9546
+  id:id: ex-ante
+  cpee:instance: 2547bcbc-d813-4581-985d-c8be948b0b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9adf0539a06bf862f50d3107652a85859e1ac859
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-19T23:59:41.219125+02:00'
+---
+event:
+  concept:instance: 9546
+  id:id: ex-ante
+  cpee:instance: 2547bcbc-d813-4581-985d-c8be948b0b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9adf0539a06bf862f50d3107652a85859e1ac859
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Submit Claim)
+      2:task:(Check Documents)
+      3:task:(Register Claim)
+      4:task:(Check Insurance)
+      5:task:(Perform Assessment)
+      6:exclusivegateway:{x}
+      7:task:(Authorize Repairs)
+      8:task:(Schedule Payment)
+      9:task:(Reject Claim)
+      10:task:(Send Letter to Customer)
+      11:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Submit Claim)
+      1:task:(Submit Claim) --> 2:task:(Check Documents)
+      2:task:(Check Documents) --> 3:task:(Register Claim)
+      3:task:(Register Claim) --> 4:task:(Check Insurance)
+      4:task:(Check Insurance) --> 5:task:(Perform Assessment)
+      5:task:(Perform Assessment) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Positive Assessment| 7:task:(Authorize Repairs)
+      6:exclusivegateway:{x} --> |Negative Assessment| 9:task:(Reject Claim)
+      7:task:(Authorize Repairs) --> 8:task:(Schedule Payment)
+      8:task:(Schedule Payment) --> 10:task:(Send Letter to Customer)
+      9:task:(Reject Claim) --> 10:task:(Send Letter to Customer)
+      10:task:(Send Letter to Customer) --> 11:endevent:(((End)))
+    ```
+  time:timestamp: '2026-04-19T23:59:41.219230+02:00'
+---
+event:
+  concept:instance: 9546
+  id:id: ex-ante
+  cpee:instance: 2547bcbc-d813-4581-985d-c8be948b0b4a
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9adf0539a06bf862f50d3107652a85859e1ac859
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Check Documents</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Register Claim</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Check Insurance</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Perform Assessment</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="6">
+        <alternative condition="Positive Assessment" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Authorize Repairs</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Schedule Payment</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Negative Assessment" language="text/javascript">
+          <call id="a15" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Reject Claim</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a19" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Send Letter to Customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-19T23:59:41.219351+02:00'

@@ -1,0 +1,216 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9296
+    cpee:name: Plain Instance
+    cpee:instance: 8bcf39de-3d98-4ad3-9cc5-062173ec9601
+---
+event:
+  concept:instance: 9296
+  id:id: ex-ante
+  cpee:instance: 8bcf39de-3d98-4ad3-9cc5-062173ec9601
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-14T15:13:08.506934+02:00'
+---
+event:
+  concept:instance: 9296
+  id:id: ex-ante
+  cpee:instance: 8bcf39de-3d98-4ad3-9cc5-062173ec9601
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Application Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Application Accepted" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Receive Acceptance Letter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Application Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Receive Rejection Letter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 9e37c7eb8c8e9639e274f259735700f28c3cce36
+  time:timestamp: '2026-04-14T15:13:32.140039+02:00'
+---
+event:
+  concept:instance: 9296
+  id:id: ex-ante
+  cpee:instance: 8bcf39de-3d98-4ad3-9cc5-062173ec9601
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e37c7eb8c8e9639e274f259735700f28c3cce36
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-14T15:13:32.140213+02:00'
+---
+event:
+  concept:instance: 9296
+  id:id: ex-ante
+  cpee:instance: 8bcf39de-3d98-4ad3-9cc5-062173ec9601
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e37c7eb8c8e9639e274f259735700f28c3cce36
+  cpee:exposition: |+
+    # User Input:
+    Create a model for university application
+
+
+  time:timestamp: '2026-04-14T15:13:32.140638+02:00'
+...
+---
+event:
+  concept:instance: 9296
+  id:id: ex-ante
+  cpee:instance: 8bcf39de-3d98-4ad3-9cc5-062173ec9601
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e37c7eb8c8e9639e274f259735700f28c3cce36
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2026-04-14T15:13:32.140731+02:00'
+---
+event:
+  concept:instance: 9296
+  id:id: ex-ante
+  cpee:instance: 8bcf39de-3d98-4ad3-9cc5-062173ec9601
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e37c7eb8c8e9639e274f259735700f28c3cce36
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-14T15:13:32.140843+02:00'
+---
+event:
+  concept:instance: 9296
+  id:id: ex-ante
+  cpee:instance: 8bcf39de-3d98-4ad3-9cc5-062173ec9601
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e37c7eb8c8e9639e274f259735700f28c3cce36
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Fill Application Form)
+        1:task:(Fill Application Form) --> 2:task:(Submit Application)
+        2:task:(Submit Application) --> 3:exclusivegateway:{x}
+        3:exclusivegateway:{x} --> |Application Accepted| 4:task:(Receive Acceptance Letter)
+        3:exclusivegateway:{x} --> |Application Rejected| 5:task:(Receive Rejection Letter)
+        4:task:(Receive Acceptance Letter) --> 6:exclusivegateway:{x}
+        5:task:(Receive Rejection Letter) --> 6:exclusivegateway:{x}
+        6:exclusivegateway:{x} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-14T15:13:32.140953+02:00'
+---
+event:
+  concept:instance: 9296
+  id:id: ex-ante
+  cpee:instance: 8bcf39de-3d98-4ad3-9cc5-062173ec9601
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9e37c7eb8c8e9639e274f259735700f28c3cce36
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Application Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Application Accepted" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Receive Acceptance Letter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Application Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Receive Rejection Letter</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-14T15:13:32.141042+02:00'

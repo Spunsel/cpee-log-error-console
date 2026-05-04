@@ -1,0 +1,863 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9771
+    cpee:name: fdfggf
+    cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-23T09:27:17.169059+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-04-23T09:27:18.289424+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-04-23T09:27:18.509065+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-23T09:27:18.802150+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-23T09:27:18.809242+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Reject Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: ddd5d288f770f1727b3663c0346fcfe86ac61cd5
+  time:timestamp: '2026-04-23T09:28:12.418341+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ddd5d288f770f1727b3663c0346fcfe86ac61cd5
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-23T09:28:12.418579+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ddd5d288f770f1727b3663c0346fcfe86ac61cd5
+  cpee:exposition: |-
+    # User Input:
+    create new process for the loan application
+  time:timestamp: '2026-04-23T09:28:12.418711+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ddd5d288f770f1727b3663c0346fcfe86ac61cd5
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-04-23T09:28:12.418840+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ddd5d288f770f1727b3663c0346fcfe86ac61cd5
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-23T09:28:12.418949+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ddd5d288f770f1727b3663c0346fcfe86ac61cd5
+  cpee:exposition: |-
+    %% Output Intermediate
+    0:startevent:((Start))-->1:task:(Submit Application)
+    1:task:(Submit Application)-->2:task:(Review Application)
+    2:task:(Review Application)-->3:exclusivegateway:{x}
+    3:exclusivegateway:{x}-->|Approved|4:task:(Approve Loan)
+    3:exclusivegateway:{x}-->|Rejected|5:task:(Reject Loan)
+    4:task:(Approve Loan)-->6:endevent:(((End)))
+    5:task:(Reject Loan)-->6:endevent:(((End)))
+  time:timestamp: '2026-04-23T09:28:12.419052+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ddd5d288f770f1727b3663c0346fcfe86ac61cd5
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Reject Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-23T09:28:12.420052+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-04-23T09:28:37.221479+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Approve Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Reject Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-23T09:28:37.221647+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete everything
+  time:timestamp: '2026-04-23T09:28:37.221995+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash
+  time:timestamp: '2026-04-23T09:28:37.222241+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Submit Application)
+    a1:task:(Submit Application)-->a3:task:(Review Application)
+    a3:task:(Review Application)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Approved"|a7:task:(Approve Loan)
+    a7:task:(Approve Loan)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|a9:task:(Reject Loan)
+    a9:task:(Reject Loan)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-23T09:28:37.222461+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+  time:timestamp: '2026-04-23T09:28:37.222686+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-04-23T09:28:37.223006+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Customer submits loan application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review loan application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Application approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Grant loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Notify customer about approval</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Application not approved" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify customer about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: c4512d5195f4f9f5b8e39b63355e666ecff86aaa
+  time:timestamp: '2026-04-23T09:29:29.814414+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c4512d5195f4f9f5b8e39b63355e666ecff86aaa
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-04-23T09:29:29.814614+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c4512d5195f4f9f5b8e39b63355e666ecff86aaa
+  cpee:exposition: |-
+    # User Input:
+    create loan appliaction process
+  time:timestamp: '2026-04-23T09:29:29.814708+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c4512d5195f4f9f5b8e39b63355e666ecff86aaa
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-04-23T09:29:29.814781+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c4512d5195f4f9f5b8e39b63355e666ecff86aaa
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-23T09:29:29.814849+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c4512d5195f4f9f5b8e39b63355e666ecff86aaa
+  cpee:exposition: |-
+    %% Output Intermediate
+    Textual Description:
+    The loan application process starts when a customer submits a loan application. The application is then reviewed. If the application is approved, the loan is granted and the customer is notified. If the application is not approved, the customer is notified about the rejection. The process ends when the customer is notified.
+
+    Mermaid.js BPMN Model:
+
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Customer submits loan application)
+    1:task:(Customer submits loan application) --> 2:task:(Review loan application)
+    2:task:(Review loan application) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Application approved| 4:task:(Grant loan)
+    3:exclusivegateway:{x} --> |Application not approved| 5:task:(Notify customer about rejection)
+    4:task:(Grant loan) --> 6:task:(Notify customer about approval)
+    5:task:(Notify customer about rejection) --> 7:endevent:(((endevent)))
+    6:task:(Notify customer about approval) --> 7:endevent:(((endevent)))
+    ```
+
+    This model represents the described loan application process. It starts with the customer submitting a loan application, which is then reviewed. Depending on whether the application is approved or not, the loan is either granted or the customer is notified about the rejection. The process ends when the customer is notified.
+  time:timestamp: '2026-04-23T09:29:29.814947+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: c4512d5195f4f9f5b8e39b63355e666ecff86aaa
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Customer submits loan application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review loan application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Application approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Grant loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Notify customer about approval</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Application not approved" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify customer about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-23T09:29:29.815063+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-04-23T09:29:46.559588+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Customer submits loan application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Review loan application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Application approved" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Grant loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Notify customer about approval</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Application not approved" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Notify customer about rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-23T09:29:46.560600+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    delete everythiong
+  time:timestamp: '2026-04-23T09:29:46.560986+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-23T09:29:46.561361+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Customer submits loan application)
+    a1:task:(Customer submits loan application)-->a3:task:(Review loan application)
+    a3:task:(Review loan application)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Application approved"|a7:task:(Grant loan)
+    a7:task:(Grant loan)-->a11:task:(Notify customer about approval)
+    a11:task:(Notify customer about approval)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Application not approved"|a9:task:(Notify customer about rejection)
+    a9:task:(Notify customer about rejection)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-04-23T09:29:46.561484+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+  time:timestamp: '2026-04-23T09:29:46.561590+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-04-23T09:29:46.561694+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Application Approved" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Application Approved</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Application Rejected" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Application Rejected</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 8d7cb47b86d16c7fdeba273cbfbad8b3d2d15195
+  time:timestamp: '2026-04-23T09:30:11.369283+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8d7cb47b86d16c7fdeba273cbfbad8b3d2d15195
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-04-23T09:30:11.369423+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8d7cb47b86d16c7fdeba273cbfbad8b3d2d15195
+  cpee:exposition: |-
+    # User Input:
+    create loan appliaction process
+  time:timestamp: '2026-04-23T09:30:11.369506+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8d7cb47b86d16c7fdeba273cbfbad8b3d2d15195
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o-mini
+  time:timestamp: '2026-04-23T09:30:11.369580+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8d7cb47b86d16c7fdeba273cbfbad8b3d2d15195
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-23T09:30:11.369651+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8d7cb47b86d16c7fdeba273cbfbad8b3d2d15195
+  cpee:exposition: |-
+    %% Output Intermediate
+    0:startevent:((start))
+    1:task:(Create Loan Application)
+    2:task:(Submit Application)
+    3:exclusivegateway:{x}
+    4:task:(Application Approved)
+    5:task:(Application Rejected)
+    6:exclusivegateway:{x}
+    7:task:(Disburse Loan)
+    8:task:(Notify Applicant)
+    9:endevent:(((end)))
+
+    0:startevent:((start)) --> 1:task:(Create Loan Application) --> 2:task:(Submit Application) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Application Approved| 4:task:(Application Approved) --> 6:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Application Rejected| 5:task:(Application Rejected) --> 9:endevent:(((end)))
+    6:exclusivegateway:{x} --> |Proceed to Disbursement| 7:task:(Disburse Loan) --> 8:task:(Notify Applicant) --> 9:endevent:(((end)))
+  time:timestamp: '2026-04-23T09:30:11.369806+02:00'
+---
+event:
+  concept:instance: 9771
+  id:id: ex-ante
+  cpee:instance: f94ba6a3-97d7-4e8c-8ec8-34abfa12626f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8d7cb47b86d16c7fdeba273cbfbad8b3d2d15195
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Application Approved" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Application Approved</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Application Rejected" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Application Rejected</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-23T09:30:11.369901+02:00'

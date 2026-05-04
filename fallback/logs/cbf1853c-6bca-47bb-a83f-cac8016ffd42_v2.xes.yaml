@@ -1,0 +1,372 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9668
+    cpee:name: Plain Instance
+    cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-21T14:39:42.466921+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Serve Ball</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Successful Serve">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Ball Returned</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Ball In Play" language="text/javascript">
+              <call id="a1" endpoint="" a:alt_id="1">
+                <parameters>
+                  <label>Serve Ball</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Ball Out" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Score Point</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Switch Sides</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Score Point</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Switch Sides</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: e5c3106774ec27b68180b16ba0508b12dbc7e180
+  time:timestamp: '2026-04-21T14:40:16.732917+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e5c3106774ec27b68180b16ba0508b12dbc7e180
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-21T14:40:16.733483+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e5c3106774ec27b68180b16ba0508b12dbc7e180
+  cpee:exposition: |+
+    # User Input:
+    Volleyball game
+
+  time:timestamp: '2026-04-21T14:40:16.734083+02:00'
+...
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e5c3106774ec27b68180b16ba0508b12dbc7e180
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-21T14:40:16.734194+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e5c3106774ec27b68180b16ba0508b12dbc7e180
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-21T14:40:16.734297+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e5c3106774ec27b68180b16ba0508b12dbc7e180
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Serve Ball)
+      2:exclusivegateway:{x}
+      3:task:(Ball Returned)
+      4:exclusivegateway:{x}
+      5:task:(Score Point)
+      6:task:(Switch Sides)
+      7:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Serve Ball)
+      1:task:(Serve Ball) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Successful Serve| 3:task:(Ball Returned)
+      2:exclusivegateway:{x} --> |Fault| 5:task:(Score Point)
+      3:task:(Ball Returned) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> |Ball In Play| 1:task:(Serve Ball)
+      4:exclusivegateway:{x} --> |Ball Out| 5:task:(Score Point)
+      5:task:(Score Point) --> 6:task:(Switch Sides)
+      6:task:(Switch Sides) --> 7:endevent:(((End)))
+    ```
+  time:timestamp: '2026-04-21T14:40:16.734398+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e5c3106774ec27b68180b16ba0508b12dbc7e180
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Serve Ball</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Successful Serve">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Ball Returned</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Ball In Play" language="text/javascript">
+              <call id="a1" endpoint="" a:alt_id="1">
+                <parameters>
+                  <label>Serve Ball</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Ball Out" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Score Point</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Switch Sides</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Score Point</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a15" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Switch Sides</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-21T14:40:16.734519+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-04-21T14:43:01.136460+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-04-21T14:43:01.143193+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-21T14:43:01.588551+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-21T14:43:01.598236+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: running
+  time:timestamp: '2026-04-21T14:43:11.279132+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: e_1_1
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: gateway/decide
+  data:
+    condition: 'true'
+    result: true
+  time:timestamp: '2026-04-21T14:43:11.289618+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopping
+  time:timestamp: '2026-04-21T14:43:11.323237+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: e_1_1
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: gateway/decide
+  data:
+    condition: 'true'
+    result: true
+  time:timestamp: '2026-04-21T14:43:11.366273+02:00'
+---
+event:
+  concept:instance: 9668
+  id:id: ex-ante
+  cpee:instance: cbf1853c-6bca-47bb-a83f-cac8016ffd42
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: stopped
+  time:timestamp: '2026-04-21T14:43:11.366579+02:00'

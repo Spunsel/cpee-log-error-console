@@ -1,0 +1,341 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9535
+    cpee:name: Plain Instance
+    cpee:instance: b2442d41-6c50-4660-98ba-562376d95688
+---
+event:
+  concept:instance: 9535
+  id:id: ex-ante
+  cpee:instance: b2442d41-6c50-4660-98ba-562376d95688
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-19T23:50:40.757666+02:00'
+---
+event:
+  concept:instance: 9535
+  id:id: ex-ante
+  cpee:instance: b2442d41-6c50-4660-98ba-562376d95688
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Defective Computer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Check Defect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Repair Cost</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Cost Acceptable" language="text/javascript">
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Check and Repair Hardware</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Check and Configure Software</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <loop mode="pre_test" condition="true">
+            <call id="a23" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Test System Functionality</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Error Detected" a:alt_id="11" language="text/javascript">
+              <call id="a27" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Perform Additional Repair</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Test System Functionality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+          </loop>
+        </alternative>
+        <alternative condition="Cost Unacceptable" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Return Unrepaired Computer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 896f88405c2281a8d0af825abb87d89ea276fb3e
+  time:timestamp: '2026-04-19T23:50:59.397494+02:00'
+---
+event:
+  concept:instance: 9535
+  id:id: ex-ante
+  cpee:instance: b2442d41-6c50-4660-98ba-562376d95688
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 896f88405c2281a8d0af825abb87d89ea276fb3e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-19T23:50:59.397733+02:00'
+---
+event:
+  concept:instance: 9535
+  id:id: ex-ante
+  cpee:instance: b2442d41-6c50-4660-98ba-562376d95688
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 896f88405c2281a8d0af825abb87d89ea276fb3e
+  cpee:exposition: |-
+    # User Input:
+    A customer brings in a defective computer and the CRS checks the defect and hands out a repair cost calculation back .
+    If the customer decides that the costs are acceptable , the process continues , otherwise she takes her computer home unrepaired .
+    The ongoing repair consists of two activities , which are executed , in an arbitrary order .
+    The first activity is to check and repair the hardware , whereas the second activity checks and configures the software .
+    After each of these activities , the proper system functionality is tested .
+    If an error is detected another arbitrary repair activity is executed , otherwise the repair is finished .
+  time:timestamp: '2026-04-19T23:50:59.397838+02:00'
+---
+event:
+  concept:instance: 9535
+  id:id: ex-ante
+  cpee:instance: b2442d41-6c50-4660-98ba-562376d95688
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 896f88405c2281a8d0af825abb87d89ea276fb3e
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-19T23:50:59.397942+02:00'
+---
+event:
+  concept:instance: 9535
+  id:id: ex-ante
+  cpee:instance: b2442d41-6c50-4660-98ba-562376d95688
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 896f88405c2281a8d0af825abb87d89ea276fb3e
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-19T23:50:59.398020+02:00'
+---
+event:
+  concept:instance: 9535
+  id:id: ex-ante
+  cpee:instance: b2442d41-6c50-4660-98ba-562376d95688
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 896f88405c2281a8d0af825abb87d89ea276fb3e
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Receive Defective Computer)
+      2:task:(Check Defect)
+      3:task:(Calculate Repair Cost)
+      4:exclusivegateway:{x}
+      5:task:(Return Unrepaired Computer)
+      6:parallelgateway:{AND}
+      7:task:(Check and Repair Hardware)
+      8:task:(Check and Configure Software)
+      9:parallelgateway:{AND}
+      10:task:(Test System Functionality)
+      11:exclusivegateway:{x}
+      12:task:(Perform Additional Repair)
+      13:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Receive Defective Computer)
+      1:task:(Receive Defective Computer) --> 2:task:(Check Defect)
+      2:task:(Check Defect) --> 3:task:(Calculate Repair Cost)
+      3:task:(Calculate Repair Cost) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> |Cost Acceptable| 6:parallelgateway:{AND}
+      4:exclusivegateway:{x} --> |Cost Unacceptable| 5:task:(Return Unrepaired Computer)
+      5:task:(Return Unrepaired Computer) --> 13:endevent:(((End)))
+      6:parallelgateway:{AND} --> 7:task:(Check and Repair Hardware)
+      6:parallelgateway:{AND} --> 8:task:(Check and Configure Software)
+      7:task:(Check and Repair Hardware) --> 9:parallelgateway:{AND}
+      8:task:(Check and Configure Software) --> 9:parallelgateway:{AND}
+      9:parallelgateway:{AND} --> 10:task:(Test System Functionality)
+      10:task:(Test System Functionality) --> 11:exclusivegateway:{x}
+      11:exclusivegateway:{x} --> |Error Detected| 12:task:(Perform Additional Repair)
+      11:exclusivegateway:{x} --> |No Error| 13:endevent:(((End)))
+      12:task:(Perform Additional Repair) --> 10:task:(Test System Functionality)
+    ```
+  time:timestamp: '2026-04-19T23:50:59.398128+02:00'
+---
+event:
+  concept:instance: 9535
+  id:id: ex-ante
+  cpee:instance: b2442d41-6c50-4660-98ba-562376d95688
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 896f88405c2281a8d0af825abb87d89ea276fb3e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Defective Computer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Check Defect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Calculate Repair Cost</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Cost Acceptable" language="text/javascript">
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Check and Repair Hardware</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Check and Configure Software</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <loop mode="pre_test" condition="true">
+            <call id="a23" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Test System Functionality</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="Error Detected" a:alt_id="11" language="text/javascript">
+              <call id="a27" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Perform Additional Repair</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Test System Functionality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+          </loop>
+        </alternative>
+        <alternative condition="Cost Unacceptable" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Return Unrepaired Computer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-04-19T23:50:59.398231+02:00'

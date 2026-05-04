@@ -1,0 +1,521 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9554
+    cpee:name: Plain Instance
+    cpee:instance: 2b29449b-eba6-4453-ad84-3d1f34ebf4b8
+---
+event:
+  concept:instance: 9554
+  id:id: ex-ante
+  cpee:instance: 2b29449b-eba6-4453-ad84-3d1f34ebf4b8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-20T00:03:56.923958+02:00'
+---
+event:
+  concept:instance: 9554
+  id:id: ex-ante
+  cpee:instance: 2b29449b-eba6-4453-ad84-3d1f34ebf4b8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Forward to Accounting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Identify Supplier and Create Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Check Invoice Items</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Send to First Cost Center Manager</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Inaccurate">
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Inaccurate" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Return to Accounting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Resolve Inconsistencies</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Send to First Cost Center Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Accurate" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Review Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="8">
+                <alternative condition="Next Manager" language="text/javascript">
+                  <call id="a21" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>Send to Next Cost Center Manager</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <call id="a19" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Forward to Commercial Manager</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a29" endpoint="" a:alt_id="14">
+                    <parameters>
+                      <label>Commercial Audit</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="0">
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="15">
+                        <alternative condition="Amount &gt; EUR 20" language="text/javascript">
+                          <call id="a33" endpoint="" a:alt_id="16">
+                            <parameters>
+                              <label>Board Review</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="No Complaint" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a39" endpoint="" a:alt_id="17">
+                        <parameters>
+                          <label>Resolve Complaint</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                  <call id="a35" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>Issue Payment Approval</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a43" endpoint="" a:alt_id="19">
+                    <parameters>
+                      <label>Give Payment Instructions</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a45" endpoint="" a:alt_id="20">
+                    <parameters>
+                      <label>Close Instance</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: f3209c6475bae40eb3edd432ca4b7d2b08d7456a
+  time:timestamp: '2026-04-20T00:04:10.759232+02:00'
+---
+event:
+  concept:instance: 9554
+  id:id: ex-ante
+  cpee:instance: 2b29449b-eba6-4453-ad84-3d1f34ebf4b8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3209c6475bae40eb3edd432ca4b7d2b08d7456a
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-20T00:04:10.759486+02:00'
+---
+event:
+  concept:instance: 9554
+  id:id: ex-ante
+  cpee:instance: 2b29449b-eba6-4453-ad84-3d1f34ebf4b8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3209c6475bae40eb3edd432ca4b7d2b08d7456a
+  cpee:exposition: |-
+    # User Input:
+    As a basic principle , ACME AG receives invoices on paper or fax .
+    These are received by the Secretariat in the central inbox and forwarded after a short visual inspection to an accounting employee .
+    In `` ACME Financial Accounting `` , a software specially developed for the ACME AG , she identifies the charging suppliers and creates a new instance ( invoice ) .
+    She then checks the invoice items and notes the corresponding cost center at the ACME AG and the related cost center managers for each position on a separate form ( `` docket `` ) .
+    The docket and the copy of the invoice go to the internal mail together and are sent to the first cost center manager to the list .
+    He reviews the content for accuracy after receiving the copy of the invoice .
+    Should everything be in order , he notes his code one on the docket ( `` accurate position - AP `` ) and returns the copy of the invoice to the internal mail .
+    From it , the copy of the invoice is passed on to the next cost center manager , based on the docket , or if all items are marked correct , sent back to accounting .
+    Therefore , the copy of invoice and the docket gradually move through the hands of all cost center managers until all positions are marked as completely accurate .
+    However , if inconsistencies exist , e.g . because the ordered product is not of the expected quantity or quality , the cost center manager rejects the AP with a note and explanatory statement on the docket , and the copy of the invoice is sent back to accounting directly .
+    Based on the statements of the cost center managers , she will proceede with the clarification with the vendor , but , if necessary , she consults the cost center managers by telephone or e-mail again .
+    When all inconsistencies are resolved , the copy of the invoice is sent to the cost center managers again , and the process continues .
+    After all invoice items are AP , the accounting employee forwards the copy of the invoice to the commercial manager .
+    He makes the commercial audit and issues the approval for payment .
+    If the bill amount exceeds EUR 20 , the Board wants to check it again ( 4 - eyes-principle ) .
+    The copy of the invoice including the docket moves back to the accounting employee in the appropriate signature file .
+    Should there be a complaint during the commercial audit , it will be resolved by the accounting employee with the supplier .
+    After the commercial audit is successfully completed , the accounting employee gives payment instructions and closes the instance in `` ACME financial accounting `` .
+  time:timestamp: '2026-04-20T00:04:10.759586+02:00'
+---
+event:
+  concept:instance: 9554
+  id:id: ex-ante
+  cpee:instance: 2b29449b-eba6-4453-ad84-3d1f34ebf4b8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3209c6475bae40eb3edd432ca4b7d2b08d7456a
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-20T00:04:10.759680+02:00'
+---
+event:
+  concept:instance: 9554
+  id:id: ex-ante
+  cpee:instance: 2b29449b-eba6-4453-ad84-3d1f34ebf4b8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3209c6475bae40eb3edd432ca4b7d2b08d7456a
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-20T00:04:10.759760+02:00'
+---
+event:
+  concept:instance: 9554
+  id:id: ex-ante
+  cpee:instance: 2b29449b-eba6-4453-ad84-3d1f34ebf4b8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3209c6475bae40eb3edd432ca4b7d2b08d7456a
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((Start))
+      1:task:(Receive Invoice)
+      2:task:(Forward to Accounting)
+      3:task:(Identify Supplier and Create Invoice)
+      4:task:(Check Invoice Items)
+      5:task:(Send to First Cost Center Manager)
+      6:exclusivegateway:{x}
+      7:task:(Review Invoice)
+      8:exclusivegateway:{x}
+      9:task:(Mark as Accurate)
+      10:task:(Return to Accounting)
+      11:task:(Resolve Inconsistencies)
+      12:task:(Send to Next Cost Center Manager)
+      13:task:(Forward to Commercial Manager)
+      14:task:(Commercial Audit)
+      15:exclusivegateway:{x}
+      16:task:(Board Review)
+      17:task:(Resolve Complaint)
+      18:task:(Issue Payment Approval)
+      19:task:(Give Payment Instructions)
+      20:task:(Close Instance)
+      21:endevent:(((End)))
+
+      0:startevent:((Start)) --> 1:task:(Receive Invoice)
+      1:task:(Receive Invoice) --> 2:task:(Forward to Accounting)
+      2:task:(Forward to Accounting) --> 3:task:(Identify Supplier and Create Invoice)
+      3:task:(Identify Supplier and Create Invoice) --> 4:task:(Check Invoice Items)
+      4:task:(Check Invoice Items) --> 5:task:(Send to First Cost Center Manager)
+      5:task:(Send to First Cost Center Manager) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> |Accurate|7:task:(Review Invoice)
+      6:exclusivegateway:{x} --> |Inaccurate|10:task:(Return to Accounting)
+      7:task:(Review Invoice) --> 8:exclusivegateway:{x}
+      8:exclusivegateway:{x} --> |All Accurate|13:task:(Forward to Commercial Manager)
+      8:exclusivegateway:{x} --> |Next Manager|12:task:(Send to Next Cost Center Manager)
+      10:task:(Return to Accounting) --> 11:task:(Resolve Inconsistencies)
+      11:task:(Resolve Inconsistencies) --> 5:task:(Send to First Cost Center Manager)
+      12:task:(Send to Next Cost Center Manager) --> 6:exclusivegateway:{x}
+      13:task:(Forward to Commercial Manager) --> 14:task:(Commercial Audit)
+      14:task:(Commercial Audit) --> 15:exclusivegateway:{x}
+      15:exclusivegateway:{x} --> |Amount > EUR 20|16:task:(Board Review)
+      15:exclusivegateway:{x} --> |No Complaint|18:task:(Issue Payment Approval)
+      16:task:(Board Review) --> 18:task:(Issue Payment Approval)
+      14:task:(Commercial Audit) --> |Complaint|17:task:(Resolve Complaint)
+      17:task:(Resolve Complaint) --> 18:task:(Issue Payment Approval)
+      18:task:(Issue Payment Approval) --> 19:task:(Give Payment Instructions)
+      19:task:(Give Payment Instructions) --> 20:task:(Close Instance)
+      20:task:(Close Instance) --> 21:endevent:(((End)))
+    ```
+  time:timestamp: '2026-04-20T00:04:10.759847+02:00'
+---
+event:
+  concept:instance: 9554
+  id:id: ex-ante
+  cpee:instance: 2b29449b-eba6-4453-ad84-3d1f34ebf4b8
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f3209c6475bae40eb3edd432ca4b7d2b08d7456a
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Forward to Accounting</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Identify Supplier and Create Invoice</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Check Invoice Items</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a9" endpoint="" a:alt_id="5">
+          <parameters>
+            <label>Send to First Cost Center Manager</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Inaccurate">
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Inaccurate" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Return to Accounting</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Resolve Inconsistencies</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Send to First Cost Center Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Accurate" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Review Invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="8">
+                <alternative condition="Next Manager" language="text/javascript">
+                  <call id="a21" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>Send to Next Cost Center Manager</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="">
+                  <call id="a19" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Forward to Commercial Manager</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a29" endpoint="" a:alt_id="14">
+                    <parameters>
+                      <label>Commercial Audit</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="0">
+                    <alternative condition="">
+                      <choose mode="exclusive" a:alt_id="15">
+                        <alternative condition="Amount &gt; EUR 20" language="text/javascript">
+                          <call id="a33" endpoint="" a:alt_id="16">
+                            <parameters>
+                              <label>Board Review</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="No Complaint" language="text/javascript"/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="">
+                      <call id="a39" endpoint="" a:alt_id="17">
+                        <parameters>
+                          <label>Resolve Complaint</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                  <call id="a35" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>Issue Payment Approval</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a43" endpoint="" a:alt_id="19">
+                    <parameters>
+                      <label>Give Payment Instructions</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a45" endpoint="" a:alt_id="20">
+                    <parameters>
+                      <label>Close Instance</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-04-20T00:04:10.760011+02:00'

@@ -1,0 +1,289 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 10919
+    cpee:name: Plain Instance
+    cpee:instance: '09175d92-b8eb-4a3e-a669-ab0611cc47a2'
+---
+event:
+  concept:instance: 10919
+  id:id: ex-ante
+  cpee:instance: '09175d92-b8eb-4a3e-a669-ab0611cc47a2'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T01:27:44.302898+02:00'
+---
+event:
+  concept:instance: 10919
+  id:id: ex-ante
+  cpee:instance: '09175d92-b8eb-4a3e-a669-ab0611cc47a2'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Generate Random Number</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Even" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Process Even Number</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Odd" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Process Odd Number</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Log Result</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Perform Action A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="inclusive" a:alt_id="10">
+            <alternative condition="Option 1" language="text/javascript">
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Execute Option 1</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Option 2" language="text/javascript">
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Execute Option 2</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Stop" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: b71004a5d7769c7498d1305e6de031cc6f288fe8
+  time:timestamp: '2026-05-05T01:27:55.110277+02:00'
+---
+event:
+  concept:instance: 10919
+  id:id: ex-ante
+  cpee:instance: '09175d92-b8eb-4a3e-a669-ab0611cc47a2'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b71004a5d7769c7498d1305e6de031cc6f288fe8
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-05T01:27:55.110958+02:00'
+---
+event:
+  concept:instance: 10919
+  id:id: ex-ante
+  cpee:instance: '09175d92-b8eb-4a3e-a669-ab0611cc47a2'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b71004a5d7769c7498d1305e6de031cc6f288fe8
+  cpee:exposition: |-
+    # User Input:
+    create random process model
+  time:timestamp: '2026-05-05T01:27:55.111072+02:00'
+---
+event:
+  concept:instance: 10919
+  id:id: ex-ante
+  cpee:instance: '09175d92-b8eb-4a3e-a669-ab0611cc47a2'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b71004a5d7769c7498d1305e6de031cc6f288fe8
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-05T01:27:55.111152+02:00'
+---
+event:
+  concept:instance: 10919
+  id:id: ex-ante
+  cpee:instance: '09175d92-b8eb-4a3e-a669-ab0611cc47a2'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b71004a5d7769c7498d1305e6de031cc6f288fe8
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-05T01:27:55.111225+02:00'
+---
+event:
+  concept:instance: 10919
+  id:id: ex-ante
+  cpee:instance: '09175d92-b8eb-4a3e-a669-ab0611cc47a2'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b71004a5d7769c7498d1305e6de031cc6f288fe8
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Generate Random Number)
+      1:task:(Generate Random Number) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Even| 3:task:(Process Even Number)
+      2:exclusivegateway:{x} --> |Odd| 4:task:(Process Odd Number)
+      3:task:(Process Even Number) --> 5:parallelgateway:{AND}
+      4:task:(Process Odd Number) --> 5:parallelgateway:{AND}
+      5:parallelgateway:{AND} --> 6:task:(Log Result)
+      6:task:(Log Result) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> |Continue| 8:task:(Perform Action A)
+      7:exclusivegateway:{x} --> |Stop| 9:endevent:(((endevent)))
+      8:task:(Perform Action A) --> 10:inclusivegateway:{O}
+      10:inclusivegateway:{O} --> |Option 1| 11:task:(Execute Option 1)
+      10:inclusivegateway:{O} --> |Option 2| 12:task:(Execute Option 2)
+      11:task:(Execute Option 1) --> 13:parallelgateway:{AND}
+      12:task:(Execute Option 2) --> 13:parallelgateway:{AND}
+      13:parallelgateway:{AND} --> 14:endevent:(((endevent)))
+  time:timestamp: '2026-05-05T01:27:55.111299+02:00'
+---
+event:
+  concept:instance: 10919
+  id:id: ex-ante
+  cpee:instance: '09175d92-b8eb-4a3e-a669-ab0611cc47a2'
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b71004a5d7769c7498d1305e6de031cc6f288fe8
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Generate Random Number</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Even" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Process Even Number</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Odd" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Process Odd Number</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a13" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Log Result</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="7">
+        <alternative condition="">
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Perform Action A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="inclusive" a:alt_id="10">
+            <alternative condition="Option 1" language="text/javascript">
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Execute Option 1</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Option 2" language="text/javascript">
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Execute Option 2</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Stop" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-05T01:27:55.111379+02:00'

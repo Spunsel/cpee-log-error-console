@@ -1,0 +1,283 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 9540
+    cpee:name: Plain Instance
+    cpee:instance: 8e9fcd6b-6b7c-4f0b-8865-ff43b6d5a2a3
+---
+event:
+  concept:instance: 9540
+  id:id: ex-ante
+  cpee:instance: 8e9fcd6b-6b7c-4f0b-8865-ff43b6d5a2a3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-04-19T23:55:16.245994+02:00'
+---
+event:
+  concept:instance: 9540
+  id:id: ex-ante
+  cpee:instance: 8e9fcd6b-6b7c-4f0b-8865-ff43b6d5a2a3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Warrant Possession Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Retrieve SCT File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Forward SCT Warrant to Police</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Store SCT Physical File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Receive Police Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Retrieve SCT File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Attach New SCT Document</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Store Expanded SCT Physical File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 58dfef099946032cbaced42159b04ae964cd30a8
+  time:timestamp: '2026-04-19T23:55:28.704231+02:00'
+---
+event:
+  concept:instance: 9540
+  id:id: ex-ante
+  cpee:instance: 8e9fcd6b-6b7c-4f0b-8865-ff43b6d5a2a3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 58dfef099946032cbaced42159b04ae964cd30a8
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-04-19T23:55:28.704420+02:00'
+---
+event:
+  concept:instance: 9540
+  id:id: ex-ante
+  cpee:instance: 8e9fcd6b-6b7c-4f0b-8865-ff43b6d5a2a3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 58dfef099946032cbaced42159b04ae964cd30a8
+  cpee:exposition: |-
+    # User Input:
+    The party sends a warrant possession request asking a warrant to be released .
+    The Client Service Back Office as part of the Small Claims Registry Operations receives the request and retrieves the SCT file .
+    Then , the SCT Warrant Possession is forwarded to Queensland Police .
+    The SCT physical file is stored by the Back Office awaiting a report to be sent by the Police .
+    When the report is received , the respective SCT file is retrieved .
+    Then , Back Office attaches the new SCT document , and stores the expanded SCT physical file .
+    After that , some other MC internal staff receives the physical SCT file ( out of scope ) .
+  time:timestamp: '2026-04-19T23:55:28.705539+02:00'
+---
+event:
+  concept:instance: 9540
+  id:id: ex-ante
+  cpee:instance: 8e9fcd6b-6b7c-4f0b-8865-ff43b6d5a2a3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 58dfef099946032cbaced42159b04ae964cd30a8
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4o
+  time:timestamp: '2026-04-19T23:55:28.705672+02:00'
+---
+event:
+  concept:instance: 9540
+  id:id: ex-ante
+  cpee:instance: 8e9fcd6b-6b7c-4f0b-8865-ff43b6d5a2a3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 58dfef099946032cbaced42159b04ae964cd30a8
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-04-19T23:55:28.705760+02:00'
+---
+event:
+  concept:instance: 9540
+  id:id: ex-ante
+  cpee:instance: 8e9fcd6b-6b7c-4f0b-8865-ff43b6d5a2a3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 58dfef099946032cbaced42159b04ae964cd30a8
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent))
+      1:task:(Receive Warrant Possession Request)
+      2:task:(Retrieve SCT File)
+      3:task:(Forward SCT Warrant to Police)
+      4:task:(Store SCT Physical File)
+      5:task:(Receive Police Report)
+      6:task:(Retrieve SCT File)
+      7:task:(Attach New SCT Document)
+      8:task:(Store Expanded SCT Physical File)
+      9:endevent:(((endevent)))
+
+      0:startevent:((startevent)) --> 1:task:(Receive Warrant Possession Request)
+      1:task:(Receive Warrant Possession Request) --> 2:task:(Retrieve SCT File)
+      2:task:(Retrieve SCT File) --> 3:task:(Forward SCT Warrant to Police)
+      3:task:(Forward SCT Warrant to Police) --> 4:task:(Store SCT Physical File)
+      4:task:(Store SCT Physical File) --> 5:task:(Receive Police Report)
+      5:task:(Receive Police Report) --> 6:task:(Retrieve SCT File)
+      6:task:(Retrieve SCT File) --> 7:task:(Attach New SCT Document)
+      7:task:(Attach New SCT Document) --> 8:task:(Store Expanded SCT Physical File)
+      8:task:(Store Expanded SCT Physical File) --> 9:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-04-19T23:55:28.705848+02:00'
+---
+event:
+  concept:instance: 9540
+  id:id: ex-ante
+  cpee:instance: 8e9fcd6b-6b7c-4f0b-8865-ff43b6d5a2a3
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 58dfef099946032cbaced42159b04ae964cd30a8
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Warrant Possession Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Retrieve SCT File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Forward SCT Warrant to Police</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Store SCT Physical File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Receive Police Report</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Retrieve SCT File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Attach New SCT Document</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Store Expanded SCT Physical File</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-04-19T23:55:28.705955+02:00'

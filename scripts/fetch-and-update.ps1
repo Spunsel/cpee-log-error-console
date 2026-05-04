@@ -7,7 +7,7 @@
 # raw bytes and decoded as UTF-8; files are written as UTF-8 without BOM.
 
 # Process numbers to fetch
-$processNumbers = @(9147..9147)
+$processNumbers = @(9196..10919)
 
 # Resolve project root (parent of scripts/)
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
@@ -193,7 +193,7 @@ Write-Host "Using $($combinedHash.Count) existing mappings as base" -ForegroundC
 
 $addedInstances = @()
 # Add new mappings with prefixed process numbers
-# 3-digit numbers get "200" prefix, 4-digit numbers get "20" prefix
+# Pad to 6 digits total: 1->"20000", 2->"2000", 3->"200", 4->"20", 5->"2"
 # UUID gets "_v2" suffix so fallback uses the _v2 log files
 $newCount = 0
 $selectedMapping.GetEnumerator() | ForEach-Object {
@@ -212,6 +212,8 @@ $selectedMapping.GetEnumerator() | ForEach-Object {
         $prefixedKey = "200$originalNum"
     } elseif ($numLength -eq 4) {
         $prefixedKey = "20$originalNum"
+    } elseif ($numLength -eq 5) {
+        $prefixedKey = "2$originalNum"
     } else {
         $prefixedKey = $originalNum
     }
