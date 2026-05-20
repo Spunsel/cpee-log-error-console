@@ -1,0 +1,716 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 24000
+    cpee:name: Plain Instance
+    cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-20T18:36:19.198518+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 60762555379692110e221557879ed4cf5bd120f7
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-20T18:37:50.987064+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 60762555379692110e221557879ed4cf5bd120f7
+  cpee:exposition: |-
+    # User Input:
+    Create a complete, error-free BPMN 2.0 process for TalentBridge Recruitment Agency (TBRA) strictly following 7PMG guidelines and Camunda 7 deployment compatibility. Use a Pool with 6 horizontal Swim Lanes: Client Company, HR Manager, Recruiter, Candidate, Admin Staff, Technical Interviewer.
+
+    PROCESS FLOW (follow exactly):
+
+    [Client Company lane]
+
+    Start Event (None): "Job portal opened"
+    User Task: "Fill Job Request Form" (camunda:formRef)
+    Service Task: "Submit Job Request Form"
+
+    [HR Manager lane] 4. User Task: "Receive and Review Job Request" 5. Exclusive Gateway (split): "Job requirements feasible?" → Yes → Task 6 | No → Task 7 6. (Yes path) User Task: "Approve Job Request" 7. (No path) User Task: "Reject Job Request" → Service Task: "Notify Client of Rejection" → End Event (None): "Job request rejected" 8. (After Approve) User Task: "Create Job Requisition"
+
+    [Recruiter lane] 9. User Task: "Receive Job Requisition" 10. User Task: "Create Job Posting" 11. User Task: "Publish Job on Multiple Channels"
+
+    [Candidate lane] 12. User Task: "View Job Posting" 13. Exclusive Gateway (split): "Already registered?" → Yes → Task 14 | No → Task 15 14. (Yes) User Task: "Login with ID and Password" → merge 15. (No) User Task: "Create Account" → merge 16. Exclusive Gateway (join — converging): merges both login paths (no label needed, just converge) 17. User Task: "Fill Candidate Application Form" 18. User Task: "Upload CV and Documents" 19. User Task: "Submit Application" 20. Exclusive Gateway (split): "Application complete?" → Yes → Task 21 | No → loop back to Task 17 21. (Yes) Service Task: "Receive Submission Acknowledgement"
+
+    [Recruiter lane] 22. User Task: "Receive Applications" 23. User Task: "Review Application" 24. Exclusive Gateway (split): "Candidate meets basic criteria?" → Yes → Task 25 | No → Task 26 25. (No path) User Task: "Mark Application as Rejected" → Service Task: "Notify Applicant of Rejection" → User Task: "Update Application Status" → End Event (None): "Application rejected" 26. (Yes path) User Task: "Shortlist Candidate"
+
+    [Admin Staff lane] 27. User Task: "Receive Shortlisted Candidate List" 28. User Task: "Verify Candidate Details" 29. Service Task: "Send Interview Invitation"
+
+    [Candidate lane] 30. User Task: "Receive Interview Invitation" 31. User Task: "Accept or Request Interview Reschedule"
+
+    [Technical Interviewer lane] 32. User Task: "Conduct Interview" 33. User Task: "Fill Candidate Evaluation Form" 34. Exclusive Gateway (split): "Candidate qualified?" → Yes → Task 35 | No → Task 36 35. (No path) User Task: "Notify Candidate of Rejection" → End Event (None): "Candidate rejected after interview" 36. (Yes path) User Task: "Forward Evaluation to HR Manager"
+
+    [HR Manager lane] 37. User Task: "Review Candidate Evaluation Form" 38. User Task: "Complete Final Hiring Approval Form" 39. Exclusive Gateway (split): "Final decision?" → Approved → Task 40 | Rejected → Task 41 40. (Rejected path) Service Task: "Notify Candidate of Rejection" → End Event (None): "Candidate rejected by HR" 41. (Approved path) User Task: "Extend Offer to Candidate" 42. Service Task: "Complete Hiring Documentation" 43. End Event (None): "Candidate successfully hired"
+
+    STRICT RULES TO FOLLOW:
+
+    7PMG Rule 1 (One Start Event): Use exactly one None Start Event in the Client Company lane
+    7PMG Rule 2 (Use Verb + Noun for task names): All tasks named as "Verb + Object" (e.g., "Review Application", "Send Invitation") — NO question sentences in task shapes
+    7PMG Rule 3 (Gateways for decisions only): Every decision/branch MUST use an Exclusive Gateway (XOR) — NEVER use a Task shape for a decision
+    7PMG Rule 4 (Label all gateways): Every split gateway MUST have a descriptive name as a question (e.g., "Candidate qualified?"). Every outgoing sequence flow from a split gateway MUST be labeled (Yes/No or condition). Converging/join gateways do not require labels but must be present to merge multiple paths
+    7PMG Rule 5 (Use join gateways): Every split gateway MUST have a corresponding join/merge gateway — do NOT let parallel or exclusive paths merge implicitly without a gateway
+    7PMG Rule 6 (Activities in correct lanes): Every task must be in the lane of the role responsible for performing it — the gateway "Job requirements feasible?" belongs in HR Manager lane, NOT Client Company lane
+    7PMG Rule 7 (Multiple End Events allowed): Each terminated path must end with its own End Event — there are 4 End Events total: (1) Job request rejected, (2) Application rejected at screening, (3) Candidate rejected after interview, (4) HR rejects after evaluation, (5) Candidate successfully hired
+    No task labeled as a question — questions only appear as gateway labels
+    No unlabeled split gateways — every XOR split must have a name and labeled outgoing flows
+    All gateways must be Exclusive (XOR) type — shown with "X" marker inside diamond
+    Camunda 7 compatible — use camunda:formRef on User Tasks that have forms. The process must be isExecutable="true". Use correct BPMN 2.0 namespace
+    Spell all labels correctly — no typos
+    Each lane must contain only tasks performed by that role
+
+    FORMS REFERENCE (for camunda:formRef):
+
+    "Fill Job Request Form" → form: JobRequestForm
+    "Fill Candidate Application Form" → form: CandidateApplicationForm
+    "Fill Candidate Evaluation Form" → form: CandidateEvaluationForm
+    "Complete Final Hiring Approval Form" → form: FinalHiringApprovalForm
+
+    Generate the complete BPMN 2.0 XML ready for import into Camunda Modeler 5.x.
+  time:timestamp: '2026-05-20T18:37:50.987400+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Job Request Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Job Request Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive and Review Job Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="No" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Approve Job Request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Create Job Requisition</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Receive Job Requisition</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Create Job Posting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Publish Job on Multiple Channels</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>View Job Posting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="14">
+            <alternative condition="Yes" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Login with ID and Password</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No" language="text/javascript">
+              <call id="a31" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Create Account</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <loop mode="pre_test" condition="true">
+            <call id="a37" endpoint="" a:alt_id="18">
+              <parameters>
+                <label>Fill Candidate Application Form</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a39" endpoint="" a:alt_id="19">
+              <parameters>
+                <label>Upload CV and Documents</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a41" endpoint="" a:alt_id="20">
+              <parameters>
+                <label>Submit Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="No" a:alt_id="21" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="18">
+                <parameters>
+                  <label>Fill Candidate Application Form</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>Upload CV and Documents</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a41" endpoint="" a:alt_id="20">
+                <parameters>
+                  <label>Submit Application</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a47" endpoint="" a:alt_id="22">
+              <parameters>
+                <label/>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+        <alternative condition="No" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Reject Job Request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Notify Client of Rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 60762555379692110e221557879ed4cf5bd120f7
+  time:timestamp: '2026-05-20T18:37:50.986837+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 60762555379692110e221557879ed4cf5bd120f7
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-pro
+  time:timestamp: '2026-05-20T18:37:50.987558+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 60762555379692110e221557879ed4cf5bd120f7
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-20T18:37:50.987642+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 60762555379692110e221557879ed4cf5bd120f7
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Fill Job Request Form)
+      1:task:(Fill Job Request Form) --> 2:task:(Submit Job Request Form)
+      2:task:(Submit Job Request Form) --> 3:task:(Receive and Review Job Request)
+      3:task:(Receive and Review Job Request) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> |Yes| 5:task:(Approve Job Request)
+      4:exclusivegateway:{x} --> |No| 6:task:(Reject Job Request)
+      6:task:(Reject Job Request) --> 7:task:(Notify Client of Rejection)
+      7:task:(Notify Client of Rejection) --> 8:endevent:(((endevent)))
+      5:task:(Approve Job Request) --> 9:task:(Create Job Requisition)
+      9:task:(Create Job Requisition) --> 10:task:(Receive Job Requisition)
+      10:task:(Receive Job Requisition) --> 11:task:(Create Job Posting)
+      11:task:(Create Job Posting) --> 12:task:(Publish Job on Multiple Channels)
+      12:task:(Publish Job on Multiple Channels) --> 13:task:(View Job Posting)
+      13:task:(View Job Posting) --> 14:exclusivegateway:{x}
+      14:exclusivegateway:{x} --> |Yes| 15:task:(Login with ID and Password)
+      14:exclusivegateway:{x} --> |No| 16:task:(Create Account)
+      15:task:(Login with ID and Password) --> 17:exclusivegateway:{x}
+      16:task:(Create Account) --> 17:exclusivegateway:{x}
+      17:exclusivegateway:{x} --> 18:task:(Fill Candidate Application Form)
+      18:task:(Fill Candidate Application Form) --> 19:task:(Upload CV and Documents)
+      19:task:(Upload CV and Documents) --> 20:task:(Submit Application)
+      20:task:(Submit Application) --> 21:exclusivegateway:{x}
+      21:exclusivegateway:{x} --> |No| 18:task:(Fill Candidate Application Form)
+      21:exclusivegateway:{x} --> |Yes| 22
+  time:timestamp: '2026-05-20T18:37:50.987716+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 60762555379692110e221557879ed4cf5bd120f7
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Fill Job Request Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Job Request Form</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Receive and Review Job Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="No" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Approve Job Request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Create Job Requisition</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Receive Job Requisition</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Create Job Posting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Publish Job on Multiple Channels</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>View Job Posting</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="14">
+            <alternative condition="Yes" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Login with ID and Password</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No" language="text/javascript">
+              <call id="a31" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Create Account</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <loop mode="pre_test" condition="true">
+            <call id="a37" endpoint="" a:alt_id="18">
+              <parameters>
+                <label>Fill Candidate Application Form</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a39" endpoint="" a:alt_id="19">
+              <parameters>
+                <label>Upload CV and Documents</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a41" endpoint="" a:alt_id="20">
+              <parameters>
+                <label>Submit Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="No" a:alt_id="21" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="18">
+                <parameters>
+                  <label>Fill Candidate Application Form</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>Upload CV and Documents</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a41" endpoint="" a:alt_id="20">
+                <parameters>
+                  <label>Submit Application</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a47" endpoint="" a:alt_id="22">
+              <parameters>
+                <label/>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+        <alternative condition="No" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Reject Job Request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Notify Client of Rejection</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-20T18:37:50.987799+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-05-20T18:37:51.174478+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-20T18:37:51.174612+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2026-05-20T18:37:51.174694+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-pro
+  time:timestamp: '2026-05-20T18:37:51.174762+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-20T18:37:51.174892+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:endevent:(((endevent)))
+  time:timestamp: '2026-05-20T18:37:51.174974+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-05-20T18:37:51.175043+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-05-20T18:37:51.373245+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-20T18:37:51.373358+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:endevent:(((endevent)))
+  time:timestamp: '2026-05-20T18:37:51.373763+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-20T18:37:51.373700+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-pro
+  time:timestamp: '2026-05-20T18:37:51.373632+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: "# User Input:\n"
+  time:timestamp: '2026-05-20T18:37:51.373556+02:00'
+---
+event:
+  concept:instance: 24000
+  id:id: ex-ante
+  cpee:instance: f53b3351-e16f-4b98-ab2c-0cb26c3feb48
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-05-20T18:37:51.373828+02:00'

@@ -1,0 +1,638 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 12242
+    cpee:name: '67575'
+    cpee:instance: 705c4986-98a8-4a1e-ab01-74ae419c322f
+---
+event:
+  concept:instance: 12242
+  id:id: ex-ante
+  cpee:instance: 705c4986-98a8-4a1e-ab01-74ae419c322f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-15T14:40:30.031233+02:00'
+---
+event:
+  concept:instance: 12242
+  id:id: ex-ante
+  cpee:instance: 705c4986-98a8-4a1e-ab01-74ae419c322f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45ec361f0d35e3e86c02523d1626fc839dee8608
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-15T14:40:47.654092+02:00'
+---
+event:
+  concept:instance: 12242
+  id:id: ex-ante
+  cpee:instance: 705c4986-98a8-4a1e-ab01-74ae419c322f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Determine if driving licence is being issued for the first time</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="First time issuance" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Check if categories are C, CE, C1, C1E, D, D1, DE or D1E</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Yes" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Conduct medical examination for minimum physical and mental fitness</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Check if categories are AM, A, A1, A2, B, B1, BE</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="9">
+                <alternative condition="Yes" language="text/javascript">
+                  <call id="a19" endpoint="" a:alt_id="10">
+                    <parameters>
+                      <label>Check if renewal requires medical examination for category AM</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="12">
+                    <alternative condition="Yes" language="text/javascript">
+                      <call id="a25" endpoint="" a:alt_id="13">
+                        <parameters>
+                          <label>Conduct medical examination for minimum physical and mental fitness</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="No" language="text/javascript">
+                      <call id="a27" endpoint="" a:alt_id="14">
+                        <parameters>
+                          <label>No medical examination required for renewal</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="No" language="text/javascript">
+                  <call id="a21" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>No medical examination required for renewal</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+          <choose mode="exclusive" a:alt_id="8">
+            <alternative condition="Medical Exam Required" language="text/javascript">
+              <call id="a35" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Assess physical and mental fitness</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="17">
+                <alternative condition="Fitness met" language="text/javascript"/>
+                <alternative condition="Fitness not met" language="text/javascript">
+                  <call id="a73" endpoint="" a:alt_id="31">
+                    <parameters>
+                      <label>Applicant/holder does not meet minimum standards</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="No Medical Exam Required" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Consider alternative measures</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="18">
+                <alternative condition="Self-assessment form" language="text/javascript">
+                  <call id="a43" endpoint="" a:alt_id="19">
+                    <parameters>
+                      <label>Applicant fills self-assessment form</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="National assessment system" language="text/javascript">
+                  <call id="a45" endpoint="" a:alt_id="20">
+                    <parameters>
+                      <label>Establish national system for fitness assessment</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <choose mode="exclusive" a:alt_id="22">
+                <alternative condition="Likely to have medical conditions" language="text/javascript">
+                  <call id="a53" endpoint="" a:alt_id="23">
+                    <parameters>
+                      <label>Applicant/holder undergoes medical examination</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="17">
+                    <alternative condition="Fitness met" language="text/javascript"/>
+                    <alternative condition="Fitness not met" language="text/javascript">
+                      <call id="a73" endpoint="" a:alt_id="31">
+                        <parameters>
+                          <label>Applicant/holder does not meet minimum standards</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="No likely medical conditions" language="text/javascript">
+                  <call id="a55" endpoint="" a:alt_id="24">
+                    <parameters>
+                      <label>Proceed with issuance/renewal</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a59" endpoint="" a:alt_id="25">
+                    <parameters>
+                      <label>Consider stricter standards</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a61" endpoint="" a:alt_id="26">
+                    <parameters>
+                      <label>Inform Commission about guidelines for medical practitioners</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a63" endpoint="" a:alt_id="27">
+                    <parameters>
+                      <label>Commission makes guidelines available</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a65" endpoint="" a:alt_id="28">
+                    <parameters>
+                      <label>Inform Commission about public awareness campaigns</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a67" endpoint="" a:alt_id="29">
+                    <parameters>
+                      <label>Commission makes information available</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Renewal" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Determine if categories are AM, A, A1, A2, B, B1, BE</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 45ec361f0d35e3e86c02523d1626fc839dee8608
+  time:timestamp: '2026-05-15T14:40:47.653666+02:00'
+---
+event:
+  concept:instance: 12242
+  id:id: ex-ante
+  cpee:instance: 705c4986-98a8-4a1e-ab01-74ae419c322f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45ec361f0d35e3e86c02523d1626fc839dee8608
+  cpee:exposition: |-
+    # User Input:
+    Article 11: Compliance with the minimum standards of physical and mental fitness
+    1 Member States shall, before a driving licence is issued by Member States for the first time, ensure that applicants undergo a medical examination in which the minimum standards of physical and mental fitness covering all the medical conditions set out in are applied by Member States.
+    A medical examination shall, however, be required by Member States in respect of applications for driving licences of categories C, CE, C1, C1E, D, D1, DE or D1E, regardless of whether a medical examination was undertaken by Member States for another category.
+    2 Before a driving licence is renewed by Member States, applicants for the renewal shall undergo a medical examination covering the medical conditions set out.
+    This shall apply to the renewal of driving licences in category AM only if so required by the Member State in question IAW, point (b).
+    --PARALLEL TASKS--
+    3(a) Notwithstanding paragraphs 1 and 2, and to the extent not otherwise provided for by, such as in the case of the appropriate assessment of eyesight for applicants for driving licences IAW, Member States may, for categories AM, A, A1, A2, B, B1 and BE, instead of requiring a medical examination, apply one or both of the following alternative measures require the applicant or holder of the driving licence to fill in a self-assessment form covering the medical conditions set out in when applying for the issuance or renewal of a driving licence; or
+    3(b) Notwithstanding paragraphs 1 and 2, and to the extent not otherwise provided for by, such as in the case of the appropriate assessment of eyesight for applicants for driving licences IAW, Member States may, for categories AM, A, A1, A2, B, B1 and BE, instead of requiring a medical examination, apply one or both of the following alternative measures establish a national system of assessment of fitness to drive to ensure that significant changes in physical or mental fitness are reacted by Member States to in order to comply with the minimum standards of physical and mental fitness set out in, after the driving licence has been issued by Member States to the applicant following a medical examination or self-assessment
+    --END OF PARALLEL TASKS--
+    4 Member States may provide for appropriate measures or for knowingly providing information in the self-assessment form, or for failing to meet any requirement established IAW, point (b).
+    5 Member States may apply the alternative measure under, point (b), in such a way that Member States allows the monitoring of fitness to drive during periods of administrative validity.
+    6 IF, on the basis of information acquired pursuant to the various alternative measures set out in, Member States becomes apparent that the applicant OR holder of a driving licence is likely to have one or more of the medical conditions listed in, Member States shall ensure that the applicant or holder of the driving licence undergoes a medical examination prior to the Member States issuing or renewing the driving licence.
+    7 This Article shall not prevent Member States from taking measures to raise awareness and improve the knowledge of the health sector and of driving licence holders about the minimum standards of physical and mental fitness for driving set out.
+    IF Member States adopt guidelines for medical practitioners to help identify driving licence holders who no longer meet the minimum standards of physical and mental fitness to drive, Member States shall inform the Commission thereof.
+    The Commission shall make the guidelines available to the other Member States.
+    IF Member States develop public awareness campaigns to inform citizens about mental or physical health conditions that may impair fitness to drive, Member States shall inform the Commission thereof.
+    The Commission shall make the information available to the other Member States.
+    8 The standards set by Member States for the issuance OR any subsequent renewal of driving licences may be stricter than those set out.
+  time:timestamp: '2026-05-15T14:40:47.654576+02:00'
+---
+event:
+  concept:instance: 12242
+  id:id: ex-ante
+  cpee:instance: 705c4986-98a8-4a1e-ab01-74ae419c322f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45ec361f0d35e3e86c02523d1626fc839dee8608
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-15T14:40:47.654707+02:00'
+---
+event:
+  concept:instance: 12242
+  id:id: ex-ante
+  cpee:instance: 705c4986-98a8-4a1e-ab01-74ae419c322f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45ec361f0d35e3e86c02523d1626fc839dee8608
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-15T14:40:47.654792+02:00'
+---
+event:
+  concept:instance: 12242
+  id:id: ex-ante
+  cpee:instance: 705c4986-98a8-4a1e-ab01-74ae419c322f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45ec361f0d35e3e86c02523d1626fc839dee8608
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Determine if driving licence is being issued for the first time)
+    1:task:(Determine if driving licence is being issued for the first time) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |First time issuance| 3:task:(Check if categories are C, CE, C1, C1E, D, D1, DE or D1E)
+    2:exclusivegateway:{x} --> |Renewal| 4:task:(Determine if categories are AM, A, A1, A2, B, B1, BE)
+    3:task:(Check if categories are C, CE, C1, C1E, D, D1, DE or D1E) --> 5:exclusivegateway:{x}
+    5:exclusivegateway:{x} --> |Yes| 6:task:(Conduct medical examination for minimum physical and mental fitness)
+    5:exclusivegateway:{x} --> |No| 7:task:(Check if categories are AM, A, A1, A2, B, B1, BE)
+    6:task:(Conduct medical examination for minimum physical and mental fitness) --> 8:exclusivegateway:{x}
+    7:task:(Check if categories are AM, A, A1, A2, B, B1, BE) --> 9:exclusivegateway:{x}
+    9:exclusivegateway:{x} --> |Yes| 10:task:(Check if renewal requires medical examination for category AM)
+    9:exclusivegateway:{x} --> |No| 11:task:(No medical examination required for renewal)
+    10:task:(Check if renewal requires medical examination for category AM) --> 12:exclusivegateway:{x}
+    12:exclusivegateway:{x} --> |Yes| 13:task:(Conduct medical examination for minimum physical and mental fitness)
+    12:exclusivegateway:{x} --> |No| 14:task:(No medical examination required for renewal)
+    13:task:(Conduct medical examination for minimum physical and mental fitness) --> 8:exclusivegateway:{x}
+    11:task:(No medical examination required for renewal) --> 8:exclusivegateway:{x}
+    14:task:(No medical examination required for renewal) --> 8:exclusivegateway:{x}
+    8:exclusivegateway:{x} --> |Medical Exam Required| 15:task:(Assess physical and mental fitness)
+    8:exclusivegateway:{x} --> |No Medical Exam Required| 16:task:(Consider alternative measures)
+    15:task:(Assess physical and mental fitness) --> 17:exclusivegateway:{x}
+    16:task:(Consider alternative measures) --> 18:exclusivegateway:{x}
+    18:exclusivegateway:{x} --> |Self-assessment form| 19:task:(Applicant fills self-assessment form)
+    18:exclusivegateway:{x} --> |National assessment system| 20:task:(Establish national system for fitness assessment)
+    19:task:(Applicant fills self-assessment form) --> 21:exclusivegateway:{x}
+    20:task:(Establish national system for fitness assessment) --> 21:exclusivegateway:{x}
+    21:exclusivegateway:{x} --> |Information acquired| 22:exclusivegateway:{x}
+    22:exclusivegateway:{x} --> |Likely to have medical conditions| 23:task:(Applicant/holder undergoes medical examination)
+    22:exclusivegateway:{x} --> |No likely medical conditions| 24:task:(Proceed with issuance/renewal)
+    23:task:(Applicant/holder undergoes medical examination) --> 17:exclusivegateway:{x}
+    24:task:(Proceed with issuance/renewal) --> 25:task:(Consider stricter standards)
+    25:task:(Consider stricter standards) --> 26:task:(Inform Commission about guidelines for medical practitioners)
+    26:task:(Inform Commission about guidelines for medical practitioners) --> 27:task:(Commission makes guidelines available)
+    27:task:(Commission makes guidelines available) --> 28:task:(Inform Commission about public awareness campaigns)
+    28:task:(Inform Commission about public awareness campaigns) --> 29:task:(Commission makes information available)
+    29:task:(Commission makes information available) --> 30:endevent:(((endevent)))
+    17:exclusivegateway:{x} --> |Fitness met| 30:endevent:(((endevent)))
+    17:exclusivegateway:{x} --> |Fitness not met| 31:task:(Applicant/holder does not meet minimum standards)
+    31:task:(Applicant/holder does not meet minimum standards) --> 30:endevent:(((endevent)))
+  time:timestamp: '2026-05-15T14:40:47.654897+02:00'
+---
+event:
+  concept:instance: 12242
+  id:id: ex-ante
+  cpee:instance: 705c4986-98a8-4a1e-ab01-74ae419c322f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 45ec361f0d35e3e86c02523d1626fc839dee8608
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Determine if driving licence is being issued for the first time</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="First time issuance" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Check if categories are C, CE, C1, C1E, D, D1, DE or D1E</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="Yes" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Conduct medical examination for minimum physical and mental fitness</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Check if categories are AM, A, A1, A2, B, B1, BE</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="9">
+                <alternative condition="Yes" language="text/javascript">
+                  <call id="a19" endpoint="" a:alt_id="10">
+                    <parameters>
+                      <label>Check if renewal requires medical examination for category AM</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="12">
+                    <alternative condition="Yes" language="text/javascript">
+                      <call id="a25" endpoint="" a:alt_id="13">
+                        <parameters>
+                          <label>Conduct medical examination for minimum physical and mental fitness</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="No" language="text/javascript">
+                      <call id="a27" endpoint="" a:alt_id="14">
+                        <parameters>
+                          <label>No medical examination required for renewal</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="No" language="text/javascript">
+                  <call id="a21" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>No medical examination required for renewal</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+          <choose mode="exclusive" a:alt_id="8">
+            <alternative condition="Medical Exam Required" language="text/javascript">
+              <call id="a35" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Assess physical and mental fitness</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="17">
+                <alternative condition="Fitness met" language="text/javascript"/>
+                <alternative condition="Fitness not met" language="text/javascript">
+                  <call id="a73" endpoint="" a:alt_id="31">
+                    <parameters>
+                      <label>Applicant/holder does not meet minimum standards</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="No Medical Exam Required" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Consider alternative measures</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="18">
+                <alternative condition="Self-assessment form" language="text/javascript">
+                  <call id="a43" endpoint="" a:alt_id="19">
+                    <parameters>
+                      <label>Applicant fills self-assessment form</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="National assessment system" language="text/javascript">
+                  <call id="a45" endpoint="" a:alt_id="20">
+                    <parameters>
+                      <label>Establish national system for fitness assessment</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <choose mode="exclusive" a:alt_id="22">
+                <alternative condition="Likely to have medical conditions" language="text/javascript">
+                  <call id="a53" endpoint="" a:alt_id="23">
+                    <parameters>
+                      <label>Applicant/holder undergoes medical examination</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="17">
+                    <alternative condition="Fitness met" language="text/javascript"/>
+                    <alternative condition="Fitness not met" language="text/javascript">
+                      <call id="a73" endpoint="" a:alt_id="31">
+                        <parameters>
+                          <label>Applicant/holder does not meet minimum standards</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="No likely medical conditions" language="text/javascript">
+                  <call id="a55" endpoint="" a:alt_id="24">
+                    <parameters>
+                      <label>Proceed with issuance/renewal</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a59" endpoint="" a:alt_id="25">
+                    <parameters>
+                      <label>Consider stricter standards</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a61" endpoint="" a:alt_id="26">
+                    <parameters>
+                      <label>Inform Commission about guidelines for medical practitioners</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a63" endpoint="" a:alt_id="27">
+                    <parameters>
+                      <label>Commission makes guidelines available</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a65" endpoint="" a:alt_id="28">
+                    <parameters>
+                      <label>Inform Commission about public awareness campaigns</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a67" endpoint="" a:alt_id="29">
+                    <parameters>
+                      <label>Commission makes information available</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Renewal" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Determine if categories are AM, A, A1, A2, B, B1, BE</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-15T14:40:47.655010+02:00'

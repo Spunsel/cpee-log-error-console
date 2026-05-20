@@ -1,0 +1,949 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 10925
+    cpee:name: Plain Instance
+    cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T11:23:18.024727+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-05-05T11:23:18.412642+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-05-05T11:23:20.431509+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T11:23:20.632413+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T11:23:20.634678+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send to Architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Receive Draft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Yes" a:alt_id="4" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Refine Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Send Additional Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Receive Draft</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a15" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Create Materials List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <parallel wait="-1" cancel="last" a:alt_id="8">
+          <parallel_branch>
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Order Materials Category 1</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a21" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Order Materials Category 2</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a23" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Order Materials Category 3</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <call id="a31" endpoint="" a:alt_id="13">
+          <parameters>
+            <label>Send Messages to Friends</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a33" endpoint="" a:alt_id="14">
+          <parameters>
+            <label>Build House</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a35" endpoint="" a:alt_id="15">
+          <parameters>
+            <label>Send Invitations for Party</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a37" endpoint="" a:alt_id="16">
+          <parameters>
+            <label>Create Guest List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: 3cc82560e12987f5b584e7aec65c05f9009159c1
+  time:timestamp: '2026-05-05T11:24:34.856430+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3cc82560e12987f5b584e7aec65c05f9009159c1
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-05T11:24:34.856670+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3cc82560e12987f5b584e7aec65c05f9009159c1
+  cpee:exposition: |
+    # User Input:
+    Category: Manufacturing Title: Building a House
+     
+    You want to build a tree house. First you collect your requirements, and send them to a tree house architect. The architect sends you back a draft, which you refine multiple times with additional requirements. You then create the list of needed materials from the plan. These materials fall into several categories, you order them from several online stores. While the order is processed, you send messages to several of your friends to build the house. After the house is built, you send invitations for a tree house party to your friends. In order to buy the snacks for the party, a list of people that attend the party is created.  Zu diesem Szenario sollst du ein BPMN Modell Code erstellen. Schreibe den BPMN-Code CPEE-kompatibel und block-strukturiert. Es darf kein XOR direkt nach „collect requirements“ entstehen. Der Ablauf muss zuerst linear sein: collect requirements → send to architect → receive draft. Erst danach folgt ein XOR „Refinement needed?“. Der yes-Pfad führt über refine requirements → send additional requirements → receive draft zurück zu genau diesem XOR. Der no-Pfad führt weiter zu create materials list. AND-Gateways müssen immer als sauberer Split mit passendem Join modelliert werden.
+  time:timestamp: '2026-05-05T11:24:34.857033+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3cc82560e12987f5b584e7aec65c05f9009159c1
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-05T11:24:34.857300+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3cc82560e12987f5b584e7aec65c05f9009159c1
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Collect Requirements)
+      1:task:(Collect Requirements) --> 2:task:(Send to Architect)
+      2:task:(Send to Architect) --> 3:task:(Receive Draft)
+      3:task:(Receive Draft) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> |Yes| 5:task:(Refine Requirements)
+      5:task:(Refine Requirements) --> 6:task:(Send Additional Requirements)
+      6:task:(Send Additional Requirements) --> 3:task:(Receive Draft)
+      4:exclusivegateway:{x} --> |No| 7:task:(Create Materials List)
+      7:task:(Create Materials List) --> 8:parallelgateway:{AND}
+      8:parallelgateway:{AND} --> 9:task:(Order Materials Category 1)
+      8:parallelgateway:{AND} --> 10:task:(Order Materials Category 2)
+      8:parallelgateway:{AND} --> 11:task:(Order Materials Category 3)
+      9:task:(Order Materials Category 1) --> 12:parallelgateway:{AND}
+      10:task:(Order Materials Category 2) --> 12:parallelgateway:{AND}
+      11:task:(Order Materials Category 3) --> 12:parallelgateway:{AND}
+      12:parallelgateway:{AND} --> 13:task:(Send Messages to Friends)
+      13:task:(Send Messages to Friends) --> 14:task:(Build House)
+      14:task:(Build House) --> 15:task:(Send Invitations for Party)
+      15:task:(Send Invitations for Party) --> 16:task:(Create Guest List)
+      16:task:(Create Guest List) --> 17:endevent:(((endevent)))
+  time:timestamp: '2026-05-05T11:24:34.857803+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3cc82560e12987f5b584e7aec65c05f9009159c1
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send to Architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Receive Draft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Yes" a:alt_id="4" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Refine Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Send Additional Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Receive Draft</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a15" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Create Materials List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <parallel wait="-1" cancel="last" a:alt_id="8">
+          <parallel_branch>
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Order Materials Category 1</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a21" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Order Materials Category 2</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a23" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Order Materials Category 3</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <call id="a31" endpoint="" a:alt_id="13">
+          <parameters>
+            <label>Send Messages to Friends</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a33" endpoint="" a:alt_id="14">
+          <parameters>
+            <label>Build House</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a35" endpoint="" a:alt_id="15">
+          <parameters>
+            <label>Send Invitations for Party</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a37" endpoint="" a:alt_id="16">
+          <parameters>
+            <label>Create Guest List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-05-05T11:24:34.857907+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 3cc82560e12987f5b584e7aec65c05f9009159c1
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-05T11:24:34.857689+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Collect Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send to Architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Receive Draft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Yes" a:alt_id="gw2s" language="text/javascript">
+          <call id="a35" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Refine Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a37" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Send Additional Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Receive Draft</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="a15">
+          <parameters>
+            <label>Create Materials List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+          <parallel_branch>
+            <call id="a13" endpoint="" a:alt_id="a19">
+              <parameters>
+                <label>Order Materials Category 1</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a17" endpoint="" a:alt_id="a21">
+              <parameters>
+                <label>Order Materials Category 2</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a21" endpoint="" a:alt_id="a23">
+              <parameters>
+                <label>Order Materials Category 3</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <call id="a25" endpoint="" a:alt_id="a31">
+          <parameters>
+            <label>Send Messages to Friends</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a27" endpoint="" a:alt_id="a33">
+          <parameters>
+            <label>Build House</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a29" endpoint="" a:alt_id="a35">
+          <parameters>
+            <label>Send Invitations for Party</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a31" endpoint="" a:alt_id="a37">
+          <parameters>
+            <label>Create Guest List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: b452d010b12ec3da2be8cfc3059f681b91052324
+  time:timestamp: '2026-05-05T11:29:25.052392+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b452d010b12ec3da2be8cfc3059f681b91052324
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Send to Architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Receive Draft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Yes" a:alt_id="4" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Refine Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Send Additional Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Receive Draft</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a15" endpoint="" a:alt_id="7">
+          <parameters>
+            <label>Create Materials List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <parallel wait="-1" cancel="last" a:alt_id="8">
+          <parallel_branch>
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Order Materials Category 1</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a21" endpoint="" a:alt_id="10">
+              <parameters>
+                <label>Order Materials Category 2</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a23" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Order Materials Category 3</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <call id="a31" endpoint="" a:alt_id="13">
+          <parameters>
+            <label>Send Messages to Friends</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a33" endpoint="" a:alt_id="14">
+          <parameters>
+            <label>Build House</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a35" endpoint="" a:alt_id="15">
+          <parameters>
+            <label>Send Invitations for Party</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a37" endpoint="" a:alt_id="16">
+          <parameters>
+            <label>Create Guest List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-05-05T11:29:25.052641+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b452d010b12ec3da2be8cfc3059f681b91052324
+  cpee:exposition: |+
+    # User Input:
+    I dont want to have the XOR at the beginning. Can you remove it?
+
+  time:timestamp: '2026-05-05T11:29:25.052765+02:00'
+...
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b452d010b12ec3da2be8cfc3059f681b91052324
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-05T11:29:25.052845+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b452d010b12ec3da2be8cfc3059f681b91052324
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Collect Requirements)
+    a1:task:(Collect Requirements)-->a3:task:(Send to Architect)
+    a3:task:(Send to Architect)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a5:task:(Receive Draft)
+    a5:task:(Receive Draft)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a15:task:(Create Materials List)
+    a15:task:(Create Materials List)-->gw3s:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a19:task:(Order Materials Category 1)
+    a19:task:(Order Materials Category 1)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a21:task:(Order Materials Category 2)
+    a21:task:(Order Materials Category 2)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a23:task:(Order Materials Category 3)
+    a23:task:(Order Materials Category 3)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->a31:task:(Send Messages to Friends)
+    a31:task:(Send Messages to Friends)-->a33:task:(Build House)
+    a33:task:(Build House)-->a35:task:(Send Invitations for Party)
+    a35:task:(Send Invitations for Party)-->a37:task:(Create Guest List)
+    a37:task:(Create Guest List)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Yes"|a9:task:(Refine Requirements)
+    a9:task:(Refine Requirements)-->a11:task:(Send Additional Requirements)
+    a11:task:(Send Additional Requirements)-->a5:task:(Receive Draft)
+    a5:task:(Receive Draft)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-05T11:29:25.052935+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b452d010b12ec3da2be8cfc3059f681b91052324
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Collect Requirements)
+    a1:task:(Collect Requirements)-->a3:task:(Send to Architect)
+    a3:task:(Send to Architect)-->a5:task:(Receive Draft)
+    a5:task:(Receive Draft)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a15:task:(Create Materials List)
+    a15:task:(Create Materials List)-->gw3s:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a19:task:(Order Materials Category 1)
+    a19:task:(Order Materials Category 1)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a21:task:(Order Materials Category 2)
+    a21:task:(Order Materials Category 2)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a23:task:(Order Materials Category 3)
+    a23:task:(Order Materials Category 3)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->a31:task:(Send Messages to Friends)
+    a31:task:(Send Messages to Friends)-->a33:task:(Build House)
+    a33:task:(Build House)-->a35:task:(Send Invitations for Party)
+    a35:task:(Send Invitations for Party)-->a37:task:(Create Guest List)
+    a37:task:(Create Guest List)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Yes"|a9:task:(Refine Requirements)
+    a9:task:(Refine Requirements)-->a11:task:(Send Additional Requirements)
+    a11:task:(Send Additional Requirements)-->a5:task:(Receive Draft)
+    a5:task:(Receive Draft)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-05T11:29:25.053027+02:00'
+---
+event:
+  concept:instance: 10925
+  id:id: ex-ante
+  cpee:instance: 333720c1-f222-418b-b4e5-0a98ca1e115f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b452d010b12ec3da2be8cfc3059f681b91052324
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Collect Requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send to Architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="a5">
+          <parameters>
+            <label>Receive Draft</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Yes" a:alt_id="gw2s" language="text/javascript">
+          <call id="a35" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Refine Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a37" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Send Additional Requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Receive Draft</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a9" endpoint="" a:alt_id="a15">
+          <parameters>
+            <label>Create Materials List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+          <parallel_branch>
+            <call id="a13" endpoint="" a:alt_id="a19">
+              <parameters>
+                <label>Order Materials Category 1</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a17" endpoint="" a:alt_id="a21">
+              <parameters>
+                <label>Order Materials Category 2</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a21" endpoint="" a:alt_id="a23">
+              <parameters>
+                <label>Order Materials Category 3</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <call id="a25" endpoint="" a:alt_id="a31">
+          <parameters>
+            <label>Send Messages to Friends</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a27" endpoint="" a:alt_id="a33">
+          <parameters>
+            <label>Build House</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a29" endpoint="" a:alt_id="a35">
+          <parameters>
+            <label>Send Invitations for Party</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a31" endpoint="" a:alt_id="a37">
+          <parameters>
+            <label>Create Guest List</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-05-05T11:29:25.053124+02:00'

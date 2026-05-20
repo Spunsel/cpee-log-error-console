@@ -1,0 +1,701 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 12260
+    cpee:name: '0909090'
+    cpee:instance: 57ac4449-2988-42b6-86f5-85140e22852c
+---
+event:
+  concept:instance: 12260
+  id:id: ex-ante
+  cpee:instance: 57ac4449-2988-42b6-86f5-85140e22852c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-15T14:55:04.796380+02:00'
+---
+event:
+  concept:instance: 12260
+  id:id: ex-ante
+  cpee:instance: 57ac4449-2988-42b6-86f5-85140e22852c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fb71e93fada917a6b18d15178cc75cab2345896
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-15T14:55:14.723274+02:00'
+---
+event:
+  concept:instance: 12260
+  id:id: ex-ante
+  cpee:instance: 57ac4449-2988-42b6-86f5-85140e22852c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fb71e93fada917a6b18d15178cc75cab2345896
+  cpee:exposition: |-
+    # User Input:
+    Article 23: Reporting obligations
+    1 Each Member State shall ensure that essential and important entities notify its CSIRT or, where applicable, its competent authority IAW of any incident that has a significant impact on the provision of their services as referred to in (significant incident).
+    IF appropriate, entities concerned shall notify the recipients of their services of significant incidents.
+    Each Member State shall ensure that those entities report any information enabling the CSIRT or, where applicable, the competent authority to determine any cross-border impact of the incident.
+    The mere act of notification shall not subject the notifying entity to increased liability.
+    IF the entities concerned notify the competent authority of a significant incident under the first subparagraph, the Member State shall ensure that that competent authority forwards the notification to the CSIRT upon receipt.
+    In the case of a cross-border or cross-sectoral significant incident, Member States shall ensure that their single points of contact are provided by Member States in due time with relevant information notified in accordance.
+    2 IF applicable, Member States shall ensure that essential and important entities communicate to the recipients of their services that are potentially affected by a significant cyber threat any measures or remedies that those recipients are able to take in response to that threat.
+    IF appropriate, the entities shall also inform those recipients of the significant cyber threat itself.
+    --PARALLEL TASKS--
+    3(a) An incident shall be considered by Member States to be significant if the incident has caused or is capable of causing severe operational disruption of the services or financial loss for the entity concerned
+    3(b) An incident shall be considered by Member States to be significant if the incident has affected or is capable of affecting other natural or legal persons by causing considerable material or non-material damage
+    --END OF PARALLEL TASKS--
+    --PARALLEL TASKS--
+    4(a) Member States shall ensure that, for the purpose of notification under, the entities concerned submit to the CSIRT or, where applicable, the competent authority and in any event within 24 hours of becoming aware of the significant incident, an early warning, which, where applicable, shall indicate whether the significant incident is suspected by Member States of being caused by unlawful or malicious acts or could have a cross-border impact
+    4(b) Member States shall ensure that, for the purpose of notification under, the entities concerned submit to the CSIRT or, where applicable, the competent authority and in any event within 72 hours of becoming aware of the significant incident, an incident notification, which, where applicable, shall update the information referred to in point (a) and indicate an initial assessment of the significant incident, including its severity and impact, as well as, where available, the indicators of compromise
+    4(c) Member States shall ensure that, for the purpose of notification under, the entities concerned submit to the CSIRT or, where applicable, the competent authority upon the request of a CSIRT or, where applicable, the competent authority, an intermediate report on relevant status updates4(d) Member States shall ensure that, for the purpose of notification under, the entities concerned submit to the CSIRT or, where applicable, the competent authority a final report not later than one month after the submission of the incident notification under point (b), including the following:
+    4(i) Member States shall ensure that, for the purpose of notification under, the entities concerned submit to the CSIRT or, where applicable, the competent authority a detailed description of the incident, including its severity and impact;
+    (ii)
+    the type of threat or root cause that is likely to have triggered the incident;
+    (iii)
+    applied and ongoing mitigation measures;
+    (iv)
+    where applicable, the cross-border impact of the incident
+    4(e) Member States shall ensure that, for the purpose of notification under, the entities concerned submit to the CSIRT or, where applicable, the competent authority in the event of an ongoing incident at the time of the submission of the final report referred to in point (d), Member States shall ensure that entities concerned provide a progress report at that time and a final report within one month of their handling of the incident.
+    By way of derogation from the first subparagraph, point (b), a trust service provider shall, with regard to significant incidents, notify the CSIRT or, where applicable, the competent authority and in any event within 24 hours of becoming aware of the significant incident
+    --END OF PARALLEL TASKS--
+    5 The CSIRT OR the competent authority shall provide AND where possible within 24 hours of receiving the early warning referred to in, point (a), a response to the notifying entity, including initial feedback on the significant incident and, upon request of the entity, guidance or operational advice on the implementation of possible mitigation measures.
+    IF the CSIRT is not the initial recipient of the notification referred to in, the guidance shall be provided by the competent authority in cooperation with the CSIRT.
+    The CSIRT shall provide additional technical support if the entity concerned so requests.
+    IF the significant incident is suspected by CSIRT to be of criminal nature, the CSIRT OR the competent authority shall also provide guidance on reporting the significant incident to law enforcement authorities.
+    6 IF appropriate, and where the significant incident concerns two or more Member States, the CSIRT, the competent authority or the single point of contact shall inform the other affected Member States and ENISA of the significant incident.
+    Such information shall include the type of information received in accordance.
+    In so doing, the CSIRT, the competent authority OR the single point of contact shall, IAW Union or national law, preserve the entity’s security and commercial interests as well as the confidentiality of the information provided.
+    7 IF public awareness is necessary to prevent a significant incident or to deal with an ongoing significant incident, or where disclosure of the significant incident is otherwise in the public interest, a Member State’s CSIRT OR, where applicable, its competent authority, and, where appropriate, the CSIRTs or the competent authorities of other Member States concerned, may, after consulting the entity concerned, inform the public about the significant incident OR require the entity to do so.
+    8 At the request of the CSIRT or the competent authority, the single point of contact shall forward notifications received pursuant to to the single points of contact of other affected Member States.
+    9 The single point of contact shall submit to ENISA every three months a summary report, including anonymised and aggregated data on significant incidents, incidents, cyber threats and near misses notified IAW of this Article.
+    ENISA may adopt technical guidance on the parameters of the information.
+    ENISA shall inform the Cooperation Group and the CSIRTs network about its findings on notifications received every six months.
+    10 The CSIRTs OR, where applicable, the competent authorities shall provide to the competent authorities information about significant incidents, incidents, cyber threats and near misses notified IAW of this Article and with by entities identified as critical entities .
+    11 The Commission may adopt implementing acts further specifying the type of information, the format and the procedure of a notification submitted pursuant to of this Article and to and of a communication submitted pursuant to of this Article.
+    By 17 October 2024, the Commission shall, with regard to DNS service providers, TLD name registries, cloud computing service providers, data centre service providers, content delivery network providers, managed service providers, managed security service providers, as well as providers of online marketplaces, of online search engines and of social networking services platforms, adopt implementing acts further specifying the cases in which an incident shall be considered by Commission to be significant as referred.
+    The Commission may adopt such implementing acts with regard to other essential and important entities.
+    The Commission shall exchange advice AND cooperate with the Cooperation Group on the draft implementing acts referred to in the first and second subparagraphs of this paragraph IAW, point (e).
+    Those implementing acts shall be adopted by Commission IAW the examination procedure referred.
+  time:timestamp: '2026-05-15T14:55:14.723375+02:00'
+---
+event:
+  concept:instance: 12260
+  id:id: ex-ante
+  cpee:instance: 57ac4449-2988-42b6-86f5-85140e22852c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fb71e93fada917a6b18d15178cc75cab2345896
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-15T14:55:14.723499+02:00'
+---
+event:
+  concept:instance: 12260
+  id:id: ex-ante
+  cpee:instance: 57ac4449-2988-42b6-86f5-85140e22852c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fb71e93fada917a6b18d15178cc75cab2345896
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-15T14:55:14.723577+02:00'
+---
+event:
+  concept:instance: 12260
+  id:id: ex-ante
+  cpee:instance: 57ac4449-2988-42b6-86f5-85140e22852c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Entities notify CSIRT/competent authority of significant incident</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Entities notify recipients of services if appropriate</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Entities report information on cross-border impact</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Competent authority forwards notification to CSIRT if applicable</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Single points of contact provided with relevant information for cross-border/cross-sectoral incidents</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Entities communicate measures/remedies to potentially affected recipients for cyber threats if applicable</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Entities inform recipients of significant cyber threat itself if appropriate</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="9">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Assess incident significance: severe operational disruption or financial loss</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Assess incident significance: considerable material or non-material damage to others</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a29" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Submit early warning within 24 hours</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Submit incident notification within 72 hours</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Submit intermediate report upon request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a35" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Submit final report within one month</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a37" endpoint="" a:alt_id="17">
+            <parameters>
+              <label>Provide progress report and final report for ongoing incidents if applicable</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a39" endpoint="" a:alt_id="18">
+            <parameters>
+              <label>CSIRT/competent authority provides response and feedback within 24 hours of early warning</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a41" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>CSIRT/competent authority provides guidance/advice on mitigation measures</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a43" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>CSIRT provides additional technical support if requested</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="22">
+            <alternative condition="Suspected criminal nature" language="text/javascript">
+              <call id="a47" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>CSIRT/competent authority provides guidance on reporting to law enforcement</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Not suspected criminal nature" language="text/javascript"/>
+          </choose>
+          <call id="a53" endpoint="" a:alt_id="25">
+            <parameters>
+              <label>Inform other affected Member States and ENISA if cross-border/cross-sectoral and appropriate</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a55" endpoint="" a:alt_id="26">
+            <parameters>
+              <label>Inform the public or require entity to inform public if necessary or in public interest</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a57" endpoint="" a:alt_id="27">
+            <parameters>
+              <label>Single point of contact forwards notifications to other Member States' single points of contact upon request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a59" endpoint="" a:alt_id="28">
+            <parameters>
+              <label>Single point of contact submits summary report to ENISA every three months</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a61" endpoint="" a:alt_id="29">
+            <parameters>
+              <label>CSIRTs/competent authorities provide information on incidents to other competent authorities for critical entities</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a63" endpoint="" a:alt_id="30">
+            <parameters>
+              <label>Commission may adopt implementing acts specifying notification details</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a65" endpoint="" a:alt_id="31">
+            <parameters>
+              <label>Commission adopts implementing acts for specific providers by Oct 2024</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a67" endpoint="" a:alt_id="32">
+            <parameters>
+              <label>Commission may adopt implementing acts for other entities</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a69" endpoint="" a:alt_id="33">
+            <parameters>
+              <label>Commission exchanges advice and cooperates with Cooperation Group on draft implementing acts</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="34">
+            <alternative condition="Trust service provider" language="text/javascript">
+              <call id="a73" endpoint="" a:alt_id="35">
+                <parameters>
+                  <label>Trust service provider notifies within 24 hours</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Other entities" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Not significant" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 8fb71e93fada917a6b18d15178cc75cab2345896
+  time:timestamp: '2026-05-15T14:55:14.722942+02:00'
+---
+event:
+  concept:instance: 12260
+  id:id: ex-ante
+  cpee:instance: 57ac4449-2988-42b6-86f5-85140e22852c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fb71e93fada917a6b18d15178cc75cab2345896
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Entities notify CSIRT/competent authority of significant incident)
+    1:task:(Entities notify CSIRT/competent authority of significant incident) --> 2:task:(Entities notify recipients of services if appropriate)
+    2:task:(Entities notify recipients of services if appropriate) --> 3:task:(Entities report information on cross-border impact)
+    3:task:(Entities report information on cross-border impact) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Significant incident| 5:task:(Competent authority forwards notification to CSIRT if applicable)
+    4:exclusivegateway:{x} --> |Not significant| 19:endevent:(((endevent)))
+    5:task:(Competent authority forwards notification to CSIRT if applicable) --> 6:task:(Single points of contact provided with relevant information for cross-border/cross-sectoral incidents)
+    6:task:(Single points of contact provided with relevant information for cross-border/cross-sectoral incidents) --> 7:task:(Entities communicate measures/remedies to potentially affected recipients for cyber threats if applicable)
+    7:task:(Entities communicate measures/remedies to potentially affected recipients for cyber threats if applicable) --> 8:task:(Entities inform recipients of significant cyber threat itself if appropriate)
+    8:task:(Entities inform recipients of significant cyber threat itself if appropriate) --> 9:parallelgateway:{AND}
+    9:parallelgateway:{AND} --> 10:task:(Assess incident significance: severe operational disruption or financial loss)
+    9:parallelgateway:{AND} --> 11:task:(Assess incident significance: considerable material or non-material damage to others)
+    10:task:(Assess incident significance: severe operational disruption or financial loss) --> 12:parallelgateway:{AND}
+    11:task:(Assess incident significance: considerable material or non-material damage to others) --> 12:parallelgateway:{AND}
+    12:parallelgateway:{AND} --> 13:task:(Submit early warning within 24 hours)
+    13:task:(Submit early warning within 24 hours) --> 14:task:(Submit incident notification within 72 hours)
+    14:task:(Submit incident notification within 72 hours) --> 15:task:(Submit intermediate report upon request)
+    15:task:(Submit intermediate report upon request) --> 16:task:(Submit final report within one month)
+    16:task:(Submit final report within one month) --> 17:task:(Provide progress report and final report for ongoing incidents if applicable)
+    17:task:(Provide progress report and final report for ongoing incidents if applicable) --> 18:task:(CSIRT/competent authority provides response and feedback within 24 hours of early warning)
+    18:task:(CSIRT/competent authority provides response and feedback within 24 hours of early warning) --> 20:task:(CSIRT/competent authority provides guidance/advice on mitigation measures)
+    20:task:(CSIRT/competent authority provides guidance/advice on mitigation measures) --> 21:task:(CSIRT provides additional technical support if requested)
+    21:task:(CSIRT provides additional technical support if requested) --> 22:exclusivegateway:{x}
+    22:exclusivegateway:{x} --> |Suspected criminal nature| 23:task:(CSIRT/competent authority provides guidance on reporting to law enforcement)
+    22:exclusivegateway:{x} --> |Not suspected criminal nature| 24:exclusivegateway:{x}
+    23:task:(CSIRT/competent authority provides guidance on reporting to law enforcement) --> 24:exclusivegateway:{x}
+    24:exclusivegateway:{x} --> 25:task:(Inform other affected Member States and ENISA if cross-border/cross-sectoral and appropriate)
+    25:task:(Inform other affected Member States and ENISA if cross-border/cross-sectoral and appropriate) --> 26:task:(Inform the public or require entity to inform public if necessary or in public interest)
+    26:task:(Inform the public or require entity to inform public if necessary or in public interest) --> 27:task:(Single point of contact forwards notifications to other Member States' single points of contact upon request)
+    27:task:(Single point of contact forwards notifications to other Member States' single points of contact upon request) --> 28:task:(Single point of contact submits summary report to ENISA every three months)
+    28:task:(Single point of contact submits summary report to ENISA every three months) --> 29:task:(CSIRTs/competent authorities provide information on incidents to other competent authorities for critical entities)
+    29:task:(CSIRTs/competent authorities provide information on incidents to other competent authorities for critical entities) --> 30:task:(Commission may adopt implementing acts specifying notification details)
+    30:task:(Commission may adopt implementing acts specifying notification details) --> 31:task:(Commission adopts implementing acts for specific providers by Oct 2024)
+    31:task:(Commission adopts implementing acts for specific providers by Oct 2024) --> 32:task:(Commission may adopt implementing acts for other entities)
+    32:task:(Commission may adopt implementing acts for other entities) --> 33:task:(Commission exchanges advice and cooperates with Cooperation Group on draft implementing acts)
+    33:task:(Commission exchanges advice and cooperates with Cooperation Group on draft implementing acts) --> 34:exclusivegateway:{x}
+    34:exclusivegateway:{x} --> |Trust service provider| 35:task:(Trust service provider notifies within 24 hours)
+    34:exclusivegateway:{x} --> |Other entities| 36:exclusivegateway:{x}
+    35:task:(Trust service provider notifies within 24 hours) --> 36:exclusivegateway:{x}
+    36:exclusivegateway:{x} --> 37:endevent:(((endevent)))
+  time:timestamp: '2026-05-15T14:55:14.723678+02:00'
+---
+event:
+  concept:instance: 12260
+  id:id: ex-ante
+  cpee:instance: 57ac4449-2988-42b6-86f5-85140e22852c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8fb71e93fada917a6b18d15178cc75cab2345896
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Entities notify CSIRT/competent authority of significant incident</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Entities notify recipients of services if appropriate</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Entities report information on cross-border impact</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Competent authority forwards notification to CSIRT if applicable</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Single points of contact provided with relevant information for cross-border/cross-sectoral incidents</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Entities communicate measures/remedies to potentially affected recipients for cyber threats if applicable</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Entities inform recipients of significant cyber threat itself if appropriate</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="9">
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Assess incident significance: severe operational disruption or financial loss</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Assess incident significance: considerable material or non-material damage to others</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a29" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>Submit early warning within 24 hours</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Submit incident notification within 72 hours</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a33" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Submit intermediate report upon request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a35" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Submit final report within one month</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a37" endpoint="" a:alt_id="17">
+            <parameters>
+              <label>Provide progress report and final report for ongoing incidents if applicable</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a39" endpoint="" a:alt_id="18">
+            <parameters>
+              <label>CSIRT/competent authority provides response and feedback within 24 hours of early warning</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a41" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>CSIRT/competent authority provides guidance/advice on mitigation measures</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a43" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>CSIRT provides additional technical support if requested</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="22">
+            <alternative condition="Suspected criminal nature" language="text/javascript">
+              <call id="a47" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>CSIRT/competent authority provides guidance on reporting to law enforcement</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Not suspected criminal nature" language="text/javascript"/>
+          </choose>
+          <call id="a53" endpoint="" a:alt_id="25">
+            <parameters>
+              <label>Inform other affected Member States and ENISA if cross-border/cross-sectoral and appropriate</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a55" endpoint="" a:alt_id="26">
+            <parameters>
+              <label>Inform the public or require entity to inform public if necessary or in public interest</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a57" endpoint="" a:alt_id="27">
+            <parameters>
+              <label>Single point of contact forwards notifications to other Member States' single points of contact upon request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a59" endpoint="" a:alt_id="28">
+            <parameters>
+              <label>Single point of contact submits summary report to ENISA every three months</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a61" endpoint="" a:alt_id="29">
+            <parameters>
+              <label>CSIRTs/competent authorities provide information on incidents to other competent authorities for critical entities</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a63" endpoint="" a:alt_id="30">
+            <parameters>
+              <label>Commission may adopt implementing acts specifying notification details</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a65" endpoint="" a:alt_id="31">
+            <parameters>
+              <label>Commission adopts implementing acts for specific providers by Oct 2024</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a67" endpoint="" a:alt_id="32">
+            <parameters>
+              <label>Commission may adopt implementing acts for other entities</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a69" endpoint="" a:alt_id="33">
+            <parameters>
+              <label>Commission exchanges advice and cooperates with Cooperation Group on draft implementing acts</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="34">
+            <alternative condition="Trust service provider" language="text/javascript">
+              <call id="a73" endpoint="" a:alt_id="35">
+                <parameters>
+                  <label>Trust service provider notifies within 24 hours</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Other entities" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="Not significant" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-15T14:55:14.723793+02:00'

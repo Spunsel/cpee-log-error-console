@@ -1,0 +1,568 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 11688
+    cpee:name: Plain Instance
+    cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-06T19:13:44.228409+02:00'
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2026-05-06T19:14:04.204563+02:00'
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-06T19:14:04.604647+02:00'
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6158b170eb925e76b3c1440133c366e4acb48e83
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-06T19:14:48.832616+02:00'
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6158b170eb925e76b3c1440133c366e4acb48e83
+  cpee:exposition: |+
+    # User Input:
+    The loan approval process begins when a customer submits a request for a loan, specifying the desired amount, purpose, and relevant personal and financial information. Upon receipt, the system creates a loan application record and performs initial validation checks to ensure that all required data is complete, properly formatted, and consistent. If mandatory information is missing or invalid, the application is rejected early and the customer is notified with guidance on how to correct it.
+
+    Once the application passes validation, the process proceeds with identity verification and regulatory compliance checks. The customer’s identity is verified using a Know Your Customer (KYC) service, while additional screening is conducted against anti-money laundering (AML) and sanctions lists. In parallel, a fraud detection service evaluates the application using behavioral and contextual signals, such as device information and submission patterns. If any fraud indicators or sanctions matches are detected, the application is immediately denied and flagged for audit and reporting purposes.
+
+    For applications that pass compliance checks, the system performs a comprehensive risk and credit assessment. This includes retrieving the customer’s credit score from an external bureau and calculating an internal risk rating that reflects the likelihood of default. The system also reviews the customer’s financial history, including existing loans and past repayment behavior, to identify patterns such as delinquencies or overexposure.
+
+    At the same time, the characteristics of the loan itself are assessed. The requested amount is categorized into tiers (e.g., small, medium, or large), and the stated purpose of the loan may also influence the perceived risk. These factors, combined with the customer’s profile, feed into the decision-making stage.
+
+    The decision engine then evaluates all collected information to determine the outcome. Applications that meet strong eligibility criteria—such as verified identity, low risk, good credit score, acceptable DTI, and modest loan amount—may be automatically approved. In contrast, applications that exhibit high risk, failed verification, compliance issues, or poor financial indicators are automatically denied.
+
+    Applications that fall into intermediate or uncertain categories are routed for manual review. This includes cases involving medium risk levels, large loan amounts, or borderline financial metrics. These applications are forwarded to an underwriter or approver service, where a human reviewer examines supporting documents, evaluates risk factors in context, and may apply discretionary judgment or policy overrides. The reviewer then records a final decision along with a justification.
+
+    If a loan is approved—either automatically or through manual review—the system generates a loan offer tailored to the customer’s risk profile. This includes determining the applicable interest rate and repayment terms. The offer is then communicated to the customer for acceptance.
+
+    Finally, the customer is notified of the outcome of their application, whether approved, denied, or pending additional review. The system also records detailed explanations and decision factors to ensure transparency, support regulatory compliance, and maintain a complete audit trail of the entire process.
+
+
+
+
+  time:timestamp: '2026-05-06T19:14:48.832711+02:00'
+...
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Loan Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Create Loan Application Record</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Perform Initial Validation Checks</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Verify Identity and Perform Compliance Checks</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="7">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Perform Risk and Credit Assessment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Evaluate Application for Fraud Indicators</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Assess Loan Characteristics</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Evaluate Information with Decision Engine</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="13">
+            <alternative condition="Eligible" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Automatically Approve Application</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a35" endpoint="" a:alt_id="17">
+                <parameters>
+                  <label>Generate Loan Offer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a47" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Communicate Offer to Customer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Ineligible" language="text/javascript">
+              <call id="a31" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Automatically Deny Application</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a37" endpoint="" a:alt_id="18">
+                <parameters>
+                  <label>Notify Customer of Denial</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Uncertain" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Route for Manual Review</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>Underwriter Reviews Application</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="20">
+                <alternative condition="Approved" language="text/javascript">
+                  <call id="a35" endpoint="" a:alt_id="17">
+                    <parameters>
+                      <label>Generate Loan Offer</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a47" endpoint="" a:alt_id="21">
+                    <parameters>
+                      <label>Communicate Offer to Customer</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Denied" language="text/javascript">
+                  <call id="a37" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>Notify Customer of Denial</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+          <call id="a49" endpoint="" a:alt_id="22">
+            <parameters>
+              <label>Notify Customer of Outcome</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Data is Incomplete" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Reject Application and Notify Customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 6158b170eb925e76b3c1440133c366e4acb48e83
+  time:timestamp: '2026-05-06T19:14:48.832249+02:00'
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6158b170eb925e76b3c1440133c366e4acb48e83
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-05-06T19:14:48.832819+02:00'
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6158b170eb925e76b3c1440133c366e4acb48e83
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-06T19:14:48.832942+02:00'
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6158b170eb925e76b3c1440133c366e4acb48e83
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Submit Loan Request)
+    1:task:(Submit Loan Request) --> 2:task:(Create Loan Application Record)
+    2:task:(Create Loan Application Record) --> 3:task:(Perform Initial Validation Checks)
+    3:task:(Perform Initial Validation Checks) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Data is Complete| 5:task:(Verify Identity and Perform Compliance Checks)
+    4:exclusivegateway:{x} --> |Data is Incomplete| 6:task:(Reject Application and Notify Customer)
+    5:task:(Verify Identity and Perform Compliance Checks) --> 7:parallelgateway:{AND}
+    7:parallelgateway:{AND} --> 8:task:(Perform Risk and Credit Assessment)
+    7:parallelgateway:{AND} --> 9:task:(Evaluate Application for Fraud Indicators)
+    8:task:(Perform Risk and Credit Assessment) --> 10:parallelgateway:{AND}
+    9:task:(Evaluate Application for Fraud Indicators) --> 10:parallelgateway:{AND}
+    10:parallelgateway:{AND} --> 11:task:(Assess Loan Characteristics)
+    11:task:(Assess Loan Characteristics) --> 12:task:(Evaluate Information with Decision Engine)
+    12:task:(Evaluate Information with Decision Engine) --> 13:exclusivegateway:{x}
+    13:exclusivegateway:{x} --> |Eligible| 14:task:(Automatically Approve Application)
+    13:exclusivegateway:{x} --> |Ineligible| 15:task:(Automatically Deny Application)
+    13:exclusivegateway:{x} --> |Uncertain| 16:task:(Route for Manual Review)
+    14:task:(Automatically Approve Application) --> 17:task:(Generate Loan Offer)
+    15:task:(Automatically Deny Application) --> 18:task:(Notify Customer of Denial)
+    16:task:(Route for Manual Review) --> 19:task:(Underwriter Reviews Application)
+    19:task:(Underwriter Reviews Application) --> 20:exclusivegateway:{x}
+    20:exclusivegateway:{x} --> |Approved| 17:task:(Generate Loan Offer)
+    20:exclusivegateway:{x} --> |Denied| 18:task:(Notify Customer of Denial)
+    17:task:(Generate Loan Offer) --> 21:task:(Communicate Offer to Customer)
+    21:task:(Communicate Offer to Customer) --> 22:task:(Notify Customer of Outcome)
+    18:task:(Notify Customer of Denial) --> 22:task:(Notify Customer of Outcome)
+    22:task:(Notify Customer of Outcome) --> 23:endevent:(((endevent)))
+    ```
+    This model represents the described loan approval process. It starts with the customer submitting a loan request and ends with the customer being notified of the outcome. The process includes tasks such as initial validation checks, identity verification, compliance checks, risk and credit assessment, decision making, and potentially manual review. The model also includes decision points (exclusive gateways) to handle different outcomes of the process, such as whether the application data is complete, whether the application is eligible for automatic approval or denial, and the outcome of the manual review.
+  time:timestamp: '2026-05-06T19:14:48.833034+02:00'
+---
+event:
+  concept:instance: 11688
+  id:id: ex-ante
+  cpee:instance: 78fa3727-1c2a-47b8-8c11-f0ecc822739d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6158b170eb925e76b3c1440133c366e4acb48e83
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Submit Loan Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Create Loan Application Record</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Perform Initial Validation Checks</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Verify Identity and Perform Compliance Checks</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="7">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Perform Risk and Credit Assessment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Evaluate Application for Fraud Indicators</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a23" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>Assess Loan Characteristics</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="12">
+            <parameters>
+              <label>Evaluate Information with Decision Engine</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="13">
+            <alternative condition="Eligible" language="text/javascript">
+              <call id="a29" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Automatically Approve Application</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a35" endpoint="" a:alt_id="17">
+                <parameters>
+                  <label>Generate Loan Offer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a47" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Communicate Offer to Customer</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Ineligible" language="text/javascript">
+              <call id="a31" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Automatically Deny Application</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a37" endpoint="" a:alt_id="18">
+                <parameters>
+                  <label>Notify Customer of Denial</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Uncertain" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Route for Manual Review</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>Underwriter Reviews Application</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="20">
+                <alternative condition="Approved" language="text/javascript">
+                  <call id="a35" endpoint="" a:alt_id="17">
+                    <parameters>
+                      <label>Generate Loan Offer</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a47" endpoint="" a:alt_id="21">
+                    <parameters>
+                      <label>Communicate Offer to Customer</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Denied" language="text/javascript">
+                  <call id="a37" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>Notify Customer of Denial</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+          <call id="a49" endpoint="" a:alt_id="22">
+            <parameters>
+              <label>Notify Customer of Outcome</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Data is Incomplete" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Reject Application and Notify Customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-06T19:14:48.833147+02:00'

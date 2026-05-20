@@ -1,0 +1,485 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 11830
+    cpee:name: Plain Instance
+    cpee:instance: 42163d2a-8601-4af3-a941-7689ea809f47
+---
+event:
+  concept:instance: 11830
+  id:id: ex-ante
+  cpee:instance: 42163d2a-8601-4af3-a941-7689ea809f47
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-12T20:12:33.940417+02:00'
+---
+event:
+  concept:instance: 11830
+  id:id: ex-ante
+  cpee:instance: 42163d2a-8601-4af3-a941-7689ea809f47
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Report Job Applications</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Receive New Job Offers</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Confirm Application Receipt</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Rate Application</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Negotiate Interview">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Negotiate Interview</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Enter Probation Phase</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Rate Company</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a19" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Company Rates Applicant</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <choose mode="exclusive" a:alt_id="11">
+            <alternative condition="Job Permanent" language="text/javascript">
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Job Becomes Permanent</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="0">
+                <alternative condition=""/>
+                <alternative condition="">
+                  <call id="a39" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>1 Year Wait for Reviews</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a41" endpoint="" a:alt_id="19">
+                    <parameters>
+                      <label>View Company Reviews</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <choose mode="exclusive" a:alt_id="14">
+                <alternative condition="Company Rated C or Less" language="text/javascript">
+                  <call id="a31" endpoint="" a:alt_id="15">
+                    <parameters>
+                      <label>Continue Receiving Offers</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="0">
+                    <alternative condition="">
+                      <call id="a1" endpoint="" a:alt_id="1">
+                        <parameters>
+                          <label>Report Job Applications</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a3" endpoint="" a:alt_id="2">
+                        <parameters>
+                          <label>Receive New Job Offers</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a5" endpoint="" a:alt_id="3">
+                        <parameters>
+                          <label>Confirm Application Receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a7" endpoint="" a:alt_id="4">
+                        <parameters>
+                          <label>Rate Application</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Company Rated Higher than C" language="text/javascript">
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="Job Not Permanent" language="text/javascript">
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: a6a42eff12ddb9e3846f9be8d70ed78c067c7eae
+  time:timestamp: '2026-05-12T20:13:13.782828+02:00'
+---
+event:
+  concept:instance: 11830
+  id:id: ex-ante
+  cpee:instance: 42163d2a-8601-4af3-a941-7689ea809f47
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6a42eff12ddb9e3846f9be8d70ed78c067c7eae
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-12T20:13:13.783233+02:00'
+---
+event:
+  concept:instance: 11830
+  id:id: ex-ante
+  cpee:instance: 42163d2a-8601-4af3-a941-7689ea809f47
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6a42eff12ddb9e3846f9be8d70ed78c067c7eae
+  cpee:exposition: |-
+    # User Input:
+    You have to regularly report, to which companies you wrote job applications.
+    Based on your job applications, new potential job offers are sent to you.
+    Companies have to confirm that they received job applications and rate the
+    application. A job interview can be negotiated. When a company wants you to
+    work for them, you enter the probation phase. After probation phase, you can
+    rate the company and the company can rate you. Reviews for a company can only
+    be seen (by job applicants) after 1 year. If a job becomes permanent, the
+    process ends, unless you rated the company C or less, then you continue to
+    receive job offers, but no longer have to report. 
+  time:timestamp: '2026-05-12T20:13:13.784012+02:00'
+---
+event:
+  concept:instance: 11830
+  id:id: ex-ante
+  cpee:instance: 42163d2a-8601-4af3-a941-7689ea809f47
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6a42eff12ddb9e3846f9be8d70ed78c067c7eae
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-12T20:13:13.784681+02:00'
+---
+event:
+  concept:instance: 11830
+  id:id: ex-ante
+  cpee:instance: 42163d2a-8601-4af3-a941-7689ea809f47
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6a42eff12ddb9e3846f9be8d70ed78c067c7eae
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-12T20:13:13.784784+02:00'
+---
+event:
+  concept:instance: 11830
+  id:id: ex-ante
+  cpee:instance: 42163d2a-8601-4af3-a941-7689ea809f47
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6a42eff12ddb9e3846f9be8d70ed78c067c7eae
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Report Job Applications)
+      1:task:(Report Job Applications) --> 2:task:(Receive New Job Offers)
+      2:task:(Receive New Job Offers) --> 3:task:(Confirm Application Receipt)
+      3:task:(Confirm Application Receipt) --> 4:task:(Rate Application)
+      4:task:(Rate Application) --> 5:exclusivegateway:{x}
+      5:exclusivegateway:{x} --> |Negotiate Interview| 6:task:(Negotiate Interview)
+      5:exclusivegateway:{x} --> |No Interview| 7:endevent:(((endevent)))
+      6:task:(Negotiate Interview) --> 8:task:(Enter Probation Phase)
+      8:task:(Enter Probation Phase) --> 9:task:(Rate Company)
+      8:task:(Enter Probation Phase) --> 10:task:(Company Rates Applicant)
+      9:task:(Rate Company) --> 11:exclusivegateway:{x}
+      10:task:(Company Rates Applicant) --> 11:exclusivegateway:{x}
+      11:exclusivegateway:{x} --> |Job Permanent| 12:task:(Job Becomes Permanent)
+      11:exclusivegateway:{x} --> |Job Not Permanent| 13:endevent:(((endevent)))
+      12:task:(Job Becomes Permanent) --> 14:exclusivegateway:{x}
+      14:exclusivegateway:{x} --> |Company Rated C or Less| 15:task:(Continue Receiving Offers)
+      14:exclusivegateway:{x} --> |Company Rated Higher than C| 16:endevent:(((endevent)))
+      15:task:(Continue Receiving Offers) --> 17:endevent:(((endevent)))
+      15:task:(Continue Receiving Offers) --> 1:task:(Report Job Applications)
+      12:task:(Job Becomes Permanent) --> 18[1 Year Wait for Reviews]
+      18[1 Year Wait for Reviews] --> 19:task:(View Company Reviews)
+      19:task:(View Company Reviews) --> 14:exclusivegateway:{x}
+  time:timestamp: '2026-05-12T20:13:13.784863+02:00'
+---
+event:
+  concept:instance: 11830
+  id:id: ex-ante
+  cpee:instance: 42163d2a-8601-4af3-a941-7689ea809f47
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a6a42eff12ddb9e3846f9be8d70ed78c067c7eae
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Report Job Applications</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Receive New Job Offers</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Confirm Application Receipt</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Rate Application</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Negotiate Interview">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Negotiate Interview</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Enter Probation Phase</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <call id="a17" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Rate Company</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a19" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Company Rates Applicant</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <choose mode="exclusive" a:alt_id="11">
+            <alternative condition="Job Permanent" language="text/javascript">
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Job Becomes Permanent</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="0">
+                <alternative condition=""/>
+                <alternative condition="">
+                  <call id="a39" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>1 Year Wait for Reviews</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a41" endpoint="" a:alt_id="19">
+                    <parameters>
+                      <label>View Company Reviews</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <choose mode="exclusive" a:alt_id="14">
+                <alternative condition="Company Rated C or Less" language="text/javascript">
+                  <call id="a31" endpoint="" a:alt_id="15">
+                    <parameters>
+                      <label>Continue Receiving Offers</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <choose mode="exclusive" a:alt_id="0">
+                    <alternative condition="">
+                      <call id="a1" endpoint="" a:alt_id="1">
+                        <parameters>
+                          <label>Report Job Applications</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a3" endpoint="" a:alt_id="2">
+                        <parameters>
+                          <label>Receive New Job Offers</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a5" endpoint="" a:alt_id="3">
+                        <parameters>
+                          <label>Confirm Application Receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a7" endpoint="" a:alt_id="4">
+                        <parameters>
+                          <label>Rate Application</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="">
+                      <escape a:alt_id="-1"/>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="Company Rated Higher than C" language="text/javascript">
+                  <escape a:alt_id="-1"/>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="Job Not Permanent" language="text/javascript">
+              <escape a:alt_id="-1"/>
+            </alternative>
+          </choose>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-05-12T20:13:13.784973+02:00'

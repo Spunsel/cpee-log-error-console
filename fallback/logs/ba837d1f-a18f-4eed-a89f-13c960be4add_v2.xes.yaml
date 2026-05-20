@@ -1,0 +1,411 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 12232
+    cpee:name: '1212'
+    cpee:instance: ba837d1f-a18f-4eed-a89f-13c960be4add
+---
+event:
+  concept:instance: 12232
+  id:id: ex-ante
+  cpee:instance: ba837d1f-a18f-4eed-a89f-13c960be4add
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-15T14:32:10.057780+02:00'
+---
+event:
+  concept:instance: 12232
+  id:id: ex-ante
+  cpee:instance: ba837d1f-a18f-4eed-a89f-13c960be4add
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Award Trusted Flagger Status</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="2">
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Publish Reports on Notices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Send Reports to DSC</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Make Reports Publicly Available</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a17" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>DSC Communicate Info to Commission/Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Commission Publish Info in Database</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="9">
+        <alternative condition="Information on insufficient notices" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Provider Inform DSC about insufficient notices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>DSC Investigate</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="12">
+            <alternative condition="Sufficient reasons to investigate" language="text/javascript">
+              <call id="a31" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Commission Suspend Status</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a35" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Commission Carry out Investigation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="16">
+                <alternative condition="Status to be revoked" language="text/javascript">
+                  <call id="a39" endpoint="" a:alt_id="17">
+                    <parameters>
+                      <label>DSC Revoke Status</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a43" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>DSC Afford Opportunity to React</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Status not to be revoked" language="text/javascript"/>
+              </choose>
+            </alternative>
+            <alternative condition="No sufficient reasons" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="No information" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: d3a3414f8e96d29087a0a7edb51202d405bba7b8
+  time:timestamp: '2026-05-15T14:32:17.341506+02:00'
+---
+event:
+  concept:instance: 12232
+  id:id: ex-ante
+  cpee:instance: ba837d1f-a18f-4eed-a89f-13c960be4add
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d3a3414f8e96d29087a0a7edb51202d405bba7b8
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-15T14:32:17.341748+02:00'
+---
+event:
+  concept:instance: 12232
+  id:id: ex-ante
+  cpee:instance: ba837d1f-a18f-4eed-a89f-13c960be4add
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d3a3414f8e96d29087a0a7edb51202d405bba7b8
+  cpee:exposition: |-
+    # User Input:
+    Article 22: Trusted flaggers
+    1 Providers of online platforms shall take the necessary technical and organisational measures to ensure that notices submitted by trusted flaggers, acting within their designated area of expertise, through the mechanisms referred to in, are given by Providers priority and are processed by Providers and decided upon.
+    --PARALLEL TASKS--
+    2(a) The status of ‘trusted flagger’ under this Regulation shall be awarded, upon application by any entity, by the Digital Services Coordinator of the Member State in which the applicant is established by Providers, to an applicant
+    2(b) The status of ‘trusted flagger’ under this Regulation shall be awarded, upon application by any entity, by the Digital Services Coordinator of the Member State in which the applicant is established by Providers, to an applicant
+    2(c) The status of ‘trusted flagger’ under this Regulation shall be awarded, upon application by any entity, by the Digital Services Coordinator of the Member State in which the applicant is established by Providers, to an applicant
+    --END OF PARALLEL TASKS--
+    --PARALLEL TASKS--
+    3(a) Trusted flaggers shall publish, at least once a year easily comprehensible and detailed reports on notices submitted IAW during the relevant period. The report shall list at least the number of notices categorised by the identity of the provider of hosting services,
+    3(b) Trusted flaggers shall publish, at least once a year easily comprehensible and detailed reports on notices submitted IAW during the relevant period. The report shall list at least the number of notices categorised by the type of allegedly illegal content notified,
+    3(c) Trusted flaggers shall publish, at least once a year easily comprehensible and detailed reports on notices submitted IAW during the relevant period. The report shall list at least the number of notices categorised by the action taken by the provider.
+    Those reports shall include an explanation of the procedures in place to ensure.
+    Trusted flaggers shall send those reports to the awarding Digital Services Coordinator, and shall make them publicly available. The information in those reports shall not contain personal data
+    --END OF PARALLEL TASKS--
+    4 Digital Services Coordinators shall communicate to the Commission and the Board the names, addresses and email addresses of the entities to which Digital Services Coordinators have awarded the status of the trusted flagger IAW or whose trusted flagger status Digital Services Coordinators have suspended IAW or revoked in accordance.
+    5 The Commission shall publish the information referred to in in a publicly available database, in an easily accessible and machine-readable format, AND shall keep the database up to date.
+    6 IF a provider of online platforms has information indicating that a trusted flagger has submitted a significant number of insufficiently precise, inaccurate or inadequately substantiated notices through the mechanisms referred to in, including information gathered in connection to the processing of complaints through the internal complaint-handling systems referred to in, Commission shall communicate that information to the Digital Services Coordinator, providing the necessary explanations and supporting documents.
+    Upon receiving the information from the provider of online platforms, and if the Digital Services Coordinator considers that there are legitimate reasons to open an investigation, the status of trusted flagger shall be suspended by Commission during the period of the investigation.
+    That investigation shall be carried by Commission out.
+    7 The Digital Services Coordinator shall revoke that status if the Digital Services Coordinator determines, following an investigation either on its own initiative or on the basis information received from third parties, including the information provided by a provider of online platforms pursuant to, that the entity no longer meets the conditions set out.
+    Before revoking that status, the Digital Services Coordinator shall afford the entity an opportunity to react to the findings of its investigation and its intention to revoke the entity’s status as trusted flagger.
+    8 The Commission, after consulting the Board, shall, where necessary, issue guidelines to assist providers of online platforms and Digital Services Coordinators in the application of paragraphs 2, 6 and 7.
+  time:timestamp: '2026-05-15T14:32:17.341857+02:00'
+---
+event:
+  concept:instance: 12232
+  id:id: ex-ante
+  cpee:instance: ba837d1f-a18f-4eed-a89f-13c960be4add
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d3a3414f8e96d29087a0a7edb51202d405bba7b8
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-15T14:32:17.341986+02:00'
+---
+event:
+  concept:instance: 12232
+  id:id: ex-ante
+  cpee:instance: ba837d1f-a18f-4eed-a89f-13c960be4add
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d3a3414f8e96d29087a0a7edb51202d405bba7b8
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-15T14:32:17.342068+02:00'
+---
+event:
+  concept:instance: 12232
+  id:id: ex-ante
+  cpee:instance: ba837d1f-a18f-4eed-a89f-13c960be4add
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d3a3414f8e96d29087a0a7edb51202d405bba7b8
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Award Trusted Flagger Status)
+    1:task:(Award Trusted Flagger Status) --> 2:parallelgateway:{AND}
+    2:parallelgateway:{AND} --> 3:task:(Publish Reports on Notices)
+    2:parallelgateway:{AND} --> 4:task:(Send Reports to DSC)
+    2:parallelgateway:{AND} --> 5:task:(Make Reports Publicly Available)
+    3:task:(Publish Reports on Notices) --> 6:parallelgateway:{AND}
+    4:task:(Send Reports to DSC) --> 6:parallelgateway:{AND}
+    5:task:(Make Reports Publicly Available) --> 6:parallelgateway:{AND}
+    6:parallelgateway:{AND} --> 7:task:(DSC Communicate Info to Commission/Board)
+    7:task:(DSC Communicate Info to Commission/Board) --> 8:task:(Commission Publish Info in Database)
+    8:task:(Commission Publish Info in Database) --> 9:exclusivegateway:{x}
+    9:exclusivegateway:{x} --> |Information on insufficient notices| 10:task:(Provider Inform DSC about insufficient notices)
+    9:exclusivegateway:{x} --> |No information| 15:endevent:(((endevent)))
+    10:task:(Provider Inform DSC about insufficient notices) --> 11:task:(DSC Investigate)
+    11:task:(DSC Investigate) --> 12:exclusivegateway:{x}
+    12:exclusivegateway:{x} --> |Sufficient reasons to investigate| 13:task:(Commission Suspend Status)
+    12:exclusivegateway:{x} --> |No sufficient reasons| 15:endevent:(((endevent)))
+    13:task:(Commission Suspend Status) --> 14:task:(Commission Carry out Investigation)
+    14:task:(Commission Carry out Investigation) --> 16:exclusivegateway:{x}
+    16:exclusivegateway:{x} --> |Status to be revoked| 17:task:(DSC Revoke Status)
+    16:exclusivegateway:{x} --> |Status not to be revoked| 15:endevent:(((endevent)))
+    17:task:(DSC Revoke Status) --> 18:task:(DSC Afford Opportunity to React)
+    18:task:(DSC Afford Opportunity to React) --> 19:exclusivegateway:{x}
+    19:exclusivegateway:{x} --> |Status revoked| 15:endevent:(((endevent)))
+    19:exclusivegateway:{x} --> |Status not revoked| 15:endevent:(((endevent)))
+  time:timestamp: '2026-05-15T14:32:17.342336+02:00'
+---
+event:
+  concept:instance: 12232
+  id:id: ex-ante
+  cpee:instance: ba837d1f-a18f-4eed-a89f-13c960be4add
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d3a3414f8e96d29087a0a7edb51202d405bba7b8
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Award Trusted Flagger Status</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="2">
+        <parallel_branch>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Publish Reports on Notices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Send Reports to DSC</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Make Reports Publicly Available</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a17" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>DSC Communicate Info to Commission/Board</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a19" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Commission Publish Info in Database</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="9">
+        <alternative condition="Information on insufficient notices" language="text/javascript">
+          <call id="a23" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Provider Inform DSC about insufficient notices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="11">
+            <parameters>
+              <label>DSC Investigate</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="12">
+            <alternative condition="Sufficient reasons to investigate" language="text/javascript">
+              <call id="a31" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Commission Suspend Status</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a35" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Commission Carry out Investigation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="16">
+                <alternative condition="Status to be revoked" language="text/javascript">
+                  <call id="a39" endpoint="" a:alt_id="17">
+                    <parameters>
+                      <label>DSC Revoke Status</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a43" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>DSC Afford Opportunity to React</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Status not to be revoked" language="text/javascript"/>
+              </choose>
+            </alternative>
+            <alternative condition="No sufficient reasons" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="No information" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-15T14:32:17.342454+02:00'

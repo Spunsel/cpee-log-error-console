@@ -1,0 +1,690 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 10929
+    cpee:name: Plain Instance
+    cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T12:47:23.290363+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-05-05T12:47:23.786546+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-05-05T12:47:23.792335+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T12:47:24.204919+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T12:47:24.206607+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2026-05-05T12:48:37.219842+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T12:48:37.507642+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Send requirements to tree house architect</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Receive draft from architect</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Refine draft and add requirements</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="5" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Send requirements to tree house architect</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Receive draft from architect</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Refine draft and add requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Create material list from plan</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <parallel wait="-1" cancel="last" a:alt_id="7">
+          <parallel_branch>
+            <call id="a17" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Order materials from online stores</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Send messages to friends</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <call id="a25" endpoint="" a:alt_id="11">
+          <parameters>
+            <label>Build tree house</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a27" endpoint="" a:alt_id="12">
+          <parameters>
+            <label>Send invitations for tree house party</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a29" endpoint="" a:alt_id="13">
+          <parameters>
+            <label>Create attendance list</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a31" endpoint="" a:alt_id="14">
+          <parameters>
+            <label>Buy snacks for party</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  cpee:change_uuid: cbe305c2c83f29a21e1e6329e88a0add15f59a7d
+  time:timestamp: '2026-05-05T12:49:46.720860+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Collect requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send requirements to tree house architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive draft from architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Refine draft and add requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Create material list from plan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Order materials from online stores</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Send messages to friends</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a25" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Build tree house</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Send invitations for tree house party</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Create attendance list</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="a31">
+            <parameters>
+              <label>Buy snacks for party</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </description>
+  cpee:change_uuid: 628d157c790df0c94709a13fcd32c7a53d0ac1b7
+  time:timestamp: '2026-05-05T17:10:44.600109+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 628d157c790df0c94709a13fcd32c7a53d0ac1b7
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Send requirements to tree house architect</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Receive draft from architect</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Refine draft and add requirements</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="5" language="text/javascript">
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Send requirements to tree house architect</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Receive draft from architect</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Refine draft and add requirements</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Create material list from plan</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <parallel wait="-1" cancel="last" a:alt_id="7">
+          <parallel_branch>
+            <call id="a17" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Order materials from online stores</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Send messages to friends</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <call id="a25" endpoint="" a:alt_id="11">
+          <parameters>
+            <label>Build tree house</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a27" endpoint="" a:alt_id="12">
+          <parameters>
+            <label>Send invitations for tree house party</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a29" endpoint="" a:alt_id="13">
+          <parameters>
+            <label>Create attendance list</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a31" endpoint="" a:alt_id="14">
+          <parameters>
+            <label>Buy snacks for party</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+    </description>
+  time:timestamp: '2026-05-05T17:10:44.600397+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 628d157c790df0c94709a13fcd32c7a53d0ac1b7
+  cpee:exposition: |-
+    # User Input:
+    Remove the repition of the steps: send requirements to tree house archtitces etc.
+  time:timestamp: '2026-05-05T17:10:44.601087+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 628d157c790df0c94709a13fcd32c7a53d0ac1b7
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-05T17:10:44.601221+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 628d157c790df0c94709a13fcd32c7a53d0ac1b7
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Collect requirements)
+    a1:task:(Collect requirements)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a3:task:(Send requirements to tree house architect)
+    a3:task:(Send requirements to tree house architect)-->a5:task:(Receive draft from architect)
+    a5:task:(Receive draft from architect)-->a7:task:(Refine draft and add requirements)
+    a7:task:(Refine draft and add requirements)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a13:task:(Create material list from plan)
+    a13:task:(Create material list from plan)-->gw3s:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a17:task:(Order materials from online stores)
+    a17:task:(Order materials from online stores)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a19:task:(Send messages to friends)
+    a19:task:(Send messages to friends)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->a25:task:(Build tree house)
+    a25:task:(Build tree house)-->a27:task:(Send invitations for tree house party)
+    a27:task:(Send invitations for tree house party)-->a29:task:(Create attendance list)
+    a29:task:(Create attendance list)-->a31:task:(Buy snacks for party)
+    a31:task:(Buy snacks for party)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"true"|a3:task:(Send requirements to tree house architect)
+    a3:task:(Send requirements to tree house architect)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-05T17:10:44.601347+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 628d157c790df0c94709a13fcd32c7a53d0ac1b7
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Collect requirements)
+    a1:task:(Collect requirements)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"true"|a3:task:(Send requirements to tree house architect)
+    a3:task:(Send requirements to tree house architect)-->a5:task:(Receive draft from architect)
+    a5:task:(Receive draft from architect)-->a7:task:(Refine draft and add requirements)
+    a7:task:(Refine draft and add requirements)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a13:task:(Create material list from plan)
+    a13:task:(Create material list from plan)-->gw3s:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a17:task:(Order materials from online stores)
+    gw3s:parallelgateway:{AND}-->a19:task:(Send messages to friends)
+    a17:task:(Order materials from online stores)-->gw3e:parallelgateway:{AND}
+    a19:task:(Send messages to friends)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->a25:task:(Build tree house)
+    a25:task:(Build tree house)-->a27:task:(Send invitations for tree house party)
+    a27:task:(Send invitations for tree house party)-->a29:task:(Create attendance list)
+    a29:task:(Create attendance list)-->a31:task:(Buy snacks for party)
+    a31:task:(Buy snacks for party)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-05T17:10:44.601474+02:00'
+---
+event:
+  concept:instance: 10929
+  id:id: ex-ante
+  cpee:instance: 9c5d5f31-3e0c-4789-8812-64a02a083cef
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 628d157c790df0c94709a13fcd32c7a53d0ac1b7
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Collect requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Send requirements to tree house architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Receive draft from architect</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="a7">
+        <parameters>
+          <label>Refine draft and add requirements</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw2s">
+        <alternative condition="">
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Create material list from plan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <parallel wait="-1" cancel="last" a:alt_id="gw3s">
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Order materials from online stores</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Send messages to friends</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a25" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>Build tree house</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a27" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Send invitations for tree house party</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Create attendance list</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a31" endpoint="" a:alt_id="a31">
+            <parameters>
+              <label>Buy snacks for party</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition=""/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-05T17:10:44.601607+02:00'

@@ -1,0 +1,889 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 12255
+    cpee:name: '67676'
+    cpee:instance: fbc6a1df-1af9-4038-8115-ad1cc1cbe191
+---
+event:
+  concept:instance: 12255
+  id:id: ex-ante
+  cpee:instance: fbc6a1df-1af9-4038-8115-ad1cc1cbe191
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-15T14:50:14.157615+02:00'
+---
+event:
+  concept:instance: 12255
+  id:id: ex-ante
+  cpee:instance: fbc6a1df-1af9-4038-8115-ad1cc1cbe191
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Designate Supervisory Body</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Commission of Designated Body</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="3">
+            <parallel_branch>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Supervise Qualified Trust Service Providers</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Take Action on Non-Qualified Trust Service Providers</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Cooperate with Other Supervisory Bodies</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Analyze Conformity Assessment Reports</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Inform Other Bodies of Breaches</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Report Main Activities to Commission</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Carry Out Audits or Request Conformity Assessment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Cooperate with Data Protection Authorities</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a27" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Grant or Withdraw Qualified Status</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a29" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Inform National Trusted List Body of Status Decisions</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a31" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Verify Termination Plans</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a33" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Require Trust Service Providers to Remedy Failures</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a55" endpoint="" a:alt_id="18">
+            <parameters>
+              <label>Establish Trust Infrastructure if Required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a57" endpoint="" a:alt_id="19">
+            <parameters>
+              <label>Submit Annual Report to Commission</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a59" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Commission Makes Annual Report Available</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a61" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Commission Defines Report Formats and Procedures</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a65" endpoint="" a:alt_id="23">
+            <parameters>
+              <label>Cooperate and Exchange Good Practices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a67" endpoint="" a:alt_id="24">
+            <parameters>
+              <label>Provide Assistance Upon Request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="25">
+                <alternative condition="Request Granted" language="text/javascript">
+                  <call id="a71" endpoint="" a:alt_id="26">
+                    <parameters>
+                      <label>Carry Out Inspections</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Request Refused" language="text/javascript"/>
+              </choose>
+              <parallel wait="-1" cancel="last" a:alt_id="28">
+                <parallel_branch>
+                  <call id="a79" endpoint="" a:alt_id="29">
+                    <parameters>
+                      <label>Take Technical and Organisational Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a83" endpoint="" a:alt_id="31">
+                    <parameters>
+                      <label>Inform Stakeholders of Security Incidents</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a81" endpoint="" a:alt_id="30">
+                    <parameters>
+                      <label>Notify Supervisory Body of Security Breach</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+              </parallel>
+              <choose mode="exclusive" a:alt_id="32">
+                <alternative condition="Breach affects other Member States" language="text/javascript">
+                  <call id="a89" endpoint="" a:alt_id="33">
+                    <parameters>
+                      <label>Inform Other Member State Supervisory Bodies and ENISA</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Breach does not affect other Member States" language="text/javascript"/>
+              </choose>
+              <call id="a91" endpoint="" a:alt_id="34">
+                <parameters>
+                  <label>Inform Public or Require Provider to Inform</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a95" endpoint="" a:alt_id="35">
+                <parameters>
+                  <label>Provide ENISA with Summary of Notifications</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <parallel wait="-1" cancel="last" a:alt_id="36">
+                <parallel_branch>
+                  <call id="a99" endpoint="" a:alt_id="37">
+                    <parameters>
+                      <label>Commission Specifies Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a101" endpoint="" a:alt_id="38">
+                    <parameters>
+                      <label>Commission Defines Notification Formats and Procedures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+              </parallel>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="40">
+                <alternative condition="Request is proportionate and compatible" language="text/javascript">
+                  <call id="a109" endpoint="" a:alt_id="41">
+                    <parameters>
+                      <label>Provide Assistance</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Request is not proportionate or compatible" language="text/javascript">
+                  <call id="a111" endpoint="" a:alt_id="42">
+                    <parameters>
+                      <label>Refuse Assistance</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a117" endpoint="" a:alt_id="44">
+                <parameters>
+                  <label>Carry out joint investigations if appropriate</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 96a22e6b0289287bc629aced90092ae4799bbaff
+  time:timestamp: '2026-05-15T14:50:25.634941+02:00'
+---
+event:
+  concept:instance: 12255
+  id:id: ex-ante
+  cpee:instance: fbc6a1df-1af9-4038-8115-ad1cc1cbe191
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96a22e6b0289287bc629aced90092ae4799bbaff
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-15T14:50:25.635332+02:00'
+---
+event:
+  concept:instance: 12255
+  id:id: ex-ante
+  cpee:instance: fbc6a1df-1af9-4038-8115-ad1cc1cbe191
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96a22e6b0289287bc629aced90092ae4799bbaff
+  cpee:exposition: |+
+    # User Input:
+    Article 17: Supervisory body
+    1 Member States shall designate a supervisory body established in their territory or, upon mutual agreement with another Member State, a supervisory body established in that other Member State.
+    That body shall be responsible for supervisory tasks in the designating Member State.
+    Supervisory bodies shall be given by Supervisory bodies the necessary powers and adequate resources for the exercise of their tasks.
+    2 Member States shall notify to the Commission the names and the addresses of their respective designated supervisory bodies.
+    --PARALLEL TASKS--
+    3(a) The role of the supervisory body shall be to supervise qualified trust service providers established in the territory of the designating Member State to ensure, through ex ante and ex post supervisory activities,
+    3(b) The role of the supervisory body shall be to take action if necessary, in relation to non-qualified trust service providers established in the territory of the designating Member State, through ex post supervisory activities, when informed that those non-qualified trust service providers or the trust services the role provide allegedly do not meet the requirements laid down in this Regulation
+    --END OF PARALLEL TASKS--
+    --PARALLEL TASKS--
+    4(a) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to cooperate with other supervisory bodies and provide them with assistance IAW Article 18
+    4(b) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to analyse the conformity assessment reports
+    4(c) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to inform other supervisory bodies and the public about breaches of security or loss of integrity
+    4(d) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to report to the Commission about its main activities IAW of this Article
+    4(e) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to carry out audits or request a conformity assessment body to perform a conformity assessment of the qualified trust service providers
+    4(f) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to cooperate with the data protection authorities by informing them about the results of audits of qualified trust service providers, where personal data protection rules appear to have been breached by Member States
+    4(g) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to grant qualified status to trust service providers and to the services and to withdraw this status
+    4(h) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to inform the body responsible for the national trusted list referred to in about its decisions to grant or to withdraw qualified status, unless that body is also the supervisory body
+    4(i) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to verify the existence and correct application of provisions on termination plans in cases where the qualified trust service provider ceases its activities, including how information is kept by Member States accessible IAW point (h) of
+    4(j) For the purposes of paragraph 3 and subject to the limitations provided therein, the tasks of the supervisory body shall include to require that trust service providers remedy any failure to fulfil the requirements laid down in this Regulation
+    --END OF PARALLEL TASKS--5 Member States may require the supervisory body to establish, maintain and update a trust infrastructure IAW the conditions under national law.
+    6 By 31 March each year, each supervisory body shall submit to the Commission a report on its previous calendar year’s main activities together with a summary of breach notifications received from trust service providers in accordance.
+    7 The Commission shall make the annual report referred to in available to Member States.
+    8 The Commission may define the formats and procedures for the report referred.
+    Those implementing acts shall be adopted by Commission IAW the examination procedure referred.
+    ---
+    Article 18: Mutual assistance
+    1 Supervisory bodies shall cooperate with a view to exchanging good practice.
+    A supervisory body shall, upon receipt of a justified request from another supervisory body, provide that body with assistance so that the activities of supervisory bodies can be carried by Supervisory bodies out in a consistent manner.
+    Mutual assistance may cover information requests and supervisory measures, such as requests to carry out inspections related to the conformity assessment reports as referred.
+    --PARALLEL TASKS--
+    2(a) A supervisory body may refuse that request on any of the following grounds the supervisory body is not competent to provide the requested assistance
+    2(b) A supervisory body may refuse that request on any of the following grounds the requested assistance is not proportionate to supervisory activities of the supervisory body carried out IAW Article 17
+    2(c) A supervisory body may refuse that request on any of the following grounds providing the requested assistance would be incompatible with this Regulation
+    --END OF PARALLEL TASKS--
+    3 IF appropriate, Member States may authorise their respective supervisory bodies to carry out joint investigations in which staff from other Member States’ supervisory bodies is involved by Member States.
+    The arrangements AND procedures for such joint actions shall be agreed by Member States upon AND established by the Member States concerned IAW their national law.
+    ---
+    Article 19: Security requirements applicable to trust service providers
+    1 Qualified and non-qualified trust service providers shall take appropriate technical and organisational measures to manage the risks posed to the security of the trust services.
+    Having regard to the latest technological developments, those measures shall ensure that the level of security is commensurate to the degree of risk.
+    measures shall be taken by Qualified non - qualified service providers to prevent and minimise the impact of security incidents and inform stakeholders of the adverse effects of any such incidents.
+    2 Qualified and non-qualified trust service providers shall but in any event within 24 hours after having become aware of it, notify the supervisory body and, where applicable, other relevant bodies, such as the competent national body for information security or the data protection authority, of any breach of security or loss of integrity.
+    IF the breach of security or loss of integrity is likely to adversely affect a natural or legal person to whom the trusted service has been provided by Qualified non - qualified service providers, the trust service provider shall also notify the natural or legal person of the breach of security or loss of integrity.
+    IF appropriate if a breach of security or loss of integrity concerns two or more Member States, the notified supervisory body shall inform the supervisory bodies in other Member States concerned and ENISA.
+    The notified supervisory body shall inform the public OR require the trust service provider to do so, where the notified supervisory body determines that disclosure of the breach of security or loss of integrity is in the public interest.
+    3 The supervisory body shall provide ENISA once a year with a summary of notifications of breach of security and loss of integrity received from trust service providers.
+    --PARALLEL TASKS--
+    4(a) The Commission may further specify the measures referred to in ; AND
+    4(b) The Commission may define the formats and procedures, including deadlines, applicable for the purpose of paragraph 2.
+    Those implementing acts shall be adopted by Commission IAW the examination procedure
+    --END OF PARALLEL TASKS--
+
+
+  time:timestamp: '2026-05-15T14:50:25.635915+02:00'
+...
+---
+event:
+  concept:instance: 12255
+  id:id: ex-ante
+  cpee:instance: fbc6a1df-1af9-4038-8115-ad1cc1cbe191
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96a22e6b0289287bc629aced90092ae4799bbaff
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-15T14:50:25.636069+02:00'
+---
+event:
+  concept:instance: 12255
+  id:id: ex-ante
+  cpee:instance: fbc6a1df-1af9-4038-8115-ad1cc1cbe191
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96a22e6b0289287bc629aced90092ae4799bbaff
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-15T14:50:25.636149+02:00'
+---
+event:
+  concept:instance: 12255
+  id:id: ex-ante
+  cpee:instance: fbc6a1df-1af9-4038-8115-ad1cc1cbe191
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96a22e6b0289287bc629aced90092ae4799bbaff
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Designate Supervisory Body)
+    1:task:(Designate Supervisory Body) --> 2:task:(Notify Commission of Designated Body)
+    2:task:(Notify Commission of Designated Body) --> 3:parallelgateway:{AND}
+    3:parallelgateway:{AND} --> 4:task:(Supervise Qualified Trust Service Providers)
+    3:parallelgateway:{AND} --> 5:task:(Take Action on Non-Qualified Trust Service Providers)
+    4:task:(Supervise Qualified Trust Service Providers) --> 6:parallelgateway:{AND}
+    5:task:(Take Action on Non-Qualified Trust Service Providers) --> 6:parallelgateway:{AND}
+    6:parallelgateway:{AND} --> 7:task:(Cooperate with Other Supervisory Bodies)
+    6:parallelgateway:{AND} --> 8:task:(Analyze Conformity Assessment Reports)
+    6:parallelgateway:{AND} --> 9:task:(Inform Other Bodies of Breaches)
+    6:parallelgateway:{AND} --> 10:task:(Report Main Activities to Commission)
+    6:parallelgateway:{AND} --> 11:task:(Carry Out Audits or Request Conformity Assessment)
+    6:parallelgateway:{AND} --> 12:task:(Cooperate with Data Protection Authorities)
+    6:parallelgateway:{AND} --> 13:task:(Grant or Withdraw Qualified Status)
+    6:parallelgateway:{AND} --> 14:task:(Inform National Trusted List Body of Status Decisions)
+    6:parallelgateway:{AND} --> 15:task:(Verify Termination Plans)
+    6:parallelgateway:{AND} --> 16:task:(Require Trust Service Providers to Remedy Failures)
+    7:task:(Cooperate with Other Supervisory Bodies) --> 17:parallelgateway:{AND}
+    8:task:(Analyze Conformity Assessment Reports) --> 17:parallelgateway:{AND}
+    9:task:(Inform Other Bodies of Breaches) --> 17:parallelgateway:{AND}
+    10:task:(Report Main Activities to Commission) --> 17:parallelgateway:{AND}
+    11:task:(Carry Out Audits or Request Conformity Assessment) --> 17:parallelgateway:{AND}
+    12:task:(Cooperate with Data Protection Authorities) --> 17:parallelgateway:{AND}
+    13:task:(Grant or Withdraw Qualified Status) --> 17:parallelgateway:{AND}
+    14:task:(Inform National Trusted List Body of Status Decisions) --> 17:parallelgateway:{AND}
+    15:task:(Verify Termination Plans) --> 17:parallelgateway:{AND}
+    16:task:(Require Trust Service Providers to Remedy Failures) --> 17:parallelgateway:{AND}
+    17:parallelgateway:{AND} --> 18:task:(Establish Trust Infrastructure if Required)
+    18:task:(Establish Trust Infrastructure if Required) --> 19:task:(Submit Annual Report to Commission)
+    19:task:(Submit Annual Report to Commission) --> 20:task:(Commission Makes Annual Report Available)
+    20:task:(Commission Makes Annual Report Available) --> 21:task:(Commission Defines Report Formats and Procedures)
+    21:task:(Commission Defines Report Formats and Procedures) --> 22:endevent:(((endevent)))
+    2:task:(Notify Commission of Designated Body) --> 23:task:(Cooperate and Exchange Good Practices)
+    23:task:(Cooperate and Exchange Good Practices) --> 24:task:(Provide Assistance Upon Request)
+    24:task:(Provide Assistance Upon Request) --> 25:exclusivegateway:{x}
+    25:exclusivegateway:{x} --> |Request Granted| 26:task:(Carry Out Inspections)
+    25:exclusivegateway:{x} --> |Request Refused| 27:exclusivegateway:{x}
+    26:task:(Carry Out Inspections) --> 27:exclusivegateway:{x}
+    27:exclusivegateway:{x} --> 28:parallelgateway:{AND}
+    28:parallelgateway:{AND} --> 29:task:(Take Technical and Organisational Measures)
+    28:parallelgateway:{AND} --> 30:task:(Notify Supervisory Body of Security Breach)
+    29:task:(Take Technical and Organisational Measures) --> 31:task:(Inform Stakeholders of Security Incidents)
+    30:task:(Notify Supervisory Body of Security Breach) --> 32:exclusivegateway:{x}
+    31:task:(Inform Stakeholders of Security Incidents) --> 32:exclusivegateway:{x}
+    32:exclusivegateway:{x} --> |Breach affects other Member States| 33:task:(Inform Other Member State Supervisory Bodies and ENISA)
+    32:exclusivegateway:{x} --> |Breach does not affect other Member States| 34:task:(Inform Public or Require Provider to Inform)
+    33:task:(Inform Other Member State Supervisory Bodies and ENISA) --> 34:task:(Inform Public or Require Provider to Inform)
+    34:task:(Inform Public or Require Provider to Inform) --> 35:task:(Provide ENISA with Summary of Notifications)
+    35:task:(Provide ENISA with Summary of Notifications) --> 36:parallelgateway:{AND}
+    36:parallelgateway:{AND} --> 37:task:(Commission Specifies Measures)
+    36:parallelgateway:{AND} --> 38:task:(Commission Defines Notification Formats and Procedures)
+    37:task:(Commission Specifies Measures) --> 39:endevent:(((endevent)))
+    38:task:(Commission Defines Notification Formats and Procedures) --> 39:endevent:(((endevent)))
+    24:task:(Provide Assistance Upon Request) --> 40:exclusivegateway:{x}
+    40:exclusivegateway:{x} --> |Request is proportionate and compatible| 41:task:(Provide Assistance)
+    40:exclusivegateway:{x} --> |Request is not proportionate or compatible| 42:task:(Refuse Assistance)
+    41:task:(Provide Assistance) --> 43:parallelgateway:{AND}
+    42:task:(Refuse Assistance) --> 43:parallelgateway:{AND}
+    43:parallelgateway:{AND} --> 44:task:(Carry out joint investigations if appropriate)
+    44:task:(Carry out joint investigations if appropriate) --> 45:endevent:(((endevent)))
+  time:timestamp: '2026-05-15T14:50:25.636292+02:00'
+---
+event:
+  concept:instance: 12255
+  id:id: ex-ante
+  cpee:instance: fbc6a1df-1af9-4038-8115-ad1cc1cbe191
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 96a22e6b0289287bc629aced90092ae4799bbaff
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Designate Supervisory Body</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Notify Commission of Designated Body</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="0">
+        <alternative condition="">
+          <parallel wait="-1" cancel="last" a:alt_id="3">
+            <parallel_branch>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Supervise Qualified Trust Service Providers</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Take Action on Non-Qualified Trust Service Providers</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <parallel wait="-1" cancel="last" a:alt_id="6">
+            <parallel_branch>
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Cooperate with Other Supervisory Bodies</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Analyze Conformity Assessment Reports</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Inform Other Bodies of Breaches</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a21" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Report Main Activities to Commission</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Carry Out Audits or Request Conformity Assessment</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Cooperate with Data Protection Authorities</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a27" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Grant or Withdraw Qualified Status</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a29" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Inform National Trusted List Body of Status Decisions</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a31" endpoint="" a:alt_id="15">
+                <parameters>
+                  <label>Verify Termination Plans</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a33" endpoint="" a:alt_id="16">
+                <parameters>
+                  <label>Require Trust Service Providers to Remedy Failures</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a55" endpoint="" a:alt_id="18">
+            <parameters>
+              <label>Establish Trust Infrastructure if Required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a57" endpoint="" a:alt_id="19">
+            <parameters>
+              <label>Submit Annual Report to Commission</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a59" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Commission Makes Annual Report Available</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a61" endpoint="" a:alt_id="21">
+            <parameters>
+              <label>Commission Defines Report Formats and Procedures</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="">
+          <call id="a65" endpoint="" a:alt_id="23">
+            <parameters>
+              <label>Cooperate and Exchange Good Practices</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a67" endpoint="" a:alt_id="24">
+            <parameters>
+              <label>Provide Assistance Upon Request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="25">
+                <alternative condition="Request Granted" language="text/javascript">
+                  <call id="a71" endpoint="" a:alt_id="26">
+                    <parameters>
+                      <label>Carry Out Inspections</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Request Refused" language="text/javascript"/>
+              </choose>
+              <parallel wait="-1" cancel="last" a:alt_id="28">
+                <parallel_branch>
+                  <call id="a79" endpoint="" a:alt_id="29">
+                    <parameters>
+                      <label>Take Technical and Organisational Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                  <call id="a83" endpoint="" a:alt_id="31">
+                    <parameters>
+                      <label>Inform Stakeholders of Security Incidents</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a81" endpoint="" a:alt_id="30">
+                    <parameters>
+                      <label>Notify Supervisory Body of Security Breach</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+              </parallel>
+              <choose mode="exclusive" a:alt_id="32">
+                <alternative condition="Breach affects other Member States" language="text/javascript">
+                  <call id="a89" endpoint="" a:alt_id="33">
+                    <parameters>
+                      <label>Inform Other Member State Supervisory Bodies and ENISA</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Breach does not affect other Member States" language="text/javascript"/>
+              </choose>
+              <call id="a91" endpoint="" a:alt_id="34">
+                <parameters>
+                  <label>Inform Public or Require Provider to Inform</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a95" endpoint="" a:alt_id="35">
+                <parameters>
+                  <label>Provide ENISA with Summary of Notifications</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <parallel wait="-1" cancel="last" a:alt_id="36">
+                <parallel_branch>
+                  <call id="a99" endpoint="" a:alt_id="37">
+                    <parameters>
+                      <label>Commission Specifies Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a101" endpoint="" a:alt_id="38">
+                    <parameters>
+                      <label>Commission Defines Notification Formats and Procedures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+              </parallel>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="40">
+                <alternative condition="Request is proportionate and compatible" language="text/javascript">
+                  <call id="a109" endpoint="" a:alt_id="41">
+                    <parameters>
+                      <label>Provide Assistance</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Request is not proportionate or compatible" language="text/javascript">
+                  <call id="a111" endpoint="" a:alt_id="42">
+                    <parameters>
+                      <label>Refuse Assistance</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a117" endpoint="" a:alt_id="44">
+                <parameters>
+                  <label>Carry out joint investigations if appropriate</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-15T14:50:25.636526+02:00'

@@ -1,0 +1,544 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 11295
+    cpee:name: knbknk
+    cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T17:46:42.243492+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Check Car Registration</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Went to Service" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Notify Driver</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Went to Service" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Mechanic Enters Car Problems</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a13" endpoint="" a:alt_id="|Did Not Go (30 days passed">
+                <parameters>
+                  <label/>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="No, Not Registered" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Inform Driver Not Registered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: ed339b4700aec6159019e692a68e658fa3d1d022
+  time:timestamp: '2026-05-05T17:49:14.394319+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed339b4700aec6159019e692a68e658fa3d1d022
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-05T17:49:14.394505+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed339b4700aec6159019e692a68e658fa3d1d022
+  cpee:exposition: |+
+    # User Input:
+    The police has a new app to remind you of your car service. The process is
+    started after a successful service. When a service is necessary, the system
+    checks if your car is still registered. If it is registered, you are notified.
+    If you do not go to the service, you are fined after 30 days. At the car
+    service facility the mechanic enters the problems of your car for reference.
+    While you wait (can take several days), you get status updates via email).
+    You can pay through the app, when the repair is done. The mechanic enters
+    that the repair was successful and you got your "Pickerl". The mechanic enters
+    the time for you next service.
+
+
+
+  time:timestamp: '2026-05-05T17:49:14.394822+02:00'
+...
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed339b4700aec6159019e692a68e658fa3d1d022
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash
+  time:timestamp: '2026-05-05T17:49:14.395019+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed339b4700aec6159019e692a68e658fa3d1d022
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-05T17:49:14.395264+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed339b4700aec6159019e692a68e658fa3d1d022
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Check Car Registration)
+      1:task:(Check Car Registration) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Yes, Registered| 3:task:(Notify Driver)
+      2:exclusivegateway:{x} --> |No, Not Registered| 14:task:(Inform Driver Not Registered)
+      3:task:(Notify Driver) --> 4:exclusivegateway:{x}
+      4:exclusivegateway:{x} --> |Went to Service| 5:task:(Mechanic Enters Car Problems)
+      4:exclusivegateway:{x} --> |Did Not Go (30 days passed
+  time:timestamp: '2026-05-05T17:49:14.395568+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ed339b4700aec6159019e692a68e658fa3d1d022
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Check Car Registration</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Went to Service" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Notify Driver</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="4">
+            <alternative condition="Went to Service" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Mechanic Enters Car Problems</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="">
+              <call id="a13" endpoint="" a:alt_id="|Did Not Go (30 days passed">
+                <parameters>
+                  <label/>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="No, Not Registered" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="14">
+            <parameters>
+              <label>Inform Driver Not Registered</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-05T17:49:14.395699+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2026-05-05T20:09:23.185878+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T20:09:23.479647+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Service completed successfully</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Enter time for next service</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Wait for next service date</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Check if car is registered</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="5">
+        <alternative condition="Car is registered" language="text/javascript">
+          <loop mode="pre_test" condition="true">
+            <call id="a11" endpoint="" a:alt_id="6">
+              <parameters>
+                <label>Notify owner about service</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <loop mode="pre_test" condition="30 days pass without service" a:alt_id="8" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Fine owner</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Notify owner about service</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </loop>
+            <call id="a23" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Mechanic enters car problems</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <parallel wait="-1" cancel="last" a:alt_id="25">
+              <parallel_branch>
+                <call id="a27" endpoint="" a:alt_id="13">
+                  <parameters>
+                    <label>Repair car</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </parallel_branch>
+              <parallel_branch>
+                <call id="a29" endpoint="" a:alt_id="14">
+                  <parameters>
+                    <label>Send status updates via email</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </parallel_branch>
+            </parallel>
+            <call id="a35" endpoint="" a:alt_id="15">
+              <parameters>
+                <label>Repair completed</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <parallel wait="-1" cancel="last" a:alt_id="16">
+              <parallel_branch>
+                <call id="a39" endpoint="" a:alt_id="17">
+                  <parameters>
+                    <label>Pay through app</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </parallel_branch>
+              <parallel_branch>
+                <call id="a41" endpoint="" a:alt_id="18">
+                  <parameters>
+                    <label>Mechanic enters repair successful</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </parallel_branch>
+            </parallel>
+            <call id="a47" endpoint="" a:alt_id="20">
+              <parameters>
+                <label>Receive Pickerl</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a49" endpoint="" a:alt_id="21">
+              <parameters>
+                <label>Mechanic enters next service time</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </loop>
+        </alternative>
+        <alternative condition="Car is not registered" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 3fa27c1f6fbf1d362aa489be0ef96017dff4778a
+  time:timestamp: '2026-05-05T20:09:37.856163+02:00'
+---
+event:
+  concept:instance: 11295
+  id:id: ex-ante
+  cpee:instance: 41f7d305-82e3-46dd-a6fa-35b85462ffac
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Service completed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Check car registration</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Notify owner</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Wait for service</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="6">
+            <alternative condition="Service done" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Mechanic enters problems</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a19" endpoint="" a:alt_id="9">
+                <parameters>
+                  <label>Send status updates</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="10">
+                <parameters>
+                  <label>Repair completed</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="11">
+                <parameters>
+                  <label>Mechanic enters success</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="12">
+                <parameters>
+                  <label>Issue Pickerl</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="13">
+                <parameters>
+                  <label>Mechanic enters next service time</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="14">
+                <parameters>
+                  <label>Pay via app</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="No service after 30 days" language="text/javascript">
+              <call id="a17" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Issue fine</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Car not registered" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 5a1db3721662455054b617c607e4fa1602bc7582
+  time:timestamp: '2026-05-05T20:09:47.671807+02:00'

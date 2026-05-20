@@ -1,0 +1,494 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 11540
+    cpee:name: Plain Instance
+    cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-11T17:28:32.684190+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db904f121d4be23952af8d786ce02b0aab8effe2
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-11T17:28:59.666786+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Wake up</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Get out of bed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Is it a weekday?" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Prepare for work</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Go to work</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Relax</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: db904f121d4be23952af8d786ce02b0aab8effe2
+  time:timestamp: '2025-11-11T17:28:59.666605+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db904f121d4be23952af8d786ce02b0aab8effe2
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-11T17:28:59.667550+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db904f121d4be23952af8d786ce02b0aab8effe2
+  cpee:exposition: |+
+    # User Input:
+    model a person's morning routine
+
+  time:timestamp: '2025-11-11T17:28:59.667456+01:00'
+...
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db904f121d4be23952af8d786ce02b0aab8effe2
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-11T17:28:59.667635+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db904f121d4be23952af8d786ce02b0aab8effe2
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Wake up)
+      1:task:(Wake up) --> 2:task:(Get out of bed)
+      2:task:(Get out of bed) --> 3:exclusivegateway:{x}
+      3:exclusivegateway:{x} --> |Is it a weekday?| 4:task:(Prepare for work)
+      3:exclusivegateway:{x} --> |No| 5:task:(Relax)
+      4:task:(Prepare for work) --> 6:task:(Go to work)
+      5:task:(Relax) --> 7:exclusivegateway:{x}
+      6:task:(Go to work) --> 7:exclusivegateway:{x}
+      7:exclusivegateway:{x} --> 8:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-11T17:28:59.667735+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: db904f121d4be23952af8d786ce02b0aab8effe2
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Wake up</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Get out of bed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Is it a weekday?" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Prepare for work</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Go to work</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Relax</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-11T17:28:59.667821+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Define Target Audience</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Set Campaign Goals</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Awareness" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Create Content</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Promote Content</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Lead Generation" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Run Ads</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 85ed32ffada912b2deb51d8c3e6c92c0d358fa78
+  time:timestamp: '2025-11-11T17:29:30.107632+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85ed32ffada912b2deb51d8c3e6c92c0d358fa78
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Wake up</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Get out of bed</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Is it a weekday?" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Prepare for work</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Go to work</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Relax</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-11T17:29:30.107825+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85ed32ffada912b2deb51d8c3e6c92c0d358fa78
+  cpee:exposition: |-
+    # User Input:
+    model a marketing campagn for a sass company
+  time:timestamp: '2025-11-11T17:29:30.108151+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85ed32ffada912b2deb51d8c3e6c92c0d358fa78
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-11T17:29:30.108319+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85ed32ffada912b2deb51d8c3e6c92c0d358fa78
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Define Target Audience)
+    a1:task:(Define Target Audience)-->a3:task:(Set Campaign Goals)
+    a3:task:(Set Campaign Goals)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Awareness"|a7:task:(Create Content)
+    a7:task:(Create Content)-->a11:task:(Promote Content)
+    a11:task:(Promote Content)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Lead Generation"|a9:task:(Run Ads)
+    a9:task:(Run Ads)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-11T17:29:30.108690+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85ed32ffada912b2deb51d8c3e6c92c0d358fa78
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Wake up)
+    a1:task:(Wake up)-->a3:task:(Get out of bed)
+    a3:task:(Get out of bed)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Is it a weekday?"|a7:task:(Prepare for work)
+    a7:task:(Prepare for work)-->a11:task:(Go to work)
+    a11:task:(Go to work)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No"|a9:task:(Relax)
+    a9:task:(Relax)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-11T17:29:30.108460+01:00'
+---
+event:
+  concept:instance: 11540
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 868ba828-ee7b-444b-bcc5-bde1bacee38f
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 85ed32ffada912b2deb51d8c3e6c92c0d358fa78
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Define Target Audience</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Set Campaign Goals</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Awareness" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Create Content</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a9" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Promote Content</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Lead Generation" language="text/javascript">
+          <call id="a13" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Run Ads</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-11T17:29:30.108894+01:00'

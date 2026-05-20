@@ -1,0 +1,767 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 14972
+    cpee:name: Error Map
+    cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2025-11-12T20:42:32.048568+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25564e998b39ca330e136932bc38cc254cf8aabc
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2025-11-12T20:43:03.712065+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Mermaid Code</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Syntax Error" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Handle Syntax Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Semantic Error" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Handle Semantic Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Error" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Generate Graph</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 25564e998b39ca330e136932bc38cc254cf8aabc
+  time:timestamp: '2025-11-12T20:43:03.711829+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25564e998b39ca330e136932bc38cc254cf8aabc
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-12T20:43:03.712934+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25564e998b39ca330e136932bc38cc254cf8aabc
+  cpee:exposition: |-
+    # User Input:
+    model a graph with all possible errors that can happen while parsing mermaid code for creating a graph.
+  time:timestamp: '2025-11-12T20:43:03.712597+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25564e998b39ca330e136932bc38cc254cf8aabc
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Mermaid Code)
+      1:task:(Receive Mermaid Code) --> 2:exclusivegateway:{x}
+      2:exclusivegateway:{x} --> |Syntax Error| 3:task:(Handle Syntax Error)
+      2:exclusivegateway:{x} --> |Semantic Error| 4:task:(Handle Semantic Error)
+      2:exclusivegateway:{x} --> |No Error| 5:task:(Generate Graph)
+      3:task:(Handle Syntax Error) --> 6:exclusivegateway:{x}
+      4:task:(Handle Semantic Error) --> 6:exclusivegateway:{x}
+      5:task:(Generate Graph) --> 6:exclusivegateway:{x}
+      6:exclusivegateway:{x} --> 7:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-12T20:43:03.713674+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25564e998b39ca330e136932bc38cc254cf8aabc
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-12T20:43:03.713271+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 25564e998b39ca330e136932bc38cc254cf8aabc
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Mermaid Code</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Syntax Error" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Handle Syntax Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Semantic Error" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Handle Semantic Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Error" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Generate Graph</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-12T20:43:03.714132+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Mermaid Code</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Syntax Error" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Handle Syntax Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Semantic Error" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Handle Semantic Error</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Error" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Generate Graph</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2025-11-12T20:43:56.713874+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2025-11-12T20:43:56.713679+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-12T20:43:56.714664+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |+
+    # User Input:
+    delete all
+
+  time:timestamp: '2025-11-12T20:43:56.714070+01:00'
+...
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Receive Mermaid Code)
+    a1:task:(Receive Mermaid Code)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Syntax Error"|a5:task:(Handle Syntax Error)
+    a5:task:(Handle Syntax Error)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Semantic Error"|a7:task:(Handle Semantic Error)
+    a7:task:(Handle Semantic Error)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Error"|a9:task:(Generate Graph)
+    a9:task:(Generate Graph)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2025-11-12T20:43:56.714810+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    flowchart LR
+    ```
+  time:timestamp: '2025-11-12T20:43:56.714939+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-12T20:43:56.715052+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Declare Flowchart and Direction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Add Start/End Shapes</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Add a Decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Create a Loop</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Split into Parallel Branches</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Optionally Group Branches</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Optionally Style It</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Render It</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: a1249b0aabe72c29619a96219d35c53cba1b209b
+  time:timestamp: '2025-11-12T20:45:05.071696+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a1249b0aabe72c29619a96219d35c53cba1b209b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2025-11-12T20:45:05.071983+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a1249b0aabe72c29619a96219d35c53cba1b209b
+  cpee:exposition: |-
+    # User Input:
+    make a graph how to create a mermaid diagram from these instructions:
+    ingredients (what you need)
+
+
+    any place that renders Mermaid:
+
+
+    a markdown file with ```mermaid code blocks (e.g., many docs tools, GitHub, Obsidian), or
+
+
+    the online editor at mermaid.live
+
+
+    this snippet (we’ll paste and tweak it)
+
+
+    steps
+
+
+    Declare a flowchart + direction
+    Start your block and choose a layout direction: TD (top-down) or LR (left-right).
+
+
+    flowchart TD
+
+
+
+
+    Add start/end shapes
+    Use ( ) for rounded (start/end) and [ ] for processes.
+
+
+    flowchart TD
+      Start([Start]) --> Init[Initialize]
+
+
+
+
+    Add a decision
+    Decision nodes use { }. Label outgoing edges for clarity.
+
+
+    flowchart TD
+      Start([Start]) --> Init[Initialize]
+      Init --> Check{Ready?}
+      Check -- Yes --> Proceed[Proceed with task]
+      Check -- No --> Fix[Fix prerequisites] --> Check
+
+
+
+
+    Create a loop
+    Loops are just arrows that go back to an earlier node (often a decision). The line above already loops: Fix --> Check.
+
+
+    Split into parallel branches
+    Mermaid doesn’t enforce “true concurrency,” but you model parallel work by forking to two branches and later joining them. A tiny “fork”/“join” dummy node (small circle) reads well:
+
+
+    flowchart TD
+      Start([Start]) --> Init[Initialize]
+      Init --> Check{Ready?}
+      Check -- Yes --> Fork(( ))
+      Check -- No --> Fix[Fix prerequisites] --> Check
+
+
+      %% parallel branch A
+      Fork --> A1[Do step A1] --> A2[Do step A2] --> Join(( ))
+
+
+      %% parallel branch B
+      Fork --> B1[Do step B1] --> B2[Do step B2] --> Join
+
+
+      %% continue after join
+      Join --> Verify{All good?}
+      Verify -- No --> Rework[Rework] --> Verify
+      Verify -- Yes --> Done([Done])
+
+
+
+
+    (Optional) group branches for clarity
+    Use subgraph … end to visually cluster parallel lanes or phases.
+
+
+    flowchart TD
+      Start([Start]) --> Init[Initialize]
+      Init --> Check{Ready?}
+      Check -- Yes --> Fork(( ))
+      Check -- No --> Fix[Fix prerequisites] --> Check
+
+
+      subgraph "Parallel work"
+        direction TB
+        Fork --> A1[Do step A1] --> A2[Do step A2] --> Join(( ))
+        Fork --> B1[Do step B1] --> B2[Do step B2] --> Join
+      end
+
+
+      Join --> Verify{All good?}
+      Verify -- No --> Rework[Rework] --> Verify
+      Verify -- Yes --> Done([Done])
+
+
+
+
+    (Optional) style it a bit
+    You can tweak looks with classDef and class, or quick per-node styles:
+
+
+    flowchart TD
+      %% graph
+      Start([Start]):::io --> Init[Initialize]
+      Init --> Check{Ready?}:::decision
+      Check -- Yes --> Fork(( )):::gate
+      Check -- No --> Fix[Fix prerequisites] --> Check
+
+
+      subgraph "Parallel work"
+        direction TB
+        Fork --> A1[Do step A1] --> A2[Do step A2] --> Join(( )):::gate
+        Fork --> B1[Do step B1] --> B2[Do step B2] --> Join
+      end
+
+
+      Join --> Verify{All good?}:::decision
+      Verify -- No --> Rework[Rework] --> Verify
+      Verify -- Yes --> Done([Done]):::io
+
+
+      %% simple class definitions
+      classDef decision stroke-width:2px,stroke-dasharray:3 3;
+      classDef gate stroke:#666,fill:#eee;
+      classDef io fill:#e0f7ff,stroke:#06b6d4;
+
+
+
+
+    Render it
+
+
+    If you’re in Markdown, wrap the whole graph with triple backticks and mermaid:
+
+
+    ```mermaid
+    flowchart TD
+    …your nodes/edges…
+
+
+
+
+    If you’re in mermaid.live, paste it and the preview appears immediately.
+  time:timestamp: '2025-11-12T20:45:05.073204+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a1249b0aabe72c29619a96219d35c53cba1b209b
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2025-11-12T20:45:05.073658+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a1249b0aabe72c29619a96219d35c53cba1b209b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Declare Flowchart and Direction</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Add Start/End Shapes</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Add a Decision</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Create a Loop</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Split into Parallel Branches</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Optionally Group Branches</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a13" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Optionally Style It</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="8">
+        <parameters>
+          <label>Render It</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2025-11-12T20:45:05.074974+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a1249b0aabe72c29619a96219d35c53cba1b209b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.0-flash
+  time:timestamp: '2025-11-12T20:45:05.073515+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a1249b0aabe72c29619a96219d35c53cba1b209b
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Declare Flowchart and Direction)
+    1:task:(Declare Flowchart and Direction) --> 2:task:(Add Start/End Shapes)
+    2:task:(Add Start/End Shapes) --> 3:task:(Add a Decision)
+    3:task:(Add a Decision) --> 4:task:(Create a Loop)
+    4:task:(Create a Loop) --> 5:task:(Split into Parallel Branches)
+    5:task:(Split into Parallel Branches) --> 6:task:(Optionally Group Branches)
+    6:task:(Optionally Group Branches) --> 7:task:(Optionally Style It)
+    7:task:(Optionally Style It) --> 8:task:(Render It)
+    8:task:(Render It) --> 9:endevent:(((endevent)))
+    ```
+  time:timestamp: '2025-11-12T20:45:05.074510+01:00'
+---
+event:
+  concept:instance: 14972
+  id:id: external
+  cpee:activity: external
+  cpee:instance: 8e27df20-67ef-4dff-89b7-0b34ca44c29d
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2025-11-17T17:40:22.774364+01:00'

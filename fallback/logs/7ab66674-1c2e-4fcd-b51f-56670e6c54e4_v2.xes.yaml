@@ -1,0 +1,309 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 11344
+    cpee:name: Plain Instance
+    cpee:instance: 7ab66674-1c2e-4fcd-b51f-56670e6c54e4
+---
+event:
+  concept:instance: 11344
+  id:id: ex-ante
+  cpee:instance: 7ab66674-1c2e-4fcd-b51f-56670e6c54e4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-05T20:21:13.750582+02:00'
+---
+event:
+  concept:instance: 11344
+  id:id: ex-ante
+  cpee:instance: 7ab66674-1c2e-4fcd-b51f-56670e6c54e4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e8eaca64789c6fe9238fded46119fa8787a4180
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-05T22:10:36.060825+02:00'
+---
+event:
+  concept:instance: 11344
+  id:id: ex-ante
+  cpee:instance: 7ab66674-1c2e-4fcd-b51f-56670e6c54e4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e8eaca64789c6fe9238fded46119fa8787a4180
+  cpee:exposition: |-
+    # User Input:
+    Title: Chainsaw  You produce custom chainsaws on demand. Your chainsaws have at least 5 properties such as length of the "guide bar" (Schwertlänge), chain width, electric or motor chainsaw. After your customer told you the properties, you can start ordering the parts from various online sources (in parallel). After the parts arrive you have to do a manual inspection of all parts, and then assemble the parts. During production, you regularly send updates to your customer. After producing the first saw you send it to your customer. If he likes it, the rest of his order are produced.
+  time:timestamp: '2026-05-05T22:10:36.060926+02:00'
+---
+event:
+  concept:instance: 11344
+  id:id: ex-ante
+  cpee:instance: 7ab66674-1c2e-4fcd-b51f-56670e6c54e4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e8eaca64789c6fe9238fded46119fa8787a4180
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-05T22:10:36.061140+02:00'
+---
+event:
+  concept:instance: 11344
+  id:id: ex-ante
+  cpee:instance: 7ab66674-1c2e-4fcd-b51f-56670e6c54e4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e8eaca64789c6fe9238fded46119fa8787a4180
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-05T22:10:36.061223+02:00'
+---
+event:
+  concept:instance: 11344
+  id:id: ex-ante
+  cpee:instance: 7ab66674-1c2e-4fcd-b51f-56670e6c54e4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Customer Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Order Parts</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="3">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Inspect Parts</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Send Update to Customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Assemble Chainsaw</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Send First Saw to Customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="8">
+        <alternative condition="Customer Likes It" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Produce Remaining Saws</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Customer Dislikes It" language="text/javascript">
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Handle Dislike</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a23" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Send Remaining Saws</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 6e8eaca64789c6fe9238fded46119fa8787a4180
+  time:timestamp: '2026-05-05T22:10:36.060656+02:00'
+---
+event:
+  concept:instance: 11344
+  id:id: ex-ante
+  cpee:instance: 7ab66674-1c2e-4fcd-b51f-56670e6c54e4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e8eaca64789c6fe9238fded46119fa8787a4180
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+      0:startevent:((startevent)) --> 1:task:(Receive Customer Order)
+      1:task:(Receive Customer Order) --> 2:task:(Order Parts)
+      2:task:(Order Parts) --> 3:parallelgateway:{AND}
+      3:parallelgateway:{AND} --> 4:task:(Inspect Parts)
+      3:parallelgateway:{AND} --> 5:task:(Send Update to Customer)
+      4:task:(Inspect Parts) --> 6:task:(Assemble Chainsaw)
+      5:task:(Send Update to Customer) --> 6:task:(Assemble Chainsaw)
+      6:task:(Assemble Chainsaw) --> 7:task:(Send First Saw to Customer)
+      7:task:(Send First Saw to Customer) --> 8:exclusivegateway:{x}
+      8:exclusivegateway:{x} --> |Customer Likes It| 9:task:(Produce Remaining Saws)
+      8:exclusivegateway:{x} --> |Customer Dislikes It| 10:task:(Handle Dislike)
+      9:task:(Produce Remaining Saws) --> 11:task:(Send Remaining Saws)
+      10:task:(Handle Dislike) --> 11:task:(Send Remaining Saws)
+      11:task:(Send Remaining Saws) --> 12:endevent:(((endevent)))
+  time:timestamp: '2026-05-05T22:10:36.061298+02:00'
+---
+event:
+  concept:instance: 11344
+  id:id: ex-ante
+  cpee:instance: 7ab66674-1c2e-4fcd-b51f-56670e6c54e4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6e8eaca64789c6fe9238fded46119fa8787a4180
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Receive Customer Order</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Order Parts</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="3">
+        <parallel_branch>
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Inspect Parts</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Send Update to Customer</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Assemble Chainsaw</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a15" endpoint="" a:alt_id="7">
+        <parameters>
+          <label>Send First Saw to Customer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="8">
+        <alternative condition="Customer Likes It" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Produce Remaining Saws</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Customer Dislikes It" language="text/javascript">
+          <call id="a21" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Handle Dislike</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+      <call id="a23" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Send Remaining Saws</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-05-05T22:10:36.061377+02:00'

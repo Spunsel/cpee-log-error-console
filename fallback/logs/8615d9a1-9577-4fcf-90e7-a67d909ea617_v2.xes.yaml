@@ -1,0 +1,460 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 11837
+    cpee:name: Plain Instance
+    cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-13T10:15:17.739081+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Add Lysis Buffer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Incubate</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Disrupt Cells</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Centrifuge</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Collect Supernatant</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: ba6bd04f45dc63a6698d351fa7d082669daf0f0f
+  time:timestamp: '2026-05-13T10:15:25.629260+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ba6bd04f45dc63a6698d351fa7d082669daf0f0f
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-13T10:15:25.629464+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ba6bd04f45dc63a6698d351fa7d082669daf0f0f
+  cpee:exposition: |-
+    # User Input:
+    create a process model for cell disruption
+  time:timestamp: '2026-05-13T10:15:25.630065+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ba6bd04f45dc63a6698d351fa7d082669daf0f0f
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-13T10:15:25.630558+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ba6bd04f45dc63a6698d351fa7d082669daf0f0f
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-13T10:15:25.630673+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ba6bd04f45dc63a6698d351fa7d082669daf0f0f
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Prepare Sample)
+    1:task:(Prepare Sample) --> 2:task:(Add Lysis Buffer)
+    2:task:(Add Lysis Buffer) --> 3:task:(Incubate)
+    3:task:(Incubate) --> 4:task:(Disrupt Cells)
+    4:task:(Disrupt Cells) --> 5:task:(Centrifuge)
+    5:task:(Centrifuge) --> 6:task:(Collect Supernatant)
+    6:task:(Collect Supernatant) --> 7:endevent:(((endevent)))
+  time:timestamp: '2026-05-13T10:15:25.630817+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ba6bd04f45dc63a6698d351fa7d082669daf0f0f
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Sample</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Add Lysis Buffer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Incubate</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Disrupt Cells</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Centrifuge</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Collect Supernatant</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-05-13T10:15:25.630982+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-05-13T10:16:15.999107+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-05-13T10:16:16.004416+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-13T10:16:16.537867+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-13T10:16:16.542813+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Sample</label>
+          <color/>
+          <method>:post</method>
+          <arguments>
+            <ingredients/>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_logging_behavior>
+            <_exclude>false</_exclude>
+            <_include>false</_include>
+          </_logging_behavior>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Add Lysis Buffer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Incubate</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Disrupt Cells</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Centrifuge</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Collect Supernatant</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 8d861da22b273ef7f114299b14e54fc1db5308bf
+  time:timestamp: '2026-05-13T10:16:56.217832+02:00'
+---
+event:
+  concept:instance: 11837
+  id:id: ex-ante
+  cpee:instance: 8615d9a1-9577-4fcf-90e7-a67d909ea617
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Sample</label>
+          <color/>
+          <method>:post</method>
+          <arguments>
+            <ingredients>{...}</ingredients>
+          </arguments>
+        </parameters>
+        <annotations>
+          <_generic/>
+          <_logging_behavior>
+            <_exclude>false</_exclude>
+            <_include>false</_include>
+          </_logging_behavior>
+          <_timing>
+            <_timing_weight/>
+            <_timing_avg/>
+            <explanations/>
+          </_timing>
+          <_shifting>
+            <_shifting_type>Duration</_shifting_type>
+          </_shifting>
+          <_context_data_analysis>
+            <probes/>
+            <ips/>
+          </_context_data_analysis>
+          <report>
+            <url/>
+          </report>
+          <_notes>
+            <_notes_general/>
+          </_notes>
+        </annotations>
+        <documentation>
+          <input/>
+          <output/>
+          <implementation>
+            <description/>
+          </implementation>
+        </documentation>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Add Lysis Buffer</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Incubate</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Disrupt Cells</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Centrifuge</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a11" endpoint="" a:alt_id="6">
+        <parameters>
+          <label>Collect Supernatant</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 8c138464647999ee202a1c5b3fdc2b0eb890f90c
+  time:timestamp: '2026-05-13T10:17:00.575713+02:00'

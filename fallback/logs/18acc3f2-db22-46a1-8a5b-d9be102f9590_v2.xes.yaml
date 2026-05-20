@@ -1,0 +1,524 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 11725
+    cpee:name: Plain Instance
+    cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-07T22:41:44.592718+02:00'
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f005af7d3ab45a3a0457c7f2e252a62119afa75
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-07T22:42:32.467409+02:00'
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Pre-Verification</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Incomplete" a:alt_id="4" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Correct Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Pre-Verification</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <parallel wait="-1" cancel="last" a:alt_id="6">
+          <parallel_branch>
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>KYC Check</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a17" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Compliance Check</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <choose mode="exclusive" a:alt_id="10">
+          <alternative condition="KYC Negative or AML Risk &gt; 50%" language="text/javascript">
+            <call id="a25" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Deny Loan</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="KYC Positive and AML Risk &lt;= 50%" language="text/javascript">
+            <call id="a27" endpoint="" a:alt_id="12">
+              <parameters>
+                <label>Compute DTI Ratio</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a29" endpoint="" a:alt_id="13">
+              <parameters>
+                <label>Risk Assessment</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="14">
+              <alternative condition="Risk Score &gt; 50%" language="text/javascript">
+                <call id="a25" endpoint="" a:alt_id="11">
+                  <parameters>
+                    <label>Deny Loan</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Risk Score &lt;= 50%" language="text/javascript">
+                <call id="a35" endpoint="" a:alt_id="15">
+                  <parameters>
+                    <label>Determine Loan Category</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="16">
+                  <alternative condition="Small Loan" language="text/javascript">
+                    <call id="a39" endpoint="" a:alt_id="17">
+                      <parameters>
+                        <label>Approve Loan and Compute Interest Rate</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="Large Loan" language="text/javascript">
+                    <call id="a41" endpoint="" a:alt_id="18">
+                      <parameters>
+                        <label>Transmit to Loan Officer</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a43" endpoint="" a:alt_id="19">
+                      <parameters>
+                        <label>Review Loan Application</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="20">
+                      <alternative condition="Approved" language="text/javascript">
+                        <call id="a47" endpoint="" a:alt_id="21">
+                          <parameters>
+                            <label>Approve Loan</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="Denied" language="text/javascript">
+                        <call id="a25" endpoint="" a:alt_id="11">
+                          <parameters>
+                            <label>Deny Loan</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                </choose>
+              </alternative>
+            </choose>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: 1f005af7d3ab45a3a0457c7f2e252a62119afa75
+  time:timestamp: '2026-05-07T22:42:32.467154+02:00'
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f005af7d3ab45a3a0457c7f2e252a62119afa75
+  cpee:exposition: |-
+    # User Input:
+    This is the process for a loan approval.
+
+    A customer creates a loan application and submits it to its bank. The pre-verification (PV) service verifies whether the application is complete. If something is missing, the PV service asks the customer to correct the application and re-submits it. Else, the PV service starts the identity and compliance checks. 
+
+    PV Service queries the KYC Service to get the KYC status of the customer. In parallel, PV Service queries the Compliance Service to get the sanction history and AML risk level of the customer. If the KYC status comes back negative, or the AML risk level is over 50%, the PV service automatically denies the loan. Else, they proceed with credit and risk assessment. To do so, the PV Service computes the DTI ratio, then queries the risk assessment service to get the risk score. The risk assessment service queries the credit score service to get the customer credit score. The credit score services look at the customer file to compute its credit score. Finally, the risk assessment service computes the risk score of the loan based on the credit score and the DTI ratio.
+
+    If the risk score is over 50%, the PV service automatically denies the loan. Else, it determines the loan category based on all the elements in the loan application. If the loan category is small, the PV service automatically approves the loan and computes an interest rate. Else, the PV service transmits the loan application to the loan officer. The loan officer reviews the loan application, and approves or denies it (with justification).
+  time:timestamp: '2026-05-07T22:42:32.467922+02:00'
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f005af7d3ab45a3a0457c7f2e252a62119afa75
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-05-07T22:42:32.468061+02:00'
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f005af7d3ab45a3a0457c7f2e252a62119afa75
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-07T22:42:32.468179+02:00'
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f005af7d3ab45a3a0457c7f2e252a62119afa75
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Create Loan Application)
+    1:task:(Create Loan Application) --> 2:task:(Submit Loan Application)
+    2:task:(Submit Loan Application) --> 3:task:(Pre-Verification)
+    3:task:(Pre-Verification) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Incomplete| 5:task:(Correct Application)
+    5:task:(Correct Application) --> 3:task:(Pre-Verification)
+    4:exclusivegateway:{x} --> |Complete| 6:parallelgateway:{AND}
+    6:parallelgateway:{AND} --> 7:task:(KYC Check)
+    6:parallelgateway:{AND} --> 8:task:(Compliance Check)
+    7:task:(KYC Check) --> 9:parallelgateway:{AND}
+    8:task:(Compliance Check) --> 9:parallelgateway:{AND}
+    9:parallelgateway:{AND} --> 10:exclusivegateway:{x}
+    10:exclusivegateway:{x} --> |KYC Negative or AML Risk > 50%| 11:task:(Deny Loan)
+    10:exclusivegateway:{x} --> |KYC Positive and AML Risk <= 50%| 12:task:(Compute DTI Ratio)
+    12:task:(Compute DTI Ratio) --> 13:task:(Risk Assessment)
+    13:task:(Risk Assessment) --> 14:exclusivegateway:{x}
+    14:exclusivegateway:{x} --> |Risk Score > 50%| 11:task:(Deny Loan)
+    14:exclusivegateway:{x} --> |Risk Score <= 50%| 15:task:(Determine Loan Category)
+    15:task:(Determine Loan Category) --> 16:exclusivegateway:{x}
+    16:exclusivegateway:{x} --> |Small Loan| 17:task:(Approve Loan and Compute Interest Rate)
+    16:exclusivegateway:{x} --> |Large Loan| 18:task:(Transmit to Loan Officer)
+    18:task:(Transmit to Loan Officer) --> 19:task:(Review Loan Application)
+    19:task:(Review Loan Application) --> 20:exclusivegateway:{x}
+    20:exclusivegateway:{x} --> |Approved| 21:task:(Approve Loan)
+    20:exclusivegateway:{x} --> |Denied| 11:task:(Deny Loan)
+    11:task:(Deny Loan) --> 22:endevent:(((endevent)))
+    17:task:(Approve Loan and Compute Interest Rate) --> 22:endevent:(((endevent)))
+    21:task:(Approve Loan) --> 22:endevent:(((endevent)))
+    ```
+    This model represents the loan approval process. It starts with the customer creating and submitting a loan application. The application goes through pre-verification, KYC and compliance checks, risk assessment, and loan category determination. Depending on the results of these checks and assessments, the loan is either approved or denied. If the loan category is large, the loan application is reviewed by a loan officer who makes the final decision.
+  time:timestamp: '2026-05-07T22:42:32.468256+02:00'
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 1f005af7d3ab45a3a0457c7f2e252a62119afa75
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Pre-Verification</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Incomplete" a:alt_id="4" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Correct Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Pre-Verification</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <parallel wait="-1" cancel="last" a:alt_id="6">
+          <parallel_branch>
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>KYC Check</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+          <parallel_branch>
+            <call id="a17" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Compliance Check</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </parallel_branch>
+        </parallel>
+        <choose mode="exclusive" a:alt_id="10">
+          <alternative condition="KYC Negative or AML Risk &gt; 50%" language="text/javascript">
+            <call id="a25" endpoint="" a:alt_id="11">
+              <parameters>
+                <label>Deny Loan</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="KYC Positive and AML Risk &lt;= 50%" language="text/javascript">
+            <call id="a27" endpoint="" a:alt_id="12">
+              <parameters>
+                <label>Compute DTI Ratio</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a29" endpoint="" a:alt_id="13">
+              <parameters>
+                <label>Risk Assessment</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="14">
+              <alternative condition="Risk Score &gt; 50%" language="text/javascript">
+                <call id="a25" endpoint="" a:alt_id="11">
+                  <parameters>
+                    <label>Deny Loan</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+              </alternative>
+              <alternative condition="Risk Score &lt;= 50%" language="text/javascript">
+                <call id="a35" endpoint="" a:alt_id="15">
+                  <parameters>
+                    <label>Determine Loan Category</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="16">
+                  <alternative condition="Small Loan" language="text/javascript">
+                    <call id="a39" endpoint="" a:alt_id="17">
+                      <parameters>
+                        <label>Approve Loan and Compute Interest Rate</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                  </alternative>
+                  <alternative condition="Large Loan" language="text/javascript">
+                    <call id="a41" endpoint="" a:alt_id="18">
+                      <parameters>
+                        <label>Transmit to Loan Officer</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a43" endpoint="" a:alt_id="19">
+                      <parameters>
+                        <label>Review Loan Application</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="20">
+                      <alternative condition="Approved" language="text/javascript">
+                        <call id="a47" endpoint="" a:alt_id="21">
+                          <parameters>
+                            <label>Approve Loan</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="Denied" language="text/javascript">
+                        <call id="a25" endpoint="" a:alt_id="11">
+                          <parameters>
+                            <label>Deny Loan</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                </choose>
+              </alternative>
+            </choose>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-05-07T22:42:32.468533+02:00'
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2026-05-07T22:56:16.123510+02:00'
+---
+event:
+  concept:instance: 11725
+  id:id: ex-ante
+  cpee:instance: 18acc3f2-db22-46a1-8a5b-d9be102f9590
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-07T22:56:16.627549+02:00'

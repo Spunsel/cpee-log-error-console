@@ -1,0 +1,213 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 21359
+    cpee:name: Plain Instance
+    cpee:instance: 985c8444-8007-42f2-b71c-1544f87ccea4
+---
+event:
+  concept:instance: 21359
+  id:id: ex-ante
+  cpee:instance: 985c8444-8007-42f2-b71c-1544f87ccea4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-20T10:01:29.648291+02:00'
+---
+event:
+  concept:instance: 21359
+  id:id: ex-ante
+  cpee:instance: 985c8444-8007-42f2-b71c-1544f87ccea4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Gene Transcription</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>mRNA Processing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Ribosome Translation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Protein Folding</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Post-Translational Modification</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 5eab39f409119f651fdc143742604cf4d48e94ab
+  time:timestamp: '2026-05-20T10:01:58.839631+02:00'
+---
+event:
+  concept:instance: 21359
+  id:id: ex-ante
+  cpee:instance: 985c8444-8007-42f2-b71c-1544f87ccea4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5eab39f409119f651fdc143742604cf4d48e94ab
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-20T10:01:58.841034+02:00'
+---
+event:
+  concept:instance: 21359
+  id:id: ex-ante
+  cpee:instance: 985c8444-8007-42f2-b71c-1544f87ccea4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5eab39f409119f651fdc143742604cf4d48e94ab
+  cpee:exposition: |-
+    # User Input:
+    lactase creation process
+  time:timestamp: '2026-05-20T10:01:58.841319+02:00'
+---
+event:
+  concept:instance: 21359
+  id:id: ex-ante
+  cpee:instance: 985c8444-8007-42f2-b71c-1544f87ccea4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5eab39f409119f651fdc143742604cf4d48e94ab
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-20T10:01:58.841464+02:00'
+---
+event:
+  concept:instance: 21359
+  id:id: ex-ante
+  cpee:instance: 985c8444-8007-42f2-b71c-1544f87ccea4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5eab39f409119f651fdc143742604cf4d48e94ab
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-20T10:01:58.841542+02:00'
+---
+event:
+  concept:instance: 21359
+  id:id: ex-ante
+  cpee:instance: 985c8444-8007-42f2-b71c-1544f87ccea4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5eab39f409119f651fdc143742604cf4d48e94ab
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Gene Transcription)
+    1:task:(Gene Transcription) --> 2:task:(mRNA Processing)
+    2:task:(mRNA Processing) --> 3:task:(Ribosome Translation)
+    3:task:(Ribosome Translation) --> 4:task:(Protein Folding)
+    4:task:(Protein Folding) --> 5:task:(Post-Translational Modification)
+    5:task:(Post-Translational Modification) --> 6:endevent:(((endevent)))
+  time:timestamp: '2026-05-20T10:01:58.841612+02:00'
+---
+event:
+  concept:instance: 21359
+  id:id: ex-ante
+  cpee:instance: 985c8444-8007-42f2-b71c-1544f87ccea4
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 5eab39f409119f651fdc143742604cf4d48e94ab
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Gene Transcription</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>mRNA Processing</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Ribosome Translation</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a7" endpoint="" a:alt_id="4">
+        <parameters>
+          <label>Protein Folding</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a9" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Post-Translational Modification</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-05-20T10:01:58.841704+02:00'
