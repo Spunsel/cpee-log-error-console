@@ -25,7 +25,11 @@ export class SearchService {
                 matches: [],
                 currentMatchIndex: -1,
                 caseSensitive: false,
-                wholeWord: false
+                wholeWord: false,
+                spans: [],              // Stored span refs — avoids querySelectorAll on clear/scroll
+                activeSpan: null,       // Currently active span — avoids iterating all spans on navigate
+                cachedTextContent: null,// Cached codeElement.textContent — avoids re-serialising the DOM
+                codeElement: null       // Cached code element reference
             });
         }
     }
@@ -65,11 +69,9 @@ export class SearchService {
             return -1;
         }
 
-        if (direction === 'next') {
-            state.currentMatchIndex = (state.currentMatchIndex + 1) % state.matches.length;
-        } else if (direction === 'prev') {
-            state.currentMatchIndex = state.currentMatchIndex <= 0 ? state.matches.length - 1 : state.currentMatchIndex - 1;
-        }
+        state.currentMatchIndex = direction === 'next'
+            ? (state.currentMatchIndex + 1) % state.matches.length
+            : (state.currentMatchIndex <= 0 ? state.matches.length - 1 : state.currentMatchIndex - 1);
 
         return state.currentMatchIndex;
     }
@@ -84,6 +86,10 @@ export class SearchService {
             state.currentSearchTerm = '';
             state.matches = [];
             state.currentMatchIndex = -1;
+            state.spans = [];
+            state.activeSpan = null;
+            state.cachedTextContent = null;
+            // codeElement is intentionally kept — the DOM reference stays valid
         }
     }
 
@@ -95,6 +101,9 @@ export class SearchService {
             state.currentSearchTerm = '';
             state.matches = [];
             state.currentMatchIndex = -1;
+            state.spans = [];
+            state.activeSpan = null;
+            state.cachedTextContent = null;
         });
     }
 
@@ -133,17 +142,11 @@ export class SearchService {
         }
         
         const { caseSensitive = false, wholeWord = false } = options;
-        const flags = caseSensitive ? 'g' : 'gi';
-        
-        // Escape all special regex characters
         let pattern = this.escapeRegex(searchTerm);
-        
-        if (wholeWord) {
-            pattern = `\\b${pattern}\\b`;
-        }
-        
+        if (wholeWord) pattern = `\\b${pattern}\\b`;
+
         try {
-        return new RegExp(pattern, flags);
+            return new RegExp(pattern, caseSensitive ? 'g' : 'gi');
         } catch (e) {
             console.warn('SearchService: Invalid regex pattern:', e);
             return null;
@@ -153,110 +156,81 @@ export class SearchService {
     /**
      * Apply search highlighting to a container while preserving syntax highlighting
      * Uses text node manipulation to wrap matches without destroying existing HTML structure
+     * @param {string} sectionId - Section identifier
      * @param {HTMLElement} container - Container with rendered content
      * @param {string} searchTerm - Search term
      * @param {Object} options - Search options
      * @returns {Array} Array of match objects
      */
-    applySearchHighlighting(container, searchTerm, options = {}) {
-        const codeElement = container.querySelector('code');
+    applySearchHighlighting(sectionId, container, searchTerm, options = {}) {
+        const state = this.searchStates.get(sectionId);
+
+        // Cache codeElement on first use
+        if (state && !state.codeElement) {
+            state.codeElement = container.querySelector('code');
+        }
+        const codeElement = state?.codeElement || container.querySelector('code');
+
         if (!codeElement) {
             console.warn('SearchService: No code element found');
             return [];
         }
 
-        // Clear any existing search highlights first
-        this.clearSearchHighlighting(container);
+        this.clearSearchHighlighting(container, sectionId);
 
-        // Build regex for finding matches
         const regex = this.buildSearchRegex(searchTerm, options);
-        if (!regex) {
-            return [];
-        }
+        if (!regex) return [];
 
-        // Get plain text content for finding match positions
-        const plainText = codeElement.textContent;
-        
-        // Find all match ranges in plain text
+        // Use cached textContent — avoids re-serialising the DOM on every keystroke
+        if (state && !state.cachedTextContent) {
+            state.cachedTextContent = codeElement.textContent;
+        }
+        const plainText = state?.cachedTextContent || codeElement.textContent;
+
+        // Collect match ranges
         const matchRanges = [];
         let match;
         while ((match = regex.exec(plainText)) !== null) {
-            matchRanges.push({
-                start: match.index,
-                end: match.index + match[0].length,
-                text: match[0]
-            });
+            matchRanges.push({ start: match.index, end: match.index + match[0].length, text: match[0] });
+            // Guard against zero-length matches causing an infinite loop
+            if (match[0].length === 0) regex.lastIndex++;
         }
 
-        if (matchRanges.length === 0) {
-            return [];
-        }
+        if (matchRanges.length === 0) return [];
 
-        // Build index of text nodes with their global positions
-        const textNodes = [];
-        let globalPos = 0;
-        const walker = document.createTreeWalker(codeElement, NodeFilter.SHOW_TEXT, null);
+        // FIX: Collect text nodes ONCE. Processing right-to-left means positions
+        // to the left of the current match are never modified, so the array
+        // never needs to be rebuilt — even stale `end` values beyond each
+        // processed match are never queried again.
+        const textNodes = this._collectTextNodes(codeElement);
+
+        // Store span refs by match index for O(1) lookup during clear/scroll
+        const spans = [];
+        for (let i = matchRanges.length - 1; i >= 0; i--) {
+            const { start, end } = matchRanges[i];
+            spans[i] = this.highlightRange(textNodes, start, end, i);
+        }
+        if (state) state.spans = spans;
+
+        return matchRanges.map((r, idx) => ({ index: idx, ...r }));
+    }
+
+    /**
+     * Collect all non-empty text nodes with their global positions.
+     * Extracted as a helper for clarity and to make the single-pass explicit.
+     */
+    _collectTextNodes(root) {
+        const nodes = [];
+        let pos = 0;
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
         let node;
         while ((node = walker.nextNode())) {
-            if (node.nodeValue && node.nodeValue.length > 0) {
-                textNodes.push({
-                    node: node,
-                    start: globalPos,
-                    end: globalPos + node.nodeValue.length
-                });
-                globalPos += node.nodeValue.length;
-                }
-            }
-
-        // Process matches from last to first so earlier text-node positions
-        // stay valid.  After each wrap we only rebuild the portion of the
-        // index that was affected (from the first overlapping text node
-        // onward) instead of re-walking the entire subtree.
-        for (let i = matchRanges.length - 1; i >= 0; i--) {
-            const range = matchRanges[i];
-
-            // Find the first text-node entry that overlaps this match
-            let firstAffected = textNodes.length;
-            for (let j = 0; j < textNodes.length; j++) {
-                if (textNodes[j].end > range.start) {
-                    firstAffected = j;
-                    break;
-                }
-            }
-
-            this.highlightRange(textNodes, range.start, range.end, i);
-
-            // Rebuild only from `firstAffected` onward.  The preceding
-            // entries still point at untouched text nodes with correct
-            // global positions.
-            const rebuildStart = firstAffected > 0 ? textNodes[firstAffected - 1].end : 0;
-            const anchor = firstAffected > 0 ? textNodes[firstAffected - 1].node : null;
-            textNodes.length = firstAffected;
-
-            // Walk text nodes starting after `anchor` (or from codeElement root)
-            const partialWalker = document.createTreeWalker(codeElement, NodeFilter.SHOW_TEXT, null);
-            if (anchor) {
-                partialWalker.currentNode = anchor;
-            }
-            globalPos = rebuildStart;
-            while ((node = partialWalker.nextNode())) {
-                if (node.nodeValue && node.nodeValue.length > 0) {
-                    textNodes.push({
-                        node: node,
-                        start: globalPos,
-                        end: globalPos + node.nodeValue.length
-                    });
-                    globalPos += node.nodeValue.length;
-                }
+            if (node.nodeValue.length > 0) {
+                nodes.push({ node, start: pos, end: pos + node.nodeValue.length });
+                pos += node.nodeValue.length;
             }
         }
-
-        return matchRanges.map((r, idx) => ({
-            index: idx,
-            start: r.start,
-            end: r.end,
-            text: r.text
-        }));
+        return nodes;
     }
 
     /**
@@ -266,11 +240,20 @@ export class SearchService {
      * @returns {Object|null} {node, offset} or null if not found
      */
     findDOMPosition(textNodes, globalPos) {
-        for (const nodeInfo of textNodes) {
-            if (globalPos >= nodeInfo.start && globalPos < nodeInfo.end) {
+        let lo = 0, hi = textNodes.length - 1;
+
+        while (lo <= hi) {
+            const mid = (lo + hi) >>> 1;
+            const info = textNodes[mid];
+        
+            if (globalPos < info.start) {
+                hi = mid - 1;
+            } else if (globalPos >= info.end) {
+                lo = mid + 1;
+            } else {
                 return {
-                    node: nodeInfo.node,
-                    offset: globalPos - nodeInfo.start
+                    node: info.node,
+                    offset: globalPos - info.start
                 };
             }
         }
@@ -294,40 +277,33 @@ export class SearchService {
      * @param {number} start - Start position in plain text
      * @param {number} end - End position in plain text
      * @param {number} matchIndex - Index of the logical match
+     * @returns {HTMLElement|null} The created wrapper span, or null if fallback was used
      */
     highlightRange(textNodes, start, end, matchIndex) {
         const startPos = this.findDOMPosition(textNodes, start);
         const endPos = this.findDOMPosition(textNodes, end);
         
-            if (!startPos || !endPos) {
-            return;
-            }
+        if (!startPos || !endPos) {
+            return null;
+        }
 
         try {
-            // Create a range spanning the entire match
             const range = document.createRange();
             range.setStart(startPos.node, startPos.offset);
             range.setEnd(endPos.node, endPos.offset);
-            
-            // Extract all contents in the range (includes any nested syntax spans)
+
             const contents = range.extractContents();
-            
-            // Create a single wrapper span for the entire match
-            const wrapper = document.createElement('span');
-            wrapper.className = 'search-match';
+            const wrapper  = document.createElement('span');
+            wrapper.className        = 'search-match';
             wrapper.dataset.matchIndex = matchIndex;
-            wrapper.appendChild(contents);
-            
-            // Flatten to plain text for uniform styling (removes nested syntax spans)
-            const plainText = wrapper.textContent;
-            wrapper.textContent = plainText;
-            
-            // Insert the wrapper at the range position
+            // Flatten to plain text for uniform styling
+            wrapper.textContent = contents.textContent;
             range.insertNode(wrapper);
+            return wrapper; // Return ref for span storage
         } catch (e) {
-            // Fallback: if Range API fails, use the split approach
             console.warn('SearchService: Range extraction failed, using fallback:', e.message);
             this.highlightRangeFallback(textNodes, start, end, matchIndex);
+            return null; // Fallback creates multiple spans; no single ref available
         }
     }
 
@@ -340,51 +316,28 @@ export class SearchService {
      * @param {number} matchIndex - Index of the logical match
      */
     highlightRangeFallback(textNodes, start, end, matchIndex) {
-        // Find which text nodes contain this range
-        const affectedNodes = [];
-        for (const nodeInfo of textNodes) {
-            if (nodeInfo.end > start && nodeInfo.start < end) {
-                affectedNodes.push(nodeInfo);
-            }
-        }
+        const affected = textNodes.filter(n => n.end > start && n.start < end);
+        if (affected.length === 0) return;
 
-        if (affectedNodes.length === 0) {
-            return;
-        }
-
-        // Process from last to first to preserve positions
-        for (let i = affectedNodes.length - 1; i >= 0; i--) {
-            const nodeInfo = affectedNodes[i];
+        for (let i = affected.length - 1; i >= 0; i--) {
+            const nodeInfo = affected[i];
             const node = nodeInfo.node;
-            
-            let localStart = 0;
-            let localEnd = node.nodeValue.length;
-            
-            if (i === 0) {
-                localStart = start - nodeInfo.start;
-            }
-            if (i === affectedNodes.length - 1) {
-                localEnd = end - nodeInfo.start;
-            }
-            
-            const beforeText = node.nodeValue.substring(0, localStart);
-            const matchText = node.nodeValue.substring(localStart, localEnd);
-            const afterText = node.nodeValue.substring(localEnd);
-            
-            if (!matchText) {
-                continue;
-            }
-            
+            const localStart = i === 0 ? start - nodeInfo.start : 0;
+            const localEnd   = i === affected.length - 1 ? end - nodeInfo.start : node.nodeValue.length;
+            const matchText  = node.nodeValue.substring(localStart, localEnd);
+            if (!matchText) continue;
+
             const span = document.createElement('span');
-            span.className = 'search-match';
+            span.className         = 'search-match';
             span.dataset.matchIndex = matchIndex;
             span.textContent = matchText;
-            
-            const parent = node.parentNode;
-            if (afterText) {
-                parent.insertBefore(document.createTextNode(afterText), node.nextSibling);
-            }
+
+            const parent    = node.parentNode;
+            const afterText = node.nodeValue.substring(localEnd);
+            if (afterText) parent.insertBefore(document.createTextNode(afterText), node.nextSibling);
             parent.insertBefore(span, node.nextSibling);
+
+            const beforeText = node.nodeValue.substring(0, localStart);
             if (beforeText) {
                 node.nodeValue = beforeText;
             } else {
@@ -397,23 +350,27 @@ export class SearchService {
      * Clear search highlighting from a container
      * Unwraps search-match spans while preserving syntax highlighting
      * @param {HTMLElement} container - Container with highlighted content
+     * @param {string} [sectionId] - Section identifier (enables stored-span fast path)
      */
-    clearSearchHighlighting(container) {
-        const codeElement = container.querySelector('code');
-        if (!codeElement) {
+    clearSearchHighlighting(container, sectionId) {
+        const state = sectionId ? this.searchStates.get(sectionId) : null;
+
+        // Fast path: use stored span refs if all matches used the primary path (no fallback spans)
+        if (state?.spans?.length && state.spans.every(s => s !== null)) {
+            state.spans.forEach(span => span.replaceWith(new Text(span.textContent)));
+            state.spans = [];
+            state.activeSpan = null;
+            state.codeElement?.normalize();
             return;
         }
 
-        // Find and unwrap all search-match spans
-        const searchSpans = codeElement.querySelectorAll('span.search-match');
-        searchSpans.forEach(span => {
-            const parent = span.parentNode;
-            // Replace the span with its text content
-            const textNode = document.createTextNode(span.textContent);
-            parent.replaceChild(textNode, span);
-        });
+        // Fallback: query the DOM (used on first clear or when fallback spans are present)
+        const codeElement = state?.codeElement || container.querySelector('code');
+        if (!codeElement) return;
 
-        // Normalize the element to merge adjacent text nodes
+        codeElement.querySelectorAll('span.search-match').forEach(span => {
+            span.replaceWith(new Text(span.textContent));
+        });
         codeElement.normalize();
     }
 
@@ -422,50 +379,44 @@ export class SearchService {
      * Uses data-match-index to handle matches that span multiple spans
      * @param {HTMLElement} container - Container with rendered content
      * @param {number} matchIndex - Index of logical match to scroll to
+     * @param {string} [sectionId] - Section identifier (enables stored-span fast path)
      * @returns {boolean} True if scrolled successfully
      */
-    scrollToMatch(container, matchIndex) {
-        if (!container || matchIndex < 0) {
-            return false;
-        }
+    scrollToMatch(container, matchIndex, sectionId) {
+        if (!container || matchIndex < 0) return false;
 
-        const allSpans = container.querySelectorAll('.search-match');
-        if (!allSpans || allSpans.length === 0) {
-            return false;
-        }
+        const state = sectionId ? this.searchStates.get(sectionId) : null;
 
-        // Find the first span with the target match index
-        const targetSpan = container.querySelector(`.search-match[data-match-index="${matchIndex}"]`);
-        if (targetSpan) {
-            // Find the scrollable raw container (parent with [data-content-type="raw"])
-            const rawContainer = container.closest('[data-content-type="raw"]');
-            if (rawContainer) {
-                // Calculate position to scroll to within the raw container
-                const containerRect = rawContainer.getBoundingClientRect();
-                const matchRect = targetSpan.getBoundingClientRect();
-                
-                // Calculate the scroll position needed to center the match
-                const scrollTop = rawContainer.scrollTop + (matchRect.top - containerRect.top) - (containerRect.height / 2) + (matchRect.height / 2);
-                
-                // Smooth scroll within the raw container
-                rawContainer.scrollTo({
-                    top: scrollTop,
-                    behavior: 'smooth'
-                });
-            } else {
-                // Fallback to scrollIntoView if raw container not found
-                targetSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            
-            // Add active class to all spans of the current match, remove from others
-            allSpans.forEach(span => {
-                const spanMatchIndex = parseInt(span.dataset.matchIndex, 10);
-                span.classList.toggle('search-match-active', spanMatchIndex === matchIndex);
+        // Use stored span ref — avoids a DOM query on every navigation keystroke
+        const targetSpan = state?.spans?.[matchIndex]
+            || container.querySelector(`.search-match[data-match-index="${matchIndex}"]`);
+        if (!targetSpan) return false;
+
+        const rawContainer = container.closest('[data-content-type="raw"]');
+        if (rawContainer) {
+            const containerRect = rawContainer.getBoundingClientRect();
+            const matchRect     = targetSpan.getBoundingClientRect();
+            rawContainer.scrollTo({
+                top: rawContainer.scrollTop + (matchRect.top - containerRect.top)
+                     - containerRect.height / 2 + matchRect.height / 2,
+                behavior: 'smooth'
             });
-            return true;
+        } else {
+            targetSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        return false;
+        // Update only the previously active and newly active span — O(1) instead of O(n)
+        if (state) {
+            state.activeSpan?.classList.remove('search-match-active');
+            targetSpan.classList.add('search-match-active');
+            state.activeSpan = targetSpan;
+        } else {
+            container.querySelectorAll('.search-match').forEach(span => {
+                span.classList.toggle('search-match-active',
+                    parseInt(span.dataset.matchIndex, 10) === matchIndex);
+            });
+        }
+        return true;
     }
 
     /**
@@ -479,9 +430,15 @@ export class SearchService {
     performSearch(sectionId, container, searchTerm, options = {}) {
         // Initialize search state if needed
         this.initializeSearchState(sectionId);
+
+        // Don't search until at least 2 characters are entered
+        if (searchTerm.length < 2) {
+            this.clearSearch(sectionId, container);
+            return [];
+        }
         
         // Apply highlighting and get matches
-        const matches = this.applySearchHighlighting(container, searchTerm, options);
+        const matches = this.applySearchHighlighting(sectionId, container, searchTerm, options);
         
         // Update search state
         this.updateSearchResults(sectionId, searchTerm, matches);
@@ -496,7 +453,7 @@ export class SearchService {
      */
     clearSearch(sectionId, container) {
         // Clear highlighting
-        this.clearSearchHighlighting(container);
+        this.clearSearchHighlighting(container, sectionId);
         
         // Clear search state
         this.clearSearchState(sectionId);
@@ -509,11 +466,8 @@ export class SearchService {
      * @returns {boolean} True if navigation was successful
      */
     navigateToNextMatch(sectionId, container) {
-        const matchIndex = this.navigateToMatch(sectionId, 'next');
-        if (matchIndex >= 0) {
-            return this.scrollToMatch(container, matchIndex);
-        }
-        return false;
+        const idx = this.navigateToMatch(sectionId, 'next');
+        return idx >= 0 ? this.scrollToMatch(container, idx, sectionId) : false;
     }
 
     /**
@@ -523,11 +477,18 @@ export class SearchService {
      * @returns {boolean} True if navigation was successful
      */
     navigateToPreviousMatch(sectionId, container) {
-        const matchIndex = this.navigateToMatch(sectionId, 'prev');
-        if (matchIndex >= 0) {
-            return this.scrollToMatch(container, matchIndex);
-        }
-        return false;
+        const idx = this.navigateToMatch(sectionId, 'prev');
+        return idx >= 0 ? this.scrollToMatch(container, idx, sectionId) : false;
+    }
+
+    /**
+     * Invalidate cached text content for a section
+     * Call this whenever the code content is re-rendered
+     * @param {string} sectionId - Section identifier
+     */
+    clearCachedText(sectionId) {
+        const state = this.searchStates.get(sectionId);
+        if (state) state.cachedTextContent = null;
     }
 
     /**
@@ -563,4 +524,3 @@ export class SearchService {
         this.searchStates.clear();
     }
 }
-

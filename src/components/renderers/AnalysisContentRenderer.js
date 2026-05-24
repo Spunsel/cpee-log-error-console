@@ -1093,8 +1093,6 @@ export class AnalysisContentRenderer {
         text.innerHTML = `
             <h3>No Verification Results Available</h3>
             <p>Verification results are not yet available for this section.</p>
-            <p>Verification is performed automatically after trace calculation. Please ensure traces have been calculated for this section.</p>
-            <p>If this step has missing or incomplete verification data, verification may not have been performed yet.</p>
         `;
         message.appendChild(text);
         
