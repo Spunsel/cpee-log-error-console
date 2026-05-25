@@ -278,6 +278,7 @@ export class InstanceLoaderViewer {
         
         try {
             let finalUuid = uuid;
+            let resolvedProcessNumber = null;
             
             // Process number takes precedence over UUID when both are provided
             if (processNumber) {
@@ -286,6 +287,7 @@ export class InstanceLoaderViewer {
                     alert('Please enter a valid process number (positive integer).');
                     return;
                 }
+                resolvedProcessNumber = processNum;
                 
                 console.log(`Fetching UUID for process number: ${processNum} (server only)`);
                 
@@ -313,7 +315,11 @@ export class InstanceLoaderViewer {
             
             // Trigger load instance event (manual input uses server only)
             this.stateManager.setState('ui.loading', true);
-            this.eventBus.emit('instanceLoader:loadInstance', { uuid: finalUuid, source: 'server' });
+            this.eventBus.emit('instanceLoader:loadInstance', {
+                uuid: finalUuid,
+                source: 'server',
+                processNumber: resolvedProcessNumber
+            });
             
         } catch (error) {
             // Handle specific error types
@@ -742,7 +748,7 @@ export class InstanceLoaderViewer {
         }
         
         this.stateManager.setState('ui.loading', true);
-        this.eventBus.emit('instanceLoader:loadInstance', { uuid, source });
+        this.eventBus.emit('instanceLoader:loadInstance', { uuid, source, processNumber });
     }
 
     /**
@@ -1167,7 +1173,7 @@ export class InstanceLoaderViewer {
             }
             
             this.stateManager.setState('ui.loading', true);
-            this.eventBus.emit('instanceLoader:loadInstance', { uuid, source: 'fallback' });
+            this.eventBus.emit('instanceLoader:loadInstance', { uuid, source: 'fallback', processNumber });
             
             // Set a timeout to prevent hanging forever
             setTimeout(() => {

@@ -166,7 +166,10 @@ export class CPEEDebugConsole {
 
         // Instance loading from instance loader
         this.eventBus.on('instanceLoader:loadInstance', async (data) => {
-            await this.loadInstance(data.uuid, { source: data.source || 'auto' });
+            await this.loadInstance(data.uuid, {
+                source: data.source || 'auto',
+                processNumber: data.processNumber ?? null
+            });
         });
 
         // View log request from instance loader
@@ -250,7 +253,7 @@ export class CPEEDebugConsole {
      * @param {string} uuid - CPEE instance UUID
      */
     async loadInstance(uuid, options = {}) {
-        const { source = 'auto' } = options;
+        const { source = 'auto', processNumber: requestedProcessNumber = null } = options;
         
         try {
             // Check if already loaded
@@ -270,9 +273,11 @@ export class CPEEDebugConsole {
                 return;
             }
             
-            // Get process number from InstanceLoaderViewer, or extract from log data
-            let processNumber = this.instanceLoaderViewer.getProcessNumberFromUUIDInput();
-            
+            // Use process number from load request; fall back to inputs or log data
+            let processNumber = requestedProcessNumber;
+            if (processNumber === null) {
+                processNumber = this.instanceLoaderViewer.getProcessNumberFromUUIDInput();
+            }
             if (!processNumber) {
                 processNumber = this._extractProcessNumberFromLog(logData);
             }

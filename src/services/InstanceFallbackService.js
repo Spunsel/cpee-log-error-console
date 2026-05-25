@@ -111,7 +111,9 @@ export class InstanceFallbackService {
      */
     async getProcessNumbersByGeneration(generation) {
         await this.loadUUIDMapping();
-        if (!this.generations || !this.generations[generation]) return [];
+        if (!this.generations || !this.generations[generation]) {
+            return [];
+        }
         return Object.keys(this.generations[generation]).sort((a, b) => parseInt(a) - parseInt(b));
     }
 
