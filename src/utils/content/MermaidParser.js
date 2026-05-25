@@ -135,8 +135,9 @@ export class MermaidParser {
             });
             }
         
-        // Fix 9: Sync gateway nodes with same ID - if one has full specification, apply to incomplete ones
+        // Fix 9: Complete incomplete node definitions (gateways, id:type: stubs, bare edge IDs)
         const fix9LineNumbers = [];
+        const nodeSpecById = this.collectNodeSpecifications(processedCode);
         
         // Pattern to match gateway nodes: id:type: or id:type:{something}
         // Matches patterns like: pg1:parallelgateway: or pg1:parallelgateway:{AND}
@@ -164,30 +165,39 @@ export class MermaidParser {
             }
         }
         
-        // Second pass: replace incomplete gateway nodes with complete ones
+        // Second pass: replace incomplete gateway nodes and bare edge endpoint IDs
         const lines9 = processedCode.split('\n');
         const updatedLines = lines9.map((line, index) => {
             let updatedLine = line;
             
-            // Check if this line contains a gateway node that needs completion
+            // Complete incomplete gateway nodes (e.g. 5:exclusivegateway: -> 5:exclusivegateway:{x})
             gatewayMap.forEach((specification, idType) => {
                 if (specification) {
-                    // Create pattern to match incomplete version (id:type: not followed by {})
-                    // Use word boundary and negative lookahead to avoid matching already complete ones
                     const escapedIdType = idType.replace(/:/g, '\\:');
                     const incompletePattern = new RegExp(`\\b${escapedIdType}(?!\\{[^}]+\\})`, 'g');
-                    
-                    // Store original line to detect changes
                     const originalLine = updatedLine;
-                    // Replace incomplete gateway with complete one
                     updatedLine = updatedLine.replace(incompletePattern, idType + specification);
-                    
-                    // If the line changed, record the line number
                     if (updatedLine !== originalLine) {
-                        fix9LineNumbers.push(index + 1); // 1-based line numbers
+                        fix9LineNumbers.push(index + 1);
                     }
                 }
             });
+            
+            // Expand bare node IDs at edge endpoints (e.g. --> |label| 1 -> full id:type:(label))
+            if (line.includes('-->') && nodeSpecById.size > 0) {
+                const originalLine = updatedLine;
+                nodeSpecById.forEach((fullSpec, nodeId) => {
+                    const escapedId = nodeId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const bareEdgePattern = new RegExp(
+                        `(-->(?:\\s*\\|[^|]*\\|)?\\s*)\\b${escapedId}\\b(?!\\s*:)(?=\\s*$)`,
+                        'g'
+                    );
+                    updatedLine = updatedLine.replace(bareEdgePattern, `$1${fullSpec}`);
+                });
+                if (updatedLine !== originalLine) {
+                    fix9LineNumbers.push(index + 1);
+                }
+            }
             
             return updatedLine;
         });
@@ -195,7 +205,7 @@ export class MermaidParser {
         if (fix9LineNumbers.length > 0) {
             processedCode = updatedLines.join('\n');
             appliedSteps.push({
-                description: `Synchronized ${fix9LineNumbers.length} gateway node${fix9LineNumbers.length > 1 ? 's' : ''} with same ID`,
+                description: `Completed ${fix9LineNumbers.length} incomplete node definition${fix9LineNumbers.length > 1 ? 's' : ''}`,
                 lineNumbers: Array.from(new Set(fix9LineNumbers)).sort((a, b) => a - b)
             });
         }
@@ -571,6 +581,103 @@ export class MermaidParser {
             code: processedCode,
             appliedSteps: appliedSteps
         };
+    }
+
+    /**
+     * Collect the most complete node specification for each node ID in the diagram.
+     * @param {string} code - Mermaid flowchart code
+     * @returns {Map<string, string>} Map of node id to full specification (e.g. "1:task:(Label)")
+     */
+    static collectNodeSpecifications(code) {
+        const nodeSpecMap = new Map();
+        let i = 0;
+
+        while (i < code.length) {
+            const match = code.substring(i).match(/^(\w+):(\w+):/);
+            if (!match) {
+                i++;
+                continue;
+            }
+
+            const nodeId = match[1];
+            const nodeType = match[2];
+            const specStart = i;
+            const contentStart = i + match[0].length;
+            const nodeTypeLower = nodeType.toLowerCase();
+            let specEnd = contentStart;
+
+            if (nodeTypeLower.includes('start') || nodeTypeLower.includes('end') || nodeTypeLower.includes('escalate')) {
+                let depth = 0;
+                let pos = contentStart;
+                while (pos < code.length) {
+                    if (code[pos] === '(') {
+                        depth++;
+                    } else if (code[pos] === ')') {
+                        depth--;
+                        if (depth === 0) {
+                            specEnd = pos + 1;
+                            break;
+                        }
+                    }
+                    pos++;
+                }
+            } else if (code[contentStart] === '{') {
+                let depth = 0;
+                let pos = contentStart;
+                while (pos < code.length) {
+                    if (code[pos] === '{') {
+                        depth++;
+                    } else if (code[pos] === '}') {
+                        depth--;
+                        if (depth === 0) {
+                            specEnd = pos + 1;
+                            break;
+                        }
+                    }
+                    pos++;
+                }
+            } else if (code[contentStart] === '(') {
+                let depth = 1;
+                let pos = contentStart + 1;
+                while (pos < code.length && depth > 0) {
+                    if (code[pos] === '(') {
+                        depth++;
+                    } else if (code[pos] === ')') {
+                        depth--;
+                    }
+                    pos++;
+                }
+                specEnd = pos;
+            } else {
+                i = contentStart;
+                continue;
+            }
+
+            const fullSpec = code.substring(specStart, specEnd);
+            const existing = nodeSpecMap.get(nodeId);
+            if (!existing || this.isMoreCompleteNodeSpec(fullSpec, existing)) {
+                nodeSpecMap.set(nodeId, fullSpec);
+            }
+
+            i = Math.max(specEnd, i + 1);
+        }
+
+        return nodeSpecMap;
+    }
+
+    /**
+     * Prefer specifications that include labels or gateway markers over bare id:type: stubs.
+     * @param {string} candidate - Candidate node specification
+     * @param {string} existing - Existing node specification
+     * @returns {boolean} True when candidate is more complete than existing
+     */
+    static isMoreCompleteNodeSpec(candidate, existing) {
+        if (candidate.length !== existing.length) {
+            return candidate.length > existing.length;
+        }
+        const candidateHasBody = /[({]/.test(candidate);
+        const existingHasBody = /[({]/.test(existing);
+        return candidateHasBody && !existingHasBody;
     }
 
     /**
