@@ -40,7 +40,9 @@ export class InstanceFallbackService {
     }
 
     /**
-     * Load UUID mapping from local JSON file
+     * Load UUID mapping from local JSON file.
+     * Supports both the legacy flat format and the current generation-nested format:
+     *   { "generation1": { "193": "uuid", ... }, "generation2": { "4": "uuid", ... } }
      * @returns {Promise<boolean>} True if loaded successfully
      */
     async loadUUIDMapping() {
@@ -53,34 +55,79 @@ export class InstanceFallbackService {
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
-            
-            // Load flat format: { "processNumber": "uuid", ... }
-            this.processToUuid = await response.json();
-            
-            // Build reverse lookup dynamically
+
+            const data = await response.json();
+
+            this.processToUuid = {};
+            this.generationMap = {};  // processNumber -> generationName
+            this.generations    = {}; // generationName -> { processNumber: uuid }
+
+            // Detect nested format by checking for generation keys
+            const keys = Object.keys(data);
+            const isNested = keys.length > 0 && keys.every(k => typeof data[k] === 'object' && !Array.isArray(data[k]));
+
+            if (isNested) {
+                for (const [genName, entries] of Object.entries(data)) {
+                    this.generations[genName] = {};
+                    for (const [processNumber, uuid] of Object.entries(entries)) {
+                        this.processToUuid[processNumber] = uuid;
+                        this.generationMap[processNumber] = genName;
+                        this.generations[genName][processNumber] = uuid;
+                    }
+                }
+            } else {
+                // Legacy flat format fallback
+                for (const [processNumber, uuid] of Object.entries(data)) {
+                    this.processToUuid[processNumber] = uuid;
+                    this.generationMap[processNumber] = 'default';
+                }
+                this.generations['default'] = { ...data };
+            }
+
+            // Build reverse lookup
             this.uuidToProcess = {};
             for (const [processNumber, uuid] of Object.entries(this.processToUuid)) {
                 this.uuidToProcess[uuid] = processNumber;
             }
-            
+
             this.mappingLoaded = true;
-            this.logDebug(`UUID mapping loaded: ${Object.keys(this.processToUuid).length} entries`);
+            this.logDebug(`UUID mapping loaded: ${Object.keys(this.processToUuid).length} entries across ${Object.keys(this.generations).length} generation(s)`);
             return true;
         } catch (error) {
             this.logDebug('Failed to load UUID mapping:', error.message);
             this.processToUuid = null;
             this.uuidToProcess = null;
+            this.generationMap = null;
+            this.generations   = null;
             this.mappingLoaded = false;
             return false;
         }
     }
 
     /**
+     * Get all process numbers belonging to a specific generation.
+     * @param {string} generation - Generation name (e.g. 'generation1')
+     * @returns {Promise<string[]>} Array of process number strings, sorted numerically
+     */
+    async getProcessNumbersByGeneration(generation) {
+        await this.loadUUIDMapping();
+        if (!this.generations || !this.generations[generation]) return [];
+        return Object.keys(this.generations[generation]).sort((a, b) => parseInt(a) - parseInt(b));
+    }
+
+    /**
+     * Get all generation names present in the mapping.
+     * @returns {Promise<string[]>} Array of generation names in definition order
+     */
+    async getGenerationNames() {
+        await this.loadUUIDMapping();
+        return this.generations ? Object.keys(this.generations) : [];
+    }
+
+    /**
      * Get UUID for a process number from local fallback.
-     * Returns the raw UUID from the mapping (including _v2 suffix if present)
-     * so that each instance has a unique identity.
      * @param {number|string} processNumber - CPEE process instance number
-     * @returns {Promise<{uuid: string, fromFallback: boolean}|null>} Raw UUID and source, or null if not found
+     * @returns {Promise<{uuid: string, fromFallback: boolean}|null>} UUID and source, or null if not found
      */
     async getUUIDForProcess(processNumber) {
         await this.loadUUIDMapping();
@@ -102,11 +149,7 @@ export class InstanceFallbackService {
 
     /**
      * Get log content from local fallback.
-     * The UUID may include a _v2 suffix (for >= 200000 instances).
-     * The filename is derived directly from the UUID:
-     *   - UUID "abc-def_v2" -> abc-def_v2.xes.yaml
-     *   - UUID "abc-def"    -> abc-def.xes.yaml
-     * @param {string} uuid - CPEE instance UUID (may include _v2 suffix)
+     * @param {string} uuid - CPEE instance UUID
      * @returns {Promise<{content: string, fromFallback: boolean}|null>} Log content and source, or null if not found
      */
     async getLogContent(uuid) {
@@ -142,10 +185,18 @@ export class InstanceFallbackService {
      */
     async getStats() {
         await this.loadUUIDMapping();
-        
+
+        const generationStats = {};
+        if (this.generations) {
+            for (const [gen, entries] of Object.entries(this.generations)) {
+                generationStats[gen] = Object.keys(entries).length;
+            }
+        }
+
         return {
             mappingLoaded: this.mappingLoaded,
             entryCount: this.processToUuid ? Object.keys(this.processToUuid).length : 0,
+            generations: generationStats,
             debugMode: this.debugMode
         };
     }
@@ -156,6 +207,8 @@ export class InstanceFallbackService {
     clearCache() {
         this.processToUuid = null;
         this.uuidToProcess = null;
+        this.generationMap = null;
+        this.generations   = null;
         this.mappingLoaded = false;
         this.logDebug('Cache cleared');
     }

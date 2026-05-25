@@ -143,7 +143,9 @@ export class SearchService {
         
         const { caseSensitive = false, wholeWord = false } = options;
         let pattern = this.escapeRegex(searchTerm);
-        if (wholeWord) pattern = `\\b${pattern}\\b`;
+        if (wholeWord) {
+            pattern = `\\b${pattern}\\b`;
+        }
 
         try {
             return new RegExp(pattern, caseSensitive ? 'g' : 'gi');
@@ -179,7 +181,9 @@ export class SearchService {
         this.clearSearchHighlighting(container, sectionId);
 
         const regex = this.buildSearchRegex(searchTerm, options);
-        if (!regex) return [];
+        if (!regex) {
+            return [];
+        }
 
         // Use cached textContent — avoids re-serialising the DOM on every keystroke
         if (state && !state.cachedTextContent) {
@@ -193,10 +197,14 @@ export class SearchService {
         while ((match = regex.exec(plainText)) !== null) {
             matchRanges.push({ start: match.index, end: match.index + match[0].length, text: match[0] });
             // Guard against zero-length matches causing an infinite loop
-            if (match[0].length === 0) regex.lastIndex++;
+            if (match[0].length === 0) {
+                regex.lastIndex++;
+            }
         }
 
-        if (matchRanges.length === 0) return [];
+        if (matchRanges.length === 0) {
+            return [];
+        }
 
         // FIX: Collect text nodes ONCE. Processing right-to-left means positions
         // to the left of the current match are never modified, so the array
@@ -210,7 +218,9 @@ export class SearchService {
             const { start, end } = matchRanges[i];
             spans[i] = this.highlightRange(textNodes, start, end, i);
         }
-        if (state) state.spans = spans;
+        if (state) {
+            state.spans = spans;
+        }
 
         return matchRanges.map((r, idx) => ({ index: idx, ...r }));
     }
@@ -317,7 +327,9 @@ export class SearchService {
      */
     highlightRangeFallback(textNodes, start, end, matchIndex) {
         const affected = textNodes.filter(n => n.end > start && n.start < end);
-        if (affected.length === 0) return;
+        if (affected.length === 0) {
+            return;
+        }
 
         for (let i = affected.length - 1; i >= 0; i--) {
             const nodeInfo = affected[i];
@@ -325,7 +337,9 @@ export class SearchService {
             const localStart = i === 0 ? start - nodeInfo.start : 0;
             const localEnd   = i === affected.length - 1 ? end - nodeInfo.start : node.nodeValue.length;
             const matchText  = node.nodeValue.substring(localStart, localEnd);
-            if (!matchText) continue;
+            if (!matchText) {
+                continue;
+            }
 
             const span = document.createElement('span');
             span.className         = 'search-match';
@@ -334,7 +348,9 @@ export class SearchService {
 
             const parent    = node.parentNode;
             const afterText = node.nodeValue.substring(localEnd);
-            if (afterText) parent.insertBefore(document.createTextNode(afterText), node.nextSibling);
+            if (afterText) {
+                parent.insertBefore(document.createTextNode(afterText), node.nextSibling);
+            }
             parent.insertBefore(span, node.nextSibling);
 
             const beforeText = node.nodeValue.substring(0, localStart);
@@ -366,7 +382,9 @@ export class SearchService {
 
         // Fallback: query the DOM (used on first clear or when fallback spans are present)
         const codeElement = state?.codeElement || container.querySelector('code');
-        if (!codeElement) return;
+        if (!codeElement) {
+            return;
+        }
 
         codeElement.querySelectorAll('span.search-match').forEach(span => {
             span.replaceWith(new Text(span.textContent));
@@ -383,14 +401,18 @@ export class SearchService {
      * @returns {boolean} True if scrolled successfully
      */
     scrollToMatch(container, matchIndex, sectionId) {
-        if (!container || matchIndex < 0) return false;
+        if (!container || matchIndex < 0) {
+            return false;
+        }
 
         const state = sectionId ? this.searchStates.get(sectionId) : null;
 
         // Use stored span ref — avoids a DOM query on every navigation keystroke
         const targetSpan = state?.spans?.[matchIndex]
             || container.querySelector(`.search-match[data-match-index="${matchIndex}"]`);
-        if (!targetSpan) return false;
+        if (!targetSpan) { 
+            return false;
+        }
 
         const rawContainer = container.closest('[data-content-type="raw"]');
         if (rawContainer) {
@@ -488,7 +510,9 @@ export class SearchService {
      */
     clearCachedText(sectionId) {
         const state = this.searchStates.get(sectionId);
-        if (state) state.cachedTextContent = null;
+        if (state) {   
+            state.cachedTextContent = null;
+        }
     }
 
     /**

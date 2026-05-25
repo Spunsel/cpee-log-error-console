@@ -10,14 +10,6 @@ import { serviceFactory } from '../../core/ServiceFactory.js';
 import { RecentAdditionsAndFixes } from '../ui/RecentAdditionsAndFixes.js';
 import { ICONS } from '../../assets/icons.js';
 
-/**
- * Curated list of instances shown when the "Presentation Instances" filter is
- * active.  Order in this array defines the display order in the list.
- */
-const PRESENTATION_INSTANCES = [
-    '201528', '201465', '206098', '208738', '103562', '209195', '140971', '101461'
-];
-
 export class InstanceLoaderViewer {
     constructor(instanceService, domRegistry = null, eventBus = null, stateManager = null, logFetchService = null, eventProcessingService = null) {
         this.instanceService = instanceService;
@@ -225,7 +217,19 @@ export class InstanceLoaderViewer {
                 this.loadAllCPEEInstances();
             });
         }
-        
+
+        const loadGen2Button = this.getElement('loadGeneration2Instances');
+        if (loadGen2Button) {
+            loadGen2Button.addEventListener('click', () => this.loadGenerationInstances('generation2'));
+        }
+
+        const loadGen1Button = this.getElement('loadGeneration1Instances');
+        if (loadGen1Button) {
+            loadGen1Button.addEventListener('click', () => this.loadGenerationInstances('generation1'));
+        }
+
+        this.setupKnownInstancesFilter();
+
         // Load all known instances button (sequentially loads all instances)
         const loadAllKnownButton = this.getElement('loadAllKnownInstances');
         if (loadAllKnownButton) {
@@ -234,7 +238,18 @@ export class InstanceLoaderViewer {
             });
         }
     }
-    
+
+    /**
+     * Show the known-instances list pre-filtered to a single generation.
+     * Reuses loadAllCPEEInstances (which populates from configManager) then
+     * immediately applies a generation filter so only that generation is visible.
+     * @param {string} generation - e.g. 'generation1' or 'generation2'
+     */
+    async loadGenerationInstances(generation) {
+        // Build the full list first (so filters + error counts work)
+        await this.loadAllCPEEInstances(generation);
+    }
+
     /**
      * Handle load instance - bidirectional loading logic
      * - If process number is provided → fetch UUID from server (process number takes precedence)
@@ -731,15 +746,21 @@ export class InstanceLoaderViewer {
     }
 
     /**
-     * Load all CPEE instances - displays buttons for predefined process numbers
-     * Does not fetch logs, just creates the buttons that can be clicked to load instances
+     * Load all CPEE instances - displays buttons for predefined process numbers.
+     * When `generation` is provided only that generation's numbers are shown.
+     * @param {string|null} [generation=null] - Optional generation name to restrict the list
      */
-    async loadAllCPEEInstances() {
+    async loadAllCPEEInstances(generation = null) {
         const instanceListContainer = this.getElement('loadAllInstancesListContainer');
         const instanceList = this.getElement('loadAllInstancesList');
-        
-        // Get predefined list of process numbers from config
-        const processNumbers = configManager.get('ui.instances.processNumbers', []);
+
+        // Resolve the process number list
+        let processNumbers;
+        if (generation && configManager.get(`ui.instances.${generation}`)) {
+            processNumbers = configManager.get(`ui.instances.${generation}`, []);
+        } else {
+            processNumbers = configManager.get('ui.instances.processNumbers', []);
+        }
         
         // Validate that we have process numbers
         if (!Array.isArray(processNumbers) || processNumbers.length === 0) {
@@ -767,11 +788,10 @@ export class InstanceLoaderViewer {
             instanceList.innerHTML = '';
         }
         
-        // Add filter input if not already present
-        this.createKnownInstancesFilter(instanceListContainer);
-        
+        this.populateKnownInstancesErrorOptions();
+
         // Clear any active filters so all instances are shown
-        this.clearKnownInstancesFilters(instanceListContainer);
+        this.clearKnownInstancesFilters();
         
         // Create buttons for each process number
         processNumbers.forEach((processNumber) => {
@@ -817,7 +837,18 @@ export class InstanceLoaderViewer {
         try {
             const response = await fetch('./fallback/errorCounts.json');
             if (response.ok) {
-                this.errorCountsData = await response.json();
+                const raw = await response.json();
+                // Support both flat and generation-nested formats.
+                // Flatten nested structure into a single lookup for the filter UI.
+                const isNested = raw.generation1 !== undefined || raw.generation2 !== undefined;
+                if (isNested) {
+                    this.errorCountsData = {};
+                    for (const entries of Object.values(raw)) {
+                        Object.assign(this.errorCountsData, entries);
+                    }
+                } else {
+                    this.errorCountsData = raw;
+                }
             }
         } catch (error) {
             console.warn('Failed to load errorCounts.json:', error.message);
@@ -825,144 +856,49 @@ export class InstanceLoaderViewer {
     }
     
     /**
-     * Create filter input for known instances list
-     * @param {HTMLElement} container - The instance list container
+     * Wire known-instances filter controls (markup lives in index.html).
      */
-    createKnownInstancesFilter(container) {
-        if (!container) {
+    setupKnownInstancesFilter() {
+        if (this.knownInstancesFilterInitialized) {
             return;
         }
-        
-        // Check if filter already exists
-        if (container.querySelector('.known-instances-filter')) {
+
+        const filterRoot = this.getElement('knownInstancesFilter');
+        const input = this.getElement('knownInstancesFilterInput');
+        const errorSelect = this.getElement('knownInstancesErrorSelect');
+        const clearBtn = this.getElement('knownInstancesFilterClear');
+        const errorClearBtn = this.getElement('knownInstancesErrorClear');
+
+        if (!filterRoot || !input || !errorSelect || !clearBtn || !errorClearBtn) {
             return;
         }
-        
-        const filterWrapper = document.createElement('div');
-        filterWrapper.className = 'known-instances-filter';
-        
-        // Text filter
-        const inputGroup = document.createElement('div');
-        inputGroup.className = 'search-input-group text-filter-group';
-        
-        const searchIcon = document.createElement('div');
-        searchIcon.className = 'search-icon';
-        searchIcon.innerHTML = ICONS.FILTER;
-        inputGroup.appendChild(searchIcon);
-        
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'search-input';
-        input.placeholder = 'Filter by instance number';
-        input.setAttribute('inputmode', 'numeric');
-        inputGroup.appendChild(input);
-        
-        const clearBtn = document.createElement('button');
-        clearBtn.className = 'search-clear-btn';
-        clearBtn.innerHTML = ICONS.CLEAR_SEARCH;
-        clearBtn.setAttribute('aria-label', 'Clear filter');
-        clearBtn.style.display = 'none';
-        inputGroup.appendChild(clearBtn);
-        
-        filterWrapper.appendChild(inputGroup);
-        
-        // Error type filter dropdown
-        const errorFilterGroup = document.createElement('div');
-        errorFilterGroup.className = 'search-input-group error-filter-group';
-        
-        const errorIcon = document.createElement('div');
-        errorIcon.className = 'search-icon';
-        errorIcon.innerHTML = ICONS.FILTER;
-        errorFilterGroup.appendChild(errorIcon);
-        
-        const errorSelect = document.createElement('select');
-        errorSelect.className = 'search-input error-type-select';
-        
-        // Hidden placeholder -- shown in the select box but not in the dropdown list
-        const placeholder = document.createElement('option');
-        placeholder.value = '';
-        placeholder.textContent = 'Filter by occurring errors';
-        placeholder.hidden = true;
-        placeholder.selected = true;
-        errorSelect.appendChild(placeholder);
-        
-        const counts = this.getErrorTypeCounts();
-        const options = [
-            { value: 'warningCount', label: `Syntax Warning [${counts.warningCount}]`, className: 'error-option-warning' },
-            { value: 'errorCount', label: `Syntax Error [${counts.errorCount}]`, className: 'error-option-error' },
-            { value: 'conversionErrors', label: `Conversion Error [${counts.conversionErrors}]`, className: 'error-option-conversion' },
-            { value: 'structuralErrors', label: `Structural Violation [${counts.structuralErrors}]`, className: 'error-option-structural' },
-        ];
-        
-        options.forEach(({ value, label, className }) => {
-            const opt = document.createElement('option');
-            opt.value = value;
-            opt.textContent = label;
-            if (className) opt.className = className;
-            errorSelect.appendChild(opt);
+
+        filterRoot.querySelectorAll('[data-icon="filter"]').forEach(el => {
+            el.innerHTML = ICONS.FILTER;
         });
-        
-        errorFilterGroup.appendChild(errorSelect);
-        
-        const errorClearBtn = document.createElement('button');
-        errorClearBtn.className = 'search-clear-btn error-filter-clear-btn';
-        errorClearBtn.innerHTML = ICONS.CLEAR_SEARCH;
-        errorClearBtn.setAttribute('aria-label', 'Clear error filter');
-        errorClearBtn.style.display = 'none';
-        errorFilterGroup.appendChild(errorClearBtn);
-        
-        filterWrapper.appendChild(errorFilterGroup);
-        
-        // Presentation Instances toggle button
-        const presentationGroup = document.createElement('div');
-        presentationGroup.className = 'search-input-group presentation-filter-group';
-        
-        const presentationBtn = document.createElement('button');
-        presentationBtn.type = 'button';
-        presentationBtn.className = 'presentation-instances-btn';
-        presentationBtn.textContent = 'Presentation Instances';
-        presentationBtn.title = 'Show only the curated presentation instances in defined order';
-        presentationBtn.setAttribute('aria-pressed', 'false');
-        presentationGroup.appendChild(presentationBtn);
-        
-        filterWrapper.appendChild(presentationGroup);
-        
-        // Insert filter after the h5 label
-        const h5Label = container.querySelector('h5');
-        if (h5Label) {
-            h5Label.insertAdjacentElement('afterend', filterWrapper);
-        } else {
-            container.insertBefore(filterWrapper, container.firstChild);
-        }
-        
-        // Setup event listeners
+        filterRoot.querySelectorAll('[data-icon="clear"]').forEach(el => {
+            el.innerHTML = ICONS.CLEAR_SEARCH;
+        });
+
         const applyFilters = () => {
             const textValue = input.value.trim();
             const errorType = errorSelect.value;
-            const presentationMode = presentationBtn.classList.contains('active');
             clearBtn.style.display = textValue ? 'block' : 'none';
             errorClearBtn.style.display = errorType ? 'block' : 'none';
             errorSelect.classList.toggle('has-selection', !!errorType);
-            this.filterKnownInstances(textValue, errorType, presentationMode);
+            this.filterKnownInstances(textValue, errorType);
         };
-        
+
         input.addEventListener('input', applyFilters);
         errorSelect.addEventListener('change', applyFilters);
-        
-        presentationBtn.addEventListener('click', () => {
-            const isActive = !presentationBtn.classList.contains('active');
-            presentationBtn.classList.toggle('active', isActive);
-            presentationBtn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-            applyFilters();
-        });
-        
+
         clearBtn.addEventListener('click', () => {
             input.value = '';
             clearBtn.style.display = 'none';
             applyFilters();
             input.focus();
         });
-        
+
         errorClearBtn.addEventListener('click', () => {
             errorSelect.value = '';
             errorClearBtn.style.display = 'none';
@@ -970,28 +906,63 @@ export class InstanceLoaderViewer {
             applyFilters();
             errorSelect.focus();
         });
-        
-        // Store references for later use
+
         this.knownInstancesFilterInput = input;
         this.knownInstancesErrorSelect = errorSelect;
-        this.knownInstancesPresentationBtn = presentationBtn;
+        this.knownInstancesFilterInitialized = true;
     }
-    
+
     /**
-     * Reset both known-instances filters (text + error type) to their default state
-     * @param {HTMLElement} container - The instance list container
+     * Refresh error-type dropdown options (counts depend on loaded errorCounts.json).
      */
-    clearKnownInstancesFilters(container) {
-        if (!container) return;
+    populateKnownInstancesErrorOptions() {
+        const errorSelect = this.getElement('knownInstancesErrorSelect');
+        if (!errorSelect) {
+            return;
+        }
 
-        const filterWrapper = container.querySelector('.known-instances-filter');
-        if (!filterWrapper) return;
+        const selected = errorSelect.value;
+        errorSelect.innerHTML = '';
+        const placeholder = document.createElement('option');
+        placeholder.value = '';
+        placeholder.textContent = 'Filter by occurring errors';
+        placeholder.hidden = true;
+        placeholder.selected = true;
+        errorSelect.appendChild(placeholder);
 
-        const input = filterWrapper.querySelector('.search-input[type="text"]');
-        const errorSelect = filterWrapper.querySelector('.error-type-select');
-        const clearBtn = filterWrapper.querySelector('.text-filter-group .search-clear-btn');
-        const errorClearBtn = filterWrapper.querySelector('.error-filter-clear-btn');
-        const presentationBtn = filterWrapper.querySelector('.presentation-instances-btn');
+        const counts = this.getErrorTypeCounts();
+        const options = [
+            { value: 'warningCount', label: `Syntax Warning [${counts.warningCount}]`, className: 'error-option-warning' },
+            { value: 'errorCount', label: `Syntax Error [${counts.errorCount}]`, className: 'error-option-error' },
+            { value: 'conversionErrors', label: `Conversion Error [${counts.conversionErrors}]`, className: 'error-option-conversion' },
+            { value: 'structuralErrors', label: `Structural Violation [${counts.structuralErrors}]`, className: 'error-option-structural' },
+        ];
+
+        options.forEach(({ value, label, className }) => {
+            const opt = document.createElement('option');
+            opt.value = value;
+            opt.textContent = label;
+            if (className) opt.className = className;
+            errorSelect.appendChild(opt);
+        });
+
+        if (selected && options.some(o => o.value === selected)) {
+            errorSelect.value = selected;
+            errorSelect.classList.add('has-selection');
+        } else {
+            errorSelect.value = '';
+            errorSelect.classList.remove('has-selection');
+        }
+    }
+
+    /**
+     * Reset both known-instances filters (text + error type) to their default state.
+     */
+    clearKnownInstancesFilters() {
+        const input = this.getElement('knownInstancesFilterInput');
+        const errorSelect = this.getElement('knownInstancesErrorSelect');
+        const clearBtn = this.getElement('knownInstancesFilterClear');
+        const errorClearBtn = this.getElement('knownInstancesErrorClear');
 
         if (input) {
             input.value = '';
@@ -1005,10 +976,6 @@ export class InstanceLoaderViewer {
         }
         if (errorClearBtn) {
             errorClearBtn.style.display = 'none';
-        }
-        if (presentationBtn) {
-            presentationBtn.classList.remove('active');
-            presentationBtn.setAttribute('aria-pressed', 'false');
         }
     }
     
@@ -1034,16 +1001,10 @@ export class InstanceLoaderViewer {
     
     /**
      * Filter known instances by partial match on instance number and/or error type.
-     *
-     * When `presentationMode` is true, only the curated `PRESENTATION_INSTANCES`
-     * are shown and reordered to match that array's order via the CSS `order`
-     * property (the underlying flex container handles re-layout).
-     *
      * @param {string} filterValue - The filter string to match against instance numbers
      * @param {string} [errorType=''] - Error type key to filter by (e.g. 'warningCount')
-     * @param {boolean} [presentationMode=false] - Restrict to and reorder by curated presentation list
      */
-    filterKnownInstances(filterValue, errorType = '', presentationMode = false) {
+    filterKnownInstances(filterValue, errorType = '') {
         const instanceList = this.getElement('loadAllInstancesList');
         if (!instanceList) {
             return;
@@ -1052,24 +1013,8 @@ export class InstanceLoaderViewer {
         const errorData = this.errorCountsData || {};
         const instanceBoxes = instanceList.querySelectorAll('.instance-number-box');
         
-        const presentationOrder = new Map();
-        if (presentationMode) {
-            PRESENTATION_INSTANCES.forEach((id, idx) => presentationOrder.set(id, idx));
-        }
-        
         instanceBoxes.forEach((box) => {
             const instanceNumber = box.dataset.processNumber || box.textContent;
-            
-            // Check presentation filter and apply ordering via CSS `order`
-            let passesPresentation = true;
-            if (presentationMode) {
-                passesPresentation = presentationOrder.has(instanceNumber);
-                if (passesPresentation) {
-                    box.style.order = String(presentationOrder.get(instanceNumber));
-                }
-            } else {
-                box.style.order = '';
-            }
             
             // Check error type filter
             let passesErrorFilter = true;
@@ -1086,7 +1031,7 @@ export class InstanceLoaderViewer {
                 passesTextFilter = matchIndex !== -1;
             }
             
-            const visible = passesPresentation && passesTextFilter && passesErrorFilter;
+            const visible = passesTextFilter && passesErrorFilter;
             box.style.display = visible ? '' : 'none';
             
             // Update highlight markup
@@ -1111,31 +1056,16 @@ export class InstanceLoaderViewer {
         // When a filter is active, only load the visible (filtered) instances
         const errorSelect = this.knownInstancesErrorSelect;
         const textInput = this.knownInstancesFilterInput;
-        const presentationBtn = this.knownInstancesPresentationBtn;
         const hasActiveFilter =
             (errorSelect && errorSelect.value) ||
-            (textInput && textInput.value.trim()) ||
-            (presentationBtn && presentationBtn.classList.contains('active'));
+            (textInput && textInput.value.trim());
 
         let processNumbers;
         if (hasActiveFilter) {
             const instanceList = this.getElement('loadAllInstancesList');
-            // Sort visible boxes by their effective CSS `order` so presentation
-            // mode loads instances in the curated order (DOM order is preserved
-            // when no order is set).
             const visibleBoxes = instanceList
                 ? Array.from(instanceList.querySelectorAll('.instance-number-box'))
                       .filter(box => box.style.display !== 'none')
-                      .sort((a, b) => {
-                          const orderA = parseInt(a.style.order, 10);
-                          const orderB = parseInt(b.style.order, 10);
-                          const aHas = !Number.isNaN(orderA);
-                          const bHas = !Number.isNaN(orderB);
-                          if (aHas && bHas) { return orderA - orderB; }
-                          if (aHas) { return -1; }
-                          if (bHas) { return 1; }
-                          return 0;
-                      })
                 : [];
             processNumbers = visibleBoxes.map(box => box.dataset.processNumber || box.textContent.trim());
         } else {

@@ -7,7 +7,11 @@
 # raw bytes and decoded as UTF-8; files are written as UTF-8 without BOM.
 
 # Process numbers to fetch
-$processNumbers = @(10920..24145)
+$processNumbers = @(45000..45117)
+
+# Current generation — new entries are written into this generation's section.
+# Change to "generation3" (or any name) to start a new generation bucket.
+$currentGeneration = "generation2"
 
 # Resolve project root (parent of scripts/)
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
@@ -45,36 +49,50 @@ $fallbackLogsDir = "fallback\logs"
 
 # ========== STEP 0: Load existing mappings ==========
 $fallbackMappingFile = "fallback\uuid-mapping.json"
+
+# $allGenerations holds the full nested structure: { generation1: {...}, generation2: {...}, ... }
+# $existingMappings holds only the current generation's flat entries: { processNumber: uuid }
+$allGenerations   = [ordered]@{}
 $existingMappings = @{}
+
 if (Test-Path $fallbackMappingFile) {
     $existingContent = Get-Content $fallbackMappingFile -Raw
-    $existingJson = ConvertFrom-Json $existingContent
-    $existingJson.PSObject.Properties | ForEach-Object {
-        $existingMappings[$_.Name] = $_.Value
+    $existingJson    = ConvertFrom-Json $existingContent
+
+    # Detect nested vs. flat format
+    $isNested = $existingJson.PSObject.Properties | Where-Object { $_.Value -is [pscustomobject] }
+    if ($isNested) {
+        # Nested format: copy each generation into $allGenerations
+        $existingJson.PSObject.Properties | ForEach-Object {
+            $genEntries = [ordered]@{}
+            $_.Value.PSObject.Properties | ForEach-Object { $genEntries[$_.Name] = $_.Value }
+            $allGenerations[$_.Name] = $genEntries
+        }
+        # Extract the current generation's entries as the working mapping
+        if ($allGenerations.Contains($currentGeneration)) {
+            $allGenerations[$currentGeneration].GetEnumerator() | ForEach-Object {
+                $existingMappings[$_.Key] = $_.Value
+            }
+        }
+    } else {
+        # Legacy flat format: treat everything as belonging to the current generation
+        $existingJson.PSObject.Properties | ForEach-Object {
+            $existingMappings[$_.Name] = $_.Value
+        }
     }
-    Write-Host "Loaded $($existingMappings.Count) existing mappings from uuid-mapping.json" -ForegroundColor Yellow
+    Write-Host "Loaded $($existingMappings.Count) existing mappings for generation '$currentGeneration'" -ForegroundColor Yellow
 }
 
-# ========== STEP 1: Get UUIDs (from existing mappings first, then flow engine) ==========
+# ========== STEP 1: Get UUIDs (always query the flow engine for the current range) ==========
 Write-Host "`nGetting UUIDs for $($processNumbers.Count) process numbers..." -ForegroundColor Cyan
 
 $uuidMapping = [System.Collections.Concurrent.ConcurrentDictionary[string, string]]::new()
 
-# First, check existing mappings for these process numbers
-$fromExisting = 0
-$needFetch = @()
-foreach ($num in $processNumbers) {
-    $numStr = "$num"
-    if ($existingMappings.ContainsKey($numStr)) {
-        $uuidMapping.TryAdd($numStr, $existingMappings[$numStr]) | Out-Null
-        $fromExisting++
-    } else {
-        $needFetch += $num
-    }
-}
-Write-Host "Found $fromExisting UUIDs from existing mappings" -ForegroundColor Green
+# Always fetch fresh UUIDs from the flow engine — never use cached values.
+# Instance numbers can be reused across runs; a cached UUID may point to an archived
+# instance instead of the current one.
+$needFetch = $processNumbers
 
-# Fetch remaining from flow engine
 if ($needFetch.Count -gt 0) {
     Write-Host "Fetching $($needFetch.Count) UUIDs from flow engine..." -ForegroundColor Cyan
     
@@ -143,7 +161,7 @@ $logScript = {
             $wc.Dispose()
         }
         if ($content.Substring(0, [Math]::Min($content.Length, 1000000)) -match "exposition") {
-            $outPath = Join-Path $outputDir "${uuid}_v2.xes.yaml"
+            $outPath = Join-Path $outputDir "${uuid}.xes.yaml"
             [System.IO.File]::WriteAllText($outPath, $content, (New-Object System.Text.UTF8Encoding $false))
             return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $true; Selected = $true }
         }
@@ -184,63 +202,76 @@ Write-Host "`nSelected $($selectedMapping.Count) logs with exposition" -Foregrou
 # ========== STEP 3: Save to Fallback ==========
 Write-Host "`nSaving to fallback..." -ForegroundColor Cyan
 
-# Use the existing mappings we already loaded
-$combinedHash = @{}
+# Build the updated entries for the current generation.
+# Remove any legacy unprefixed keys whose numeric value falls within the current fetch
+# range so stale single-run entries never shadow a fresh server result.
+$processNumberSet = [System.Collections.Generic.HashSet[string]]::new(
+    [string[]]($processNumbers | ForEach-Object { "$_" })
+)
+$currentGenEntries = [ordered]@{}
+$skippedLegacy = 0
 $existingMappings.GetEnumerator() | ForEach-Object {
-    $combinedHash[$_.Key] = $_.Value
+    if ($processNumberSet.Contains($_.Key)) {
+        $skippedLegacy++
+    } else {
+        $currentGenEntries[$_.Key] = $_.Value
+    }
 }
-Write-Host "Using $($combinedHash.Count) existing mappings as base" -ForegroundColor Yellow
+if ($skippedLegacy -gt 0) {
+    Write-Host "Removed $skippedLegacy legacy entries that overlap with current fetch range" -ForegroundColor Yellow
+}
 
 $addedInstances = @()
-# Add new mappings with prefixed process numbers
-# Pad to 6 digits total: 1->"20000", 2->"2000", 3->"200", 4->"20", 5->"2"
-# UUID gets "_v2" suffix so fallback uses the _v2 log files
 $newCount = 0
 $selectedMapping.GetEnumerator() | ForEach-Object {
     $originalNum = $_.Key
-    $numLength = $originalNum.Length
-    $uuid = $_.Value
-    
-    # Apply prefix based on digit count
-    if ($numLength -eq 1) {
-        $prefixedKey = "20000$originalNum"
-    }
-    elseif ($numLength -eq 2) {
-        $prefixedKey = "2000$originalNum"
-    }
-    elseif ($numLength -eq 3) {
-        $prefixedKey = "200$originalNum"
-    } elseif ($numLength -eq 4) {
-        $prefixedKey = "20$originalNum"
-    } elseif ($numLength -eq 5) {
-        $prefixedKey = "2$originalNum"
-    } else {
-        $prefixedKey = $originalNum
-    }
-    
-    # Append _v2 to UUID for prefixed keys so fallback finds the _v2 log files
-    $uuidWithSuffix = "${uuid}_v2"
-    
-    if (-not $combinedHash.ContainsKey($prefixedKey)) {
+    $uuid        = $_.Value
+
+    # In generation2 the key stored in the JSON is the plain instance number.
+    # Other generations (1, future) also use the plain number directly.
+    $entryKey = $originalNum
+
+    if (-not $currentGenEntries.ContainsKey($entryKey)) {
         $newCount++
-        $addedInstances += $prefixedKey
+        $addedInstances += $entryKey
     }
-    $combinedHash[$prefixedKey] = $uuidWithSuffix
+    $currentGenEntries[$entryKey] = $uuid
 }
 
+# Merge back into the full nested structure
+$allGenerations[$currentGeneration] = $currentGenEntries
 
-# Save combined mapping
-$sortedKeys = $combinedHash.Keys | Sort-Object { [int]$_ }
-$json = "{" + "`n" + (($sortedKeys | ForEach-Object { "  `"$_`": `"$($combinedHash[$_])`"" }) -join ",`n") + "`n}"
+# Sort keys within each generation numerically
+$sortedGenerations = [ordered]@{}
+foreach ($genName in $allGenerations.Keys) {
+    $sorted = [ordered]@{}
+    $allGenerations[$genName].Keys | Sort-Object { [int]$_ } | ForEach-Object {
+        $sorted[$_] = $allGenerations[$genName][$_]
+    }
+    $sortedGenerations[$genName] = $sorted
+}
+
+# Serialise nested JSON manually for readability
+$genBlocks = @()
+foreach ($genName in $sortedGenerations.Keys) {
+    $lines = $sortedGenerations[$genName].Keys | ForEach-Object {
+        "    `"$_`": `"$($sortedGenerations[$genName][$_])`""
+    }
+    $genBlocks += "  `"$genName`": {`n" + ($lines -join ",`n") + "`n  }"
+}
+$json = "{`n" + ($genBlocks -join ",`n") + "`n}"
+
 $absFallbackMapping = Join-Path (Resolve-Path $fallbackDir).Path "uuid-mapping.json"
 [System.IO.File]::WriteAllText($absFallbackMapping, $json, $utf8NoBom)
-Write-Host "UUID mapping saved to fallback\uuid-mapping.json ($newCount new, $($combinedHash.Count) total)" -ForegroundColor Green
 
-# Copy logs (with _v2 suffix)
-$logFiles = Get-ChildItem -Path $tempLogDir -Filter "*_v2.xes.yaml" -File
+$totalEntries = ($sortedGenerations.Values | ForEach-Object { $_.Count } | Measure-Object -Sum).Sum
+Write-Host "UUID mapping saved ($newCount new in '$currentGeneration', $totalEntries total across all generations)" -ForegroundColor Green
+
+# Copy logs
+$logFiles = Get-ChildItem -Path $tempLogDir -Filter "*.xes.yaml" -File
 if ($logFiles.Count -gt 0) {
     $logFiles | ForEach-Object { Copy-Item $_.FullName -Destination $fallbackLogsDir -Force }
-    Write-Host "Copied $($logFiles.Count) log files to fallback\logs (with _v2 suffix)" -ForegroundColor Green
+    Write-Host "Copied $($logFiles.Count) log files to fallback\logs" -ForegroundColor Green
 }
 
 if ($addedInstances.Count -gt 0) {
@@ -249,7 +280,7 @@ if ($addedInstances.Count -gt 0) {
         Sort-Object { [int]$_ } -Descending
 
     $output = $addedInstances -join ", "
-    Write-Host "`nNew instances added (with prefix): $output" -ForegroundColor Cyan
+    Write-Host "`nNew instances added to '$currentGeneration': $output" -ForegroundColor Cyan
 } else {
     Write-Host "`nNo new instances were added." -ForegroundColor Yellow
 }

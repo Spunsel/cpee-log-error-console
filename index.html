@@ -96,15 +96,31 @@
                             </div>
                         </div>
                         <div class="load-all-instances-section">
-                            <h4>Known CPEE LLM Instances</h4>
+                            <h4>Archived and Current Instances</h4>
                             <p class="section-description">Load a pre-configured list of known CPEE LLM instances.</p>
                             <p class="section-description">Then select an instance number to load it in one click.</p>
                             <div class="input-row">
                                 <button id="load-all-known-instances" class="btn btn-primary hidden">Load All</button>
-                                <button id="load-all-instances" class="btn btn-secondary">Show Known Instances</button>
+                                <button id="load-generation2-instances" type="button" class="btn btn-primary generation-filter-btn" title="Show only Generation 2 instances" data-generation="generation2">Generation 2</button>
+                                <button id="load-generation1-instances" type="button" class="btn btn-secondary generation-filter-btn" title="Show only Generation 1 instances" data-generation="generation1">Generation 1</button>
+                                <button id="load-all-instances" type="button" class="btn btn-secondary">Show ALL Instances</button>
                             </div>
                             <div id="load-all-instances-list-container" class="instance-list-container hidden">
                                 <h5>Known Instances:</h5>
+                                <div id="known-instances-filter" class="known-instances-filter">
+                                    <div class="search-input-group text-filter-group">
+                                        <div class="search-icon" data-icon="filter" aria-hidden="true"></div>
+                                        <input type="text" id="known-instances-filter-input" class="search-input" placeholder="Filter by instance number" inputmode="numeric" />
+                                        <button type="button" id="known-instances-filter-clear" class="search-clear-btn" aria-label="Clear filter" style="display: none;" data-icon="clear"></button>
+                                    </div>
+                                    <div class="search-input-group error-filter-group">
+                                        <div class="search-icon" data-icon="filter" aria-hidden="true"></div>
+                                        <select id="known-instances-error-select" class="search-input error-type-select">
+                                            <option value="" hidden selected>Filter by occurring errors</option>
+                                        </select>
+                                        <button type="button" id="known-instances-error-clear" class="search-clear-btn error-filter-clear-btn" aria-label="Clear error filter" style="display: none;" data-icon="clear"></button>
+                                    </div>
+                                </div>
                                 <div id="load-all-instances-list" class="instance-list"></div>
                             </div>
                         </div>
