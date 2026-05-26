@@ -89,7 +89,8 @@ export class SearchService {
             state.spans = [];
             state.activeSpan = null;
             state.cachedTextContent = null;
-            // codeElement is intentionally kept — the DOM reference stays valid
+            // codeElement is kept here as a hint; applySearchHighlighting validates
+            // it via isConnected and re-acquires it if the view was re-rendered.
         }
     }
 
@@ -167,9 +168,14 @@ export class SearchService {
     applySearchHighlighting(sectionId, container, searchTerm, options = {}) {
         const state = this.searchStates.get(sectionId);
 
-        // Cache codeElement on first use
-        if (state && !state.codeElement) {
+        // Cache codeElement on first use; re-acquire if the node was detached by a
+        // view-mode switch (navigating away re-renders the DOM, replacing the old
+        // <code> element with a new one while the cached reference stays stale).
+        if (state && (!state.codeElement || !state.codeElement.isConnected)) {
             state.codeElement = container.querySelector('code');
+            state.cachedTextContent = null;
+            state.spans = [];
+            state.activeSpan = null;
         }
         const codeElement = state?.codeElement || container.querySelector('code');
 
@@ -380,8 +386,10 @@ export class SearchService {
             return;
         }
 
-        // Fallback: query the DOM (used on first clear or when fallback spans are present)
-        const codeElement = state?.codeElement || container.querySelector('code');
+        // Fallback: query the DOM (used on first clear or when fallback spans are present).
+        // Guard against a stale (detached) cached element from a view-mode switch.
+        const codeElement = (state?.codeElement?.isConnected ? state.codeElement : null)
+            || container.querySelector('code');
         if (!codeElement) {
             return;
         }
