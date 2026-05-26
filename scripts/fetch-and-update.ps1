@@ -7,7 +7,7 @@
 # raw bytes and decoded as UTF-8; files are written as UTF-8 without BOM.
 
 # Process numbers to fetch
-$processNumbers = @(45000..45117)
+$processNumbers = @(45118..52253)
 
 # Current generation — new entries are written into this generation's section.
 # Change to "generation3" (or any name) to start a new generation bucket.
@@ -231,7 +231,7 @@ $selectedMapping.GetEnumerator() | ForEach-Object {
     # Other generations (1, future) also use the plain number directly.
     $entryKey = $originalNum
 
-    if (-not $currentGenEntries.ContainsKey($entryKey)) {
+    if (-not $currentGenEntries.Contains($entryKey)) {
         $newCount++
         $addedInstances += $entryKey
     }

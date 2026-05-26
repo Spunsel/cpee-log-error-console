@@ -1,19 +1,34 @@
 /**
  * CPEE Trace Walker
- * 
+ *
  * Walks a given trace sequence step-by-step through a CPEE XML tree to determine
  * if the trace represents a valid execution path. No iteration limits — the trace
  * itself is the bound.
  *
+ * Walking strategy: continuation-passing-style (CPS) depth-first search with
+ * full backtracking. Each structural decision point (choose, loop iteration
+ * count, parallel branch interleaving) is treated as a branching point. The
+ * walker tries every viable option and accepts the first one that allows the
+ * REMAINDER of the trace (and the remaining XML siblings after the current
+ * subtree) to also succeed. If a local choice leads to a dead end further
+ * down, the walker backtracks and tries the next option. This avoids the
+ * greedy-local-commit problem where an early "looks good" decision blocks an
+ * otherwise valid walk.
+ *
  * CPEE control-flow semantics observed during walking:
- *   - <escape/>: jumps OUT of the nearest enclosing loop. The walker treats it
- *     as a no-op (consumes no sequence entries). The enclosing loop sees no
- *     progress on that iteration and exits, after which sibling nodes following
- *     the loop continue to be matched against the remaining sequence.
+ *   - <escape/>: jumps out of the NEAREST enclosing loop, even if the loop is
+ *     not the immediate parent. All siblings after the escape (in every
+ *     intermediate container — alternatives, parallel branches, etc.) are
+ *     skipped, the current loop iteration is cut short, and no further
+ *     iterations are attempted. If no ancestor is a loop, the escape is
+ *     ignored (treated as a no-op for the surrounding block). Implemented by
+ *     threading an `escapeCont` continuation through walking: each loop
+ *     installs its own post-loop continuation as the escape target for code
+ *     inside its body; nested loops shadow outer ones, matching "nearest
+ *     enclosing loop" semantics.
  *   - <terminate/>: ends ALL execution. After encountering it the sequence MUST
  *     already be fully consumed; otherwise the trace cannot match this path.
  */
-
 import { CPEEParser } from '../content/CPEEParser.js';
 
 export class CPEETraceWalker {
@@ -38,12 +53,15 @@ export class CPEETraceWalker {
             const taskMap = this.buildTaskMap(description);
             const matchedPath = [];
 
-            const ok = this.walkBlock(
+            const ok = this.walkChildren(
                 Array.from(description.children),
+                0,
                 sequence,
                 0,
                 taskMap,
-                matchedPath
+                matchedPath,
+                (finalPos) => finalPos === sequence.length,
+                null
             );
 
             if (ok && matchedPath.length === sequence.length) {
@@ -129,184 +147,151 @@ export class CPEETraceWalker {
         return s === task.id || (task.alt_id !== null && s === String(task.alt_id));
     }
 
-    // ── Core walking logic ───────────────────────────────────────────────
+    /**
+     * Filter that drops metadata-like children (underscore-prefixed tags and
+     * <condition>) so they don't get walked as structural nodes.
+     */
+    static structuralChildren(node) {
+        return Array.from(node.children || []).filter(c => {
+            const t = (c.tagName || '').toLowerCase();
+            return !t.startsWith('_') && t !== 'condition';
+        });
+    }
+
+    // ── Core walking logic (CPS with backtracking) ───────────────────────
 
     /**
-     * Walk a sequential block of XML children, consuming as many sequence
-     * entries as possible starting at `pos`.
+     * Walk a sequence of XML children (`children[idx..end]`) and, upon reaching
+     * the end of the block, invoke `onComplete(pos)`. Returns true if some path
+     * through this block (and its onComplete continuation) succeeds.
      *
-     * @returns {boolean} true if the entire remaining sequence was consumed
-     *   (pos reached sequence.length) after processing all children,
-     *   AND all remaining children after the sequence is consumed can
-     *   legitimately produce zero tasks.
+     * Each child contributes its own continuation: the work it has to do is
+     * "walk myself, then walk children[idx+1..end], then call onComplete".
+     *
+     * `escapeCont` carries the nearest enclosing loop's post-loop continuation
+     * so that an <escape/> encountered arbitrarily deep inside the block can
+     * jump directly past the loop, skipping all intermediate siblings. It is
+     * `null` when no ancestor loop exists.
      */
-    static walkBlock(children, sequence, pos, taskMap, matchedPath) {
-        for (let i = 0; i < children.length; i++) {
-            if (pos >= sequence.length) {
-                for (let j = i; j < children.length; j++) {
-                    if (!this.canBeEmpty(children[j])) { return false; }
-                }
-                return true;
-            }
-
-            const result = this.walkNode(children[i], sequence, pos, taskMap, matchedPath);
-            if (result === -1) { return false; }
-            pos = result;
+    static walkChildren(children, idx, sequence, pos, taskMap, matchedPath, onComplete, escapeCont) {
+        if (idx >= children.length) {
+            return onComplete(pos);
         }
-        return pos >= sequence.length;
+        return this.walkNode(children[idx], children, idx + 1, sequence, pos, taskMap, matchedPath, onComplete, escapeCont);
     }
 
     /**
-     * Check whether a node can legitimately produce zero task matches.
-     * Task nodes (call, manipulate, script) are mandatory and cannot be empty.
-     * Loops can execute 0 iterations. Choose/parallel can have empty branches.
+     * Walk a single XML node with an explicit continuation describing what
+     * comes after it in its parent block. Returns true if the node + the
+     * continuation succeed for some sequence of internal choices.
      */
-    static canBeEmpty(node) {
+    static walkNode(node, parentChildren, parentNextIdx, sequence, pos, taskMap, matchedPath, onComplete, escapeCont) {
         const tag = (node.tagName || '').toLowerCase();
+        const continuation = (newPos) => this.walkChildren(parentChildren, parentNextIdx, sequence, newPos, taskMap, matchedPath, onComplete, escapeCont);
 
         switch (tag) {
             case 'call':
             case 'manipulate':
             case 'script':
-                return false;
-
-            case 'loop':
-                return true;
-
-            case 'choose': {
-                const alternatives = Array.from(node.children).filter(c => {
-                    const t = c.tagName.toLowerCase();
-                    return t === 'alternative' || t === 'otherwise';
-                });
-                return alternatives.some(alt => this.canBlockBeEmpty(Array.from(alt.children)));
-            }
-
-            case 'parallel': {
-                const branches = Array.from(node.children).filter(c =>
-                    c.tagName.toLowerCase() === 'parallel_branch'
-                );
-                return branches.every(b => this.canBlockBeEmpty(Array.from(b.children)));
-            }
-
-            case 'escape':
-            case 'terminate':
-                return true;
-
-            default:
-                return this.canBlockBeEmpty(Array.from(node.children || []));
-        }
-    }
-
-    /**
-     * Check whether a block of children can all produce zero tasks.
-     */
-    static canBlockBeEmpty(children) {
-        return children.every(c => this.canBeEmpty(c));
-    }
-
-    /**
-     * Walk a single XML node. Returns the new position in the sequence after
-     * consuming whatever this node consumes, or -1 on failure.
-     *
-     * For structural nodes (choose, loop, parallel, etc.) this recurses into
-     * children. For task nodes (call, manipulate, script) it consumes exactly
-     * one sequence entry.
-     */
-    static walkNode(node, sequence, pos, taskMap, matchedPath) {
-        const tag = (node.tagName || '').toLowerCase();
-
-        switch (tag) {
-            case 'call':
-            case 'manipulate':
-            case 'script':
-                return this.walkTask(node, sequence, pos, taskMap, matchedPath);
+                return this.walkTask(node, continuation, sequence, pos, matchedPath);
 
             case 'choose':
-                return this.walkChoose(node, sequence, pos, taskMap, matchedPath);
+                return this.walkChoose(node, continuation, sequence, pos, taskMap, matchedPath, escapeCont);
 
             case 'loop':
-                return this.walkLoop(node, sequence, pos, taskMap, matchedPath);
+                return this.walkLoop(node, continuation, sequence, pos, taskMap, matchedPath, escapeCont);
 
             case 'parallel':
-                return this.walkParallel(node, sequence, pos, taskMap, matchedPath);
+                return this.walkParallel(node, continuation, sequence, pos, taskMap, matchedPath, escapeCont);
+
+            case 'escape':
+                // Jump out of the nearest enclosing loop. The loop installed
+                // its post-loop continuation as `escapeCont` when its body
+                // was walked, so calling it here bypasses all intermediate
+                // siblings (rest of the alternative, rest of the body, any
+                // further iterations) and resumes immediately after the loop.
+                // If no ancestor is a loop, the escape is ignored — fall
+                // through to the local sibling continuation.
+                if (escapeCont) {
+                    return escapeCont(pos);
+                }
+                return continuation(pos);
+
+            case 'terminate':
+                // Ends ALL execution: trace must already be fully consumed.
+                return pos >= sequence.length;
 
             case 'alternative':
             case 'otherwise':
             case 'parallel_branch':
             case 'description':
-                return this.walkContainer(node, sequence, pos, taskMap, matchedPath);
-
-            case 'escape':
-                // Escape jumps out of the nearest enclosing loop. The loop's
-                // walker (`walkLoop`) sees no positional progress and exits,
-                // so post-loop siblings continue normally.
-                return pos;
-
-            case 'terminate':
-                // Terminate ends ALL execution; the trace is only a match if
-                // we have already consumed every sequence entry.
-                return pos >= sequence.length ? pos : -1;
-
-            default:
-                return this.walkContainer(node, sequence, pos, taskMap, matchedPath);
+            default: {
+                // Generic container: walk its structural children, then the
+                // parent's continuation. The same `escapeCont` propagates
+                // inwards (these containers don't shadow loops).
+                const inner = this.structuralChildren(node);
+                return this.walkChildren(inner, 0, sequence, pos, taskMap, matchedPath, continuation, escapeCont);
+            }
         }
     }
 
     /**
-     * A task node must match the current sequence entry exactly.
+     * A task node must match the current sequence entry. On success, push to
+     * matchedPath and invoke the continuation; on failure (or if the
+     * continuation later fails), restore matchedPath and return false.
      */
-    static walkTask(node, sequence, pos, taskMap, matchedPath) {
-        if (pos >= sequence.length) { return -1; }
+    static walkTask(node, continuation, sequence, pos, matchedPath) {
+        if (pos >= sequence.length) { return false; }
 
         const task = this.extractTask(node);
-        if (!task) { return -1; }
-
-        if (!this.taskMatches(task, sequence[pos])) { return -1; }
+        if (!task || !this.taskMatches(task, sequence[pos])) { return false; }
 
         matchedPath.push(task);
-        return pos + 1;
+        if (continuation(pos + 1)) { return true; }
+        matchedPath.pop();
+        return false;
     }
 
     /**
-     * A choose node: exactly one alternative must successfully consume the
-     * remaining sequence from pos.
+     * Choose node: try each alternative paired with the post-choose
+     * continuation. Accept the first combination that succeeds globally. This
+     * is the heart of the backtracking fix — we never commit to an alternative
+     * just because it locally makes progress; the rest of the trace must also
+     * succeed.
+     *
+     * `escapeCont` is propagated into each alternative so that an <escape/>
+     * deep inside any alternative can still reach the enclosing loop.
      */
-    static walkChoose(node, sequence, pos, taskMap, matchedPath) {
+    static walkChoose(node, continuation, sequence, pos, taskMap, matchedPath, escapeCont) {
         const alternatives = Array.from(node.children).filter(c => {
             const t = c.tagName.toLowerCase();
             return t === 'alternative' || t === 'otherwise';
         });
 
         const mode = (node.getAttribute('mode') || '').toLowerCase();
-
         if (mode === 'inclusive') {
-            return this.walkInclusiveChoose(alternatives, sequence, pos, taskMap, matchedPath);
+            return this.walkInclusiveChoose(alternatives, continuation, sequence, pos, taskMap, matchedPath);
         }
 
-        let noProgressResult = -1;
-
         for (const alt of alternatives) {
+            const altChildren = this.structuralChildren(alt);
             const saved = matchedPath.length;
-            const result = this.walkContainer(alt, sequence, pos, taskMap, matchedPath);
-            if (result !== -1) {
-                if (result > pos || pos >= sequence.length) {
-                    return result;
-                }
-                if (noProgressResult === -1) {
-                    noProgressResult = result;
-                }
+            if (this.walkChildren(altChildren, 0, sequence, pos, taskMap, matchedPath, continuation, escapeCont)) {
+                return true;
             }
             matchedPath.length = saved;
         }
-        return noProgressResult;
+        return false;
     }
 
     /**
-     * Inclusive choose (OR gateway): one or more alternatives are taken.
-     * We try every non-empty subset (smallest first) and accept the first
-     * that fully consumes the remaining sequence portion.
+     * Inclusive choose (OR gateway): one or more alternatives are taken
+     * concurrently. Try every non-empty subset, treating each like a set of
+     * parallel branches. (Branches are flattened by `walkParallelBranches`,
+     * so escape inside one is currently treated as a no-op — same as for
+     * <parallel/>.)
      */
-    static walkInclusiveChoose(alternatives, sequence, pos, taskMap, matchedPath) {
+    static walkInclusiveChoose(alternatives, continuation, sequence, pos, taskMap, matchedPath) {
         const n = alternatives.length;
         for (let mask = 1; mask < (1 << n); mask++) {
             const subset = [];
@@ -314,66 +299,95 @@ export class CPEETraceWalker {
                 if (mask & (1 << i)) { subset.push(alternatives[i]); }
             }
             const saved = matchedPath.length;
-            const result = this.walkParallelBranches(subset, sequence, pos, taskMap, matchedPath);
-            if (result !== -1) { return result; }
+            const newPos = this.walkParallelBranches(subset, sequence, pos, taskMap, matchedPath);
+            if (newPos !== -1) {
+                if (continuation(newPos)) { return true; }
+            }
             matchedPath.length = saved;
         }
-        return -1;
+        return false;
     }
 
     /**
-     * A loop node: the body may repeat 0+ times. The trace itself bounds
-     * iterations. An escape inside the body terminates the loop.
+     * Loop node: try 0, 1, 2, ... iterations and accept the first count that
+     * lets the continuation succeed. We delegate to `walkLoopIter`, which
+     * recursively explores additional iterations only when the body actually
+     * makes progress (otherwise we'd recurse forever on an empty body).
+     *
+     * A new `escapeCont` is installed for code inside this loop's body: it is
+     * the same as the post-loop `continuation`, so an <escape/> anywhere
+     * inside the body jumps directly past this loop. Nested loops shadow
+     * this — they install their own escapeCont for their own bodies.
+     * `outerEscapeCont` is intentionally ignored for the body but is what
+     * would apply again to code AFTER this loop (carried by `continuation`'s
+     * own captured environment).
      */
-    static walkLoop(node, sequence, pos, taskMap, matchedPath) {
+    static walkLoop(node, continuation, sequence, pos, taskMap, matchedPath, _outerEscapeCont) {
         const bodyChildren = Array.from(node.children).filter(c =>
             c.tagName.toLowerCase() !== 'condition'
         );
-
-        while (pos < sequence.length) {
-            const saved = matchedPath.length;
-            const result = this.walkBlockReturn(bodyChildren, sequence, pos, taskMap, matchedPath);
-
-            if (result === -1) {
-                matchedPath.length = saved;
-                break;
-            }
-            if (result === pos) {
-                break;
-            }
-            pos = result;
-        }
-
-        return pos;
+        const innerEscapeCont = (escapePos) => continuation(escapePos);
+        return this.walkLoopIter(bodyChildren, continuation, innerEscapeCont, sequence, pos, taskMap, matchedPath);
     }
 
     /**
-     * Parallel node: all branches must be consumed. The trace may interleave
-     * branch tasks in any order.
+     * One step of the loop search: either stop here (0 more iterations) and
+     * defer to the continuation, or walk the body once (with the loop's
+     * escapeCont installed) and recurse to consider further iterations.
      */
-    static walkParallel(node, sequence, pos, taskMap, matchedPath) {
+    static walkLoopIter(bodyChildren, continuation, escapeCont, sequence, pos, taskMap, matchedPath) {
+        // Option A: zero more iterations — hand off to the post-loop work.
+        const saved = matchedPath.length;
+        if (continuation(pos)) { return true; }
+        matchedPath.length = saved;
+
+        // Option B: walk the body once. Its onComplete is "try the loop
+        // again at the new position". If <escape/> fires inside the body, it
+        // calls escapeCont directly and bypasses this onComplete entirely —
+        // so no further iterations are attempted. If the body cannot advance,
+        // we must not iterate further (would recurse infinitely on an empty
+        // body).
+        return this.walkChildren(bodyChildren, 0, sequence, pos, taskMap, matchedPath, (newPos) => {
+            if (newPos === pos) { return false; }
+            return this.walkLoopIter(bodyChildren, continuation, escapeCont, sequence, newPos, taskMap, matchedPath);
+        }, escapeCont);
+    }
+
+    /**
+     * Parallel node: all branches must execute concurrently and the trace may
+     * interleave them in any order. We flatten each branch to its expected
+     * task sequence and greedily match branch heads against the trace; see
+     * `walkParallelBranches`. (Escape inside a parallel branch is currently
+     * a no-op, since branches are flattened to a task list. Improving that
+     * requires structural walking of branches — out of scope here.)
+     */
+    static walkParallel(node, continuation, sequence, pos, taskMap, matchedPath, _escapeCont) {
         const branches = Array.from(node.children).filter(c =>
             c.tagName.toLowerCase() === 'parallel_branch'
         );
-        if (branches.length === 0) { return pos; }
-        return this.walkParallelBranches(branches, sequence, pos, taskMap, matchedPath);
+        if (branches.length === 0) {
+            return continuation(pos);
+        }
+        const saved = matchedPath.length;
+        const newPos = this.walkParallelBranches(branches, sequence, pos, taskMap, matchedPath);
+        if (newPos === -1) {
+            matchedPath.length = saved;
+            return false;
+        }
+        if (continuation(newPos)) { return true; }
+        matchedPath.length = saved;
+        return false;
     }
 
     /**
      * Walk a set of parallel branches whose tasks may appear interleaved in
-     * the sequence. Each branch is a list of XML children that must be consumed
-     * in order, but branches may interleave freely.
-     *
-     * We flatten each branch into its expected task sequence, then greedily
-     * match the trace against any branch that expects the current task.
+     * the sequence. Each branch is flattened into its expected task sequence;
+     * branches may interleave freely.
      */
     static walkParallelBranches(branches, sequence, pos, taskMap, matchedPath) {
         const branchTasks = branches.map(branch => {
             const tasks = [];
-            this.collectTasks(Array.from(branch.children).filter(c => {
-                const t = c.tagName.toLowerCase();
-                return !t.startsWith('_') && t !== 'condition';
-            }), tasks, taskMap);
+            this.collectTasks(this.structuralChildren(branch), tasks, taskMap);
             return tasks;
         });
 
@@ -407,8 +421,9 @@ export class CPEETraceWalker {
     }
 
     /**
-     * Collect the flat ordered list of tasks that a set of XML children would produce.
-     * Used to pre-compute expected tasks for parallel branch interleaving.
+     * Collect the flat ordered list of tasks that a set of XML children would
+     * produce. Used to pre-compute expected tasks for parallel branch
+     * interleaving.
      */
     static collectTasks(children, out, taskMap) {
         for (const child of children) {
@@ -419,35 +434,8 @@ export class CPEETraceWalker {
             } else if (tag === 'escape' || tag === 'terminate') {
                 continue;
             } else {
-                const inner = Array.from(child.children || []).filter(c => {
-                    const t = c.tagName.toLowerCase();
-                    return !t.startsWith('_') && t !== 'condition';
-                });
-                this.collectTasks(inner, out, taskMap);
+                this.collectTasks(this.structuralChildren(child), out, taskMap);
             }
         }
-    }
-
-    /**
-     * Generic container: just walk children sequentially (skipping metadata).
-     */
-    static walkContainer(node, sequence, pos, taskMap, matchedPath) {
-        const children = Array.from(node.children).filter(c => {
-            const t = c.tagName.toLowerCase();
-            return !t.startsWith('_') && t !== 'condition';
-        });
-        return this.walkBlockReturn(children, sequence, pos, taskMap, matchedPath);
-    }
-
-    /**
-     * Like walkBlock but returns the new position instead of a boolean.
-     */
-    static walkBlockReturn(children, sequence, pos, taskMap, matchedPath) {
-        for (const child of children) {
-            const result = this.walkNode(child, sequence, pos, taskMap, matchedPath);
-            if (result === -1) { return -1; }
-            pos = result;
-        }
-        return pos;
     }
 }
