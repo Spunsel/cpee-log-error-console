@@ -1059,24 +1059,16 @@ export class InstanceLoaderViewer {
     async loadAllKnownInstancesSequentially() {
         const loadAllKnownButton = this.getElement('loadAllKnownInstances');
 
-        // When a filter is active, only load the visible (filtered) instances
-        const errorSelect = this.knownInstancesErrorSelect;
-        const textInput = this.knownInstancesFilterInput;
-        const hasActiveFilter =
-            (errorSelect && errorSelect.value) ||
-            (textInput && textInput.value.trim());
-
-        let processNumbers;
-        if (hasActiveFilter) {
-            const instanceList = this.getElement('loadAllInstancesList');
-            const visibleBoxes = instanceList
-                ? Array.from(instanceList.querySelectorAll('.instance-number-box'))
-                      .filter(box => box.style.display !== 'none')
-                : [];
-            processNumbers = visibleBoxes.map(box => box.dataset.processNumber || box.textContent.trim());
-        } else {
-            processNumbers = configManager.get('ui.instances.processNumbers', []);
-        }
+        // Always load only the currently visible boxes. This naturally honours both
+        // the generation filter (loadAllCPEEInstances already wrote only the correct
+        // generation into the DOM) and any active text/error-type filter.
+        const instanceList = this.getElement('loadAllInstancesList');
+        const processNumbers = instanceList
+            ? Array.from(instanceList.querySelectorAll('.instance-number-box'))
+                  .filter(box => box.style.display !== 'none')
+                  .map(box => parseInt(box.dataset.processNumber || box.textContent.trim(), 10))
+                  .filter(n => !isNaN(n))
+            : [];
 
         if (!Array.isArray(processNumbers) || processNumbers.length === 0) {
             console.warn('No process numbers match the current filter');
