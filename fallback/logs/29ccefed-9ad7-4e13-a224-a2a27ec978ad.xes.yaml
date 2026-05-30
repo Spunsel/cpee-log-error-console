@@ -1,0 +1,280 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 71534
+    cpee:name: Plain Instance
+    cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-30T10:22:13.725272+02:00'
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2026-05-30T10:22:20.463537+02:00'
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-30T10:22:22.641578+02:00'
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="External Printing House" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Initiate External Printing Workflow</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="University Printing House" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Select University Printing House</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Proceed with Administrative Route</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 7b59e4e9957dd4ac1c1df9af9b5c0e8607559ea7
+  time:timestamp: '2026-05-30T10:22:26.661963+02:00'
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7b59e4e9957dd4ac1c1df9af9b5c0e8607559ea7
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-30T10:22:26.662280+02:00'
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7b59e4e9957dd4ac1c1df9af9b5c0e8607559ea7
+  cpee:exposition: |-
+    # User Input:
+    Book Printing Process Description
+
+    (Compiled from Expert Interview Sessions)
+
+    1. Process Initiation and Initial Approval
+
+    The process begins with the Publishing Expert.
+    The Publishing Expert prepares a “Book Printing Request Letter” whenever a book is scheduled for printing. This request is then submitted to the Publishing Manager for review and approval.
+
+    The Publishing Manager reviews the request letter and signs it if approved. After approval, a decision must be made regarding the printing location.
+
+    2. Decision on Printing Location
+
+    At this stage, the Publishing Manager determines whether the book will be printed at the university’s internal printing house or by an external printing house.
+
+    If the printing is outsourced to an external printing house, the process proceeds directly to the external printing workflow.
+    If the university printing house is selected, the process follows a more administrative route involving the Administrative and Support Manager.
+  time:timestamp: '2026-05-30T10:22:26.662415+02:00'
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7b59e4e9957dd4ac1c1df9af9b5c0e8607559ea7
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:22:26.662541+02:00'
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7b59e4e9957dd4ac1c1df9af9b5c0e8607559ea7
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-30T10:22:26.662646+02:00'
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7b59e4e9957dd4ac1c1df9af9b5c0e8607559ea7
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Prepare Book Printing Request Letter)
+    1:task:(Prepare Book Printing Request Letter) --> 2:task:(Submit Request for Approval)
+    2:task:(Submit Request for Approval) --> 3:task:(Review and Approve Request)
+    3:task:(Review and Approve Request) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |External Printing House| 5:task:(Initiate External Printing Workflow)
+    4:exclusivegateway:{x} --> |University Printing House| 6:task:(Select University Printing House)
+    6:task:(Select University Printing House) --> 7:task:(Proceed with Administrative Route)
+    5:task:(Initiate External Printing Workflow) --> 8:endevent:(((endevent)))
+    7:task:(Proceed with Administrative Route) --> 8:endevent:(((endevent)))
+  time:timestamp: '2026-05-30T10:22:26.662751+02:00'
+---
+event:
+  concept:instance: 71534
+  id:id: ex-ante
+  cpee:instance: 29ccefed-9ad7-4e13-a224-a2a27ec978ad
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7b59e4e9957dd4ac1c1df9af9b5c0e8607559ea7
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="External Printing House" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Initiate External Printing Workflow</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="University Printing House" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Select University Printing House</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Proceed with Administrative Route</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:22:26.662858+02:00'

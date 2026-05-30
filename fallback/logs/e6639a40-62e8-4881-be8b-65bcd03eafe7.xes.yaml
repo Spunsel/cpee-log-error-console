@@ -1,0 +1,1433 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 61793
+    cpee:name: Plain Instance
+    cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-29T07:32:00.735861+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="3">
+            <parallel_branch>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Provide SMEs with priority access to AI regulatory sandbox</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Organise awareness raising and training for SMEs</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Utilise and establish communication channels with SMEs, provide advice and respond to queries</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Facilitate SME participation in standardisation development</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a23" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Take into account SME interests when setting conformity assessment fees</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Set conformity assessment fees, reducing them proportionately for SMEs</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a31" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>SME shares interests and needs with Member State if required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a37" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Board requests standardised templates from AI Office if required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="19">
+            <parallel_branch>
+              <call id="a45" endpoint="" a:alt_id="20">
+                <parameters>
+                  <label>Provide standardised templates upon request from Board</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a47" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Develop and maintain single information platform</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a49" endpoint="" a:alt_id="22">
+                <parameters>
+                  <label>Organise communication campaigns for Regulation awareness</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a51" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>Evaluate and promote convergence of best practices in public procurement for AI systems</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+      </parallel>
+    </description>
+  cpee:change_uuid: 9f93561bac0ac7107d0b179d022e483abeae92fc
+  time:timestamp: '2026-05-29T07:45:24.154135+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9f93561bac0ac7107d0b179d022e483abeae92fc
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-29T07:45:24.155125+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9f93561bac0ac7107d0b179d022e483abeae92fc
+  cpee:exposition: |
+    # User Input:
+    The process contains the following actors: Member State, SME, Board, AI Office.
+
+    The process starts with the entry into application of the AI Regulation, simultaneously triggering the Member State support process, the SME engagement process, the Board request process, and the AI Office support process.
+
+    The process for the Member State starts. The Member State shall carry out the following 4 activities in parallel:
+
+    First, the Member State shall provide SMEs with priority access to the AI regulatory sandbox, provided the SMEs have a registered office or a branch in the Union and fulfil the eligibility conditions and selection criteria. The Member State shall not preclude other SMEs from access to the AI regulatory sandbox, provided they fulfil the eligibility conditions and selection criteria.
+
+    Second, the Member State shall organise specific awareness raising and training activities on the application of the Regulation tailored to the needs of SMEs.
+
+    Third, the Member State shall utilise existing dedicated channels for communication with SMEs. The Member State shall establish new channels where appropriate. The Member State shall provide advice on the implementation of the Regulation. The Member State shall respond to queries about the implementation of the Regulation.
+
+    Fourth, the Member State shall facilitate the participation of SMEs in the standardisation development process.
+
+    All 4 activities shall be completed before proceeding. Upon receiving the specific interests and needs from the SME, the Member State shall take into account the specific interests and needs of SME providers when setting the fees for conformity assessment. The Member State shall set the fees for conformity assessment, reducing those fees proportionately to the size, market size and other relevant indicators of the SMEs. The process for the Member State ends.
+
+    The process for the SME starts. The SME may share its specific interests and needs with the Member State if required. The process for the SME ends.
+
+    The process for the Board starts. The Board may request standardised templates from the AI Office if required. The process for the Board ends.
+
+    The process for the AI Office starts. The AI Office shall carry out the following 4 activities in parallel:
+
+    First, upon receiving a request from the Board, the AI Office shall provide standardised templates for areas covered by the Regulation, as specified by the Board in its request.
+
+    Second, the AI Office shall develop a single information platform providing easy information in relation to the Regulation for all operators across the Union. The AI Office shall maintain the single information platform.
+
+    Third, the AI Office shall organise appropriate communication campaigns to raise awareness about the obligations arising from the Regulation.
+
+    Fourth, the AI Office shall evaluate the convergence of best practices in public procurement procedures in relation to AI systems. The AI Office shall promote the convergence of best practices in public procurement procedures in relation to AI systems.
+
+    All 4 activities shall be completed before the process for the AI Office ends.
+  time:timestamp: '2026-05-29T07:45:24.155686+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9f93561bac0ac7107d0b179d022e483abeae92fc
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-29T07:45:24.155941+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9f93561bac0ac7107d0b179d022e483abeae92fc
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-29T07:45:24.156161+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9f93561bac0ac7107d0b179d022e483abeae92fc
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+        0:startevent:((startevent)) --> 1:parallelgateway:{AND}
+
+        %% Member State Process
+        1:parallelgateway:{AND} --> 2:subprocess:(Member State Process)
+        2:subprocess:(Member State Process) --> 3:parallelgateway:{AND}
+
+        %% Member State Parallel Activities
+        3:parallelgateway:{AND} --> 4:task:(Provide SMEs with priority access to AI regulatory sandbox)
+        3:parallelgateway:{AND} --> 5:task:(Organise awareness raising and training for SMEs)
+        3:parallelgateway:{AND} --> 6:task:(Utilise and establish communication channels with SMEs, provide advice and respond to queries)
+        3:parallelgateway:{AND} --> 7:task:(Facilitate SME participation in standardisation development)
+
+        4:task:(Provide SMEs with priority access to the AI regulatory sandbox) --> 8:parallelgateway:{AND}
+        5:task:(Organise awareness raising and training for SMEs) --> 8:parallelgateway:{AND}
+        6:task:(Utilise and establish communication channels with SMEs, provide advice and respond to queries) --> 8:parallelgateway:{AND}
+        7:task:(Facilitate SME participation in standardisation development) --> 8:parallelgateway:{AND}
+
+        8:parallelgateway:{AND} --> 9:task:(Take into account SME interests when setting conformity assessment fees)
+        9:task:(Take into account SME interests when setting conformity assessment fees) --> 10:task:(Set conformity assessment fees, reducing them proportionately for SMEs)
+        10:task:(Set conformity assessment fees, reducing them proportionately for SMEs) --> 11:endevent:(((endevent)))
+
+        %% SME Process
+        1:parallelgateway:{AND} --> 12:subprocess:(SME Process)
+        12:subprocess:(SME Process) --> 13:task:(SME shares interests and needs with Member State if required)
+        13:task:(SME shares interests and needs with Member State if required) --> 14:endevent:(((endevent)))
+
+        %% Board Process
+        1:parallelgateway:{AND} --> 15:subprocess:(Board Process)
+        15:subprocess:(Board Process) --> 16:task:(Board requests standardised templates from AI Office if required)
+        16:task:(Board requests standardised templates from AI Office if required) --> 17:endevent:(((endevent)))
+
+        %% AI Office Process
+        1:parallelgateway:{AND} --> 18:subprocess:(AI Office Process)
+        18:subprocess:(AI Office Process) --> 19:parallelgateway:{AND}
+
+        %% AI Office Parallel Activities
+        19:parallelgateway:{AND} --> 20:task:(Provide standardised templates upon request from Board)
+        19:parallelgateway:{AND} --> 21:task:(Develop and maintain single information platform)
+        19:parallelgateway:{AND} --> 22:task:(Organise communication campaigns for Regulation awareness)
+        19:parallelgateway:{AND} --> 23:task:(Evaluate and promote convergence of best practices in public procurement for AI systems)
+
+        20:task:(Provide standardised templates upon request from Board) --> 24:parallelgateway:{AND}
+        21:task:(Develop and maintain single information platform) --> 24:parallelgateway:{AND}
+        22:task:(Organise communication campaigns for Regulation awareness) --> 24:parallelgateway:{AND}
+        23:task:(Evaluate and promote convergence of best practices in public procurement for AI systems) --> 24:parallelgateway:{AND}
+
+        24:parallelgateway:{AND} --> 25:endevent:(((endevent)))
+
+        %% Merging all processes to a single end event if needed, or keeping them separate as per description.
+        %% The description implies separate endings for each actor's process.
+        %% If a single end event for the entire regulation entry was intended, a final merge gateway would be needed.
+        %% Based on the description, each actor's process ends independently.
+    ```
+  time:timestamp: '2026-05-29T07:45:24.156259+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 9f93561bac0ac7107d0b179d022e483abeae92fc
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="3">
+            <parallel_branch>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Provide SMEs with priority access to AI regulatory sandbox</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Organise awareness raising and training for SMEs</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Utilise and establish communication channels with SMEs, provide advice and respond to queries</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Facilitate SME participation in standardisation development</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a23" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Take into account SME interests when setting conformity assessment fees</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Set conformity assessment fees, reducing them proportionately for SMEs</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a31" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>SME shares interests and needs with Member State if required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a37" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Board requests standardised templates from AI Office if required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="19">
+            <parallel_branch>
+              <call id="a45" endpoint="" a:alt_id="20">
+                <parameters>
+                  <label>Provide standardised templates upon request from Board</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a47" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Develop and maintain single information platform</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a49" endpoint="" a:alt_id="22">
+                <parameters>
+                  <label>Organise communication campaigns for Regulation awareness</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a51" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>Evaluate and promote convergence of best practices in public procurement for AI systems</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-05-29T07:45:24.156360+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-05-29T08:40:47.391701+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <parallel wait="-1" cancel="last" a:alt_id="1">
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="3">
+            <parallel_branch>
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Provide SMEs with priority access to AI regulatory sandbox</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Organise awareness raising and training for SMEs</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a11" endpoint="" a:alt_id="6">
+                <parameters>
+                  <label>Utilise and establish communication channels with SMEs, provide advice and respond to queries</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Facilitate SME participation in standardisation development</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+          <call id="a23" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Take into account SME interests when setting conformity assessment fees</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a25" endpoint="" a:alt_id="10">
+            <parameters>
+              <label>Set conformity assessment fees, reducing them proportionately for SMEs</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a31" endpoint="" a:alt_id="13">
+            <parameters>
+              <label>SME shares interests and needs with Member State if required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a37" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Board requests standardised templates from AI Office if required</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <parallel wait="-1" cancel="last" a:alt_id="19">
+            <parallel_branch>
+              <call id="a45" endpoint="" a:alt_id="20">
+                <parameters>
+                  <label>Provide standardised templates upon request from Board</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a47" endpoint="" a:alt_id="21">
+                <parameters>
+                  <label>Develop and maintain single information platform</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a49" endpoint="" a:alt_id="22">
+                <parameters>
+                  <label>Organise communication campaigns for Regulation awareness</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+            <parallel_branch>
+              <call id="a51" endpoint="" a:alt_id="23">
+                <parameters>
+                  <label>Evaluate and promote convergence of best practices in public procurement for AI systems</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </parallel_branch>
+          </parallel>
+        </parallel_branch>
+      </parallel>
+    </description>
+  time:timestamp: '2026-05-29T08:40:47.391917+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # User Input:
+    remova all and return an empty model
+  time:timestamp: '2026-05-29T08:40:47.392127+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-29T08:40:47.392407+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->gw2s:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a7:task:(Provide SMEs with priority access to AI regulatory sandbox)
+    a7:task:(Provide SMEs with priority access to AI regulatory sandbox)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a9:task:(Organise awareness raising and training for SMEs)
+    a9:task:(Organise awareness raising and training for SMEs)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a11:task:(Utilise and establish communication channels with SMEs, provide advice and respond to queries)
+    a11:task:(Utilise and establish communication channels with SMEs, provide advice and respond to queries)-->gw2e:parallelgateway:{AND}
+    gw2s:parallelgateway:{AND}-->a13:task:(Facilitate SME participation in standardisation development)
+    a13:task:(Facilitate SME participation in standardisation development)-->gw2e:parallelgateway:{AND}
+    gw2e:parallelgateway:{AND}-->a23:task:(Take into account SME interests when setting conformity assessment fees)
+    a23:task:(Take into account SME interests when setting conformity assessment fees)-->a25:task:(Set conformity assessment fees, reducing them proportionately for SMEs)
+    a25:task:(Set conformity assessment fees, reducing them proportionately for SMEs)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a31:task:(SME shares interests and needs with Member State if required)
+    a31:task:(SME shares interests and needs with Member State if required)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->a37:task:(Board requests standardised templates from AI Office if required)
+    a37:task:(Board requests standardised templates from AI Office if required)-->gw1e:parallelgateway:{AND}
+    gw1s:parallelgateway:{AND}-->gw3s:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a45:task:(Provide standardised templates upon request from Board)
+    a45:task:(Provide standardised templates upon request from Board)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a47:task:(Develop and maintain single information platform)
+    a47:task:(Develop and maintain single information platform)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a49:task:(Organise communication campaigns for Regulation awareness)
+    a49:task:(Organise communication campaigns for Regulation awareness)-->gw3e:parallelgateway:{AND}
+    gw3s:parallelgateway:{AND}-->a51:task:(Evaluate and promote convergence of best practices in public procurement for AI systems)
+    a51:task:(Evaluate and promote convergence of best practices in public procurement for AI systems)-->gw3e:parallelgateway:{AND}
+    gw3e:parallelgateway:{AND}-->gw1e:parallelgateway:{AND}
+    gw1e:parallelgateway:{AND}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-29T08:40:47.392648+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+  time:timestamp: '2026-05-29T08:40:47.393088+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-05-29T08:40:47.393213+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Detect Personal Data Breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Processor: Notify Controller of Breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Controller: Assess Risk of Breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Unlikely to result in risk" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Controller: Document Breach</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a45" endpoint="" a:alt_id="19">
+            <parameters>
+              <label>Controller: Document Breach Facts, Effects, and Remedial Actions</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a51" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Controller: Assess Likelihood of High Risk</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="21">
+            <alternative condition="Not likely to result in high risk" language="text/javascript"/>
+            <alternative condition="Likely to result in high risk" language="text/javascript">
+              <choose mode="exclusive" a:alt_id="23">
+                <alternative condition="Exception condition met" language="text/javascript"/>
+                <alternative condition="None of the exception conditions met" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="25">
+                    <alternative condition="Communication involves disproportionate effort" language="text/javascript">
+                      <call id="a63" endpoint="" a:alt_id="26">
+                        <parameters>
+                          <label>Controller: Public Communication or Similar Measure</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="Communication does not involve disproportionate effort" language="text/javascript">
+                      <call id="a65" endpoint="" a:alt_id="27">
+                        <parameters>
+                          <label>Controller: Communicate Breach to Data Subject</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Likely to result in risk" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Controller: Notify Supervisory Authority</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Controller: Assess Timeliness of Notification</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="8">
+                <alternative condition="Not within 72 hours" language="text/javascript">
+                  <call id="a17" endpoint="" a:alt_id="9">
+                    <parameters>
+                      <label>Controller: Accompany Notification with Reasons for Delay</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Within 72 hours" language="text/javascript"/>
+              </choose>
+              <parallel wait="-1" cancel="last" a:alt_id="10">
+                <parallel_branch>
+                  <call id="a23" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>Controller: Describe Nature of Breach, Categories and Number of Data Subjects/Records</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a25" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>Controller: Communicate DPO/Contact Details</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a27" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Controller: Describe Likely Consequences</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a29" endpoint="" a:alt_id="14">
+                    <parameters>
+                      <label>Controller: Describe Remedial Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+              </parallel>
+              <choose mode="exclusive" a:alt_id="16">
+                <alternative condition="Possible to provide all info at once" language="text/javascript">
+                  <call id="a41" endpoint="" a:alt_id="17">
+                    <parameters>
+                      <label>Controller: Provide Information with Notification</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Not possible to provide all info at once" language="text/javascript">
+                  <call id="a43" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>Controller: Provide Information in Phases</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a45" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>Controller: Document Breach Facts, Effects, and Remedial Actions</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a51" endpoint="" a:alt_id="20">
+                <parameters>
+                  <label>Controller: Assess Likelihood of High Risk</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="21">
+                <alternative condition="Not likely to result in high risk" language="text/javascript"/>
+                <alternative condition="Likely to result in high risk" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="23">
+                    <alternative condition="Exception condition met" language="text/javascript"/>
+                    <alternative condition="None of the exception conditions met" language="text/javascript">
+                      <choose mode="exclusive" a:alt_id="25">
+                        <alternative condition="Communication involves disproportionate effort" language="text/javascript">
+                          <call id="a63" endpoint="" a:alt_id="26">
+                            <parameters>
+                              <label>Controller: Public Communication or Similar Measure</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Communication does not involve disproportionate effort" language="text/javascript">
+                          <call id="a65" endpoint="" a:alt_id="27">
+                            <parameters>
+                              <label>Controller: Communicate Breach to Data Subject</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <call id="a71" endpoint="" a:alt_id="30">
+                <parameters>
+                  <label>Supervisory Authority: Verify Documentation Obligations</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a73" endpoint="" a:alt_id="31">
+                <parameters>
+                  <label>Supervisory Authority: Consider Likelihood of High Risk</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a75" endpoint="" a:alt_id="32">
+                <parameters>
+                  <label>Supervisory Authority: Assess if Controller Communicated to Data Subject</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="33">
+                <alternative condition="Controller has already communicated" language="text/javascript"/>
+                <alternative condition="Controller has not already communicated" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="35">
+                    <alternative condition="Likely to result in high risk" language="text/javascript">
+                      <choose mode="exclusive" a:alt_id="36">
+                        <alternative condition="Require communication" language="text/javascript">
+                          <call id="a87" endpoint="" a:alt_id="37">
+                            <parameters>
+                              <label>Supervisory Authority: Require Controller to Communicate</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Paragraph 3 conditions met" language="text/javascript">
+                          <call id="a89" endpoint="" a:alt_id="38">
+                            <parameters>
+                              <label>Supervisory Authority: Decide Paragraph 3 Conditions Met</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Not likely to result in high risk" language="text/javascript"/>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 4bcf3b029ac2044698f61008b9d92d5844ca4687
+  time:timestamp: '2026-05-29T08:41:02.186054+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4bcf3b029ac2044698f61008b9d92d5844ca4687
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-05-29T08:41:02.186782+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4bcf3b029ac2044698f61008b9d92d5844ca4687
+  cpee:exposition: |
+    # User Input:
+    The process contains the following actors: Processor, Controller, Supervisory Authority.
+
+    The process starts with the detection of a personal data breach.
+
+    The process for the Processor starts. The Processor shall notify the Controller of a personal data breach after becoming aware of a personal data breach [t3]. The process for the Processor ends.
+
+    The process for the Controller starts upon becoming aware of the personal data breach, including upon receiving the notification from the Processor. The Controller shall assess whether the personal data breach is unlikely to result in a risk to the rights and freedoms of natural persons. If the personal data breach is unlikely to result in a risk, the Controller shall proceed directly to documenting the breach. If the personal data breach is likely to result in a risk, the Controller shall notify the personal data breach to the supervisory authority, not later than 72 hours after having become aware of it [t1]. The Controller shall assess whether the notification was made within 72 hours after having become aware. If the notification was not made within 72 hours, the Controller shall accompany the notification with reasons for the delay [t2]. If the notification was made within 72 hours, the Controller shall proceed to providing the required information. The Controller shall carry out the following 4 activities in parallel: (a) describe the nature of the personal data breach, the categories and approximate number of data subjects concerned, and the categories and approximate number of personal data records concerned; (b) communicate the name and contact details of the data protection officer or other contact point where more information can be obtained; (c) describe the likely consequences of the personal data breach; (d) describe the measures taken or proposed to be taken to address the personal data breach, including, where appropriate, measures to mitigate its possible adverse effects. All 4 activities shall be completed before the Controller proceeds. The Controller shall assess whether it is possible to provide all the information at the same time. If it is not possible to provide all the information at the same time, the Controller may provide the information in phases without undue further delay [t4]. If it is possible to provide all the information at the same time, the Controller shall provide the information together with the notification. The Controller shall document any personal data breaches, comprising the facts relating to the personal data breach, its effects and the remedial action taken [t5]. The Controller shall then assess whether the personal data breach is likely to result in a high risk to the rights and freedoms of natural persons. If the personal data breach is not likely to result in a high risk, the process for the Controller ends. If the personal data breach is likely to result in a high risk, the Controller shall assess whether any of the following exception conditions are met: (a) the Controller has implemented appropriate technical and organisational protection measures that were applied to the personal data affected and render it unintelligible to unauthorised persons, such as encryption; (b) the Controller has taken subsequent measures which ensure that the high risk to the rights and freedoms of data subjects is no longer likely to materialise. If any of those exception conditions are met, the Controller shall not be required to communicate the breach to the data subject, and the process for the Controller ends. If none of those exception conditions are met, the Controller shall assess whether communication to the data subject would involve disproportionate effort. If the communication would involve disproportionate effort, the Controller shall carry out a public communication or similar measure whereby the data subjects are informed in an equally effective manner [t8], and the process for the Controller ends. If the communication would not involve disproportionate effort, the Controller shall communicate the personal data breach to the data subject in clear and plain language, describing the nature of the breach and containing at least the information and measures referred to in the notification requirements under points (b), (c) and (d) [t7]. The process for the Controller ends.
+
+    The process for the Supervisory Authority starts upon receiving the notification of the personal data breach from the Controller. The Supervisory Authority shall verify compliance with the documentation obligations of the Controller [t6]. The Supervisory Authority shall consider the likelihood of the personal data breach resulting in a high risk to the rights and freedoms of natural persons [t9]. The Supervisory Authority shall assess whether the Controller has already communicated the personal data breach to the data subject. If the Controller has already communicated, the process for the Supervisory Authority ends. If the Controller has not already communicated and the personal data breach is likely to result in a high risk to the rights and freedoms of natural persons, the Supervisory Authority shall assess whether to require communication or whether the paragraph 3 conditions are met. The Supervisory Authority may require the Controller to communicate the data breach to the data subject [t10], except where the conditions referred to in paragraph 3 are met. Alternatively, the Supervisory Authority may decide that any of the conditions referred to in paragraph 3 are met [t11]. The process for the Supervisory Authority ends.
+  time:timestamp: '2026-05-29T08:41:02.187341+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4bcf3b029ac2044698f61008b9d92d5844ca4687
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-29T08:41:02.187506+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4bcf3b029ac2044698f61008b9d92d5844ca4687
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-29T08:41:02.187593+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4bcf3b029ac2044698f61008b9d92d5844ca4687
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+        0:startevent:((startevent)) --> 1:task:(Detect Personal Data Breach)
+        1:task:(Detect Personal Data Breach) --> 2:task:(Processor: Notify Controller of Breach)
+        2:task:(Processor: Notify Controller of Breach) --> 3:task:(Controller: Assess Risk of Breach)
+        3:task:(Controller: Assess Risk of Breach) --> 4:exclusivegateway:{x}
+        4:exclusivegateway:{x} --> |Unlikely to result in risk| 5:task:(Controller: Document Breach)
+        4:exclusivegateway:{x} --> |Likely to result in risk| 6:task:(Controller: Notify Supervisory Authority)
+        6:task:(Controller: Notify Supervisory Authority) --> 7:task:(Controller: Assess Timeliness of Notification)
+        7:task:(Controller: Assess Timeliness of Notification) --> 8:exclusivegateway:{x}
+        8:exclusivegateway:{x} --> |Not within 72 hours| 9:task:(Controller: Accompany Notification with Reasons for Delay)
+        8:exclusivegateway:{x} --> |Within 72 hours| 10:parallelgateway:{AND}
+        9:task:(Controller: Accompany Notification with Reasons for Delay) --> 10:parallelgateway:{AND}
+        10:parallelgateway:{AND} --> 11:task:(Controller: Describe Nature of Breach, Categories and Number of Data Subjects/Records)
+        10:parallelgateway:{AND} --> 12:task:(Controller: Communicate DPO/Contact Details)
+        10:parallelgateway:{AND} --> 13:task:(Controller: Describe Likely Consequences)
+        10:parallelgateway:{AND} --> 14:task:(Controller: Describe Remedial Measures)
+        11:task:(Controller: Describe Nature of Breach, Categories and Number of Data Subjects/Records) --> 15:exclusivegateway:{x}
+        12:task:(Controller: Communicate DPO/Contact Details) --> 15:exclusivegateway:{x}
+        13:task:(Controller: Describe Likely Consequences) --> 15:exclusivegateway:{x}
+        14:task:(Controller: Describe Remedial Measures) --> 15:exclusivegateway:{x}
+        15:exclusivegateway:{x} --> 16:exclusivegateway:{x}
+        16:exclusivegateway:{x} --> |Possible to provide all info at once| 17:task:(Controller: Provide Information with Notification)
+        16:exclusivegateway:{x} --> |Not possible to provide all info at once| 18:task:(Controller: Provide Information in Phases)
+        17:task:(Controller: Provide Information with Notification) --> 19:task:(Controller: Document Breach Facts, Effects, and Remedial Actions)
+        18:task:(Controller: Provide Information in Phases) --> 19:task:(Controller: Document Breach Facts, Effects, and Remedial Actions)
+        5:task:(Controller: Document Breach) --> 19:task:(Controller: Document Breach Facts, Effects, and Remedial Actions)
+        19:task:(Controller: Document Breach Facts, Effects, and Remedial Actions) --> 20:task:(Controller: Assess Likelihood of High Risk)
+        20:task:(Controller: Assess Likelihood of High Risk) --> 21:exclusivegateway:{x}
+        21:exclusivegateway:{x} --> |Not likely to result in high risk| 22:endevent:(((endevent)))
+        21:exclusivegateway:{x} --> |Likely to result in high risk| 23:exclusivegateway:{x}
+        23:exclusivegateway:{x} --> |Exception condition met| 24:endevent:(((endevent)))
+        23:exclusivegateway:{x} --> |None of the exception conditions met| 25:exclusivegateway:{x}
+        25:exclusivegateway:{x} --> |Communication involves disproportionate effort| 26:task:(Controller: Public Communication or Similar Measure)
+        25:exclusivegateway:{x} --> |Communication does not involve disproportionate effort| 27:task:(Controller: Communicate Breach to Data Subject)
+        26:task:(Controller: Public Communication or Similar Measure) --> 28:endevent:(((endevent)))
+        27:task:(Controller: Communicate Breach to Data Subject) --> 29:endevent:(((endevent)))
+        6:task:(Controller: Notify Supervisory Authority) --> 30:task:(Supervisory Authority: Verify Documentation Obligations)
+        30:task:(Supervisory Authority: Verify Documentation Obligations) --> 31:task:(Supervisory Authority: Consider Likelihood of High Risk)
+        31:task:(Supervisory Authority: Consider Likelihood of High Risk) --> 32:task:(Supervisory Authority: Assess if Controller Communicated to Data Subject)
+        32:task:(Supervisory Authority: Assess if Controller Communicated to Data Subject) --> 33:exclusivegateway:{x}
+        33:exclusivegateway:{x} --> |Controller has already communicated| 34:endevent:(((endevent)))
+        33:exclusivegateway:{x} --> |Controller has not already communicated| 35:exclusivegateway:{x}
+        35:exclusivegateway:{x} --> |Likely to result in high risk| 36:exclusivegateway:{x}
+        35:exclusivegateway:{x} --> |Not likely to result in high risk| 34:endevent:(((endevent)))
+        36:exclusivegateway:{x} --> |Require communication| 37:task:(Supervisory Authority: Require Controller to Communicate)
+        36:exclusivegateway:{x} --> |Paragraph 3 conditions met| 38:task:(Supervisory Authority: Decide Paragraph 3 Conditions Met)
+        37:task:(Supervisory Authority: Require Controller to Communicate) --> 34:endevent:(((endevent)))
+        38:task:(Supervisory Authority: Decide Paragraph 3 Conditions Met) --> 34:endevent:(((endevent)))
+    ```
+  time:timestamp: '2026-05-29T08:41:02.187705+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 4bcf3b029ac2044698f61008b9d92d5844ca4687
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Detect Personal Data Breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Processor: Notify Controller of Breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Controller: Assess Risk of Breach</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Unlikely to result in risk" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Controller: Document Breach</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a45" endpoint="" a:alt_id="19">
+            <parameters>
+              <label>Controller: Document Breach Facts, Effects, and Remedial Actions</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a51" endpoint="" a:alt_id="20">
+            <parameters>
+              <label>Controller: Assess Likelihood of High Risk</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="21">
+            <alternative condition="Not likely to result in high risk" language="text/javascript"/>
+            <alternative condition="Likely to result in high risk" language="text/javascript">
+              <choose mode="exclusive" a:alt_id="23">
+                <alternative condition="Exception condition met" language="text/javascript"/>
+                <alternative condition="None of the exception conditions met" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="25">
+                    <alternative condition="Communication involves disproportionate effort" language="text/javascript">
+                      <call id="a63" endpoint="" a:alt_id="26">
+                        <parameters>
+                          <label>Controller: Public Communication or Similar Measure</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                    <alternative condition="Communication does not involve disproportionate effort" language="text/javascript">
+                      <call id="a65" endpoint="" a:alt_id="27">
+                        <parameters>
+                          <label>Controller: Communicate Breach to Data Subject</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Likely to result in risk" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Controller: Notify Supervisory Authority</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Controller: Assess Timeliness of Notification</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="8">
+                <alternative condition="Not within 72 hours" language="text/javascript">
+                  <call id="a17" endpoint="" a:alt_id="9">
+                    <parameters>
+                      <label>Controller: Accompany Notification with Reasons for Delay</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Within 72 hours" language="text/javascript"/>
+              </choose>
+              <parallel wait="-1" cancel="last" a:alt_id="10">
+                <parallel_branch>
+                  <call id="a23" endpoint="" a:alt_id="11">
+                    <parameters>
+                      <label>Controller: Describe Nature of Breach, Categories and Number of Data Subjects/Records</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a25" endpoint="" a:alt_id="12">
+                    <parameters>
+                      <label>Controller: Communicate DPO/Contact Details</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a27" endpoint="" a:alt_id="13">
+                    <parameters>
+                      <label>Controller: Describe Likely Consequences</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+                <parallel_branch>
+                  <call id="a29" endpoint="" a:alt_id="14">
+                    <parameters>
+                      <label>Controller: Describe Remedial Measures</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </parallel_branch>
+              </parallel>
+              <choose mode="exclusive" a:alt_id="16">
+                <alternative condition="Possible to provide all info at once" language="text/javascript">
+                  <call id="a41" endpoint="" a:alt_id="17">
+                    <parameters>
+                      <label>Controller: Provide Information with Notification</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+                <alternative condition="Not possible to provide all info at once" language="text/javascript">
+                  <call id="a43" endpoint="" a:alt_id="18">
+                    <parameters>
+                      <label>Controller: Provide Information in Phases</label>
+                      <method/>
+                      <type>:task</type>
+                      <arguments/>
+                    </parameters>
+                  </call>
+                </alternative>
+              </choose>
+              <call id="a45" endpoint="" a:alt_id="19">
+                <parameters>
+                  <label>Controller: Document Breach Facts, Effects, and Remedial Actions</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a51" endpoint="" a:alt_id="20">
+                <parameters>
+                  <label>Controller: Assess Likelihood of High Risk</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="21">
+                <alternative condition="Not likely to result in high risk" language="text/javascript"/>
+                <alternative condition="Likely to result in high risk" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="23">
+                    <alternative condition="Exception condition met" language="text/javascript"/>
+                    <alternative condition="None of the exception conditions met" language="text/javascript">
+                      <choose mode="exclusive" a:alt_id="25">
+                        <alternative condition="Communication involves disproportionate effort" language="text/javascript">
+                          <call id="a63" endpoint="" a:alt_id="26">
+                            <parameters>
+                              <label>Controller: Public Communication or Similar Measure</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Communication does not involve disproportionate effort" language="text/javascript">
+                          <call id="a65" endpoint="" a:alt_id="27">
+                            <parameters>
+                              <label>Controller: Communicate Breach to Data Subject</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <call id="a71" endpoint="" a:alt_id="30">
+                <parameters>
+                  <label>Supervisory Authority: Verify Documentation Obligations</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a73" endpoint="" a:alt_id="31">
+                <parameters>
+                  <label>Supervisory Authority: Consider Likelihood of High Risk</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a75" endpoint="" a:alt_id="32">
+                <parameters>
+                  <label>Supervisory Authority: Assess if Controller Communicated to Data Subject</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <choose mode="exclusive" a:alt_id="33">
+                <alternative condition="Controller has already communicated" language="text/javascript"/>
+                <alternative condition="Controller has not already communicated" language="text/javascript">
+                  <choose mode="exclusive" a:alt_id="35">
+                    <alternative condition="Likely to result in high risk" language="text/javascript">
+                      <choose mode="exclusive" a:alt_id="36">
+                        <alternative condition="Require communication" language="text/javascript">
+                          <call id="a87" endpoint="" a:alt_id="37">
+                            <parameters>
+                              <label>Supervisory Authority: Require Controller to Communicate</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                        <alternative condition="Paragraph 3 conditions met" language="text/javascript">
+                          <call id="a89" endpoint="" a:alt_id="38">
+                            <parameters>
+                              <label>Supervisory Authority: Decide Paragraph 3 Conditions Met</label>
+                              <method/>
+                              <type>:task</type>
+                              <arguments/>
+                            </parameters>
+                          </call>
+                        </alternative>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Not likely to result in high risk" language="text/javascript"/>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-29T08:41:02.187863+02:00'
+---
+event:
+  concept:instance: 61793
+  id:id: ex-ante
+  cpee:instance: e6639a40-62e8-4881-be8b-65bcd03eafe7
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2026-05-29T20:27:53.196371+02:00'

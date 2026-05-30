@@ -7,7 +7,7 @@
 # raw bytes and decoded as UTF-8; files are written as UTF-8 without BOM.
 
 # Process numbers to fetch
-$processNumbers = @(45118..52253)
+$processNumbers = @(57267..73693)
 
 # Current generation — new entries are written into this generation's section.
 # Change to "generation3" (or any name) to start a new generation bucket.
@@ -31,7 +31,7 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 "@
 [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-[System.Net.ServicePointManager]::DefaultConnectionLimit = 50
+[System.Net.ServicePointManager]::DefaultConnectionLimit = 500
 
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
 
@@ -83,82 +83,45 @@ if (Test-Path $fallbackMappingFile) {
     Write-Host "Loaded $($existingMappings.Count) existing mappings for generation '$currentGeneration'" -ForegroundColor Yellow
 }
 
-# ========== STEP 1: Get UUIDs (always query the flow engine for the current range) ==========
-Write-Host "`nGetting UUIDs for $($processNumbers.Count) process numbers..." -ForegroundColor Cyan
+# ========== STEPS 1+2: Fetch UUIDs and logs in a single pipeline ==========
+# Each worker fetches the UUID for a process number then immediately fetches and
+# filters the log — eliminating the forced serialisation between the two phases.
+# Results are collected out-of-order as jobs finish rather than waiting for each
+# job in submission order.
+Write-Host "`nFetching UUIDs and logs for $($processNumbers.Count) process numbers..." -ForegroundColor Cyan
 
-$uuidMapping = [System.Collections.Concurrent.ConcurrentDictionary[string, string]]::new()
-
-# Always fetch fresh UUIDs from the flow engine — never use cached values.
-# Instance numbers can be reused across runs; a cached UUID may point to an archived
-# instance instead of the current one.
-$needFetch = $processNumbers
-
-if ($needFetch.Count -gt 0) {
-    Write-Host "Fetching $($needFetch.Count) UUIDs from flow engine..." -ForegroundColor Cyan
-    
-    $runspacePool = [runspacefactory]::CreateRunspacePool(1, 20)
-    $runspacePool.Open()
-
-    $uuidScript = {
-        param($processNumber)
-        try {
-            $wc = New-Object System.Net.WebClient
-            try {
-                $bytes = $wc.DownloadData("https://cpee.org/flow/engine/$processNumber/properties/attributes/uuid/")
-                $uuid = [System.Text.Encoding]::UTF8.GetString($bytes).Trim()
-            } finally {
-                $wc.Dispose()
-            }
-            if ($uuid -match '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$') {
-                return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $true }
-            }
-        } catch {}
-        return @{ ProcessNumber = $processNumber; UUID = $null; Success = $false }
-    }
-
-    $jobs = $needFetch | ForEach-Object {
-        $ps = [powershell]::Create().AddScript($uuidScript).AddArgument($_)
-        $ps.RunspacePool = $runspacePool
-        @{ PowerShell = $ps; Handle = $ps.BeginInvoke() }
-    }
-
-    $completed = 0
-    $fromEngine = 0
-    foreach ($job in $jobs) {
-        $resultCollection = $job.PowerShell.EndInvoke($job.Handle)
-        $job.PowerShell.Dispose()
-        $result = $resultCollection | Select-Object -Last 1
-        if ($result.Success) {
-            $uuidMapping.TryAdd("$($result.ProcessNumber)", $result.UUID) | Out-Null
-            $fromEngine++
-        }
-        $completed++
-        if ($completed % 50 -eq 0 -or $completed -eq $needFetch.Count) {
-            Write-Host "`rProgress: $completed/$($needFetch.Count) checked, $fromEngine found" -NoNewline
-        }
-    }
-    $runspacePool.Close()
-    $runspacePool.Dispose()
-    Write-Host "`nFound $fromEngine additional UUIDs from flow engine" -ForegroundColor Green
-}
-
-Write-Host "Total UUIDs to process: $($uuidMapping.Count)" -ForegroundColor Green
-
-# ========== STEP 2: Fetch Logs ==========
-Write-Host "`nFetching logs (filtering for 'exposition')..." -ForegroundColor Cyan
-
-$selectedMapping = [System.Collections.Concurrent.ConcurrentDictionary[string, string]]::new()
 Remove-Item -Path "$tempLogDir\*" -Force -ErrorAction SilentlyContinue
+$absLogDir = (Resolve-Path $tempLogDir).Path
 
-$logScript = {
-    param($processNumber, $uuid, $outputDir)
+$uuidMapping     = [System.Collections.Concurrent.ConcurrentDictionary[string, string]]::new()
+$selectedMapping = [System.Collections.Concurrent.ConcurrentDictionary[string, string]]::new()
+
+$combinedScript = {
+    param($processNumber, $outputDir)
+    # Fetch UUID — always fresh; instance numbers can be reused across runs.
     try {
         $wc = New-Object System.Net.WebClient
         try {
-            $bytes = $wc.DownloadData("https://cpee.org/logs/$uuid.xes.yaml")
-            $content = [System.Text.Encoding]::UTF8.GetString($bytes)
+            $bytes = $wc.DownloadData("https://cpee.org/flow/engine/$processNumber/properties/attributes/uuid/")
+            $uuid = [System.Text.Encoding]::UTF8.GetString($bytes).Trim()
         } finally {
             $wc.Dispose()
+        }
+    } catch {
+        return @{ ProcessNumber = $processNumber; UUID = $null; Success = $false; Selected = $false }
+    }
+    if ($uuid -notmatch '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$') {
+        return @{ ProcessNumber = $processNumber; UUID = $null; Success = $false; Selected = $false }
+    }
+
+    # UUID valid — immediately fetch and filter the log.
+    try {
+        $wc2 = New-Object System.Net.WebClient
+        try {
+            $logBytes = $wc2.DownloadData("https://cpee.org/logs/$uuid.xes.yaml")
+            $content  = [System.Text.Encoding]::UTF8.GetString($logBytes)
+        } finally {
+            $wc2.Dispose()
         }
         if ($content.Substring(0, [Math]::Min($content.Length, 1000000)) -match "exposition") {
             $outPath = Join-Path $outputDir "${uuid}.xes.yaml"
@@ -167,37 +130,61 @@ $logScript = {
         }
         return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $true; Selected = $false }
     } catch {
-        return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $false }
+        return @{ ProcessNumber = $processNumber; UUID = $uuid; Success = $true; Selected = $false }
     }
 }
 
-$logRunspacePool = [runspacefactory]::CreateRunspacePool(1, 10)
-$logRunspacePool.Open()
+$runspacePool = [runspacefactory]::CreateRunspacePool(1, 100)
+$runspacePool.Open()
 
-$logJobs = @()
-$absLogDir = (Resolve-Path $tempLogDir).Path
-foreach ($kvp in $uuidMapping.GetEnumerator()) {
-    $ps = [powershell]::Create().AddScript($logScript).AddArgument($kvp.Key).AddArgument($kvp.Value).AddArgument($absLogDir)
-    $ps.RunspacePool = $logRunspacePool
-    $logJobs += @{ PowerShell = $ps; Handle = $ps.BeginInvoke() }
+$jobs = $processNumbers | ForEach-Object {
+    $ps = [powershell]::Create().AddScript($combinedScript).AddArgument($_).AddArgument($absLogDir)
+    $ps.RunspacePool = $runspacePool
+    @{ PowerShell = $ps; Handle = $ps.BeginInvoke() }
 }
 
-$logCompleted = 0
-foreach ($job in $logJobs) {
-    $resultCollection = $job.PowerShell.EndInvoke($job.Handle)
-    $job.PowerShell.Dispose()
-    $result = $resultCollection | Select-Object -Last 1
-    if ($result.Success -and $result.Selected) {
-        $selectedMapping.TryAdd("$($result.ProcessNumber)", $result.UUID) | Out-Null
+# Drain completed jobs out-of-order so a slow request never blocks faster ones.
+$pending      = [System.Collections.Generic.List[object]]::new()
+$pending.AddRange($jobs)
+$completed    = 0
+$uuidFound    = 0
+$selected     = 0
+$lastReported = 0
+$total        = $processNumbers.Count
+
+while ($pending.Count -gt 0) {
+    $doneIdx = [System.Collections.Generic.List[int]]::new()
+    for ($i = 0; $i -lt $pending.Count; $i++) {
+        if (-not $pending[$i].Handle.IsCompleted) { continue }
+        $result = $pending[$i].PowerShell.EndInvoke($pending[$i].Handle) | Select-Object -Last 1
+        $pending[$i].PowerShell.Dispose()
+        if ($result.Success) {
+            $uuidMapping.TryAdd("$($result.ProcessNumber)", $result.UUID) | Out-Null
+            $uuidFound++
+            if ($result.Selected) {
+                $selectedMapping.TryAdd("$($result.ProcessNumber)", $result.UUID) | Out-Null
+                $selected++
+            }
+        }
+        $completed++
+        $doneIdx.Add($i)
     }
-    $logCompleted++
-    if ($logCompleted % 50 -eq 0 -or $logCompleted -eq $uuidMapping.Count) {
-        Write-Host "`rProgress: $logCompleted/$($uuidMapping.Count) logs checked, $($selectedMapping.Count) selected" -NoNewline
+    if ($doneIdx.Count -eq 0) {
+        Start-Sleep -Milliseconds 50
+    } else {
+        # Remove in reverse order to preserve list indices.
+        $doneIdx.Reverse()
+        foreach ($idx in $doneIdx) { $pending.RemoveAt($idx) }
+        if (($completed - $lastReported) -ge 50 -or $pending.Count -eq 0) {
+            Write-Host "`rProgress: $completed/$total checked | $uuidFound UUIDs found | $selected selected" -NoNewline
+            $lastReported = $completed
+        }
     }
 }
-$logRunspacePool.Close()
-$logRunspacePool.Dispose()
-Write-Host "`nSelected $($selectedMapping.Count) logs with exposition" -ForegroundColor Green
+
+$runspacePool.Close()
+$runspacePool.Dispose()
+Write-Host "`nFound $uuidFound UUIDs; $selected logs match 'exposition'" -ForegroundColor Green
 
 # ========== STEP 3: Save to Fallback ==========
 Write-Host "`nSaving to fallback..." -ForegroundColor Cyan

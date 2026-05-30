@@ -86,6 +86,9 @@ export class SyntaxHighlightingService {
             // Apply custom styling
             this._applyCustomStyling(sh);
             
+            // Register per-token hooks (must come before language registration)
+            this._registerPrismHooks();
+            
             // Register Mermaid language definition
             this._registerMermaidLanguage(sh);
             
@@ -188,6 +191,10 @@ export class SyntaxHighlightingService {
                 css += `${selector} { color: ${activeColors[key]} !important; }`;
             }
         });
+
+        // language="text/javascript" gets the same neutral gray as tags instead of the red attr-value color.
+        const neutralColor = activeColors.tag || (isDarkMode ? '#a8b8d0' : '#374151');
+        css += `.token.attr-value-neutral { color: ${neutralColor} !important; }`;
         
         // Mermaid colors
         if (activeMermaid.default !== null && activeMermaid.default !== undefined) {
@@ -207,6 +214,24 @@ export class SyntaxHighlightingService {
         css += `.user-input-raw code .token, .user-input-section code .token, #user-input-content code .token, code.language-text .token { color: inherit !important; }`;
         
         styleEl.textContent = css;
+    }
+
+    /**
+     * Register global Prism token hooks for per-value overrides.
+     * Runs once; safe to call multiple times because Prism de-duplicates hooks
+     * only in the sense that we guard initialization with this.initialized.
+     * @private
+     */
+    _registerPrismHooks() {
+        if (!window.Prism) return;
+        window.Prism.hooks.add('wrap', (env) => {
+            if (env.type === 'attr-value' && env.content.includes('text/javascript')) {
+                env.classes.push('attr-value-neutral');
+            }
+            if (env.type === 'attr-name' && env.content === 'language') {
+                env.classes.push('attr-value-neutral');
+            }
+        });
     }
 
     /**

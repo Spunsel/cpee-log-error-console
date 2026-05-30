@@ -1,0 +1,428 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 58726
+    cpee:name: Plain Instance
+    cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-28T14:58:18.865042+02:00'
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: Signavio
+  time:timestamp: '2026-05-28T14:58:40.477708+02:00'
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-28T14:58:40.911739+02:00'
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Pre-Verification Service Reads Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="4">
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>KYC Service Collects Identity Document</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>KYC Service Validates KYC Status</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Compliance Service Gets Customer Sanction History</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Compliance Service Computes AML Risk Level</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a21" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Pre-Verification Service Computes DTI Ratio</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Pre-Verification Service Evaluates Credit Score</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Loan Officer Reads Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Loan Officer Computes Risk Score</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="14">
+        <alternative condition="Approves" language="text/javascript">
+          <call id="a31" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Loan Officer Approves Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Denies" language="text/javascript">
+          <call id="a33" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Loan Officer Denies Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: d91b6b0eac1a91ad26a6f4163f397fe771f1cab6
+  time:timestamp: '2026-05-28T14:59:25.631218+02:00'
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d91b6b0eac1a91ad26a6f4163f397fe771f1cab6
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-28T14:59:25.631429+02:00'
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d91b6b0eac1a91ad26a6f4163f397fe771f1cab6
+  cpee:exposition: |+
+    # User Input:
+    This is the process for a loan approval. 
+
+    A customer creates a loan application and submits it to its bank. 
+    First, the pre-verification (PV) service reads the application for completeness. 
+
+    Then, two other services are called in parallel. 
+    The KYC Service (Know-Your-Customer) collects identity document, then validates the KYC status.
+    In the mean time, the Compliance Service get the customer sanction's history, then computes the AML risk level.
+
+    After these two services are completed, the pre-verification service compute the DTI (Debt-To-Income) ratio, then evaluate the customer's credit score.
+
+    Next, a Loan Officer takes over the application : they reads it, then compute the risk score of the loan.
+
+    Finally, the Loan Officer approves or denies the loan.
+
+
+
+  time:timestamp: '2026-05-28T14:59:25.631563+02:00'
+...
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d91b6b0eac1a91ad26a6f4163f397fe771f1cab6
+  cpee:exposition: |-
+    # Used LLM:
+    gpt-4
+  time:timestamp: '2026-05-28T14:59:25.631766+02:00'
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d91b6b0eac1a91ad26a6f4163f397fe771f1cab6
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-28T14:59:25.631913+02:00'
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d91b6b0eac1a91ad26a6f4163f397fe771f1cab6
+  cpee:exposition: |-
+    %% Output Intermediate
+    ```mermaid
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Create Loan Application)
+    1:task:(Create Loan Application) --> 2:task:(Submit Loan Application)
+    2:task:(Submit Loan Application) --> 3:task:(Pre-Verification Service Reads Application)
+    3:task:(Pre-Verification Service Reads Application) --> 4:parallelgateway:{AND}
+    4:parallelgateway:{AND} --> 5:task:(KYC Service Collects Identity Document)
+    4:parallelgateway:{AND} --> 6:task:(Compliance Service Gets Customer Sanction History)
+    5:task:(KYC Service Collects Identity Document) --> 7:task:(KYC Service Validates KYC Status)
+    6:task:(Compliance Service Gets Customer Sanction History) --> 8:task:(Compliance Service Computes AML Risk Level)
+    7:task:(KYC Service Validates KYC Status) --> 9:parallelgateway:{AND}
+    8:task:(Compliance Service Computes AML Risk Level) --> 9:parallelgateway:{AND}
+    9:parallelgateway:{AND} --> 10:task:(Pre-Verification Service Computes DTI Ratio)
+    10:task:(Pre-Verification Service Computes DTI Ratio) --> 11:task:(Pre-Verification Service Evaluates Credit Score)
+    11:task:(Pre-Verification Service Evaluates Credit Score) --> 12:task:(Loan Officer Reads Application)
+    12:task:(Loan Officer Reads Application) --> 13:task:(Loan Officer Computes Risk Score)
+    13:task:(Loan Officer Computes Risk Score) --> 14:exclusivegateway:{x}
+    14:exclusivegateway:{x} --> |Approves| 15:task:(Loan Officer Approves Loan)
+    14:exclusivegateway:{x} --> |Denies| 16:task:(Loan Officer Denies Loan)
+    15:task:(Loan Officer Approves Loan) --> 17:exclusivegateway:{x}
+    16:task:(Loan Officer Denies Loan) --> 17:exclusivegateway:{x}
+    17:exclusivegateway:{x} --> 18:endevent:(((endevent)))
+    ```
+    This model represents the described process, where the loan application goes through several services and checks before a loan officer makes the final decision. All paths start from the start event and lead to the end event, and each split gateway has a matching merge gateway.
+  time:timestamp: '2026-05-28T14:59:25.632020+02:00'
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: d91b6b0eac1a91ad26a6f4163f397fe771f1cab6
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Create Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Loan Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Pre-Verification Service Reads Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <parallel wait="-1" cancel="last" a:alt_id="4">
+        <parallel_branch>
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>KYC Service Collects Identity Document</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>KYC Service Validates KYC Status</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+        <parallel_branch>
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Compliance Service Gets Customer Sanction History</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="8">
+            <parameters>
+              <label>Compliance Service Computes AML Risk Level</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </parallel_branch>
+      </parallel>
+      <call id="a21" endpoint="" a:alt_id="10">
+        <parameters>
+          <label>Pre-Verification Service Computes DTI Ratio</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a23" endpoint="" a:alt_id="11">
+        <parameters>
+          <label>Pre-Verification Service Evaluates Credit Score</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a25" endpoint="" a:alt_id="12">
+        <parameters>
+          <label>Loan Officer Reads Application</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a27" endpoint="" a:alt_id="13">
+        <parameters>
+          <label>Loan Officer Computes Risk Score</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="14">
+        <alternative condition="Approves" language="text/javascript">
+          <call id="a31" endpoint="" a:alt_id="15">
+            <parameters>
+              <label>Loan Officer Approves Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Denies" language="text/javascript">
+          <call id="a33" endpoint="" a:alt_id="16">
+            <parameters>
+              <label>Loan Officer Denies Loan</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-28T14:59:25.632112+02:00'
+---
+event:
+  concept:instance: 58726
+  id:id: ex-ante
+  cpee:instance: e97670b8-e643-488c-8ca7-dd845db872b0
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: abandoned
+  time:timestamp: '2026-05-29T20:27:48.628049+02:00'

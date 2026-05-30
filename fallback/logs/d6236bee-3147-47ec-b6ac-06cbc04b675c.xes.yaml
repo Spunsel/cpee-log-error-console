@@ -1,0 +1,756 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 71617
+    cpee:name: Plain Instance
+    cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-30T10:39:11.724751+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Submit Application</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Verify Applicant Information</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Information Incomplete" a:alt_id="3" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Request Additional Information</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Submit Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Verify Applicant Information</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Assess Creditworthiness</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="6">
+          <alternative condition="Creditworthy" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Approve Loan</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Disburse Funds</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Not Creditworthy" language="text/javascript">
+            <call id="a17" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Reject Loan</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: a3078801022ed5a5a8647f9424c4e9e659850051
+  time:timestamp: '2026-05-30T10:39:59.206163+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3078801022ed5a5a8647f9424c4e9e659850051
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-30T10:39:59.206338+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3078801022ed5a5a8647f9424c4e9e659850051
+  cpee:exposition: |-
+    # User Input:
+    Create Process Model for Loan Application
+  time:timestamp: '2026-05-30T10:39:59.206643+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3078801022ed5a5a8647f9424c4e9e659850051
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:39:59.207225+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3078801022ed5a5a8647f9424c4e9e659850051
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-30T10:39:59.207443+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3078801022ed5a5a8647f9424c4e9e659850051
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Submit Application)
+    1:task:(Submit Application) --> 2:task:(Verify Applicant Information)
+    2:task:(Verify Applicant Information) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Information Verified| 4:task:(Assess Creditworthiness)
+    3:exclusivegateway:{x} --> |Information Incomplete| 5:task:(Request Additional Information)
+    5:task:(Request Additional Information) --> 1:task:(Submit Application)
+    4:task:(Assess Creditworthiness) --> 6:exclusivegateway:{x}
+    6:exclusivegateway:{x} --> |Creditworthy| 7:task:(Approve Loan)
+    6:exclusivegateway:{x} --> |Not Creditworthy| 8:task:(Reject Loan)
+    7:task:(Approve Loan) --> 9:task:(Disburse Funds)
+    9:task:(Disburse Funds) --> 10:endevent:(((endevent)))
+    8:task:(Reject Loan) --> 10:endevent:(((endevent)))
+  time:timestamp: '2026-05-30T10:39:59.207718+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: a3078801022ed5a5a8647f9424c4e9e659850051
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Submit Application</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Verify Applicant Information</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Information Incomplete" a:alt_id="3" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Request Additional Information</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Submit Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Verify Applicant Information</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Assess Creditworthiness</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="6">
+          <alternative condition="Creditworthy" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Approve Loan</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Disburse Funds</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Not Creditworthy" language="text/javascript">
+            <call id="a17" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Reject Loan</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-05-30T10:39:59.208014+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw1e">
+          <alternative condition="true" language="text/javascript">
+            <call id="a5" endpoint="" a:alt_id="a1">
+              <parameters>
+                <label>Submit Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="0">
+              <alternative condition="">
+                <call id="a7" endpoint="" a:alt_id="a3">
+                  <parameters>
+                    <label>Verify Applicant Information</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="gw2s">
+                  <alternative condition="">
+                    <call id="a11" endpoint="" a:alt_id="a7">
+                      <parameters>
+                        <label>Assess Creditworthiness</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="gw3s">
+                      <alternative condition="Creditworthy" language="text/javascript">
+                        <call id="a15" endpoint="" a:alt_id="a15">
+                          <parameters>
+                            <label>Approve Loan</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a17" endpoint="" a:alt_id="a19">
+                          <parameters>
+                            <label>Disburse Funds</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="Not Creditworthy" language="text/javascript">
+                        <call id="a21" endpoint="" a:alt_id="a17">
+                          <parameters>
+                            <label>Reject Loan</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition="Information Incomplete" language="text/javascript">
+                    <call id="a27" endpoint="" a:alt_id="a9">
+                      <parameters>
+                        <label>Request Additional Information</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a5" endpoint="" a:alt_id="a1">
+                      <parameters>
+                        <label>Submit Application</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition=""/>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  cpee:change_uuid: dbc516726b371c0172cbd8a37810ce12e8a2d1bb
+  time:timestamp: '2026-05-30T10:40:40.009162+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dbc516726b371c0172cbd8a37810ce12e8a2d1bb
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Submit Application</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <call id="a3" endpoint="" a:alt_id="2">
+          <parameters>
+            <label>Verify Applicant Information</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="Information Incomplete" a:alt_id="3" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Request Additional Information</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Submit Application</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a3" endpoint="" a:alt_id="2">
+            <parameters>
+              <label>Verify Applicant Information</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+        <call id="a7" endpoint="" a:alt_id="4">
+          <parameters>
+            <label>Assess Creditworthiness</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="6">
+          <alternative condition="Creditworthy" language="text/javascript">
+            <call id="a15" endpoint="" a:alt_id="7">
+              <parameters>
+                <label>Approve Loan</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a19" endpoint="" a:alt_id="9">
+              <parameters>
+                <label>Disburse Funds</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Not Creditworthy" language="text/javascript">
+            <call id="a17" endpoint="" a:alt_id="8">
+              <parameters>
+                <label>Reject Loan</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-05-30T10:40:40.009398+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dbc516726b371c0172cbd8a37810ce12e8a2d1bb
+  cpee:exposition: |-
+    # User Input:
+    any data object and actors as lames need to add
+  time:timestamp: '2026-05-30T10:40:40.009732+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dbc516726b371c0172cbd8a37810ce12e8a2d1bb
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:40:40.009916+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dbc516726b371c0172cbd8a37810ce12e8a2d1bb
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Submit Application)
+    a1:task:(Submit Application)-->a3:task:(Verify Applicant Information)
+    a3:task:(Verify Applicant Information)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a7:task:(Assess Creditworthiness)
+    a7:task:(Assess Creditworthiness)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Creditworthy"|a15:task:(Approve Loan)
+    a15:task:(Approve Loan)-->a19:task:(Disburse Funds)
+    a19:task:(Disburse Funds)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Not Creditworthy"|a17:task:(Reject Loan)
+    a17:task:(Reject Loan)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Information Incomplete"|a9:task:(Request Additional Information)
+    a9:task:(Request Additional Information)-->a1:task:(Submit Application)
+    a1:task:(Submit Application)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:40:40.010060+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dbc516726b371c0172cbd8a37810ce12e8a2d1bb
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"true"|a1:task:(Submit Application)
+    a1:task:(Submit Application)-->a3:task:(Verify Applicant Information)
+    a3:task:(Verify Applicant Information)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->a7:task:(Assess Creditworthiness)
+    a7:task:(Assess Creditworthiness)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Creditworthy"|a15:task:(Approve Loan)
+    a15:task:(Approve Loan)-->a19:task:(Disburse Funds)
+    a19:task:(Disburse Funds)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Not Creditworthy"|a17:task:(Reject Loan)
+    a17:task:(Reject Loan)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"Information Incomplete"|a9:task:(Request Additional Information)
+    a9:task:(Request Additional Information)-->a1:task:(Submit Application)
+    a1:task:(Submit Application)-->-1:escalate:((^))
+    -1:escalate:((^))-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:40:40.010328+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: dbc516726b371c0172cbd8a37810ce12e8a2d1bb
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw1e">
+          <alternative condition="true" language="text/javascript">
+            <call id="a5" endpoint="" a:alt_id="a1">
+              <parameters>
+                <label>Submit Application</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <choose mode="exclusive" a:alt_id="0">
+              <alternative condition="">
+                <call id="a7" endpoint="" a:alt_id="a3">
+                  <parameters>
+                    <label>Verify Applicant Information</label>
+                    <method/>
+                    <type>:task</type>
+                    <arguments/>
+                  </parameters>
+                </call>
+                <choose mode="exclusive" a:alt_id="gw2s">
+                  <alternative condition="">
+                    <call id="a11" endpoint="" a:alt_id="a7">
+                      <parameters>
+                        <label>Assess Creditworthiness</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <choose mode="exclusive" a:alt_id="gw3s">
+                      <alternative condition="Creditworthy" language="text/javascript">
+                        <call id="a15" endpoint="" a:alt_id="a15">
+                          <parameters>
+                            <label>Approve Loan</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                        <call id="a17" endpoint="" a:alt_id="a19">
+                          <parameters>
+                            <label>Disburse Funds</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                      <alternative condition="Not Creditworthy" language="text/javascript">
+                        <call id="a21" endpoint="" a:alt_id="a17">
+                          <parameters>
+                            <label>Reject Loan</label>
+                            <method/>
+                            <type>:task</type>
+                            <arguments/>
+                          </parameters>
+                        </call>
+                      </alternative>
+                    </choose>
+                  </alternative>
+                  <alternative condition="Information Incomplete" language="text/javascript">
+                    <call id="a27" endpoint="" a:alt_id="a9">
+                      <parameters>
+                        <label>Request Additional Information</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <call id="a5" endpoint="" a:alt_id="a1">
+                      <parameters>
+                        <label>Submit Application</label>
+                        <method/>
+                        <type>:task</type>
+                        <arguments/>
+                      </parameters>
+                    </call>
+                    <escape a:alt_id="-1"/>
+                  </alternative>
+                </choose>
+              </alternative>
+              <alternative condition=""/>
+            </choose>
+          </alternative>
+          <alternative condition="">
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
+      </loop>
+    </description>
+  time:timestamp: '2026-05-30T10:40:40.010434+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: theme
+    value: preset
+  time:timestamp: '2026-05-30T10:40:58.249279+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: CPEE
+  time:timestamp: '2026-05-30T10:41:00.120944+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-30T10:41:02.037118+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-30T10:41:02.038953+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: form1
+    value: ''
+  time:timestamp: '2026-05-30T10:41:14.673456+02:00'
+---
+event:
+  concept:instance: 71617
+  id:id: ex-ante
+  cpee:instance: d6236bee-3147-47ec-b6ac-06cbc04b675c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: dataelements/change
+  data:
+  - name: form1
+    value: tg
+  time:timestamp: '2026-05-30T10:41:23.513464+02:00'

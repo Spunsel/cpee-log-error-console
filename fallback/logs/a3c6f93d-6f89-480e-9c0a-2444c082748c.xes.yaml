@@ -1,0 +1,4465 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 71491
+    cpee:name: nashr
+    cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-30T10:16:25.791555+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Approved" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Initiate External Printing Workflow</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Consult Administrative and Support Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 66c2077e22ab85e6a2bd1bde16ee3ba4f36e3de7
+  time:timestamp: '2026-05-30T10:18:08.030949+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 66c2077e22ab85e6a2bd1bde16ee3ba4f36e3de7
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-05-30T10:18:08.031255+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 66c2077e22ab85e6a2bd1bde16ee3ba4f36e3de7
+  cpee:exposition: |+
+    # User Input:
+    Book Printing Process Description
+
+
+
+
+    1. Process Initiation and Initial Approval
+
+    The process begins with the Publishing Expert.
+    The Publishing Expert prepares a “Book Printing Request Letter” whenever a book is scheduled for printing. This request is then submitted to the Publishing Manager for review and approval.
+
+    The Publishing Manager reviews the request letter and signs it if approved. After approval, a decision must be made regarding the printing location.
+
+    2. Decision on Printing Location
+
+    At this stage, the Publishing Manager determines whether the book will be printed at the university’s internal printing house or by an external printing house.
+
+    If the printing is outsourced to an external printing house, the process proceeds directly to the external printing workflow.
+    If the university printing house is selected, the process follows a more administrative route involving the Administrative and Support Manager.
+
+  time:timestamp: '2026-05-30T10:18:08.031761+02:00'
+...
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 66c2077e22ab85e6a2bd1bde16ee3ba4f36e3de7
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:18:08.031908+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 66c2077e22ab85e6a2bd1bde16ee3ba4f36e3de7
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-05-30T10:18:08.032056+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 66c2077e22ab85e6a2bd1bde16ee3ba4f36e3de7
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Prepare Book Printing Request Letter)
+    1:task:(Prepare Book Printing Request Letter) --> 2:task:(Submit Request for Approval)
+    2:task:(Submit Request for Approval) --> 3:task:(Review and Approve Request)
+    3:task:(Review and Approve Request) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Approved| 5:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> |Rejected| 6:endevent:(((endevent)))
+    5:exclusivegateway:{x} --> |External Printing House| 7:task:(Initiate External Printing Workflow)
+    5:exclusivegateway:{x} --> |University Printing House| 8:task:(Consult Administrative and Support Manager)
+    7:task:(Initiate External Printing Workflow) --> 9:endevent:(((endevent)))
+    8:task:(Consult Administrative and Support Manager) --> 10:endevent:(((endevent)))
+  time:timestamp: '2026-05-30T10:18:08.032163+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 66c2077e22ab85e6a2bd1bde16ee3ba4f36e3de7
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Approved" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Initiate External Printing Workflow</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Consult Administrative and Support Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:18:08.032272+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a14">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a16">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a18">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a20">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 2c949b0a43e1edcd91490b345faf017f76e5dfcc
+  time:timestamp: '2026-05-30T10:18:34.012781+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c949b0a43e1edcd91490b345faf017f76e5dfcc
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="4">
+        <alternative condition="Approved" language="text/javascript">
+          <choose mode="exclusive" a:alt_id="5">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="7">
+                <parameters>
+                  <label>Initiate External Printing Workflow</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a15" endpoint="" a:alt_id="8">
+                <parameters>
+                  <label>Consult Administrative and Support Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:18:34.013284+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c949b0a43e1edcd91490b345faf017f76e5dfcc
+  cpee:exposition: |-
+    # User Input:
+    3. External Printing House Workflow
+
+    In the external printing workflow, the Printing House Representative receives the approved request and proceeds with printing the book.
+
+    After the printing operation is completed, the representative prepares an official letter along with the cost invoice and sends them to the Publishing Unit for confirmation that the work has been completed according to the agreement.
+
+    4. University Printing House Workflow (Z Path)
+
+    When the university printing house is involved, the Administrative and Support Manager first receives and reviews the request letter.
+
+    If no issues are identified, the manager approves and signs the confirmation letter together with the cost invoice. The university printing house then performs the printing operation and prepares the final letter and invoice to be submitted to the Publishing Manager.
+  time:timestamp: '2026-05-30T10:18:34.013461+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c949b0a43e1edcd91490b345faf017f76e5dfcc
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:18:34.013837+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c949b0a43e1edcd91490b345faf017f76e5dfcc
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"External Printing House"|a13:task:(Initiate External Printing Workflow)
+    a13:task:(Initiate External Printing Workflow)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"University Printing House"|a15:task:(Consult Administrative and Support Manager)
+    a15:task:(Consult Administrative and Support Manager)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:18:34.013966+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c949b0a43e1edcd91490b345faf017f76e5dfcc
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"External Printing House"|a13:task:(Printing House Representative receives and prints the book)
+    a13:task:(Printing House Representative receives and prints the book)-->a14:task:(Prepare official letter and cost invoice)
+    a14:task:(Prepare official letter and cost invoice)-->a16:task:(Send to Publishing Unit for confirmation)
+    a16:task:(Send to Publishing Unit for confirmation)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"University Printing House"|a15:task:(Administrative and Support Manager reviews and approves request)
+    a15:task:(Administrative and Support Manager reviews and approves request)-->a17:task:(Manager approves and signs confirmation letter and invoice)
+    a17:task:(Manager approves and signs confirmation letter and invoice)-->a18:task:(University printing house performs printing)
+    a18:task:(University printing house performs printing)-->a19:task:(Prepare final letter and invoice)
+    a19:task:(Prepare final letter and invoice)-->a20:task:(Submit to Publishing Manager)
+    a20:task:(Submit to Publishing Manager)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:18:34.014050+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2c949b0a43e1edcd91490b345faf017f76e5dfcc
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a14">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a16">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a18">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a20">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:18:34.014145+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rejected" language="text/javascript"/>
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 876f5017ed712ec1a14338d9b4c5dd01578598b0
+  time:timestamp: '2026-05-30T10:19:04.290505+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 876f5017ed712ec1a14338d9b4c5dd01578598b0
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a11" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a13" endpoint="" a:alt_id="a14">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a16">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a19" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a21" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a18">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a20">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:19:04.290725+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 876f5017ed712ec1a14338d9b4c5dd01578598b0
+  cpee:exposition: |-
+    # User Input:
+    why didnt u draw lanes
+  time:timestamp: '2026-05-30T10:19:04.290844+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 876f5017ed712ec1a14338d9b4c5dd01578598b0
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:19:04.290988+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 876f5017ed712ec1a14338d9b4c5dd01578598b0
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"External Printing House"|a11:task:(Printing House Representative receives and prints the book)
+    a11:task:(Printing House Representative receives and prints the book)-->a13:task:(Prepare official letter and cost invoice)
+    a13:task:(Prepare official letter and cost invoice)-->a15:task:(Send to Publishing Unit for confirmation)
+    a15:task:(Send to Publishing Unit for confirmation)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"University Printing House"|a19:task:(Administrative and Support Manager reviews and approves request)
+    a19:task:(Administrative and Support Manager reviews and approves request)-->a21:task:(Manager approves and signs confirmation letter and invoice)
+    a21:task:(Manager approves and signs confirmation letter and invoice)-->a23:task:(University printing house performs printing)
+    a23:task:(University printing house performs printing)-->a25:task:(Prepare final letter and invoice)
+    a25:task:(Prepare final letter and invoice)-->a27:task:(Submit to Publishing Manager)
+    a27:task:(Submit to Publishing Manager)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:19:04.291187+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 876f5017ed712ec1a14338d9b4c5dd01578598b0
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Approved"|gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"External Printing House"|a11:task:(Printing House Representative receives and prints the book)
+    a11:task:(Printing House Representative receives and prints the book)-->a13:task:(Prepare official letter and cost invoice)
+    a13:task:(Prepare official letter and cost invoice)-->a15:task:(Send to Publishing Unit for confirmation)
+    a15:task:(Send to Publishing Unit for confirmation)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"University Printing House"|a19:task:(Administrative and Support Manager reviews and approves request)
+    a19:task:(Administrative and Support Manager reviews and approves request)-->a21:task:(Manager approves and signs confirmation letter and invoice)
+    a21:task:(Manager approves and signs confirmation letter and invoice)-->a23:task:(University printing house performs printing)
+    a23:task:(University printing house performs printing)-->a25:task:(Prepare final letter and invoice)
+    a25:task:(Prepare final letter and invoice)-->a27:task:(Submit to Publishing Manager)
+    a27:task:(Submit to Publishing Manager)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:19:04.293360+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 876f5017ed712ec1a14338d9b4c5dd01578598b0
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rejected" language="text/javascript"/>
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:19:04.293462+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rejected" language="text/javascript"/>
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: ac4e011b1f5ab099fe2d0aba2e04c8bd24cf2dae
+  time:timestamp: '2026-05-30T10:19:31.197226+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac4e011b1f5ab099fe2d0aba2e04c8bd24cf2dae
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rejected" language="text/javascript"/>
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:19:31.197389+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac4e011b1f5ab099fe2d0aba2e04c8bd24cf2dae
+  cpee:exposition: |-
+    # User Input:
+    draw lanes base on actors
+  time:timestamp: '2026-05-30T10:19:31.197511+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac4e011b1f5ab099fe2d0aba2e04c8bd24cf2dae
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:19:31.197590+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac4e011b1f5ab099fe2d0aba2e04c8bd24cf2dae
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"External Printing House"|a13:task:(Printing House Representative receives and prints the book)
+    a13:task:(Printing House Representative receives and prints the book)-->a15:task:(Prepare official letter and cost invoice)
+    a15:task:(Prepare official letter and cost invoice)-->a17:task:(Send to Publishing Unit for confirmation)
+    a17:task:(Send to Publishing Unit for confirmation)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"University Printing House"|a21:task:(Administrative and Support Manager reviews and approves request)
+    a21:task:(Administrative and Support Manager reviews and approves request)-->a23:task:(Manager approves and signs confirmation letter and invoice)
+    a23:task:(Manager approves and signs confirmation letter and invoice)-->a25:task:(University printing house performs printing)
+    a25:task:(University printing house performs printing)-->a27:task:(Prepare final letter and invoice)
+    a27:task:(Prepare final letter and invoice)-->a29:task:(Submit to Publishing Manager)
+    a29:task:(Submit to Publishing Manager)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:19:31.197660+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac4e011b1f5ab099fe2d0aba2e04c8bd24cf2dae
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    subgraph "Requester"
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    end
+    subgraph "Approver"
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    end
+    subgraph "External Printing House"
+    gw2s:exclusivegateway:{x}-->|"External Printing House"|a13:task:(Printing House Representative receives and prints the book)
+    a13:task:(Printing House Representative receives and prints the book)-->a15:task:(Prepare official letter and cost invoice)
+    a15:task:(Prepare official letter and cost invoice)-->a17:task:(Send to Publishing Unit for confirmation)
+    a17:task:(Send to Publishing Unit for confirmation)-->gw2e:exclusivegateway:{x}
+    end
+    subgraph "University Printing House"
+    gw2s:exclusivegateway:{x}-->|"University Printing House"|a21:task:(Administrative and Support Manager reviews and approves request)
+    a21:task:(Administrative and Support Manager reviews and approves request)-->a23:task:(Manager approves and signs confirmation letter and invoice)
+    a23:task:(Manager approves and signs confirmation letter and invoice)-->a25:task:(University printing house performs printing)
+    a25:task:(University printing house performs printing)-->a27:task:(Prepare final letter and invoice)
+    a27:task:(Prepare final letter and invoice)-->a29:task:(Submit to Publishing Manager)
+    a29:task:(Submit to Publishing Manager)-->gw2e:exclusivegateway:{x}
+    end
+    subgraph "Approver"
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    end
+  time:timestamp: '2026-05-30T10:19:31.197732+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: ac4e011b1f5ab099fe2d0aba2e04c8bd24cf2dae
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rejected" language="text/javascript"/>
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:19:31.197808+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rejected" language="text/javascript"/>
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a33" endpoint="" a:alt_id="a31">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw4s">
+            <alternative condition="Discrepancies" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="a35">
+                <parameters>
+                  <label>Return to printing house for correction</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Successful Verification" language="text/javascript">
+              <call id="a41" endpoint="" a:alt_id="a37">
+                <parameters>
+                  <label>Publishing Expert verifies quantity and quality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a43" endpoint="" a:alt_id="a39">
+                <parameters>
+                  <label>Publishing Expert records receipt</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a45" endpoint="" a:alt_id="a41">
+                <parameters>
+                  <label>Transfer to warehouse for storage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a47" endpoint="" a:alt_id="a43">
+                <parameters>
+                  <label>Distribution and dissemination begins</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: f0657954d87d10ce85245c5280596ac129d1421e
+  time:timestamp: '2026-05-30T10:19:56.500582+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0657954d87d10ce85245c5280596ac129d1421e
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rejected" language="text/javascript"/>
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a11">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a19">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:19:56.500833+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0657954d87d10ce85245c5280596ac129d1421e
+  cpee:exposition: |-
+    # User Input:
+    5. Cost Review by the Publishing Manager
+
+    Regardless of whether the printing was completed internally or externally, all invoices and related documents are reviewed again by the Publishing Manager.
+
+    The Publishing Manager carefully checks the letter and the cost invoice to ensure compliance with the allocated budget and prior agreements.
+
+    6. Quality and Quantity Verification
+
+    After managerial approval, the printed books are delivered to the Publishing Expert.
+
+    The Publishing Expert verifies the books by comparing the quantity and quality of the printed materials against the issued invoice. At this stage, a control checkpoint is performed:
+
+    If discrepancies or quality issues are identified, the books or invoice are returned to the printing house for invoice correction and document revision.
+    If the verification is successful, the process moves to the final stage.
+    7. Final Stage: Storage and Distribution
+
+    Once all approvals and verifications are completed, the Publishing Expert officially records the receipt of the printed books.
+
+    The books are then transferred to the warehouse for storage. Finally, the distribution and dissemination process begins, marking the completion of the overall workflow.
+  time:timestamp: '2026-05-30T10:19:56.501019+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0657954d87d10ce85245c5280596ac129d1421e
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:19:56.501156+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0657954d87d10ce85245c5280596ac129d1421e
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"External Printing House"|a13:task:(Printing House Representative receives and prints the book)
+    a13:task:(Printing House Representative receives and prints the book)-->a15:task:(Prepare official letter and cost invoice)
+    a15:task:(Prepare official letter and cost invoice)-->a17:task:(Send to Publishing Unit for confirmation)
+    a17:task:(Send to Publishing Unit for confirmation)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"University Printing House"|a21:task:(Administrative and Support Manager reviews and approves request)
+    a21:task:(Administrative and Support Manager reviews and approves request)-->a23:task:(Manager approves and signs confirmation letter and invoice)
+    a23:task:(Manager approves and signs confirmation letter and invoice)-->a25:task:(University printing house performs printing)
+    a25:task:(University printing house performs printing)-->a27:task:(Prepare final letter and invoice)
+    a27:task:(Prepare final letter and invoice)-->a29:task:(Submit to Publishing Manager)
+    a29:task:(Submit to Publishing Manager)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:19:56.501582+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0657954d87d10ce85245c5280596ac129d1421e
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"External Printing House"|a13:task:(Printing House Representative receives and prints the book)
+    a13:task:(Printing House Representative receives and prints the book)-->a15:task:(Prepare official letter and cost invoice)
+    a15:task:(Prepare official letter and cost invoice)-->a17:task:(Send to Publishing Unit for confirmation)
+    a17:task:(Send to Publishing Unit for confirmation)-->gw3s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"University Printing House"|a21:task:(Administrative and Support Manager reviews and approves request)
+    a21:task:(Administrative and Support Manager reviews and approves request)-->a23:task:(Manager approves and signs confirmation letter and invoice)
+    a23:task:(Manager approves and signs confirmation letter and invoice)-->a25:task:(University printing house performs printing)
+    a25:task:(University printing house performs printing)-->a27:task:(Prepare final letter and invoice)
+    a27:task:(Prepare final letter and invoice)-->a29:task:(Submit to Publishing Manager)
+    a29:task:(Submit to Publishing Manager)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->a31:task:(Cost Review by the Publishing Manager)
+    a31:task:(Cost Review by the Publishing Manager)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Discrepancies"|a35:task:(Return to printing house for correction)
+    a35:task:(Return to printing house for correction)-->gw2e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->|"Successful Verification"|a37:task:(Publishing Expert verifies quantity and quality)
+    a37:task:(Publishing Expert verifies quantity and quality)-->a39:task:(Publishing Expert records receipt)
+    a39:task:(Publishing Expert records receipt)-->a41:task:(Transfer to warehouse for storage)
+    a41:task:(Transfer to warehouse for storage)-->a43:task:(Distribution and dissemination begins)
+    a43:task:(Distribution and dissemination begins)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:19:56.501905+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: f0657954d87d10ce85245c5280596ac129d1421e
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rejected" language="text/javascript"/>
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a33" endpoint="" a:alt_id="a31">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw4s">
+            <alternative condition="Discrepancies" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="a35">
+                <parameters>
+                  <label>Return to printing house for correction</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Successful Verification" language="text/javascript">
+              <call id="a41" endpoint="" a:alt_id="a37">
+                <parameters>
+                  <label>Publishing Expert verifies quantity and quality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a43" endpoint="" a:alt_id="a39">
+                <parameters>
+                  <label>Publishing Expert records receipt</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a45" endpoint="" a:alt_id="a41">
+                <parameters>
+                  <label>Transfer to warehouse for storage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a47" endpoint="" a:alt_id="a43">
+                <parameters>
+                  <label>Distribution and dissemination begins</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:19:56.502199+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Printing House Representative receives and prints the book</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Prepare official letter and cost invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Send to Publishing Unit for confirmation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a33">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Discrepancies" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a37">
+                <parameters>
+                  <label>Return to printing house for correction</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Successful Verification" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="a41">
+                <parameters>
+                  <label>Publishing Expert verifies quantity and quality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="a43">
+                <parameters>
+                  <label>Publishing Expert records receipt</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a41" endpoint="" a:alt_id="a45">
+                <parameters>
+                  <label>Transfer to warehouse for storage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a43" endpoint="" a:alt_id="a47">
+                <parameters>
+                  <label>Distribution and dissemination begins</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="">
+          <call id="a15" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Administrative and Support Manager reviews and approves request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Manager approves and signs confirmation letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>University printing house performs printing</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Prepare final letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Submit to Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a33">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Discrepancies" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a37">
+                <parameters>
+                  <label>Return to printing house for correction</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Successful Verification" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="a41">
+                <parameters>
+                  <label>Publishing Expert verifies quantity and quality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="a43">
+                <parameters>
+                  <label>Publishing Expert records receipt</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a41" endpoint="" a:alt_id="a45">
+                <parameters>
+                  <label>Transfer to warehouse for storage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a43" endpoint="" a:alt_id="a47">
+                <parameters>
+                  <label>Distribution and dissemination begins</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: 2200eda226d114d769368969fb7f11983dff0e1b
+  time:timestamp: '2026-05-30T10:20:20.152438+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2200eda226d114d769368969fb7f11983dff0e1b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Rejected" language="text/javascript"/>
+        <alternative condition="">
+          <choose mode="exclusive" a:alt_id="gw2s">
+            <alternative condition="External Printing House" language="text/javascript">
+              <call id="a13" endpoint="" a:alt_id="a13">
+                <parameters>
+                  <label>Printing House Representative receives and prints the book</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a15" endpoint="" a:alt_id="a15">
+                <parameters>
+                  <label>Prepare official letter and cost invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a17" endpoint="" a:alt_id="a17">
+                <parameters>
+                  <label>Send to Publishing Unit for confirmation</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="University Printing House" language="text/javascript">
+              <call id="a21" endpoint="" a:alt_id="a21">
+                <parameters>
+                  <label>Administrative and Support Manager reviews and approves request</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a23" endpoint="" a:alt_id="a23">
+                <parameters>
+                  <label>Manager approves and signs confirmation letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a25" endpoint="" a:alt_id="a25">
+                <parameters>
+                  <label>University printing house performs printing</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a27" endpoint="" a:alt_id="a27">
+                <parameters>
+                  <label>Prepare final letter and invoice</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a29" endpoint="" a:alt_id="a29">
+                <parameters>
+                  <label>Submit to Publishing Manager</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a33" endpoint="" a:alt_id="a31">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw4s">
+            <alternative condition="Discrepancies" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="a35">
+                <parameters>
+                  <label>Return to printing house for correction</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Successful Verification" language="text/javascript">
+              <call id="a41" endpoint="" a:alt_id="a37">
+                <parameters>
+                  <label>Publishing Expert verifies quantity and quality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a43" endpoint="" a:alt_id="a39">
+                <parameters>
+                  <label>Publishing Expert records receipt</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a45" endpoint="" a:alt_id="a41">
+                <parameters>
+                  <label>Transfer to warehouse for storage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a47" endpoint="" a:alt_id="a43">
+                <parameters>
+                  <label>Distribution and dissemination begins</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:20:20.152664+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2200eda226d114d769368969fb7f11983dff0e1b
+  cpee:exposition: |-
+    # User Input:
+    draw lanes base on actors
+  time:timestamp: '2026-05-30T10:20:20.152787+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2200eda226d114d769368969fb7f11983dff0e1b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:20:20.152888+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2200eda226d114d769368969fb7f11983dff0e1b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"External Printing House"|a13:task:(Printing House Representative receives and prints the book)
+    a13:task:(Printing House Representative receives and prints the book)-->a15:task:(Prepare official letter and cost invoice)
+    a15:task:(Prepare official letter and cost invoice)-->a17:task:(Send to Publishing Unit for confirmation)
+    a17:task:(Send to Publishing Unit for confirmation)-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->|"University Printing House"|a21:task:(Administrative and Support Manager reviews and approves request)
+    a21:task:(Administrative and Support Manager reviews and approves request)-->a23:task:(Manager approves and signs confirmation letter and invoice)
+    a23:task:(Manager approves and signs confirmation letter and invoice)-->a25:task:(University printing house performs printing)
+    a25:task:(University printing house performs printing)-->a27:task:(Prepare final letter and invoice)
+    a27:task:(Prepare final letter and invoice)-->a29:task:(Submit to Publishing Manager)
+    a29:task:(Submit to Publishing Manager)-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->a33:task:(Cost Review by the Publishing Manager)
+    a33:task:(Cost Review by the Publishing Manager)-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Discrepancies"|a37:task:(Return to printing house for correction)
+    a37:task:(Return to printing house for correction)-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Successful Verification"|a41:task:(Publishing Expert verifies quantity and quality)
+    a41:task:(Publishing Expert verifies quantity and quality)-->a43:task:(Publishing Expert records receipt)
+    a43:task:(Publishing Expert records receipt)-->a45:task:(Transfer to warehouse for storage)
+    a45:task:(Transfer to warehouse for storage)-->a47:task:(Distribution and dissemination begins)
+    a47:task:(Distribution and dissemination begins)-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:20:20.152970+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2200eda226d114d769368969fb7f11983dff0e1b
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+        subgraph "Requester"
+            se:startevent:((startevent)) --> a1:task:(Prepare Book Printing Request Letter)
+            a1:task:(Prepare Book Printing Request Letter) --> a3:task:(Submit Request for Approval)
+        end
+        subgraph "Approver"
+            a3:task:(Submit Request for Approval) --> a5:task:(Review and Approve Request)
+            a5:task:(Review and Approve Request) --> gw1s:exclusivegateway:{x}
+        end
+        subgraph "External Printing House"
+            gw1s:exclusivegateway:{x} -->|"External Printing House"| a13:task:(Printing House Representative receives and prints the book)
+            a13:task:(Printing House Representative receives and prints the book) --> a15:task:(Prepare official letter and cost invoice)
+            a15:task:(Prepare official letter and cost invoice) --> a17:task:(Send to Publishing Unit for confirmation)
+        end
+        subgraph "University Printing House"
+            gw1s:exclusivegateway:{x} -->|"University Printing House"| a21:task:(Administrative and Support Manager reviews and approves request)
+            a21:task:(Administrative and Support Manager reviews and approves request) --> a23:task:(Manager approves and signs confirmation letter and invoice)
+            a23:task:(Manager approves and signs confirmation letter and invoice) --> a25:task:(University printing house performs printing)
+            a25:task:(University printing house performs printing) --> a27:task:(Prepare final letter and invoice)
+            a27:task:(Prepare final letter and invoice) --> a29:task:(Submit to Publishing Manager)
+        end
+        subgraph "Publishing Unit"
+            a17:task:(Send to Publishing Unit for confirmation) --> gw2e:exclusivegateway:{x}
+            a29:task:(Submit to Publishing Manager) --> gw2e:exclusivegateway:{x}
+            gw2e:exclusivegateway:{x} --> a33:task:(Cost Review by the Publishing Manager)
+            a33:task:(Cost Review by the Publishing Manager) --> gw3s:exclusivegateway:{x}
+            gw3s:exclusivegateway:{x} -->|"Discrepancies"| a37:task:(Return to printing house for correction)
+            a37:task:(Return to printing house for correction) --> gw3e:exclusivegateway:{x}
+            gw3s:exclusivegateway:{x} -->|"Successful Verification"| a41:task:(Publishing Expert verifies quantity and quality)
+            a41:task:(Publishing Expert verifies quantity and quality) --> a43:task:(Publishing Expert records receipt)
+            a43:task:(Publishing Expert records receipt) --> a45:task:(Transfer to warehouse for storage)
+            a45:task:(Transfer to warehouse for storage) --> a47:task:(Distribution and dissemination begins)
+            a47:task:(Distribution and dissemination begins) --> gw3e:exclusivegateway:{x}
+        end
+        gw1s:exclusivegateway:{x} -->|"Rejected"|gw1e:exclusivegateway:{x}
+        gw3e:exclusivegateway:{x} --> gw1e:exclusivegateway:{x}
+        gw1e:exclusivegateway:{x} --> ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:20:20.153064+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2200eda226d114d769368969fb7f11983dff0e1b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Printing House Representative receives and prints the book</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Prepare official letter and cost invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Send to Publishing Unit for confirmation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a33">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Discrepancies" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a37">
+                <parameters>
+                  <label>Return to printing house for correction</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Successful Verification" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="a41">
+                <parameters>
+                  <label>Publishing Expert verifies quantity and quality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="a43">
+                <parameters>
+                  <label>Publishing Expert records receipt</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a41" endpoint="" a:alt_id="a45">
+                <parameters>
+                  <label>Transfer to warehouse for storage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a43" endpoint="" a:alt_id="a47">
+                <parameters>
+                  <label>Distribution and dissemination begins</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="">
+          <call id="a15" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Administrative and Support Manager reviews and approves request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Manager approves and signs confirmation letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>University printing house performs printing</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Prepare final letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Submit to Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a33">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Discrepancies" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a37">
+                <parameters>
+                  <label>Return to printing house for correction</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Successful Verification" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="a41">
+                <parameters>
+                  <label>Publishing Expert verifies quantity and quality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="a43">
+                <parameters>
+                  <label>Publishing Expert records receipt</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a41" endpoint="" a:alt_id="a45">
+                <parameters>
+                  <label>Transfer to warehouse for storage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a43" endpoint="" a:alt_id="a47">
+                <parameters>
+                  <label>Distribution and dissemination begins</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:20:20.153163+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: attributes/change
+  data:
+  - name: modeltype
+    value: ChatGPT_Mermaid
+  time:timestamp: '2026-05-30T10:20:52.065481+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-05-30T10:20:54.186836+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e93b76409873360647e094b9d81806a64bf221bf
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Prepare Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Review and Approve Request</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="">
+          <call id="a9" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Printing House Representative receives and prints the book</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Prepare official letter and cost invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Send to Publishing Unit for confirmation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a33">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Discrepancies" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a37">
+                <parameters>
+                  <label>Return to printing house for correction</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Successful Verification" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="a41">
+                <parameters>
+                  <label>Publishing Expert verifies quantity and quality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="a43">
+                <parameters>
+                  <label>Publishing Expert records receipt</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a41" endpoint="" a:alt_id="a45">
+                <parameters>
+                  <label>Transfer to warehouse for storage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a43" endpoint="" a:alt_id="a47">
+                <parameters>
+                  <label>Distribution and dissemination begins</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="">
+          <call id="a15" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Administrative and Support Manager reviews and approves request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a17" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Manager approves and signs confirmation letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a19" endpoint="" a:alt_id="a25">
+            <parameters>
+              <label>University printing house performs printing</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a21" endpoint="" a:alt_id="a27">
+            <parameters>
+              <label>Prepare final letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a23" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Submit to Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a29" endpoint="" a:alt_id="a33">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="gw3s">
+            <alternative condition="Discrepancies" language="text/javascript">
+              <call id="a33" endpoint="" a:alt_id="a37">
+                <parameters>
+                  <label>Return to printing house for correction</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Successful Verification" language="text/javascript">
+              <call id="a37" endpoint="" a:alt_id="a41">
+                <parameters>
+                  <label>Publishing Expert verifies quantity and quality</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a39" endpoint="" a:alt_id="a43">
+                <parameters>
+                  <label>Publishing Expert records receipt</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a41" endpoint="" a:alt_id="a45">
+                <parameters>
+                  <label>Transfer to warehouse for storage</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+              <call id="a43" endpoint="" a:alt_id="a47">
+                <parameters>
+                  <label>Distribution and dissemination begins</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:21:21.196237+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Publishing Expert prepares Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Publishing Manager reviews the request letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="External Printing House" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Printing House Representative receives and prints the book</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Prepare official letter and cost invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Send to Publishing Unit for confirmation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="gw2s">
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw6s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="gw9s">
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw10s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw13s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="University Printing House" language="text/javascript">
+          <call id="a81" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Administrative and Support Manager reviews and approves request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a83" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Manager approves and signs confirmation letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a85" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>University printing house performs printing</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a87" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Prepare final letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a89" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Submit to Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="gw2s">
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw6s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="gw9s">
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw10s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw13s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  cpee:change_uuid: e93b76409873360647e094b9d81806a64bf221bf
+  time:timestamp: '2026-05-30T10:21:21.195579+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e93b76409873360647e094b9d81806a64bf221bf
+  cpee:exposition: |-
+    # User Input:
+    Book Printing Process Description
+    1. Process Initiation and Initial Approval
+
+    The process begins with the Publishing Expert.
+    The Publishing Expert prepares a “Book Printing Request Letter” whenever a book is scheduled for printing. This request is then submitted to the Publishing Manager for review and approval.
+
+    The Publishing Manager reviews the request letter and signs it if approved. After approval, a decision must be made regarding the printing location.
+
+    2. Decision on Printing Location
+
+    At this stage, the Publishing Manager determines whether the book will be printed at the university’s internal printing house or by an external printing house.
+
+    If the printing is outsourced to an external printing house, the process proceeds directly to the external printing workflow.
+    If the university printing house is selected, the process follows a more administrative route involving the Administrative and Support Manager.
+  time:timestamp: '2026-05-30T10:21:21.196479+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e93b76409873360647e094b9d81806a64bf221bf
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-05-30T10:21:21.196954+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e93b76409873360647e094b9d81806a64bf221bf
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Prepare Book Printing Request Letter)
+    a1:task:(Prepare Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Review and Approve Request)
+    a5:task:(Review and Approve Request)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a9:task:(Printing House Representative receives and prints the book)
+    a9:task:(Printing House Representative receives and prints the book)-->a11:task:(Prepare official letter and cost invoice)
+    a11:task:(Prepare official letter and cost invoice)-->a13:task:(Send to Publishing Unit for confirmation)
+    a13:task:(Send to Publishing Unit for confirmation)-->a29:task:(Cost Review by the Publishing Manager)
+    a29:task:(Cost Review by the Publishing Manager)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Discrepancies"|a33:task:(Return to printing house for correction)
+    a33:task:(Return to printing house for correction)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Successful Verification"|a37:task:(Publishing Expert verifies quantity and quality)
+    a37:task:(Publishing Expert verifies quantity and quality)-->a39:task:(Publishing Expert records receipt)
+    a39:task:(Publishing Expert records receipt)-->a41:task:(Transfer to warehouse for storage)
+    a41:task:(Transfer to warehouse for storage)-->a43:task:(Distribution and dissemination begins)
+    a43:task:(Distribution and dissemination begins)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Discrepancies"|a33:task:(Return to printing house for correction)
+    a33:task:(Return to printing house for correction)-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Successful Verification"|a37:task:(Publishing Expert verifies quantity and quality)
+    a37:task:(Publishing Expert verifies quantity and quality)-->a39:task:(Publishing Expert records receipt)
+    a39:task:(Publishing Expert records receipt)-->a41:task:(Transfer to warehouse for storage)
+    a41:task:(Transfer to warehouse for storage)-->a43:task:(Distribution and dissemination begins)
+    a43:task:(Distribution and dissemination begins)-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->a15:task:(Administrative and Support Manager reviews and approves request)
+    a15:task:(Administrative and Support Manager reviews and approves request)-->a17:task:(Manager approves and signs confirmation letter and invoice)
+    a17:task:(Manager approves and signs confirmation letter and invoice)-->a19:task:(University printing house performs printing)
+    a19:task:(University printing house performs printing)-->a21:task:(Prepare final letter and invoice)
+    a21:task:(Prepare final letter and invoice)-->a23:task:(Submit to Publishing Manager)
+    a23:task:(Submit to Publishing Manager)-->a29:task:(Cost Review by the Publishing Manager)
+    a29:task:(Cost Review by the Publishing Manager)-->gw9s:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw10s:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->|"Discrepancies"|a33:task:(Return to printing house for correction)
+    a33:task:(Return to printing house for correction)-->gw11s:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->|"Successful Verification"|a37:task:(Publishing Expert verifies quantity and quality)
+    a37:task:(Publishing Expert verifies quantity and quality)-->a39:task:(Publishing Expert records receipt)
+    a39:task:(Publishing Expert records receipt)-->a41:task:(Transfer to warehouse for storage)
+    a41:task:(Transfer to warehouse for storage)-->a43:task:(Distribution and dissemination begins)
+    a43:task:(Distribution and dissemination begins)-->gw12s:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+    gw12e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10e:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw13s:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->|"Discrepancies"|a33:task:(Return to printing house for correction)
+    a33:task:(Return to printing house for correction)-->gw14s:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+    gw14e:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->|"Successful Verification"|a37:task:(Publishing Expert verifies quantity and quality)
+    a37:task:(Publishing Expert verifies quantity and quality)-->a39:task:(Publishing Expert records receipt)
+    a39:task:(Publishing Expert records receipt)-->a41:task:(Transfer to warehouse for storage)
+    a41:task:(Transfer to warehouse for storage)-->a43:task:(Distribution and dissemination begins)
+    a43:task:(Distribution and dissemination begins)-->gw15s:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15e:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13e:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:21:21.197215+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e93b76409873360647e094b9d81806a64bf221bf
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Publishing Expert prepares Book Printing Request Letter)
+    a1:task:(Publishing Expert prepares Book Printing Request Letter)-->a3:task:(Submit Request for Approval)
+    a3:task:(Submit Request for Approval)-->a5:task:(Publishing Manager reviews the request letter)
+    a5:task:(Publishing Manager reviews the request letter)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"External Printing House"|a9:task:(Printing House Representative receives and prints the book)
+    a9:task:(Printing House Representative receives and prints the book)-->a11:task:(Prepare official letter and cost invoice)
+    a11:task:(Prepare official letter and cost invoice)-->a13:task:(Send to Publishing Unit for confirmation)
+    a13:task:(Send to Publishing Unit for confirmation)-->a29:task:(Cost Review by the Publishing Manager)
+    a29:task:(Cost Review by the Publishing Manager)-->gw2s:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw3s:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Discrepancies"|a33:task:(Return to printing house for correction)
+    a33:task:(Return to printing house for correction)-->gw4s:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4s:exclusivegateway:{x}-->gw4e:exclusivegateway:{x}
+    gw4e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3s:exclusivegateway:{x}-->|"Successful Verification"|a37:task:(Publishing Expert verifies quantity and quality)
+    a37:task:(Publishing Expert verifies quantity and quality)-->a39:task:(Publishing Expert records receipt)
+    a39:task:(Publishing Expert records receipt)-->a41:task:(Transfer to warehouse for storage)
+    a41:task:(Transfer to warehouse for storage)-->a43:task:(Distribution and dissemination begins)
+    a43:task:(Distribution and dissemination begins)-->gw5s:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5s:exclusivegateway:{x}-->gw5e:exclusivegateway:{x}
+    gw5e:exclusivegateway:{x}-->gw3e:exclusivegateway:{x}
+    gw3e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2s:exclusivegateway:{x}-->gw6s:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Discrepancies"|a33:task:(Return to printing house for correction)
+    a33:task:(Return to printing house for correction)-->gw7s:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7s:exclusivegateway:{x}-->gw7e:exclusivegateway:{x}
+    gw7e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6s:exclusivegateway:{x}-->|"Successful Verification"|a37:task:(Publishing Expert verifies quantity and quality)
+    a37:task:(Publishing Expert verifies quantity and quality)-->a39:task:(Publishing Expert records receipt)
+    a39:task:(Publishing Expert records receipt)-->a41:task:(Transfer to warehouse for storage)
+    a41:task:(Transfer to warehouse for storage)-->a43:task:(Distribution and dissemination begins)
+    a43:task:(Distribution and dissemination begins)-->gw8s:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8s:exclusivegateway:{x}-->gw8e:exclusivegateway:{x}
+    gw8e:exclusivegateway:{x}-->gw6e:exclusivegateway:{x}
+    gw6e:exclusivegateway:{x}-->gw2e:exclusivegateway:{x}
+    gw2e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"University Printing House"|a15:task:(Administrative and Support Manager reviews and approves request)
+    a15:task:(Administrative and Support Manager reviews and approves request)-->a17:task:(Manager approves and signs confirmation letter and invoice)
+    a17:task:(Manager approves and signs confirmation letter and invoice)-->a19:task:(University printing house performs printing)
+    a19:task:(University printing house performs printing)-->a21:task:(Prepare final letter and invoice)
+    a21:task:(Prepare final letter and invoice)-->a23:task:(Submit to Publishing Manager)
+    a23:task:(Submit to Publishing Manager)-->a29:task:(Cost Review by the Publishing Manager)
+    a29:task:(Cost Review by the Publishing Manager)-->gw9s:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw10s:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->|"Discrepancies"|a33:task:(Return to printing house for correction)
+    a33:task:(Return to printing house for correction)-->gw11s:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11s:exclusivegateway:{x}-->gw11e:exclusivegateway:{x}
+    gw11e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10s:exclusivegateway:{x}-->|"Successful Verification"|a37:task:(Publishing Expert verifies quantity and quality)
+    a37:task:(Publishing Expert verifies quantity and quality)-->a39:task:(Publishing Expert records receipt)
+    a39:task:(Publishing Expert records receipt)-->a41:task:(Transfer to warehouse for storage)
+    a41:task:(Transfer to warehouse for storage)-->a43:task:(Distribution and dissemination begins)
+    a43:task:(Distribution and dissemination begins)-->gw12s:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+    gw12s:exclusivegateway:{x}-->gw12e:exclusivegateway:{x}
+    gw12e:exclusivegateway:{x}-->gw10e:exclusivegateway:{x}
+    gw10e:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9s:exclusivegateway:{x}-->gw13s:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->|"Discrepancies"|a33:task:(Return to printing house for correction)
+    a33:task:(Return to printing house for correction)-->gw14s:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+    gw14s:exclusivegateway:{x}-->gw14e:exclusivegateway:{x}
+    gw14e:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13s:exclusivegateway:{x}-->|"Successful Verification"|a37:task:(Publishing Expert verifies quantity and quality)
+    a37:task:(Publishing Expert verifies quantity and quality)-->a39:task:(Publishing Expert records receipt)
+    a39:task:(Publishing Expert records receipt)-->a41:task:(Transfer to warehouse for storage)
+    a41:task:(Transfer to warehouse for storage)-->a43:task:(Distribution and dissemination begins)
+    a43:task:(Distribution and dissemination begins)-->gw15s:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15s:exclusivegateway:{x}-->gw15e:exclusivegateway:{x}
+    gw15e:exclusivegateway:{x}-->gw13e:exclusivegateway:{x}
+    gw13e:exclusivegateway:{x}-->gw9e:exclusivegateway:{x}
+    gw9e:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Rejected"|gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-05-30T10:21:21.197446+02:00'
+---
+event:
+  concept:instance: 71491
+  id:id: ex-ante
+  cpee:instance: a3c6f93d-6f89-480e-9c0a-2444c082748c
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: e93b76409873360647e094b9d81806a64bf221bf
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Publishing Expert prepares Book Printing Request Letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Submit Request for Approval</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a5" endpoint="" a:alt_id="a5">
+        <parameters>
+          <label>Publishing Manager reviews the request letter</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="External Printing House" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Printing House Representative receives and prints the book</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a11" endpoint="" a:alt_id="a11">
+            <parameters>
+              <label>Prepare official letter and cost invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="a13">
+            <parameters>
+              <label>Send to Publishing Unit for confirmation</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="gw2s">
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw6s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="gw9s">
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw10s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw13s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="University Printing House" language="text/javascript">
+          <call id="a81" endpoint="" a:alt_id="a15">
+            <parameters>
+              <label>Administrative and Support Manager reviews and approves request</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a83" endpoint="" a:alt_id="a17">
+            <parameters>
+              <label>Manager approves and signs confirmation letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a85" endpoint="" a:alt_id="a19">
+            <parameters>
+              <label>University printing house performs printing</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a87" endpoint="" a:alt_id="a21">
+            <parameters>
+              <label>Prepare final letter and invoice</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a89" endpoint="" a:alt_id="a23">
+            <parameters>
+              <label>Submit to Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a15" endpoint="" a:alt_id="a29">
+            <parameters>
+              <label>Cost Review by the Publishing Manager</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="0">
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="gw2s">
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw3s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw6s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+            <alternative condition="">
+              <choose mode="exclusive" a:alt_id="gw9s">
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw10s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+                <alternative condition="">
+                  <choose mode="exclusive" a:alt_id="gw13s">
+                    <alternative condition="Discrepancies" language="text/javascript">
+                      <call id="a21" endpoint="" a:alt_id="a33">
+                        <parameters>
+                          <label>Return to printing house for correction</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                    <alternative condition="Successful Verification" language="text/javascript">
+                      <call id="a31" endpoint="" a:alt_id="a37">
+                        <parameters>
+                          <label>Publishing Expert verifies quantity and quality</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a33" endpoint="" a:alt_id="a39">
+                        <parameters>
+                          <label>Publishing Expert records receipt</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a35" endpoint="" a:alt_id="a41">
+                        <parameters>
+                          <label>Transfer to warehouse for storage</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <call id="a37" endpoint="" a:alt_id="a43">
+                        <parameters>
+                          <label>Distribution and dissemination begins</label>
+                          <method/>
+                          <type>:task</type>
+                          <arguments/>
+                        </parameters>
+                      </call>
+                      <choose mode="exclusive" a:alt_id="0">
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                        <alternative condition=""/>
+                      </choose>
+                    </alternative>
+                  </choose>
+                </alternative>
+              </choose>
+            </alternative>
+          </choose>
+        </alternative>
+        <alternative condition="Rejected" language="text/javascript"/>
+      </choose>
+    </description>
+  time:timestamp: '2026-05-30T10:21:21.197998+02:00'
