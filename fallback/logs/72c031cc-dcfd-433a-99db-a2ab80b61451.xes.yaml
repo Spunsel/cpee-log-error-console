@@ -1,0 +1,1478 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 77227
+    cpee:name: Plain Instance
+    cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-06-02T19:10:56.220485+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 6edb95e53a952fcb1e8ede1bdcaa327e4eccce98
+  time:timestamp: '2026-06-02T19:12:39.876402+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6edb95e53a952fcb1e8ede1bdcaa327e4eccce98
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-06-02T19:12:39.876566+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6edb95e53a952fcb1e8ede1bdcaa327e4eccce98
+  cpee:exposition: |-
+    # User Input:
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="Retry" a:alt_id="gw1s" language="text/javascript">
+        <call id="a2" endpoint="" a:alt_id="a2">
+          <parameters>
+            <label>Task B</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+      <call id="a3" endpoint="" a:alt_id="a3">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-06-02T19:12:39.876672+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6edb95e53a952fcb1e8ede1bdcaa327e4eccce98
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-02T19:12:39.876793+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6edb95e53a952fcb1e8ede1bdcaa327e4eccce98
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-06-02T19:12:39.876889+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6edb95e53a952fcb1e8ede1bdcaa327e4eccce98
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Task A)
+    1:task:(Task A) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Retry| 3:task:(Task B)
+    2:exclusivegateway:{x} --> |No Retry| 4:task:(Task C)
+    3:task:(Task B) --> 5:exclusivegateway:{x}
+    4:task:(Task C) --> 5:exclusivegateway:{x}
+    5:exclusivegateway:{x} --> 6:endevent:(((endevent)))
+  time:timestamp: '2026-06-02T19:12:39.876976+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 6edb95e53a952fcb1e8ede1bdcaa327e4eccce98
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:12:39.877046+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 2353f50e5f9dc70b42b376e395eb44dbd03f004c
+  time:timestamp: '2026-06-02T19:13:25.559662+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2353f50e5f9dc70b42b376e395eb44dbd03f004c
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="2">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="3">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:25.559826+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2353f50e5f9dc70b42b376e395eb44dbd03f004c
+  cpee:exposition: |-
+    # User Input:
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:loop:
+    gw1s:loop:-->a2:task:(Task B)
+    a2:task:(Task B)-->gw1e:loop:
+    gw1e:loop:-->gw1s:loop:
+    gw1s:loop:-->a3:task:(Task C)
+    a3:task:(Task C)-->ee:endevent:(((endevent)))
+  time:timestamp: '2026-06-02T19:13:25.559925+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2353f50e5f9dc70b42b376e395eb44dbd03f004c
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-02T19:13:25.560004+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2353f50e5f9dc70b42b376e395eb44dbd03f004c
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a7:task:(Task C)
+    a7:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:25.560075+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2353f50e5f9dc70b42b376e395eb44dbd03f004c
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a7:task:(Task C)
+    a7:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:25.560182+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 2353f50e5f9dc70b42b376e395eb44dbd03f004c
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:25.560293+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  time:timestamp: '2026-06-02T19:13:33.779289+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:33.779423+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |+
+    # User Input:
+    delet all
+
+
+
+  time:timestamp: '2026-06-02T19:13:33.779647+02:00'
+...
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-02T19:13:33.779723+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:33.779803+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:33.779886+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:33.779966+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  time:timestamp: '2026-06-02T19:13:41.341330+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:41.341511+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |+
+    # User Input:
+    delete all 
+
+  time:timestamp: '2026-06-02T19:13:41.341640+02:00'
+...
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-02T19:13:41.341893+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:41.342029+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:41.342492+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:41.342621+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  time:timestamp: '2026-06-02T19:13:43.899306+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:43.899494+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    # User Input:
+    clear all
+  time:timestamp: '2026-06-02T19:13:43.899615+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-02T19:13:43.899913+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:43.900026+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:43.900133+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:43.900540+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  time:timestamp: '2026-06-02T19:13:51.090060+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:51.090192+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    # User Input:
+    delete the graph.
+  time:timestamp: '2026-06-02T19:13:51.090389+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-02T19:13:51.090461+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:51.090531+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:13:51.090602+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: b9ac64be3bb56c910f32da9cf0dee5b18028b82b
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a9">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:13:51.090751+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  time:timestamp: '2026-06-02T19:14:25.238041+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="a1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="gw1s">
+        <alternative condition="Retry" language="text/javascript">
+          <call id="a5" endpoint="" a:alt_id="a5">
+            <parameters>
+              <label>Task B</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="No Retry" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="a7">
+            <parameters>
+              <label>Task C</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-02T19:14:25.238225+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |+
+    # User Input:
+    startevent --> endevent
+
+  time:timestamp: '2026-06-02T19:14:25.238447+02:00'
+...
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Input Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"Retry"|a5:task:(Task B)
+    a5:task:(Task B)-->gw1e:exclusivegateway:{x}
+    gw1s:exclusivegateway:{x}-->|"No Retry"|a9:task:(Task C)
+    a9:task:(Task C)-->gw1e:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:14:25.238992+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    %% Output Intermediate
+    flowchart LR
+    se:startevent:((startevent))-->ee:endevent:((endevent))
+  time:timestamp: '2026-06-02T19:14:25.239108+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-06-02T19:14:25.239229+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 55dcfe3bbf0e36f950010f0f24faae9a4a767a43
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-02T19:14:25.238806+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true" a:alt_id="2" language="text/javascript">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Task B</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  cpee:change_uuid: 7c6e8052e4968595959e7567550e32fcd721c2d1
+  time:timestamp: '2026-06-02T19:14:36.715180+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7c6e8052e4968595959e7567550e32fcd721c2d1
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"
+      xmlns:a="http://cpee.org/ns/annotation/1.0"/>
+  time:timestamp: '2026-06-02T19:14:36.715314+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7c6e8052e4968595959e7567550e32fcd721c2d1
+  cpee:exposition: |-
+    # User Input:
+    flowchart LR
+    se:startevent:((startevent))-->a1:task:(Task A)
+    a1:task:(Task A)-->gw1s:loop:
+    gw1s:loop:-->a2:task:(Task B)
+    a2:task:(Task B)-->gw1e:loop:
+    gw1e:loop:-->gw1s:loop:
+    gw1s:loop:-->a3:task:(Task C)
+    a3:task:(Task C)-->ee:endevent:(((endevent)))
+  time:timestamp: '2026-06-02T19:14:36.715719+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7c6e8052e4968595959e7567550e32fcd721c2d1
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-02T19:14:36.715931+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7c6e8052e4968595959e7567550e32fcd721c2d1
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-06-02T19:14:36.716143+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7c6e8052e4968595959e7567550e32fcd721c2d1
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Task A)
+    1:task:(Task A) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> 3:task:(Task B)
+    3:task:(Task B) --> 4:exclusivegateway:{x}
+    4:exclusivegateway:{x} --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> 5:task:(Task C)
+    5:task:(Task C) --> 6:endevent:(((endevent)))
+  time:timestamp: '2026-06-02T19:14:36.716245+02:00'
+---
+event:
+  concept:instance: 77227
+  id:id: ex-ante
+  cpee:instance: 72c031cc-dcfd-433a-99db-a2ab80b61451
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 7c6e8052e4968595959e7567550e32fcd721c2d1
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Task A</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <loop mode="pre_test" condition="true" a:alt_id="2" language="text/javascript">
+        <call id="a5" endpoint="" a:alt_id="3">
+          <parameters>
+            <label>Task B</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+      </loop>
+      <call id="a11" endpoint="" a:alt_id="5">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+    </description>
+  time:timestamp: '2026-06-02T19:14:36.716327+02:00'
