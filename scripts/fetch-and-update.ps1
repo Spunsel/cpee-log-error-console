@@ -7,7 +7,7 @@
 # raw bytes and decoded as UTF-8; files are written as UTF-8 without BOM.
 
 # Process numbers to fetch
-$processNumbers = @(77181..77228)
+$processNumbers = @(77229..77230)
 
 # Current generation — new entries are written into this generation's section.
 # Change to "generation3" (or any name) to start a new generation bucket.
