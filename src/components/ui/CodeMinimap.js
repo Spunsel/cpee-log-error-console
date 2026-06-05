@@ -287,7 +287,9 @@ export class CodeMinimap {
                 // One rAF is enough for the browser to paint the visible state
                 // before re-enabling transitions; the class removal is invisible.
                 requestAnimationFrame(() => {
-                    if (this.element) this.element.classList.remove('no-transition');
+                    if (this.element) {
+                        this.element.classList.remove('no-transition');
+                    }
                 });
             } else {
                 this.element.classList.add('visible');
@@ -433,12 +435,18 @@ export class CodeMinimap {
         const lines = [];
         preprocessingLineElements.forEach(el => {
             const n = parseInt(el.getAttribute('data-line'), 10);
-            if (!isNaN(n) && n >= 1) lines.push(n);
+            if (!isNaN(n) && n >= 1) {
+                lines.push(n);
+            }
         });
-        if (lines.length === 0) return;
+        if (lines.length === 0) {
+            return;
+        }
 
         const m = this._getMetrics();
-        if (!m) return;
+        if (!m) {
+            return;
+        }
 
         const frag = document.createDocumentFragment();
         lines.forEach(lineNum => {
@@ -474,13 +482,19 @@ export class CodeMinimap {
         this.markersContainer.querySelectorAll('.minimap-marker-search').forEach(m => m.remove());
 
         const searchMatches = this.codeContainer.querySelectorAll('.search-match');
-        if (searchMatches.length === 0) return;
+        if (searchMatches.length === 0) {
+            return;
+        }
 
         const sourceCodeElement = this.codeContainer.querySelector('code');
-        if (!sourceCodeElement) return;
+        if (!sourceCodeElement) {
+            return;
+        }
 
         const m = this._getMetrics();
-        if (!m) return;
+        if (!m) {
+            return;
+        }
 
         // Single TreeWalker pass: accumulate line numbers for all match elements at once
         const matchSet = new Set(searchMatches);
@@ -510,7 +524,9 @@ export class CodeMinimap {
 
         searchMatches.forEach(matchEl => {
             const ln = lineNumbers.get(matchEl);
-            if (!ln || markedLines.has(ln)) return;
+            if (!ln || markedLines.has(ln)) {
+                return;
+            }
             markedLines.add(ln);
 
             const markerTop = m.paddingTop + (ln - 1) * m.lineHeight + m.marginTop;
@@ -546,10 +562,14 @@ export class CodeMinimap {
         this.viewportIndicator.style.display = 'block';
 
         const minimapCodeElement = this.codeElement || this.minimapCode.querySelector('code');
-        if (!minimapCodeElement) return;
+        if (!minimapCodeElement) {
+            return;
+        }
 
         const codeContentHeight = minimapCodeElement.offsetHeight;
-        if (codeContentHeight <= 0) return;
+        if (codeContentHeight <= 0) {
+            return;
+        }
 
         // codeBaseOffset is the stable (non-scroll-dependent) distance from the
         // top of the minimap container to the top of the code element.

@@ -91,7 +91,8 @@ event:
   cpee:change_uuid: 20e723499bd9e879a48981969b69e27839f6e50b
   cpee:exposition: |+
     # User Input:
-    Add sequential tasks, A and B.
+    add task a then task b
+
   time:timestamp: '2026-06-02T20:37:36.869768+02:00'
 ...
 ---
@@ -128,8 +129,8 @@ event:
     %% Output Intermediate
     graph LR
     0:startevent:((startevent)) --> 1:task:(Task A)
-    1:task:(Task A) --> 2:task:()
-    2:task:() --> 3:endevent:(((endevent)))
+    1:task:(Task A) --> 2:task:(Task B)
+    2:task:(Task B) --> 3:endevent:(((endevent)))
   time:timestamp: '2026-06-02T20:37:36.870047+02:00'
 ---
 event:
@@ -153,7 +154,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label></label>
+          <label>Task B</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -188,15 +189,15 @@ event:
             <arguments/>
           </parameters>
         </call>
-        <call id="a5" endpoint="" a:alt_id="3">
-          <parameters>
-            <label>Task C</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
       </loop>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
     </description>
   cpee:change_uuid: 659ad660116c8332e81bdf8366a93bfebdb91f64
   time:timestamp: '2026-06-02T20:37:53.937187+02:00'
@@ -222,8 +223,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>
-          </label>
+          <label>Task B</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -241,7 +241,14 @@ event:
   cpee:change_uuid: 659ad660116c8332e81bdf8366a93bfebdb91f64
   cpee:exposition: |-
     # User Input:
-    Task B should be enclosed in a loop. On loop escape, execute task C.
+    flowchart LR
+    0:startevent:((startevent)) --> 1:task:(Task A)
+    1:task:(Task A) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Done| 3:task:(Task C)
+    2:exclusivegateway:{x} --> |Retry| 4:task:(Task B)
+    4:task:(Task B) --> 2:exclusivegateway:{x}
+    3:task:(Task C) --> 5:endevent:(((endevent)))
+    6:task:(Task D) --> 3:task:(Task C)
   time:timestamp: '2026-06-02T20:37:53.937513+02:00'
 ---
 event:
@@ -267,8 +274,8 @@ event:
     %% Input Intermediate
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Task A)
-    a1:task:(Task A)-->a3:task:()
-    a3:task:()-->ee:endevent:((endevent))
+    a1:task:(Task A)-->a3:task:(Task B)
+    a3:task:(Task B)-->ee:endevent:((endevent))
   time:timestamp: '2026-06-02T20:37:53.937698+02:00'
 ---
 event:
@@ -283,9 +290,9 @@ event:
     flowchart LR
     0:startevent:((startevent)) --> 1:task:(Task A)
     1:task:(Task A) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Done| 3:task:(Task C)
     2:exclusivegateway:{x} --> |Retry| 4:task:(Task B)
     4:task:(Task B) --> 2:exclusivegateway:{x}
-    2:exclusivegateway:{x} --> 3:task:(Task C) 
     3:task:(Task C) --> 5:endevent:(((endevent)))
   time:timestamp: '2026-06-02T20:37:53.937814+02:00'
 ---
@@ -317,15 +324,15 @@ event:
             <arguments/>
           </parameters>
         </call>
-        <call id="a5" endpoint="" a:alt_id="3">
-          <parameters>
-            <label>Task C</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
       </loop>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
     </description>
   time:timestamp: '2026-06-02T20:37:53.937922+02:00'
 ---
@@ -338,7 +345,7 @@ event:
   cpee:description: |
     <?xml version="1.0"?>
     <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
-      <call id="a1" endpoint="" a:alt_id="1">
+      <call id="a1" endpoint="" a:alt_id="a1">
         <parameters>
           <label>Task A</label>
           <method/>
@@ -346,23 +353,38 @@ event:
           <arguments/>
         </parameters>
       </call>
-      <loop mode="pre_test" condition="Retry" a:alt_id="2" language="text/javascript">
-        <call id="a7" endpoint="" a:alt_id="4">
-          <parameters>
-            <label>Task B</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
-        <call id="a5" endpoint="" a:alt_id="3">
-          <parameters>
-            <label>Task C</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw1e">
+          <alternative condition="Retry" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="a7">
+              <parameters>
+                <label>Task B</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="">
+            <call id="a11" endpoint="" a:alt_id="a6">
+              <parameters>
+                <label>Task D</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Task C</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
       </loop>
     </description>
   cpee:change_uuid: 459aa8edcf4dbb89cfbb60f1e4848f9ee566136c
@@ -396,15 +418,15 @@ event:
             <arguments/>
           </parameters>
         </call>
-        <call id="a5" endpoint="" a:alt_id="3">
-          <parameters>
-            <label>Task C</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
       </loop>
+      <call id="a5" endpoint="" a:alt_id="3">
+        <parameters>
+          <label>Task C</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
     </description>
   time:timestamp: '2026-06-02T20:38:14.093291+02:00'
 ---
@@ -417,7 +439,7 @@ event:
   cpee:change_uuid: 459aa8edcf4dbb89cfbb60f1e4848f9ee566136c
   cpee:exposition: |-
     # User Input:
-    Add a task D that should execute in parallel to task A before the loop logic.
+    "Task D" before "Task C"
   time:timestamp: '2026-06-02T20:38:14.093536+02:00'
 ---
 event:
@@ -446,9 +468,9 @@ event:
     a1:task:(Task A)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->|"Retry"|a7:task:(Task B)
-    a7:task:(Task B)-->a5:task:(Task C)
-    a5:task:(Task C)-->gw1s:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    a7:task:(Task B)-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a5:task:(Task C)
+    a5:task:(Task C)-->ee:endevent:((endevent))
   time:timestamp: '2026-06-02T20:38:14.094091+02:00'
 ---
 event:
@@ -463,12 +485,12 @@ event:
     flowchart LR
     se:startevent:((startevent))-->a1:task:(Task A)
     a1:task:(Task A)-->gw1s:exclusivegateway:{x}
-    a9:task:(Task D)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->|"Retry"|a7:task:(Task B)
-    a7:task:(Task B)-->a5:task:(Task C)
-    a5:task:(Task C)-->gw1s:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
+    a7:task:(Task B)-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->a6:task:(Task D)
+    a6:task:(Task D)-->a5:task:(Task C)
+    a5:task:(Task C)-->ee:endevent:((endevent))
   time:timestamp: '2026-06-02T20:38:14.094370+02:00'
 ---
 event:
@@ -490,23 +512,38 @@ event:
           <arguments/>
         </parameters>
       </call>
-      <loop mode="pre_test" condition="Retry" a:alt_id="2" language="text/javascript">
-        <call id="a7" endpoint="" a:alt_id="a7">
-          <parameters>
-            <label>Task B</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
-        <call id="a5" endpoint="" a:alt_id="a5">
-          <parameters>
-            <label>Task C</label>
-            <method/>
-            <type>:task</type>
-            <arguments/>
-          </parameters>
-        </call>
+      <loop mode="pre_test" condition="true">
+        <choose mode="exclusive" a:alt_id="gw1e">
+          <alternative condition="Retry" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="a7">
+              <parameters>
+                <label>Task B</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="">
+            <call id="a11" endpoint="" a:alt_id="a6">
+              <parameters>
+                <label>Task D</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <call id="a13" endpoint="" a:alt_id="a5">
+              <parameters>
+                <label>Task C</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+            <escape a:alt_id="-1"/>
+          </alternative>
+        </choose>
       </loop>
     </description>
   time:timestamp: '2026-06-02T20:38:14.094538+02:00'

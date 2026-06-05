@@ -1,0 +1,320 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 77302
+    cpee:name: Plain Instance
+    cpee:instance: 30e1c027-ddf1-4fde-a612-714b939038e9
+---
+event:
+  concept:instance: 77302
+  id:id: ex-ante
+  cpee:instance: 30e1c027-ddf1-4fde-a612-714b939038e9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-06-04T10:49:14.843506+02:00'
+---
+event:
+  concept:instance: 77302
+  id:id: ex-ante
+  cpee:instance: 30e1c027-ddf1-4fde-a612-714b939038e9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 033a8ba5cf5ff947eb20a8c60afb3e33529fe018
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-06-04T10:49:25.006219+02:00'
+---
+event:
+  concept:instance: 77302
+  id:id: ex-ante
+  cpee:instance: 30e1c027-ddf1-4fde-a612-714b939038e9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect User Preferences</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Measure Outside Light Conditions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Low Light" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Switch Light On</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Check Light Duration</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="9">
+            <alternative condition="On for 10 hours" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Switch Light Off</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Not on for 10 hours" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="High Light" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Switch Light Off</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Medium Light" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Maintain Light</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Check Light Duration</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="9">
+            <alternative condition="On for 10 hours" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Switch Light Off</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Not on for 10 hours" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  cpee:change_uuid: 033a8ba5cf5ff947eb20a8c60afb3e33529fe018
+  time:timestamp: '2026-06-04T10:49:25.006047+02:00'
+---
+event:
+  concept:instance: 77302
+  id:id: ex-ante
+  cpee:instance: 30e1c027-ddf1-4fde-a612-714b939038e9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 033a8ba5cf5ff947eb20a8c60afb3e33529fe018
+  cpee:exposition: |-
+    # User Input:
+    User preferences regarding the lighting in the building are collected. The outside light conditions are constantly measured by light sensors. Depending on the light intensity the light in the room  switched on, switched off, or maintained. If the light has been on for 10 hours, it should be switched off. 
+  time:timestamp: '2026-06-04T10:49:25.006464+02:00'
+---
+event:
+  concept:instance: 77302
+  id:id: ex-ante
+  cpee:instance: 30e1c027-ddf1-4fde-a612-714b939038e9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 033a8ba5cf5ff947eb20a8c60afb3e33529fe018
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-04T10:49:25.006606+02:00'
+---
+event:
+  concept:instance: 77302
+  id:id: ex-ante
+  cpee:instance: 30e1c027-ddf1-4fde-a612-714b939038e9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 033a8ba5cf5ff947eb20a8c60afb3e33529fe018
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-06-04T10:49:25.006723+02:00'
+---
+event:
+  concept:instance: 77302
+  id:id: ex-ante
+  cpee:instance: 30e1c027-ddf1-4fde-a612-714b939038e9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 033a8ba5cf5ff947eb20a8c60afb3e33529fe018
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Collect User Preferences)
+    1:task:(Collect User Preferences) --> 2:task:(Measure Outside Light Conditions)
+    2:task:(Measure Outside Light Conditions) --> 3:exclusivegateway:{x}
+    3:exclusivegateway:{x} --> |Low Light| 4:task:(Switch Light On)
+    3:exclusivegateway:{x} --> |High Light| 5:task:(Switch Light Off)
+    3:exclusivegateway:{x} --> |Medium Light| 6:task:(Maintain Light)
+    4:task:(Switch Light On) --> 7:task:(Check Light Duration)
+    5:task:(Switch Light Off) --> 8:exclusivegateway:{x}
+    6:task:(Maintain Light) --> 7:task:(Check Light Duration)
+    7:task:(Check Light Duration) --> 9:exclusivegateway:{x}
+    9:exclusivegateway:{x} --> |On for 10 hours| 5:task:(Switch Light Off)
+    9:exclusivegateway:{x} --> |Not on for 10 hours| 8:exclusivegateway:{x}
+    8:exclusivegateway:{x} --> 10:endevent:(((endevent)))
+  time:timestamp: '2026-06-04T10:49:25.006876+02:00'
+---
+event:
+  concept:instance: 77302
+  id:id: ex-ante
+  cpee:instance: 30e1c027-ddf1-4fde-a612-714b939038e9
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 033a8ba5cf5ff947eb20a8c60afb3e33529fe018
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <call id="a1" endpoint="" a:alt_id="1">
+        <parameters>
+          <label>Collect User Preferences</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <call id="a3" endpoint="" a:alt_id="2">
+        <parameters>
+          <label>Measure Outside Light Conditions</label>
+          <method/>
+          <type>:task</type>
+          <arguments/>
+        </parameters>
+      </call>
+      <choose mode="exclusive" a:alt_id="3">
+        <alternative condition="Low Light" language="text/javascript">
+          <call id="a7" endpoint="" a:alt_id="4">
+            <parameters>
+              <label>Switch Light On</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Check Light Duration</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="9">
+            <alternative condition="On for 10 hours" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Switch Light Off</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Not on for 10 hours" language="text/javascript"/>
+          </choose>
+        </alternative>
+        <alternative condition="High Light" language="text/javascript">
+          <call id="a9" endpoint="" a:alt_id="5">
+            <parameters>
+              <label>Switch Light Off</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </alternative>
+        <alternative condition="Medium Light" language="text/javascript">
+          <call id="a11" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Maintain Light</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a13" endpoint="" a:alt_id="7">
+            <parameters>
+              <label>Check Light Duration</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="9">
+            <alternative condition="On for 10 hours" language="text/javascript">
+              <call id="a9" endpoint="" a:alt_id="5">
+                <parameters>
+                  <label>Switch Light Off</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Not on for 10 hours" language="text/javascript"/>
+          </choose>
+        </alternative>
+      </choose>
+    </description>
+  time:timestamp: '2026-06-04T10:49:25.007093+02:00'

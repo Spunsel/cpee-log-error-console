@@ -20,7 +20,9 @@ async function until(selectorFn, tries = 10, interval = 200) {
         const el = typeof selectorFn === 'string'
             ? document.querySelector(selectorFn)
             : selectorFn();
-        if (el) return el;
+        if (el) {
+          return el;
+        }
         await wait(interval);
     }
     return null;
@@ -83,14 +85,18 @@ const STEPS = [
     autoAdvance: true,
     onEnter: async (advance) => {
       const input = await until('.known-instances-filter input.search-input', 15, 200);
-      if (!input) return;
+      if (!input) {
+        return;
+      }
 
       const errorSelect = document.querySelector('.known-instances-filter select.error-type-select');
       if (errorSelect && errorSelect.value) {
         errorSelect.value = '';
         errorSelect.classList.remove('has-selection');
         const errorClearBtn = document.querySelector('.known-instances-filter .error-filter-clear-btn');
-        if (errorClearBtn) errorClearBtn.style.display = 'none';
+        if (errorClearBtn) {
+          errorClearBtn.style.display = 'none';
+        }
       }
 
       input.focus();
@@ -99,7 +105,9 @@ const STEPS = [
       let debounce = null;
       const onInput = () => {
         clearTimeout(debounce);
-        if (input.value.trim() !== '1124') return;
+        if (input.value.trim() !== '1124') {
+          return;
+        }
         debounce = setTimeout(() => {
           input.removeEventListener('input', onInput);
           advance();
@@ -113,7 +121,9 @@ const STEPS = [
   {
     target: () => {
       const list = document.getElementById('load-all-instances-list');
-      if (!list) return null;
+      if (!list) {
+        return null;
+      }
       return Array.from(list.querySelectorAll('.instance-number-box'))
         .find(b => b.offsetParent !== null) || null;
     },
@@ -385,18 +395,23 @@ export class DemoTour {
         this._onResize  = () => this._reposition();
         this._onScroll  = () => {
             if (this._tourScrolling) {
-                if (this._currentSpotlightEl && this._spotlight)
+                if (this._currentSpotlightEl && this._spotlight) {
                     this._applySpotlightRect(this._currentSpotlightEl.getBoundingClientRect(), this._currentSpotlightPad);
+                }
                 return;
             }
             this._spotlight?.classList.add('tour-spotlight--hidden');
         };
         this._onKeyDown = (e) => {
-            if (!this._active) return;
+            if (!this._active) {
+                return;
+            }
             if (e.key === 'Escape') { this.end(); return; }
             if (e.key === 'ArrowRight') {
                 const btn = this._popover?.querySelector('#_tp-next');
-                if (btn && !btn.disabled) btn.click();
+                if (btn && !btn.disabled) {
+                    btn.click();
+                }
             }
         };
     }
@@ -406,7 +421,9 @@ export class DemoTour {
     static PENDING_KEY = 'cpee-tour-pending';
 
     mountButton(container) {
-        if (!container) return;
+        if (!container) {
+            return;
+        }
         const btn = document.createElement('button');
         btn.id        = 'tour-start-btn';
         btn.className = 'btn-icon-transparent';
@@ -435,13 +452,17 @@ export class DemoTour {
         this._spotlight?.remove();
         this._popover?.remove();
         this._overlay = this._spotlight = this._popover = null;
-        if (this._btn) this._btn.disabled = false;
+        if (this._btn) {
+            this._btn.disabled = false;
+        }
     }
 
     /* ── Confirmation ────────────────────────────────────────────────────── */
 
     _showConfirm() {
-        if (this._active) return;
+        if (this._active) {
+            return;
+        }
         const bd = document.createElement('div');
         bd.className = 'tour-confirm-backdrop';
         bd.innerHTML = `
@@ -473,7 +494,9 @@ export class DemoTour {
     _start() {
         this._active    = true;
         this._stepIndex = 0;
-        if (this._btn) this._btn.disabled = true;
+        if (this._btn) {
+            this._btn.disabled = true;
+        }
 
         this._overlay   = this._mkEl('div', 'tour-overlay');
         this._spotlight = this._mkEl('div', 'tour-spotlight tour-spotlight--hidden');
@@ -491,12 +514,18 @@ export class DemoTour {
     }
 
     async _showStep(index) {
-        if (!this._active || index >= STEPS.length) return;
+        if (!this._active || index >= STEPS.length) {
+            return;
+        }
         this._stepIndex = index;
         const step = STEPS[index];
-        if      (step.thenNavigate) await this._runThenNavigate(index);
-        else if (step.clickReveal)  await this._runClickReveal(index);
-        else                        await this._runRegularStep(index);
+        if (step.thenNavigate) {
+            await this._runThenNavigate(index);
+        } else if (step.clickReveal) {
+            await this._runClickReveal(index);
+        } else {
+            await this._runRegularStep(index);
+        }
     }
 
     /* ── Regular step ────────────────────────────────────────────────────── */
@@ -544,8 +573,9 @@ export class DemoTour {
                             step.autoAdvance ? this._autoAdvance(index)
                                              : nextBtn && (nextBtn.disabled = false)
                         );
-                        if (!step.autoAdvance && nextBtn)
-                            nextBtn.onclick = () => { if (!nextBtn.disabled) isLast ? this.end() : this._showStep(index + 1); };
+                        if (!step.autoAdvance && nextBtn) {
+                            nextBtn.onclick = () => { if (!nextBtn.disabled) { isLast ? this.end() : this._showStep(index + 1); } };
+                        }
                     } else if (this._active && this._stepIndex === index) {
                         this._showStep(index + 1);
                     }
@@ -556,19 +586,23 @@ export class DemoTour {
             return;
         }
 
-        if (step.waitEvent)
+        if (step.waitEvent) {
             this._waitForEvent(step.waitEvent).then(() =>
                 step.autoAdvance ? this._autoAdvance(index)
                                  : nextBtn && (nextBtn.disabled = false)
             );
+        }
 
-        if (step.waitIndex !== undefined)
+        if (step.waitIndex !== undefined) {
             this._waitForStepIndex(step.waitIndex).then(() =>
                 step.autoAdvance ? this._autoAdvance(index, 1000)
                                  : nextBtn && (nextBtn.disabled = false)
             );
+        }
 
-        if (nextBtn) nextBtn.onclick = () => isLast ? this.end() : this._showStep(index + 1);
+        if (nextBtn) {
+            nextBtn.onclick = () => isLast ? this.end() : this._showStep(index + 1);
+        }
     }
 
     /* ── clickReveal step (two-phase) ────────────────────────────────────── */
@@ -580,30 +614,41 @@ export class DemoTour {
 
         /* Phase 1: click prompt */
         const targetEl = this._resolve(step.target);
-        if (targetEl) await this._focusElement(targetEl, step.padding ?? 6);
+        if (targetEl) {
+            await this._focusElement(targetEl, step.padding ?? 6);
+        }
         this._spotlight.classList.add('tour-spotlight--pulse');
         this._overlay.style.pointerEvents = 'none';
 
         this._renderPopover(step.title, step.body, index);
         await wait(20);
-        if (targetEl) this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom');
+        if (targetEl) {
+            this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom');
+        }
 
         await this._waitForClick(cr.clickSel);
-        if (!this._active || this._stepIndex !== index) return;
+        if (!this._active || this._stepIndex !== index) {
+            return;
+        }
 
         /* Phase 2: explanation */
         this._spotlight.classList.remove('tour-spotlight--pulse');
         this._overlay.style.pointerEvents = 'all';
 
         const explainEl = this._resolve(cr.explainTarget);
-        if (explainEl) await this._focusElement(explainEl, step.padding ?? 8);
+        if (explainEl) {
+            await this._focusElement(explainEl, step.padding ?? 8);
+        }
 
         const nextBtn = this._renderPopover(step.title, cr.explainBody, index, isLast ? 'Done' : 'Next →');
         nextBtn.onclick = () => isLast ? this.end() : this._showStep(index + 1);
 
         await wait(20);
-        if (explainEl)     this._placePopover(explainEl.getBoundingClientRect(), 'top');
-        else if (targetEl) this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom');
+        if (explainEl) {
+            this._placePopover(explainEl.getBoundingClientRect(), 'top');
+        } else if (targetEl) {
+            this._placePopover(targetEl.getBoundingClientRect(), step.position ?? 'bottom');
+        }
     }
 
     /* ── thenNavigate step (two-phase: explain → spotlight navigation) ───── */
@@ -629,7 +674,9 @@ export class DemoTour {
             nextBtn.onclick = resolve;
             this._cleanup.push(resolve);
         });
-        if (!this._active || this._stepIndex !== index) return;
+        if (!this._active || this._stepIndex !== index) {
+            return;
+        }
 
         /* Phase 2: spotlight the step dropdown, navigation instruction */
         const thenEl = this._resolve(step.thenTarget);
@@ -641,11 +688,15 @@ export class DemoTour {
 
         this._renderPopover(step.thenTitle ?? step.title, step.thenBody, index);
         await wait(20);
-        if (thenEl) this._placePopover(thenEl.getBoundingClientRect(), step.thenPosition ?? 'bottom');
+        if (thenEl) {
+            this._placePopover(thenEl.getBoundingClientRect(), step.thenPosition ?? 'bottom');
+        }
 
         if (step.waitIndex !== undefined) {
             await this._waitForStepIndex(step.waitIndex);
-            if (!this._active || this._stepIndex !== index) return;
+            if (!this._active || this._stepIndex !== index) {
+                return;
+            }
             if (step.autoAdvance) {
                 this._spotlight.classList.remove('tour-spotlight--pulse');
                 await this._autoAdvance(index, 1000);
@@ -664,18 +715,24 @@ export class DemoTour {
             /* Scroll just far enough that .header is hidden above the viewport */
             const header = document.querySelector('.header');
             const target = header ? header.offsetHeight : 0;
-            if (Math.abs(window.scrollY - target) > 2) scrollTarget = target;
+            if (Math.abs(window.scrollY - target) > 2) {
+                scrollTarget = target;
+            }
         } else if (r.bottom < 0 || r.top > vh || r.top > vh * 0.45) {
             scrollTarget = window.scrollY + r.top - vh * 0.25;
         }
 
         if (scrollTarget !== null) {
             this._tourScrolling = true;
-            if (this._spotlight) this._spotlight.style.transition = 'none';
+            if (this._spotlight) {
+                this._spotlight.style.transition = 'none';
+            }
             window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
             await this._waitForScrollEnd();
             this._tourScrolling = false;
-            if (this._spotlight) this._spotlight.style.transition = '';
+            if (this._spotlight) {
+                this._spotlight.style.transition = '';
+            }
         }
     }
 
@@ -711,8 +768,10 @@ export class DemoTour {
         this._currentSpotlightPad = pad;
         const apply = () => this._applySpotlightRect(el.getBoundingClientRect(), pad);
         apply();
-        if (this._resizeObserver) this._resizeObserver.disconnect();
-        this._resizeObserver = new ResizeObserver(() => { if (this._active) apply(); });
+        if (this._resizeObserver) {
+            this._resizeObserver.disconnect();
+        }
+        this._resizeObserver = new ResizeObserver(() => { if (this._active) { apply(); } });
         this._resizeObserver.observe(el);
     }
 
@@ -776,11 +835,15 @@ export class DemoTour {
     }
 
     _reposition() {
-        if (!this._active) return;
+        if (!this._active) {
+            return;
+        }
         const step = STEPS[this._stepIndex];
         const el   = this._resolve(step.target);
         if (el) { this._placeSpotlight(el, step.padding ?? 8); this._placePopover(el.getBoundingClientRect(), step.position ?? 'bottom'); }
-        else      this._centerPopover();
+        else {
+            this._centerPopover();
+        }
     }
 
     /* ── Event / click waiters ───────────────────────────────────────────── */
@@ -797,7 +860,9 @@ export class DemoTour {
         const EVTS = ['step:displayed', 'step:navigated', 'stepViewer:stepChanged'];
         return new Promise(resolve => {
             const check = ({ stepIndex }) => {
-                if (stepIndex !== targetIdx) return;
+                if (stepIndex !== targetIdx) {
+                    return;
+                }
                 EVTS.forEach(e => this.eventBus.off(e, check));
                 resolve();
             };
@@ -808,7 +873,9 @@ export class DemoTour {
 
     async _waitForClick(selectorOrFn) {
         const el = await until(selectorOrFn);
-        if (!el || !this._active) return;
+        if (!el || !this._active) {
+            return;
+        }
         await new Promise(resolve => {
             const h = () => { el.removeEventListener('click', h); resolve(); };
             el.addEventListener('click', h);
@@ -820,12 +887,15 @@ export class DemoTour {
 
     async _autoAdvance(index, delay = 150) {
         await wait(delay);
-        if (this._active && this._stepIndex === index)
+        if (this._active && this._stepIndex === index) {
             index === STEPS.length - 1 ? this.end() : this._showStep(index + 1);
+        }
     }
 
     _resolve(targetish) {
-        if (!targetish) return null;
+        if (!targetish) {
+            return null;
+        }
         return typeof targetish === 'function' ? targetish() : document.querySelector(targetish);
     }
 

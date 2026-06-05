@@ -5,12 +5,17 @@
  * Strategy: call getComputedStyle() on every element of the LIVE SVG before
  * cloning it.  This freezes the exact visual state the browser is currently
  * rendering — CSS variables are already resolved, inheritance is flattened,
- * and theme-specific colours are captured automatically.  No hand-crafted CSS
- * is embedded, so there is no risk of overriding inline attributes set by the
- * renderer (e.g. the namespaced marker-end URLs written by namespaceSVGIds).
+ * and theme-specific colours are captured automatically.
+ * Additionally, the Adwaita Sans Regular TTF is fetched, base64-encoded, and
+ * embedded as an @font-face data URI inside <defs><style> so the exported SVG
+ * is fully self-contained and renders with the correct font in any viewer.
  */
 
 import { ICONS } from '../../assets/icons.js';
+
+// Module-level cache for the base64-encoded Adwaita Sans Regular font.
+// '' means "already attempted and unavailable"; null means "not yet tried".
+let _fontDataURICache = null;
 
 // SVG presentation properties worth freezing.
 // display/visibility are included so hidden elements stay hidden in the export.
@@ -108,14 +113,17 @@ export class ExportSVGButton {
     // Core export
     // ─────────────────────────────────────────────────────────────────────────
 
-    exportSVG() {
-        if (this.isExporting || !this.graphContainer) return false;
+    async exportSVG() {
+        if (this.isExporting || !this.graphContainer) {
+            return false;
+        }
         this.isExporting = true;
 
         try {
             const liveSvg = this.findGraphSVG();
-            if (!liveSvg) throw new Error('No graph SVG found in container');
-
+            if (!liveSvg) {
+                throw new Error('No graph SVG found in container');
+            }
             const isCPEE   = this._isCPEESvg(liveSvg);
             const isMermaid = !isCPEE && this._isMermaidSvg(liveSvg);
 
@@ -144,13 +152,14 @@ export class ExportSVGButton {
             clone.style.removeProperty('height');
 
             // ── 6. Remove runtime-only elements ─────────────────────────────
-            if (isCPEE)    this._cleanupCPEEElements(clone);
+            if (isCPEE) { 
+                this._cleanupCPEEElements(clone); }
 
             // ── 7. Background rectangle (behind all content) ─────────────────
             this._ensureBackground(clone, dims);
 
-            // ── 8. Minimal font hint (browser fonts not embedded in SVG) ─────
-            this._embedFontHint(clone, isCPEE || isMermaid);
+            // ── 8. Embed font so the SVG is self-contained ────────────────────
+            await this._embedFont(clone, isCPEE || isMermaid);
 
             // ── 9. Serialize ─────────────────────────────────────────────────
             const serializer = new XMLSerializer();
@@ -169,13 +178,15 @@ export class ExportSVGButton {
             setTimeout(() => { document.body.removeChild(link); URL.revokeObjectURL(url); }, 200);
 
             this._showSuccess();
-            if (this.options.onExportSuccess) this.options.onExportSuccess(this.filename, svgString);
+            if (this.options.onExportSuccess) { 
+                this.options.onExportSuccess(this.filename, svgString); }
             return true;
 
         } catch (err) {
             console.error('[ExportSVGButton] Export failed:', err);
             this._showError(err.message);
-            if (this.options.onExportError) this.options.onExportError(err);
+            if (this.options.onExportError) { 
+                this.options.onExportError(err); }
             return false;
         } finally {
             this.isExporting = false;
@@ -196,7 +207,7 @@ export class ExportSVGButton {
     _collectComputedStyles(liveSvg) {
         const elements = [liveSvg, ...liveSvg.querySelectorAll('*')];
         return elements.map(el => {
-            if (!(el instanceof Element)) return null;
+            if (!(el instanceof Element)) { return null; }
             const cs = window.getComputedStyle(el);
             const props = {};
             for (const prop of FREEZE_PROPS) {
@@ -217,13 +228,13 @@ export class ExportSVGButton {
         for (let i = 0; i < Math.min(elements.length, frozenStyles.length); i++) {
             const frozen = frozenStyles[i];
             const el     = elements[i];
-            if (!frozen || !(el instanceof Element)) continue;
+            if (!frozen || !(el instanceof Element)) { continue; }
 
             const decls = Object.entries(frozen)
                 .map(([p, v]) => `${p}:${v}`)
                 .join(';');
 
-            if (decls) el.setAttribute('style', decls);
+            if (decls) { el.setAttribute('style', decls); }
         }
     }
 
@@ -252,17 +263,17 @@ export class ExportSVGButton {
     // ─────────────────────────────────────────────────────────────────────────
 
     findGraphSVG() {
-        if (!this.graphContainer) return null;
+        if (!this.graphContainer) { return null; }
 
         // CPEE graphs: CPEEWfAdaptorRenderer always assigns id="graphcanvas-<id>"
         const cpeeSvg = this.graphContainer.querySelector('svg[id^="graphcanvas-"]');
-        if (cpeeSvg) return cpeeSvg;
+        if (cpeeSvg) { return cpeeSvg; }
 
         // Mermaid graphs: rendered with data-processed or inside .mermaid
         const mermaidSvg = this.graphContainer.querySelector('svg[data-processed]')
                         || this.graphContainer.querySelector('.mermaid svg')
                         || this.graphContainer.querySelector('svg.mermaid');
-        if (mermaidSvg) return mermaidSvg;
+        if (mermaidSvg) { return mermaidSvg; }
 
         // Generic fallback: largest rendered SVG, excluding tiny icons
         let best = null, bestArea = 0;
@@ -365,14 +376,61 @@ export class ExportSVGButton {
     }
 
     /**
-     * Embed a minimal <style> block that declares the font stack used in the
-     * app.  This cannot be captured by getComputedStyle (font files are not
-     * embedded), but it ensures the correct font *name* is in the file so
-     * viewers that have the font installed will use it.
+     * Locate the Adwaita Sans Regular TTF URL from the document's loaded
+     * @font-face rules, fetch the binary, and return a base64 data URI.
+     * The result is module-level cached so subsequent exports are instant.
+     * Returns '' if the font cannot be found or fetched.
      */
-    _embedFontHint(clonedSvg, hasText) {
-        if (!hasText) return;
-        const font = "'Adwaita Sans', 'Segoe UI', system-ui, sans-serif";
+    async _loadFontDataURI() {
+        if (_fontDataURICache !== null) { return _fontDataURICache; }
+
+        for (const sheet of document.styleSheets) {
+            try {
+                for (const rule of sheet.cssRules || []) {
+                    if (!(rule instanceof CSSFontFaceRule)) { continue; }
+                    const family = rule.style.getPropertyValue('font-family')
+                        .replace(/['"]/g, '').trim();
+                    if (family !== 'Adwaita Sans Regular') { continue; }
+
+                    const src = rule.style.getPropertyValue('src');
+                    const urlMatch = src.match(/url\(\s*['"]?([^'")\s]+\.ttf[^'")\s]*)['"]?\s*\)/);
+                    if (!urlMatch) { continue; }
+
+                    const response = await fetch(urlMatch[1]);
+                    if (!response.ok) { continue; }
+
+                    const buffer = await response.arrayBuffer();
+                    const bytes  = new Uint8Array(buffer);
+                    let binary   = '';
+                    for (let i = 0; i < bytes.length; i += 8192) {
+                        binary += String.fromCharCode(...bytes.subarray(i, Math.min(i + 8192, bytes.length)));
+                    }
+                    _fontDataURICache = `data:font/truetype;base64,${btoa(binary)}`;
+                    return _fontDataURICache;
+                }
+            } catch (_) { /* cross-origin stylesheet, skip */ }
+        }
+
+        _fontDataURICache = ''; // tried and unavailable
+        return '';
+    }
+
+    /**
+     * Embed a <style> block inside <defs> that makes the exported SVG
+     * self-contained: a full @font-face with the base64-encoded TTF data URI
+     * (so any viewer renders Adwaita Sans Regular without needing the font
+     * installed), plus an explicit font-family declaration on all text nodes.
+     */
+    async _embedFont(clonedSvg, hasText) {
+        if (!hasText) { return; }
+
+        const fontName    = 'Adwaita Sans Regular';
+        const fontStack   = `'${fontName}', 'Segoe UI', system-ui, sans-serif`;
+        const fontDataURI = await this._loadFontDataURI();
+
+        const fontFaceBlock = fontDataURI
+            ? `@font-face{font-family:'${fontName}';src:url('${fontDataURI}') format('truetype');font-weight:normal;font-style:normal;}\n`
+            : '';
 
         let defs = clonedSvg.querySelector('defs');
         if (!defs) {
@@ -381,7 +439,7 @@ export class ExportSVGButton {
         }
         const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
         style.setAttribute('type', 'text/css');
-        style.textContent = `text, tspan { font-family: ${font}; }`;
+        style.textContent = `${fontFaceBlock}text,tspan{font-family:${fontStack};}`;
         defs.insertBefore(style, defs.firstChild);
     }
 
@@ -390,30 +448,46 @@ export class ExportSVGButton {
     // ─────────────────────────────────────────────────────────────────────────
 
     _showSuccess() {
-        if (!this.element) return;
+        if (!this.element) {
+            return;
+        }
         this.element.classList.add('export-svg-success');
         const icon = this.element.querySelector('.export-svg-icon-wrapper');
         const text = this.element.querySelector('.export-svg-text');
-        if (icon) icon.innerHTML = ICONS.CHECK;
-        if (text) text.textContent = 'Exported';
+        if (icon) {
+            icon.innerHTML = ICONS.CHECK;
+        }
+        if (text) {
+            text.textContent = 'Exported';
+        }
 
         setTimeout(() => {
-            if (!this.element) return;
+            if (!this.element) {
+                return;
+            }
             this.element.classList.remove('export-svg-success');
-            if (icon) icon.innerHTML = ICONS.DOWNLOAD;
-            if (text) text.textContent = this.originalContent;
+            if (icon) {
+                icon.innerHTML = ICONS.DOWNLOAD;
+            }
+            if (text) {
+                text.textContent = this.originalContent;
+            }
         }, this.options.successDuration);
     }
 
     _showError(message = 'Export failed') {
-        if (!this.element) return;
+        if (!this.element) {
+            return;
+        }
         console.error('[ExportSVGButton]', message);
         this.element.classList.add('export-svg-error');
         const text = this.element.querySelector('.export-svg-text');
         if (text) { text.textContent = '✗ Failed'; text.title = message; }
 
         setTimeout(() => {
-            if (!this.element) return;
+            if (!this.element) {
+                return;
+            }
             this.element.classList.remove('export-svg-error');
             if (text) { text.textContent = this.originalContent; text.title = ''; }
         }, this.options.successDuration);

@@ -7,7 +7,7 @@
 # raw bytes and decoded as UTF-8; files are written as UTF-8 without BOM.
 
 # Process numbers to fetch
-$processNumbers = @(77229..77230)
+$processNumbers = @(77230..77302)
 
 # Current generation — new entries are written into this generation's section.
 # Change to "generation3" (or any name) to start a new generation bucket.
@@ -31,7 +31,7 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 "@
 [System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-[System.Net.ServicePointManager]::DefaultConnectionLimit = 500
+[System.Net.ServicePointManager]::DefaultConnectionLimit = 50
 
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
 
