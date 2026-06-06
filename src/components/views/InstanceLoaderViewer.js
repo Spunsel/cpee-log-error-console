@@ -589,8 +589,11 @@ export class InstanceLoaderViewer {
         const isRateLimitError = (error) => {
             const errorMessage = error?.message || String(error);
             return errorMessage.includes('403') || 
+                   errorMessage.includes('429') ||
                    errorMessage.includes('Forbidden') || 
-                   error?.status === 403;
+                   errorMessage.includes('Too Many Requests') ||
+                   error?.status === 403 ||
+                   error?.status === 429;
         };
         
         // Helper function to update progress UI
@@ -644,9 +647,9 @@ export class InstanceLoaderViewer {
         const processBatch = async (batch) => {
             // If rate limited, add delay between batches
             if (isRateLimited && rateLimitedCount > 0) {
-                const delay = Math.min(5000 * rateLimitedCount, 30000); // Max 30s delay
+                const delay = Math.min(10000 * rateLimitedCount, 60000); // 10s per error, max 60s delay
                 if (scanButton) {
-                    scanButton.textContent = `Rate limited. Waiting ${delay/1000}s... (${completedCount}/${instancesToCheck.length})`;
+                    scanButton.textContent = `Rate limited (429). Waiting ${delay/1000}s... (${completedCount}/${instancesToCheck.length})`;
                 }
                 await new Promise(resolve => setTimeout(resolve, delay));
                 // Reset rate limit flag after delay
@@ -657,8 +660,8 @@ export class InstanceLoaderViewer {
             // Process batch in parallel
             await Promise.all(batch.map(processNumber => processInstance(processNumber)));
             
-            // Small delay between batches to prevent overwhelming the server
-            const interRequestDelay = configManager.get('network.interRequestDelay', 10);
+            // Delay between batches to prevent overwhelming the server
+            const interRequestDelay = configManager.get('network.interRequestDelay', 500);
             if (interRequestDelay > 0) {
                 await new Promise(resolve => setTimeout(resolve, interRequestDelay));
             }

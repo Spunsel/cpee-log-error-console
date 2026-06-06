@@ -7,7 +7,7 @@
 # raw bytes and decoded as UTF-8; files are written as UTF-8 without BOM.
 
 # Process numbers to fetch
-$processNumbers = @(77230..77302)
+$processNumbers = @(77303..77397)
 
 # Current generation — new entries are written into this generation's section.
 # Change to "generation3" (or any name) to start a new generation bucket.
@@ -270,6 +270,69 @@ if ($addedInstances.Count -gt 0) {
     Write-Host "`nNew instances added to '$currentGeneration': $output" -ForegroundColor Cyan
 } else {
     Write-Host "`nNo new instances were added." -ForegroundColor Yellow
+}
+
+# ========== STEP 4: Update ConfigManager.js ==========
+if ($addedInstances.Count -gt 0) {
+    Write-Host "`nUpdating ConfigManager.js..." -ForegroundColor Cyan
+    
+    $configPath = "src\config\ConfigManager.js"
+    if (Test-Path $configPath) {
+        # Read the entire file
+        $configContent = Get-Content $configPath -Raw -Encoding UTF8
+        
+        # Find the generation2 array
+        if ($configContent -match '(?s)(generation2:\s*\[\s*\n)(.*?)(\n\s*\],)') {
+            $beforeArray = $matches[1]
+            $existingArray = $matches[2]
+            $afterArray = $matches[3]
+            
+            # Parse existing numbers from the array (handles various formats)
+            $existingNumbers = @()
+            $existingArray -split '[\n,]' | ForEach-Object {
+                $line = $_.Trim()
+                if ($line -match '\d+') {
+                    $numbers = [regex]::Matches($line, '\d+')
+                    foreach ($match in $numbers) {
+                        $existingNumbers += [int]$match.Value
+                    }
+                }
+            }
+            
+            # Combine new instances (descending) with existing numbers
+            $newInstancesDescending = $addedInstances | Sort-Object { [int]$_ } -Descending
+            $allNumbers = @($newInstancesDescending) + @($existingNumbers) | Select-Object -Unique
+            
+            # Format: 10 numbers per line with proper indentation
+            $formattedLines = @()
+            $instancesPerLine = 10
+            for ($i = 0; $i -lt $allNumbers.Count; $i += $instancesPerLine) {
+                $chunk = $allNumbers[$i..[Math]::Min($i + $instancesPerLine - 1, $allNumbers.Count - 1)]
+                $line = "                    " + ($chunk -join ", ")
+                if ($i + $instancesPerLine -lt $allNumbers.Count) {
+                    $line += ","
+                }
+                $formattedLines += $line
+            }
+            
+            $newArrayContent = $formattedLines -join "`n"
+            
+            # Reconstruct the generation2 section
+            $newGeneration2Section = $beforeArray + $newArrayContent + $afterArray
+            
+            # Replace in the original content
+            $updatedContent = $configContent -replace '(?s)generation2:\s*\[.*?\n\s*\],', $newGeneration2Section
+            
+            # Write back to file with UTF-8 encoding (no BOM)
+            [System.IO.File]::WriteAllText((Resolve-Path $configPath).Path, $updatedContent, $utf8NoBom)
+            
+            Write-Host "ConfigManager.js updated with $($addedInstances.Count) new instances in generation2" -ForegroundColor Green
+        } else {
+            Write-Host "Could not find generation2 array in ConfigManager.js" -ForegroundColor Yellow
+        }
+    } else {
+        Write-Host "ConfigManager.js not found at $configPath" -ForegroundColor Yellow
+    }
 }
 
 Write-Host "`nDone!" -ForegroundColor Green

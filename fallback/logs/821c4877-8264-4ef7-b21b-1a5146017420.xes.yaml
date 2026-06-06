@@ -1,0 +1,316 @@
+---
+log:
+  namespaces:
+    stream: https://cpee.org/datastream/
+    ssn: http://www.w3.org/ns/ssn/
+    sosa: http://www.w3.org/ns/sosa/
+  xes:
+    creator: cpee.org
+    features: nested-attributes
+  extension:
+    time: http://www.xes-standard.org/time.xesext
+    concept: http://www.xes-standard.org/concept.xesext
+    id: http://www.xes-standard.org/identity.xesext
+    lifecycle: http://www.xes-standard.org/lifecycle.xesext
+    cpee: http://cpee.org/cpee.xesext
+    stream: https://cpee.org/datastream/datastream.xesext
+  global:
+    trace:
+      concept:name: __NOTSPECIFIED__
+      cpee:name: __NOTSPECIFIED__
+    event:
+      concept:instance: -1
+      concept:name: __NOTSPECIFIED__
+      concept:endpoint: __NOTSPECIFIED__
+      id:id: __NOTSPECIFIED__
+      cpee:uuid: __NOTSPECIFIED__
+      lifecycle:transition: complete
+      cpee:lifecycle:transition: activity/calling
+      time:timestamp: ''
+  trace:
+    concept:name: 77391
+    cpee:name: Enter info here
+    cpee:instance: 821c4877-8264-4ef7-b21b-1a5146017420
+---
+event:
+  concept:instance: 77391
+  id:id: ex-ante
+  cpee:instance: 821c4877-8264-4ef7-b21b-1a5146017420
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: state/change
+  cpee:state: ready
+  time:timestamp: '2026-06-05T19:42:20.262244+02:00'
+---
+event:
+  concept:instance: 77391
+  id:id: ex-ante
+  cpee:instance: 821c4877-8264-4ef7-b21b-1a5146017420
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/change
+  cpee:description: |
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Perform Action A</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="2">
+          <alternative condition="Condition 1" language="text/javascript">
+            <call id="a5" endpoint="" a:alt_id="3">
+              <parameters>
+                <label>Perform Action B</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Condition 2" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Perform Action C</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Perform Action D</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="7" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Retry Action A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Perform Action A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="2">
+            <alternative condition="Condition 1" language="text/javascript">
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>Perform Action B</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Condition 2" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Perform Action C</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Perform Action D</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  cpee:change_uuid: 8a8b324e7df34649ba15df9806c30faae5b0e493
+  time:timestamp: '2026-06-05T19:42:34.769655+02:00'
+---
+event:
+  concept:instance: 77391
+  id:id: ex-ante
+  cpee:instance: 821c4877-8264-4ef7-b21b-1a5146017420
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8a8b324e7df34649ba15df9806c30faae5b0e493
+  cpee:exposition: |-
+    <!-- Input CPEE-Tree -->
+    <description xmlns="http://cpee.org/ns/description/1.0"/>
+  time:timestamp: '2026-06-05T19:42:34.769861+02:00'
+---
+event:
+  concept:instance: 77391
+  id:id: ex-ante
+  cpee:instance: 821c4877-8264-4ef7-b21b-1a5146017420
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8a8b324e7df34649ba15df9806c30faae5b0e493
+  cpee:exposition: |+
+    # User Input:
+    random model
+
+  time:timestamp: '2026-06-05T19:42:34.769959+02:00'
+...
+---
+event:
+  concept:instance: 77391
+  id:id: ex-ante
+  cpee:instance: 821c4877-8264-4ef7-b21b-1a5146017420
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8a8b324e7df34649ba15df9806c30faae5b0e493
+  cpee:exposition: |-
+    # Used LLM:
+    gemini-2.5-flash-lite
+  time:timestamp: '2026-06-05T19:42:34.770035+02:00'
+---
+event:
+  concept:instance: 77391
+  id:id: ex-ante
+  cpee:instance: 821c4877-8264-4ef7-b21b-1a5146017420
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8a8b324e7df34649ba15df9806c30faae5b0e493
+  cpee:exposition: "%% Input Intermediate\n"
+  time:timestamp: '2026-06-05T19:42:34.770121+02:00'
+---
+event:
+  concept:instance: 77391
+  id:id: ex-ante
+  cpee:instance: 821c4877-8264-4ef7-b21b-1a5146017420
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8a8b324e7df34649ba15df9806c30faae5b0e493
+  cpee:exposition: |-
+    %% Output Intermediate
+    graph LR
+    0:startevent:((startevent)) --> 1:task:(Perform Action A)
+    1:task:(Perform Action A) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Condition 1| 3:task:(Perform Action B)
+    2:exclusivegateway:{x} --> |Condition 2| 4:task:(Perform Action C)
+    3:task:(Perform Action B) --> 5:parallelgateway:{AND}
+    4:task:(Perform Action C) --> 5:parallelgateway:{AND}
+    5:parallelgateway:{AND} --> 6:task:(Perform Action D)
+    6:task:(Perform Action D) --> 7:exclusivegateway:{x}
+    7:exclusivegateway:{x} --> |Result OK| 8:endevent:(((endevent)))
+    7:exclusivegateway:{x} --> |Result Not OK| 9:task:(Retry Action A)
+    9:task:(Retry Action A) --> 0:startevent:((startevent))
+  time:timestamp: '2026-06-05T19:42:34.770235+02:00'
+---
+event:
+  concept:instance: 77391
+  id:id: ex-ante
+  cpee:instance: 821c4877-8264-4ef7-b21b-1a5146017420
+  lifecycle:transition: unknown
+  cpee:lifecycle:transition: description/exposition
+  cpee:change_uuid: 8a8b324e7df34649ba15df9806c30faae5b0e493
+  cpee:exposition: |
+    <!-- Output CPEE-Tree -->
+    <?xml version="1.0"?>
+    <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
+      <loop mode="pre_test" condition="true">
+        <call id="a1" endpoint="" a:alt_id="1">
+          <parameters>
+            <label>Perform Action A</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <choose mode="exclusive" a:alt_id="2">
+          <alternative condition="Condition 1" language="text/javascript">
+            <call id="a5" endpoint="" a:alt_id="3">
+              <parameters>
+                <label>Perform Action B</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+          <alternative condition="Condition 2" language="text/javascript">
+            <call id="a7" endpoint="" a:alt_id="4">
+              <parameters>
+                <label>Perform Action C</label>
+                <method/>
+                <type>:task</type>
+                <arguments/>
+              </parameters>
+            </call>
+          </alternative>
+        </choose>
+        <call id="a13" endpoint="" a:alt_id="6">
+          <parameters>
+            <label>Perform Action D</label>
+            <method/>
+            <type>:task</type>
+            <arguments/>
+          </parameters>
+        </call>
+        <loop mode="pre_test" condition="true" a:alt_id="7" language="text/javascript">
+          <call id="a19" endpoint="" a:alt_id="9">
+            <parameters>
+              <label>Retry Action A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <call id="a1" endpoint="" a:alt_id="1">
+            <parameters>
+              <label>Perform Action A</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+          <choose mode="exclusive" a:alt_id="2">
+            <alternative condition="Condition 1" language="text/javascript">
+              <call id="a5" endpoint="" a:alt_id="3">
+                <parameters>
+                  <label>Perform Action B</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+            <alternative condition="Condition 2" language="text/javascript">
+              <call id="a7" endpoint="" a:alt_id="4">
+                <parameters>
+                  <label>Perform Action C</label>
+                  <method/>
+                  <type>:task</type>
+                  <arguments/>
+                </parameters>
+              </call>
+            </alternative>
+          </choose>
+          <call id="a13" endpoint="" a:alt_id="6">
+            <parameters>
+              <label>Perform Action D</label>
+              <method/>
+              <type>:task</type>
+              <arguments/>
+            </parameters>
+          </call>
+        </loop>
+      </loop>
+    </description>
+  time:timestamp: '2026-06-05T19:42:34.770371+02:00'
