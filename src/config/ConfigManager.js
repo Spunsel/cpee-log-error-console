@@ -43,8 +43,8 @@ export class ConfigManager {
                 cpeeGraph: 'https://cpee.org/flow/graph.html'
             },
             cors: {
-                proxy: 'https://corsproxy.io/?',  // Default proxy for CPEE graph/rendering/UUID requests
-                logProxy: 'https://corsproxy.io/?',  // Separate proxy for log fetching
+                proxy: 'https://cpee-cors-proxy.vercel.app/api/proxy?url=',  // Self-hosted CORS proxy (Vercel)
+                logProxy: 'https://cpee-cors-proxy.vercel.app/api/proxy?url=',  // Self-hosted CORS proxy (Vercel)
                 timeout: 10000,
                 retryCount: 3
             },
@@ -255,8 +255,8 @@ export class ConfigManager {
                 backoffMultiplier: 1.5,
                 initialDelay: 1000
             },
-            interRequestDelay: 1500,  // Delay between batches in ms (2 seconds to avoid rate limits)
-            scanConcurrency: 5  // Max parallel requests
+            interRequestDelay: 1000,  // Delay between batches in ms (2 seconds to avoid rate limits)
+            scanConcurrency: 50  // Max parallel requests
         };
     }
 

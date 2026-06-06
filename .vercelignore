@@ -1,0 +1,15 @@
+# Deploy only the API proxy — exclude the main app assets
+node_modules
+.git
+.vscode
+scripts
+src
+public
+fallback
+index.html
+vite.config.js
+vite.config.ts
+package.json
+package-lock.json
+*.md
+!api/README.md
