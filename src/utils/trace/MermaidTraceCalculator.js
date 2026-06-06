@@ -162,12 +162,13 @@ class TraceSets {
                 // Follow its outgoing edges (in a correct CPEE→Mermaid translation
                 // these route past the loop's end gateway to the post-loop flow).
                 // Only fall back to "trace ends here" when no successor exists.
-                if (nextNodeIds.length === 0) {
-                    return [[...currentFT]];
-                }
-                return nextNodeIds.flatMap(nextNodeId =>
-                    this.forwardTrace(graph, nextNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, gatewayVisits)
-                );
+                // if (nextNodeIds.length === 0) {
+                //     return [[...currentFT]];
+                // }
+                // return nextNodeIds.flatMap(nextNodeId =>
+                //     this.forwardTrace(graph, nextNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, gatewayVisits)
+                // );
+                return [];
             }
             
             default:

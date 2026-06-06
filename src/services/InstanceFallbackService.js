@@ -56,7 +56,9 @@ export class InstanceFallbackService {
                 throw new Error(`HTTP ${response.status}`);
             }
 
-            const data = await response.json();
+            const rawText = await response.text();
+            const jsonText = rawText.charCodeAt(0) === 0xFEFF ? rawText.slice(1) : rawText;
+            const data = JSON.parse(jsonText);
 
             this.processToUuid = {};
             this.generationMap = {};  // processNumber -> generationName
@@ -84,10 +86,13 @@ export class InstanceFallbackService {
                 this.generations['default'] = { ...data };
             }
 
-            // Build reverse lookup
+            // Build reverse lookup from all generations (not the flat map, which
+            // loses duplicates when the same process number appears in multiple gens)
             this.uuidToProcess = {};
-            for (const [processNumber, uuid] of Object.entries(this.processToUuid)) {
-                this.uuidToProcess[uuid] = processNumber;
+            for (const entries of Object.values(this.generations)) {
+                for (const [processNumber, uuid] of Object.entries(entries)) {
+                    this.uuidToProcess[uuid] = processNumber;
+                }
             }
 
             this.mappingLoaded = true;
@@ -129,9 +134,11 @@ export class InstanceFallbackService {
     /**
      * Get UUID for a process number from local fallback.
      * @param {number|string} processNumber - CPEE process instance number
+     * @param {string|null} [generation=null] - Generation bucket (e.g. 'generation1').
+     *   Required when the same process number exists in multiple generations.
      * @returns {Promise<{uuid: string, fromFallback: boolean}|null>} UUID and source, or null if not found
      */
-    async getUUIDForProcess(processNumber) {
+    async getUUIDForProcess(processNumber, generation = null) {
         await this.loadUUIDMapping();
         
         if (!this.processToUuid) {
@@ -139,10 +146,21 @@ export class InstanceFallbackService {
         }
 
         const processKey = String(processNumber);
+
+        if (generation) {
+            const scopedUuid = this.generations?.[generation]?.[processKey];
+            if (scopedUuid) {
+                return { uuid: scopedUuid, fromFallback: true };
+            }
+            // Do not fall back to the flat map when a generation was requested —
+            // duplicates would always resolve to whichever generation was parsed last.
+            this.logDebug(`No fallback UUID for process ${processNumber} in ${generation}`);
+            return null;
+        }
+
         const rawUuid = this.processToUuid[processKey];
         
         if (rawUuid) {
-            this.logWarning(`Using FALLBACK UUID for process ${processNumber}: ${rawUuid}`);
             return { uuid: rawUuid, fromFallback: true };
         }
         

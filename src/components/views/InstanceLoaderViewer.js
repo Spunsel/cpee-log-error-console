@@ -7,6 +7,7 @@ import { configManager } from '../../config/ConfigManager.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { serviceFactory } from '../../core/ServiceFactory.js';
+import { instanceFallbackService } from '../../services/InstanceFallbackService.js';
 import { RecentAdditionsAndFixes } from '../ui/RecentAdditionsAndFixes.js';
 import { ICONS } from '../../assets/icons.js';
 
@@ -425,18 +426,23 @@ export class InstanceLoaderViewer {
      * Fetch UUID from local fallback for known instances
      * Used by known instances list - uses fallback only (no server query)
      * @param {number} processNumber - CPEE process instance number
+     * @param {string|null} [generation=null] - Generation bucket when process numbers collide across generations
      * @returns {Promise<string>} The fetched UUID
      */
-    async fetchUUIDFromProcessNumber(processNumber) {
+    async fetchUUIDFromProcessNumber(processNumber, generation = null) {
         const uuidInput = this.getElement('uuidInput');
         const processNumberInput = this.getElement('processNumberInput');
         
         try {
-            console.log(`Fetching UUID for known instance ${processNumber} (fallback only)`);
+            const genLabel = generation ? `, ${generation}` : '';
+            console.log(`Fetching UUID for known instance ${processNumber}${genLabel} (fallback only)`);
 
             // Fetch UUID from fallback only (known instances use local data)
             const cpeeService = serviceFactory.get('CPEEService');
-            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber, { source: 'fallback' });
+            const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber, {
+                source: 'fallback',
+                generation
+            });
             const uuid = result.uuid;
 
             // Update UUID input field and store the process number for later use
@@ -755,6 +761,41 @@ export class InstanceLoaderViewer {
     }
 
     /**
+     * Build instance list entries with generation context.
+     * "Show all" keeps separate entries when the same process number exists in multiple generations.
+     * @param {string|null} [generation=null] - Restrict to a single generation, or null for all
+     * @returns {Promise<Array<{processNumber: number|string, generation: string}>>}
+     */
+    async resolveKnownInstanceEntries(generation = null) {
+        const generationOrder = ['generation2', 'generation1'];
+        const generations = generation
+            ? [generation]
+            : generationOrder.filter((gen) => configManager.get(`ui.instances.${gen}`));
+
+        const entries = [];
+        for (const gen of generations) {
+            const fromConfig = configManager.get(`ui.instances.${gen}`);
+            const processNumbers = Array.isArray(fromConfig) && fromConfig.length > 0
+                ? fromConfig
+                : await instanceFallbackService.getProcessNumbersByGeneration(gen);
+            for (const processNumber of processNumbers) {
+                entries.push({ processNumber, generation: gen });
+            }
+        }
+        return entries;
+    }
+
+    /**
+     * Short generation label for duplicate process numbers in the combined list.
+     * @param {string} generation - e.g. 'generation1'
+     * @returns {string}
+     */
+    formatGenerationShortLabel(generation) {
+        const match = /^generation(\d+)$/i.exec(generation || '');
+        return match ? `G${match[1]}` : generation;
+    }
+
+    /**
      * Load all CPEE instances - displays buttons for predefined process numbers.
      * When `generation` is provided only that generation's numbers are shown.
      * @param {string|null} [generation=null] - Optional generation name to restrict the list
@@ -763,19 +804,25 @@ export class InstanceLoaderViewer {
         const instanceListContainer = this.getElement('loadAllInstancesListContainer');
         const instanceList = this.getElement('loadAllInstancesList');
 
-        // Resolve the process number list
-        let processNumbers;
-        if (generation && configManager.get(`ui.instances.${generation}`)) {
-            processNumbers = configManager.get(`ui.instances.${generation}`, []);
-        } else {
-            processNumbers = configManager.get('ui.instances.processNumbers', []);
-        }
+        await instanceFallbackService.loadUUIDMapping();
+
+        const instanceEntries = await this.resolveKnownInstanceEntries(generation);
         
-        // Validate that we have process numbers
-        if (!Array.isArray(processNumbers) || processNumbers.length === 0) {
-            console.warn('No process numbers configured in ui.instances.processNumbers');
+        if (!Array.isArray(instanceEntries) || instanceEntries.length === 0) {
+            console.warn('No process numbers configured in ui.instances');
             alert('No process numbers configured. Please check the configuration.');
             return;
+        }
+
+        const duplicateProcessNumbers = new Set();
+        const processNumberCounts = new Map();
+        for (const { processNumber } of instanceEntries) {
+            const key = String(processNumber);
+            const count = (processNumberCounts.get(key) || 0) + 1;
+            processNumberCounts.set(key, count);
+            if (count > 1) {
+                duplicateProcessNumbers.add(key);
+            }
         }
         
         // Load error counts for filter dropdown
@@ -802,26 +849,50 @@ export class InstanceLoaderViewer {
         // Clear any active filters so all instances are shown
         this.clearKnownInstancesFilters();
         
-        // Create buttons for each process number
-        processNumbers.forEach((processNumber) => {
+        // Create buttons for each process number (with generation when needed)
+        for (const { processNumber, generation: entryGeneration } of instanceEntries) {
+            const resolved = await instanceFallbackService.getUUIDForProcess(processNumber, entryGeneration);
+            const resolvedUuid = resolved?.uuid ?? null;
+            const processKey = String(processNumber);
+            const showGenerationLabel = duplicateProcessNumbers.has(processKey);
+            const displayLabel = showGenerationLabel
+                ? `${processNumber} (${this.formatGenerationShortLabel(entryGeneration)})`
+                : processNumber.toString();
+
             const box = document.createElement('div');
             box.className = 'instance-number-box';
-            box.textContent = processNumber.toString();
-            box.title = `Click to load instance ${processNumber}`;
-            box.dataset.processNumber = processNumber.toString();
+            box.textContent = displayLabel;
+            box.title = resolvedUuid
+                ? `Load instance ${processNumber} (${entryGeneration})`
+                : `Instance ${processNumber} (${entryGeneration}, UUID not found in fallback)`;
+            box.dataset.processNumber = processKey;
+            box.dataset.displayLabel = displayLabel;
+            box.dataset.generation = entryGeneration;
+            if (resolvedUuid) {
+                box.dataset.uuid = resolvedUuid;
+            }
             
-            // Add click handler to fetch UUID and load instance
+            // Add click handler — use the UUID resolved at box creation time
             box.addEventListener('click', async () => {
                 try {
-                    // Fetch UUID for this process number
-                    await this.fetchUUIDFromProcessNumber(processNumber);
-                    
-                    // Get the UUID that was fetched
-                    const uuidInput = this.getElement('uuidInput');
-                    if (uuidInput && uuidInput.value) {
-                        // Load the instance
+                    const uuid = box.dataset.uuid;
+                    if (!uuid) {
+                        const fallbackGeneration = box.dataset.generation || null;
+                        await this.fetchUUIDFromProcessNumber(processNumber, fallbackGeneration);
+                        const uuidInput = this.getElement('uuidInput');
+                        if (!uuidInput?.value) {
+                            throw new Error(`No fallback UUID for process ${processNumber}`);
+                        }
                         this.loadInstanceForProcessNumber(processNumber, uuidInput.value);
+                        return;
                     }
+
+                    const uuidInput = this.getElement('uuidInput');
+                    if (uuidInput) {
+                        uuidInput.value = uuid;
+                        uuidInput.dataset.processNumber = processNumber.toString();
+                    }
+                    this.loadInstanceForProcessNumber(processNumber, uuid);
                 } catch (error) {
                     console.error(`Failed to load instance ${processNumber}:`, error);
                     alert(`Failed to load instance ${processNumber}: ${error.message}`);
@@ -831,9 +902,10 @@ export class InstanceLoaderViewer {
             if (instanceList) {
                 instanceList.appendChild(box);
             }
-        });
+        }
         
-        console.log(`Loaded ${processNumbers.length} CPEE instance buttons`);
+        const genLabel = generation ? ` (${generation})` : '';
+        console.log(`Loaded ${instanceEntries.length} CPEE instance buttons${genLabel}`);
     }
     
     /**
@@ -1023,21 +1095,29 @@ export class InstanceLoaderViewer {
         const instanceBoxes = instanceList.querySelectorAll('.instance-number-box');
         
         instanceBoxes.forEach((box) => {
-            const instanceNumber = box.dataset.processNumber || box.textContent;
+            const processNumber = box.dataset.processNumber || box.textContent.trim();
+            const displayLabel = box.dataset.displayLabel || processNumber;
             
             // Check error type filter
             let passesErrorFilter = true;
             if (errorType) {
-                const entry = errorData[instanceNumber];
+                const entry = errorData[processNumber];
                 passesErrorFilter = entry && entry[errorType] > 0;
             }
             
-            // Check text filter
+            // Check text filter (match on process number and visible label)
             let passesTextFilter = true;
             let matchIndex = -1;
             if (filterValue) {
-                matchIndex = instanceNumber.indexOf(filterValue);
-                passesTextFilter = matchIndex !== -1;
+                const processMatch = processNumber.indexOf(filterValue);
+                const labelMatch = displayLabel.indexOf(filterValue);
+                if (processMatch !== -1) {
+                    matchIndex = processMatch;
+                } else if (labelMatch !== -1) {
+                    matchIndex = labelMatch;
+                } else {
+                    passesTextFilter = false;
+                }
             }
             
             const visible = passesTextFilter && passesErrorFilter;
@@ -1045,12 +1125,12 @@ export class InstanceLoaderViewer {
             
             // Update highlight markup
             if (filterValue && passesTextFilter) {
-                const before = instanceNumber.substring(0, matchIndex);
-                const match = instanceNumber.substring(matchIndex, matchIndex + filterValue.length);
-                const after = instanceNumber.substring(matchIndex + filterValue.length);
+                const before = displayLabel.substring(0, matchIndex);
+                const match = displayLabel.substring(matchIndex, matchIndex + filterValue.length);
+                const after = displayLabel.substring(matchIndex + filterValue.length);
                 box.innerHTML = `${before}<span class="instance-filter-match">${match}</span>${after}`;
             } else {
-                box.innerHTML = instanceNumber;
+                box.textContent = displayLabel;
             }
         });
     }
@@ -1066,14 +1146,18 @@ export class InstanceLoaderViewer {
         // the generation filter (loadAllCPEEInstances already wrote only the correct
         // generation into the DOM) and any active text/error-type filter.
         const instanceList = this.getElement('loadAllInstancesList');
-        const processNumbers = instanceList
+        const instanceBoxes = instanceList
             ? Array.from(instanceList.querySelectorAll('.instance-number-box'))
                   .filter(box => box.style.display !== 'none')
-                  .map(box => parseInt(box.dataset.processNumber || box.textContent.trim(), 10))
-                  .filter(n => !isNaN(n))
+                  .map(box => ({
+                      processNumber: parseInt(box.dataset.processNumber || box.textContent.trim(), 10),
+                      generation: box.dataset.generation || null,
+                      uuid: box.dataset.uuid || null
+                  }))
+                  .filter(entry => !isNaN(entry.processNumber))
             : [];
 
-        if (!Array.isArray(processNumbers) || processNumbers.length === 0) {
+        if (!Array.isArray(instanceBoxes) || instanceBoxes.length === 0) {
             console.warn('No process numbers match the current filter');
             alert('No instances match the current filter.');
             return;
@@ -1089,22 +1173,27 @@ export class InstanceLoaderViewer {
         let failedCount = 0;
         
         // Load instances sequentially
-        for (const processNumber of processNumbers) {
+        for (const { processNumber, generation, uuid: presetUuid } of instanceBoxes) {
             try {
                 // Update button text to show progress
                 if (loadAllKnownButton) {
-                    loadAllKnownButton.textContent = `Loading ${loadedCount + 1}/${processNumbers.length}...`;
+                    loadAllKnownButton.textContent = `Loading ${loadedCount + 1}/${instanceBoxes.length}...`;
                 }
                 
-                // Fetch UUID from fallback (known instances always use local data)
-                const cpeeService = serviceFactory.get('CPEEService');
-                const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber, { source: 'fallback' });
-                const uuid = result.uuid;
+                let uuid = presetUuid;
+                if (!uuid) {
+                    const cpeeService = serviceFactory.get('CPEEService');
+                    const result = await cpeeService.fetchUUIDFromProcessNumber(processNumber, {
+                        source: 'fallback',
+                        generation
+                    });
+                    uuid = result.uuid;
+                }
                 
                 if (uuid) {
                     await this.loadInstanceAndWait(uuid, processNumber);
                     loadedCount++;
-                    console.log(`Successfully loaded instance ${processNumber} (${loadedCount}/${processNumbers.length})`);
+                    console.log(`Successfully loaded instance ${processNumber} (${loadedCount}/${instanceBoxes.length})`);
                 }
             } catch (error) {
                 failedCount++;

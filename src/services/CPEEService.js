@@ -36,11 +36,12 @@ export class CPEEService {
      * @param {number} processNumber - CPEE process instance number
      * @param {Object} options - Fetch options
      * @param {string} options.source - Data source: 'fallback' (local only), 'server' (remote only), 'auto' (fallback first, then server)
+     * @param {string|null} [options.generation] - Generation bucket for fallback lookup when process numbers collide across generations
      * @returns {Promise<{uuid: string, fromFallback: boolean}>} UUID and source info
      * @throws {Error} If process number is invalid or fetch fails
      */
     async fetchUUIDFromProcessNumber(processNumber, options = {}) {
-        const { source = 'auto' } = options;
+        const { source = 'auto', generation = null } = options;
         
         if (!processNumber || isNaN(processNumber)) {
             throw new Error('CPEEService: Invalid process number - must be a valid number');
@@ -50,7 +51,7 @@ export class CPEEService {
         
         // Fallback only mode
         if (source === 'fallback') {
-            const fallbackResult = await this.fallbackService.getUUIDForProcess(processNumber);
+            const fallbackResult = await this.fallbackService.getUUIDForProcess(processNumber, generation);
             if (fallbackResult) {
                 return fallbackResult;
             }
@@ -63,7 +64,7 @@ export class CPEEService {
         }
         
         // Auto mode: try fallback first, then server
-        const fallbackResult = await this.fallbackService.getUUIDForProcess(processNumber);
+        const fallbackResult = await this.fallbackService.getUUIDForProcess(processNumber, generation);
         if (fallbackResult) {
             return fallbackResult;
         }
