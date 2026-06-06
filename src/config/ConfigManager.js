@@ -527,22 +527,6 @@ export class ConfigManager {
     }
 
     /**
-     * Load email service configuration
-     * @returns {Object} Email service configuration
-     */
-    loadEmailConfig() {
-        return {
-            enabled: true, // Set to true to enable email service
-            service: 'web3forms', // 'web3forms' (free, no signup), 'emailjs', or 'api'
-            // Web3Forms - Free, no signup required (https://web3forms.com/)
-            web3forms: {
-                accessKey: 'a8d2090e-38eb-4c65-8461-14e6406f181b',
-                recipientEmail: 'christian.horne@tum.de'
-            }
-        };
-    }
-
-    /**
      * Load syntax highlighting (Prism.js) configuration
      * @returns {Object} Syntax highlighting configuration
      */
