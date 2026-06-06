@@ -220,8 +220,9 @@ export class ConfigManager {
             },
             scaling: {
                 // Graph scaling levels - can be any positive numbers
-                // Values represent multiplier (e.g., 0.25 = 25%, 1.0 = 100%, 1.5 = 150%)
-                levels: [0.4, 0.5, 0.7, 0.8, 1.0],
+                // Values represent multiplier (e.g., 0.3 = 30%, 1.0 = 100%)
+                // Range: 30% to 100% in 0.1 (10%) increments
+                levels: [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
                 // Default scale when no scale is stored
                 default: 1.0
             },

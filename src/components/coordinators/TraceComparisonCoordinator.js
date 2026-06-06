@@ -279,8 +279,8 @@ export class TraceComparisonCoordinator {
             return;
         }
         
-        // Create or update info box
-        ComparisonInfoBox.updateInfoBox(comparisonResult, sectionPair, container);
+        // Create or update info box with current step
+        ComparisonInfoBox.updateInfoBox(comparisonResult, sectionPair, container, this.currentStep);
     }
     
     /**
@@ -722,11 +722,12 @@ export class TraceComparisonCoordinator {
                 cachedResult.uniqueMermaidTraces?.length || 0
             );
             
-            // Update the unique trace lists in the details section
+            // Update the unique trace lists in the details section with current step
             ComparisonInfoBox.updateUniqueTraceLists(
                 sectionPair,
                 cachedResult.uniqueCPEETraces || [],
-                cachedResult.uniqueMermaidTraces || []
+                cachedResult.uniqueMermaidTraces || [],
+                this.currentStep
             );
             
             // If all traces match now, hide the info box

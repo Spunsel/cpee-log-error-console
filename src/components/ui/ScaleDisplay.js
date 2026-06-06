@@ -104,11 +104,11 @@ export class ScaleDisplay {
 
     /**
      * Format scale value for display
-     * @param {number} scale - Scale value (e.g., 0.25, 0.5, 0.75, 1.0)
-     * @returns {string} Formatted scale string (e.g., "0.25x", "1x")
+     * @param {number} scale - Scale value (e.g., 0.3, 0.5, 0.75, 1.0)
+     * @returns {string} Formatted scale string (e.g., "30%", "50%", "100%")
      */
     formatScale(scale) {
-        return scale === 1.0 ? '1x' : `${scale}x`;
+        return `${Math.round(scale * 100)}%`;
     }
     
     /**

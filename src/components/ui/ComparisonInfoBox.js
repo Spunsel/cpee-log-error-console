@@ -20,12 +20,15 @@
  * @class ComparisonInfoBox
  */
 
-import { ICON_COMPARISON_INFO, ICON_WARNING_COLLAPSE, ICON_WARNING_EXPAND } from '../../assets/icons.js';
+import { ICON_COMPARISON_INFO, ICON_WARNING_COLLAPSE, ICON_WARNING_EXPAND, ICONS } from '../../assets/icons.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
+import { TracePlaybackCoordinator } from '../coordinators/TracePlaybackCoordinator.js';
 
 export class ComparisonInfoBox {
     // Store references to buttons for updating after validation
     static reconcileButtons = new Map();
+    // Store reference to playback coordinator
+    static playbackCoordinator = null;
     /**
      * Create and display a comparison info box
      * 
@@ -44,14 +47,19 @@ export class ComparisonInfoBox {
      *   Must contain: isMatch, traceCountMatch, matchCount, totalCount, cpeeCount, mermaidCount, discrepancies, details
      * @param {string} sectionPair - Section pair identifier ('input' or 'output')
      * @param {HTMLElement} container - Container element where info box should be inserted
+     * @param {Object} step - Current CPEEStep instance (for accessing traces)
      * @returns {HTMLElement|null} Created info box element or null if not displayed
      * 
      * @example
      * const result = compareTraces(cpeeTraces, mermaidTraces);
      * const container = document.querySelector('.comparison-info-box-container[data-section-pair="input"]');
-     * ComparisonInfoBox.createInfoBox(result, 'input', container);
+     * ComparisonInfoBox.createInfoBox(result, 'input', container, currentStep);
      */
-    static createInfoBox(comparisonResult, sectionPair, container) {
+    static createInfoBox(comparisonResult, sectionPair, container, step) {
+        // Initialize playback coordinator if needed
+        if (!this.playbackCoordinator) {
+            this.playbackCoordinator = TracePlaybackCoordinator.getInstance(defaultEventBus);
+        }
         if (!container) {
             console.error('[ComparisonInfoBox] Cannot create info box - container is null');
             return null;
@@ -201,17 +209,15 @@ export class ComparisonInfoBox {
             const uniqueCPEEList = document.createElement('ul');
             uniqueCPEEList.className = 'comparison-info-box__unique-list';
 
+            // Determine sectionId for CPEE traces
+            const cpeeSectionId = sectionPair === 'input' ? 'input-cpee' : 'output-cpee';
+
             comparisonResult.uniqueCPEETraces.forEach(uniqueTrace => {
-                const listItem = document.createElement('li');
-                listItem.className = 'comparison-info-box__unique-item';
-                const traceIndexSpan = document.createElement('span');
-                traceIndexSpan.className = 'comparison-info-box__trace-index';
-                traceIndexSpan.textContent = `Trace ${uniqueTrace.traceIndex + 1}: `;
-                const sequenceSpan = document.createElement('span');
-                sequenceSpan.className = 'comparison-info-box__sequence-display';
-                sequenceSpan.textContent = `[${uniqueTrace.sequence.map(s => s || 'null').join(', ')}]`;
-                listItem.appendChild(traceIndexSpan);
-                listItem.appendChild(sequenceSpan);
+                const listItem = this.createUniqueTraceListItemWithPlayButton(
+                    uniqueTrace, 
+                    step, 
+                    cpeeSectionId
+                );
                 uniqueCPEEList.appendChild(listItem);
             });
 
@@ -232,17 +238,15 @@ export class ComparisonInfoBox {
             const uniqueMermaidList = document.createElement('ul');
             uniqueMermaidList.className = 'comparison-info-box__unique-list';
 
+            // Determine sectionId for Mermaid traces
+            const mermaidSectionId = sectionPair === 'input' ? 'input-intermediate' : 'output-intermediate';
+
             comparisonResult.uniqueMermaidTraces.forEach(uniqueTrace => {
-                const listItem = document.createElement('li');
-                listItem.className = 'comparison-info-box__unique-item';
-                const traceIndexSpan = document.createElement('span');
-                traceIndexSpan.className = 'comparison-info-box__trace-index';
-                traceIndexSpan.textContent = `Trace ${uniqueTrace.traceIndex + 1}: `;
-                const sequenceSpan = document.createElement('span');
-                sequenceSpan.className = 'comparison-info-box__sequence-display';
-                sequenceSpan.textContent = `[${uniqueTrace.sequence.map(s => s || 'null').join(', ')}]`;
-                listItem.appendChild(traceIndexSpan);
-                listItem.appendChild(sequenceSpan);
+                const listItem = this.createUniqueTraceListItemWithPlayButton(
+                    uniqueTrace, 
+                    step, 
+                    mermaidSectionId
+                );
                 uniqueMermaidList.appendChild(listItem);
             });
 
@@ -337,12 +341,13 @@ export class ComparisonInfoBox {
      * @param {Object} comparisonResult - New comparison result from TraceComparison.compareTraces()
      * @param {string} sectionPair - Section pair identifier ('input' or 'output')
      * @param {HTMLElement} container - Container element where info box should be displayed
+     * @param {Object} step - Current CPEEStep instance (for accessing traces)
      * @returns {HTMLElement|null} Updated info box element or null if not displayed
      */
-    static updateInfoBox(comparisonResult, sectionPair, container) {
+    static updateInfoBox(comparisonResult, sectionPair, container, step) {
         // Remove existing and create new
         this.removeInfoBox(container);
-        return this.createInfoBox(comparisonResult, sectionPair, container);
+        return this.createInfoBox(comparisonResult, sectionPair, container, step);
     }
 
     /**
@@ -427,8 +432,9 @@ export class ComparisonInfoBox {
      * @param {string} sectionPair - Section pair identifier ('input' or 'output')
      * @param {Array} uniqueCPEETraces - Array of unique CPEE trace objects
      * @param {Array} uniqueMermaidTraces - Array of unique Mermaid trace objects
+     * @param {Object} step - Current CPEEStep instance (optional - if provided, adds play buttons)
      */
-    static updateUniqueTraceLists(sectionPair, uniqueCPEETraces, uniqueMermaidTraces) {
+    static updateUniqueTraceLists(sectionPair, uniqueCPEETraces, uniqueMermaidTraces, step = null) {
         const container = document.querySelector(
             `.comparison-info-box-container[data-section-pair="${sectionPair}"]`
         );
@@ -467,8 +473,11 @@ export class ComparisonInfoBox {
                     section.style.display = 'none';
                 } else {
                     section.style.display = '';
+                    const cpeeSectionId = sectionPair === 'input' ? 'input-cpee' : 'output-cpee';
                     uniqueCPEETraces.forEach(uniqueTrace => {
-                        const listItem = ComparisonInfoBox.createUniqueTraceListItem(uniqueTrace);
+                        const listItem = step 
+                            ? ComparisonInfoBox.createUniqueTraceListItemWithPlayButton(uniqueTrace, step, cpeeSectionId)
+                            : ComparisonInfoBox.createUniqueTraceListItem(uniqueTrace);
                         list.appendChild(listItem);
                     });
                 }
@@ -482,13 +491,71 @@ export class ComparisonInfoBox {
                     section.style.display = 'none';
                 } else {
                     section.style.display = '';
+                    const mermaidSectionId = sectionPair === 'input' ? 'input-intermediate' : 'output-intermediate';
                     uniqueMermaidTraces.forEach(uniqueTrace => {
-                        const listItem = ComparisonInfoBox.createUniqueTraceListItem(uniqueTrace);
+                        const listItem = step 
+                            ? ComparisonInfoBox.createUniqueTraceListItemWithPlayButton(uniqueTrace, step, mermaidSectionId)
+                            : ComparisonInfoBox.createUniqueTraceListItem(uniqueTrace);
                         list.appendChild(listItem);
                     });
                 }
             }
         });
+    }
+
+    /**
+     * Create a list item for a unique trace with play button
+     * 
+     * @param {Object} uniqueTrace - Unique trace object with traceIndex and sequence
+     * @param {Object} step - Current CPEEStep instance
+     * @param {string} sectionId - Section identifier (e.g., 'input-cpee', 'input-intermediate')
+     * @returns {HTMLElement} List item element with play button
+     */
+    static createUniqueTraceListItemWithPlayButton(uniqueTrace, step, sectionId) {
+        const listItem = document.createElement('li');
+        listItem.className = 'comparison-info-box__unique-item comparison-info-box__unique-item--with-play';
+        
+        // Create play button
+        const playBtn = document.createElement('button');
+        playBtn.className = 'comparison-info-box__play-btn';
+        playBtn.setAttribute('aria-label', 'Auto-play trace');
+        playBtn.setAttribute('title', 'Auto-play trace (1 second per task)');
+        playBtn.setAttribute('type', 'button');
+        playBtn.innerHTML = ICONS.PLAY_TRACE;
+        
+        // Get the actual trace object from the step
+        const traces = step ? step.getTraces(sectionId) : null;
+        const trace = traces && traces[uniqueTrace.traceIndex] ? traces[uniqueTrace.traceIndex] : null;
+        
+        if (trace) {
+            // Wire up click handler
+            playBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // traceNumber is 1-based, but traceIndex is 0-based
+                const traceNumber = uniqueTrace.traceIndex + 1;
+                this.playbackCoordinator.toggleAutoPlay(sectionId, traceNumber, trace, playBtn, listItem);
+            });
+        } else {
+            // If we can't find the trace, disable the button
+            playBtn.disabled = true;
+            playBtn.setAttribute('aria-disabled', 'true');
+            playBtn.style.opacity = '0.3';
+        }
+        
+        listItem.appendChild(playBtn);
+        
+        const traceIndexSpan = document.createElement('span');
+        traceIndexSpan.className = 'comparison-info-box__trace-index';
+        traceIndexSpan.textContent = `Trace ${uniqueTrace.traceIndex + 1}: `;
+        
+        const sequenceSpan = document.createElement('span');
+        sequenceSpan.className = 'comparison-info-box__sequence-display';
+        sequenceSpan.textContent = `[${uniqueTrace.sequence.map(s => s || 'null').join(', ')}]`;
+        
+        listItem.appendChild(traceIndexSpan);
+        listItem.appendChild(sequenceSpan);
+        
+        return listItem;
     }
 
     /**
