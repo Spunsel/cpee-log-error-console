@@ -26,7 +26,6 @@ export class ConfigManager {
             timing: this.loadTimingConfig(),
             styling: this.loadStylingConfig(),
             syntaxHighlighting: this.loadSyntaxHighlightingConfig(),
-            email: this.loadEmailConfig(),
             recentAdditions: this.loadRecentAdditionsConfig()
         };
     }
@@ -420,7 +419,6 @@ export class ConfigManager {
                 
                 // UI elements
                 darkModeToggleContainer: 'dark-mode-toggle-container',
-                bugReportLink: 'bug-report-link',
                 
                 // Note: The following elements are dynamically created and registered by their components:
                 // - themeDropdownTrigger, themeDropdownMenu, themeDropdownContainer (registered by ThemeSelector.initialize())

@@ -20,7 +20,6 @@ export class ServiceFactory {
             'StepAssemblyService',
             'NodeMappingService',
             'TraceCalculationService',
-            'EmailService',
             'ContentProcessingService'
         ]);
         // Service registry: maps service names to factory functions
@@ -108,7 +107,6 @@ export class ServiceFactory {
             'SyntaxHighlightingService',
             'LogFetchService',
             'EventProcessingService',
-            'EmailService',
             'ContentProcessingService'
         ];
         
@@ -290,14 +288,6 @@ export class ServiceFactory {
             }
             const { EventProcessingService } = await this.importPromises.get('EventProcessingService');
             return new EventProcessingService();
-        });
-
-        this.serviceRegistry.set('EmailService', async (...args) => {
-            if (!this.importPromises.has('EmailService')) {
-                this.importPromises.set('EmailService', import('../services/EmailService.js'));
-            }
-            const { EmailService } = await this.importPromises.get('EmailService');
-            return new EmailService(...args);
         });
 
         this.serviceRegistry.set('ContentProcessingService', async () => {

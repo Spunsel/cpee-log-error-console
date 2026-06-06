@@ -9,7 +9,6 @@ import { LogViewer } from '../components/views/LogViewer.js';
 import { InstanceLoaderViewer } from '../components/views/InstanceLoaderViewer.js';
 import { ContentViewCoordinator } from '../components/coordinators/ContentViewCoordinator.js';
 import { CrossGraphHighlightCoordinator } from '../components/coordinators/CrossGraphHighlightCoordinator.js';
-import { BugReportModal } from '../components/ui/BugReportModal.js';
 import { DarkModeToggle } from '../components/ui/DarkModeToggle.js';
 import { DemoTour } from '../components/ui/DemoTour.js';
 import { DEFAULT_DOM_MAPPINGS, DOMRegistry } from './DOMRegistry.js';
@@ -46,7 +45,6 @@ export class CPEEDebugConsole {
         this.stepViewer = new StepViewer(this.instanceService, this.domRegistry, this.contentViewCoordinator, this.highlightCoordinator, this.eventBus, this.stateManager, eventProcessingService, contentProcessingService);
         this.logViewer = new LogViewer(this.domRegistry, this.eventBus, this.stateManager);
         this.instanceLoaderViewer = new InstanceLoaderViewer(this.instanceService, this.domRegistry, this.eventBus, this.stateManager, this.logFetchService, eventProcessingService);
-        this.bugReportModal = new BugReportModal(this.serviceFactory);
         this.darkModeToggle = new DarkModeToggle(this.domRegistry, this.eventBus, this.stateManager);
         this.demoTour = new DemoTour(this.eventBus);
         
@@ -130,7 +128,6 @@ export class CPEEDebugConsole {
         }
         
         this.setupEventListeners();
-        this.setupBugReportModal();
         
         // Load instance if UUID is provided
         if (urlParams.uuid) {
@@ -234,18 +231,6 @@ export class CPEEDebugConsole {
                 this.eventBus.emit('keyboard:arrowRight');
             }
         });
-    }
-
-    /**
-     * Setup bug report modal
-     */
-    setupBugReportModal() {
-        const bugReportLink = this.domRegistry.getElement('bugReportLink');
-        if (bugReportLink && this.bugReportModal) {
-            bugReportLink.addEventListener('click', () => {
-                this.bugReportModal.open();
-            });
-        }
     }
 
     /**
