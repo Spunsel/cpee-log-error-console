@@ -7,7 +7,7 @@
 # raw bytes and decoded as UTF-8; fallback logs are stored as gzip (.xes.yaml.gz).
 
 # Process numbers to fetch
-$processNumbers = @(77303..77397)
+$processNumbers = @(77398..77400)
 
 # Current generation — new entries are written into this generation's section.
 # Change to "generation3" (or any name) to start a new generation bucket.
@@ -283,7 +283,26 @@ foreach ($genName in $sortedGenerations.Keys) {
 $json = "{`n" + ($genBlocks -join ",`n") + "`n}"
 
 $absFallbackMapping = Join-Path (Resolve-Path $fallbackDir).Path "uuid-mapping.json"
-[System.IO.File]::WriteAllText($absFallbackMapping, $json, $utf8NoBom)
+# Use Set-Content with retry logic to handle file locks
+$retryCount = 0
+$maxRetries = 3
+$writeSuccess = $false
+while (-not $writeSuccess -and $retryCount -lt $maxRetries) {
+    try {
+        $json | Set-Content -Path $absFallbackMapping -Encoding UTF8 -NoNewline -Force
+        $writeSuccess = $true
+    }
+    catch {
+        $retryCount++
+        if ($retryCount -lt $maxRetries) {
+            Start-Sleep -Milliseconds 500
+        }
+        else {
+            Write-Host "Warning: Could not save UUID mapping after $maxRetries attempts. File may be locked." -ForegroundColor Yellow
+            Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Yellow
+        }
+    }
+}
 
 $totalEntries = ($sortedGenerations.Values | ForEach-Object { $_.Count } | Measure-Object -Sum).Sum
 Write-Host "UUID mapping saved ($newCount new in '$currentGeneration', $totalEntries total across all generations)" -ForegroundColor Green

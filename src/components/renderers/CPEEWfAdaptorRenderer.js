@@ -611,49 +611,72 @@ export class CPEEWfAdaptorRenderer {
     }
 
     /**
-     * Dynamically adjust SVG height based on actual content dimensions.
-     * Handles negative bbox.y values correctly.
+     * Dynamically adjust SVG dimensions based on actual content dimensions.
+     * Handles negative bbox values correctly and adjusts both width and height.
      */
     adjustSVGHeight() {
         if (!this.svgContainer) { return; }
 
         try {
             const svg = this.svgContainer;
+            const DEFAULT_WIDTH = 200;
+            const DEFAULT_HEIGHT = 400;
+            const PADDING_X = 40;
+            const PADDING_Y = 20;
+            const MIN_SIZE = 100;
             
-            if (!svg.children || svg.children.length === 0) {
-                svg.setAttribute('height', '400');
-                svg.style.height = '400px';
+            // Helper to set dimensions
+            const setDimensions = (width, height) => {
+                svg.setAttribute('width', width.toString());
+                svg.setAttribute('height', height.toString());
+                svg.style.width = width + 'px';
+                svg.style.height = height + 'px';
+            };
+            
+            // No content - use defaults
+            if (!svg.children?.length) {
+                setDimensions(DEFAULT_WIDTH, DEFAULT_HEIGHT);
                 return;
             }
             
+            // Get bounding box
             const bbox = svg.getBBox();
             
-            if (!bbox || isNaN(bbox.height) || bbox.height <= 0) {
-                const viewBox = svg.getAttribute('viewBox');
-                if (viewBox) {
-                    const vbValues = viewBox.split(/\s+/);
-                    if (vbValues.length >= 4) {
-                        const vbHeight = parseFloat(vbValues[3]);
-                        if (!isNaN(vbHeight) && vbHeight > 0) {
-                            svg.setAttribute('height', vbHeight.toString());
-                            svg.style.height = vbHeight + 'px';
-                            return;
-                        }
-                    }
+            // Invalid bbox - fallback to viewBox or defaults
+            if (!bbox || isNaN(bbox.width) || isNaN(bbox.height)) {
+                const viewBox = svg.getAttribute('viewBox')?.split(/\s+/).map(parseFloat);
+                if (viewBox?.length >= 4 && viewBox[2] > 0 && viewBox[3] > 0) {
+                    setDimensions(viewBox[2], viewBox[3]);
+                } else {
+                    setDimensions(DEFAULT_WIDTH, DEFAULT_HEIGHT);
                 }
-                svg.setAttribute('height', '400');
-                svg.style.height = '400px';
                 return;
             }
             
-            const requiredHeight = Math.max(0, bbox.y) + bbox.height + 20;
-            const finalHeight = Math.max(requiredHeight, 100);
+            // Calculate dimensions from bbox
+            const width = Math.max(Math.max(0, bbox.x) + bbox.width + PADDING_X, MIN_SIZE);
+            const height = Math.max(Math.max(0, bbox.y) + bbox.height + PADDING_Y, MIN_SIZE);
             
-            svg.setAttribute('height', finalHeight.toString());
-            svg.style.height = finalHeight + 'px';
+            setDimensions(width, height);
+            
+            // Update viewBox to match content bounds
+            const viewBoxX = Math.min(0, bbox.x);
+            const viewBoxY = Math.min(0, bbox.y);
+            const viewBoxWidth = bbox.width + Math.abs(viewBoxX) + PADDING_X;
+            const viewBoxHeight = bbox.height + Math.abs(viewBoxY) + PADDING_Y;
+            svg.setAttribute('viewBox', `${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`);
+            
+            // Adjust parent containers
+            svg.parentElement?.style.setProperty('width', width + 'px');
+            svg.parentElement?.style.setProperty('height', height + 'px');
+            svg.parentElement?.parentElement?.style.setProperty('width', width + 'px');
+            svg.parentElement?.parentElement?.style.setProperty('height', height + 'px');
             
         } catch (error) {
+            console.error('[CPEEWfAdaptorRenderer] Error adjusting SVG dimensions:', error);
+            this.svgContainer.setAttribute('width', '200');
             this.svgContainer.setAttribute('height', '400');
+            this.svgContainer.style.width = '200px';
             this.svgContainer.style.height = '400px';
         }
     }
