@@ -106,106 +106,33 @@ The console opens at **http://localhost:8000**.
 
 ### Fallback Data (Optional)
 
-The app can resolve **process numbers → UUIDs** and load **`.xes.yaml` logs** from local files when the CPEE API is slow or unavailable. That data lives under **`fallback/`**:
+The app can resolve **process numbers → UUIDs** and load **gzip-compressed logs** from local files when the CPEE API is slow or unavailable. That data lives under **`fallback/`**:
 
 - `fallback/uuid-mapping.json` — JSON map of process number (string key) to UUID
-- `fallback/logs/` — one log file per cached instance, basename = UUID plus `.xes.yaml` (some mappings use a `_v2` suffix on the UUID; these suffixes are added to currently non-archived instances)
+- `fallback/logs/` — one gzip file per cached instance: `{uuid}.xes.yaml.gz`. The app decompresses these in the browser via `DecompressionStream`.
 
-To refresh or build this cache from the flow engine, run the bundled PowerShell script from the **repository root**. It merges new mappings with any existing `uuid-mapping.json`, downloads logs, and copies them into `fallback/logs/`:
+To refresh or build this cache from the flow engine, run the bundled PowerShell script from the **repository root**. It merges new mappings with any existing `uuid-mapping.json`, downloads logs, and saves them as gzip into `fallback/logs/`:
 
 ```powershell
 powershell -File scripts/fetch-and-update.ps1
+```
+
+To compress existing uncompressed logs (one-time migration or cleanup):
+
+```powershell
+powershell -File scripts/compress-fallback-logs.ps1
 ```
 
 Edit the `$processNumbers` array at the top of `scripts/fetch-and-update.ps1` if you only need a subset of instances.
 
 ## CORS Proxy
 
-Browsers block direct requests to `cpee.org` from the console (CORS). By default the app uses public proxies such as `corsproxy.io`, which can hit rate limits (HTTP 429) during instance scanning.
+Browsers cannot call `cpee.org` directly (CORS). For live log fetching and instance scanning, the console routes requests through a small **serverless proxy** hosted on [Vercel](https://vercel.com) — a free cloud platform that runs the `api/proxy.js` function and adds the required CORS headers.
 
-This repository includes a **self-hosted serverless CORS proxy** under `api/` that forwards requests to `cpee.org` and adds the required CORS headers. Hosting it yourself avoids third-party rate limits and is more reliable for scanning and live log fetching.
+**You do not need to set anything up.** The app is preconfigured in `src/config/ConfigManager.js` to use `https://cpee-cors-proxy.vercel.app`. Clone the repo and run it; live CPEE requests work out of the box.
 
-### What It Does
+If you only use **known instances** from the preloaded list, the bundled **fallback logs** are enough.
 
-- Proxies requests to `cpee.org` and adds CORS headers
-- Reduces rate limiting compared to public CORS proxies
-- Free to host on [Vercel](https://vercel.com)
-- Only allows GET requests to `cpee.org` URLs (see `api/proxy.js`)
-
-### Deploy to Vercel (Recommended)
-
-1. **Install the Vercel CLI** (if needed):
-
-   ```bash
-   npm install -g vercel
-   ```
-
-2. **Log in**:
-
-   ```bash
-   vercel login
-   ```
-
-3. **Deploy from the repository root**:
-
-   ```bash
-   cd cpee-log-error-console
-   vercel
-   ```
-
-4. **Follow the prompts** (set up project, choose scope, project name e.g. `cpee-cors-proxy`, directory `./`).
-
-5. **Note your deployment URL**, for example:
-
-   ```
-   https://cpee-cors-proxy.vercel.app
-   ```
-
-6. **Point the app at your proxy** in `src/config/ConfigManager.js`:
-
-   ```javascript
-   cors: {
-       proxy: 'https://cpee-cors-proxy.vercel.app/api/proxy?url=',
-       logProxy: 'https://cpee-cors-proxy.vercel.app/api/proxy?url=',
-       // ...
-   }
-   ```
-
-### Deploy via Vercel Dashboard
-
-1. Go to [vercel.com](https://vercel.com) and sign in with GitHub.
-2. **Add New** → **Project** → import this repository.
-3. Vercel picks up `vercel.json` automatically; click **Deploy**.
-
-### Usage
-
-Once deployed, requests go through your proxy like this:
-
-```
-https://your-proxy.vercel.app/api/proxy?url=https://cpee.org/logs/UUID.xes.yaml
-```
-
-Test in a browser by opening that URL with a real CPEE log URL.
-
-### Scanning Rate Limits
-
-Even with your own proxy, `cpee.org` may still throttle heavy scanning. Tune these values in `src/config/ConfigManager.js` under `network`:
-
-| Setting | Description |
-|---------|-------------|
-| `scanConcurrency` | Max parallel requests per batch (default: `5`) |
-| `interRequestDelay` | Pause between batches in ms (default: `2000`) |
-
-Lower concurrency or raise the delay if you still see HTTP 429 responses.
-
-### Files
-
-| File | Purpose |
-|------|---------|
-| `api/proxy.js` | Serverless proxy handler |
-| `vercel.json` | Vercel routing and CORS headers |
-| `.vercelignore` | Limits the Vercel deployment to the API |
-| `api/README.md` | Additional deployment notes |
 
 ## Usage
 
@@ -291,7 +218,7 @@ The application follows a layered architecture:
 | Category | Technology |
 |----------|-----------|
 | Language | JavaScript (ES6+ modules) |
-| Build | [Vite](https://vite.dev) |
+| Serving | Static files — Python `http.server` locally, [GitHub Pages](https://pages.github.com) in production |
 | Graph rendering | [Mermaid.js](https://mermaid.js.org), CPEE WfAdaptor |
 | Syntax highlighting | [Prism.js](https://prismjs.com) |
 | Testing | Node.js test runner, [jsdom](https://github.com/jsdom/jsdom), [@testing-library](https://testing-library.com) |

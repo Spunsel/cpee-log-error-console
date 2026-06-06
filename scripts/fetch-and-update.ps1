@@ -4,7 +4,7 @@
 #
 # Encoding: WebClient.DownloadString() uses the system default code page on Windows
 # (.NET Framework), which corrupts UTF-8 YAML (e.g. ü -> Ã¼). Logs are fetched as
-# raw bytes and decoded as UTF-8; files are written as UTF-8 without BOM.
+# raw bytes and decoded as UTF-8; fallback logs are stored as gzip (.xes.yaml.gz).
 
 # Process numbers to fetch
 $processNumbers = @(77303..77397)
@@ -34,6 +34,40 @@ public class TrustAllCertsPolicy : ICertificatePolicy {
 [System.Net.ServicePointManager]::DefaultConnectionLimit = 50
 
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+
+function Save-BytesAsGzipFile {
+    param(
+        [Parameter(Mandatory)][string]$DestGzPath,
+        [Parameter(Mandatory)][byte[]]$Utf8Bytes
+    )
+    $destDir = Split-Path -Parent $DestGzPath
+    if ($destDir -and -not (Test-Path $destDir)) {
+        New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+    }
+    $ms = New-Object System.IO.MemoryStream
+    try {
+        $gzip = New-Object System.IO.Compression.GZipStream(
+            $ms,
+            [System.IO.Compression.CompressionMode]::Compress
+        )
+        try {
+            $gzip.Write($Utf8Bytes, 0, $Utf8Bytes.Length)
+        } finally {
+            $gzip.Dispose()
+        }
+        [System.IO.File]::WriteAllBytes($DestGzPath, $ms.ToArray())
+    } finally {
+        $ms.Dispose()
+    }
+}
+
+function Save-TextAsGzipFile {
+    param(
+        [Parameter(Mandatory)][string]$DestGzPath,
+        [Parameter(Mandatory)][string]$Content
+    )
+    Save-BytesAsGzipFile -DestGzPath $DestGzPath -Utf8Bytes ($utf8NoBom.GetBytes($Content))
+}
 
 # Create directories
 $tempUuidDir = "scripts\temp\uuids"
@@ -254,11 +288,19 @@ $absFallbackMapping = Join-Path (Resolve-Path $fallbackDir).Path "uuid-mapping.j
 $totalEntries = ($sortedGenerations.Values | ForEach-Object { $_.Count } | Measure-Object -Sum).Sum
 Write-Host "UUID mapping saved ($newCount new in '$currentGeneration', $totalEntries total across all generations)" -ForegroundColor Green
 
-# Copy logs
+# Save logs as gzip-compressed files in fallback/logs
 $logFiles = Get-ChildItem -Path $tempLogDir -Filter "*.xes.yaml" -File
 if ($logFiles.Count -gt 0) {
-    $logFiles | ForEach-Object { Copy-Item $_.FullName -Destination $fallbackLogsDir -Force }
-    Write-Host "Copied $($logFiles.Count) log files to fallback\logs" -ForegroundColor Green
+    $logFiles | ForEach-Object {
+        $gzPath = Join-Path $fallbackLogsDir ($_.Name + ".gz")
+        $content = [System.IO.File]::ReadAllText($_.FullName, $utf8NoBom)
+        Save-TextAsGzipFile -DestGzPath $gzPath -Content $content
+        $legacyPath = Join-Path $fallbackLogsDir $_.Name
+        if (Test-Path $legacyPath) {
+            Remove-Item $legacyPath -Force
+        }
+    }
+    Write-Host "Saved $($logFiles.Count) gzip log files to fallback\logs" -ForegroundColor Green
 }
 
 if ($addedInstances.Count -gt 0) {

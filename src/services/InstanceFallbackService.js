@@ -150,13 +150,40 @@ export class InstanceFallbackService {
     }
 
     /**
-     * Get log content from local fallback.
-     * @param {string} uuid - CPEE instance UUID
-     * @returns {Promise<{content: string, fromFallback: boolean}|null>} Log content and source, or null if not found
+     * Decode log bytes — plain UTF-8 or gzip-compressed UTF-8.
+     * @param {ArrayBuffer} buffer - Raw file bytes
+     * @param {boolean} isGzip - Whether the buffer is gzip-compressed
+     * @returns {Promise<string|null>} Decoded YAML text, or null on failure
      */
-    async getLogContent(uuid) {
-        const filePath = `${this.basePath}/logs/${uuid}.xes.yaml`;
+    async decodeLogBuffer(buffer, isGzip) {
+        try {
+            let decodedBuffer = buffer;
 
+            if (isGzip) {
+                if (typeof DecompressionStream === 'undefined') {
+                    this.logWarning('DecompressionStream not supported — cannot read .gz fallback logs');
+                    return null;
+                }
+                decodedBuffer = await new Response(
+                    new Response(buffer).body.pipeThrough(new DecompressionStream('gzip'))
+                ).arrayBuffer();
+            }
+
+            const content = new TextDecoder('utf-8').decode(decodedBuffer);
+            return content && content.length >= 10 ? content : null;
+        } catch (error) {
+            this.logDebug('Failed to decode log buffer:', error.message);
+            return null;
+        }
+    }
+
+    /**
+     * Fetch and decode a single fallback log file.
+     * @param {string} filePath - Path relative to site root
+     * @param {boolean} isGzip - Whether the file is gzip-compressed
+     * @returns {Promise<{content: string, fromFallback: boolean}|null>}
+     */
+    async fetchLogFile(filePath, isGzip) {
         try {
             const response = await fetch(filePath);
 
@@ -166,19 +193,42 @@ export class InstanceFallbackService {
             }
 
             const buffer = await response.arrayBuffer();
-            const content = new TextDecoder('utf-8').decode(buffer);
+            const content = await this.decodeLogBuffer(buffer, isGzip);
 
-            if (!content || content.length < 10) {
+            if (!content) {
                 this.logDebug(`Local log at ${filePath} is empty or invalid`);
                 return null;
             }
 
-            this.logWarning(`Using FALLBACK log for UUID ${uuid} (${content.length} bytes)`);
             return { content, fromFallback: true };
         } catch (error) {
             this.logDebug(`Failed to fetch local log at ${filePath}:`, error.message);
             return null;
         }
+    }
+
+    /**
+     * Get log content from local fallback.
+     * Prefers gzip-compressed `.xes.yaml.gz`; falls back to legacy `.xes.yaml`.
+     * @param {string} uuid - CPEE instance UUID
+     * @returns {Promise<{content: string, fromFallback: boolean}|null>} Log content and source, or null if not found
+     */
+    async getLogContent(uuid) {
+        const gzPath = `${this.basePath}/logs/${uuid}.xes.yaml.gz`;
+        const gzResult = await this.fetchLogFile(gzPath, true);
+        if (gzResult) {
+            this.logWarning(`Using FALLBACK log for UUID ${uuid} (${gzResult.content.length} bytes, gzip)`);
+            return gzResult;
+        }
+
+        const yamlPath = `${this.basePath}/logs/${uuid}.xes.yaml`;
+        const yamlResult = await this.fetchLogFile(yamlPath, false);
+        if (yamlResult) {
+            this.logWarning(`Using FALLBACK log for UUID ${uuid} (${yamlResult.content.length} bytes)`);
+            return yamlResult;
+        }
+
+        return null;
     }
 
     /**
