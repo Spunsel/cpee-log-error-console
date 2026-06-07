@@ -145,7 +145,14 @@ class TraceSets {
                 if (visits > MAX_GATEWAY_VISITS) { return []; }
                 const newGatewayVisits = new Map(gatewayVisits);
                 newGatewayVisits.set(currentNodeId, visits);
-                return nextNodeIds.flatMap(nextNodeId => 
+                
+                // Check if this is a loop-start gateway with "true" condition
+                // If so, enforce minimum 1 iteration before allowing exit
+                const filteredNextNodes = this.filterGatewayExitsForTrueLoops(
+                    graph, currentNodeId, nextNodeIds, visits
+                );
+                
+                return filteredNextNodes.flatMap(nextNodeId => 
                     this.forwardTrace(graph, nextNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, newGatewayVisits)
                 );
             }
@@ -157,18 +164,7 @@ class TraceSets {
                 return this.handleInclusiveGateway(graph, currentNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker);
             
             case 'escalate': {
-                // Escalate (BPMN escalation, derived from CPEE <escape/>) is a
-                // control-flow JUMP out of the enclosing loop, NOT termination.
-                // Follow its outgoing edges (in a correct CPEE→Mermaid translation
-                // these route past the loop's end gateway to the post-loop flow).
-                // Only fall back to "trace ends here" when no successor exists.
-                // if (nextNodeIds.length === 0) {
-                //     return [[...currentFT]];
-                // }
-                // return nextNodeIds.flatMap(nextNodeId =>
-                //     this.forwardTrace(graph, nextNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, gatewayVisits)
-                // );
-                return [];
+                return this.handleEscalate(graph, currentNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nextNTS, gatewayVisits);
             }
             
             default:
@@ -382,6 +378,161 @@ class TraceSets {
             }
         }
         return sharedNodesInOrder;
+    }
+
+    /**
+     * Filter gateway exits to enforce minimum 1 loop iteration when edge labeled "true".
+     * 
+     * When a gateway-start has an outgoing edge labeled "true" (indicating a CPEE
+     * condition="true" loop), we must execute the loop body at least once before
+     * allowing the exit path to the corresponding gateway-end.
+     * 
+     * @param {Object} graph - Graph structure
+     * @param {string} gatewayId - Current gateway node ID (e.g., "gw1s")
+     * @param {Array<string>} nextNodeIds - All outgoing node IDs from this gateway
+     * @param {number} visits - Number of times this gateway has been visited (current visit)
+     * @returns {Array<string>} Filtered list of next node IDs
+     */
+    static filterGatewayExitsForTrueLoops(graph, gatewayId, nextNodeIds, visits) {
+        // Get all outgoing edges from this gateway
+        const outgoingEdges = graph.adjacencyList.get(gatewayId) || [];
+        
+        // Check if any edge has label "true"
+        const hasTrueEdge = outgoingEdges.some(edge => 
+            edge.label === 'true' || edge.label === '"true"' || edge.label === "'true'"
+        );
+        
+        if (!hasTrueEdge) {
+            // No "true" label, treat as normal XOR gateway
+            return nextNodeIds;
+        }
+        
+        // This is a loop-start gateway with "true" condition
+        // Find the corresponding end gateway (gwXs -> gwXe)
+        const correspondingEndId = this.findCorrespondingEndGateway(graph, gatewayId);
+        
+        if (!correspondingEndId) {
+            // Can't find paired end gateway, treat as normal
+            return nextNodeIds;
+        }
+        
+        // On first visit (visits == 1), filter out the exit edge to the end gateway
+        // This enforces minimum 1 iteration through the loop body
+        if (visits === 1) {
+            return nextNodeIds.filter(nodeId => nodeId !== correspondingEndId);
+        }
+        
+        // On subsequent visits, allow all paths including exit
+        return nextNodeIds;
+    }
+
+    /**
+     * Given a gateway-start node id (e.g. "gw3s"), find the corresponding
+     * gateway-end node id (e.g. "gw3e") by swapping the trailing 's' for 'e'.
+     */
+    static findCorrespondingEndGateway(graph, startGatewayId) {
+        if (!startGatewayId.endsWith('s')) { return null; }
+        const candidateEndId = startGatewayId.slice(0, -1) + 'e';
+        const candidateNode = graph.nodeMap.get(candidateEndId);
+        if (candidateNode && candidateNode.type === 'exclusivegateway') {
+            return candidateEndId;
+        }
+        return null;
+    }
+
+    /**
+     * Handle escalate node (derived from CPEE <escape/>).
+     *
+     * Escalate is a structural jump out of the innermost enclosing loop.
+     * Its outgoing edge points to a gateway-end (e.g. gw2e).
+     *
+     * CRITICAL: When arriving at a gateway-end VIA escalate, check if we're
+     * "inside" the loop by checking:
+     * 1. Has the start gateway been visited? OR
+     * 2. Has any task that directly connects to the start gateway been visited?
+     *
+     * If either is true: jump ONLY to the paired start gateway
+     * If neither is true: continue ONLY along the gateway-end's outgoing edges
+     *
+     * This is EXCLUSIVE: either jump OR continue, never both.
+     */
+    static handleEscalate(graph, currentNodeId, targetNodeId, currentFT, maxLoopIterations, timeoutChecker, nonTaskSteps, gatewayVisits) {
+        const nextNodeIds = TopologyIterators.forwardIterator(graph, currentNodeId);
+    
+        if (nextNodeIds.length === 0) {
+            return [[...currentFT]];
+        }
+    
+        const results = [];
+    
+        for (const nextNodeId of nextNodeIds) {
+            const correspondingStartId = this.findCorrespondingStartGateway(graph, nextNodeId);
+    
+            if (correspondingStartId) {
+                // Check if we're inside the loop:
+                // 1. Start gateway visited, OR
+                // 2. Any task directly before start gateway has been visited
+                const startGatewayVisited = (gatewayVisits.get(correspondingStartId) || 0) > 0;
+                const taskBeforeLoopVisited = this.hasVisitedTaskBeforeGateway(
+                    graph, correspondingStartId, currentFT
+                );
+                
+                if (startGatewayVisited || taskBeforeLoopVisited) {
+                    // We're inside the loop - jump ONLY to the paired start gateway
+                    results.push(...this.forwardTrace(
+                        graph, correspondingStartId, targetNodeId,
+                        currentFT, maxLoopIterations, timeoutChecker, nonTaskSteps, gatewayVisits
+                    ));
+                } else {
+                    // We're NOT inside the loop - continue along gateway-end's edges
+                    results.push(...this.forwardTrace(
+                        graph, nextNodeId, targetNodeId,
+                        currentFT, maxLoopIterations, timeoutChecker, nonTaskSteps, gatewayVisits
+                    ));
+                }
+            } else {
+                // No paired start gateway - continue normally
+                results.push(...this.forwardTrace(
+                    graph, nextNodeId, targetNodeId,
+                    currentFT, maxLoopIterations, timeoutChecker, nonTaskSteps, gatewayVisits
+                ));
+            }
+        }
+    
+        return results;
+    }
+
+    /**
+     * Check if any task that directly connects to the given gateway
+     * has been visited in the current forward trace.
+     */
+    static hasVisitedTaskBeforeGateway(graph, gatewayId, currentFT) {
+        const predecessors = TopologyIterators.backwardIterator(graph, gatewayId);
+        const visitedTaskIds = new Set(
+            currentFT.map(task => task.alt_id || task.id).filter(Boolean)
+        );
+        
+        for (const predId of predecessors) {
+            const predNode = graph.nodeMap.get(predId);
+            if (predNode && predNode.type === 'task' && visitedTaskIds.has(predId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Given a gateway-end node id (e.g. "gw3e"), find the corresponding
+     * gateway-start node id (e.g. "gw3s") by swapping the trailing 'e' for 's'.
+     */
+    static findCorrespondingStartGateway(graph, endGatewayId) {
+        if (!endGatewayId.endsWith('e')) { return null; }
+        const candidateStartId = endGatewayId.slice(0, -1) + 's';
+        const candidateNode = graph.nodeMap.get(candidateStartId);
+        if (candidateNode && candidateNode.type === 'exclusivegateway') {
+            return candidateStartId;
+        }
+        return null;
     }
 }
 

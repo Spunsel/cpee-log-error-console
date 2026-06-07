@@ -273,13 +273,26 @@ export class CPEETraceWalker {
             return this.walkInclusiveChoose(alternatives, continuation, sequence, pos, taskMap, matchedPath);
         }
 
+        let escapeWasFired = false;
+        const wrappedEscapeCont = escapeCont ? (escapePos) => {
+            escapeWasFired = true;
+            return escapeCont(escapePos);
+        } : null;
+
         for (const alt of alternatives) {
             const altChildren = this.structuralChildren(alt);
             const saved = matchedPath.length;
-            if (this.walkChildren(altChildren, 0, sequence, pos, taskMap, matchedPath, continuation, escapeCont)) {
+            if (this.walkChildren(altChildren, 0, sequence, pos, taskMap, matchedPath, continuation, wrappedEscapeCont)) {
                 return true;
             }
             matchedPath.length = saved;
+            
+            // If an escape fired in this alternative, don't try other alternatives.
+            // The escape has committed to exiting the enclosing loop, so other
+            // branches of this choose are unreachable.
+            if (escapeWasFired) {
+                return false;
+            }
         }
         return false;
     }
@@ -382,7 +395,9 @@ export class CPEETraceWalker {
     /**
      * Walk a set of parallel branches whose tasks may appear interleaved in
      * the sequence. Each branch is flattened into its expected task sequence;
-     * branches may interleave freely.
+     * branches may interleave freely in ANY order.
+     * 
+     * Uses backtracking to try all possible interleavings until one succeeds.
      */
     static walkParallelBranches(branches, sequence, pos, taskMap, matchedPath) {
         const branchTasks = branches.map(branch => {
@@ -393,31 +408,71 @@ export class CPEETraceWalker {
 
         const cursors = new Array(branchTasks.length).fill(0);
         const totalTasks = branchTasks.reduce((s, b) => s + b.length, 0);
-        let consumed = 0;
 
-        while (consumed < totalTasks) {
-            if (pos >= sequence.length) { return -1; }
+        // Backtracking search for valid interleaving
+        return this.tryParallelInterleaving(
+            branchTasks, cursors, 0, totalTasks, sequence, pos, taskMap, matchedPath
+        );
+    }
 
-            const seqId = sequence[pos];
-            let matched = false;
-
-            for (let b = 0; b < branchTasks.length; b++) {
-                if (cursors[b] >= branchTasks[b].length) { continue; }
-                const task = branchTasks[b][cursors[b]];
-                if (this.taskMatches(task, seqId)) {
-                    matchedPath.push(task);
-                    cursors[b]++;
-                    pos++;
-                    consumed++;
-                    matched = true;
-                    break;
-                }
-            }
-
-            if (!matched) { return -1; }
+    /**
+     * Recursive backtracking to find a valid interleaving of parallel branches.
+     * 
+     * @param {Array<Array>} branchTasks - Tasks for each branch
+     * @param {Array<number>} cursors - Current position in each branch
+     * @param {number} consumed - Number of tasks matched so far
+     * @param {number} totalTasks - Total tasks across all branches
+     * @param {Array<string>} sequence - Trace sequence
+     * @param {number} pos - Current position in sequence
+     * @param {Map} taskMap - Task ID map
+     * @param {Array} matchedPath - Accumulated matched tasks
+     * @returns {number} Final position in sequence, or -1 if no valid interleaving
+     */
+    static tryParallelInterleaving(branchTasks, cursors, consumed, totalTasks, sequence, pos, taskMap, matchedPath) {
+        // Base case: all tasks consumed
+        if (consumed >= totalTasks) {
+            return pos;
         }
 
-        return pos;
+        // No more sequence to match
+        if (pos >= sequence.length) {
+            return -1;
+        }
+
+        const seqId = sequence[pos];
+
+        // Try matching current sequence position against each branch's next task
+        for (let b = 0; b < branchTasks.length; b++) {
+            // Skip branches that are already complete
+            if (cursors[b] >= branchTasks[b].length) {
+                continue;
+            }
+
+            const task = branchTasks[b][cursors[b]];
+            if (this.taskMatches(task, seqId)) {
+                // This branch matches - try continuing from here
+                const savedPathLength = matchedPath.length;
+                matchedPath.push(task);
+                cursors[b]++;
+
+                const result = this.tryParallelInterleaving(
+                    branchTasks, cursors, consumed + 1, totalTasks,
+                    sequence, pos + 1, taskMap, matchedPath
+                );
+
+                if (result !== -1) {
+                    // Found valid interleaving
+                    return result;
+                }
+
+                // Backtrack: this choice didn't work
+                matchedPath.length = savedPathLength;
+                cursors[b]--;
+            }
+        }
+
+        // No branch matched the current sequence position
+        return -1;
     }
 
     /**

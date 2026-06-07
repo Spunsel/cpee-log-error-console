@@ -49,6 +49,7 @@
    position: relative;
    width: 100%;
    min-height: auto;
+   max-height: 200px;
    border: 2px solid var(--alert-info-border);
    border-radius: var(--border-radius);
    background-color: var(--alert-info-bg);
@@ -58,6 +59,7 @@
    flex-direction: column;
    align-items: flex-start;
    justify-content: flex-start;
+   overflow: hidden;
 }
 
 .comparison-info-box__header {
@@ -69,6 +71,12 @@
    align-items: center;
    line-height: 1.2;
    width: 100%;
+   flex-shrink: 0;
+   position: sticky;
+   top: 0;
+   background-color: var(--alert-info-bg);
+   z-index: 1;
+   padding-bottom: 4px;
 }
 
 .comparison-info-box__icon {
@@ -200,6 +208,9 @@
 .comparison-info-box__details {
    margin-top: 8px;
    width: 100%;
+   overflow-y: auto;
+   flex: 1;
+   min-height: 0;
 }
 
 .comparison-info-box__details-content {
@@ -208,6 +219,7 @@
 
 .comparison-info-box__unique-section {
    margin-bottom: 16px;
+   max-height: none;
 }
 
 .comparison-info-box__unique-section:last-child {
