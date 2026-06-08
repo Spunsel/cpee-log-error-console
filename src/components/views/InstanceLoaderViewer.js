@@ -591,6 +591,11 @@ export class InstanceLoaderViewer {
         let rateLimitedCount = 0;
         let isRateLimited = false;
         
+        // Track consecutive 404 errors for early abort
+        let consecutive404Count = 0;
+        const MAX_CONSECUTIVE_404 = 10;
+        let scanAborted = false;
+        
         // Helper function to check if error is rate limit
         const isRateLimitError = (error) => {
             const errorMessage = error?.message || String(error);
@@ -612,18 +617,33 @@ export class InstanceLoaderViewer {
         
         // Process instances with concurrency limit
         const processInstance = async (processNumber) => {
+            // Check if scan was aborted
+            if (scanAborted) {
+                return;
+            }
+            
             try {
                 const result = await this.checkInstanceForSteps(processNumber);
                 
                 if (result && result.hasSteps && result.uuid) {
                     // Immediately append to the list as soon as found
                     foundCount++;
+                    consecutive404Count = 0; // Reset consecutive 404 counter on success
                     this.appendInstanceToList(result, instanceList);
                 } else if (result && result.error) {
-                    // Check if it's a 404 (process doesn't exist) - skip silently
+                    // Check if it's a 404 (process doesn't exist)
                     if (result.isNotFound) {
-                        return; // Process number doesn't exist, just skip
+                        consecutive404Count++;
+                        
+                        // Check if we've hit the consecutive 404 limit
+                        if (consecutive404Count >= MAX_CONSECUTIVE_404) {
+                            scanAborted = true;
+                        }
+                        return;
                     }
+                    
+                    // Non-404 error, reset consecutive counter
+                    consecutive404Count = 0;
                     
                     // Check if it's a rate limit error
                     if (isRateLimitError({ message: result.error })) {
@@ -631,13 +651,25 @@ export class InstanceLoaderViewer {
                         isRateLimited = true;
                         return;
                     }
+                } else {
+                    // No steps found but request succeeded, reset counter
+                    consecutive404Count = 0;
                 }
             } catch (error) {
                 // Check if it's a 404 (process doesn't exist)
                 const isNotFound = error.status === 404 || error.isNotFound || (error.message && error.message.includes('404'));
                 if (isNotFound) {
-                    return; // Process number doesn't exist, just skip
+                    consecutive404Count++;
+                    
+                    // Check if we've hit the consecutive 404 limit
+                    if (consecutive404Count >= MAX_CONSECUTIVE_404) {
+                        scanAborted = true;
+                    }
+                    return;
                 }
+                
+                // Non-404 error, reset consecutive counter
+                consecutive404Count = 0;
                 
                 if (isRateLimitError(error)) {
                     rateLimitedCount++;
@@ -676,6 +708,11 @@ export class InstanceLoaderViewer {
         // Split instances into batches based on concurrency limit
         try {
             for (let i = 0; i < instancesToCheck.length; i += concurrency) {
+                // Check if scan was aborted
+                if (scanAborted) {
+                    break;
+                }
+                
                 const batch = instancesToCheck.slice(i, i + concurrency);
                 await processBatch(batch);
             }
