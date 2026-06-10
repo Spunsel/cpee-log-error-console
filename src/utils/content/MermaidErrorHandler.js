@@ -142,9 +142,10 @@ export class MermaidErrorHandler {
      * Also normalizes "Expecting X, got Y" to Expected/Got labels.
      *
      * @param {string} message - Error message
+     * @param {string} originalCode - Original mermaid code (optional, for accurate line extraction)
      * @returns {Object} Parsed error information
      */
-    static parseErrorMessage(message) {
+    static parseErrorMessage(message, originalCode = null) {
         const parsed = {
             header: null,
             lineNumber: null,
@@ -169,7 +170,18 @@ export class MermaidErrorHandler {
             const line = messageLines[i];
             if (line.includes('^') && /^[-\s]*\^[-\s]*$/.test(line)) {
                 caretLine = line;
-                if (i > 0) {
+                // If we have the original code, extract the actual line from it
+                // This fixes the issue where Mermaid concatenates lines in error messages
+                if (originalCode && parsed.lineNumber) {
+                    const codeLines = originalCode.split('\n');
+                    if (parsed.lineNumber > 0 && parsed.lineNumber <= codeLines.length) {
+                        snippetLine = codeLines[parsed.lineNumber - 1];
+                    } else if (i > 0) {
+                        // Fallback to Mermaid's snippet if line number is out of range
+                        snippetLine = messageLines[i - 1];
+                    }
+                } else if (i > 0) {
+                    // Fallback to Mermaid's snippet if no original code available
                     snippetLine = messageLines[i - 1];
                 }
                 break;
@@ -179,12 +191,23 @@ export class MermaidErrorHandler {
         // Fallback: find snippet lines between header and Expected/Got
         // (for errors without a caret, like missingDiagramType)
         if (!snippetLine && parsed.lineNumber) {
-            for (const line of messageLines) {
-                if (!line.trim()) continue;
-                if (/^(Error:\s*)*Parse error on line/i.test(line)) continue;
-                if (/^(Expected|Expecting|Got)[\s:]/i.test(line)) break;
-                snippetLine = line;
-                break;
+            // Try to extract from original code first
+            if (originalCode) {
+                const codeLines = originalCode.split('\n');
+                if (parsed.lineNumber > 0 && parsed.lineNumber <= codeLines.length) {
+                    snippetLine = codeLines[parsed.lineNumber - 1];
+                }
+            }
+            
+            // Fallback to error message if no original code or line not found
+            if (!snippetLine) {
+                for (const line of messageLines) {
+                    if (!line.trim()) continue;
+                    if (/^(Error:\s*)*Parse error on line/i.test(line)) continue;
+                    if (/^(Expected|Expecting|Got)[\s:]/i.test(line)) break;
+                    snippetLine = line;
+                    break;
+                }
             }
         }
 
@@ -304,7 +327,7 @@ export class MermaidErrorHandler {
         errorHeader.appendChild(errorIcon);
         errorHeader.appendChild(document.createTextNode(` ${errorTypeText}`));
 
-        const parsedError = this.parseErrorMessage(categorizedError.message);
+        const parsedError = this.parseErrorMessage(categorizedError.message, categorizedError.code);
 
         const errorMessageContainer = document.createElement('div');
         errorMessageContainer.className = 'mermaid-error-indicator__message';
