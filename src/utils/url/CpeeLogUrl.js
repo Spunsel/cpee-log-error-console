@@ -4,6 +4,15 @@
  */
 
 /**
+ * Demo instances whose log files are hosted externally (e.g. on GitHub Pages)
+ * instead of the default cpee.org/logs endpoint.
+ * Key: canonical UUID (no _v2 suffix), Value: direct URL to the .xes.yaml file.
+ */
+const DEMO_LOG_URL_OVERRIDES = {
+    '00000001-0000-0000-0000-000000000001': 'https://spunsel.github.io/cpee-log-error-console/demo-paper-log.xes.yaml',
+};
+
+/**
  * @param {string} [uuid]
  * @returns {string|undefined}
  */
@@ -25,5 +34,5 @@ export function normalizeUuidForCpeeLogUrl(uuid) {
  */
 export function buildCpeeLogXesYamlUrl(cpeeLogsEndpoint, uuid) {
     const id = normalizeUuidForCpeeLogUrl(uuid);
-    return `${cpeeLogsEndpoint}/${id}.xes.yaml`;
+    return DEMO_LOG_URL_OVERRIDES[id] ?? `${cpeeLogsEndpoint}/${id}.xes.yaml`;
 }
