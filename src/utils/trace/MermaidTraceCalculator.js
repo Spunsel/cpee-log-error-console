@@ -16,6 +16,18 @@ const MAX_LOOP_ITERATIONS = 1;
 const TIMEOUT_MS = 2000;
 const MAX_GATEWAY_VISITS = MAX_LOOP_ITERATIONS + 1;
 
+/**
+ * Identify nodes that represent CPEE tasks (call, manipulate, script) in Mermaid.
+ * Mermaid emits `:task:` for call elements and `:script:` for manipulate/script elements.
+ */
+function isMermaidTaskType(type) {
+    if (!type) { return false; }
+    return type === 'task'
+        || type === 'script'
+        || type === 'subprocess'
+        || type.endsWith('task');
+}
+
 class TimeoutChecker {
     constructor(timeoutMs) {
         this.startTime = Date.now();
@@ -105,7 +117,7 @@ class TraceSets {
         const node = graph.nodeMap.get(currentNodeId);
         if (!node) { return []; }
         
-        const isTaskType = node.type === 'task' || node.type.endsWith('task') || node.type === 'subprocess';
+        const isTaskType = isMermaidTaskType(node.type);
         
         if (!isTaskType && nonTaskSteps > (graph.maxGatewayOnlySteps ?? 2)) {
             return [];
@@ -561,7 +573,7 @@ export class MermaidTraceCalculator {
             const graph = this.parseMermaid(preprocessedCode);
             if (!graph || graph.nodes.length === 0) { return []; }
             
-            const isTaskNode = n => n.type === 'task' || n.type.endsWith('task') || n.type === 'subprocess';
+            const isTaskNode = n => isMermaidTaskType(n.type);
             graph.maxGatewayOnlySteps = graph.nodes.filter(n => !isTaskNode(n)).length;
             
             const startNodes = graph.nodes.filter(n => n.type === 'startevent');
@@ -665,7 +677,7 @@ export class MermaidTraceCalculator {
      * Extract task information from a task node.
      */
     static extractTask(node) {
-        if (!node || (node.type !== 'task' && node.type !== 'subprocess' && !node.type.endsWith('task'))) {
+        if (!node || !isMermaidTaskType(node.type)) {
             return null;
         }
         return { id: null, alt_id: node.id, task: node.label || node.id };
@@ -876,7 +888,7 @@ export class MermaidTraceCalculator {
         try {
             const graph = this.parseMermaid(mermaidString);
             return graph.nodes
-                .filter(node => node.type === 'task' || node.type === 'subprocess' || node.type.endsWith('task'))
+                .filter(node => isMermaidTaskType(node.type))
                 .map(node => ({ id: node.id, alt_id: node.id, task: node.label || '' }));
         } catch (error) {
             console.error('[MermaidTraceCalculator] Error extracting tasks from graph:', error);

@@ -479,15 +479,18 @@ export class HighlightingService {
         }
         
         // Extract base ID if taskId is a full Mermaid SVG ID
-        // Support both task and gateway patterns
+        // Support task (call), script (manipulate/script), and gateway patterns
         let baseId = taskId;
         const baseIdMatch = taskId.match(/:([a-z0-9]+):task:/) || 
                            taskId.match(/^([a-z0-9]+):task:/) ||
+                           taskId.match(/:([a-z0-9]+):script:/) ||
+                           taskId.match(/^([a-z0-9]+):script:/) ||
                            taskId.match(/:([a-z0-9]+):exclusivegateway:/) ||
                            taskId.match(/^([a-z0-9]+):exclusivegateway:/) ||
                            taskId.match(/:([a-z0-9]+):parallelgateway:/) ||
                            taskId.match(/^([a-z0-9]+):parallelgateway:/) ||
                            taskId.match(/flowchart-([a-z0-9]+)(?:-task-|:task:|-)/) ||
+                           taskId.match(/flowchart-([a-z0-9]+)(?:-script-|:script:|-)/) ||
                            taskId.match(/flowchart-([a-z0-9]+)(?:-exclusivegateway-|:exclusivegateway:|-)/) ||
                            taskId.match(/flowchart-([a-z0-9]+)(?:-parallelgateway-|:parallelgateway:|-)/);
         if (baseIdMatch && baseIdMatch[1]) {
@@ -559,6 +562,7 @@ export class HighlightingService {
         const esc = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const types = [
             '-task-|:task:',
+            '-script-|:script:',
             '-exclusivegateway-|:exclusivegateway:',
             '-parallelgateway-|:parallelgateway:'
         ];

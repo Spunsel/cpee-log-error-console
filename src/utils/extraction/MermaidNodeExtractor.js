@@ -36,9 +36,9 @@ export class MermaidNodeExtractor {
                 position += extractedNodes.length;
             });
             
-            // Filter to keep tasks and gateways
+            // Filter to keep tasks (including CPEE manipulate/script rendered as :script:) and gateways
             const tasksAndGateways = nodes.filter(node => 
-                node.type === 'task' || node.type === 'gateway'
+                node.type === 'task' || node.type === 'script' || node.type === 'gateway'
             );            
             return tasksAndGateways;
             
@@ -98,6 +98,7 @@ export class MermaidNodeExtractor {
         
         const patterns = [
             { regex: /(\w+):task:\(([^)]+)\)/g, shape: 'rectangle', type: 'task' },
+            { regex: /(\w+):script:\(([^)]+)\)/g, shape: 'rectangle', type: 'script' },
             { regex: /(\w+):\w+:\(\(([^)]+)\)\)/g, shape: 'circle', type: 'event' },
             { regex: /(\w+):exclusivegateway:\{([^}]+)\}/g, shape: 'diamond', type: 'gateway' },
             { regex: /(\w+):parallelgateway:\{([^}]+)\}/g, shape: 'diamond', type: 'gateway' },
@@ -154,7 +155,7 @@ export class MermaidNodeExtractor {
         }
         
         // Already base if no typed fragments
-        if (!/:(task|exclusivegateway|parallelgateway):/.test(svgId)) {
+        if (!/:(task|script|exclusivegateway|parallelgateway):/.test(svgId)) {
             return svgId;
         }
 
@@ -172,9 +173,11 @@ export class MermaidNodeExtractor {
         const idPattern = '([a-z0-9_][a-z0-9_-]*)';
         const patterns = [
             new RegExp(`-${idPattern}:task:`, 'i'), new RegExp(`^${idPattern}:task:`, 'i'),
+            new RegExp(`-${idPattern}:script:`, 'i'), new RegExp(`^${idPattern}:script:`, 'i'),
             new RegExp(`-${idPattern}:exclusivegateway:`, 'i'), new RegExp(`^${idPattern}:exclusivegateway:`, 'i'),
             new RegExp(`-${idPattern}:parallelgateway:`, 'i'), new RegExp(`^${idPattern}:parallelgateway:`, 'i'),
             new RegExp(`flowchart-${idPattern}(?:-task-|:task:|-)`, 'i'),
+            new RegExp(`flowchart-${idPattern}(?:-script-|:script:|-)`, 'i'),
             new RegExp(`flowchart-${idPattern}(?:-exclusivegateway-|:exclusivegateway:|-)`, 'i'),
             new RegExp(`flowchart-${idPattern}(?:-parallelgateway-|:parallelgateway:|-)`, 'i')
         ];

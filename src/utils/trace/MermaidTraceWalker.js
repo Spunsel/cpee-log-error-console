@@ -157,7 +157,10 @@ export class MermaidTraceWalker {
     }
 
     static isTask(node) {
-        return node.type === 'task' || node.type === 'subprocess' || node.type.endsWith('task');
+        return node.type === 'task'
+            || node.type === 'script'
+            || node.type === 'subprocess'
+            || node.type.endsWith('task');
     }
 
     static taskMatches(node, seqId) {

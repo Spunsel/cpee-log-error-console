@@ -83,7 +83,10 @@ function analyzeGraphReachability(graphContent, MermaidTraceCalculator) {
     const backwardReachableAll = bfsReachable(reverse, endNodeIds);
 
     const taskNodes = graph.nodes.filter(
-        n => n.type === 'task' || n.type === 'subprocess' || n.type.endsWith('task')
+        n => n.type === 'task'
+            || n.type === 'script'
+            || n.type === 'subprocess'
+            || n.type.endsWith('task')
     );
 
     const forwardReachableTasks = [];
