@@ -7,7 +7,7 @@
 # raw bytes and decoded as UTF-8; fallback logs are stored as gzip (.xes.yaml.gz).
 
 # Process numbers to fetch
-$processNumbers = @(80156..80504)
+$processNumbers = @(80155..80731)
 
 # Current generation — new entries are written into this generation's section.
 # Change to "generation3" (or any name) to start a new generation bucket.
