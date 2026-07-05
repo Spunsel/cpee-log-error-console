@@ -29,7 +29,7 @@ log:
       time:timestamp: ''
   trace:
     concept:name: 1
-    cpee:name: Enter info here
+    cpee:name: Coffee Making Process
     cpee:instance: 00000001-0000-0000-0000-000000000001
 ---
 event:
@@ -52,7 +52,7 @@ event:
     <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>Task A</label>
+          <label>Grind Beans</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -60,7 +60,7 @@ event:
       </call>
       <call id="a3" endpoint="" a:alt_id="2">
         <parameters>
-          <label>Task B</label>
+          <label>Brew Coffee</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -91,7 +91,7 @@ event:
   cpee:change_uuid: demo-change-001-0000000000000000000000000
   cpee:exposition: |+
     # User Input:
-    Add two sequential tasks, A and B.
+    Add two sequential tasks: Grind Beans and Brew Coffee.
   time:timestamp: '2026-06-02T20:37:36.869768+02:00'
 ...
 ---
@@ -127,9 +127,9 @@ event:
   cpee:exposition: |-
     %% Output Intermediate
     graph LR
-    0:startevent:((startevent)) --> 1:task:(Task A)
-    1:task:(Task A) --> 2:task:()
-    2:task:(Task B) --> 3:endevent:(((endevent)))
+    0:startevent:((startevent)) --> 1:task:(Grind Beans)
+    1:task:(Grind Beans) --> 2:task:()
+    2:task:(Brew Coffee) --> 3:endevent:(((endevent)))
   time:timestamp: '2026-06-02T20:37:36.870047+02:00'
 ---
 event:
@@ -145,7 +145,7 @@ event:
     <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>Task A</label>
+          <label>Grind Beans</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -173,7 +173,7 @@ event:
     <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>Task A</label>
+          <label>Grind Beans</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -182,7 +182,7 @@ event:
       <loop mode="pre_test" condition="Retry" a:alt_id="2" language="text/javascript">
         <call id="a7" endpoint="" a:alt_id="4">
           <parameters>
-            <label>Task B</label>
+            <label>Brew Coffee</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -191,7 +191,7 @@ event:
       </loop>
       <call id="a5" endpoint="" a:alt_id="3">
         <parameters>
-          <label>Task C</label>
+          <label>Serve Coffee</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -214,7 +214,7 @@ event:
       xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>Task A</label>
+          <label>Grind Beans</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -240,7 +240,7 @@ event:
   cpee:change_uuid: demo-change-002-0000000000000000000000000
   cpee:exposition: |-
     # User Input:
-    Task B should be enclosed in a loop. On exit execute task C.
+    Brew Coffee should be enclosed in a loop. On exit execute Serve Coffee.
   time:timestamp: '2026-06-02T20:37:53.937513+02:00'
 ---
 event:
@@ -265,9 +265,9 @@ event:
   cpee:exposition: |-
     %% Input Intermediate
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(Task A)
-    a1:task:(Task A)-->a3:task:()
-    a3:task:(Task B)-->ee:endevent:((endevent))
+    se:startevent:((startevent))-->a1:task:(Grind Beans)
+    a1:task:(Grind Beans)-->a3:task:()
+    a3:task:(Brew Coffee)-->ee:endevent:((endevent))
   time:timestamp: '2026-06-02T20:37:53.937698+02:00'
 ---
 event:
@@ -280,12 +280,12 @@ event:
   cpee:exposition: |-
     %% Output Intermediate
     flowchart LR
-    0:startevent:((startevent)) --> 1:task:(Task A)
-    1:task:(Task A) --> 2:exclusivegateway:{x}
-    2:exclusivegateway:{x} --> |Done| 3:task:(Task C)
-    2:exclusivegateway:{x} --> |Retry| 4:task:(Task B)
-    4:task:(Task B) --> 2:exclusivegateway:{x}
-    3:task:(Task C) --> 5:endevent:(((endevent)))
+    0:startevent:((startevent)) --> 1:task:(Grind Beans)
+    1:task:(Grind Beans) --> 2:exclusivegateway:{x}
+    2:exclusivegateway:{x} --> |Done| 3:task:(Serve Coffee)
+    2:exclusivegateway:{x} --> |Retry| 4:task:(Brew Coffee)
+    4:task:(Brew Coffee) --> 2:exclusivegateway:{x}
+    3:task:(Serve Coffee) --> 5:endevent:(((endevent)))
   time:timestamp: '2026-06-02T20:37:53.937814+02:00'
 ---
 event:
@@ -301,7 +301,7 @@ event:
     <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>Task A</label>
+          <label>Grind Beans</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -310,7 +310,7 @@ event:
       <loop mode="pre_test" condition="Retry" a:alt_id="2" language="text/javascript">
         <call id="a7" endpoint="" a:alt_id="4">
           <parameters>
-            <label>Task B</label>
+            <label>Brew Coffee</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -318,7 +318,7 @@ event:
         </call>
         <call id="a5" endpoint="" a:alt_id="3">
           <parameters>
-            <label>Task C</label>
+            <label>Serve Coffee</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -339,7 +339,7 @@ event:
     <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="a1">
         <parameters>
-          <label>Task A</label>
+          <label>Grind Beans</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -350,7 +350,7 @@ event:
           <alternative condition="Retry" language="text/javascript">
             <call id="a7" endpoint="" a:alt_id="a7">
               <parameters>
-                <label>Task B</label>
+                <label>Brew Coffee</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -360,7 +360,7 @@ event:
           <alternative condition="">
             <call id="a11" endpoint="" a:alt_id="a6">
               <parameters>
-                <label>Task D</label>
+                <label>Pour Water</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -368,7 +368,7 @@ event:
             </call>
             <call id="a13" endpoint="" a:alt_id="a5">
               <parameters>
-                <label>Task C</label>
+                <label>Serve Coffee</label>
                 <method/>
                 <type>:task</type>
                 <arguments/>
@@ -395,7 +395,7 @@ event:
       xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="1">
         <parameters>
-          <label>Task A</label>
+          <label>Grind Beans</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -404,7 +404,7 @@ event:
       <loop mode="pre_test" condition="Retry" a:alt_id="gw1e" language="text/javascript">
         <call id="a7" endpoint="" a:alt_id="4">
           <parameters>
-            <label>Task B</label>
+            <label>Brew Coffee</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -412,7 +412,7 @@ event:
         </call>
         <call id="a5" endpoint="" a:alt_id="3">
           <parameters>
-            <label>Task C</label>
+            <label>Serve Coffee</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -431,7 +431,7 @@ event:
   cpee:change_uuid: demo-change-003-0000000000000000000000000
   cpee:exposition: |-
     # User Input:
-    Add Task D in an exclusive choice with Task A.
+    Add Pour Water in an exclusive choice with Grind Beans.
   time:timestamp: '2026-06-02T20:38:14.093536+02:00'
 ---
 event:
@@ -456,12 +456,12 @@ event:
   cpee:exposition: |-
     %% Input Intermediate
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(Task A)
-    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
+    se:startevent:((startevent))-->a1:task:(Grind Beans)
+    a1:task:(Grind Beans)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"Retry"|a7:task:(Task B)
-    a7:task:(Task B)-->a5:task:(Task C)
-    a5:task:(Task C)-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"Retry"|a7:task:(Brew Coffee)
+    a7:task:(Brew Coffee)-->a5:task:(Serve Coffee)
+    a5:task:(Serve Coffee)-->gw1s:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
   time:timestamp: '2026-06-02T20:38:14.094091+02:00'
 ---
@@ -475,13 +475,13 @@ event:
   cpee:exposition: |-
     %% Output Intermediate
     flowchart LR
-    se:startevent:((startevent))-->a1:task:(Task A)
-    a1:task:(Task A)-->gw1s:exclusivegateway:{x}
-    a8:task:(Task D)-->gw1s:exclusivegateway:{x}
+    se:startevent:((startevent))-->a1:task:(Grind Beans)
+    a1:task:(Grind Beans)-->gw1s:exclusivegateway:{x}
+    a8:task:(Pour Water)-->gw1s:exclusivegateway:{x}
     gw1s:exclusivegateway:{x}-->gw1e:exclusivegateway:{x}
-    gw1e:exclusivegateway:{x}-->|"Retry"|a7:task:(Task B)
-    a7:task:(Task B)-->a5:task:(Task C)
-    a5:task:(Task C)-->gw1s:exclusivegateway:{x}
+    gw1e:exclusivegateway:{x}-->|"Retry"|a7:task:(Brew Coffee)
+    a7:task:(Brew Coffee)-->a5:task:(Serve Coffee)
+    a5:task:(Serve Coffee)-->gw1s:exclusivegateway:{x}
     gw1e:exclusivegateway:{x}-->ee:endevent:((endevent))
   time:timestamp: '2026-06-02T20:38:14.094370+02:00'
 ---
@@ -498,7 +498,7 @@ event:
     <description xmlns="http://cpee.org/ns/description/1.0" xmlns:a="http://cpee.org/ns/annotation/1.0">
       <call id="a1" endpoint="" a:alt_id="a1">
         <parameters>
-          <label>Task A</label>
+          <label>Grind Beans</label>
           <method/>
           <type>:task</type>
           <arguments/>
@@ -507,7 +507,7 @@ event:
       <loop mode="pre_test" condition="Retry" a:alt_id="gw1e" language="text/javascript">
         <call id="a7" endpoint="" a:alt_id="a7">
           <parameters>
-            <label>Task B</label>
+            <label>Brew Coffee</label>
             <method/>
             <type>:task</type>
             <arguments/>
@@ -515,7 +515,7 @@ event:
         </call>
         <call id="a5" endpoint="" a:alt_id="a5">
           <parameters>
-            <label>Task C</label>
+            <label>Serve Coffee</label>
             <method/>
             <type>:task</type>
             <arguments/>
