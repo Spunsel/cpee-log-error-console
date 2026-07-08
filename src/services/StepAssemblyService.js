@@ -139,6 +139,7 @@ export class StepAssemblyService {
         if (exposition.includes('<!-- Input CPEE-Tree -->')) {
             const cleanedContent = this.contentProcessingService.processCPEETreeContent(exposition, 'input');
             cpeeStep.setInputCpeeTreeRaw(cleanedContent);
+            cpeeStep.getInputCpeeTreeRaw().setRawExposition(exposition); // Store completely unprocessed content for Raw View
         } else if (exposition.includes('%% Input Intermediate')) {
             const cleanedContent = this.contentProcessingService.processMermaidContent(exposition, 'input');
             const mermaidRaw = cpeeStep.getInputMermaidRaw();
@@ -162,6 +163,7 @@ export class StepAssemblyService {
         } else if (exposition.includes('<!-- Output CPEE-Tree -->')) {
             const cleanedContent = this.contentProcessingService.processCPEETreeContent(exposition, 'output');
             cpeeStep.setOutputCpeeTreeRaw(cleanedContent);
+            cpeeStep.getOutputCpeeTreeRaw().setRawExposition(exposition); // Store completely unprocessed content for Raw View
         }
     }
 }

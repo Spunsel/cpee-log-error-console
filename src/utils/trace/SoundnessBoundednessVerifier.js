@@ -93,7 +93,7 @@ export function verifySoundnessAndBoundedness(traces, graphContent, format, opti
             const allNodes = MermaidNodeExtractor.extract(graphContent);
             // Filter to only include tasks, exclude gateways and decisions.
             // Mermaid emits `:script:` for CPEE manipulate/script elements, so type 'script' counts as a task.
-            allTasks = allNodes.filter(node => node.type === 'task' || node.type === 'script');
+            allTasks = allNodes.filter(node => node.type === 'task' || node.type === 'script' || node.type === 'subprocess');
             const connections = MermaidNodeExtractor.extractConnections(graphContent);
             graphStructure = buildGraphStructure(allTasks, connections);
             parallelBlocks = extractMermaidParallelBlocks(graphContent);
@@ -827,7 +827,8 @@ function extractMermaidParallelBlocks(mermaidSyntax) {
                     if (visited.has(nodeId) || nodeId === joinId) { continue; }
                     visited.add(nodeId);
 
-                    if (nodeTypeMap.get(nodeId) === 'task') {
+                    const nodeType = nodeTypeMap.get(nodeId);
+                    if (nodeType === 'task' || nodeType === 'script' || nodeType === 'subprocess') {
                         tasks.push({ id: nodeId, alt_id: null, exclusive: true });
                     }
 

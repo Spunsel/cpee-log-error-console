@@ -127,13 +127,18 @@ export class StepViewer {
             this.highlightCoordinator.setCurrentStepMapping(step.getTaskMapping());
         }
 
-        // Update content sections using ContentVisualizationCoordinator
+        // Update content sections using ContentVisualizationCoordinator.
+        // For CPEE trees, prefer the pre-cleaned CPEETreeRaw content (which already contains
+        // only the <description> block) so the graph renderer never needs to re-parse and
+        // extract from a full <testset> wrapper at render time.
+        const inputCpeeRaw = step.getInputCpeeTreeRaw();
+        const outputCpeeRaw = step.getOutputCpeeTreeRaw();
         const stepContent = {
-            inputCpeeTree: step.getContent('inputCpeeTree'),
+            inputCpeeTree: (inputCpeeRaw && inputCpeeRaw.getContent()) || step.getContent('inputCpeeTree'),
             inputIntermediate: step.getContent('inputIntermediate'),
             userInput: step.getContent('userInput'),
             outputIntermediate: step.getContent('outputIntermediate'),
-            outputCpeeTree: step.getContent('outputCpeeTree')
+            outputCpeeTree: (outputCpeeRaw && outputCpeeRaw.getContent()) || step.getContent('outputCpeeTree')
         };
         
         // Set current step for ContentVisualizationCoordinator (needed for SVG export filename)

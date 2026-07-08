@@ -282,11 +282,13 @@ export class CPEEParser {
     }
 
     /**
-     * Clean CPEE tree content from log exposition
+     * Clean CPEE tree content from log exposition and extract just the <description> block.
+     * When the exposition wraps <description> inside outer elements (e.g. <testset><dslx>),
+     * only the <description> subtree is returned so the Cleaned View is uncluttered.
      * 
      * @param {string} content - Raw content from exposition
      * @param {string} type - 'input' or 'output'
-     * @returns {string} Cleaned content
+     * @returns {string} Cleaned content containing only the <description> block
      */
     static cleanCPEETreeContent(content, type) {
         if (!content) { 
@@ -305,10 +307,27 @@ export class CPEEParser {
         // Remove any leading/trailing whitespace
         cleaned = cleaned.trim();
         
-        // Format XML with proper indentation
-        cleaned = this.formatXML(cleaned);
+        // Parse and extract just the <description> block if it is nested inside a wrapper
+        try {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(cleaned, 'text/xml');
+            
+            if (!xmlDoc.querySelector('parsererror')) {
+                const root = xmlDoc.documentElement;
+                if (root && root.tagName !== 'description') {
+                    // <description> is nested inside a wrapper (e.g. <testset><dslx>)
+                    const descElement = xmlDoc.querySelector('description');
+                    if (descElement) {
+                        return this.formatXMLWithIndentation(descElement);
+                    }
+                }
+            }
+        } catch (_e) {
+            // fall through to plain formatting
+        }
         
-        return cleaned;
+        // Root is already <description>, or the XML could not be parsed — format as-is
+        return this.formatXML(cleaned);
     }
 
     /**

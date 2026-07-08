@@ -7,16 +7,44 @@
 export class CPEETreeRaw {
     constructor(content = '') {
         this.content = content || '';
+        this.rawExposition = ''; // Original log exposition before any cleaning
         this.extractedAt = new Date();
         this.isValid = this.validateXmlStructure();
     }
 
     /**
-     * Get the raw CPEE tree content
-     * @returns {string} Raw CPEE tree XML
+     * Get the cleaned CPEE tree content (description block only)
+     * @returns {string} Cleaned CPEE tree XML
      */
     getContent() {
         return this.content;
+    }
+
+    /**
+     * Set the cleaned CPEE tree content
+     * @param {string} content - Cleaned CPEE XML (description block)
+     */
+    setContent(content) {
+        this.content = content || '';
+        this.isValid = this.validateXmlStructure();
+    }
+
+    /**
+     * Store the completely unprocessed exposition from the log.
+     * Used by the Raw/Log View so it can display the full original content.
+     * @param {string} exposition - Original log exposition string
+     */
+    setRawExposition(exposition) {
+        this.rawExposition = exposition || '';
+    }
+
+    /**
+     * Get the original log exposition.
+     * Falls back to cleaned content when no raw exposition was stored.
+     * @returns {string} Original log exposition or cleaned content
+     */
+    getRawExposition() {
+        return this.rawExposition || this.content;
     }
 
     /**

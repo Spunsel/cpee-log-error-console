@@ -526,7 +526,7 @@ class TraceSets {
         
         for (const predId of predecessors) {
             const predNode = graph.nodeMap.get(predId);
-            if (predNode && predNode.type === 'task' && visitedTaskIds.has(predId)) {
+            if (predNode && isMermaidTaskType(predNode.type) && visitedTaskIds.has(predId)) {
                 return true;
             }
         }

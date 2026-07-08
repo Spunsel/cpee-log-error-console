@@ -36,9 +36,9 @@ export class MermaidNodeExtractor {
                 position += extractedNodes.length;
             });
             
-            // Filter to keep tasks (including CPEE manipulate/script rendered as :script:) and gateways
+            // Filter to keep tasks (including :script:, :subprocess:) and gateways
             const tasksAndGateways = nodes.filter(node => 
-                node.type === 'task' || node.type === 'script' || node.type === 'gateway'
+                node.type === 'task' || node.type === 'script' || node.type === 'subprocess' || node.type === 'gateway'
             );            
             return tasksAndGateways;
             
@@ -99,6 +99,7 @@ export class MermaidNodeExtractor {
         const patterns = [
             { regex: /(\w+):task:\(([^)]+)\)/g, shape: 'rectangle', type: 'task' },
             { regex: /(\w+):script:\(([^)]+)\)/g, shape: 'rectangle', type: 'script' },
+            { regex: /(\w+):subprocess:\(([^)]+)\)/g, shape: 'rectangle', type: 'subprocess' },
             { regex: /(\w+):\w+:\(\(([^)]+)\)\)/g, shape: 'circle', type: 'event' },
             { regex: /(\w+):exclusivegateway:\{([^}]+)\}/g, shape: 'diamond', type: 'gateway' },
             { regex: /(\w+):parallelgateway:\{([^}]+)\}/g, shape: 'diamond', type: 'gateway' },
@@ -155,7 +156,7 @@ export class MermaidNodeExtractor {
         }
         
         // Already base if no typed fragments
-        if (!/:(task|script|exclusivegateway|parallelgateway):/.test(svgId)) {
+        if (!/:(task|script|subprocess|exclusivegateway|parallelgateway):/.test(svgId)) {
             return svgId;
         }
 
@@ -174,10 +175,12 @@ export class MermaidNodeExtractor {
         const patterns = [
             new RegExp(`-${idPattern}:task:`, 'i'), new RegExp(`^${idPattern}:task:`, 'i'),
             new RegExp(`-${idPattern}:script:`, 'i'), new RegExp(`^${idPattern}:script:`, 'i'),
+            new RegExp(`-${idPattern}:subprocess:`, 'i'), new RegExp(`^${idPattern}:subprocess:`, 'i'),
             new RegExp(`-${idPattern}:exclusivegateway:`, 'i'), new RegExp(`^${idPattern}:exclusivegateway:`, 'i'),
             new RegExp(`-${idPattern}:parallelgateway:`, 'i'), new RegExp(`^${idPattern}:parallelgateway:`, 'i'),
             new RegExp(`flowchart-${idPattern}(?:-task-|:task:|-)`, 'i'),
             new RegExp(`flowchart-${idPattern}(?:-script-|:script:|-)`, 'i'),
+            new RegExp(`flowchart-${idPattern}(?:-subprocess-|:subprocess:|-)`, 'i'),
             new RegExp(`flowchart-${idPattern}(?:-exclusivegateway-|:exclusivegateway:|-)`, 'i'),
             new RegExp(`flowchart-${idPattern}(?:-parallelgateway-|:parallelgateway:|-)`, 'i')
         ];
@@ -200,14 +203,22 @@ export class MermaidNodeExtractor {
         }
         
         // Check if full ID contains gateway type markers
-        // This catches cases like "flowchart-6:exclusivegateway:-107" where base ID is "6"
+        // This catches cases like "flowchart-e1s:exclusivegateway:-107" where base ID is "e1s"
         if (/:exclusivegateway:|:parallelgateway:/.test(id)) {
             return true;
         }
         
-        // Check gw\d+ pattern for base IDs
         const baseId = this.extractBaseId(id);
-        return /^gw\d+/i.test(baseId);
+        // Classic gw\d+ convention
+        if (/^gw\d+/i.test(baseId)) {
+            return true;
+        }
+        // Permissive: any alphanumeric ID of length ≥ 3 ending in 's' or 'e'
+        // (length ≥ 3 avoids false positives for 2-char event IDs like "se", "ee")
+        if (/^\w{2,}[se]$/i.test(baseId)) {
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -224,14 +235,13 @@ export class MermaidNodeExtractor {
         }
         const baseId = this.extractBaseId(id);
         
-        // For gw pattern, check if it ends with 's'
-        if (/^gw\d+/i.test(baseId)) {
-            return /^gw\d+s$/i.test(baseId);
+        // Any gateway ID ending with 's' is a start gateway
+        if (/s$/i.test(baseId)) {
+            return true;
         }
         
-        // For non-gw patterns (numeric IDs like "3", "6"), we cannot determine
-        // start vs end from the ID alone. Return true to include in mapping.
-        // This treats all non-gw gateways as potential start gateways.
+        // For IDs with no s/e suffix (e.g. numeric "3", "6"), we cannot determine
+        // start vs end from the ID alone — treat as potential start gateway.
         if (this.isGatewayId(id)) {
             return true;
         }
@@ -251,21 +261,22 @@ export class MermaidNodeExtractor {
             return false;
         }
         const baseId = this.extractBaseId(id);
-        // Only the gw pattern can reliably identify end gateways
-        return /^gw\d+e$/i.test(baseId);
+        // Any gateway ID ending with 'e' is an end gateway
+        return /e$/i.test(baseId);
     }
     
     /**
-     * Check if a gateway ID uses the gw\d+[se] naming convention
+     * Check if a gateway ID uses the paired start/end naming convention (any prefix ending in 's' or 'e').
+     * Covers the classic gw\d+[se] format and any newer prefix like e1s/e1e, p1s/p1e, etc.
      * @param {string} id - Gateway ID
-     * @returns {boolean} True if it uses the gw pattern
+     * @returns {boolean} True if the ID ends with 's' or 'e', indicating a paired gateway
      */
     static usesGwNamingConvention(id) {
         if (!id) {
             return false;
         }
         const baseId = this.extractBaseId(id);
-        return /^gw\d+/i.test(baseId);
+        return /[se]$/i.test(baseId);
     }
     
     /**
@@ -278,19 +289,20 @@ export class MermaidNodeExtractor {
             return null;
         }
         
-        // Extract base ID from full Mermaid SVG ID if needed
+        // Extract base ID from full Mermaid SVG ID (any gateway type, any prefix)
         let baseId = gatewayId;
-        const baseIdMatch = gatewayId.match(/flowchart-(gw\d+[se]):exclusivegateway:/i) ||
-                           gatewayId.match(/flowchart-(gw\d+[se]):parallelgateway:/i) ||
-                           gatewayId.match(/^(gw\d+[se])$/i);
+        const baseIdMatch = gatewayId.match(/flowchart-(\w+):(?:exclusivegateway|parallelgateway|inclusivegateway):/i) ||
+                           gatewayId.match(/^(\w+):(?:exclusivegateway|parallelgateway|inclusivegateway):/i);
         if (baseIdMatch) {
             baseId = baseIdMatch[1];
+        } else {
+            baseId = this.extractBaseId(gatewayId);
         }
         
-        // Swap s ↔ e
-        if (baseId.match(/s$/i)) {
+        // Swap s ↔ e (supports any prefix: gw1s↔gw1e, e1s↔e1e, p1s↔p1e, etc.)
+        if (/s$/i.test(baseId)) {
             return baseId.replace(/s$/i, 'e');
-        } else if (baseId.match(/e$/i)) {
+        } else if (/e$/i.test(baseId)) {
             return baseId.replace(/e$/i, 's');
         }
         

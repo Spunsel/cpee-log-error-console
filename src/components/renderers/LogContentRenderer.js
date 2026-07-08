@@ -103,7 +103,9 @@ export class LogContentRenderer {
             case 'input-cpee':
                 rawContent = step.getInputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
-                    renderer = () => this.renderLogCPEETree(rawContent.getContent());
+                    renderer = () => this.renderLogCPEETree(
+                        rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent()
+                    );
                 }
                 break;
             case 'input-intermediate':
@@ -127,7 +129,9 @@ export class LogContentRenderer {
             case 'output-cpee':
                 rawContent = step.getOutputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
-                    renderer = () => this.renderLogCPEETree(rawContent.getContent());
+                    renderer = () => this.renderLogCPEETree(
+                        rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent()
+                    );
                 }
                 break;
         }
