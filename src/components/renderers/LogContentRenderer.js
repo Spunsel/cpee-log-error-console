@@ -104,7 +104,8 @@ export class LogContentRenderer {
                 rawContent = step.getInputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
                     renderer = () => this.renderLogCPEETree(
-                        rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent()
+                        rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(),
+                        { type: 'input' }
                     );
                 }
                 break;
@@ -130,7 +131,8 @@ export class LogContentRenderer {
                 rawContent = step.getOutputCpeeTreeRaw();
                 if (rawContent && rawContent.getContent) {
                     renderer = () => this.renderLogCPEETree(
-                        rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent()
+                        rawContent.getRawExposition ? rawContent.getRawExposition() : rawContent.getContent(),
+                        { type: 'output' }
                     );
                 }
                 break;
@@ -367,16 +369,25 @@ export class LogContentRenderer {
 
     /**
      * Render log CPEE XML content as plain text with preprocessing line markers.
+     * Strips log exposition wrappers (comments, XML declaration) but keeps un-preprocessed XML.
      */
-    renderLogCPEETree(xmlText) {
+    renderLogCPEETree(xmlText, options = {}) {
         const container = this.domRegistry.createElement('div', {
             className: 'raw-content-container cpee-log'
         });
 
-        const originalText = xmlText || '';
+        const type = options.type || 'output';
+        let processedText = xmlText || '';
+
+        try {
+            processedText = this.contentProcessingService.processCPEETreeContent(processedText, type);
+        } catch (error) {
+            console.warn('Failed to clean log CPEE content, using raw text:', error);
+            processedText = xmlText || '';
+        }
 
         const affectedLines = this.detectPreprocessingLines(
-            () => this.contentProcessingService.preprocessCPEEOnly(originalText)
+            () => this.contentProcessingService.preprocessCPEEOnly(processedText)
         );
 
         if (affectedLines.length > 0) {
@@ -386,7 +397,7 @@ export class LogContentRenderer {
         const pre = this.domRegistry.createElement('pre', { className: 'raw-code-block' });
         pre.appendChild(this.domRegistry.createElement('code', {
             className: 'language-xml',
-            textContent: originalText
+            textContent: processedText
         }));
         container.appendChild(pre);
 
