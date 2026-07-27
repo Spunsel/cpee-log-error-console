@@ -384,6 +384,7 @@ export class AnalysisContentRenderer {
 
         const soundnessDesc = this.domRegistry.createElement('span');
         soundnessDesc.className = 'analysis-section-description';
+        soundnessDesc.classList.toggle('analysis-section-description--fail', !soundnessResult.sound);
         soundnessDesc.textContent = 'Every execution can complete, and no task is dead.';
         traceHeader.appendChild(soundnessDesc);
         
@@ -674,6 +675,7 @@ export class AnalysisContentRenderer {
 
         const reachabilityDesc = this.domRegistry.createElement('span');
         reachabilityDesc.className = 'analysis-section-description';
+        reachabilityDesc.classList.toggle('analysis-section-description--fail', !allReachable);
         reachabilityDesc.textContent = 'Every task is reachable from start and can reach the end.';
         traceHeader.appendChild(reachabilityDesc);
 

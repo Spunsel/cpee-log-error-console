@@ -60,7 +60,9 @@ const STEPS = [
   {
     target: () => document.querySelector('.advanced-options-header'),
     title: '2 — Advanced Options',
-    body: `Click <strong>Advanced Options</strong> to expand the panel and access <strong>ARCHIVED</strong> instances.`,
+    body: `Click <strong>Advanced Options</strong> to expand the panel.
+           Here you can scan number ranges for <strong>AutoBPMN.AI</strong> instances
+           and load instances from a pre-configured list.`,
     position: 'bottom', padding: 8,
     userClick: true,
     clickSel: '.advanced-options-header',
@@ -68,8 +70,10 @@ const STEPS = [
 
   {
     target: '.load-all-instances-section',
-    title: '3 — Known Instances',
-    body: `Click Show Known Instances to load the <strong>ARCHIVED instance list</strong>.`,
+    title: '3 — Archived and Registered Instances',
+    body: `Click <strong>Show ALL Instances</strong> to load all instances from the pre-configured list.
+           It contains <strong>archived</strong> instances (Generation 1) and
+           <strong>cached, current</strong> instances (Generation 2).`,
     position: 'bottom', padding: 8,
     userClick: true,
     clickSel: '#load-all-instances',
@@ -77,7 +81,14 @@ const STEPS = [
 
   /* 4a — typing step: advances automatically once a match is visible */
   {
-    target: () => document.querySelector('.known-instances-filter .text-filter-group'),
+    target: () => {
+      const el = document.querySelector('.known-instances-filter .text-filter-group');
+      if (!el || el.offsetParent === null) {
+        return null;
+      }
+      const r = el.getBoundingClientRect();
+      return (r.width > 0 && r.height > 0) ? el : null;
+    },
     title: '4 — Filter Instances',
     body: `Type <code>1124</code> in the filter field.`,
     position: 'bottom', padding: 6,
@@ -406,7 +417,7 @@ export class DemoTour {
             if (!this._active) {
                 return;
             }
-            if (e.key === 'Escape') { this.end(); return; }
+            if (e.key === 'Escape') { this._confirmExit(); return; }
             if (e.key === 'ArrowRight') {
                 const btn = this._popover?.querySelector('#_tp-next');
                 if (btn && !btn.disabled) {
@@ -487,6 +498,51 @@ export class DemoTour {
             sessionStorage.setItem(DemoTour.PENDING_KEY, '1');
             window.location.href = window.location.origin + window.location.pathname;
         };
+    }
+
+    /* ── Exit confirmation (Escape / Close / Exit button) ────────────────── */
+
+    _confirmExit() {
+        if (!this._active) {
+            return;
+        }
+        if (this._stepIndex === STEPS.length - 1) {
+            this.end();
+            return;
+        }
+        if (document.querySelector('.tour-confirm-backdrop--exit')) {
+            return;
+        }
+        const bd = document.createElement('div');
+        bd.className = 'tour-confirm-backdrop tour-confirm-backdrop--exit';
+        bd.innerHTML = `
+          <div class="tour-confirm-dialog">
+            <h2>${ICON_TOUR} Exit Tour?</h2>
+            <p>
+              Are you sure you want to leave the interactive walkthrough?
+              You can restart it any time from the header.
+            </p>
+            <div class="tour-confirm-actions">
+              <button class="tour-btn-secondary" id="_tx-resume">Resume Tour</button>
+              <button class="tour-btn-primary"   id="_tx-exit">Exit Tour</button>
+            </div>
+          </div>`;
+        document.body.appendChild(bd);
+
+        const close = () => {
+            document.removeEventListener('keydown', onKey, true);
+            bd.remove();
+        };
+        const onKey = (e) => {
+            if (e.key === 'Escape') {
+                e.stopPropagation();
+                close();
+            }
+        };
+        document.addEventListener('keydown', onKey, true);
+
+        bd.querySelector('#_tx-resume').onclick = () => close();
+        bd.querySelector('#_tx-exit').onclick   = () => { close(); this.end(); };
     }
 
     /* ── Lifecycle ───────────────────────────────────────────────────────── */
@@ -794,8 +850,8 @@ export class DemoTour {
               ${nextLabel ? `<button class="tour-btn-primary" id="_tp-next"${nextDisabled ? ' disabled' : ''}>${nextLabel}</button>` : ''}
             </div>
           </div>`;
-        this._popover.querySelector('.tour-popover-close').onclick = () => this.end();
-        this._popover.querySelector('#_tp-skip').onclick           = () => this.end();
+        this._popover.querySelector('.tour-popover-close').onclick = () => this._confirmExit();
+        this._popover.querySelector('#_tp-skip').onclick           = () => this._confirmExit();
         return this._popover.querySelector('#_tp-next');
     }
 
