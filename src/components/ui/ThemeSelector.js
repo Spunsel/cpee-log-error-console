@@ -1,7 +1,7 @@
 /**
  * Theme Selector
  * Handles dropdown menu for CPEE theme selection
- * Allows switching between preset, presetid, and presetaltid themes
+ * Allows switching between preset, presetid, presetaltid, and extended themes
  */
 
 import { ICONS } from '../../assets/icons.js';
@@ -20,7 +20,8 @@ export class ThemeSelector {
         this.themes = [
             { id: 'preset', label: 'Preset' },
             { id: 'presetid', label: 'Preset ID' },
-            { id: 'presetaltid', label: 'Preset Alt ID' }
+            { id: 'presetaltid', label: 'Preset Alt ID' },
+            { id: 'extended', label: 'Extended' }
         ];
         
         this.container = null;
