@@ -51,8 +51,20 @@ export class CPEENodeExtractor {
                 }
             });
             
+            // The CPEE WfAdaptor names each gateway's SVG element-id positionally
+            // per gateway type in document order (e.g. choose_0, choose_1, parallel_0,
+            // loop_0). Reproduce that here so a clicked gateway (identified only by
+            // its SVG element-id) can be matched back to the extracted node.
+            const gatewayTypeCounts = {};
             gatewayElements.forEach((element) => {
-                const gateway = this.extractTaskFromElement(element, position);
+                const tagName = element.tagName.toLowerCase();
+                const typeIndex = gatewayTypeCounts[tagName] === undefined
+                    ? 0
+                    : gatewayTypeCounts[tagName] + 1;
+                gatewayTypeCounts[tagName] = typeIndex;
+                const gatewaySvgId = `${tagName}_${typeIndex}`;
+
+                const gateway = this.extractTaskFromElement(element, position, gatewaySvgId);
                 if (gateway && gateway.isValid()) {
                     tasks.push(gateway);
                     position++;
@@ -127,9 +139,11 @@ export class CPEENodeExtractor {
      * Extract NodeIdentifier from a single XML element
      * @param {Element} element - XML element
      * @param {number} position - Position in workflow
+     * @param {string|null} gatewaySvgId - Positional SVG element-id for gateways
+     *        (e.g. 'choose_0', 'parallel_0', 'loop_0'), matching the WfAdaptor.
      * @returns {NodeIdentifier|null} NodeIdentifier or null
      */
-    static extractTaskFromElement(element, position) {
+    static extractTaskFromElement(element, position, gatewaySvgId = null) {
         try {
             const tagName = element.tagName.toLowerCase();
             const isGateway = tagName === 'choose' || tagName === 'parallel' || tagName === 'loop';
@@ -140,12 +154,20 @@ export class CPEENodeExtractor {
             altId = element.getAttribute('a:alt_id') || 
                    element.getAttributeNS('http://cpee.org/ns/annotation/1.0', 'alt_id') ||
                    null;
+
+            // Extract CPEE execution id (eid). Gateways carry an eid which forms
+            // the canonical cross-format id for input-cpee (eid + 's' suffix).
+            const eid = element.getAttribute('eid') || null;
             
-            // For gateways, they often don't have an id attribute, use alt_id as id if available
+            // Determine the node id. For gateways, use the positional SVG element-id
+            // (choose_0, parallel_0, loop_0) so it matches the rendered SVG element-id
+            // exactly (the SVG carries no alt_id/eid attribute). The canonical
+            // cross-format id is derived separately from eid/altId.
             let id = element.getAttribute('id');
             if (!id) {
-                if (isGateway && altId) {
-                    // For gateways, use alt_id as the id (since SVG element-id is usually set to alt_id)
+                if (isGateway && gatewaySvgId) {
+                    id = gatewaySvgId;
+                } else if (isGateway && altId) {
                     id = altId;
                 } else {
                     id = isGateway ? `gateway-${position}` : `task-${position}`;
@@ -176,7 +198,7 @@ export class CPEENodeExtractor {
                 metadata.nestingDepth = this.calculateNestingDepth(element);
             }
             
-            const task = new NodeIdentifier(id, label, type, 'cpee', metadata, position, altId);
+            const task = new NodeIdentifier(id, label, type, 'cpee', metadata, position, altId, eid);
             task.position = position;
             
             return task;
@@ -383,11 +405,15 @@ export class CPEENodeExtractor {
      * @returns {string|null} The alt_id or null
      */
     static extractAltIdFromSvgElement(svgElement) {
-        if (!svgElement) return null;
+        if (!svgElement) {
+            return null;
+        }
         
         // Check if element itself has element-alt_id
-        let altId = svgElement.getAttribute('element-alt_id');
-        if (altId) return altId;
+        const altId = svgElement.getAttribute('element-alt_id');
+        if (altId) {
+            return altId;
+        }
         
         // Check parent group ("Übergruppe") - gateways have alt_id on their parent group
         const parentGroup = svgElement.closest('g[element-alt_id]');
@@ -407,11 +433,15 @@ export class CPEENodeExtractor {
      * @returns {Element|null} The matching SVG element or null
      */
     static findSvgElementByAltId(container, altId) {
-        if (!container || !altId) return null;
+        if (!container || !altId) {
+            return null;
+        }
         
         // Direct lookup by element-alt_id attribute
         const element = container.querySelector(`g[element-alt_id="${CSS.escape(altId)}"]`);
-        if (element) return element;
+        if (element) {
+            return element;
+        }
         
         // Also check for elements where the alt_id might be on a child element
         const allWithAltId = container.querySelectorAll('[element-alt_id]');

@@ -1,15 +1,81 @@
 /**
  * Node Mapping Service
  * Maps nodes between four formats using canonical IDs.
- * 
- * CANONICAL ID RULE:
- * Input CPEE.id = Input Mermaid.id = Output Mermaid.id = Output CPEE.altId
- * 
+ *
+ * CANONICAL ID CHAIN
+ * ------------------
+ * Tasks (always):
+ *   Input CPEE.id = Input Mermaid.id = Output Mermaid.id = Output CPEE.altId
+ *
+ * Gateways (parallel/exclusive/loop, always):
+ *   Input CPEE.eid + 's' = Input Mermaid.id = Output Mermaid.id = Output CPEE.altId
+ *   (Mermaid represents a gateway as a start/end pair, e.g. e5s / e5e; the CPEE
+ *    gateway maps to the start id e5s, and the paired end e5e is resolved
+ *    separately during highlighting.)
+ *
  * Text similarity fallback when ID matching fails.
  */
 
 import { NodeIdentifier } from '../models/NodeIdentifier.js';
 import { calculateJaccardSimilarity, calculateJaroWinkler } from '../utils/similarity/StringSimilarity.js';
+
+/**
+ * Determine whether a node represents a gateway (choose/parallel/loop or a
+ * Mermaid diamond gateway).
+ * @param {NodeIdentifier} node - Node to test
+ * @returns {boolean} True if the node is a gateway
+ */
+export function isGatewayNode(node) {
+    if (!node) {
+        return false;
+    }
+    const type = node.type;
+    if (type === 'gateway' || type === 'choose' || type === 'parallel' || type === 'loop' ||
+        type === 'exclusivegateway' || type === 'parallelgateway' || type === 'decision') {
+        return true;
+    }
+    const tagName = node.metadata?.tagName ? String(node.metadata.tagName).toLowerCase() : null;
+    if (tagName && ['choose', 'parallel', 'loop'].includes(tagName)) {
+        return true;
+    }
+    if (node.metadata?.shape === 'diamond') {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Compute the canonical cross-format id for a node in a given format.
+ * This is the single source of truth for the canonical id chain (see file header).
+ *
+ * @param {NodeIdentifier} node - The node
+ * @param {string} format - One of 'input-cpee', 'input-intermediate',
+ *                          'output-intermediate', 'output-cpee'
+ * @returns {string|null} Canonical id, or null when it cannot be determined
+ */
+export function getCanonicalNodeId(node, format) {
+    if (!node) {
+        return null;
+    }
+
+    if (isGatewayNode(node)) {
+        // Gateway chain: input-cpee uses eid + 's'; output-cpee uses altId;
+        // Mermaid (input/output) uses the node id directly (already e5s / e5e).
+        if (format === 'input-cpee') {
+            return node.eid ? `${node.eid}s` : (node.altId || null);
+        }
+        if (format === 'output-cpee') {
+            // Normally the a:alt_id (e.g. e5s). Some restructured gateways (e.g. the
+            // loop wrapper) carry only an eid; fall back to eid + 's' so they still
+            // align with the Mermaid start id.
+            return node.altId || (node.eid ? `${node.eid}s` : null);
+        }
+        return node.id || null;
+    }
+
+    // Task chain: output-cpee uses altId; all other formats use id.
+    return format === 'output-cpee' ? (node.altId || null) : (node.id || null);
+}
 
 export class NodeMappingService {
     constructor(cpeeNodeExtractor, mermaidNodeExtractor) {
@@ -113,13 +179,12 @@ export class NodeMappingService {
     }
 
     /**
-     * Get canonical ID: altId for output-cpee, id for all others
+     * Get canonical ID for a node in a format (see getCanonicalNodeId).
+     * Tasks: output-cpee → altId, others → id.
+     * Gateways: input-cpee → eid + 's', output-cpee → altId, Mermaid → id.
      */
     _getCanonicalId(task, format) {
-        if (!task) {
-            return null;
-        }
-        return format === 'output-cpee' ? (task.altId || null) : (task.id || null);
+        return getCanonicalNodeId(task, format);
     }
 
     /**
@@ -191,8 +256,8 @@ class NodeMapping {
         this.storeTask(targetTask, targetFormat);
         
         // Check if this is an ID-based mapping (canonical IDs match)
-        const sourceCanonicalId = sourceFormat === 'output-cpee' ? sourceTask.altId : sourceTask.id;
-        const targetCanonicalId = targetFormat === 'output-cpee' ? targetTask.altId : targetTask.id;
+        const sourceCanonicalId = getCanonicalNodeId(sourceTask, sourceFormat);
+        const targetCanonicalId = getCanonicalNodeId(targetTask, targetFormat);
         const isIdBased = sourceCanonicalId && targetCanonicalId && sourceCanonicalId === targetCanonicalId;
         
         // Add mapping in both directions (first wins)
@@ -286,11 +351,21 @@ class NodeMapping {
     
     // ==================== Gateway Methods ====================
     
-    findGatewayByAltId(altId, sectionId) {
+    /**
+     * Find a gateway in a section by its canonical id (see getCanonicalNodeId).
+     * Also matches raw altId/id as a fallback for backwards compatibility.
+     * @param {string} canonicalId - Canonical gateway id (e.g. 'e5s')
+     * @param {string} sectionId - Section/format id
+     * @returns {NodeIdentifier|null} Matching gateway or null
+     */
+    findGatewayByAltId(canonicalId, sectionId) {
         for (const taskId of this.getTasksInFormat(sectionId)) {
             const task = this.getTask(taskId, sectionId);
-            if (task && this._isGateway(task) && (task.altId === altId || task.id === altId)) {
-                return task;
+            if (task && this._isGateway(task)) {
+                const canonical = getCanonicalNodeId(task, sectionId);
+                if (canonical === canonicalId || task.altId === canonicalId || task.id === canonicalId) {
+                    return task;
+                }
             }
         }
         return null;

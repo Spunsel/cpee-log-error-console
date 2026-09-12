@@ -13,6 +13,7 @@ import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { MermaidNodeExtractor } from '../../utils/extraction/MermaidNodeExtractor.js';
 import { CPEENodeExtractor } from '../../utils/extraction/CPEETNodeExtractor.js';
+import { getCanonicalNodeId } from '../../services/NodeMappingService.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class CrossGraphHighlightCoordinator {
@@ -267,50 +268,42 @@ export class CrossGraphHighlightCoordinator {
     }
     
     /**
-     * Resolve CPEE gateway element-id (like "choose_1") to the actual gateway object from mapping
-     * Uses direct element-alt_id lookup from the SVG element (presetaltid theme)
-     * 
+     * Resolve a clicked CPEE gateway element-id (like "choose_1") to a gateway
+     * descriptor carrying its canonical cross-format id.
+     *
+     * The rendered CPEE SVG carries no semantic id (alt_id/eid) on its elements —
+     * only the positional element-id (choose_N / parallel_N / loop_N). The
+     * extractor assigns that same positional id to the gateway node, so we can
+     * look the node up directly and derive its canonical id (eid+'s' for
+     * input-cpee, altId for output-cpee).
+     *
      * @param {string} elementId - CPEE element-id like "choose_1", "parallel_0", "loop_0"
      * @param {string} sectionId - Section ID ('input-cpee' or 'output-cpee')
-     * @returns {Object|null} Gateway object from mapping with id and altId, or null
+     * @returns {Object|null} Gateway descriptor { id, altId (canonical), eid, type } or null
      */
     resolveCPEEGatewayElementId(elementId, sectionId) {
         if (!this.currentStepMapping) {
             return null;
         }
-        
-        const container = this.sections[sectionId];
-        if (!container) {
-            return null;
+
+        // The clicked SVG element-id matches the extracted gateway node id.
+        const gateway = this.currentStepMapping.getTask(elementId, sectionId);
+        if (gateway && CPEENodeExtractor.isGatewayType(gateway.type)) {
+            const canonicalId = getCanonicalNodeId(gateway, sectionId);
+            // console.log('[CrossGraphHighlight] ✓ Resolved CPEE gateway:', { elementId, sectionId, canonicalId });
+            return {
+                id: elementId, // SVG element-id (positional)
+                altId: canonicalId, // canonical cross-format id (e.g. e5s)
+                eid: gateway.eid || null,
+                type: gateway.type
+            };
         }
-        
-        // Direct element-alt_id lookup from clicked SVG element
-        const clickedElement = container.querySelector(`g[element-id="${CSS.escape(elementId)}"]`);
-        if (!clickedElement) {
-            // console.log('[CrossGraphHighlight] ✗ Element not found:', elementId);
-            return null;
-        }
-        
-        // Extract element-alt_id from the element or its parent group ("Übergruppe")
-        const altId = CPEENodeExtractor.extractAltIdFromSvgElement(clickedElement);
-        if (!altId) {
-            // console.log('[CrossGraphHighlight] ✗ No element-alt_id found on gateway:', elementId);
-            return null;
-        }
-        
-        // console.log('[CrossGraphHighlight] ✓ Direct element-alt_id found:', { elementId, altId });
-        
-        // Find gateway in mapping by this altId (using NodeMapping's method)
-        const gateway = this.currentStepMapping.findGatewayByAltId(altId, sectionId, CPEENodeExtractor.isGatewayType);
-        if (gateway) {
-            return gateway;
-        }
-        
-        // If not in mapping, create a basic gateway object from the SVG
+
+        // Fallback: build a basic descriptor from the element-id alone
         const parsed = CPEENodeExtractor.parseCPEEGatewayElementId(elementId);
         return {
-            id: altId,
-            altId: altId,
+            id: elementId,
+            altId: elementId,
             type: parsed?.type || 'gateway'
         };
     }
@@ -640,37 +633,14 @@ export class CrossGraphHighlightCoordinator {
             //     isSource: isSource
             // });
             
-            // For CPEE sections, use direct element-alt_id lookup (presetaltid theme)
+            // For CPEE sections, the gateway node id IS the SVG element-id
+            // (positional: choose_N / parallel_N / loop_N). The rendered SVG carries
+            // no alt_id/eid, so we match purely on that element-id.
             if (isCPEESection) {
-                // Direct element-alt_id lookup
-                let gatewayElement = CPEENodeExtractor.findSvgElementByAltId(container, altId);
-                
-                // For Mermaid end gateways (gw1e), CPEE only has one element (gw1s)
-                if (!gatewayElement && MermaidNodeExtractor.isEndGateway(altId)) {
-                    const startId = MermaidNodeExtractor.getPairedGatewayId(altId);
-                    if (startId) {
-                        gatewayElement = CPEENodeExtractor.findSvgElementByAltId(container, startId);
-                        if (gatewayElement) {
-                            // console.log('[CrossGraphHighlight] Found CPEE gateway via paired start ID:', startId);
-                        }
-                    }
-                }
-                
-                // Also try the gateway's altId from the mapping if different from the resolved altId
-                if (!gatewayElement && targetGateway.altId && targetGateway.altId !== altId) {
-                    gatewayElement = CPEENodeExtractor.findSvgElementByAltId(container, targetGateway.altId);
-                }
-                
-                if (gatewayElement) {
-                    const elementId = gatewayElement.getAttribute('element-id');
-                    // console.log('[CrossGraphHighlight] ✓ Direct element-alt_id lookup successful:', {
-                    //     altId,
-                    //     elementId,
-                    //     gatewayId: targetGateway.id
-                    // });
-                    this.highlightInSection(targetSection, elementId || altId, isSource, targetGateway);
-                } else {
-                    console.warn('[CrossGraphHighlight] ✗ Gateway not found in CPEE SVG:', altId);
+                const elementId = targetGateway.id;
+                const highlighted = this.highlightCPEEGatewayByElementId(container, targetSection, elementId, isSource);
+                if (!highlighted) {
+                    console.warn('[CrossGraphHighlight] ✗ Gateway not found in CPEE SVG:', { targetSection, elementId, canonical: altId });
                 }
             } else {
                 // For Mermaid sections, use the gateway ID directly
@@ -771,6 +741,39 @@ export class CrossGraphHighlightCoordinator {
             return 'mermaid';
         }
         return 'unknown';
+    }
+
+    /**
+     * Highlight a CPEE gateway by its positional SVG element-id.
+     * A gateway is rendered as multiple SVG elements sharing the same element-id
+     * (e.g. the opening "choose_exclusive" and closing "choose_exclusive_finish"
+     * both use element-id "choose_0"); all of them are highlighted.
+     *
+     * @param {HTMLElement} container - SVG container for the section
+     * @param {string} sectionId - Section identifier
+     * @param {string} elementId - SVG element-id (choose_N / parallel_N / loop_N)
+     * @param {boolean} isActive - Whether this is the active (clicked) gateway
+     * @returns {boolean} True if at least one element was highlighted
+     */
+    highlightCPEEGatewayByElementId(container, sectionId, elementId, isActive) {
+        if (!container || !elementId) {
+            return false;
+        }
+
+        if (!this.isSectionInVisualMode(sectionId)) {
+            return false;
+        }
+
+        const elements = container.querySelectorAll(`g.element[element-id="${CSS.escape(elementId)}"]`);
+        if (!elements || elements.length === 0) {
+            return false;
+        }
+
+        elements.forEach(el => {
+            this.applySectionHighlight(sectionId, el, isActive);
+        });
+        this.trackHighlight(sectionId, elementId);
+        return true;
     }
 
     /**
@@ -887,9 +890,14 @@ export class CrossGraphHighlightCoordinator {
         
         switch (sectionType) {
             case 'cpee': {
-                // Use gateway highlight for choose/parallel, otherwise task
+                // Use gateway highlight for choose/parallel, otherwise task.
+                // The closing half of a gateway (e.g. choose_exclusive_finish) is a
+                // "primitive" group without the choose/parallel/complex class, so also
+                // detect gateways by their positional element-id (choose_N/parallel_N/loop_N).
                 const cls = taskElement.classList || { contains: () => false };
-                const isGateway = cls.contains('choose') || cls.contains('parallel') || cls.contains('complex');
+                const elementId = (taskElement.getAttribute && taskElement.getAttribute('element-id')) || '';
+                const isGateway = cls.contains('choose') || cls.contains('parallel') || cls.contains('complex')
+                    || CPEENodeExtractor.isCPEEGatewayElementId(elementId);
                 if (isGateway && this.highlightingService.highlightCPEEGateway) {
                     this.highlightingService.highlightCPEEGateway(taskElement, isActive);
                 } else {

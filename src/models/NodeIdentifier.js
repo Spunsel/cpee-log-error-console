@@ -14,10 +14,13 @@ export class NodeIdentifier {
      * @param {Object} metadata - Additional format-specific metadata
      * @param {number|null} position - Position/order in the workflow (0-based index)
      * @param {string|null} altId - Alternative ID (e.g., alt_id from CPEE XML)
+     * @param {string|null} eid - CPEE execution id (eid attribute); used as the
+     *        canonical gateway identifier for input-cpee (eid + 's' suffix)
      */
-    constructor(id, label, type, sourceFormat, metadata = {}, position = null, altId = null) {
+    constructor(id, label, type, sourceFormat, metadata = {}, position = null, altId = null, eid = null) {
         this.id = id;
         this.altId = altId; // Alternative ID (e.g., alt_id from CPEE XML)
+        this.eid = eid; // CPEE eid attribute (gateways) - canonical chain uses eid + 's'
         this.label = label;
         this.type = type;
         this.sourceFormat = sourceFormat;
@@ -54,6 +57,7 @@ export class NodeIdentifier {
         return {
             id: this.id,
             altId: this.altId,
+            eid: this.eid,
             label: this.label,
             type: this.type,
             sourceFormat: this.sourceFormat,
@@ -75,7 +79,8 @@ export class NodeIdentifier {
             obj.sourceFormat,
             obj.metadata || {},
             obj.position !== undefined ? obj.position : null,
-            obj.altId || null
+            obj.altId || null,
+            obj.eid || null
         );
     }
 
