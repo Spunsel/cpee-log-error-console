@@ -306,6 +306,33 @@ class NodeMapping {
     getTasksInFormat(format) {
         return this.tasks.get(format) ? Array.from(this.tasks.get(format).keys()) : [];
     }
+
+    /**
+     * Return every node in a format whose canonical id matches. This surfaces
+     * duplicates that share a canonical id (e.g. a task/gateway that appears
+     * multiple times because a loop was unrolled), which the directional
+     * mapping collapses to a single "first wins" target.
+     * @param {string} canonicalId - Canonical id to match
+     * @param {string} format - Format/section id
+     * @param {Function} [predicate] - Optional extra filter on each node
+     * @returns {NodeIdentifier[]} Matching nodes (may be empty)
+     */
+    getTasksByCanonicalId(canonicalId, format, predicate = null) {
+        if (!canonicalId) {
+            return [];
+        }
+        const result = [];
+        const formatMap = this.tasks.get(format);
+        if (!formatMap) {
+            return result;
+        }
+        for (const task of formatMap.values()) {
+            if (getCanonicalNodeId(task, format) === canonicalId && (!predicate || predicate(task))) {
+                result.push(task);
+            }
+        }
+        return result;
+    }
     
     getMappings(sourceTaskId, sourceFormat, targetFormat) {
         const target = this.mappings.get(sourceFormat)?.get(sourceTaskId)?.get(targetFormat);

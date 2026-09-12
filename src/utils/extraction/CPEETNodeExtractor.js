@@ -103,12 +103,28 @@ export class CPEENodeExtractor {
     static findGatewayElements(xmlDoc) {
         const gatewayTypes = ['choose', 'parallel', 'loop'];
         const elements = [];
-        
-        gatewayTypes.forEach(type => {
-            const found = xmlDoc.querySelectorAll(type);
-            found.forEach(element => elements.push(element));
-        });
-        
+
+        // The CPEE WfAdaptor numbers each gateway's SVG element-id (choose_N /
+        // parallel_N / loop_N) per type when it emits the *closing* element, i.e.
+        // in POST-ORDER: a nested gateway is finished (and numbered) before its
+        // enclosing gateway. Collect gateways in that same post-order so the
+        // positional element-id assigned in extract() matches the rendered SVG.
+        const visit = (node) => {
+            if (!node) {
+                return;
+            }
+            const children = node.children ? Array.from(node.children) : [];
+            children.forEach(child => visit(child));
+            const tagName = node.tagName ? node.tagName.toLowerCase() : null;
+            if (tagName && gatewayTypes.includes(tagName)) {
+                elements.push(node);
+            }
+        };
+
+        const root = xmlDoc.documentElement || xmlDoc;
+        const rootChildren = root.children ? Array.from(root.children) : [];
+        rootChildren.forEach(child => visit(child));
+
         return elements;
     }
 

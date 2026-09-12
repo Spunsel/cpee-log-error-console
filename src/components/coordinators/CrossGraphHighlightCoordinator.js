@@ -13,7 +13,7 @@ import { SVGClickDetector } from '../../utils/interaction/SVGClickDetector.js';
 import { stateManager as defaultStateManager } from '../../core/StateManager.js';
 import { MermaidNodeExtractor } from '../../utils/extraction/MermaidNodeExtractor.js';
 import { CPEENodeExtractor } from '../../utils/extraction/CPEETNodeExtractor.js';
-import { getCanonicalNodeId } from '../../services/NodeMappingService.js';
+import { getCanonicalNodeId, isGatewayNode } from '../../services/NodeMappingService.js';
 import { eventBus as defaultEventBus } from '../../core/EventBus.js';
 
 export class CrossGraphHighlightCoordinator {
@@ -637,10 +637,25 @@ export class CrossGraphHighlightCoordinator {
             // (positional: choose_N / parallel_N / loop_N). The rendered SVG carries
             // no alt_id/eid, so we match purely on that element-id.
             if (isCPEESection) {
-                const elementId = targetGateway.id;
-                const highlighted = this.highlightCPEEGatewayByElementId(container, targetSection, elementId, isSource);
+                // Highlight every gateway sharing this canonical id (duplicates from
+                // loop unrolling), each identified by its positional element-id.
+                const gatewayDuplicates = this.currentStepMapping.getTasksByCanonicalId(
+                    altId,
+                    targetSection,
+                    isGatewayNode
+                );
+                const elementIds = gatewayDuplicates.length > 0
+                    ? gatewayDuplicates.map(g => g.id)
+                    : [targetGateway.id];
+
+                let highlighted = false;
+                for (const elementId of elementIds) {
+                    if (this.highlightCPEEGatewayByElementId(container, targetSection, elementId, isSource)) {
+                        highlighted = true;
+                    }
+                }
                 if (!highlighted) {
-                    console.warn('[CrossGraphHighlight] ✗ Gateway not found in CPEE SVG:', { targetSection, elementId, canonical: altId });
+                    console.warn('[CrossGraphHighlight] ✗ Gateway not found in CPEE SVG:', { targetSection, elementIds, canonical: altId });
                 }
             } else {
                 // For Mermaid sections, use the gateway ID directly
@@ -828,52 +843,69 @@ export class CrossGraphHighlightCoordinator {
         // Track this highlight
         this.trackHighlight(sectionId, taskId);
         
-        // For CPEE sections: highlight all other elements with the same alt_id (e.g., duplicates in loops)
-        // This applies to both normal clicks and trace highlights
+        // For CPEE sections: highlight all other elements that share the same
+        // canonical id (e.g. a task/gateway duplicated by loop unrolling).
         if (sectionId.includes('cpee')) {
-            this.highlightAllDuplicateCPEEElements(container, taskElement, isActive);
+            this.highlightAllCPEEDuplicates(sectionId, taskElement, taskObject, isActive);
         }
     }
 
     /**
-     * Highlight all CPEE elements that have the same element-alt_id as the given element
-     * Used for normal clicks to highlight duplicate tasks (e.g., same task appearing in loops)
-     * @param {HTMLElement} container - SVG container
-     * @param {HTMLElement} primaryElement - The primary element that was already highlighted
+     * Highlight every CPEE element that shares the clicked element's canonical id.
+     *
+     * The rendered CPEE SVG carries no alt_id/eid attribute, so duplicates cannot
+     * be found by scanning the SVG. Instead we resolve the canonical id from the
+     * mapping (via the element's element-id) and highlight all nodes in the
+     * section that map to that same canonical id. A gateway/task is rendered as
+     * one or more SVG groups sharing its positional element-id (opening + closing
+     * halves), all of which are highlighted.
+     *
+     * @param {string} sectionId - CPEE section identifier
+     * @param {HTMLElement} primaryElement - The element already highlighted
+     * @param {Object|null} taskObject - The mapping node for the primary element
      * @param {boolean} isActive - Whether this is the active (clicked) highlight
      */
-    highlightAllDuplicateCPEEElements(container, primaryElement, isActive) {
-        if (!container || !primaryElement) {
+    highlightAllCPEEDuplicates(sectionId, primaryElement, taskObject, isActive) {
+        if (!this.currentStepMapping || !sectionId.includes('cpee')) {
             return;
         }
-        
-        // Get the alt_id from the primary element
-        const altId = primaryElement.getAttribute('element-alt_id');
-        if (!altId) {
+        const container = this.sections[sectionId];
+        if (!container) {
             return;
         }
-        
-        // Find all elements with the same element-alt_id
-        const allElements = container.querySelectorAll(`[element-alt_id="${CSS.escape(altId)}"]`);
-        
-        if (allElements.length <= 1) {
+
+        // Resolve the canonical id: prefer the mapping node, else look it up by
+        // the primary element's element-id.
+        let node = taskObject;
+        if (!node && primaryElement && primaryElement.getAttribute) {
+            const elId = primaryElement.getAttribute('element-id');
+            node = elId ? this.currentStepMapping.getTask(elId, sectionId) : null;
+        }
+        const canonicalId = node ? getCanonicalNodeId(node, sectionId) : null;
+        if (!canonicalId) {
+            return;
+        }
+
+        // Keep the same kind (task vs gateway) to avoid a rare alt_id collision
+        // between a task and a gateway.
+        const wantGateway = node ? isGatewayNode(node) : false;
+        const duplicates = this.currentStepMapping.getTasksByCanonicalId(
+            canonicalId,
+            sectionId,
+            (candidate) => isGatewayNode(candidate) === wantGateway
+        );
+        if (duplicates.length <= 1) {
             return; // No duplicates to highlight
         }
-        
-        // console.log('[CrossGraphHighlight] Highlighting duplicate CPEE elements:', {
-        //     altId,
-        //     totalCount: allElements.length
-        // });
-        
-        // Highlight all elements except the primary one (which is already highlighted)
-        allElements.forEach(el => {
-            if (el !== primaryElement) {
-                // Find the parent g.element if this is a nested element
-                const elementGroup = el.closest('g.element') || el;
-                if (elementGroup !== primaryElement) {
-                    this.applySectionHighlight(container.id, elementGroup, isActive);
-                }
+
+        duplicates.forEach(dup => {
+            if (!dup.id) {
+                return;
             }
+            const elements = container.querySelectorAll(`g.element[element-id="${CSS.escape(dup.id)}"]`);
+            elements.forEach(el => {
+                this.applySectionHighlight(sectionId, el, isActive);
+            });
         });
     }
 
