@@ -135,7 +135,18 @@ export class NodeMappingService {
             { key: 'output-intermediate', tasks: outputMermaid },
             { key: 'output-cpee', tasks: outputCpee }
         ];
-        
+
+        // Store every extracted node up front so it remains resolvable even when
+        // it has no counterpart in any other section (e.g. a gateway/loop that
+        // only exists in the output CPEE tree). addMapping only stores nodes that
+        // participate in a mapping, which would otherwise leave such nodes
+        // unretrievable and therefore un-highlightable.
+        for (const { key, tasks } of formats) {
+            for (const task of tasks) {
+                mapping.storeTask(task, key);
+            }
+        }
+
         // Map between all format pairs
         for (const source of formats) {
             for (const target of formats) {

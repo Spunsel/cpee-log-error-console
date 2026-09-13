@@ -42,3 +42,12 @@ must highlight together. Nested gateways also exposed a numbering bug.
 - [x] Replaced the alt_id-based `highlightAllDuplicateCPEEElements` (broken — the SVG has no `element-alt_id`) with `highlightAllCPEEDuplicates`, which resolves the canonical id from the mapping and highlights every matching node.
 - [x] Gateway highlighting now highlights all gateway nodes sharing the canonical id (loop-unrolled duplicates), each via its positional element-id.
 - [x] Duplicate matching keeps the same kind (task vs gateway) to avoid a rare alt_id collision.
+
+### Step 4: Highlight nodes that exist only in one section
+
+A gateway/loop that exists only in the output CPEE tree (e.g. the transformation's
+`loop` wrapper or an escape `choose` with `a:alt_id="0"`) has no counterpart in the
+other three sections, so it never highlighted — not even in its own tree.
+
+- [x] `NodeMapping.buildMapping` now stores every extracted node up front, not only nodes that participate in a cross-format mapping (`addMapping` was the sole caller of `storeTask`).
+- [x] This lets `resolveCPEEGatewayElementId` / `findGatewayByAltId` resolve section-only gateways, so clicking them highlights the gateway in its own CPEE tree even when no other section contains it.
