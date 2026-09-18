@@ -244,6 +244,8 @@ export class CPEEDebugConsole {
             // Check if already loaded
             if (this.instanceService.hasInstance(uuid)) {
                 this.sidebar.addInstanceTab(uuid);
+                // Emit loaded so any in-flight spinner is stopped
+                this.eventBus.emit('instance:loaded', { uuid, steps: 0 }, { silent: true });
                 return;
             }
             
@@ -254,8 +256,8 @@ export class CPEEDebugConsole {
             const steps = await this.stepAssemblyService.parseStepsFromLog(logData);
             
             if (steps.length === 0) {
-                alert(`No steps found in log for instance ${uuid}`);
-                return;
+                // Throw so the catch block emits instance:loadFailed and stops the spinner
+                throw new Error(`No steps found in log for instance ${uuid}`);
             }
             
             // Use process number from load request; fall back to inputs or log data
