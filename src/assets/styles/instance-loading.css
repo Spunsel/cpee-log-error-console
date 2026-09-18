@@ -338,3 +338,27 @@
    }
 }
 
+/* ========================================
+   LOAD INSTANCE BUTTON SPINNER
+   ======================================== */
+
+/* Spinning indicator shown inside "Load Instance" while the full load pipeline
+   runs (UUID fetch → log download → YAML parse → step assembly).
+   Inherits currentColor so it works on both light and dark themes. */
+.load-btn-spinner {
+   display: inline-block;
+   width: 12px;
+   height: 12px;
+   border: 2px solid rgba(255, 255, 255, 0.3);
+   border-top-color: currentColor;
+   border-radius: 50%;
+   animation: load-btn-spin 0.65s linear infinite;
+   vertical-align: middle;
+   margin-right: 5px;
+   flex-shrink: 0;
+}
+
+@keyframes load-btn-spin {
+   to { transform: rotate(360deg); }
+}
+

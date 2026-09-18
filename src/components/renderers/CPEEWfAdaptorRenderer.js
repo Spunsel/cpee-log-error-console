@@ -17,6 +17,13 @@ import { CPEEWarningHandler } from '../../utils/content/CPEEWarningHandler.js';
 export class CPEEWfAdaptorRenderer {
     
     static _wfAdaptorCache = new Map();
+
+    /**
+     * Deduplication map: themePath → Promise<{graphrealization, adaptor}|null>
+     * Prevents concurrent renderGraph calls from each creating their own WfAdaptor
+     * instance and doubling theme-file network requests.
+     */
+    static _adaptorCreationPromises = new Map();
     
     constructor(eventBus = null, stateManager = null, domRegistry = null, contentProcessingService = null) {
         this.domRegistry = domRegistry;
@@ -49,7 +56,10 @@ export class CPEEWfAdaptorRenderer {
     /**
      * Preload jQuery, WfAdaptor JS, base theme, and CSS in the background
      * so the first graph render doesn't pay the network cost.
-     * Safe to call multiple times; no-ops if already loaded.
+     * Also installs the CORS proxy interceptor and kicks off a WfAdaptor
+     * theme warm-up so _wfAdaptorCache is populated before the user opens
+     * the first step.
+     * Safe to call multiple times; no-ops if already loaded/warmed.
      */
     static async preloadDependencies() {
         const cssPath = configManager.get('cpee.wfadaptor.cssPath');
@@ -83,6 +93,19 @@ export class CPEEWfAdaptorRenderer {
         if (scripts.length > 0) {
             await Promise.all(scripts);
         }
+
+        // Install CORS proxy interceptor (patches $.ajax / $.get so WfAdaptor
+        // can load theme assets from cpee.org through our proxy / local fallback).
+        // Must happen AFTER jQuery is available.
+        CPEEWfAdaptorRenderer.installCorsProxyInterceptorIfNeeded();
+
+        // Kick off WfAdaptor theme warm-up in the background (fire-and-forget).
+        // This creates a WfAdaptor instance now — during idle time — so that
+        // _wfAdaptorCache is already populated by the time the user opens a step.
+        // Without this, every fresh-cache page load pays the ~2–3 s theme-file
+        // download cost on the very first graph render.
+        const themePath = configManager.get('cpee.wfadaptor.themePath');
+        CPEEWfAdaptorRenderer._getOrCreateAdaptor(themePath);  // intentionally un-awaited
     }
 
     /**
@@ -208,12 +231,19 @@ export class CPEEWfAdaptorRenderer {
             if (renderGen !== this._renderGeneration) { return; }
             
             const themePath = configManager.get('cpee.wfadaptor.themePath');
-            const cached = CPEEWfAdaptorRenderer._wfAdaptorCache.get(themePath);
-            
+
+            // Use the deduped adaptor promise so that two concurrent renderGraph
+            // calls (input + output running in parallel via Promise.all) share a
+            // single WfAdaptor instantiation instead of each firing their own set
+            // of theme-file AJAX requests.
+            const cached = await CPEEWfAdaptorRenderer._getOrCreateAdaptor(themePath);
+
+            if (renderGen !== this._renderGeneration) { return; }
+
             if (cached) {
                 this._renderWithCachedAdaptor(cached, cleanedXML, renderGen);
             } else {
-                this._renderWithNewAdaptor(themePath, cleanedXML, renderGen);
+                throw new Error('CPEEWfAdaptorRenderer: Failed to create WfAdaptor instance');
             }
             
         } catch (error) {
@@ -253,7 +283,7 @@ export class CPEEWfAdaptorRenderer {
             
             const illustratorElements = graphrealization.illustrator.elements;
             const success = this.svgProcessor.transferAndValidateElements(
-                illustratorElements, null, this.svgProcessor.getCache()
+                illustratorElements, window.manifestation || null, this.svgProcessor.getCache()
             );
             
             if (!success) {
@@ -287,6 +317,10 @@ export class CPEEWfAdaptorRenderer {
     }
     
     /**
+     * @deprecated renderGraph now uses _getOrCreateAdaptor / _renderWithCachedAdaptor
+     * for all renders (including the very first one).  This method is kept only as a
+     * safety fallback reference and is no longer called by the main rendering path.
+     *
      * Render by creating a new WfAdaptor instance (first render for this theme)
      * Caches the result for subsequent renders with the same theme.
      * @param {string} themePath - Theme URL/path
@@ -399,12 +433,62 @@ export class CPEEWfAdaptorRenderer {
         
         this.installCorsProxyInterceptor();
     }
-    
+
+    /**
+     * Return a promise that resolves to the cached WfAdaptor entry for the given
+     * theme, creating it if necessary.  A static promise map ensures that
+     * concurrent callers (e.g. input + output renderers in the same Promise.all)
+     * share a single WfAdaptor instantiation and never kick off duplicate sets of
+     * theme-file AJAX requests.
+     *
+     * @param {string} themePath - WfAdaptor theme URL
+     * @returns {Promise<{graphrealization: object, adaptor: object}|null>}
+     */
+    static _getOrCreateAdaptor(themePath) {
+        // Already cached — resolve immediately.
+        const cached = CPEEWfAdaptorRenderer._wfAdaptorCache.get(themePath);
+        if (cached) { return Promise.resolve(cached); }
+
+        // Creation already in progress — return the shared promise so the caller
+        // waits for the existing WfAdaptor rather than starting a new one.
+        const inflight = CPEEWfAdaptorRenderer._adaptorCreationPromises.get(themePath);
+        if (inflight) { return inflight; }
+
+        // Start a new WfAdaptor and share the promise.
+        const promise = new Promise((resolve) => {
+            try {
+                const adaptor = new window.WfAdaptor(themePath, (graphrealization) => {
+                    const entry = { graphrealization, adaptor };
+                    CPEEWfAdaptorRenderer._wfAdaptorCache.set(themePath, entry);
+                    CPEEWfAdaptorRenderer._adaptorCreationPromises.delete(themePath);
+                    resolve(entry);
+                });
+            } catch (e) {
+                CPEEWfAdaptorRenderer._adaptorCreationPromises.delete(themePath);
+                resolve(null);   // non-fatal; caller will handle null
+            }
+        });
+
+        CPEEWfAdaptorRenderer._adaptorCreationPromises.set(themePath, promise);
+        return promise;
+    }
+
     /**
      * Install jQuery AJAX interceptor to route cpee.org theme requests through
      * CORS proxy with local fallback when proxy fails.
+     * Instance method kept for backward-compatibility; delegates to the static version.
      */
     installCorsProxyInterceptor() {
+        CPEEWfAdaptorRenderer.installCorsProxyInterceptorIfNeeded();
+    }
+
+    /**
+     * Static version of the CORS proxy interceptor installation.
+     * Safe to call multiple times — exits immediately if already installed.
+     * Does not require a renderer instance; can be called from static context
+     * (e.g. inside preloadDependencies / warm-up).
+     */
+    static installCorsProxyInterceptorIfNeeded() {
         if (window._cpeeProxyInterceptorInstalled) { return; }
         
         const corsProxy = configManager.get('api.cors.proxy');
@@ -703,5 +787,6 @@ export class CPEEWfAdaptorRenderer {
      */
     static invalidateCache() {
         CPEEWfAdaptorRenderer._wfAdaptorCache.clear();
+        CPEEWfAdaptorRenderer._adaptorCreationPromises.clear();
     }
 }

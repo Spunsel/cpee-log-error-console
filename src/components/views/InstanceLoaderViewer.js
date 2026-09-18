@@ -271,12 +271,16 @@ export class InstanceLoaderViewer {
             return;
         }
         
-        // Set loading state on button
-        if (loadButton) {
-            loadButton.disabled = true;
-            loadButton.textContent = 'Loading...';
-        }
-        
+        // Show spinner on the button — it stays until instance:loaded / instance:loadFailed
+        // fires for this specific UUID, so the user sees feedback for the full pipeline
+        // (UUID fetch + log download + YAML parse + step assembly).
+        this._setLoadButtonSpinner(loadButton, true);
+
+        // Track whether the async load pipeline was successfully dispatched.
+        // If true the spinner is owned by the event-bus listener below; the
+        // finally block must not reset the button prematurely.
+        let loadDispatched = false;
+
         try {
             let finalUuid = uuid;
             let resolvedProcessNumber = null;
@@ -313,8 +317,26 @@ export class InstanceLoaderViewer {
             if (uuidInput && processNumber) {
                 uuidInput.dataset.processNumber = processNumber;
             }
-            
+
+            // Register one-time listeners that stop the spinner when the async
+            // load pipeline completes (success or failure) for this UUID.
+            // Both handlers remove each other so only one fires.
+            const stopSpinner = () => {
+                this._setLoadButtonSpinner(loadButton, false);
+                this.eventBus.off('instance:loaded', onLoaded);
+                this.eventBus.off('instance:loadFailed', onFailed);
+                clearTimeout(spinnerTimeoutId);
+            };
+            const onLoaded = (data) => { if (data.uuid === finalUuid) stopSpinner(); };
+            const onFailed = (data) => { if (data.uuid === finalUuid) stopSpinner(); };
+            this.eventBus.on('instance:loaded', onLoaded);
+            this.eventBus.on('instance:loadFailed', onFailed);
+
+            // Safety net: stop spinner after 60 s in case neither event fires
+            const spinnerTimeoutId = setTimeout(stopSpinner, 60000);
+
             // Trigger load instance event (manual input uses server only)
+            loadDispatched = true;
             this.stateManager.setState('ui.loading', true);
             this.eventBus.emit('instanceLoader:loadInstance', {
                 uuid: finalUuid,
@@ -339,11 +361,29 @@ export class InstanceLoaderViewer {
                 }, configManager.get('ui.notifications.errorDuration'));
             }
         } finally {
-            // Reset button state
-            if (loadButton) {
-                loadButton.disabled = false;
-                loadButton.textContent = 'Load Instance';
+            // Only reset the button here if the load was never dispatched to the
+            // async pipeline (i.e. an error or early return happened before emit).
+            // When loadDispatched is true the event-bus listener owns the spinner.
+            if (!loadDispatched) {
+                this._setLoadButtonSpinner(loadButton, false);
             }
+        }
+    }
+
+    /**
+     * Toggle the "Load Instance" button between normal and spinner/loading state.
+     * @param {HTMLButtonElement|null} loadButton - The button element
+     * @param {boolean} isLoading - True to show spinner, false to restore
+     * @private
+     */
+    _setLoadButtonSpinner(loadButton, isLoading) {
+        if (!loadButton) { return; }
+        if (isLoading) {
+            loadButton.disabled = true;
+            loadButton.innerHTML = '<span class="load-btn-spinner" aria-hidden="true"></span>Loading\u2026';
+        } else {
+            loadButton.disabled = false;
+            loadButton.textContent = 'Load Instance';
         }
     }
     
